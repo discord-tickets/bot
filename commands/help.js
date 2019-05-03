@@ -2,7 +2,7 @@ module.exports = {
 	name: 'help',
 	description: 'Displays help menu',
   usage: 'help [command]',
-	execute(message, args, config, version) {
+	execute(message, args, config, version, client, Discord) {
     // command starts here
     message.delete();
     if(config.useEmbeds) {

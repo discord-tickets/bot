@@ -2,7 +2,7 @@ module.exports = {
 	name: 'new',
 	description: 'Create a new ticket',
   usage: 'new [brief description]',
-	execute(message, args, config, version) {
+	execute(client, message, args, config, Discord) {
     // command starts here
     message.delete();
     const ticketChannel = "channel";
