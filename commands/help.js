@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
 const { version } = require('../package.json');
+const config = require('../config.json');
 module.exports = {
   name: 'help',
   description: 'Displays help menu',
   usage: '[command]',
   aliases: ['command', 'commands'],
   args: false,
-  cooldown: 5,
-  execute(message, args, config, version) {
+  cooldown: config.cooldown,
+  execute(message, args) {
     const client = message.client;
     // command starts here
     message.delete();

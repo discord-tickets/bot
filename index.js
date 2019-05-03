@@ -170,8 +170,12 @@ client.on('message', message => {
   const [, matchedPrefix] = message.content.match(prefixRegex);
   const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
-  if (!client.commands.has(commandName)) return;
-  const command = client.commands.get(commandName);
+  // if (!client.commands.has(commandName)) return;
+  // const command = client.commands.get(commandName);
+  const command = client.commands.get(commandName)
+		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+	if (!command) return;
 
   if (command.args && !args.length) {
     let reply = `:x: **Arguments were expected but none were provided.**`;
@@ -200,12 +204,13 @@ client.on('message', message => {
       return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
     }
   }
-
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 
   try {
     // client.commands.get(command).execute(message, args, config);
-    command.execute(message, args, config);
+    command.execute(message, args);
   } catch (error) {
     console.error(error);
     message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);

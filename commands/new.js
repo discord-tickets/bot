@@ -4,7 +4,7 @@ module.exports = {
 	usage: '<brief description>',
 	aliases: ['ticket'],
 	args: true,
-	execute(message, args, config) {
+	execute(message, args) {
     // command starts here
     message.delete();
     const ticketChannel = "channel";
