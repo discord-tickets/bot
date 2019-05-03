@@ -6,8 +6,9 @@
   "supportRole": "id",
   "ticketsCat": "id",
   "logChannel": "id",
-  "colour": "009999",
+  "colour": "#009999",
   "playing": "with tickets (!help)",
   "useEmbeds": true,
-  "logDMs": true
+  "logDMs": true,
+  "cooldown": 3
 }
