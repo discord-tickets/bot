@@ -15,7 +15,7 @@ module.exports = {
         .setColour
         .addField("Username", message.author.tag, true)
         .addField("Channel", ticketChannel, true)
-        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot\nDiscordTickets by Eartharoid`);
+        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
       client.channels.get(config.logChannel).send({embed})
     } else {
       client.channels.get(config.logChannel).send(`New ticket created by **${message.author.tag} (${message.author.id})**`);

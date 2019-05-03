@@ -10,7 +10,7 @@ module.exports = {
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#2ECC71")
         .setDescription(":white_check_mark: **Started succesfully**")
-        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot\nDiscordTickets by Eartharoid`);
+        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
       message.channel.send({embed})
     } else {
       message.channel.send(`**Prefix =** \`${config.prefix}\`\n**Bot Version =** \`${version}\``)
