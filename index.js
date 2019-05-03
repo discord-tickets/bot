@@ -127,17 +127,19 @@ client.on('message', message => {
   if(message.author.bot) return;
   if (message.channel.type === "dm") {
         if (message.author.id === client.user.id) return;
-        if(config.useEmbeds) {
-          const embed = new Discord.RichEmbed()
-            .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
-            .setTitle("DM Logger")
-            .addField("Username", message.author.tag, true)
-            .addField("Message", message.content, true)
-            .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot\nDiscordTickets by Eartharoid`);
-          client.channels.get(config.logChannel).send({embed})
-        } else {
-          client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
-        }
+        if(config.logDMs){
+          if(config.useEmbeds) {
+            const embed = new Discord.RichEmbed()
+              .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
+              .setTitle("DM Logger")
+              .addField("Username", message.author.tag, true)
+              .addField("Message", message.content, true)
+              .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot\nDiscordTickets by Eartharoid`);
+            client.channels.get(config.logChannel).send({embed})
+          } else {
+            client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
+          }
+        } else { return };
 
     }
     if (message.channel.bot) return;
@@ -156,14 +158,19 @@ client.on('message', message => {
 	   client.commands.get(command).execute(message, args, config, version);
    } catch (error) {
 	    console.error(error);
-	    message.channel.send(`:x: **Oof!** An error occured whilst executing that command.`);
+	    message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);
+      console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing '${command}' command`));
     }
 
 });
 
 process.on('unhandledRejection', error => {
-  console.log(leeks.colors.yellow(`[WARN] An error was not caught`))
+  console.warn(leeks.colors.yellow(`[WARN] An error was not caught`))
   console.error(leeks.colors.red(`[ERROR] Uncaught Promise Error: \n${error.stack}`));
+});
+process.on('exit', (code) => {
+  console.log(leeks.colors.yellow(`Disconected from Discord API`));
+  console.log(leeks.colors.yellow(`Exiting (${code})`));
 });
 
 client.login(config.token);
