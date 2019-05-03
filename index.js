@@ -88,7 +88,7 @@ client.once('ready', () => { // after bot has logged in
       .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
       .setColor("#2ECC71")
       .setDescription(":white_check_mark: **Started succesfully**")
-      .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
+      .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
     client.channels.get(config.logChannel).send({embed})
   } else {
     client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
@@ -100,7 +100,7 @@ client.once('ready', () => { // after bot has logged in
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#2ECC71")
         .setDescription(":white_check_mark: **Required permissions have been granted**")
-        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
+        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
       client.channels.get(config.logChannel).send({embed})
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
@@ -113,7 +113,7 @@ client.once('ready', () => { // after bot has logged in
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#E74C3C")
         .setDescription(":x: **Required permissions have not been granted**\nPlease give the bot the `ADMINISTRATOR` permission")
-        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
+        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
       client.channels.get(config.logChannel).send({embed})
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
@@ -134,7 +134,7 @@ client.on('message', message => {
               .setTitle("DM Logger")
               .addField("Username", message.author.tag, true)
               .addField("Message", message.content, true)
-              .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
+              .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
             client.channels.get(config.logChannel).send({embed})
           } else {
             client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);

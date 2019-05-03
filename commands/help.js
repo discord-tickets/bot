@@ -8,9 +8,9 @@ module.exports = {
     if(config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
-        .setColor("#2ECC71")
+        .setColor(config.colour)
         .setDescription(":white_check_mark: **Started succesfully**")
-        .setFooter(`${client.guilds.get(config.guildID).name} / Ticket Bot : DiscordTickets by Eartharoid`);
+        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
       message.channel.send({embed})
     } else {
       message.channel.send(`**Prefix =** \`${config.prefix}\`\n**Bot Version =** \`${version}\``)
