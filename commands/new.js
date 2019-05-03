@@ -1,7 +1,9 @@
 module.exports = {
 	name: 'new',
 	description: 'Create a new ticket',
-  usage: 'new [brief description]',
+	usage: '<brief description>',
+	aliases: ['ticket'],
+	args: true,
 	execute(message, args, config) {
     // command starts here
     message.delete();

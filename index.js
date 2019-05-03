@@ -45,6 +45,8 @@ const config = require('./config.json');
 const { version, homepage } = require('./package.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+const cooldowns = new Discord.Collection();
+
 
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -73,48 +75,59 @@ client.once('ready', () => { // after bot has logged in
   console.log('');
   console.log(`Starting up...`)
   for (const file of commands) {
-  	const command = require(`./commands/${file}`);
-  	client.commands.set(command.name, command);
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
     console.log(`> Loading '${config.prefix}${command.name}' command`);
   }
   console.log(leeks.colors.green(`Logged in as ${client.user.tag}`))
-  client.user.setPresence({ game: { name: config.playing }, status: 'online' })
-  // .then(console.log)
-  .catch(console.error);
+  client.user.setPresence({
+      game: {
+        name: config.playing
+      },
+      status: 'online'
+    })
+    // .then(console.log)
+    .catch(console.error);
   // console.log(leeks.colors.green(`Set playing status as `) + leeks.colors.yellow(`'${config.playing}${config.prefix}help'`));
 
-  if(config.useEmbeds) {
+  if (config.useEmbeds) {
     const embed = new Discord.RichEmbed()
       .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
       .setColor("#2ECC71")
       .setDescription(":white_check_mark: **Started succesfully**")
       .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-    client.channels.get(config.logChannel).send({embed})
+    client.channels.get(config.logChannel).send({
+      embed
+    })
   } else {
     client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
   }
-  if(client.guilds.get(config.guildID).member(client.user).hasPermission("ADMINISTRATOR", false)){
+  if (client.guilds.get(config.guildID).member(client.user).hasPermission("ADMINISTRATOR", false)) {
     console.log(leeks.colors.green(`Required permissions have been granted`))
-    if(config.useEmbeds) {
+    if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#2ECC71")
         .setDescription(":white_check_mark: **Required permissions have been granted**")
         .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-      client.channels.get(config.logChannel).send({embed})
+      client.channels.get(config.logChannel).send({
+        embed
+      })
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
     }
   } else {
     console.log(leeks.colors.red(`Required permissions have not been granted`))
     console.log(leeks.colors.red(`Please give the bot the 'ADMINISTRATOR' permission`))
-    if(config.useEmbeds) {
+    if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#E74C3C")
         .setDescription(":x: **Required permissions have not been granted**\nPlease give the bot the `ADMINISTRATOR` permission")
         .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-      client.channels.get(config.logChannel).send({embed})
+      client.channels.get(config.logChannel).send({
+        embed
+      })
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
     }
@@ -123,44 +136,81 @@ client.once('ready', () => { // after bot has logged in
 });
 
 client.on('message', message => {
-	// if (!message.content.startsWith(config.prefix) || message.author.bot) return;
-  if(message.author.bot) return;
+  // if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+  if (message.author.bot) return;
   if (message.channel.type === "dm") {
-        if (message.author.id === client.user.id) return;
-        if(config.logDMs){
-          if(config.useEmbeds) {
-            const embed = new Discord.RichEmbed()
-              .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
-              .setTitle("DM Logger")
-              .addField("Username", message.author.tag, true)
-              .addField("Message", message.content, true)
-              .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-            client.channels.get(config.logChannel).send({embed})
-          } else {
-            client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
-          }
-        } else { return };
+    if (message.author.id === client.user.id) return;
+    message.channel.send(`Sorry, commands can only be used on the server.`)
+    if (config.logDMs) {
+      if (config.useEmbeds) {
+        const embed = new Discord.RichEmbed()
+          .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
+          .setTitle("DM Logger")
+          .addField("Username", message.author.tag, true)
+          .addField("Message", message.content, true)
+          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        client.channels.get(config.logChannel).send({
+          embed
+        })
+      } else {
+        client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
+      }
+    } else {
+      return
+    };
 
-    }
-    if (message.channel.bot) return;
+  }
+  if (message.channel.bot) return;
 
-	// const args = message.content.slice(config.prefix.length).split(/ +/);
+  // const args = message.content.slice(config.prefix.length).split(/ +/);
 
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${config.prefix})\\s*`);
-	if (!prefixRegex.test(message.content)) return;
+  if (!prefixRegex.test(message.content)) return;
 
-	const [, matchedPrefix] = message.content.match(prefixRegex);
-	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
-  if (!client.commands.has(command)) return;
+  const [, matchedPrefix] = message.content.match(prefixRegex);
+  const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
+  const commandName = args.shift().toLowerCase();
+  if (!client.commands.has(commandName)) return;
+  const command = client.commands.get(commandName);
+
+  if (command.args && !args.length) {
+    let reply = `:x: **Arguments were expected but none were provided.**`;
+
+    if (command.usage) {
+      reply += `\n**Usage:** \`${config.prefix}${command.name} ${command.usage}\``;
+    }
+
+    return message.channel.send(reply);
+  };
+
+
+  if (!cooldowns.has(command.name)) {
+    cooldowns.set(command.name, new Discord.Collection());
+  }
+
+  const now = Date.now();
+  const timestamps = cooldowns.get(command.name);
+  const cooldownAmount = (command.cooldown || 3) * 1000;
+
+  if (timestamps.has(message.author.id)) {
+    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+    if (now < expirationTime) {
+      const timeLeft = (expirationTime - now) / 1000;
+      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+    }
+  }
+
+
 
   try {
-	   client.commands.get(command).execute(message, args, config, version);
-   } catch (error) {
-	    console.error(error);
-	    message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);
-      console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing '${command}' command`));
-    }
+    // client.commands.get(command).execute(message, args, config);
+    command.execute(message, args, config);
+  } catch (error) {
+    console.error(error);
+    message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);
+    console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing '${command}' command`));
+  }
 
 });
 
