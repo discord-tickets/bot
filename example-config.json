@@ -1,0 +1,13 @@
+{
+  "token": "your token here",
+  "prefix": "!",
+  "name": "DiscordTickets",
+  "guildID": "id",
+  "supportRole": "id",
+  "ticketsCat": "id",
+  "logChannel": "id",
+  "colour": "#009999",
+  "playing": "with tickets (!help)",
+  "useEmbeds": true,
+  "logDMs": true
+}
