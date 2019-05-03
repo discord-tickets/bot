@@ -165,7 +165,7 @@ client.on('message', message => {
 });
 
 process.on('unhandledRejection', error => {
-  console.warn(leeks.colors.yellow(`[WARN] An error was not caught`))
+  console.log(leeks.colors.yellow(leeks.styles.bold(`[WARN] An error was not caught`)));
   console.error(leeks.colors.red(`[ERROR] Uncaught Promise Error: \n${error.stack}`));
 });
 process.on('exit', (code) => {

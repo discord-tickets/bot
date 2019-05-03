@@ -1,15 +1,19 @@
+const Discord = require('discord.js');
 module.exports = {
 	name: 'help',
 	description: 'Displays help menu',
   usage: 'help [command]',
-	execute(message, args, config, version, client, Discord) {
+	aliases: ['command', 'commands'],
+	execute(message, args, config, version) {
+		const client = message.client;
     // command starts here
     message.delete();
-    if(config.useEmbeds) {
+		if(config.useEmbeds) {
       const embed = new Discord.RichEmbed()
-        .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
-        .setColor(config.colour)
-        .setDescription(":white_check_mark: **Started succesfully**")
+        .setAuthor(`${client.user.username} / Commands`, client.user.avatarURL)
+				.setColor(config.colour)
+        .addField("...", `...`, true)
+        .addField("...", `...`, true)
         .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
       message.channel.send({embed})
     } else {

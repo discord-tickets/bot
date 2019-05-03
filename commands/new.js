@@ -2,7 +2,7 @@ module.exports = {
 	name: 'new',
 	description: 'Create a new ticket',
   usage: 'new [brief description]',
-	execute(client, message, args, config, Discord) {
+	execute(message, args, config) {
     // command starts here
     message.delete();
     const ticketChannel = "channel";
@@ -12,7 +12,6 @@ module.exports = {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setTitle("New Ticket")
-        .setColour
         .addField("Username", message.author.tag, true)
         .addField("Channel", ticketChannel, true)
         .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
