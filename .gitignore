@@ -1,5 +1,3 @@
-
-config.json
 package-lock.json
 
 
@@ -80,3 +78,4 @@ typings/
 # FuseBox cache
 .fusebox/
 config.json
+./config.json
