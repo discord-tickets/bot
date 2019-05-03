@@ -1,0 +1,13 @@
+{
+  "token": "NDc1MzcxMjg1NTMxMDY2MzY4.XMxz4Q.K8jRuTbte3rQUO3NP4B_3Q3_4i4",
+  "prefix": "!",
+  "name": "DiscordTickets",
+  "guildID": "451745464480432129",
+  "supportRole": "451745586564169728",
+  "ticketsCat": "573957872422092974",
+  "logChannel": "573957980152791080",
+  "colour": "#009999",
+  "playing": "with tickets (!help)",
+  "useEmbeds": true,
+  "logDMs": true
+}

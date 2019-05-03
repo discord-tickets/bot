@@ -1,0 +1,29 @@
+{
+  "name": "DiscordTickets",
+  "version": "1.0.0",
+  "description": "A Discord ticket/support - an open-source & self-host alternative to TicketManager (name tbd)",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "leeks.js": "^0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eartharoid/DiscordTickets.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "tickets"
+  ],
+  "author": "Eartharoid",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/eartharoid/DiscordTickets/issues"
+  },
+  "homepage": "https://github.com/eartharoid/DiscordTickets"
+}
