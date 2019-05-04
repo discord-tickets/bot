@@ -246,6 +246,10 @@ client.on('message', async message => {
   }
 
 });
+client.on('error', error => {
+  console.log(leeks.colors.bgYellow(leeks.colors.black(`[WARN] Potential error detected\n(likely Discord API connection issue)`)));
+  console.error(leeks.colors.red(`[ERROR] Client error:\n${error}`));
+});
 
 process.on('unhandledRejection', error => {
   console.log(leeks.colors.yellow(leeks.styles.bold(`[WARN] An error was not caught`)));
