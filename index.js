@@ -201,7 +201,17 @@ client.on('message', message => {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      if (config.useEmbeds) {
+        const embed = new Discord.RichEmbed()
+          .setAuthor(`${client.user.username}`, client.user.avatarURL)
+          .setColor("#E74C3C")
+          .setDescription(`:x: **Please do not spam commands** (wait ${timeLeft.toFixed(1)}s)`)
+          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        return message.channel.send({embed})
+      } else {
+        return message.reply(`please do not spam commands (wait ${timeLeft.toFixed(1)}s)`);
+      }
+
     }
   }
   timestamps.set(message.author.id, now);

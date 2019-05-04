@@ -10,5 +10,5 @@
   "playing": "with tickets (!help)",
   "useEmbeds": true,
   "logDMs": true,
-  "cooldown": 3
+  "cooldown": 5
 }

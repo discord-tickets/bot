@@ -6,6 +6,7 @@ module.exports = {
   description: 'Displays help menu',
   usage: '[command]',
   aliases: ['command', 'commands'],
+	example: 'help new',
   args: false,
   cooldown: config.cooldown,
   execute(message, args) {
