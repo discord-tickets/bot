@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
+const leeks = require('leeks.js');
 module.exports = {
   name: 'remove',
   description: 'Remove a member from a ticket',

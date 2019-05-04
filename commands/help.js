@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { version } = require('../package.json');
 const config = require('../config.json');
+const leeks = require('leeks.js');
 module.exports = {
   name: 'help',
   description: 'Displays help menu',
@@ -38,7 +39,7 @@ module.exports = {
 	        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
 
 					var cmds = [];
-					cmds.push(commands.map(command => embed.addField(`${config.prefix}${command.name}`, `\`${command.description}\``, true)));
+					cmds.push(commands.map(command => embed.addField(`${config.prefix}${command.name}`, `\`${command.description}\``)));
 	      message.channel.send(embed)
 					.then(() => {
 						if (message.channel.type === 'dm') return;

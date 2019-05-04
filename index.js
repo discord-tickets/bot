@@ -46,13 +46,11 @@ const { version, homepage } = require('./package.json');
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
-
-
+const now = Date.now();
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-client.once('ready', () => { // after bot has logged in
-  console.log(leeks.colors.magentaBright(`
+console.log(leeks.colors.magentaBright(`
 ########  ####  ######   ######   #######  ########  ########
 ##     ##  ##  ##    ## ##    ## ##     ## ##     ## ##     ##
 ##     ##  ##  ##       ##       ##     ## ##     ## ##     ##
@@ -69,11 +67,15 @@ client.once('ready', () => { // after bot has logged in
    ##     ##  ##    ## ##   ##  ##          ##    ##    ##
    ##    ####  ######  ##    ## ########    ##     ######
 
-    `)); // banner appears in console
-  console.log(leeks.colors.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
-  console.log(leeks.colors.yellow(leeks.styles.bold(homepage)));
-  console.log('');
-  console.log(`Starting up...`)
+  `)); // banner appears in console
+console.log(leeks.colors.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
+console.log(leeks.colors.yellow(leeks.styles.bold(homepage)));
+console.log('');
+console.log(`Starting up...`)
+
+
+client.once('ready', () => { // after bot has logged in
+
   console.log(leeks.colors.cyan(`Initialising bot...`))
   for (const file of commands) {
     const command = require(`./commands/${file}`);
@@ -106,7 +108,10 @@ client.once('ready', () => { // after bot has logged in
   }
   if (client.guilds.get(config.guildID).member(client.user).hasPermission("ADMINISTRATOR", false)) {
     console.log(leeks.colors.bgYellowBright(leeks.colors.black(`Checking permissions...`)))
-    console.log(leeks.colors.green(`Required permissions have been granted`))
+    setTimeout(function() {
+      console.log(leeks.colors.green(`Required permissions have been granted\n\n`))
+    }, 1250);
+
     if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
@@ -121,7 +126,7 @@ client.once('ready', () => { // after bot has logged in
     }
   } else {
     console.log(leeks.colors.red(`Required permissions have not been granted`))
-    console.log(leeks.colors.red(`Please give the bot the 'ADMINISTRATOR' permission`))
+    console.log(leeks.colors.red(`Please give the bot the 'ADMINISTRATOR' permission\n\n`))
     if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
@@ -210,7 +215,6 @@ client.on('message', async message => {
     cooldowns.set(command.name, new Discord.Collection());
   }
 
-  const now = Date.now();
   const timestamps = cooldowns.get(command.name);
   const cooldownAmount = (command.cooldown || 3) * 1000;
 
