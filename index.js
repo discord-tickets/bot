@@ -178,13 +178,24 @@ client.on('message', message => {
 	if (!command) return;
 
   if (command.args && !args.length) {
-    let reply = `:x: **Arguments were expected but none were provided.**`;
+    // let reply = `:x: **Arguments were expected but none were provided.**`;
+    //
+    // if (command.usage) {
+    //   reply += `\n**Usage:** \`${config.prefix}${command.name} ${command.usage}\``;
+    // }
+    //
+    // return message.channel.send(reply);
+    if (config.useEmbeds) {
+        const embed = new Discord.RichEmbed()
+          .setAuthor(`${client.user.username}`, client.user.avatarURL)
+          .setColor("#E74C3C")
+          .setDescription(`\n**Usage:** \`${config.prefix}${command.name} ${command.usage}\`\nType \`${config.prefix}help ${command.name}\` for more information`)
+          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        return message.channel.send({embed})
 
-    if (command.usage) {
-      reply += `\n**Usage:** \`${config.prefix}${command.name} ${command.usage}\``;
+    } else {
+      return message.channel.send(`**Usage:** \`${config.prefix}${command.name} ${command.usage}\`\nType \`${config.prefix}help ${command.name}\` for more information`)
     }
-
-    return message.channel.send(reply);
   };
 
 
