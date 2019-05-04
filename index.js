@@ -74,11 +74,13 @@ client.once('ready', () => { // after bot has logged in
   console.log(leeks.colors.yellow(leeks.styles.bold(homepage)));
   console.log('');
   console.log(`Starting up...`)
+  console.log(leeks.colors.cyan(`Initialising bot...`))
   for (const file of commands) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
     console.log(`> Loading '${config.prefix}${command.name}' command`);
   }
+  console.log(leeks.colors.green(`Connected to Discord API`))
   console.log(leeks.colors.green(`Logged in as ${client.user.tag}`))
   client.user.setPresence({
       game: {
@@ -103,6 +105,7 @@ client.once('ready', () => { // after bot has logged in
     client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
   }
   if (client.guilds.get(config.guildID).member(client.user).hasPermission("ADMINISTRATOR", false)) {
+    console.log(leeks.colors.bgYellowBright(leeks.colors.black(`Checking permissions...`)))
     console.log(leeks.colors.green(`Required permissions have been granted`))
     if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
@@ -244,7 +247,7 @@ process.on('unhandledRejection', error => {
   console.log(leeks.colors.yellow(leeks.styles.bold(`[WARN] An error was not caught`)));
   console.error(leeks.colors.red(`[ERROR] Uncaught Promise Error: \n${error.stack}`));
 });
-process.on('exit', (code) => {
+process.on('beforeExit', (code) => {
   console.log(leeks.colors.yellow(`Disconected from Discord API`));
   console.log(leeks.colors.yellow(`Exiting (${code})`));
 });
