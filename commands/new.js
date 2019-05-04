@@ -9,6 +9,7 @@ module.exports = {
 	args: true,
 	cooldown: config.cooldown,
 	execute(message, args) {
+		const client = message.client;
     // command starts here
     message.delete();
     const ticketChannel = "channel";

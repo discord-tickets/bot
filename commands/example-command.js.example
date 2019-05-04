@@ -5,7 +5,7 @@ module.exports = {
   description: 'An example command',
   usage: '[args]',
   aliases: ['command', 'commands'],
-	example: 'example-command',
+  example: 'example-command',
   args: false,
   cooldown: config.cooldown,
   execute(message, args) {
@@ -13,7 +13,7 @@ module.exports = {
     // command starts here
     message.delete();
 
-    
+
 
 
     // command ends here
