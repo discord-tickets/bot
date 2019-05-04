@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
 module.exports = {
-  name: 'example-command',
-  description: 'An example command',
-  usage: '[args]',
+  name: 'close',
+  description: 'Close a ticket',
+  usage: '',
   aliases: ['none'],
-  example: 'example-command',
+  example: '',
   args: false,
   cooldown: config.cooldown,
   guildOnly: true,

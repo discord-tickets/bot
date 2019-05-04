@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "discord.js": "^11.4.2",
-    "leeks.js": "^0.0.1"
+    "leeks.js": "^0.0.1",
+    "random-string": "^0.2.0"
   },
   "devDependencies": {},
   "scripts": {

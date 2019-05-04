@@ -1,6 +1,6 @@
 /*
 ###############################################################################################
- ____                                        _     _____   _          _             _
+ ____                                        _     _____              _             _
 |  _ \  (_)  ___    ___    ___    _ __    __| |   |_   _| (_)   ___  | | __   ___  | |_   ___
 | | | | | | / __|  / __|  / _ \  | '__|  / _` |     | |   | |  / __| | |/ /  / _ \ | __| / __|
 | |_| | | | \__ \ | (__  | (_) | | |    | (_| |     | |   | | | (__  |   <  |  __/ | |_  \__ \
@@ -138,12 +138,12 @@ client.once('ready', () => { // after bot has logged in
 
 });
 
-client.on('message', message => {
+client.on('message', async message => {
   // if (!message.content.startsWith(config.prefix) || message.author.bot) return;
   if (message.author.bot) return;
   if (message.channel.type === "dm") {
     if (message.author.id === client.user.id) return;
-    message.channel.send(`Sorry, commands can only be used on the server.`)
+    // message.channel.send(`Sorry, commands can only be used on the server.`)
     if (config.logDMs) {
       if (config.useEmbeds) {
         const embed = new Discord.RichEmbed()
@@ -167,9 +167,9 @@ client.on('message', message => {
 
   // const args = message.content.slice(config.prefix.length).split(/ +/);
 
+
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|\\${config.prefix})\\s*`);
   if (!prefixRegex.test(message.content)) return;
-
   const [, matchedPrefix] = message.content.match(prefixRegex);
   const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
@@ -179,6 +179,10 @@ client.on('message', message => {
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
+
+  if (command.guildOnly && message.channel.type !== 'text') {
+	   return message.channel.send(`Sorry, this command can only be used on the server.`)
+  }
 
   if (command.args && !args.length) {
     // let reply = `:x: **Arguments were expected but none were provided.**`;
@@ -238,7 +242,7 @@ client.on('message', message => {
   } catch (error) {
     console.error(error);
     message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);
-    console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing '${command}' command`));
+    console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing the '${command.name}' command`));
   }
 
 });

@@ -9,6 +9,7 @@ module.exports = {
 	example: 'help new',
   args: false,
   cooldown: config.cooldown,
+	guildOnly: true,
   execute(message, args) {
     const client = message.client;
     // command starts here
@@ -65,6 +66,7 @@ module.exports = {
 				const cmd = new Discord.RichEmbed()
 	        .setAuthor(`${client.user.username} / Commands`, client.user.avatarURL)
 	        .setColor(config.colour)
+					.addField(`Command`,`\`${command.name}\``, true)
 	        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
 
 				if (command.aliases) cmd.addField("Aliases", `\`${command.aliases.join(', ')}\``, true);

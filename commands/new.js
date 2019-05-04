@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
+const randomString = require('random-string');
 module.exports = {
 	name: 'new',
 	description: 'Create a new ticket',
@@ -8,11 +9,22 @@ module.exports = {
 	example: 'new I found an error',
 	args: true,
 	cooldown: config.cooldown,
+	guildOnly: true,
 	execute(message, args) {
 		const client = message.client;
     // command starts here
     message.delete();
     const ticketChannel = "channel";
+		let topic = args.join(" ");
+
+		function num(){
+  		return randomString({
+  			length: 4,
+  			numeric: true,
+  			letters: false,
+  			special: false,
+			})
+		};
 
     // log
     if(config.useEmbeds) {
