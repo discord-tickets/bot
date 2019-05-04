@@ -84,12 +84,7 @@ client.once('ready', () => { // after bot has logged in
   }
   console.log(leeks.colors.green(`Connected to Discord API`))
   console.log(leeks.colors.green(`Logged in as ${client.user.tag}`))
-  client.user.setPresence({
-      game: {
-        name: config.playing
-      },
-      status: 'online'
-    })
+  client.user.setPresence({game: {name: config.playing, type: config.activityType},status: config.status})
     // .then(console.log)
     .catch(console.error);
   // console.log(leeks.colors.green(`Set playing status as `) + leeks.colors.yellow(`'${config.playing}${config.prefix}help'`));
@@ -199,10 +194,8 @@ client.on('message', async message => {
     // return message.channel.send(reply);
     if (config.useEmbeds) {
         const embed = new Discord.RichEmbed()
-          .setAuthor(`${client.user.username}`, client.user.avatarURL)
           .setColor("#E74C3C")
           .setDescription(`\n**Usage:** \`${config.prefix}${command.name} ${command.usage}\`\nType \`${config.prefix}help ${command.name}\` for more information`)
-          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
         return message.channel.send({embed})
 
     } else {
@@ -225,10 +218,8 @@ client.on('message', async message => {
       const timeLeft = (expirationTime - now) / 1000;
       if (config.useEmbeds) {
         const embed = new Discord.RichEmbed()
-          .setAuthor(`${client.user.username}`, client.user.avatarURL)
           .setColor("#E74C3C")
           .setDescription(`:x: **Please do not spam commands** (wait ${timeLeft.toFixed(1)}s)`)
-          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
         return message.channel.send({embed})
       } else {
         return message.reply(`please do not spam commands (wait ${timeLeft.toFixed(1)}s)`);

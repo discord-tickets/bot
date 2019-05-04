@@ -57,10 +57,8 @@ module.exports = {
 
 				if (!command) {
 					const notCmd = new Discord.RichEmbed()
-	          .setAuthor(`${client.user.username}`, client.user.avatarURL)
 	          .setColor("#E74C3C")
 	          .setDescription(`:x: **Invalid command name** (\`${config.prefix}help\`)`)
-	          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
 					return message.channel.send(notCmd)
 				}
 
