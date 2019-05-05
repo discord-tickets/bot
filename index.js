@@ -38,6 +38,13 @@
 
 ###############################################################################################
 */
+/**
+*
+* @name DiscordTickets
+* @author Eartharoid <eartharoid@gmail.com>
+* @license GNU-GPLv3
+*
+*/
 const fs = require('fs');
 const Discord = require('discord.js');
 const leeks = require('leeks.js');
@@ -74,6 +81,7 @@ console.log('\n\n');
 console.log(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
 console.log('\n\n');
 log.init()
+// all log.* functions are logged to ./log/file.log from here onwards
 log.info(`Starting up...`)
 
 
