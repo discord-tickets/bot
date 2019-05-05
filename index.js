@@ -96,7 +96,7 @@ client.once('ready', () => { // after bot has logged in
       .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
       .setColor("#2ECC71")
       .setDescription(":white_check_mark: **Started succesfully**")
-      .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+      .setFooter(`DiscordTickets by Eartharoid`);
     client.channels.get(config.logChannel).send(embed)
   } else {
     client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
@@ -112,7 +112,7 @@ client.once('ready', () => { // after bot has logged in
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#2ECC71")
         .setDescription(":white_check_mark: **Required permissions have been granted**")
-        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        .setFooter(`DiscordTickets by Eartharoid`);
       client.channels.get(config.logChannel).send(embed)
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
@@ -125,7 +125,7 @@ client.once('ready', () => { // after bot has logged in
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setColor("#E74C3C")
         .setDescription(":x: **Required permissions have not been granted**\nPlease give the bot the `ADMINISTRATOR` permission")
-        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        .setFooter(`DiscordTickets by Eartharoid`);
       client.channels.get(config.logChannel).send({
         embed
       })
@@ -149,7 +149,7 @@ client.on('message', async message => {
           .setTitle("DM Logger")
           .addField("Username", message.author.tag, true)
           .addField("Message", message.content, true)
-          .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+          .setFooter(`DiscordTickets by Eartharoid`);
         client.channels.get(config.logChannel).send(embed)
       } else {
         client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
@@ -230,6 +230,19 @@ client.on('message', async message => {
   try {
     // client.commands.get(command).execute(message, args, config);
     command.execute(message, args);
+    if(config.useEmbeds) {
+      const embed = new Discord.RichEmbed()
+        .setAuthor(`${client.user.username} / Command Log`, client.user.avatarURL)
+        .setTitle("Command Used")
+        .addField("Username", message.author, true)
+        .addField("Command", command.name, true)
+        .setFooter(`DiscordTickets`)
+        .setTimestamp();
+      client.channels.get(config.logChannel).send({embed})
+    } else {
+      client.channels.get(config.logChannel).send(`**${message.author.tag} (${message.author.id})** used the \`${command.name}\` command`);
+    }
+    log.console(`${message.author.tag} used the '${command.name}' command`)
   } catch (error) {
     log.error(error);
     message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);

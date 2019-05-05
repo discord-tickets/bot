@@ -31,12 +31,12 @@ module.exports = {
 				data.push(`\nType\`${config.prefix}help [command]\` for more information about a specific command.`);
 
 				const embed = new Discord.RichEmbed()
-	        .setAuthor(`${client.user.username} / Commands`, client.user.avatarURL)
+	        .setTitle("Commands")
 	        .setColor(config.colour)
 					.setDescription(`\nType\`${config.prefix}help [command]\` for more information about a specific command.`)
 	        // .addField("...", `...`, true)
 	        // .addField("...", `...`, true)
-	        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+	        .setFooter(`DiscordTickets by Eartharoid`);
 
 					var cmds = [];
 					cmds.push(commands.map(command => embed.addField(`${config.prefix}${command.name}`, `\`${command.description}\``)));
@@ -63,10 +63,10 @@ module.exports = {
 				}
 
 				const cmd = new Discord.RichEmbed()
-	        .setAuthor(`${client.user.username} / Commands`, client.user.avatarURL)
+	        .setTitle("Commands")
 	        .setColor(config.colour)
 					.addField(`Command`,`\`${command.name}\``, true)
-	        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+	        .setFooter(`DiscordTickets by Eartharoid`);
 
 				if (command.aliases) cmd.addField("Aliases", `\`${command.aliases.join(', ')}\``, true);
 				if (command.description) cmd.addField("Description", `\`${command.description}\``, true);
@@ -116,6 +116,7 @@ module.exports = {
 
 	message.channel.send(data, { split: true });
     }
+
 
 
     // command ends here

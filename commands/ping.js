@@ -15,11 +15,11 @@ module.exports = {
     // command starts here
     message.delete();
     const embed = new Discord.RichEmbed()
-        .setAuthor(`${client.user.username} / Pong!`, client.user.avatarURL)
+        .setTitle("Pong!")
         .setColor(config.colour)
         .setTimestamp()
         .addField("API Latency", `${Math.round(message.client.ping)}ms`, true)
-        .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
+        .setFooter(`DiscordTickets by Eartharoid`);
     message.channel.send({embed})
 
 
