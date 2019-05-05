@@ -19,7 +19,6 @@ module.exports = {
         .setColor(config.colour)
         .setTimestamp()
         .addField("API Latency", `${Math.round(message.client.ping)}ms`, true)
-        .setFooter(`DiscordTickets by Eartharoid`);
     message.channel.send({embed})
 
 

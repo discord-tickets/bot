@@ -63,15 +63,14 @@ module.exports = {
 				}
 
 				const cmd = new Discord.RichEmbed()
-	        .setTitle("Commands")
 	        .setColor(config.colour)
 					.addField(`Command`,`\`${command.name}\``, true)
 	        .setFooter(`DiscordTickets by Eartharoid`);
 
 				if (command.aliases) cmd.addField("Aliases", `\`${command.aliases.join(', ')}\``, true);
-				if (command.description) cmd.addField("Description", `\`${command.description}\``, true);
-				if (command.usage) cmd.addField("Usage", `\`${config.prefix}${command.name} ${command.usage}\``, true)
-				if (command.example) cmd.addField("Example", `\`${config.prefix}${command.example}\``, true);
+				if (command.description) cmd.addField("Description", `\`${command.description}\``, false);
+				if (command.usage) cmd.addField("Usage", `\`${config.prefix}${command.name} ${command.usage}\``, false)
+				if (command.example) cmd.addField("Example", `\`${config.prefix}${command.example}\``, false);
 				message.channel.send(cmd)
 
 			}

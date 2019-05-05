@@ -14,7 +14,7 @@ module.exports = {
     const client = message.client;
     // command starts here
     message.delete();
-    if(!message.channel.name.startsWith('ticket-')) { // // !message.channel.name.length() == 15 && 
+    if(!message.channel.name.startsWith('ticket-')) { // // !message.channel.name.length() == 15 &&
       if(config.useEmbeds) {
         const notTicket = new Discord.RichEmbed()
             .setColor("#E74C3C")
@@ -43,7 +43,7 @@ module.exports = {
   			log.info(`${message.author.tag} closed a ticket (#${message.channel.name})`)
 
       } catch(error) {
-        console.error(leeks.colours.red(error));
+        log.error(leeks.colours.red(error));
       }
     }
 
