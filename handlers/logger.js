@@ -17,7 +17,7 @@ function init(x) {
   console.log(`[INFO | ${timestamp}] Initialising logger`);
   console.log(`[INFO | ${timestamp}] Cleaning up...`);
   for (const file of files) {
-    if(!file.startsWith(`${d}-`) && !file.startsWith(`${d-1}-`)) {
+    if(!file.startsWith(`${d}-`)) {
       fs.unlinkSync(`./logs/${file}`)
       console.log(`[INFO | ${timestamp}] Deleting ./logs/${file}`);
     };
