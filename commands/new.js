@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const leeks = require('leeks.js');
+const log = require(`../handlers/logger.js`);
 // const randomString = require('random-string');
 module.exports = {
 	name: 'new',
@@ -25,13 +25,18 @@ module.exports = {
   		// 	special: false,
 			// });
 			let id = message.author.id.toString().substr(0,4) + message.author.discriminator;
+			let chan = `ticket-${id}`;
 
-			// if(message.guild.channels.some(channel => `ticket-${id}`)) {
-			if(message.guild.channels.some(includes(`ticket-${id}`))) { 
-				const err1 = new Discord.RichEmbed()
-						.setColor("#E74C3C")
-		        .setDescription(`:x: You already have a ticket open.`)
-				return message.channel.send(err1)
+			if(message.guild.channels.some(channel => chan.includes(channel.name))) {
+				if(config.useEmbeds){
+					const err1 = new Discord.RichEmbed()
+							.setColor("#E74C3C")
+			        .setDescription(`:x: You already have an open ticket.`)
+					return message.channel.send(err1)
+				} else {
+					message.channel.send(`:x: You already have an open ticket.`)
+				}
+
 			};
 
 			message.guild.createChannel(`ticket-${id}`).then(async c => {
@@ -79,7 +84,7 @@ module.exports = {
     // } else {
     //   client.channels.get(config.logChannel).send(`New ticket created by **${message.author.tag} (${message.author.id})**`);
     // }
-		console.log(leeks.colors.cyan(`${message.author.tag} created a new ticket (#ticket-${id})`))
+		log.info(`${message.author.tag} created a new ticket (#ticket-${id})`)
 
     // command ends here
 	},

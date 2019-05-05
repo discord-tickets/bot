@@ -41,6 +41,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const leeks = require('leeks.js');
+const log = require(`./handlers/logger.js`);
 const config = require('./config.json');
 const { version, homepage } = require('./package.json');
 const client = new Discord.Client();
@@ -50,7 +51,7 @@ const now = Date.now();
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-console.log(leeks.colors.magentaBright(`
+log.basic(leeks.colours.magentaBright(`
 ########  ####  ######   ######   #######  ########  ########
 ##     ##  ##  ##    ## ##    ## ##     ## ##     ## ##     ##
 ##     ##  ##  ##       ##       ##     ## ##     ## ##     ##
@@ -68,26 +69,27 @@ console.log(leeks.colors.magentaBright(`
    ##    ####  ######  ##    ## ########    ##     ######
 
   `)); // banner appears in console
-console.log(leeks.colors.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
-console.log(leeks.colors.yellow(leeks.styles.bold(homepage)));
-console.log('');
-console.log(`Starting up...`)
+log.basic(leeks.colours.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
+log.basic(leeks.colours.yellow(leeks.styles.bold(homepage)));
+log.basic('\n\n');
+log.basic(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
+log.basic('\n\n');
+log.info(`Starting up...`)
 
 
 client.once('ready', () => { // after bot has logged in
 
-  console.log(leeks.colors.cyan(`Initialising bot...`))
+  log.info(`Initialising bot...`)
   for (const file of commands) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
-    console.log(`> Loading '${config.prefix}${command.name}' command`);
+    log.console(`> Loading '${config.prefix}${command.name}' command`);
   }
-  console.log(leeks.colors.green(`Connected to Discord API`))
-  console.log(leeks.colors.green(`Logged in as ${client.user.tag}`))
+  log.success(`Connected to Discord API`)
+  log.success(`Logged in as ${client.user.tag}`)
   client.user.setPresence({game: {name: config.playing, type: config.activityType},status: config.status})
-    // .then(console.log)
-    .catch(console.error);
-  // console.log(leeks.colors.green(`Set playing status as `) + leeks.colors.yellow(`'${config.playing}${config.prefix}help'`));
+    // .then(log.basic)
+    .catch(log.error);
 
   if (config.useEmbeds) {
     const embed = new Discord.RichEmbed()
@@ -95,16 +97,14 @@ client.once('ready', () => { // after bot has logged in
       .setColor("#2ECC71")
       .setDescription(":white_check_mark: **Started succesfully**")
       .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-    client.channels.get(config.logChannel).send({
-      embed
-    })
+    client.channels.get(config.logChannel).send(embed)
   } else {
     client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
   }
   if (client.guilds.get(config.guildID).member(client.user).hasPermission("ADMINISTRATOR", false)) {
-    console.log(leeks.colors.bgYellowBright(leeks.colors.black(`Checking permissions...`)))
+    log.info(`Checking permissions...`);
     setTimeout(function() {
-      console.log(leeks.colors.green(`Required permissions have been granted\n\n`))
+      log.success(`Required permissions have been granted\n\n`)
     }, 1250);
 
     if (config.useEmbeds) {
@@ -113,15 +113,13 @@ client.once('ready', () => { // after bot has logged in
         .setColor("#2ECC71")
         .setDescription(":white_check_mark: **Required permissions have been granted**")
         .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-      client.channels.get(config.logChannel).send({
-        embed
-      })
+      client.channels.get(config.logChannel).send(embed)
     } else {
       client.channels.get(config.logChannel).send(":white_check_mark: **Started succesfully**")
     }
   } else {
-    console.log(leeks.colors.red(`Required permissions have not been granted`))
-    console.log(leeks.colors.red(`Please give the bot the 'ADMINISTRATOR' permission\n\n`))
+    log.error(`Required permissions have not been granted`)
+    log.error(`Please give the bot the 'ADMINISTRATOR' permission\n\n`)
     if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
@@ -152,9 +150,7 @@ client.on('message', async message => {
           .addField("Username", message.author.tag, true)
           .addField("Message", message.content, true)
           .setFooter(`${client.guilds.get(config.guildID).name} : DiscordTickets by Eartharoid`);
-        client.channels.get(config.logChannel).send({
-          embed
-        })
+        client.channels.get(config.logChannel).send(embed)
       } else {
         client.channels.get(config.logChannel).send(`DM received from **${message.author.tag} (${message.author.id})** : \n\n\`\`\`${message.content}\`\`\``);
       }
@@ -235,24 +231,27 @@ client.on('message', async message => {
     // client.commands.get(command).execute(message, args, config);
     command.execute(message, args);
   } catch (error) {
-    console.error(error);
+    log.error(error);
     message.channel.send(`:x: **Oof!** An error occured whilst executing that command.\nThe issue has been reported.`);
-    console.log(leeks.colors.red(`[ERROR] An unknown error occured whilst executing the '${command.name}' command`));
+    log.error(`An unknown error occured whilst executing the '${command.name}' command`);
   }
 
 });
 client.on('error', error => {
-  console.log(leeks.colors.bgYellow(leeks.colors.black(`[WARN] Potential error detected\n(likely Discord API connection issue)`)));
-  console.error(leeks.colors.red(`[ERROR] Client error:\n${error}`));
+  log.warn(`Potential error detected\n(likely Discord API connection issue)\n`);
+  log.error(`Client error:\n${error}`);
 });
+client.on('warn', (e) => log.warn(`${e}`));
+
+if(config.debugLevel == 1){ client.on('debug', (e) => log.debug(`${e}`)) };
 
 process.on('unhandledRejection', error => {
-  console.log(leeks.colors.yellow(leeks.styles.bold(`[WARN] An error was not caught`)));
-  console.error(leeks.colors.red(`[ERROR] Uncaught Promise Error: \n${error.stack}`));
+  log.warn(`An error was not caught`);
+  log.error(`Uncaught error: \n${error.stack}`);
 });
 process.on('beforeExit', (code) => {
-  console.log(leeks.colors.yellow(`Disconected from Discord API`));
-  console.log(leeks.colors.yellow(`Exiting (${code})`));
+  log.basic(leeks.colours.yellowBright(`Disconected from Discord API`));
+  log.basic(`Exiting (${code})`);
 });
 
 client.login(config.token);
