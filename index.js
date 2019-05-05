@@ -50,7 +50,7 @@ const cooldowns = new Discord.Collection();
 const now = Date.now();
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+log.init()
 log.basic(leeks.colours.magentaBright(`
 ########  ####  ######   ######   #######  ########  ########
 ##     ##  ##  ##    ## ##    ## ##     ## ##     ## ##     ##
