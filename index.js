@@ -50,8 +50,7 @@ const cooldowns = new Discord.Collection();
 const now = Date.now();
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-log.init()
-log.basic(leeks.colours.magentaBright(`
+console.log(leeks.colours.magentaBright(`
 ########  ####  ######   ######   #######  ########  ########
 ##     ##  ##  ##    ## ##    ## ##     ## ##     ## ##     ##
 ##     ##  ##  ##       ##       ##     ## ##     ## ##     ##
@@ -69,11 +68,12 @@ log.basic(leeks.colours.magentaBright(`
    ##    ####  ######  ##    ## ########    ##     ######
 
   `)); // banner appears in console
-log.basic(leeks.colours.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
-log.basic(leeks.colours.yellow(leeks.styles.bold(homepage)));
-log.basic('\n\n');
-log.basic(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
-log.basic('\n\n');
+console.log(leeks.colours.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
+console.log(leeks.colours.yellow(leeks.styles.bold(homepage)));
+console.log('\n\n');
+console.log(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
+console.log('\n\n');
+log.init()
 log.info(`Starting up...`)
 
 

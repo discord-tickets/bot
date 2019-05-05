@@ -10,7 +10,7 @@
   "playing": "with tickets (!help)",
   "useEmbeds": true,
   "logDMs": true,
-  "cooldown": 5,
+  "cooldown": 3,
   "ticketImage": true,
   "tagHereOnly": false,
   "ticketText": "Thanks you for reaching out to our support team.\nA member of staff will come to assist you shortly. Please describe the issue in detail and explain what you have done to resolve the issue so far.\n\n*If you feel that the support you recieve is inadequate, please feel free to submit a formal complaint to a senior member of staff.*",
