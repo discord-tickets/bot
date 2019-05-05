@@ -28,9 +28,16 @@ function init(x) {
     };
   };
   try {
-    fs.appendFileSync(path, `Discord Tickets by Eartharoid | Log File (${d}/${('0' + now.getMonth()).slice(-2)}/${now.getFullYear()}) -->\n`, function (error) {
-      if (error) throw error;
-    });
+    if(x){
+      fs.appendFileSync(path, `${x} | Log File (${d}/${('0' + now.getMonth()).slice(-2)}/${now.getFullYear()}) -->\n`, function (error) {
+        if (error) throw error;
+      });
+    } else {
+      fs.appendFileSync(path, `Log File (${d}/${('0' + now.getMonth()).slice(-2)}/${now.getFullYear()}) -->\n`, function (error) {
+        if (error) throw error;
+      });
+    }
+
     console.log(`[INFO | ${time()}] Creating new log file (${path})`);
   } catch(error) {
     console.error(leeks.colours.red(error));

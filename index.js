@@ -80,7 +80,7 @@ console.log(leeks.colours.yellow(leeks.styles.bold(homepage)));
 console.log('\n\n');
 console.log(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
 console.log('\n\n');
-log.init()
+log.init('DiscordTickets (bot created by Eartharoid)')
 // all log.* functions are logged to ./log/file.log from here onwards
 log.info(`Starting up...`)
 
