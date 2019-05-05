@@ -1,6 +1,6 @@
 {
   "name": "DiscordTickets",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A Discord ticket/support - an open-source & self-host alternative to TicketManager (name tbd)",
   "main": "index.js",
   "dependencies": {
