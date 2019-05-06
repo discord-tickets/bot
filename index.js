@@ -84,7 +84,6 @@ log.init('DiscordTickets (bot created by Eartharoid)')
 // all log.* functions are logged to ./log/file.log from here onwards
 log.info(`Starting up...`)
 
-
 client.once('ready', () => { // after bot has logged in
 
   log.info(`Initialising bot...`)
