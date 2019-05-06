@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { version } = require('../package.json');
 const config = require('../config.json');
-const log = require(`../handlers/logger.js`);
+const log = require(`leekslazylogger`);
 module.exports = {
   name: 'help',
   description: 'Displays help menu',

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const log = require(`../handlers/logger.js`);
+const log = require(`leekslazylogger`);
 // const randomString = require('random-string');
 module.exports = {
 	name: 'new',

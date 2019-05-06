@@ -48,7 +48,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const leeks = require('leeks.js');
-const log = require(`./handlers/logger.js`);
+const log = require(`leekslazylogger`);
 const config = require('./config.json');
 const { version, homepage } = require('./package.json');
 const client = new Discord.Client();
@@ -57,7 +57,7 @@ const cooldowns = new Discord.Collection();
 const now = Date.now();
 
 const commands = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-console.log(leeks.colours.magentaBright(`
+console.log(log.colour.magentaBright(`
 ########  ####  ######   ######   #######  ########  ########
 ##     ##  ##  ##    ## ##    ## ##     ## ##     ## ##     ##
 ##     ##  ##  ##       ##       ##     ## ##     ## ##     ##
@@ -75,10 +75,10 @@ console.log(leeks.colours.magentaBright(`
    ##    ####  ######  ##    ## ########    ##     ######
 
   `)); // banner appears in console
-console.log(leeks.colours.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
-console.log(leeks.colours.yellow(leeks.styles.bold(homepage)));
+console.log(log.colour.yellow(leeks.styles.bold(`DiscordTickets v${version} - Made By Eartharoid`)));
+console.log(log.colour.yellow(leeks.styles.bold(homepage)));
 console.log('\n\n');
-console.log(leeks.colours.bgGrey(leeks.colours.grey(`\n\n==========================================================================\n\n`)))
+console.log(log.colour.bgGrey(log.colour.grey(`\n\n==========================================================================\n\n`)))
 console.log('\n\n');
 log.init('DiscordTickets (bot created by Eartharoid)')
 // all log.* functions are logged to ./log/file.log from here onwards
@@ -270,7 +270,7 @@ process.on('unhandledRejection', error => {
   log.error(`Uncaught error: \n${error.stack}`);
 });
 process.on('beforeExit', (code) => {
-  log.basic(leeks.colours.yellowBright(`Disconected from Discord API`));
+  log.basic(log.colour.yellowBright(`Disconected from Discord API`));
   log.basic(`Exiting (${code})`);
 });
 

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const log = require(`../handlers/logger.js`);
+const log = require(`leekslazylogger`);
 module.exports = {
   name: 'add',
   description: 'Add a member to a ticket channel',
