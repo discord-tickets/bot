@@ -1,4 +1,4 @@
-/*
+/**
 ###############################################################################################
  ____                                        _     _____              _             _
 |  _ \  (_)  ___    ___    ___    _ __    __| |   |_   _| (_)   ___  | | __   ___  | |_   ___
@@ -36,15 +36,13 @@
   > For support, visit https://github.com/eartharoid/DiscordTickets/#readme
   > My website: https://eartharoid.ml
 
+  @name DiscordTickets
+  @author Eartharoid <eartharoid@gmail.com>
+  @license GNU-GPLv3
+
 ###############################################################################################
 */
-/**
-*
-* @name DiscordTickets
-* @author Eartharoid <eartharoid@gmail.com>
-* @license GNU-GPLv3
-*
-*/
+
 const fs = require('fs');
 const Discord = require('discord.js');
 const leeks = require('leeks.js');
