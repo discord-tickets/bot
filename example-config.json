@@ -1,5 +1,5 @@
 {
-  "token": "your token here",
+  "token": "token",
   "prefix": "!",
   "name": "DiscordTickets",
   "guildID": "id",
@@ -8,6 +8,8 @@
   "logChannel": "id",
   "colour": "#009999",
   "playing": "with tickets (!help)",
+  "activityType": "PLAYING",
+  "status": "ONLINE",
   "useEmbeds": true,
   "logDMs": true,
   "cooldown": 3,
