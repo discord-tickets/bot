@@ -28,12 +28,12 @@ module.exports = {
 			if (!args.length) {
 				data.push('__**Commands**__');
 				data.push(commands.map(command => `**${config.prefix}${command.name}** : \`${command.description}\``).join('\n'));
-				data.push(`\nType\`${config.prefix}help [command]\` for more information about a specific command.`);
+				data.push(`\nType \`${config.prefix}help [command]\` for more information about a specific command.`);
 
 				const embed = new Discord.RichEmbed()
 	        .setTitle("Commands")
 	        .setColor(config.colour)
-					.setDescription(`\nType\`${config.prefix}help [command]\` for more information about a specific command.`)
+					.setDescription(`\nType \`${config.prefix}help [command]\` for more information about a specific command.`)
 	        // .addField("...", `...`, true)
 	        // .addField("...", `...`, true)
 	        .setFooter(`DiscordTickets by Eartharoid`);
@@ -82,7 +82,7 @@ module.exports = {
 			if (!args.length) {
 				data.push('__**Commands**__');
 				data.push(commands.map(command => `**${config.prefix}${command.name}** : \`${command.description}\``).join('\n'));
-				data.push(`\nType\`${config.prefix}help [command]\` for more information about a specific command.`);
+				data.push(`\nType \`${config.prefix}help [command]\` for more information about a specific command.`);
 
 				return message.author.send(data, { split: true })
 					.then(() => {

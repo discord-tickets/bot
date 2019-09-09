@@ -29,8 +29,8 @@ module.exports = {
 			if(message.guild.channels.some(channel => chan.includes(channel.name))) {
 				if(config.useEmbeds){
 					const err1 = new Discord.RichEmbed()
-							.setColor("#E74C3C")
-			        .setDescription(`:x: You already have an open ticket.`)
+						.setColor("#E74C3C")
+				        .setDescription(`:x: You already have an open ticket.`)
 					return message.channel.send(err1)
 				} else {
 					message.channel.send(`:x: You already have an open ticket.`)
