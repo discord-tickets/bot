@@ -4,8 +4,8 @@
   "description": "A Discord ticket/support - an open-source & self-hosted bot",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "leekslazylogger": "^1.1.3"
+    "discord.js": "^11.5.1",
+    "leekslazylogger": "^1.1.7"
   },
   "devDependencies": {},
   "scripts": {
