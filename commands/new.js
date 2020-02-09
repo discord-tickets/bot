@@ -26,7 +26,7 @@ module.exports = {
 		let id = message.author.id.toString().substr(0, 4) + message.author.discriminator;
 		let chan = `ticket-${id}`;
 
-		if (message.guild.channels.some(channel => chan.includes(channel.name))) {
+		if (message.guild.channels.find(channel => channel.name === chan)) {
 			if (config.useEmbeds) {
 				const err1 = new Discord.RichEmbed()
 					.setColor("#E74C3C")
