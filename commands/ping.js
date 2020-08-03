@@ -17,7 +17,7 @@ module.exports = {
         .setTitle("Pong!")
         .setColor(config.colour)
         .setTimestamp()
-        .addField("API Latency", `${Math.round(message.client.ping)}ms`, true)
+        .addField("API Latency", `${Math.round(message.client.ping)}ms`, true);
     message.channel.send(embed);
     // command ends here
   },

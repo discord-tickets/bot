@@ -49,15 +49,15 @@ module.exports = {
 			c.overwritePermissions(message.guild.defaultRole, {
 				VIEW_CHANNEL: false,
 				SEND_MESSAGES: false
-			})
+			});
 			c.overwritePermissions(message.member, {
 				VIEW_CHANNEL: true,
 				SEND_MESSAGES: true
-			})
+			});
 			c.overwritePermissions(supportRole, {
 				VIEW_CHANNEL: true,
 				SEND_MESSAGES: true
-			})
+			});
 			c.setTopic(`${message.author} | ${topic}`);
 			if (config.tagHereOnly) {
 				await c.send(`@here, a user has created a new ticket.\n`);
@@ -68,9 +68,9 @@ module.exports = {
 			if (config.ticketImage) {
 				await c.send(`__**Here's your ticket channel, ${message.author}**__`, {
 					files: [`./image.png`]
-				})
+				});
 			} else {
-				await c.send(`__**Here's your ticket channel, ${message.author}**__`)
+				await c.send(`__**Here's your ticket channel, ${message.author}**__`);
 			}
 
 			const created = new Discord.RichEmbed()
