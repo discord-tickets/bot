@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
 const log = require(`leekslazylogger`);
+
 module.exports = {
   name: 'remove',
   description: 'Remove a member from a ticket',
@@ -14,8 +15,8 @@ module.exports = {
     const client = message.client;
     // command starts here
     message.delete();
-    if(!message.channel.name.startsWith('ticket-')) {
-      if(config.useEmbeds) {
+    if (!message.channel.name.startsWith('ticket-')) {
+      if (config.useEmbeds) {
         const notTicket = new Discord.RichEmbed()
             .setColor("#E74C3C")
             .setDescription(`:x: **This command can only be used within a ticket channel**`)
@@ -26,8 +27,8 @@ module.exports = {
     }
 
     let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-    if(!user) {
-      if(config.useEmbeds) {
+    if (!user) {
+      if (config.useEmbeds) {
         const err1 = new Discord.RichEmbed()
             .setColor("#E74C3C")
             .setDescription(`:x: **Unknown user.** Please mention a valid user.`)
@@ -41,7 +42,7 @@ module.exports = {
       SEND_MESSAGES: false,
       READ_MESSAGES: false
     });
-    if(config.useEmbeds) {
+    if (config.useEmbeds) {
       const removed = new Discord.RichEmbed()
           .setColor(config.colour)
           .setDescription(`${user} has been removed.`)
@@ -50,7 +51,7 @@ module.exports = {
        message.channel.send(`${user} has been removed.`);
     }
     // log
-    if(config.useEmbeds) {
+    if (config.useEmbeds) {
       const embed = new Discord.RichEmbed()
         .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
         .setTitle("User Removed")
@@ -60,7 +61,8 @@ module.exports = {
         .addField("Channel", message.channel, true)
         .setFooter(`DiscordTickets`)
         .setTimestamp();
-      client.channels.get(config.logChannel).send({embed})
+
+      client.channels.get(config.logChannel).send(embed);
     } else {
       client.channels.get(config.logChannel).send(`User removed to a ticket by **${message.author.tag} (${message.author.id})**`);
     }

@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
 const log = require(`leekslazylogger`);
+
 module.exports = {
   name: 'close',
   description: 'Close a ticket',
@@ -18,16 +19,16 @@ module.exports = {
       if(config.useEmbeds) {
         const notTicket = new Discord.RichEmbed()
             .setColor("#E74C3C")
-            .setDescription(`:x: **This command can only be used within a ticket channel**`)
+            .setDescription(`:x: **This command can only be used within a ticket channel**`);
         return message.channel.send(notTicket);
       } else {
-        return message.channel.send(`:x: **This command can only be used within a ticket channel**`)
+        return message.channel.send(`:x: **This command can only be used within a ticket channel**`);
       }
     } else {
       try {
-        message.channel.delete()
+        message.channel.delete();
         // log
-  	    if(config.useEmbeds) {
+  	    if (config.useEmbeds) {
   	      const embed = new Discord.RichEmbed()
   	        .setAuthor(`${client.user.username} / Ticket Log`, client.user.avatarURL)
   	        .setTitle("Ticket Closed")
@@ -36,20 +37,15 @@ module.exports = {
   	        .addField("Channel", message.channel.name, true)
   	        .setFooter(`DiscordTickets`)
   					.setTimestamp();
-  	      client.channels.get(config.logChannel).send({embed})
+  	      client.channels.get(config.logChannel).send(embed);
   	    } else {
   	      client.channels.get(config.logChannel).send(`Ticket closed by **${message.author.tag} (${message.author.id})**`);
   	    }
-  			log.info(`${message.author.tag} closed a ticket (#${message.channel.name})`)
-
-      } catch(error) {
+  			log.info(`${message.author.tag} closed a ticket (#${message.channel.name})`);
+      } catch (error) {
         log.error(log.colour.red(error));
       }
     }
-
-
-
-
     // command ends here
   },
 };
