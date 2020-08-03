@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const { version } = require('../package.json');
 const config = require('../config.json');
 const log = require(`leekslazylogger`);
+
 module.exports = {
   name: 'help',
   description: 'Displays help menu',
@@ -38,11 +38,11 @@ module.exports = {
 						if (message.channel.type === 'dm') return;
 						// message.channel.send(`A list of commands has been sent to you.`);
 					})
-					.catch(error => {
+					.catch(() => {
 						// console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
 						log.warn(`Could not DM help menu to ${message.author.tag}, sending to server channel instead`);
-						message.channel.send(`:x: **Sorry!** There was an error whilst sending the help menu via DMs.`)
-						message.channel.send(data, { split: true })
+						message.channel.send(`:x: **Sorry!** There was an error whilst sending the help menu via DMs.`);
+						message.channel.send(data, { split: true });
 					});
 			} else {
 				const name = args[0].toLowerCase();
