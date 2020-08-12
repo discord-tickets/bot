@@ -1,16 +1,9 @@
-[![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets)
 # DiscordTickets
-## ENABLE UPDATER
-A simple (ish) Discord™️ bot to manage support tickets to allow you and your team to provide better and quicker assistance to your community members.
+
+[![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets)
+
+A simple Discord bot to manage support ticket channels to allow you and your team to provide better and quicker assistance to your members/customers.
 
 **Go to the [wiki](https://github.com/Eartharoid/DiscordTickets/wiki) for more information**
 
-## Commands
-- `!help` - show help menu
-- `!new` -  create a new ticket [`ticket`]
-- `!close` - close a ticket
-- `!add` - add a user to a ticket [`adduser`]
-- `!remove` - remove a user from a ticket [`kick`]
-
-The help menu provides an example for each command, along with usage (parameters info) and alias info.
-An example command / template is provided if you want to create your own command (such as `!website` for example)
+# REWRITE IN PROGRESS, PLEASE DON'T DOWNOAD FROM MASTER, DOWNLOAD [LATEST RELEASE](https://github.com/eartharoid/DiscordTickets/releases) OR WAIT A FEW DAYS.
