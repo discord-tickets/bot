@@ -1,5 +1,6 @@
 [![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets)
 # DiscordTickets
+## ENABLE UPDATER
 A simple (ish) Discord™️ bot to manage support tickets to allow you and your team to provide better and quicker assistance to your community members.
 
 **Go to the [wiki](https://github.com/Eartharoid/DiscordTickets/wiki) for more information**
@@ -13,6 +14,3 @@ A simple (ish) Discord™️ bot to manage support tickets to allow you and your
 
 The help menu provides an example for each command, along with usage (parameters info) and alias info.
 An example command / template is provided if you want to create your own command (such as `!website` for example)
-
-### Credits
-- [ohlookitsderpy / leeks.js](https://github.com/ohlookitsderpy/leeks.js)

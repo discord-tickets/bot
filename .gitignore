@@ -1,6 +1,7 @@
-package-lock.json
-
 logs/
-*.log
 node_modules/
-config.json
+user/.env
+user/storage.db
+user/transcripts/*.txt
+user/transcripts/*.log
+user/transcripts/*.json
