@@ -8,7 +8,7 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 const fs = require('fs');
 
@@ -36,7 +36,7 @@ module.exports = {
 		const supportRole = channel.guild.roles.cache.get(config.staff_role);
 		if (!supportRole)
 			return channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setTitle(':x: **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
@@ -68,7 +68,7 @@ module.exports = {
 			try {
 
 				return dm.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
 						.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
@@ -80,7 +80,7 @@ module.exports = {
 			} catch (e) {
 
 				let m = await channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
 						.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
@@ -166,7 +166,7 @@ module.exports = {
 
 
 			let w = await c.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(u.username, u.displayAvatarURL())
 					.setDescription(text)
@@ -180,7 +180,7 @@ module.exports = {
 
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(u.username, u.displayAvatarURL())
 						.setTitle('New ticket (via panel)')

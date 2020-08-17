@@ -6,7 +6,7 @@
  * 
  */
 
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../../user/config');
 
@@ -24,7 +24,7 @@ module.exports = {
 		const supportRole = guild.roles.cache.get(config.staff_role);
 		if (!supportRole)
 			return message.channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setTitle(':x: **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
@@ -37,7 +37,7 @@ module.exports = {
 		if(user) {
 			if(!message.member.roles.cache.has(config.staff_role))
 				return message.channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle(':x: **No permission**')
@@ -69,7 +69,7 @@ module.exports = {
 
 		closedTickets.rows = closedTickets.rows.slice(-10); // get most recent 10
 
-		let embed = new Discord.MessageEmbed()
+		let embed = new MessageEmbed()
 			.setColor(config.colour)
 			.setAuthor(user.username, user.displayAvatarURL())
 			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} tickets`)

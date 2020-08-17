@@ -8,7 +8,7 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 
 module.exports = {
@@ -47,12 +47,11 @@ module.exports = {
 		message.delete();
 
 		panel = await message.channel.send(
-			new Discord.MessageEmbed()
+			new MessageEmbed()
 				.setColor(config.colour)
 				.setTitle(config.panel.title)
 				.setDescription(config.panel.description)
 				.setFooter(guild.name, guild.iconURL())
-				.setTimestamp()
 		); // send new panel
 
 		panel.react(config.panel.reaction); // add reaction

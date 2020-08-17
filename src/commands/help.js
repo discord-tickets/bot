@@ -8,7 +8,7 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
 			}
 		
 			message.channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setTitle('Commands')
 					.setColor(config.colour)
 					.setDescription(
@@ -50,7 +50,6 @@ module.exports = {
 						\nPlease contact a member of staff if you require assistance.`
 					)
 					.setFooter(guild.name, guild.iconURL())
-					.setTimestamp()
 			).catch((error) => {
 				log.warn('Could not send help menu');
 				log.error(error);
@@ -62,13 +61,13 @@ module.exports = {
 
 			if (!command) 
 				return message.channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setDescription(`:x: **Invalid command name** (\`${config.prefix}help\`)`)
 				);
 			
 
-			const cmd = new Discord.MessageEmbed()
+			const cmd = new MessageEmbed()
 				.setColor(config.colour)
 				.setTitle(command.name);
 

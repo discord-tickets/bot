@@ -8,7 +8,7 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 const fs = require('fs');
 
@@ -23,7 +23,7 @@ module.exports = {
 
 		const guild = client.guilds.cache.get(config.guild);
 		
-		const notTicket = new Discord.MessageEmbed()
+		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle(':x: **This isn\'t a ticket channel**')
@@ -55,7 +55,7 @@ module.exports = {
 
 			if(message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
 				return channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle(':x: **No permission**')
@@ -73,7 +73,7 @@ module.exports = {
 			: '';
 
 		let confirm = await message.channel.send(
-			new Discord.MessageEmbed()
+			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
 				.setTitle(':grey_question: Are you sure?')
@@ -90,7 +90,7 @@ module.exports = {
 		collector.on('collect', () => {
 			if (channel.id !== message.channel.id)
 				channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle('**Ticket closed**')
@@ -100,7 +100,7 @@ module.exports = {
 
 			confirm.reactions.removeAll();
 			confirm.edit(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(`:white_check_mark: **Ticket ${ticket.id} closed**`)
@@ -121,7 +121,7 @@ module.exports = {
 		
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle('Ticket closed')
@@ -137,7 +137,7 @@ module.exports = {
 			if(!success) {
 				confirm.reactions.removeAll();
 				confirm.edit(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle(':x: **Expired**')

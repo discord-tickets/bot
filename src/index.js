@@ -12,7 +12,7 @@ const fs = require('fs');
 const leeks = require('leeks.js');
 const client = new Discord.Client({
 	autoReconnect: true,
-	partials: ['MESSAGE', 'CHANNEL', 'REACTION']
+	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
 client.events = new Discord.Collection();
 client.commands = new Discord.Collection();

@@ -11,7 +11,7 @@
  * ---------------------
  * 
  * 	> For detailed instructions, visit the GitHub repository and read the documentation:
- * 	https://github.com/eartharoid/DiscordTickets/#readme
+ * 	https://github.com/eartharoid/DiscordTickets/wiki
  * 
  * 	> IMPORTANT: Also rename 'user/example.env' to 'user/.env' and edit the TOKEN
  * 
@@ -33,6 +33,7 @@ module.exports = {
 	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'], /** @INFO paired */
 	colour: '#009999',
 	err_colour: '#E74C3C',
+	cooldown: 3,
 
 	guild: '451745464480432129', // ID of your guild
 	staff_role: '451745586564169728', // ID of your Support Team role
@@ -50,7 +51,7 @@ module.exports = {
 
 	transcripts: {
 		text: {
-			enabled: true,
+			enabled: false,
 			keep_for: 90,
 		},
 		web: {

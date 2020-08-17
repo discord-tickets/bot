@@ -6,7 +6,7 @@
  * 
  */
 
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config.js');
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
@@ -15,14 +15,14 @@ module.exports = {
 	name: 'remove',
 	description: 'Remove a member from ticket channel',
 	usage: '<@member> [... #channel]',
-	aliases: ['-'],
+	aliases: ['none'],
 	example: 'remove @member from #ticket-23',
 	args: true,
 	async execute(client, message, args, Ticket) {
 
 		const guild = client.guilds.cache.get(config.guild);
 
-		const notTicket = new Discord.MessageEmbed()
+		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle(':x: **This isn\'t a ticket channel**')
@@ -55,7 +55,7 @@ module.exports = {
 
 		if(message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
 			return message.channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':x: **No permission**')
@@ -71,7 +71,7 @@ module.exports = {
 		
 		if(!member) 
 			return message.channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':x: **Unknown member**')
@@ -91,7 +91,7 @@ module.exports = {
 
 			if(channel.id !== message.channel.id)
 				channel.send(
-					new Discord.MessageEmbed()
+					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
 						.setTitle('**Member remove**')
@@ -102,7 +102,7 @@ module.exports = {
 
 			
 			message.channel.send(
-				new Discord.MessageEmbed()
+				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
 					.setTitle(':white_check_mark: **Member removed**')
