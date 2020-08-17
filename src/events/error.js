@@ -11,7 +11,7 @@ const log = new ChildLogger();
 
 module.exports = {
 	event: 'error',
-	execute(client, e) {
+	execute(client, [e]) {
 		log.error(e);
 	}
 };

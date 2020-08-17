@@ -1,14 +1,21 @@
 {
 	"name": "@eartharoid/discordtickets",
 	"version": "2.0.0",
-	"description": "A Discord ticket/support - an open-source & self-hosted bot",
+	"private": true,
+	"description": "An open-source & self-hosted Discord bot for ticket management.",
 	"main": "src/index.js",
 	"dependencies": {
+		"@eartharoid/dtf": "^1.0.7",
+		"boxen": "^4.2.0",
 		"discord.js": "^12.2.0",
 		"dotenv": "^8.2.0",
-		"leekslazylogger": "^2.0.0-alpha.5",
+		"leekslazylogger": "^2.0.0-alpha.6",
+		"line-reader": "^0.4.0",
 		"node-fetch": "^2.6.0",
 		"sequelize": "^6.3.4",
+		"terminal-link": "^2.1.1"
+	},
+	"optionalDependencies": {
 		"sqlite3": "^5.0.0"
 	},
 	"peerDependencies": {
@@ -21,6 +28,9 @@
 	"scripts": {
 		"start": "node src/",
 		"test": "echo \"Nothing to test! Run with 'npm start'\" && exit 1"
+	},
+	"engines": {
+		"node": ">=12"
 	},
 	"repository": {
 		"type": "git",
@@ -36,5 +46,6 @@
 	"bugs": {
 		"url": "https://github.com/eartharoid/DiscordTickets/issues"
 	},
-	"homepage": "https://github.com/eartharoid/DiscordTickets"
+	"homepage": "https://github.com/eartharoid/DiscordTickets/#readme",
+	"funding": "https://github.com/eartharoid/DiscordTickets/?sponsor=1"
 }

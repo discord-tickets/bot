@@ -2,6 +2,6 @@ logs/
 node_modules/
 user/.env
 user/storage.db
-user/transcripts/*.txt
-user/transcripts/*.log
-user/transcripts/*.json
+user/transcripts/text/*.txt
+user/transcripts/raw/*.log
+user/transcripts/raw/*.json

@@ -6,21 +6,18 @@
  * 
  */
 
+const ChildLogger = require('leekslazylogger').ChildLogger;
+const log = new ChildLogger();
 const Discord = require('discord.js');
-const fs = require('fs');
 const config = require('../../user/config');
 
 module.exports = {
-	name: 'transcript',
-	description: 'Download a transcript',
-	usage: '<ticket-id>',
-	aliases: ['archive', 'download'],
-	example: 'transcript 57',
+	name: 'stats',
+	description: 'View ticket stats.',
+	usage: '',
+	aliases: ['data'],
+	example: '',
 	args: false,
 	async execute(client, message, args, Ticket) {
-		/** 
-		 * @TODO TRY TO SEND ATTACHMENT TO DM
-		 * @TODO ONLY ALLOW CREATOR AND STAFF TO RUN CMD
-		 */
 	}
 };

@@ -11,7 +11,8 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const leeks = require('leeks.js');
 const client = new Discord.Client({
-	autoReconnect: true
+	autoReconnect: true,
+	partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 });
 client.events = new Discord.Collection();
 client.commands = new Discord.Collection();
@@ -66,7 +67,17 @@ Ticket.init({
 	modelName: 'ticket'
 });
 
+class Setting extends Model {}
+Setting.init({
+	key: DataTypes.STRING,
+	value: DataTypes.STRING,
+}, {
+	sequelize,
+	modelName: 'setting'
+});
+
 Ticket.sync();
+Setting.sync();
 
 /**
  * event loader
@@ -75,7 +86,8 @@ const events = fs.readdirSync('src/events').filter(file => file.endsWith('.js'))
 for (const file of events) {
 	const event = require(`./events/${file}`);
 	client.events.set(event.event, event);
-	client.on(event.event, e => client.events.get(event.event).execute(client, e, Ticket));
+	// client.on(event.event, e => client.events.get(event.event).execute(client, e, Ticket, Setting));
+	client.on(event.event, (e1, e2) => client.events.get(event.event).execute(client, [e1, e2], {Ticket, Setting}));
 	log.console(log.format(`> Loaded &7${event.event}&f event`));
 }
 
@@ -93,7 +105,8 @@ log.info(`Loaded ${events.length} events and ${commands.length} commands`);
 
 process.on('unhandledRejection', error => {
 	log.warn('An error was not caught');
-	log.error(`Uncaught error: \n${error.stack}`);
+	log.warn(`Uncaught ${error.name}: ${error.message}`);
+	log.error(error);
 });
 
 client.login(process.env.TOKEN);

@@ -12,77 +12,73 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('../../user/config');
 
-module.exports = {
-	name: 'new',
-	description: 'Create a new support ticket',
-	usage: '[brief description]',
-	aliases: ['ticket', 'open'],
-	example: 'new my server won\'t start',
-	args: false,
-	async execute(client, message, args, Ticket) {
-		
-		const guild = client.guilds.cache.get(config.guild);
-		
-		const supportRole = guild.roles.cache.get(config.staff_role);
+module.exports = async (client, Ticket, Setting) => {
+
+	let panelID = await Setting.findOne({ where: { key: 'panel_msg_id' } });
+	if (!panelID) return;
+
+	let chanID = await Setting.findOne({ where: { key: 'panel_chan_id' } });
+	if (!chanID) return;
+
+	let channel = client.channels.cache.get(chanID.get('value'));
+	if (!channel)
+		return Setting.destroy({ where: { key: 'panel_chan_id' } });
+
+	let panel = channel.messages.cache.get(panelID.get('value'));
+	if(!panel)
+		return Setting.destroy({ where: { key: 'panel_msg_id' } });
+
+
+	const collector = panel.createReactionCollector(
+		(r, u) => r.emoji.name === config.panel.reaction && u.id !== client.user.id);
+
+	collector.on('collect', async (r, u) => {
+		await r.users.remove(u.id); // effectively cancel reaction
+
+		const supportRole = channel.guild.roles.cache.get(config.staff_role);
 		if (!supportRole)
-			return message.channel.send(
+			return channel.send(
 				new Discord.MessageEmbed()
 					.setColor(config.err_colour)
 					.setTitle(':x: **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
-					.setFooter(guild.name, guild.iconURL())
+					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
-
-
+		
 		let tickets = await Ticket.findAndCountAll({
 			where: {
-				creator: message.author.id,
+				creator: u.id,
 				open: true
 			},
 			limit: config.tickets.max
 		});
-
+	
 		if (tickets.count >= config.tickets.max) {
 			let ticketList = [];
 			for (let t in tickets.rows)  {
 				let desc = tickets.rows[t].topic.substring(0, 30);
 				ticketList
 					.push(`<#${tickets.rows[t].channel}>: \`${desc}${desc.length > 30 ? '...' : ''}\``);
-			}		
-			
-			let m = await message.channel.send(
+			}
+			let dm = u.dmChannel || await u.createDM();
+				
+			let m = await dm.send(
 				new Discord.MessageEmbed()
 					.setColor(config.err_colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setAuthor(u.username, u.displayAvatarURL())
 					.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
 					.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
-					.setFooter(guild.name + ' | This message will be deleted in 15 seconds', guild.iconURL())
+					.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
 			);
-
-			return setTimeout(async () => {
-				await message.delete();
-				await m.delete();
-			}, 15000);
+	
+			return m.delete({ timeout: 15000 });
 		}
-			
 
-		let topic = args.join(' ');
-		if (topic.length > 256)
-			return message.channel.send(
-				new Discord.MessageEmbed()
-					.setColor(config.err_colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **Description too long**')
-					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
-					.setFooter(guild.name, guild.iconURL())
-			);
-		else if (topic.length < 1)
-			topic = 'No topic given';
-
+		let topic = 'No topic given (created via panel)';
 
 		let ticket = await Ticket.create({
 			channel: '',
-			creator: message.author.id,
+			creator: u.id,
 			open: true,
 			archived: false,
 			topic: topic
@@ -90,16 +86,16 @@ module.exports = {
 
 		let name = 'ticket-' + ticket.get('id');
 
-		guild.channels.create(name, {
+		channel.guild.channels.create(name, {
 			type: 'text',
-			topic: `${message.author} | ${topic}`,
+			topic: `${u} | ${topic}`,
 			parent: config.tickets.category,
 			permissionOverwrites: [{
-				id: guild.roles.everyone,
+				id: channel.guild.roles.everyone,
 				deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
 			},
 			{
-				id: message.member,
+				id: channel.guild.member(u),
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
 			},
 			{
@@ -118,22 +114,6 @@ module.exports = {
 				}
 			});
 
-			let m = await message.channel.send(
-				new Discord.MessageEmbed()
-					.setColor(config.colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':white_check_mark: **Ticket created**')
-					.setDescription(`Your ticket has been created: ${c}`)
-					.setFooter(client.user.username + ' | This message will be deleted in 15 seconds', client.user.avatarURL())
-			);
-
-			setTimeout(async () => {
-				await message.delete();
-				await m.delete();
-			}, 15000);
-			
-			require('../utils/archive').create(client, c); // create files
-
 			let ping;
 			switch (config.tickets.ping) {
 			case 'staff':
@@ -146,7 +126,7 @@ module.exports = {
 				ping = `@${config.tickets.ping},\n`;
 			}
 
-			await c.send(ping + `${message.author} has created a new ticket`);
+			await c.send(ping + `${u} has created a new ticket`);
 
 			if (config.tickets.send_img) {
 				const images = fs.readdirSync('user/images');
@@ -159,17 +139,17 @@ module.exports = {
 			}
 
 			let text = config.tickets.text
-				.replace('{{ name }}', message.author.username)
-				.replace('{{ tag }}', message.author);
+				.replace('{{ name }}', u.username)
+				.replace('{{ tag }}', u);
 
 
 			let w = await c.send(
 				new Discord.MessageEmbed()
 					.setColor(config.colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setAuthor(u.username, u.displayAvatarURL())
 					.setDescription(text)
 					.addField('Topic', `\`${topic}\``)
-					.setFooter(guild.name, guild.iconURL())
+					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
 
 			if (config.tickets.pin)
@@ -180,18 +160,21 @@ module.exports = {
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new Discord.MessageEmbed()
 						.setColor(config.colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('New ticket')
+						.setAuthor(u.username, u.displayAvatarURL())
+						.setTitle('New ticket (via panel)')
 						.setDescription(`\`${topic}\``)
-						.addField('Creator', message.author, true)
+						.addField('Creator', u, true)
 						.addField('Channel', c, true)
-						.setFooter(guild.name, guild.iconURL())
+						.setFooter(channel.guild.name, channel.guild.iconURL())
 						.setTimestamp()
 				);
 
-			log.info(`${message.author.tag} created a new ticket (#${name})`);
+			log.info(`${u.tag} created a new ticket (#${name}) via panel`);
 
 
 		}).catch(log.error);
-	},
+
+
+	});
+	
 };

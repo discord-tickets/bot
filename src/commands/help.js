@@ -19,6 +19,8 @@ module.exports = {
 	example: 'help new',
 	args: false,
 	execute(client, message, args) {
+
+		const guild = client.guilds.cache.get(config.guild);
 	
 		const commands = Array.from(client.commands.values());
 
@@ -47,7 +49,7 @@ module.exports = {
 						\n${cmds.join('\n\n')}
 						\nPlease contact a member of staff if you require assistance.`
 					)
-					.setFooter(message.guild.name, message.guild.iconURL())
+					.setFooter(guild.name, guild.iconURL())
 					.setTimestamp()
 			).catch((error) => {
 				log.warn('Could not send help menu');

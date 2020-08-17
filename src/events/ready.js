@@ -12,7 +12,7 @@ const config = require('../../user/config');
 
 module.exports = {
 	event: 'ready',
-	execute(client) {
+	execute(client, [e], {Ticket, Setting}) {
 
 		log.success(`Authenticated as ${client.user.tag}`);
 			

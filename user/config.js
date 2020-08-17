@@ -54,9 +54,15 @@ module.exports = {
 			keep_for: 90,
 		},
 		web: {
-			enabled: false,
+			enabled: true,
 			server: 'https://tickets.example.com', // WITHOUT! trailing /
 		}
+	},
+
+	panel: {
+		title: 'Support Tickets',
+		description: 'Need help? No problem! React to this panel to create a new support ticket so our Support Team can assist you.',
+		reaction: '🧾'
 	},
 
 	storage: {
