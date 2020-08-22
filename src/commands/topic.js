@@ -12,16 +12,13 @@ const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 
 module.exports = {
-	name: 'transcript',
-	description: 'Download a transcript',
-	usage: '<ticket-id>',
-	aliases: ['archive', 'download'],
-	example: 'transcript 57',
+	name: 'topic',
+	description: 'Edit a ticket topic',
+	usage: '<topic>',
+	aliases: ['edit'],
+	example: 'topic need help error',
 	args: false,
 	async execute(client, message, args, Ticket) {
-		/** 
-		 * @TODO TRY TO SEND ATTACHMENT TO DM
-		 * @TODO ONLY ALLOW CREATOR AND STAFF TO RUN CMD
-		 */
+		
 	}
 };

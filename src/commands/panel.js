@@ -41,7 +41,7 @@ module.exports = {
 		} else {
 			panel = await client.channels.cache.get(chanID.get('value')).messages.fetch(msgID.get('value')); // get old panel message
 			if (panel)
-				panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')); // delete old panel
+				panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')).catch(e => log.warn(e)); // delete old panel
 		}
 
 		message.delete();
@@ -55,6 +55,7 @@ module.exports = {
 		); // send new panel
 
 		panel.react(config.panel.reaction); // add reaction
+		Setting.update({ value: message.channel.id }, { where: { key: 'panel_chan_id' }}); // update database
 		Setting.update({ value: panel.id }, { where: { key: 'panel_msg_id' }}); // update database
 
 		log.info(`${message.author.tag} created a panel widget`);

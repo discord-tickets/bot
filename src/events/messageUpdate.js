@@ -14,7 +14,7 @@ const fs = require('fs');
 const dtf = require('@eartharoid/dtf');
 
 module.exports = {
-	event: 'oUpdate',
+	event: 'messageUpdate',
 	async execute(client, [o, n], {Ticket}) {
 
 		if(!config.transcripts.web.enabled) return;
@@ -29,29 +29,29 @@ module.exports = {
 
 		if (n.partial) 
 			try {
-				await o.fetch();
+				await n.fetch();
 			} catch (err) {
 				log.error(err);
 				return;
 			}
 
-		if(o === n) return;
+		if(o.content === n.content) return; // apparently editing a message isn't the only thing that emits this event
 
-		let ticket = await Ticket.findOne({ where: { channel: o.channel.id } });
+		let ticket = await Ticket.findOne({ where: { channel: n.channel.id } });
 		if(!ticket) return;		
 
-		let path = `user/transcripts/raw/${o.channel.id}.log`;
+		let path = `user/transcripts/raw/${n.channel.id}.log`;
 		let embeds = [];
-		for (let embed in o.embeds)
-			embeds.push(o.embeds[embed].toJSON());
+		for (let embed in n.embeds)
+			embeds.push(n.embeds[embed].toJSON());
 
 		fs.appendFileSync(path, JSON.stringify({
-			id: o.id,
-			author: o.author.id,
-			content: o.content, // do not use cleanContent!
-			time: o.createdTimestamp,
+			id: n.id,
+			author: n.author.id,
+			content: n.content, // do not use cleanContent!
+			time: n.createdTimestamp,
 			embeds: embeds,
-			attachments: [...o.attachments.values()],
+			attachments: [...n.attachments.values()],
 			edited: true
 		}) + '\n');
 		

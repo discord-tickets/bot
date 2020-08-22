@@ -43,7 +43,8 @@ module.exports = {
 			time: message.createdTimestamp,
 			embeds: embeds,
 			attachments: [...message.attachments.values()],
-			deleted: true
+			edited: message.edits.length > 1,
+			deleted: true // delete the message
 		}) + '\n');
 
 	}

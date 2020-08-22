@@ -32,9 +32,9 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
 		if(ticket) 
-			archive.addMessage(client, message);
+			archive.add(client, message); // add message to archive
 
-		if (message.author.bot || message.author.id === client.user.id) return; // if bot, fuck off
+		if (message.author.bot || message.author.id === client.user.id) return; // goodbye bots
 
 		
 		/**

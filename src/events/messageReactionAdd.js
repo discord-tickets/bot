@@ -134,7 +134,7 @@ module.exports = {
 				}
 			});
 
-			require('../utils/archive').create(client, c); // create files
+			// require('../utils/archive').create(client, c); // create files
 
 			let ping;
 			switch (config.tickets.ping) {

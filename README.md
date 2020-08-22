@@ -6,4 +6,6 @@ A simple Discord bot to manage support ticket channels to allow you and your tea
 
 **Go to the [wiki](https://github.com/Eartharoid/DiscordTickets/wiki) for more information**
 
+https://discord.com/api/oauth2/authorize?client_id=INSERT-YOUR-BOT-ID-HERE&permissions=8&scope=bot
+
 # REWRITE IN PROGRESS, PLEASE DON'T DOWNLOAD FROM MASTER, DOWNLOAD [LATEST RELEASE](https://github.com/eartharoid/DiscordTickets/releases) OR WAIT A FEW DAYS.

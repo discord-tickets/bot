@@ -13,24 +13,11 @@ const fs = require('fs');
 const dtf = require('@eartharoid/dtf');
 const config = require('../../user/config');
 
-module.exports.create = (client, channel) => {
+module.exports.add = (client, message) => {
 
-	// channel.members
+	if(message.type !== 'DEFAULT') return;
 
-	if(config.transcripts.text.enabled) {
-		// text/channel.txt
-	}
-
-	if(config.transcripts.web.enabled) {
-		// raw/channel.log
-	}
-	
-};
-
-
-module.exports.addMessage = async (client, message) => {
-
-	if(config.transcripts.text.enabled) { // text transcripts
+	if (config.transcripts.text.enabled) { // text transcripts
 		let path = `user/transcripts/text/${message.channel.id}.txt`,
 			time = dtf('HH:mm:ss n_D MMM YY', message.createdAt),
 			msg = message.cleanContent;
@@ -39,14 +26,14 @@ module.exports.addMessage = async (client, message) => {
 		fs.appendFileSync(path, string + '\n');
 	}
 
-	if(config.transcripts.web.enabled) { // web archives
+	if (config.transcripts.web.enabled) { // web archives
 		let raw = `user/transcripts/raw/${message.channel.id}.log`,
 			json = `user/transcripts/raw/entities/${message.channel.id}.json`;
-		
+
 		let embeds = [];
 		for (let embed in message.embeds)
 			embeds.push(message.embeds[embed].toJSON());
-		
+
 		// message
 		fs.appendFileSync(raw, JSON.stringify({
 			id: message.id,
@@ -56,15 +43,22 @@ module.exports.addMessage = async (client, message) => {
 			embeds: embeds,
 			attachments: [...message.attachments.values()]
 		}) + '\n');
-		
-		// channel entities
-		if(!fs.existsSync(json))
-			await fs.writeFileSync(json, '{}');
-		
-		let entities = await JSON.parse(fs.readFileSync(json));
 
-		if(!entities.users[message.author.id]) {
-			entities.users[message.author.id] = {
+		// channel entities
+		if (!fs.existsSync(json))
+			fs.writeFileSync(json, JSON.stringify({
+				channel_name: message.channel.name,
+				entities: {
+					users: {},
+					channels: {},
+					roles: {}
+				}
+			})); // create new
+
+		let data = JSON.parse(fs.readFileSync(json));
+
+		if (!data.entities.users[message.author.id]) {
+			data.entities.users[message.author.id] = {
 				avatar: message.author.avatarURL(),
 				username: message.author.username,
 				discriminator: message.author.discriminator,
@@ -74,27 +68,44 @@ module.exports.addMessage = async (client, message) => {
 			};
 		}
 
-		message.mentions.channels.each(c => entities.channels[c.id].name = c.name);
+		message.mentions.channels.each(c => data.entities.channels[c.id] = {
+			name: c.name
+		});
 
-		message.mentions.roles.each(r => entities.roles[r.id] = {
+		message.mentions.roles.each(r => data.entities.roles[r.id] = {
 			name: r.name,
 			color: r.color
 		});
-		
+
+		fs.writeFileSync(json, JSON.stringify(data));
+
 	}
 };
 
-module.exports.export = (client, channel) => {
-	let path = `user/transcripts/raw/${channel.id}.log`;
+module.exports.export = (client, channel) => new Promise((resolve, reject) => {	
 
-	return new Promise((resolve, reject) => {
-		if(!config.transcripts.web.enabled || !fs.existsSync(path))
-			return reject(false);
+	let raw = `user/transcripts/raw/${channel.id}.log`,
+		json = `user/transcripts/raw/entities/${channel.id}.json`;
 
-		lineReader.eachLine(path, (line, last) => {
-			console.log(line);
-			// if raw id exists, overwrite previous
-			// also: channel_name
-		});
-	});
-};
+	if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json))
+		return reject(false);
+		
+	let data = JSON.parse(fs.readFileSync(json));
+	
+	data.messages = [];
+
+	lineReader.eachLine(raw, line => {
+		let message = JSON.parse(line);
+		// data.messages[message.id] = message;
+		let index = data.messages.findIndex(m => m.id === message.id);
+
+		if (index === -1)
+			data.messages.push(message);
+		else
+			data.messages[index] = message;
+	}, () => {
+		// fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
+		// post(data).then()
+		resolve(config.transcripts.web.server); // json.url
+	});	
+});

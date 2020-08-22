@@ -132,7 +132,7 @@ module.exports = {
 				await m.delete();
 			}, 15000);
 			
-			require('../utils/archive').create(client, c); // create files
+			// require('../utils/archive').create(client, c); // create files
 
 			let ping;
 			switch (config.tickets.ping) {

@@ -11,6 +11,7 @@ const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 const fs = require('fs');
+const archive = require('../utils/archive');
 
 module.exports = {
 	name: 'close',
@@ -22,7 +23,7 @@ module.exports = {
 	async execute(client, message, args, Ticket) {
 
 		const guild = client.guilds.cache.get(config.guild);
-		
+
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -31,29 +32,37 @@ module.exports = {
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 			.setFooter(guild.name, guild.iconURL());
-		
+
 		let ticket;
 		let channel = message.mentions.channels.first();
 		// || client.channels.resolve(await Ticket.findOne({ where: { id: args[0] } }).channel) // channels.fetch()
 
-		if(!channel) {
+		if (!channel) {
 			channel = message.channel;
 
-			ticket = await Ticket.findOne({ where: { channel: channel.id } });
-			if(!ticket) 
+			ticket = await Ticket.findOne({
+				where: {
+					channel: channel.id
+				}
+			});
+			if (!ticket)
 				return channel.send(notTicket);
 
 		} else {
 
-			ticket = await Ticket.findOne({ where: { channel: channel.id } });
-			if(!ticket) {
+			ticket = await Ticket.findOne({
+				where: {
+					channel: channel.id
+				}
+			});
+			if (!ticket) {
 				notTicket
 					.setTitle(':x: **Channel is not a ticket**')
 					.setDescription(`${channel} is not a ticket channel.`);
 				return channel.send(notTicket);
 			}
 
-			if(message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
+			if (message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
 				return channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -67,10 +76,10 @@ module.exports = {
 		}
 
 		let success;
-		let pre = fs.existsSync(`user/transcripts/text/${channel.id}.txt`)
-			|| fs.existsSync(`user/transcripts/raw/${channel.id}.log`) ?
-			`You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.get('id')}\``
-			: '';
+		let pre = fs.existsSync(`user/transcripts/text/${channel.id}.txt`) ||
+			fs.existsSync(`user/transcripts/raw/${channel.id}.log`) ?
+			`You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.get('id')}\`` :
+			'';
 
 		let confirm = await message.channel.send(
 			new MessageEmbed()
@@ -82,12 +91,13 @@ module.exports = {
 		);
 
 		await confirm.react('✅');
-	
+
 		const collector = confirm.createReactionCollector(
-			(r, u) => r.emoji.name === '✅' && u.id === message.author.id,
-			{ time: 15000 });
-	
-		collector.on('collect', () => {
+			(r, u) => r.emoji.name === '✅' && u.id === message.author.id, {
+				time: 15000
+			});
+
+		collector.on('collect', async () => {
 			if (channel.id !== message.channel.id)
 				channel.send(
 					new MessageEmbed()
@@ -109,32 +119,94 @@ module.exports = {
 			);
 
 			success = true;
-			ticket.update({ open: false}, { where: { channel: channel.id } });
+			ticket.update({
+				open: false
+			}, {
+				where: {
+					channel: channel.id
+				}
+			});
 			setTimeout(() => {
 				channel.delete();
-				if (channel.id !== message.channel.id) 
+				if (channel.id !== message.channel.id)
 					message.delete()
 						.then(() => confirm.delete());
 			}, 15000);
 
+			if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
+				let u = await client.users.fetch(ticket.get('creator'));
+
+				if (u) {
+					let dm;
+					try {
+						dm = u.dmChannel || await u.createDM();
+					} catch (e) {
+						log.warn(`Could not create DM channel with ${u.tag}`);
+					}
+					
+
+					await dm.send(
+						new MessageEmbed()
+							.setColor(config.colour)
+							.setAuthor(message.author.username, message.author.displayAvatarURL())
+							.setTitle(`**Ticket ${ticket.id} closed**`)
+							.setDescription('Your ticket has been closed.')
+							.setFooter(guild.name, guild.iconURL())
+					);
+
+					if (config.transcripts.text.enabled && fs.existsSync(`user/transcripts/text/${channel.id}.txt`)) {
+						try {
+							await dm.send('A basic text transcript of the ticket channel is attached:', {
+								files: [
+									`user/transcripts/text/${channel.id}.txt`
+								]
+							});
+						} catch (e) {
+							log.warn(`Failed to send text transcript to ${u.tag}`);
+						}
+
+					}
+
+					if (config.transcripts.web.enabled) {
+						try {
+							let url = await archive.export(client, channel);
+
+							await dm.send(
+								new MessageEmbed()
+									.setColor(config.colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(`**Ticket ${ticket.id} web archive**`)
+									.setDescription(`You can view an archive of your ticket channel [here](${url})`)
+									.setFooter(guild.name, guild.iconURL())
+							);
+						} catch (e) {
+							log.warn(`Failed to send archive URL to ${u.tag}`);
+							log.warn(e);
+						}
+
+					}
+				}
+			}
+
+
 			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.get('id')})`);
-		
+
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle('Ticket closed')
-						.addField('Creator', `<@${ticket.get('creator')}>` , true)
+						.addField('Creator', `<@${ticket.get('creator')}>`, true)
 						.addField('Closed by', message.author, true)
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()
 				);
 		});
-	
-	
+
+
 		collector.on('end', () => {
-			if(!success) {
+			if (!success) {
 				confirm.reactions.removeAll();
 				confirm.edit(
 					new MessageEmbed()
@@ -143,11 +215,13 @@ module.exports = {
 						.setTitle(':x: **Expired**')
 						.setDescription('You took to long to react; confirmation failed.')
 						.setFooter(guild.name, guild.iconURL()));
-					
-				message.delete({ timeout: 10000 })
+
+				message.delete({
+					timeout: 10000
+				})
 					.then(() => confirm.delete());
-			}	
+			}
 		});
-		
+
 	}
 };
