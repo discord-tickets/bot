@@ -1,6 +1,6 @@
 # DiscordTickets
 
-[![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets)
+[![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets) [![GitHub issues](https://img.shields.io/github/issues/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/issues)    [![GitHub stars](https://img.shields.io/github/stars/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)    [![GitHub forks](https://img.shields.io/github/forks/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/network)    [![GitHub license](https://img.shields.io/github/license/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/LICENSE)    ![Codacy grade](https://img.shields.io/codacy/grade/15dc38c312c3430d8ed02c58edb2e8bd?logo=codacy&style=flat-square)    [![Discord support server](https://discordapp.com/api/guilds/451745464480432129/embed.png?style=shield)](https://discord.gg/pXc9vyC)
 
 A Discord bot to manage support ticket channels to allow you and your team to provide better and quicker assistance to your members/customers.
 
