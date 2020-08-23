@@ -68,13 +68,23 @@ module.exports.add = (client, message) => {
 			};
 		}
 
-		message.mentions.channels.each(c => data.entities.channels[c.id] = {
+		// mentions.users
+		message.mentions.members.each(m => data.entities.users[m.id] = { // for mentions
+			avatar: m.user.avatarURL(),
+			username: m.user.username,
+			discriminator: m.user.discriminator,
+			displayName: m.user.displayName,
+			color: m.displayColor,
+			badge: m.user.bot ? 'bot' : null
+		});
+
+		message.mentions.channels.each(c => data.entities.channels[c.id] = { // for mentions only
 			name: c.name
 		});
 
-		message.mentions.roles.each(r => data.entities.roles[r.id] = {
+		message.mentions.roles.each(r => data.entities.roles[r.id] = { // for mentions only
 			name: r.name,
-			color: r.color
+			color: r.color === 0 ? 7506394 : r.color
 		});
 
 		fs.writeFileSync(json, JSON.stringify(data));
@@ -106,6 +116,7 @@ module.exports.export = (client, channel) => new Promise((resolve, reject) => {
 	}, () => {
 		// fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
 		// post(data).then()
+		// delete raw .json and .log
 		resolve(config.transcripts.web.server); // json.url
 	});	
 });

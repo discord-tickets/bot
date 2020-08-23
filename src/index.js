@@ -17,8 +17,8 @@ const client = new Discord.Client({
 client.events = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
-
-require('./utils/banner')(leeks); // big coloured text thing
+const utils = require('./modules/utils');
+require('./modules/banner')(leeks); // big coloured text thing
 
 const config = require('../user/config');
 const Logger = require('leekslazylogger');
@@ -30,7 +30,7 @@ const log = new Logger({
 });
 log.multi(log); // required to allow other files to access the logger
 
-require('./utils/updater')(); // check for updates
+require('./modules/updater')(); // check for updates
 
 
 /**
@@ -102,6 +102,27 @@ for (const file of commands) {
 }		
 
 log.info(`Loaded ${events.length} events and ${commands.length} commands`);
+
+const one_day = 1000 * 60 * 60 * 24;
+const txt = 'user/transcripts/text';
+const clean = () => {
+	const files = fs.readdirSync(txt).filter(file => file.endsWith('.txt'));
+	let total = 0;
+	for (const file of files) {
+		let diff = (new Date() - new Date(fs.statSync(`${txt}/${file}`).mtime));
+		if (Math.floor(diff / one_day) > config.transcripts.text.keep_for) {
+			fs.unlinkSync(`${txt}/${file}`);
+			total++;
+		}
+	}
+	if (total > 0)
+		log.info(`Deleted ${total} old text ${utils.plural('transcript', total)}`);
+};
+
+if (config.transcripts.text.enabled) {
+	clean();
+	setInterval(clean, one_day);
+}
 
 process.on('unhandledRejection', error => {
 	log.warn('An error was not caught');

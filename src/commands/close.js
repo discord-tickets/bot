@@ -11,7 +11,7 @@ const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
 const config = require('../../user/config');
 const fs = require('fs');
-const archive = require('../utils/archive');
+const archive = require('../modules/archive');
 
 module.exports = {
 	name: 'close',
