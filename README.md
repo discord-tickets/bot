@@ -12,6 +12,11 @@ DiscordTickets is a Discord bot for managing support ticket channels, to allow y
 - SQLite (easy, default) **or** MySQL (recommend) storage
 - Self-hosted with your bot application, your logo and guild name
 
+## Screenshot
+
+*The mention and embed text are customisable. The images is randomly selected and can be changed or disabled.*
+![Screenshot](https://i.imgur.com/Y1uCqJJ.gif)
+
 ## Instructions
 
 For installation, configuration, usage, and other information, **go to the [wiki](https://github.com/Eartharoid/DiscordTickets/wiki).**
