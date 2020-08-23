@@ -56,7 +56,7 @@ module.exports = {
 			.setColor(config.colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle(`Ticket ${id}`)
-			.setFooter(guild.name + ' | This message will be deleted in 15 seconds', guild.iconURL());
+			.setFooter(guild.name, guild.iconURL());
 
 		if (fs.existsSync(`user/transcripts/text/${ticket.channel}.txt`)) {
 			embed.addField('Text transcript', 'See attachment');
