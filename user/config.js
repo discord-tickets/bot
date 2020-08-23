@@ -29,24 +29,24 @@
 module.exports = {
 	prefix: '-',
 	name: 'DiscordTickets',
-	activities: ['-new', 'with tickets', 'for new tickets'], /** @INFO " | {PRE}help" */
-	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'], /** @INFO paired */
+	activities: ['-new', 'with tickets', 'for new tickets'],
+	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'],
 	colour: '#009999',
 	err_colour: '#E74C3C',
 	cooldown: 3,
 
-	guild: '451745464480432129', // ID of your guild
-	staff_role: '451745586564169728', // ID of your Support Team role
+	guild: '', // ID of your guild
+	staff_role: '', // ID of your Support Team role
 
 	tickets: {
-		category: '620272351988285480', // ID of your tickets category
+		category: '', // ID of your tickets category
 		send_img: true,
-		ping: 'here', /** @INFO here, everyone, staff, false */
+		ping: 'here',
 		text: `Hello there, {{ tag }}!
 		A member of staff will assist you shortly.
-		In the mean time, please describe your issue in as much detail as possible! :)`, // {{ name }} and {{ tag }}
+		In the mean time, please describe your issue in as much detail as possible! :)`,
 		pin: false,
-		max: 3 /** @INFO OPEN */
+		max: 3
 	},
 
 	transcripts: {
@@ -55,8 +55,8 @@ module.exports = {
 			keep_for: 90,
 		},
 		web: {
-			enabled: true,
-			server: 'https://tickets.example.com', // WITHOUT! trailing /
+			enabled: false,
+			server: 'https://tickets.example.com',
 		}
 	},
 
@@ -76,11 +76,11 @@ module.exports = {
 			keep_for: 7
 		},
 		discord: {
-			enabled: true,
-			channel: '573957980152791080' // ID of your log channel
+			enabled: false,
+			channel: '' // ID of your log channel
 		}
 	},
 	
 	debug: false,
-	updater: false  /** @INFO ENABLE BY DEFAULT */
+	updater: true
 };

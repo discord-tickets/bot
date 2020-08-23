@@ -6,12 +6,10 @@
  * 
  */
 
-const Discord = require('discord.js');
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 const fs = require('fs');
-const dtf = require('@eartharoid/dtf');
 
 module.exports = {
 	event: 'messageDelete',
@@ -23,7 +21,8 @@ module.exports = {
 			try {
 				await message.fetch();
 			} catch (err) {
-				log.error(err);
+				log.warn('Failed to fetch deleted messaged');
+				log.error(err.message);
 				return;
 			}
 

@@ -11,9 +11,9 @@ const log = new ChildLogger();
 const lineReader = require('line-reader');
 const fs = require('fs');
 const dtf = require('@eartharoid/dtf');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 
-module.exports.add = (client, message) => {
+module.exports.add = (message) => {
 
 	if(message.type !== 'DEFAULT') return;
 
@@ -92,7 +92,13 @@ module.exports.add = (client, message) => {
 	}
 };
 
-module.exports.export = (client, channel) => new Promise((resolve, reject) => {	
+module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {	
+
+	let ticket = (async () => await Ticket.findOne({
+		where: {
+			channel: channel.id
+		}
+	}))();
 
 	let raw = `user/transcripts/raw/${channel.id}.log`,
 		json = `user/transcripts/raw/entities/${channel.id}.json`;
@@ -102,6 +108,14 @@ module.exports.export = (client, channel) => new Promise((resolve, reject) => {
 		
 	let data = JSON.parse(fs.readFileSync(json));
 	
+	data.ticket = {
+		id: ticket.id,
+		name: channel.name,
+		creator: ticket.creator,
+		channel: channel.id,
+		topic: channel.topic
+	};
+
 	data.messages = [];
 
 	lineReader.eachLine(raw, line => {
@@ -115,8 +129,12 @@ module.exports.export = (client, channel) => new Promise((resolve, reject) => {
 			data.messages[index] = message;
 	}, () => {
 		// fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
-		// post(data).then()
-		// delete raw .json and .log
+		
+		/**
+		 * @todo post(data).then()
+		 * @todo if 200 OK delete raw .json and .log
+		 */
+
 		resolve(config.transcripts.web.server); // json.url
 	});	
 });

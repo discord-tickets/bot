@@ -9,7 +9,7 @@
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 const fs = require('fs');
 const archive = require('../modules/archive');
 
@@ -59,10 +59,10 @@ module.exports = {
 				notTicket
 					.setTitle(':x: **Channel is not a ticket**')
 					.setDescription(`${channel} is not a ticket channel.`);
-				return channel.send(notTicket);
+				return message.channel.send(notTicket);
 			}
 
-			if (message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
+			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 				return channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -78,7 +78,7 @@ module.exports = {
 		let success;
 		let pre = fs.existsSync(`user/transcripts/text/${channel.id}.txt`) ||
 			fs.existsSync(`user/transcripts/raw/${channel.id}.log`) ?
-			`You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.get('id')}\`` :
+			`You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\`` :
 			'';
 
 		let confirm = await message.channel.send(
@@ -118,23 +118,8 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			success = true;
-			ticket.update({
-				open: false
-			}, {
-				where: {
-					channel: channel.id
-				}
-			});
-			setTimeout(() => {
-				channel.delete();
-				if (channel.id !== message.channel.id)
-					message.delete()
-						.then(() => confirm.delete());
-			}, 15000);
-
 			if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
-				let u = await client.users.fetch(ticket.get('creator'));
+				let u = await client.users.fetch(ticket.creator);
 
 				if (u) {
 					let dm;
@@ -145,51 +130,55 @@ module.exports = {
 					}
 					
 
-					await dm.send(
-						new MessageEmbed()
-							.setColor(config.colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(`**Ticket ${ticket.id} closed**`)
-							.setDescription('Your ticket has been closed.')
-							.setFooter(guild.name, guild.iconURL())
-					);
+					let res = {};
+					const embed = new MessageEmbed()
+						.setColor(config.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(`Ticket ${ticket.id}`)
+						.setFooter(guild.name, guild.iconURL());
 
-					if (config.transcripts.text.enabled && fs.existsSync(`user/transcripts/text/${channel.id}.txt`)) {
-						try {
-							await dm.send('A basic text transcript of the ticket channel is attached:', {
-								files: [
-									`user/transcripts/text/${channel.id}.txt`
-								]
-							});
-						} catch (e) {
-							log.warn(`Failed to send text transcript to ${u.tag}`);
-						}
-
+					if (fs.existsSync(`user/transcripts/text/${ticket.get('channel')}.txt`)) {
+						embed.addField('Text transcript', 'See attachment');
+						res.files = [
+							{
+								attachment: `user/transcripts/text/${ticket.get('channel')}.txt`,
+								name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
+							}
+						];
 					}
 
-					if (config.transcripts.web.enabled) {
-						try {
-							let url = await archive.export(client, channel);
+					if (fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`))
+						embed.addField('Web archive', `${await archive.export(Ticket, channel)}`);
 
-							await dm.send(
-								new MessageEmbed()
-									.setColor(config.colour)
-									.setAuthor(message.author.username, message.author.displayAvatarURL())
-									.setTitle(`**Ticket ${ticket.id} web archive**`)
-									.setDescription(`You can view an archive of your ticket channel [here](${url})`)
-									.setFooter(guild.name, guild.iconURL())
-							);
-						} catch (e) {
-							log.warn(`Failed to send archive URL to ${u.tag}`);
-							log.warn(e);
-						}
+					if (embed.fields.length < 1)
+						embed.setDescription(`No text transcripts or archive data exists for ticket ${ticket.id}`);
 
-					}
+					res.embed = embed;
+
+					dm.send(res).then();
 				}
 			}
 
 
-			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.get('id')})`);
+			// update database
+			success = true;
+			ticket.update({
+				open: false
+			}, {
+				where: {
+					channel: channel.id
+				}
+			});
+
+			// delete messages and channel
+			setTimeout(() => {
+				channel.delete();
+				if (channel.id !== message.channel.id)
+					message.delete()
+						.then(() => confirm.delete());
+			}, 5000);
+
+			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
 
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(
@@ -197,7 +186,7 @@ module.exports = {
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle('Ticket closed')
-						.addField('Creator', `<@${ticket.get('creator')}>`, true)
+						.addField('Creator', `<@${ticket.creator}>`, true)
 						.addField('Closed by', message.author, true)
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()

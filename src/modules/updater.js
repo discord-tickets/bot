@@ -8,9 +8,8 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const leeks = require('leeks.js');
 const fetch = require('node-fetch');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 let {version} = require('../../package.json');
 version = 'v' + version;
 const boxen = require('boxen');

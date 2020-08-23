@@ -8,11 +8,11 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	event: 'ready',
-	execute(client, [e], {Ticket, Setting}) {
+	execute(client) {
 
 		log.success(`Authenticated as ${client.user.tag}`);
 			

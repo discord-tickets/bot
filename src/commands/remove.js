@@ -7,7 +7,7 @@
  */
 
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/config.js');
+const config = require('../../user/' + require('../').config);
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 
@@ -53,7 +53,7 @@ module.exports = {
 			}
 		}
 
-		if(message.author.id !== ticket.get('creator') && !message.member.roles.cache.has(config.staff_role))
+		if(message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -106,7 +106,7 @@ module.exports = {
 					.setColor(config.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
 					.setTitle(':white_check_mark: **Member removed**')
-					.setDescription(`${member} has been removed from <#${ticket.get('channel')}>`)
+					.setDescription(`${member} has been removed from <#${ticket.channel}>`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 			

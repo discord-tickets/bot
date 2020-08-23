@@ -5,11 +5,17 @@
  *  @license GNU-GPLv3
  * 
  */
-
-require('dotenv').config({path: 'user/.env'});
-const Discord = require('discord.js');
 const fs = require('fs');
-const leeks = require('leeks.js');
+const path = require('path');
+
+let dev = fs.existsSync('user/dev.env') && fs.existsSync('user/dev.config.js');
+
+require('dotenv').config({path: path.join('user/', dev ? 'dev.env' : '.env')});
+
+module.exports.config = dev ? 'dev.config.js' : 'config.js';
+const config = require(path.join('../user/', module.exports.config));
+
+const Discord = require('discord.js');
 const client = new Discord.Client({
 	autoReconnect: true,
 	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
@@ -18,9 +24,10 @@ client.events = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
 const utils = require('./modules/utils');
+const leeks = require('leeks.js');
+
 require('./modules/banner')(leeks); // big coloured text thing
 
-const config = require('../user/config');
 const Logger = require('leekslazylogger');
 const log = new Logger({
 	name: config.name,
@@ -28,6 +35,7 @@ const log = new Logger({
 	maxAge: config.logs.files.keep_for,
 	debug: config.debug
 });
+
 log.multi(log); // required to allow other files to access the logger
 
 require('./modules/updater')(); // check for updates

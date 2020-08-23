@@ -9,7 +9,7 @@
 const { Collection, MessageEmbed } = require('discord.js');
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 const archive = require('../modules/archive');
 
 module.exports = {
@@ -32,7 +32,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
 		if(ticket) 
-			archive.add(client, message); // add message to archive
+			archive.add(message); // add message to archive
 
 		if (message.author.bot || message.author.id === client.user.id) return; // goodbye bots
 

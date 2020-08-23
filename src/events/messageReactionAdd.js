@@ -9,7 +9,7 @@
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 const fs = require('fs');
 
 module.exports = {
@@ -104,7 +104,7 @@ module.exports = {
 			topic: topic
 		});
 
-		let name = 'ticket-' + ticket.get('id');
+		let name = 'ticket-' + ticket.id;
 
 		channel.guild.channels.create(name, {
 			type: 'text',

@@ -8,7 +8,7 @@
 
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'tickets',
@@ -93,23 +93,26 @@ module.exports = {
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
 			if(fs.existsSync(`user/transcripts/text/${c}.txt`) || fs.existsSync(`user/transcripts/raw/${c}.log`))
-				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to download text transcript.`;
+				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
 
-			closed.push(`> #${closedTickets.rows[t].id}: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
+			closed.push(`> **#${closedTickets.rows[t].id}**: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
 		
 		}
 		let pre = context === 'self' ? 'You have' : user.username + ' has';
 		embed.addField('Open tickets', openTickets.count === 0 ? `${pre} no open tickets.` : open.join('\n\n'), false);
 		embed.addField('Closed tickets', closedTickets.count === 0 ? `${pre} no old tickets` : closed.join('\n\n'), false);
 			
-		let m = await message.channel.send(embed);
+		message.delete({timeout: 15000});
 
-		return setTimeout(async () => {
-			await message.delete();
-			await m.delete();
-		}, 60000);
-		
-			
+		let channel;
+		try {
+			channel = message.author.dmChannel || await message.author.createDM();
+			message.channel.send('Sent to DM').then(msg => msg.delete({timeout: 15000}));
+		} catch (e) {
+			channel = message.channel;
+		}
 
+		let m = await channel.send(embed);
+		m.delete({timeout: 60000});
 	},
 };

@@ -10,7 +10,7 @@ const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = require('../../user/config');
+const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'new',
