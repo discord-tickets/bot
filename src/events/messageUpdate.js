@@ -6,16 +6,13 @@
  * 
  */
 
-const Discord = require('discord.js');
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const config = require('../../user/' + require('../').config);
 const fs = require('fs');
-const dtf = require('@eartharoid/dtf');
 
 module.exports = {
 	event: 'messageUpdate',
-	async execute(client, [o, n], {Ticket}) {
+	async execute(client, [o, n], {config, Ticket}) {
 
 		if(!config.transcripts.web.enabled) return;
 

@@ -8,12 +8,11 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const config = require('../../user/' + require('../').config);
 const fs = require('fs');
 
 module.exports = {
 	event: 'messageDelete',
-	async execute(client, [message], {Ticket}) {
+	async execute(client, [message], {config, Ticket}) {
 
 		if(!config.transcripts.web.enabled) return;
 

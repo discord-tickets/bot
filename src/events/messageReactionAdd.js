@@ -9,12 +9,11 @@
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/' + require('../').config);
 const fs = require('fs');
 
 module.exports = {
 	event: 'messageReactionAdd',
-	async execute(client, [r, u], {Ticket, Setting}) {
+	async execute(client, [r, u], {config, Ticket, Setting}) {
 
 		if (r.partial) 
 			try {

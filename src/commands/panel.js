@@ -9,7 +9,6 @@
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'panel',
@@ -19,7 +18,7 @@ module.exports = {
 	example: '',
 	args: false,
 	permission: 'MANAGE_SERVER',
-	async execute(client, message, args, Ticket, Setting) {
+	async execute(client, message, args, {config, Setting}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 

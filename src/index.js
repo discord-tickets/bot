@@ -95,7 +95,7 @@ for (const file of events) {
 	const event = require(`./events/${file}`);
 	client.events.set(event.event, event);
 	// client.on(event.event, e => client.events.get(event.event).execute(client, e, Ticket, Setting));
-	client.on(event.event, (e1, e2) => client.events.get(event.event).execute(client, [e1, e2], {Ticket, Setting}));
+	client.on(event.event, (e1, e2) => client.events.get(event.event).execute(client, [e1, e2], {config, Ticket, Setting}));
 	log.console(log.format(`> Loaded &7${event.event}&f event`));
 }
 

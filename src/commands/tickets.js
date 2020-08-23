@@ -8,7 +8,6 @@
 
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'tickets',
@@ -17,7 +16,7 @@ module.exports = {
 	aliases: ['list'],
 	example: '',
 	args: false,
-	async execute(client, message, args, Ticket) {
+	async execute(client, message, args, {config, Ticket}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 		

@@ -9,7 +9,6 @@
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/' + require('../').config);
 const fs = require('fs');
 const archive = require('../modules/archive');
 
@@ -20,7 +19,7 @@ module.exports = {
 	aliases: ['none'],
 	example: 'close #ticket-17',
 	args: false,
-	async execute(client, message, args, Ticket) {
+	async execute(client, message, args, {config, Ticket}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 

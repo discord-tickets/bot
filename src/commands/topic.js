@@ -7,7 +7,6 @@
  */
 
 const { MessageEmbed } = require('discord.js');
-const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'topic',
@@ -16,7 +15,7 @@ module.exports = {
 	aliases: ['edit'],
 	example: 'topic need help error',
 	args: true,
-	async execute(client, message, args, Ticket) {
+	async execute(client, message, args, {config, Ticket}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 

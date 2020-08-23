@@ -10,7 +10,6 @@ const fs = require('fs');
 const {
 	MessageEmbed
 } = require('discord.js');
-const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	name: 'transcript',
@@ -19,7 +18,7 @@ module.exports = {
 	aliases: ['archive', 'download'],
 	example: 'transcript 57',
 	args: true,
-	async execute(client, message, args, Ticket) {
+	async execute(client, message, args, {config, Ticket}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 		const id = args[0];
