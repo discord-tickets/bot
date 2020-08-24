@@ -13,7 +13,7 @@
  * 	> For detailed instructions, visit the GitHub repository and read the documentation:
  * 	https://github.com/eartharoid/DiscordTickets/wiki
  * 
- * 	> IMPORTANT: Also rename 'user/example.env' to 'user/.env' and edit the TOKEN
+ * 	> IMPORTANT: Also edit the TOKEN in 'user/.env'
  * 
  * ---------------------
  *       Support

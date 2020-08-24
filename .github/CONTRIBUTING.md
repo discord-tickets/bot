@@ -25,3 +25,5 @@ When contributing, you should follow the same code style already used throughout
 3. Commas should always have a space after them
 4. Use tabs, not spaces, and always indent
 5. Use arrow functions
+
+**Note**: Create `user/dev.env` and `user/dev.config.js` for testing.

@@ -38,9 +38,14 @@ module.exports = {
 				value: '',
 			});
 		} else {
-			panel = await client.channels.cache.get(chanID.get('value')).messages.fetch(msgID.get('value')); // get old panel message
-			if (panel)
-				panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')).catch(e => log.warn(e)); // delete old panel
+			try {
+				panel = await client.channels.cache.get(chanID.get('value')).messages.fetch(msgID.get('value')); // get old panel message
+				if (panel)
+					panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')).catch(e => log.warn(e)); // delete old panel
+			} catch (e) {
+				log.warn('Couldn\'t delete old panel');
+			}
+			
 		}
 
 		message.delete();
