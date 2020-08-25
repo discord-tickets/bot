@@ -32,8 +32,6 @@ module.exports = {
 				return;
 			}
 
-		if(o.content === n.content) return; // apparently editing a message isn't the only thing that emits this event
-
 		let ticket = await Ticket.findOne({ where: { channel: n.channel.id } });
 		if(!ticket) return;		
 

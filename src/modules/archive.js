@@ -75,7 +75,7 @@ module.exports.add = (message) => {
 			username: m.user.username,
 			discriminator: m.user.discriminator,
 			displayName: m.user.displayName || m.user.username,
-			color: m.displayColor,
+			color: m.displayColor === 0 ? null : m.displayColor,
 			badge: m.user.bot ? 'bot' : null
 		});
 
