@@ -28,7 +28,9 @@ module.exports = {
 
 		if(r.message.id !== panelID.get('value')) return;
 
-		if (r.emoji.name !== config.panel.reaction || u.id === client.user.id) return;
+		if(u.id === client.user.id) return;
+
+		if (r.emoji.name !== config.panel.reaction && r.emoji.id !== config.panel.reaction) return;
 
 		let channel = r.message.channel;
 

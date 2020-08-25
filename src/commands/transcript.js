@@ -69,7 +69,7 @@ module.exports = {
 			
 
 		const BASE_URL = config.transcripts.web.server;
-		if (fs.existsSync(`user/transcripts/raw/${ticket.channel}.log`))
+		if (config.transcripts.web.enabled)
 			embed.addField('Web archive', `${BASE_URL}/${ticket.creator}/${ticket.channel}`);
 
 		if (embed.fields.length < 1)

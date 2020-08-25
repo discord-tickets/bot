@@ -8,7 +8,9 @@
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageEmbed
+} = require('discord.js');
 const fs = require('fs');
 const archive = require('../modules/archive');
 
@@ -19,7 +21,10 @@ module.exports = {
 	aliases: ['none'],
 	example: 'close #ticket-17',
 	args: false,
-	async execute(client, message, args, {config, Ticket}) {
+	async execute(client, message, args, {
+		config,
+		Ticket
+	}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 
@@ -127,7 +132,7 @@ module.exports = {
 					} catch (e) {
 						log.warn(`Could not create DM channel with ${u.tag}`);
 					}
-					
+
 
 					let res = {};
 					const embed = new MessageEmbed()
@@ -138,17 +143,16 @@ module.exports = {
 
 					if (fs.existsSync(`user/transcripts/text/${ticket.get('channel')}.txt`)) {
 						embed.addField('Text transcript', 'See attachment');
-						res.files = [
-							{
-								attachment: `user/transcripts/text/${ticket.get('channel')}.txt`,
-								name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
-							}
-						];
+						res.files = [{
+							attachment: `user/transcripts/text/${ticket.get('channel')}.txt`,
+							name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
+						}];
 					}
 
-					if (fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`))
+					if (fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`)) 
 						embed.addField('Web archive', `${await archive.export(Ticket, channel)}`);
-
+						
+			
 					if (embed.fields.length < 1)
 						embed.setDescription(`No text transcripts or archive data exists for ticket ${ticket.id}`);
 

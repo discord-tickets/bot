@@ -6,10 +6,14 @@
  * 
  */
 
+
+const ChildLogger = require('leekslazylogger').ChildLogger;
+const log = new ChildLogger();
 const lineReader = require('line-reader');
 const fs = require('fs');
 const dtf = require('@eartharoid/dtf');
 const config = require('../../user/' + require('../').config);
+const fetch = require('node-fetch');
 
 module.exports.add = (message) => {
 
@@ -45,7 +49,6 @@ module.exports.add = (message) => {
 		// channel entities
 		if (!fs.existsSync(json))
 			fs.writeFileSync(json, JSON.stringify({
-				channel_name: message.channel.name,
 				entities: {
 					users: {},
 					channels: {},
@@ -71,7 +74,7 @@ module.exports.add = (message) => {
 			avatar: m.user.avatarURL(),
 			username: m.user.username,
 			discriminator: m.user.discriminator,
-			displayName: m.user.displayName,
+			displayName: m.user.displayName || m.user.username,
 			color: m.displayColor,
 			badge: m.user.bot ? 'bot' : null
 		});
@@ -92,47 +95,65 @@ module.exports.add = (message) => {
 
 module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {	
 
-	let ticket = (async () => await Ticket.findOne({
-		where: {
-			channel: channel.id
-		}
-	}))();
-
-	let raw = `user/transcripts/raw/${channel.id}.log`,
-		json = `user/transcripts/raw/entities/${channel.id}.json`;
-
-	if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json))
-		return reject(false);
+	(async () => {
+		let ticket = await Ticket.findOne({
+			where: {
+				channel: channel.id
+			}
+		});
 		
-	let data = JSON.parse(fs.readFileSync(json));
+		let raw = `user/transcripts/raw/${channel.id}.log`,
+			json = `user/transcripts/raw/entities/${channel.id}.json`;
+
+		if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json))
+			return reject(false);
+		
+		let data = JSON.parse(fs.readFileSync(json));
 	
-	data.ticket = {
-		id: ticket.id,
-		name: channel.name,
-		creator: ticket.creator,
-		channel: channel.id,
-		topic: channel.topic
-	};
+		data.ticket = {
+			id: ticket.id,
+			name: channel.name,
+			creator: ticket.creator,
+			channel: channel.id,
+			topic: channel.topic
+		};
 
-	data.messages = [];
+		data.messages = [];
 
-	lineReader.eachLine(raw, line => {
-		let message = JSON.parse(line);
-		// data.messages[message.id] = message;
-		let index = data.messages.findIndex(m => m.id === message.id);
-
-		if (index === -1)
-			data.messages.push(message);
-		else
-			data.messages[index] = message;
-	}, () => {
-		// fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
+		lineReader.eachLine(raw, line => {
+			let message = JSON.parse(line);
+			let index = data.messages.findIndex(m => m.id === message.id);
+			if (index === -1)
+				data.messages.push(message);
+			else
+				data.messages[index] = message;	
+		}, () => {
+			fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
 		
-		/**
+			/**
 		 * @todo post(data).then()
 		 * @todo if 200 OK delete raw .json and .log
 		 */
+			let endpoint = config.transcripts.web.server;
+			if (endpoint[endpoint.length - 1] === '/')
+				endpoint = endpoint.slice(0, -1);
+			endpoint += `/${data.ticket.creator}/${data.ticket.channel}/?key=${process.env.ARCHIVES_KEY}`;
+			fetch(endpoint, {
+				method: 'post',
+				body:    JSON.stringify(data),
+				headers: { 'Content-Type': 'application/json' },
+			})
+				.then(res => res.json())
+				.then(json => {
+					if (json.status !== 200) {
+						log.warn(json);
+						return resolve(new Error(`${json.status} (${json.message})`));
+					}
+					log.success(`Uploaded ${ticket.id} archive to server`);
+					resolve(json.url);
+				});
+		});	
+	
+	})();
 
-		resolve(config.transcripts.web.server); // json.url
-	});	
 });

@@ -58,7 +58,8 @@ module.exports = {
 				.setFooter(guild.name, guild.iconURL())
 		); // send new panel
 
-		panel.react(config.panel.reaction); // add reaction
+		let emoji = panel.guild.emojis.cache.get(config.panel.reaction) || config.panel.reaction;
+		panel.react(emoji); // add reaction
 		Setting.update({ value: message.channel.id }, { where: { key: 'panel_chan_id' }}); // update database
 		Setting.update({ value: panel.id }, { where: { key: 'panel_msg_id' }}); // update database
 

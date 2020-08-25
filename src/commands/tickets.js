@@ -91,7 +91,7 @@ module.exports = {
 			let desc = closedTickets.rows[t].topic.substring(0, 30);
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
-			if(fs.existsSync(`user/transcripts/text/${c}.txt`) || fs.existsSync(`user/transcripts/raw/${c}.log`))
+			if(fs.existsSync(`user/transcripts/text/${c}.txt`) || config.transcripts.web.enabled)
 				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
 
 			closed.push(`> **#${closedTickets.rows[t].id}**: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
