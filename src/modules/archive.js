@@ -34,8 +34,7 @@ module.exports.add = (message) => {
 
 		let embeds = [];
 		for (let embed in message.embeds)
-			// embeds.push(message.embeds[embed]); // .toJSON()
-			embeds[embed] = { ...message.embeds[embed] };
+			embeds.push({ ...message.embeds[embed] });
 
 		// message
 		fs.appendFileSync(raw, JSON.stringify({
@@ -59,16 +58,15 @@ module.exports.add = (message) => {
 
 		let data = JSON.parse(fs.readFileSync(json));
 
-		if (!data.entities.users[message.author.id]) {
-			data.entities.users[message.author.id] = {
-				avatar: message.author.avatarURL(),
-				username: message.author.username,
-				discriminator: message.author.discriminator,
-				displayName: message.member.displayName,
-				color: m.displayColor === 0 ? null : m.displayColor,
-				badge: message.author.bot ? 'bot' : null
-			};
-		}
+		// if (!data.entities.users[message.author.id])
+		data.entities.users[message.author.id] = {
+			avatar: message.author.avatarURL(),
+			username: message.author.username,
+			discriminator: message.author.discriminator,
+			displayName: message.member.displayName,
+			color: message.member.displayColor === 0 ? null : message.member.displayColor,
+			badge: message.author.bot ? 'bot' : null
+		};
 
 		// mentions.users
 		message.mentions.members.each(m => data.entities.users[m.id] = { // for mentions

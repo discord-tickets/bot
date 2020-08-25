@@ -38,8 +38,7 @@ module.exports = {
 		let path = `user/transcripts/raw/${n.channel.id}.log`;
 		let embeds = [];
 		for (let embed in n.embeds)
-			// embeds.push(n.embeds[embed]); // n.embeds[embed].toJSON()
-			embeds[embed] = { ...n.embeds[embed] };
+			embeds.push({ ...n.embeds[embed] });
 
 		fs.appendFileSync(path, JSON.stringify({
 			id: n.id,
