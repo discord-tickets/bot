@@ -149,7 +149,7 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 						log.warn(json);
 						return resolve(new Error(`${json.status} (${json.message})`));
 					}
-					log.success(`Uploaded ${ticket.id} archive to server`);
+					log.success(`Uploaded ticket #${ticket.id} archive to server`);
 					resolve(json.url);
 				});
 		});	
