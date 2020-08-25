@@ -34,7 +34,8 @@ module.exports.add = (message) => {
 
 		let embeds = [];
 		for (let embed in message.embeds)
-			embeds.push(message.embeds[embed].toJSON());
+			// embeds.push(message.embeds[embed]); // .toJSON()
+			embeds[embed] = { ...message.embeds[embed] };
 
 		// message
 		fs.appendFileSync(raw, JSON.stringify({
