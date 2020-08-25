@@ -128,12 +128,6 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 			else
 				data.messages[index] = message;	
 		}, () => {
-			fs.writeFileSync('user/data.json', JSON.stringify(data)); // FOR TESTING
-		
-			/**
-		 * @todo post(data).then()
-		 * @todo if 200 OK delete raw .json and .log
-		 */
 			let endpoint = config.transcripts.web.server;
 			if (endpoint[endpoint.length - 1] === '/')
 				endpoint = endpoint.slice(0, -1);
@@ -144,13 +138,18 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 				headers: { 'Content-Type': 'application/json' },
 			})
 				.then(res => res.json())
-				.then(json => {
-					if (json.status !== 200) {
-						log.warn(json);
-						return resolve(new Error(`${json.status} (${json.message})`));
+				.then(res => {
+					if (res.status !== 200) {
+						log.warn(res);
+						return resolve(new Error(`${res.status} (${res.message})`));
 					}
+
 					log.success(`Uploaded ticket #${ticket.id} archive to server`);
-					resolve(json.url);
+
+					fs.unlinkSync(raw);
+					fs.unlinkSync(json);
+
+					resolve(res.url);
 				});
 		});	
 	

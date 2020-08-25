@@ -149,7 +149,11 @@ module.exports = {
 						}];
 					}
 
-					if (fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`)) 
+					if (
+						fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`)
+						&&
+						fs.existsSync(`user/transcripts/raw/entities/${ticket.get('channel')}.json`)
+					) 
 						embed.addField('Web archive', `${await archive.export(Ticket, channel)}`);
 						
 			
