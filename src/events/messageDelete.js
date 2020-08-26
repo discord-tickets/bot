@@ -20,7 +20,7 @@ module.exports = {
 			try {
 				await message.fetch();
 			} catch (err) {
-				log.warn('Failed to fetch deleted messaged');
+				log.warn('Failed to fetch deleted message');
 				log.error(err.message);
 				return;
 			}
