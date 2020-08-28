@@ -17,7 +17,7 @@ module.exports = {
 	aliases: ['widget'],
 	example: '',
 	args: false,
-	permission: 'MANAGE_SERVER',
+	permission: 'MANAGE_GUILD',
 	async execute(client, message, args, {config, Setting}) {
 
 		const guild = client.guilds.cache.get(config.guild);
