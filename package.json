@@ -12,7 +12,7 @@
 		"leekslazylogger": "^2.0.2",
 		"line-reader": "^0.4.0",
 		"node-fetch": "^2.6.0",
-		"sequelize": "^6.3.4",
+		"sequelize": "^6.3.5",
 		"terminal-link": "^2.1.1"
 	},
 	"optionalDependencies": {
