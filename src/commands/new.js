@@ -98,6 +98,10 @@ module.exports = {
 				deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
 			},
 			{
+				id: client.user,
+				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
+			},		       
+			{
 				id: message.member,
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
 			},
