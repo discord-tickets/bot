@@ -149,6 +149,8 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 					fs.unlinkSync(json);
 
 					resolve(res.url);
+				}).catch(e => {
+					return resolve(e);
 				});
 		});	
 	

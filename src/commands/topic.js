@@ -66,7 +66,7 @@ module.exports = {
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
 				.setTitle(':white_check_mark: **Ticket updated**')
 				.setDescription('The topic has been changed.')
-				.setFooter(client.user.username, client.user.avatarURL())
+				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);
 	}
 };

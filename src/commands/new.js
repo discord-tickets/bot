@@ -127,7 +127,7 @@ module.exports = {
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':white_check_mark: **Ticket created**')
 					.setDescription(`Your ticket has been created: ${c}`)
-					.setFooter(client.user.username + ' | This message will be deleted in 15 seconds', client.user.avatarURL())
+					.setFooter(client.user.username + ' | This message will be deleted in 15 seconds', client.user.displayAvatarURL())
 			);
 
 			setTimeout(async () => {
