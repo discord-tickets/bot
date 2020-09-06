@@ -128,10 +128,13 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 				data.messages[index] = message;	
 		}, () => {
 			let endpoint = config.transcripts.web.server;
+
 			if (endpoint[endpoint.length - 1] === '/')
 				endpoint = endpoint.slice(0, -1);
+
 			endpoint += `/${data.ticket.creator}/${data.ticket.channel}/?key=${process.env.ARCHIVES_KEY}`;
-			fetch(endpoint, {
+
+			fetch(encodeURI(endpoint), {
 				method: 'post',
 				body:    JSON.stringify(data),
 				headers: { 'Content-Type': 'application/json' },
