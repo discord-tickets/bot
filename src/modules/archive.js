@@ -60,7 +60,7 @@ module.exports.add = (message) => {
 
 		// if (!data.entities.users[message.author.id])
 		data.entities.users[message.author.id] = {
-			avatar: message.author.avatarURL(),
+			avatar: message.author.displayAvatarURL(),
 			username: message.author.username,
 			discriminator: message.author.discriminator,
 			displayName: message.member.displayName,
