@@ -70,7 +70,7 @@ module.exports.add = (message) => {
 
 		// mentions.users
 		message.mentions.members.each(m => data.entities.users[m.id] = { // for mentions
-			avatar: m.user.avatarURL(),
+			avatar: m.user.displayAvatarURL(),
 			username: m.user.username,
 			discriminator: m.user.discriminator,
 			displayName: m.user.displayName || m.user.username,
