@@ -154,7 +154,7 @@ module.exports = {
 						&&
 						fs.existsSync(`user/transcripts/raw/entities/${ticket.get('channel')}.json`)
 					) 
-						embed.addField('Web archive', `${await archive.export(Ticket, channel)}`);
+						embed.addField('Web archive', await archive.export(Ticket, channel));
 						
 			
 					if (embed.fields.length < 1)

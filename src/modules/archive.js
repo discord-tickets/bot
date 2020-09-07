@@ -153,6 +153,7 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 
 					resolve(res.url);
 				}).catch(e => {
+					log.warn(e);
 					return resolve(e);
 				});
 		});	

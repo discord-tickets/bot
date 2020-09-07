@@ -68,7 +68,7 @@ module.exports = {
 
 		let member = guild.member(message.mentions.users.first() || guild.members.cache.get(args[0]));
 		
-		if(!member || member.id === guild.me.id) 
+		if(!member || member.id === message.author.id || member.id === guild.me.id) 
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
