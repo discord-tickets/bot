@@ -68,7 +68,7 @@ module.exports = {
 
 		let member = guild.member(message.mentions.users.first() || guild.members.cache.get(args[0]));
 		
-		if(!member) 
+		if(!member || member.id === guild.me.id) 
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -93,7 +93,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle('**Member remove**')
+						.setTitle('**Member removed**')
 						.setDescription(`${member} has been removed by ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
@@ -113,6 +113,5 @@ module.exports = {
 		} catch (error) {
 			log.error(error);
 		}
-		// command ends here
 	},
 };
