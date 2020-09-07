@@ -209,7 +209,7 @@ module.exports = {
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle(':x: **Expired**')
-						.setDescription('You took to long to react; confirmation failed.')
+						.setDescription('You took too long to react; confirmation failed.')
 						.setFooter(guild.name, guild.iconURL()));
 
 				message.delete({
