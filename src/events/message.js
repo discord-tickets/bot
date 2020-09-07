@@ -41,10 +41,10 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		 * (no bots / self)
 		 */
 
-		const regex = new RegExp(`^(<@!?${client.user.id}>|\\${config.prefix})\\s*`);
-		if (!regex.test(message.content)) return; // not a command
+		const regex = new RegExp(`^(<@!?${client.user.id}>|\\${config.prefix.toLowerCase()})\\s*`);
+		if (!regex.test(message.content.toLowerCase())) return; // not a command
 
-		const [, prefix] = message.content.match(regex);
+		const [, prefix] = message.content.toLowerCase().match(regex);
 		const args = message.content.slice(prefix.length).trim().split(/ +/);
 		const commandName = args.shift().toLowerCase();
 		const command = client.commands.get(commandName)
