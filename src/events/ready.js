@@ -30,7 +30,7 @@ module.exports = {
 		updatePresence();
 		setInterval(() => {
 			updatePresence();
-		}, 15000);
+		}, 60000);
 		
 		
 		if (client.guilds.cache.get(config.guild).member(client.user).hasPermission('ADMINISTRATOR', false)) 
