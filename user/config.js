@@ -32,7 +32,7 @@ module.exports = {
 	activities: ['-new', 'with tickets', 'for new tickets'],
 	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'],
 	colour: '#009999',
-	err_colour: '#E74C3C',
+	err_colour: 'RED',
 	cooldown: 3,
 
 	guild: '', // ID of your guild
