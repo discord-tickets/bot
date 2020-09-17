@@ -1,7 +1,5 @@
 logs/
 node_modules/
-user/dev.env
-user/dev.config.js
 user/storage.db
 user/transcripts/text/*.txt
 user/transcripts/raw/*.log
