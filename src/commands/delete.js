@@ -65,7 +65,7 @@ module.exports = {
 				return message.channel.send(notTicket);
 			}
 
-			if (message.author.id !== ticket.creator && !utils.isStaff(message.member))
+			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 				return channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)

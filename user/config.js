@@ -36,7 +36,7 @@ module.exports = {
 	cooldown: 3,
 
 	guild: '', // ID of your guild
-	staff_roles: [''], // ID of your Support Team role
+	staff_role: '', // ID of your Support Team role
 
 	tickets: {
 		category: '', // ID of your tickets category

@@ -23,7 +23,6 @@ const client = new Discord.Client({
 client.events = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.cooldowns = new Discord.Collection();
-client.config = config;
 const utils = require('./modules/utils');
 const leeks = require('leeks.js');
 

@@ -14,16 +14,5 @@ module.exports = {
 	 */
 	plural(word, num) {
 		return num !== 1 ? word + 's' : word;
-	},
-
-	isStaff(member) {
-		let staff = false;
-
-		member.client.config.staff_roles.forEach(id => {
-			if (member.roles.cache.has(id))
-				staff = true;
-		});
-
-		return staff;
 	}
 };

@@ -13,7 +13,6 @@ const {
 } = require('discord.js');
 const fs = require('fs');
 const archive = require('../modules/archive');
-const utils = require('../modules/utils');
 
 module.exports = {
 	name: 'close',
@@ -67,7 +66,7 @@ module.exports = {
 				return message.channel.send(notTicket);
 			}
 
-			if (message.author.id !== ticket.creator && !utils.isStaff(message.member))
+			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 				return channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
