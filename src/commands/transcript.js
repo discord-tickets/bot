@@ -10,6 +10,7 @@ const fs = require('fs');
 const {
 	MessageEmbed
 } = require('discord.js');
+const utils = require('../modules/utils');
 
 module.exports = {
 	name: 'transcript',
@@ -41,7 +42,7 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+		if (message.author.id !== ticket.creator && !utils.isStaff(message.member))
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)

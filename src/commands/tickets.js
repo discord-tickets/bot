@@ -8,6 +8,7 @@
 
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
+const utils = require('../modules/utils');
 
 module.exports = {
 	name: 'tickets',
@@ -20,13 +21,13 @@ module.exports = {
 
 		const guild = client.guilds.cache.get(config.guild);
 		
-		const supportRole = guild.roles.cache.get(config.staff_role);
+		const supportRole = guild.roles.cache.get(config.staff_roles[0]);
 		if (!supportRole)
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setTitle(':x: **Error**')
-					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
+					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_roles[0]}\``)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -34,7 +35,7 @@ module.exports = {
 		let user = message.mentions.users.first() || guild.members.cache.get(args[0]);
 		
 		if(user) {
-			if(!message.member.roles.cache.has(config.staff_role))
+			if(!utils.isStaff(message.member))
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)

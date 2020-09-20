@@ -34,13 +34,13 @@ module.exports = {
 
 		let channel = r.message.channel;
 
-		const supportRole = channel.guild.roles.cache.get(config.staff_role);
+		const supportRole = channel.guild.roles.cache.get(config.staff_roles[0]);
 		if (!supportRole)
 			return channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setTitle(':x: **Error**')
-					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
+					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_roles[0]}\``)
 					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
 
@@ -144,7 +144,7 @@ module.exports = {
 			let ping;
 			switch (config.tickets.ping) {
 			case 'staff':
-				ping = `<@&${config.staff_role}>,\n`;
+				ping = `<@&${config.staff_roles[0]}>,\n`;
 				break;
 			case false:
 				ping = '';

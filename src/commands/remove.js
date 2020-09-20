@@ -9,6 +9,7 @@
 const { MessageEmbed } = require('discord.js');
 const ChildLogger = require('leekslazylogger').ChildLogger;
 const log = new ChildLogger();
+const utils = require('../modules/utils');
 
 module.exports = {
 	name: 'remove',
@@ -52,7 +53,7 @@ module.exports = {
 			}
 		}
 
-		if(message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+		if(message.author.id !== ticket.creator && !utils.isStaff(message.member))
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
