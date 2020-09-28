@@ -22,7 +22,7 @@
 		"mysql2": "2.x"
 	},
 	"devDependencies": {
-		"eslint": "^7.9.0",
+		"eslint": "^7.10.0",
 		"nodemon": "^2.0.4"
 	},
 	"scripts": {
