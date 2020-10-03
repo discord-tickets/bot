@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -14,28 +14,28 @@ const fs = require('fs');
 module.exports = {
 	event: 'messageReactionAdd',
 	async execute(client, [r, u], {config, Ticket, Setting}) {
-
-		if (r.partial) 
+		if (r.partial) {
 			try {
 				await r.fetch();
 			} catch (err) {
 				log.error(err);
 				return;
 			}
+		}
 
 		let panelID = await Setting.findOne({ where: { key: 'panel_msg_id' } });
 		if (!panelID) return;
 
-		if(r.message.id !== panelID.get('value')) return;
+		if (r.message.id !== panelID.get('value')) return;
 
-		if(u.id === client.user.id) return;
+		if (u.id === client.user.id) return;
 
 		if (r.emoji.name !== config.panel.reaction && r.emoji.id !== config.panel.reaction) return;
 
 		let channel = r.message.channel;
 
 		const supportRole = channel.guild.roles.cache.get(config.staff_role);
-		if (!supportRole)
+		if (!supportRole) {
 			return channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -43,7 +43,7 @@ module.exports = {
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
 					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
-
+		}
 
 		// everything is cool
 
@@ -56,7 +56,7 @@ module.exports = {
 			},
 			limit: config.tickets.max
 		});
-	
+
 		if (tickets.count >= config.tickets.max) {
 			let ticketList = [];
 			for (let t in tickets.rows)  {
@@ -67,7 +67,6 @@ module.exports = {
 			let dm = u.dmChannel || await u.createDM();
 
 			try {
-
 				return dm.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -76,10 +75,7 @@ module.exports = {
 						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name, channel.guild.iconURL())
 				);
-		
-
 			} catch (e) {
-
 				let m = await channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -88,11 +84,8 @@ module.exports = {
 						.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
 				);
-		
 				return m.delete({ timeout: 15000 });
 			}
-				
-			
 		}
 
 		let topic = 'No topic given (created via panel)';
@@ -130,7 +123,6 @@ module.exports = {
 			],
 			reason: 'User requested a new support ticket channel'
 		}).then(async c => {
-
 			Ticket.update({
 				channel: c.id
 			}, {
@@ -179,9 +171,8 @@ module.exports = {
 					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
 
-			if (config.tickets.pin)
-				await w.pin();
-				// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
+			if (config.tickets.pin) await w.pin();
+			// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
 
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(
@@ -197,8 +188,6 @@ module.exports = {
 				);
 
 			log.info(`${u.tag} created a new ticket (#${name}) via panel`);
-
-
 		}).catch(log.error);
 	}
 };

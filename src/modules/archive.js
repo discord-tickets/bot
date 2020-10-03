@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 
@@ -17,7 +17,7 @@ const fetch = require('node-fetch');
 
 module.exports.add = (message) => {
 
-	if(message.type !== 'DEFAULT') return;
+	if (message.type !== 'DEFAULT') return;
 
 	if (config.transcripts.text.enabled) { // text transcripts
 		let path = `user/transcripts/text/${message.channel.id}.txt`,
@@ -33,8 +33,7 @@ module.exports.add = (message) => {
 			json = `user/transcripts/raw/entities/${message.channel.id}.json`;
 
 		let embeds = [];
-		for (let embed in message.embeds)
-			embeds.push({ ...message.embeds[embed] });
+		for (let embed in message.embeds) embeds.push({ ...message.embeds[embed] });
 
 		// message
 		fs.appendFileSync(raw, JSON.stringify({
@@ -100,15 +99,14 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 				channel: channel.id
 			}
 		});
-		
+
 		let raw = `user/transcripts/raw/${channel.id}.log`,
 			json = `user/transcripts/raw/entities/${channel.id}.json`;
 
-		if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json))
-			return reject(false);
-		
+		if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json)) return reject(false);
+
 		let data = JSON.parse(fs.readFileSync(json));
-	
+
 		data.ticket = {
 			id: ticket.id,
 			name: channel.name,
@@ -122,15 +120,12 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 		lineReader.eachLine(raw, line => {
 			let message = JSON.parse(line);
 			let index = data.messages.findIndex(m => m.id === message.id);
-			if (index === -1)
-				data.messages.push(message);
-			else
-				data.messages[index] = message;	
+			if (index === -1) data.messages.push(message);
+			else data.messages[index] = message;
 		}, () => {
 			let endpoint = config.transcripts.web.server;
 
-			if (endpoint[endpoint.length - 1] === '/')
-				endpoint = endpoint.slice(0, -1);
+			if (endpoint[endpoint.length - 1] === '/') endpoint = endpoint.slice(0, -1);
 
 			endpoint += `/${data.ticket.creator}/${data.ticket.channel}/?key=${process.env.ARCHIVES_KEY}`;
 
@@ -156,8 +151,6 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 					log.warn(e);
 					return resolve(e);
 				});
-		});	
-	
+		});
 	})();
-
 });

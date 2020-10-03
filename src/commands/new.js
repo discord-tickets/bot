@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -19,9 +19,8 @@ module.exports = {
 	example: 'new my server won\'t start',
 	args: false,
 	async execute(client, message, args, {config, Ticket}) {
-		
 		const guild = client.guilds.cache.get(config.guild);
-		
+
 		const supportRole = guild.roles.cache.get(config.staff_role);
 		if (!supportRole)
 			return message.channel.send(
@@ -43,12 +42,12 @@ module.exports = {
 
 		if (tickets.count >= config.tickets.max) {
 			let ticketList = [];
-			for (let t in tickets.rows)  {
+			for (let t in tickets.rows) {
 				let desc = tickets.rows[t].topic.substring(0, 30);
 				ticketList
 					.push(`<#${tickets.rows[t].channel}>: \`${desc}${desc.length > 30 ? '...' : ''}\``);
-			}		
-			
+			}
+
 			let m = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -63,7 +62,7 @@ module.exports = {
 				await m.delete();
 			}, 15000);
 		}
-			
+
 
 		let topic = args.join(' ');
 		if (topic.length > 256)
@@ -75,9 +74,7 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		else if (topic.length < 1)
-			topic = 'No topic given';
-
+		else if (topic.length < 1) topic = 'No topic given';
 
 		let ticket = await Ticket.create({
 			channel: '',
@@ -100,7 +97,7 @@ module.exports = {
 			{
 				id: client.user,
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
-			},		       
+			},
 			{
 				id: message.member,
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
@@ -134,7 +131,7 @@ module.exports = {
 				await message.delete();
 				await m.delete();
 			}, 15000);
-			
+
 			// require('../modules/archive').create(client, c); // create files
 
 			let ping;
@@ -175,9 +172,8 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			if (config.tickets.pin)
-				await w.pin();
-				// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
+			if (config.tickets.pin) await w.pin();
+			// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
 
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(

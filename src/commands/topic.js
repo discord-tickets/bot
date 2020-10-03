@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { MessageEmbed } = require('discord.js');
@@ -16,7 +16,6 @@ module.exports = {
 	example: 'topic need help error',
 	args: true,
 	async execute(client, message, args, {config, Ticket}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		let ticket = await Ticket.findOne({
@@ -25,7 +24,7 @@ module.exports = {
 			}
 		});
 
-		if (!ticket)
+		if (!ticket) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -36,10 +35,10 @@ module.exports = {
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
-
+		}
 
 		let topic = args.join(' ');
-		if (topic.length > 256)
+		if (topic.length > 256) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -47,10 +46,11 @@ module.exports = {
 					.setTitle(':x: **Description too long**')
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
-			);	
+			);
+		}
 
 		message.channel.setTopic(`<@${ticket.creator}> | ` + topic);
-			
+
 		Ticket.update({
 			topic: topic
 		}, {
@@ -58,7 +58,6 @@ module.exports = {
 				channel: message.channel.id
 			}
 		});
-
 
 		message.channel.send(
 			new MessageEmbed()

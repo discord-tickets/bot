@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { MessageEmbed } = require('discord.js');
@@ -15,8 +15,7 @@ module.exports = {
 	aliases: ['data', 'statistics'],
 	example: '',
 	args: false,
-	async execute(client, message, args, {config, Ticket}) {
-
+	async execute(client, message, _args, {config, Ticket}) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let open = await Ticket.count({ where: { open: true } });
