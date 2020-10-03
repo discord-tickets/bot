@@ -12,33 +12,33 @@ const fs = require('fs');
 
 module.exports = {
 	event: 'messageUpdate',
-	async execute(client, [o, n], {config, Ticket}) {
+	async execute(_client, [o, n], {config, Ticket}) {
+		if (!config.transcripts.web.enabled) return;
 
-		if(!config.transcripts.web.enabled) return;
-
-		if (o.partial)
+		if (o.partial) {
 			try {
 				await o.fetch();
 			} catch (err) {
 				log.error(err);
 				return;
 			}
+		}
 
-		if (n.partial)
+		if (n.partial) {
 			try {
 				await n.fetch();
 			} catch (err) {
 				log.error(err);
 				return;
 			}
+		}
 
 		let ticket = await Ticket.findOne({ where: { channel: n.channel.id } });
-		if(!ticket) return;
+		if (!ticket) return;
 
 		let path = `user/transcripts/raw/${n.channel.id}.log`;
 		let embeds = [];
-		for (let embed in n.embeds)
-			embeds.push({ ...n.embeds[embed] });
+		for (let embed in n.embeds) embeds.push({ ...n.embeds[embed] });
 
 		fs.appendFileSync(path, JSON.stringify({
 			id: n.id,

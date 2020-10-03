@@ -18,7 +18,6 @@ module.exports = {
 	example: 'add @member to #ticket-23',
 	args: true,
 	async execute(client, message, args, {config, Ticket}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		const notTicket = new MessageEmbed()
@@ -37,8 +36,7 @@ module.exports = {
 		if (!channel) {
 			channel = message.channel;
 			ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
-			if(!ticket)
-				return message.channel.send(notTicket);
+			if (!ticket) return message.channel.send(notTicket);
 
 		} else {
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
@@ -50,7 +48,7 @@ module.exports = {
 			}
 		}
 
-		if(message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role)) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -61,10 +59,11 @@ module.exports = {
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
 
 		let member = guild.member(message.mentions.users.first() || guild.members.cache.get(args[0]));
 
-		if (!member)
+		if (!member) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -75,6 +74,7 @@ module.exports = {
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
 
 		try {
 			channel.updateOverwrite(member.user, {
@@ -84,7 +84,7 @@ module.exports = {
 				READ_MESSAGE_HISTORY: true
 			});
 
-			if (channel.id !== message.channel.id)
+			if (channel.id !== message.channel.id) {
 				channel.send(
 					new MessageEmbed()
 						.setColor(config.colour)
@@ -93,7 +93,7 @@ module.exports = {
 						.setDescription(`${member} has been added by ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
-
+			}
 
 			message.channel.send(
 				new MessageEmbed()

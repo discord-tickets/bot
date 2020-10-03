@@ -18,19 +18,19 @@ module.exports = {
 	example: '',
 	args: false,
 	permission: 'MANAGE_GUILD',
-	async execute(client, message, args, {config, Setting}) {
-
+	async execute(client, message, _args, {config, Setting}) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let msgID = await Setting.findOne({ where: { key: 'panel_msg_id' } });
 		let chanID = await Setting.findOne({ where: { key: 'panel_chan_id' } });
 		let panel;
 
-		if (!chanID)
+		if (!chanID) {
 			chanID = await Setting.create({
 				key: 'panel_chan_id',
 				value: message.channel.id,
 			});
+		}
 
 		if (!msgID) {
 			msgID = await Setting.create({
@@ -40,12 +40,12 @@ module.exports = {
 		} else {
 			try {
 				panel = await client.channels.cache.get(chanID.get('value')).messages.fetch(msgID.get('value')); // get old panel message
-				if (panel)
+				if (panel) {
 					panel.delete({ reason: 'Creating new panel/widget' }).then(() => log.info('Deleted old panel')).catch(e => log.warn(e)); // delete old panel
+				}
 			} catch (e) {
 				log.warn('Couldn\'t delete old panel');
 			}
-
 		}
 
 		message.delete();

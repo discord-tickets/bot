@@ -19,7 +19,6 @@ module.exports = {
 	example: 'new my server won\'t start',
 	args: false,
 	async execute(client, message, args, {config, Ticket}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
@@ -43,7 +42,7 @@ module.exports = {
 
 		if (tickets.count >= config.tickets.max) {
 			let ticketList = [];
-			for (let t in tickets.rows)  {
+			for (let t in tickets.rows) {
 				let desc = tickets.rows[t].topic.substring(0, 30);
 				ticketList
 					.push(`<#${tickets.rows[t].channel}>: \`${desc}${desc.length > 30 ? '...' : ''}\``);
@@ -75,9 +74,7 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		else if (topic.length < 1)
-			topic = 'No topic given';
-
+		else if (topic.length < 1) topic = 'No topic given';
 
 		let ticket = await Ticket.create({
 			channel: '',
@@ -175,9 +172,8 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			if (config.tickets.pin)
-				await w.pin();
-				// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
+			if (config.tickets.pin) await w.pin();
+			// await w.pin().then(m => m.delete()); // oopsie, this deletes the pinned message
 
 			if (config.logs.discord.enabled)
 				client.channels.cache.get(config.logs.discord.channel).send(

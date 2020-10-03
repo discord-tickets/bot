@@ -24,7 +24,6 @@ module.exports = {
 		config,
 		Ticket
 	}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		const notTicket = new MessageEmbed()
@@ -48,11 +47,9 @@ module.exports = {
 					channel: channel.id
 				}
 			});
-			if (!ticket)
-				return channel.send(notTicket);
+			if (!ticket) return channel.send(notTicket);
 
 		} else {
-
 			ticket = await Ticket.findOne({
 				where: {
 					channel: channel.id
@@ -65,7 +62,7 @@ module.exports = {
 				return message.channel.send(notTicket);
 			}
 
-			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role)) {
 				return channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -76,6 +73,7 @@ module.exports = {
 						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 						.setFooter(guild.name, guild.iconURL())
 				);
+			}
 		}
 
 		let success;
@@ -124,14 +122,9 @@ module.exports = {
 				raw = `user/transcripts/raw/${ticket.get('channel')}.log`,
 				json = `user/transcripts/raw/entities/${ticket.get('channel')}.json`;
 
-			if (fs.existsSync(txt))
-				fs.unlinkSync(txt);
-
-			if (fs.existsSync(raw))
-				fs.unlinkSync(raw);
-
-			if (fs.existsSync(json))
-				fs.unlinkSync(json);
+			if (fs.existsSync(txt)) fs.unlinkSync(txt);
+			if (fs.existsSync(raw)) fs.unlinkSync(raw);
+			if (fs.existsSync(json)) fs.unlinkSync(json);
 
 			// update database
 			success = true;
@@ -147,7 +140,7 @@ module.exports = {
 
 			log.info(`${message.author.tag} deleted a ticket (#ticket-${ticket.id})`);
 
-			if (config.logs.discord.enabled)
+			if (config.logs.discord.enabled) {
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new MessageEmbed()
 						.setColor(config.colour)
@@ -158,6 +151,7 @@ module.exports = {
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()
 				);
+			}
 		});
 
 

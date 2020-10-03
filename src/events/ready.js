@@ -13,7 +13,6 @@ const config = require('../../user/' + require('../').config);
 module.exports = {
 	event: 'ready',
 	execute(client) {
-
 		log.success(`Authenticated as ${client.user.tag}`);
 
 		const updatePresence = () => {
@@ -33,10 +32,8 @@ module.exports = {
 		}, 60000);
 
 
-		if (client.guilds.cache.get(config.guild).member(client.user).hasPermission('ADMINISTRATOR', false))
+		if (client.guilds.cache.get(config.guild).member(client.user).hasPermission('ADMINISTRATOR', false)) {
 			log.success('\'ADMINISTRATOR\' permission has been granted');
-		else
-			log.warn('Bot does not have \'ADMINISTRATOR\' permission');
-
+		} else log.warn('Bot does not have \'ADMINISTRATOR\' permission');
 	}
 };

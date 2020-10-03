@@ -18,7 +18,6 @@ module.exports = {
 	example: 'help new',
 	args: false,
 	execute(client, message, args, {config}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		const commands = Array.from(client.commands.values());
@@ -27,15 +26,12 @@ module.exports = {
 			let cmds = [];
 
 			for (let command of commands) {
-				if (command.hide)
-					continue;
-				if (command.permission && !message.member.hasPermission(command.permission))
-					continue;
+				if (command.hide) continue;
+				if (command.permission && !message.member.hasPermission(command.permission)) continue;
 
 				let desc = command.description;
 
-				if (desc.length > 50)
-					desc = desc.substring(0, 50) + '...';
+				if (desc.length > 50) desc = desc.substring(0, 50) + '...';
 				cmds.push(`**${config.prefix}${command.name}** **·** ${desc}`);
 			}
 
@@ -71,11 +67,9 @@ module.exports = {
 				.setTitle(command.name);
 
 
-			if (command.long) {
-				cmd.setDescription(command.long);
-			} else {
-				cmd.setDescription(command.description);
-			}
+			if (command.long) cmd.setDescription(command.long);
+			else cmd.setDescription(command.description);
+
 			if (command.aliases) cmd.addField('Aliases', `\`${command.aliases.join(', ')}\``, true);
 
 			if (command.usage) cmd.addField('Usage', `\`${config.prefix}${command.name} ${command.usage}\``, false);
@@ -85,12 +79,9 @@ module.exports = {
 
 			if (command.permission && !message.member.hasPermission(command.permission)) {
 				cmd.addField('Required Permission', `\`${command.permission}\` :exclamation: You don't have permission to use this command`, true);
-			} else {
-				cmd.addField('Required Permission', `\`${command.permission || 'none'}\``, true);
-			}
+			} else cmd.addField('Required Permission', `\`${command.permission || 'none'}\``, true);
 
 			message.channel.send(cmd);
-
 		}
 
 		// command ends here

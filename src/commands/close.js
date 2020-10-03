@@ -21,11 +21,7 @@ module.exports = {
 	aliases: ['none'],
 	example: 'close #ticket-17',
 	args: false,
-	async execute(client, message, args, {
-		config,
-		Ticket
-	}) {
-
+	async execute(client, message, args, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const notTicket = new MessageEmbed()
@@ -49,11 +45,8 @@ module.exports = {
 					channel: channel.id
 				}
 			});
-			if (!ticket)
-				return channel.send(notTicket);
-
+			if (!ticket) return channel.send(notTicket);
 		} else {
-
 			ticket = await Ticket.findOne({
 				where: {
 					channel: channel.id
@@ -102,7 +95,7 @@ module.exports = {
 			});
 
 		collector.on('collect', async () => {
-			if (channel.id !== message.channel.id)
+			if (channel.id !== message.channel.id) {
 				channel.send(
 					new MessageEmbed()
 						.setColor(config.colour)
@@ -111,6 +104,7 @@ module.exports = {
 						.setDescription(`Ticket closed by ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
+			}
 
 			confirm.reactions.removeAll();
 			confirm.edit(
@@ -149,22 +143,19 @@ module.exports = {
 						}];
 					}
 
-					if (
-						fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`)
-						&&
-						fs.existsSync(`user/transcripts/raw/entities/${ticket.get('channel')}.json`)
-					)
+					if (fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`) && fs.existsSync(`user/transcripts/raw/entities/${ticket.get('channel')}.json`)) {
 						embed.addField('Web archive', await archive.export(Ticket, channel));
+					}
 
-					if (embed.fields.length < 1)
+					if (embed.fields.length < 1) {
 						embed.setDescription(`No text transcripts or archive data exists for ticket ${ticket.id}`);
+					}
 
 					res.embed = embed;
 
 					dm.send(res).then();
 				}
 			}
-
 
 			// update database
 			success = true;
@@ -186,7 +177,7 @@ module.exports = {
 
 			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
 
-			if (config.logs.discord.enabled)
+			if (config.logs.discord.enabled) {
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new MessageEmbed()
 						.setColor(config.colour)
@@ -197,6 +188,7 @@ module.exports = {
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()
 				);
+			}
 		});
 
 

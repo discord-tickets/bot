@@ -148,8 +148,7 @@ const clean = () => {
 			total++;
 		}
 	}
-	if (total > 0)
-		log.info(`Deleted ${total} old text ${utils.plural('transcript', total)}`);
+	if (total > 0) log.info(`Deleted ${total} old text ${utils.plural('transcript', total)}`);
 };
 
 if (config.transcripts.text.enabled) {

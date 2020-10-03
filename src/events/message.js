@@ -30,8 +30,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		 */
 
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
-		if(ticket)
-			archive.add(message); // add message to archive
+		if (ticket) archive.add(message); // add message to archive
 
 		if (message.author.bot || message.author.id === client.user.id) return; // goodbye bots
 
@@ -52,8 +51,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 
 		if (!command || commandName === 'none') return; // not an existing command
 
-		if (message.guild.id !== guild.id)
-			return message.reply(`This bot can only be used within the "${guild}" server`); // not in this server
+		if (message.guild.id !== guild.id) return message.reply(`This bot can only be used within the "${guild}" server`); // not in this server
 
 		if (command.permission && !message.member.hasPermission(command.permission)) {
 			log.console(`${message.author.tag} tried to use the '${command.name}' command without permission`);
@@ -66,7 +64,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 			);
 		}
 
-		if (command.args && !args.length)
+		if (command.args && !args.length) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -74,6 +72,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 					.addField('Help', `Type \`${config.prefix}help ${command.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
 
 		if (!client.cooldowns.has(command.name)) client.cooldowns.set(command.name, new Collection());
 

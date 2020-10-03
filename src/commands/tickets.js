@@ -17,11 +17,10 @@ module.exports = {
 	example: '',
 	args: false,
 	async execute(client, message, args, {config, Ticket}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
-		if (!supportRole)
+		if (!supportRole) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -29,12 +28,13 @@ module.exports = {
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
 
 		let context = 'self';
 		let user = message.mentions.users.first() || guild.members.cache.get(args[0]);
 
-		if(user) {
-			if(!message.member.roles.cache.has(config.staff_role))
+		if (user) {
+			if (!message.member.roles.cache.has(config.staff_role)) {
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
@@ -45,12 +45,10 @@ module.exports = {
 						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 						.setFooter(guild.name, guild.iconURL())
 				);
+			}
 
 			context = 'staff';
-		} else {
-			user = message.author;
-		}
-
+		} else user = message.author;
 
 		let openTickets = await Ticket.findAndCountAll({
 			where: {
@@ -74,8 +72,9 @@ module.exports = {
 			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} tickets`)
 			.setFooter(guild.name + ' | This message will be deleted in 60 seconds', guild.iconURL());
 
-		if(config.transcripts.web.enabled)
+		if (config.transcripts.web.enabled) {
 			embed.setDescription(`You can access all of your ticket archives on the [web portal](${config.transcripts.web.server}/${user.id}).`);
+		}
 
 		let open = [],
 			closed = [];
@@ -89,12 +88,14 @@ module.exports = {
 			let desc = closedTickets.rows[t].topic.substring(0, 30);
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
-			if(fs.existsSync(`user/transcripts/text/${c}.txt`) || config.transcripts.web.enabled)
+			if (fs.existsSync(`user/transcripts/text/${c}.txt`) || config.transcripts.web.enabled) {
 				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
+			}
 
 			closed.push(`> **#${closedTickets.rows[t].id}**: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
 
 		}
+
 		let pre = context === 'self' ? 'You have' : user.username + ' has';
 		embed.addField('Open tickets', openTickets.count === 0 ? `${pre} no open tickets.` : open.join('\n\n'), false);
 		embed.addField('Closed tickets', closedTickets.count === 0 ? `${pre} no old tickets` : closed.join('\n\n'), false);

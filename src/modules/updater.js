@@ -16,8 +16,7 @@ const boxen = require('boxen');
 const link = require('terminal-link');
 
 module.exports = async () => {
-	if(!config.updater)
-		return;
+	if (!config.updater) return;
 	const json = await (await fetch('https://api.github.com/repos/eartharoid/DiscordTickets/releases')).json();
 	const update = json[0];
 	let notice = [];

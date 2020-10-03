@@ -19,7 +19,6 @@ module.exports = {
 	example: 'transcript 57',
 	args: true,
 	async execute(client, message, args, {config, Ticket}) {
-
 		const guild = client.guilds.cache.get(config.guild);
 		const id = args[0];
 
@@ -31,7 +30,7 @@ module.exports = {
 		});
 
 
-		if (!ticket)
+		if (!ticket) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -40,8 +39,9 @@ module.exports = {
 					.setDescription('Couldn\'t find a closed ticket with that ID')
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
 
-		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role)) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -50,6 +50,8 @@ module.exports = {
 					.setDescription(`You don't have permission to view ticket ${id} as it does not belong to you and you are not staff.`)
 					.setFooter(guild.name, guild.iconURL())
 			);
+		}
+
 		let res = {};
 		const embed = new MessageEmbed()
 			.setColor(config.colour)
@@ -69,11 +71,9 @@ module.exports = {
 
 
 		const BASE_URL = config.transcripts.web.server;
-		if (config.transcripts.web.enabled)
-			embed.addField('Web archive', `${BASE_URL}/${ticket.creator}/${ticket.channel}`);
+		if (config.transcripts.web.enabled) embed.addField('Web archive', `${BASE_URL}/${ticket.creator}/${ticket.channel}`);
 
-		if (embed.fields.length < 1)
-			embed.setDescription(`No text transcripts or archive data exists for ticket ${id}`);
+		if (embed.fields.length < 1) embed.setDescription(`No text transcripts or archive data exists for ticket ${id}`);
 
 		res.embed = embed;
 
@@ -85,8 +85,7 @@ module.exports = {
 		}
 
 		channel.send(res).then(m => {
-			if (channel.id === message.channel.id)
-				m.delete({timeout: 15000});
+			if (channel.id === message.channel.id) m.delete({timeout: 15000});
 		});
 		message.delete({timeout: 1500});
 	}
