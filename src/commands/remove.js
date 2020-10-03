@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { MessageEmbed } = require('discord.js');
@@ -34,15 +34,15 @@ module.exports = {
 
 		let channel = message.mentions.channels.first();
 
-		if(!channel) {
+		if (!channel) {
 
 			channel = message.channel;
 			ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
-			if(!ticket) 
+			if (!ticket)
 				return message.channel.send(notTicket);
 
 		} else {
-		
+
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
 			if(!ticket) {
 				notTicket
@@ -52,7 +52,7 @@ module.exports = {
 			}
 		}
 
-		if(message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -63,11 +63,11 @@ module.exports = {
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
-		
-		
+
+
 
 		let member = guild.member(message.mentions.users.first() || guild.members.cache.get(args[0]));
-		
+
 		if(!member || member.id === message.author.id || member.id === guild.me.id) 
 			return message.channel.send(
 				new MessageEmbed()
@@ -99,7 +99,7 @@ module.exports = {
 				);
 
 
-			
+
 			message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
@@ -108,7 +108,7 @@ module.exports = {
 					.setDescription(`${member} has been removed from <#${ticket.channel}>`)
 					.setFooter(guild.name, guild.iconURL())
 			);
-			
+
 			log.info(`${message.author.tag} removed a user from a ticket (#${message.channel.id})`);
 		} catch (error) {
 			log.error(error);

@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -26,13 +26,13 @@ module.exports = {
 		let chanID = await Setting.findOne({ where: { key: 'panel_chan_id' } });
 		let panel;
 
-		if(!chanID) 
+		if (!chanID)
 			chanID = await Setting.create({
 				key: 'panel_chan_id',
 				value: message.channel.id,
 			});
 
-		if(!msgID) {
+		if (!msgID) {
 			msgID = await Setting.create({
 				key: 'panel_msg_id',
 				value: '',
@@ -45,7 +45,7 @@ module.exports = {
 			} catch (e) {
 				log.warn('Couldn\'t delete old panel');
 			}
-			
+
 		}
 
 		message.delete();

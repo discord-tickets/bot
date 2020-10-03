@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 const fs = require('fs');
 const path = require('path');
@@ -40,7 +40,6 @@ log.multi(log); // required to allow other files to access the logger
 
 require('./modules/updater')(); // check for updates
 
-
 /**
  * storage
  */
@@ -48,14 +47,40 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 
 let sequelize;
 
-if(config.storage.type === 'mysql') {
+switch (config.storage.type) {
+case 'mysql':
 	log.info('Connecting to MySQL database...');
 	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
 		dialect: 'mysql',
 		host: process.env.DB_HOST,
 		logging: log.debug
 	});
-} else {
+	break;
+case 'mariadb':
+	log.info('Connecting to MariaDB database...');
+	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+		dialect: 'mariadb',
+		host: process.env.DB_HOST,
+		logging: log.debug
+	});
+	break;
+case 'postgres':
+	log.info('Connecting to PostgresSQL database...');
+	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+		dialect: 'postgres',
+		host: process.env.DB_HOST,
+		logging: log.debug
+	});
+	break;
+case 'microsoft':
+	log.info('Connecting to Microsoft SQL Server database...');
+	sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+		dialect: 'mssql',
+		host: process.env.DB_HOST,
+		logging: log.debug
+	});
+	break;
+default:
 	log.info('Using SQLite storage');
 	sequelize = new Sequelize({
 		dialect: 'sqlite',
@@ -90,7 +115,7 @@ Setting.sync();
 /**
  * event loader
  */
-const events = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));		
+const events = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
 for (const file of events) {
 	const event = require(`./events/${file}`);
 	client.events.set(event.event, event);
@@ -102,12 +127,12 @@ for (const file of events) {
 /**
  * command loader
  */
-const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));		
+const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
 for (const file of commands) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 	log.console(log.format(`> Loaded &7${config.prefix}${command.name}&f command`));
-}		
+}
 
 log.info(`Loaded ${events.length} events and ${commands.length} commands`);
 

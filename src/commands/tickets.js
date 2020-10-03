@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { MessageEmbed } = require('discord.js');
@@ -19,7 +19,7 @@ module.exports = {
 	async execute(client, message, args, {config, Ticket}) {
 
 		const guild = client.guilds.cache.get(config.guild);
-		
+
 		const supportRole = guild.roles.cache.get(config.staff_role);
 		if (!supportRole)
 			return message.channel.send(
@@ -32,7 +32,7 @@ module.exports = {
 
 		let context = 'self';
 		let user = message.mentions.users.first() || guild.members.cache.get(args[0]);
-		
+
 		if(user) {
 			if(!message.member.roles.cache.has(config.staff_role))
 				return message.channel.send(
@@ -76,17 +76,15 @@ module.exports = {
 
 		if(config.transcripts.web.enabled)
 			embed.setDescription(`You can access all of your ticket archives on the [web portal](${config.transcripts.web.server}/${user.id}).`);
-		
+
 		let open = [],
 			closed = [];
 
-	
 		for (let t in openTickets.rows)  {
 			let desc = openTickets.rows[t].topic.substring(0, 30);
 			open.push(`> <#${openTickets.rows[t].channel}>: \`${desc}${desc.length > 20 ? '...' : ''}\``);
-		
 		}
-		
+
 		for (let t in closedTickets.rows)  {
 			let desc = closedTickets.rows[t].topic.substring(0, 30);
 			let transcript = '';
@@ -95,12 +93,12 @@ module.exports = {
 				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
 
 			closed.push(`> **#${closedTickets.rows[t].id}**: \`${desc}${desc.length > 20 ? '...' : ''}\`${transcript}`);
-		
+
 		}
 		let pre = context === 'self' ? 'You have' : user.username + ' has';
 		embed.addField('Open tickets', openTickets.count === 0 ? `${pre} no open tickets.` : open.join('\n\n'), false);
 		embed.addField('Closed tickets', closedTickets.count === 0 ? `${pre} no old tickets` : closed.join('\n\n'), false);
-			
+
 		message.delete({timeout: 15000});
 
 		let channel;

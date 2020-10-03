@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { MessageEmbed } = require('discord.js');
@@ -47,10 +47,10 @@ module.exports = {
 					.setTitle(':x: **Description too long**')
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
-			);	
+			);
 
 		message.channel.setTopic(`<@${ticket.creator}> | ` + topic);
-			
+
 		Ticket.update({
 			topic: topic
 		}, {

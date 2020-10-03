@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -20,7 +20,7 @@ module.exports = {
 	execute(client, message, args, {config}) {
 
 		const guild = client.guilds.cache.get(config.guild);
-	
+
 		const commands = Array.from(client.commands.values());
 
 		if (!args.length) {
@@ -29,7 +29,7 @@ module.exports = {
 			for (let command of commands) {
 				if (command.hide)
 					continue;
-				if (command.permission && !message.member.hasPermission(command.permission)) 
+				if (command.permission && !message.member.hasPermission(command.permission))
 					continue;
 
 				let desc = command.description;
@@ -38,7 +38,7 @@ module.exports = {
 					desc = desc.substring(0, 50) + '...';
 				cmds.push(`**${config.prefix}${command.name}** **·** ${desc}`);
 			}
-		
+
 			message.channel.send(
 				new MessageEmbed()
 					.setTitle('Commands')
@@ -58,13 +58,13 @@ module.exports = {
 			const name = args[0].toLowerCase();
 			const command = client.commands.get(name) || client.commands.find(c => c.aliases && c.aliases.includes(name));
 
-			if (!command) 
+			if (!command)
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setDescription(`:x: **Invalid command name** (\`${config.prefix}help\`)`)
 				);
-			
+
 
 			const cmd = new MessageEmbed()
 				.setColor(config.colour)
@@ -88,7 +88,7 @@ module.exports = {
 			} else {
 				cmd.addField('Required Permission', `\`${command.permission || 'none'}\``, true);
 			}
-            
+
 			message.channel.send(cmd);
 
 		}

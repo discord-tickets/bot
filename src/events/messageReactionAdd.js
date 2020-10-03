@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -15,7 +15,7 @@ module.exports = {
 	event: 'messageReactionAdd',
 	async execute(client, [r, u], {config, Ticket, Setting}) {
 
-		if (r.partial) 
+		if (r.partial)
 			try {
 				await r.fetch();
 			} catch (err) {
@@ -56,7 +56,7 @@ module.exports = {
 			},
 			limit: config.tickets.max
 		});
-	
+
 		if (tickets.count >= config.tickets.max) {
 			let ticketList = [];
 			for (let t in tickets.rows)  {
@@ -76,7 +76,7 @@ module.exports = {
 						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name, channel.guild.iconURL())
 				);
-		
+
 
 			} catch (e) {
 
@@ -88,11 +88,11 @@ module.exports = {
 						.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
 				);
-		
+
 				return m.delete({ timeout: 15000 });
 			}
-				
-			
+
+
 		}
 
 		let topic = 'No topic given (created via panel)';

@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -153,10 +153,9 @@ module.exports = {
 						fs.existsSync(`user/transcripts/raw/${ticket.get('channel')}.log`)
 						&&
 						fs.existsSync(`user/transcripts/raw/entities/${ticket.get('channel')}.json`)
-					) 
+					)
 						embed.addField('Web archive', await archive.export(Ticket, channel));
-						
-			
+
 					if (embed.fields.length < 1)
 						embed.setDescription(`No text transcripts or archive data exists for ticket ${ticket.id}`);
 

@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const fs = require('fs');
@@ -66,7 +66,7 @@ module.exports = {
 				}
 			];
 		}
-			
+
 
 		const BASE_URL = config.transcripts.web.server;
 		if (config.transcripts.web.enabled)
@@ -83,7 +83,7 @@ module.exports = {
 		} catch (e) {
 			channel = message.channel;
 		}
-			
+
 		channel.send(res).then(m => {
 			if (channel.id === message.channel.id)
 				m.delete({timeout: 15000});

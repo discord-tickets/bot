@@ -19,7 +19,10 @@
 		"sqlite3": "^5.0.0"
 	},
 	"peerDependencies": {
-		"mysql2": "2.x"
+		"mysql2": "2.x",
+		"mariadb": "2.x",
+		"pg": "8.x",
+		"tedious": "9.x"
 	},
 	"devDependencies": {
 		"eslint": "^7.10.0",

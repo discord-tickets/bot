@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -124,13 +124,13 @@ module.exports = {
 				raw = `user/transcripts/raw/${ticket.get('channel')}.log`,
 				json = `user/transcripts/raw/entities/${ticket.get('channel')}.json`;
 
-			if (fs.existsSync(txt)) 
+			if (fs.existsSync(txt))
 				fs.unlinkSync(txt);
 
-			if (fs.existsSync(raw)) 
+			if (fs.existsSync(raw))
 				fs.unlinkSync(raw);
 
-			if (fs.existsSync(json)) 
+			if (fs.existsSync(json))
 				fs.unlinkSync(json);
 
 			// update database

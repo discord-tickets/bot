@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const { Collection, MessageEmbed } = require('discord.js');
@@ -23,19 +23,19 @@ module.exports = {
 I am the support bot for **${guild}**.
 Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		} // stop here if is DM
-	
+
 		/**
 		 * Ticket transcripts
 		 * (bots currently still allowed)
 		 */
-		
+
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
-		if(ticket) 
+		if(ticket)
 			archive.add(message); // add message to archive
 
 		if (message.author.bot || message.author.id === client.user.id) return; // goodbye bots
 
-		
+
 		/**
 		 * Command handler
 		 * (no bots / self)
@@ -49,7 +49,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		const commandName = args.shift().toLowerCase();
 		const command = client.commands.get(commandName)
 			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-		
+
 		if (!command || commandName === 'none') return; // not an existing command
 
 		if (message.guild.id !== guild.id)
@@ -76,7 +76,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 			);
 
 		if (!client.cooldowns.has(command.name)) client.cooldowns.set(command.name, new Collection());
-	
+
 		const now = Date.now();
 		const timestamps = client.cooldowns.get(command.name);
 		const cooldownAmount = (command.cooldown || config.cooldown) * 1000;

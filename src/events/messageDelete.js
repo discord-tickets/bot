@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 const ChildLogger = require('leekslazylogger').ChildLogger;
@@ -16,7 +16,7 @@ module.exports = {
 
 		if(!config.transcripts.web.enabled) return;
 
-		if (message.partial) 
+		if (message.partial)
 			try {
 				await message.fetch();
 			} catch (err) {
@@ -27,7 +27,7 @@ module.exports = {
 
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
 		if(!ticket) return;
-		
+
 
 		let path = `user/transcripts/raw/${message.channel.id}.log`;
 		let embeds = [];

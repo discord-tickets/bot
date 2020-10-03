@@ -1,9 +1,9 @@
 /**
- * 
+ *
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
- * 
+ *
  */
 
 
@@ -17,7 +17,7 @@ const fetch = require('node-fetch');
 
 module.exports.add = (message) => {
 
-	if(message.type !== 'DEFAULT') return;
+	if (message.type !== 'DEFAULT') return;
 
 	if (config.transcripts.text.enabled) { // text transcripts
 		let path = `user/transcripts/text/${message.channel.id}.txt`,
@@ -100,15 +100,15 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 				channel: channel.id
 			}
 		});
-		
+
 		let raw = `user/transcripts/raw/${channel.id}.log`,
 			json = `user/transcripts/raw/entities/${channel.id}.json`;
 
 		if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json))
 			return reject(false);
-		
+
 		let data = JSON.parse(fs.readFileSync(json));
-	
+
 		data.ticket = {
 			id: ticket.id,
 			name: channel.name,
@@ -125,7 +125,7 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 			if (index === -1)
 				data.messages.push(message);
 			else
-				data.messages[index] = message;	
+				data.messages[index] = message;
 		}, () => {
 			let endpoint = config.transcripts.web.server;
 
@@ -156,8 +156,8 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 					log.warn(e);
 					return resolve(e);
 				});
-		});	
-	
+		});
+
 	})();
 
 });
