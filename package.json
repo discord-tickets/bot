@@ -5,7 +5,7 @@
 	"description": "An open-source & self-hosted Discord bot for ticket management.",
 	"main": "src/index.js",
 	"dependencies": {
-		"@eartharoid/dtf": "^1.0.7",
+		"@eartharoid/dtf": "^1.0.8",
 		"boxen": "^4.2.0",
 		"discord.js": "^12.3.1",
 		"dotenv": "^8.2.0",
