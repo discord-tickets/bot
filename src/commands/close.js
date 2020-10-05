@@ -45,7 +45,7 @@ module.exports = {
 					channel: channel.id
 				}
 			});
-			if (!ticket) return channel.send(notTicket);
+			if (!ticket) return message.channel.send(notTicket);
 		} else {
 			ticket = await Ticket.findOne({
 				where: {
@@ -60,7 +60,7 @@ module.exports = {
 			}
 
 			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
-				return channel.send(
+				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
