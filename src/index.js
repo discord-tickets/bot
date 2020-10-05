@@ -36,8 +36,6 @@ const log = new Logger({
 	debug: config.debug
 });
 
-log.multi(log); // required to allow other files to access the logger
-
 require('./modules/updater')(); // check for updates
 
 /**
