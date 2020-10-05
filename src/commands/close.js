@@ -59,18 +59,19 @@ module.exports = {
 				return message.channel.send(notTicket);
 			}
 
-			if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
-				return message.channel.send(
-					new MessageEmbed()
-						.setColor(config.err_colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(':x: **No permission**')
-						.setDescription(`You don't have permission to close ${channel} as it does not belong to you and you are not staff.`)
-						.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
-						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
-						.setFooter(guild.name, guild.iconURL())
-				);
 		}
+
+		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **No permission**')
+					.setDescription(`You don't have permission to close ${channel} as it does not belong to you and you are not staff.`)
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
 
 		let success;
 		let pre = fs.existsSync(`user/transcripts/text/${channel.id}.txt`) ||
