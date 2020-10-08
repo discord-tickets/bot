@@ -30,7 +30,7 @@ module.exports = {
 	prefix: '-',
 	name: 'DiscordTickets',
 	activities: ['-new', 'with tickets', 'for new tickets'],
-	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'],
+	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'], // Available: PLAYING / LISTENING / WATCHING / STREAMING
 	colour: '#009999',
 	err_colour: 'RED',
 	cooldown: 3,
