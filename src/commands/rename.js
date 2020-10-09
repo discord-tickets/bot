@@ -1,7 +1,7 @@
 /**
  *
  *  @name DiscordTickets
- *  @author eartharoid <contact@eartharoid.me>
+ *  @author iFusion for eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
  *
  */
