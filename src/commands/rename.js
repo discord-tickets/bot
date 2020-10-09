@@ -30,7 +30,7 @@ module.exports = {
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':x: **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to rename, or mention the channel.')
+					.setDescription('Use this command in the ticket channel you want to rename.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
