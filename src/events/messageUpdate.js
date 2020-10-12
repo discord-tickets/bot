@@ -6,8 +6,8 @@
  *
  */
 
-const ChildLogger = require('leekslazylogger').ChildLogger;
-const log = new ChildLogger();
+const Logger = require('leekslazylogger');
+const log = new Logger();
 const fs = require('fs');
 
 module.exports = {

@@ -7,8 +7,8 @@
  */
 
 
-const ChildLogger = require('leekslazylogger').ChildLogger;
-const log = new ChildLogger();
+const Logger = require('leekslazylogger');
+const log = new Logger();
 const lineReader = require('line-reader');
 const fs = require('fs');
 const dtf = require('@eartharoid/dtf');

@@ -6,8 +6,8 @@
  *
  */
 
-const ChildLogger = require('leekslazylogger').ChildLogger;
-const log = new ChildLogger();
+const Logger = require('leekslazylogger');
+const log = new Logger();
 const config = require('../../user/' + require('../').config);
 
 module.exports = {
@@ -16,14 +16,16 @@ module.exports = {
 		log.success(`Authenticated as ${client.user.tag}`);
 
 		const updatePresence = () => {
-			let num = Math.floor(Math.random() * config.activities.length);
+			const presence = config.presences[Math.floor(Math.random() * config.presences.length)];
+			let activity = presence.activity + config.append_presence;
+			activity = activity.replace(/%s/g, config.prefix);
 			client.user.setPresence({
 				activity: {
-					name: config.activities[num] + `  |  ${config.prefix}help`,
-					type: config.activity_types[num]
+					name: activity,
+					type: presence.type.toUpperCase()
 				}
 			}).catch(log.error);
-			log.debug(`Updated presence: ${config.activity_types[num]} ${config.activities[num]}`);
+			log.debug(`Updated presence: ${activity} ${presence.type}`);
 		};
 
 		updatePresence();

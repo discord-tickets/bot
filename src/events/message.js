@@ -7,8 +7,8 @@
  */
 
 const { Collection, MessageEmbed } = require('discord.js');
-const ChildLogger = require('leekslazylogger').ChildLogger;
-const log = new ChildLogger();
+const Logger = require('leekslazylogger');
+const log = new Logger();
 const archive = require('../modules/archive');
 
 module.exports = {

@@ -6,3 +6,4 @@ user/storage.db
 user/transcripts/text/*.txt
 user/transcripts/raw/*.log
 user/transcripts/raw/entities/*.json
+*.code-workspace

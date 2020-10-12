@@ -29,8 +29,21 @@
 module.exports = {
 	prefix: '-',
 	name: 'DiscordTickets',
-	activities: ['-new', 'with tickets', 'for new tickets'],
-	activity_types: ['PLAYING', 'PLAYING', 'WATCHING'], // Available: PLAYING / LISTENING / WATCHING / STREAMING
+	presences: [
+		{
+			activity: '%snew',
+			type: 'PLAYING'
+		},
+		{
+			activity: 'with tickets',
+			type: 'PLAYING'
+		},
+		{
+			activity: 'for new tickets',
+			type: 'WATCHING'
+		}
+	],
+	append_presence: ' | %shelp',
 	colour: '#009999',
 	err_colour: 'RED',
 	cooldown: 3,
