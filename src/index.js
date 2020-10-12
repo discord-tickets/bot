@@ -3,8 +3,14 @@
  *  @name DiscordTickets
  *  @author eartharoid <contact@eartharoid.me>
  *  @license GNU-GPLv3
+ * 
+ * DiscordTickets  Copyright (C) 2020  Isaac "eartharoid" Saunders
+ * This program comes with ABSOLUTELY NO WARRANTY.
+ * This is free software, and you are welcome to redistribute it
+ * under certain conditions. See the included LICENSE file for details.
  *
  */
+
 const fs = require('fs');
 const path = require('path');
 
