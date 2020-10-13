@@ -72,9 +72,9 @@ module.exports = {
 			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} tickets`)
 			.setFooter(guild.name + ' | This message will be deleted in 60 seconds', guild.iconURL());
 
-		if (config.transcripts.web.enabled) {
+		/* if (config.transcripts.web.enabled) {
 			embed.setDescription(`You can access all of your ticket archives on the [web portal](${config.transcripts.web.server}/${user.id}).`);
-		}
+		} */
 
 		let open = [],
 			closed = [];
