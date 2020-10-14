@@ -8,13 +8,13 @@
 
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
+const { join } = require('path');
 
 module.exports = {
 	name: 'tickets',
 	description: 'List your recent tickets to access transcripts / archives.',
 	usage: '[@member]',
 	aliases: ['list'],
-	example: '',
 	args: false,
 	async execute(client, message, args, {config, Ticket}) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -88,7 +88,7 @@ module.exports = {
 			let desc = closedTickets.rows[t].topic.substring(0, 30);
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
-			if (fs.existsSync(`user/transcripts/text/${c}.txt`) || config.transcripts.web.enabled) {
+			if (config.transcripts.web.enabled || fs.existsSync(join(__dirname, `../../user/transcripts/text/${c}.txt`))) {
 				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
 			}
 

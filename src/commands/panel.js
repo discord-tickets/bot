@@ -15,7 +15,6 @@ module.exports = {
 	description: 'Create or a panel widget in the channel the command is used in. Note that there can only be 1 panel.',
 	usage: '',
 	aliases: ['widget'],
-	example: '',
 	args: false,
 	permission: 'MANAGE_GUILD',
 	async execute(client, message, _args, {config, Setting}) {

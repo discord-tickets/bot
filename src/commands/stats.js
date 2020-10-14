@@ -13,7 +13,7 @@ module.exports = {
 	description: 'View ticket stats.',
 	usage: '',
 	aliases: ['data', 'statistics'],
-	example: '',
+	
 	args: false,
 	async execute(client, message, _args, {config, Ticket}) {
 		const guild = client.guilds.cache.get(config.guild);

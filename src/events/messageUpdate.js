@@ -9,6 +9,7 @@
 const Logger = require('leekslazylogger');
 const log = new Logger();
 const fs = require('fs');
+const { join } = require('path');
 
 module.exports = {
 	event: 'messageUpdate',
@@ -36,11 +37,11 @@ module.exports = {
 		let ticket = await Ticket.findOne({ where: { channel: n.channel.id } });
 		if (!ticket) return;
 
-		let path = `user/transcripts/raw/${n.channel.id}.log`;
+		let path = `../../user/transcripts/raw/${n.channel.id}.log`;
 		let embeds = [];
 		for (let embed in n.embeds) embeds.push({ ...n.embeds[embed] });
 
-		fs.appendFileSync(path, JSON.stringify({
+		fs.appendFileSync(join(__dirname, path), JSON.stringify({
 			id: n.id,
 			author: n.author.id,
 			content: n.content, // do not use cleanContent!

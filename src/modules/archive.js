@@ -11,6 +11,7 @@ const Logger = require('leekslazylogger');
 const log = new Logger();
 const lineReader = require('line-reader');
 const fs = require('fs');
+const { join } = require('path');
 const dtf = require('@eartharoid/dtf');
 const config = require('../../user/' + require('../').config);
 const fetch = require('node-fetch');
@@ -20,23 +21,23 @@ module.exports.add = (message) => {
 	if (message.type !== 'DEFAULT') return;
 
 	if (config.transcripts.text.enabled) { // text transcripts
-		let path = `user/transcripts/text/${message.channel.id}.txt`,
+		let path = `../../user/transcripts/text/${message.channel.id}.txt`,
 			time = dtf('HH:mm:ss n_D MMM YY', message.createdAt),
 			msg = message.cleanContent;
 		message.attachments.each(a => msg += '\n' + a.url);
 		let string = `[${time}] [${message.author.tag}] :> ${msg}`;
-		fs.appendFileSync(path, string + '\n');
+		fs.appendFileSync(join(__dirname, path), string + '\n');
 	}
 
 	if (config.transcripts.web.enabled) { // web archives
-		let raw = `user/transcripts/raw/${message.channel.id}.log`,
-			json = `user/transcripts/raw/entities/${message.channel.id}.json`;
+		let raw = `../../user/transcripts/raw/${message.channel.id}.log`,
+			json = `../../user/transcripts/raw/entities/${message.channel.id}.json`;
 
 		let embeds = [];
 		for (let embed in message.embeds) embeds.push({ ...message.embeds[embed] });
 
 		// message
-		fs.appendFileSync(raw, JSON.stringify({
+		fs.appendFileSync(join(__dirname, raw), JSON.stringify({
 			id: message.id,
 			author: message.author.id,
 			content: message.content, // do not use cleanContent!
@@ -46,8 +47,8 @@ module.exports.add = (message) => {
 		}) + '\n');
 
 		// channel entities
-		if (!fs.existsSync(json))
-			fs.writeFileSync(json, JSON.stringify({
+		if (!fs.existsSync(join(__dirname, json)))
+			fs.writeFileSync(join(__dirname, json), JSON.stringify({
 				entities: {
 					users: {},
 					channels: {},
@@ -55,7 +56,7 @@ module.exports.add = (message) => {
 				}
 			})); // create new
 
-		let data = JSON.parse(fs.readFileSync(json));
+		let data = JSON.parse(fs.readFileSync(join(__dirname, json)));
 
 		// if (!data.entities.users[message.author.id])
 		data.entities.users[message.author.id] = {
@@ -86,7 +87,7 @@ module.exports.add = (message) => {
 			color: r.color === 0 ? 7506394 : r.color
 		});
 
-		fs.writeFileSync(json, JSON.stringify(data));
+		fs.writeFileSync(join(__dirname, json), JSON.stringify(data));
 
 	}
 };
@@ -100,12 +101,12 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 			}
 		});
 
-		let raw = `user/transcripts/raw/${channel.id}.log`,
-			json = `user/transcripts/raw/entities/${channel.id}.json`;
+		let raw = `../../user/transcripts/raw/${channel.id}.log`,
+			json = `../../user/transcripts/raw/entities/${channel.id}.json`;
 
-		if (!config.transcripts.web.enabled || !fs.existsSync(raw) || !fs.existsSync(json)) return reject(false);
+		if (!config.transcripts.web.enabled || !fs.existsSync(join(__dirname, raw)) || !fs.existsSync(join(__dirname, json))) return reject(false);
 
-		let data = JSON.parse(fs.readFileSync(json));
+		let data = JSON.parse(fs.readFileSync(join(__dirname, json)));
 
 		data.ticket = {
 			id: ticket.id,
@@ -143,8 +144,8 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 
 					log.success(`Uploaded ticket #${ticket.id} archive to server`);
 
-					fs.unlinkSync(raw);
-					fs.unlinkSync(json);
+					fs.unlinkSync(join(__dirname, raw));
+					fs.unlinkSync(join(__dirname, json));
 
 					resolve(res.url);
 				}).catch(e => {

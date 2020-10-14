@@ -15,14 +15,14 @@ const version = Number(process.version.split('.')[0].replace('v', ''));
 if (!version === 12 || !version > 12) return console.log('Please upgrade to Node v12 or higher');
 
 const fs = require('fs');
-const path = require('path');
+const { join } = require('path');
 
-let dev = fs.existsSync('user/dev.env') && fs.existsSync('user/dev.config.js');
+let dev = fs.existsSync(join(__dirname, '../user/dev.env')) && fs.existsSync(join(__dirname, '../user/dev.config.js'));
 
-require('dotenv').config({ path: path.join('user/', dev ? 'dev.env' : '.env') });
+require('dotenv').config({ path: join(__dirname, '../user/', dev ? 'dev.env' : '.env') });
 
 module.exports.config = dev ? 'dev.config.js' : 'config.js';
-const config = require(path.join('../user/', module.exports.config));
+const config = require(join(__dirname, '../user/', module.exports.config));
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -91,7 +91,7 @@ default:
 	log.info('Using SQLite storage');
 	sequelize = new Sequelize({
 		dialect: 'sqlite',
-		storage: 'user/storage.db',
+		storage: join(__dirname, '../user/storage.db'),
 		logging: log.debug
 	});
 }
@@ -122,7 +122,7 @@ Setting.sync();
 /**
  * event loader
  */
-const events = fs.readdirSync('src/events').filter(file => file.endsWith('.js'));
+const events = fs.readdirSync(join(__dirname, 'events')).filter(file => file.endsWith('.js'));
 for (const file of events) {
 	const event = require(`./events/${file}`);
 	client.events.set(event.event, event);
@@ -134,7 +134,7 @@ for (const file of events) {
 /**
  * command loader
  */
-const commands = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
+const commands = fs.readdirSync(join(__dirname, 'commands')).filter(file => file.endsWith('.js'));
 for (const file of commands) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
@@ -144,14 +144,14 @@ for (const file of commands) {
 log.info(`Loaded ${events.length} events and ${commands.length} commands`);
 
 const one_day = 1000 * 60 * 60 * 24;
-const txt = 'user/transcripts/text';
+const txt = '../user/transcripts/text';
 const clean = () => {
-	const files = fs.readdirSync(txt).filter(file => file.endsWith('.txt'));
+	const files = fs.readdirSync(join(__dirname, txt)).filter(file => file.endsWith('.txt'));
 	let total = 0;
 	for (const file of files) {
-		let diff = (new Date() - new Date(fs.statSync(`${txt}/${file}`).mtime));
+		let diff = (new Date() - new Date(fs.statSync(join(__dirname, txt, file)).mtime));
 		if (Math.floor(diff / one_day) > config.transcripts.text.keep_for) {
-			fs.unlinkSync(`${txt}/${file}`);
+			fs.unlinkSync(join(__dirname, txt, file));
 			total++;
 		}
 	}

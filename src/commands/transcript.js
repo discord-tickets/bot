@@ -7,6 +7,8 @@
  */
 
 const fs = require('fs');
+const { join } = require('path');
+
 const {
 	MessageEmbed
 } = require('discord.js');
@@ -59,11 +61,12 @@ module.exports = {
 			.setTitle(`Ticket ${id}`)
 			.setFooter(guild.name, guild.iconURL());
 
-		if (fs.existsSync(`user/transcripts/text/${ticket.channel}.txt`)) {
+		let file = `../../user/transcripts/text/${ticket.channel}.txt`;
+		if (fs.existsSync(join(__dirname, file))) {
 			embed.addField('Text transcript', 'See attachment');
 			res.files = [
 				{
-					attachment: `user/transcripts/text/${ticket.channel}.txt`,
+					attachment: join(__dirname, file),
 					name: `ticket-${id}-${ticket.channel}.txt`
 				}
 			];

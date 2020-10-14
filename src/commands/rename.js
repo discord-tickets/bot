@@ -13,7 +13,7 @@ module.exports = {
 	description: 'Rename a ticket channel',
 	usage: '<new name>',
 	aliases: ['none'],
-	example: '',
+	example: 'rename important-ticket',
 	args: true,
 	async execute(client, message, args, {config, Ticket}) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -49,7 +49,7 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		message.channel.setName(args.join(' ')); // new channel name
+		message.channel.setName(args.join('-')); // new channel name
 
 		message.channel.send(
 			new MessageEmbed()

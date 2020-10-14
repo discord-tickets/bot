@@ -12,6 +12,7 @@ const {
 	MessageEmbed
 } = require('discord.js');
 const fs = require('fs');
+const { join } = require('path');
 
 module.exports = {
 	name: 'delete',
@@ -117,9 +118,9 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			let txt = `user/transcripts/text/${ticket.get('channel')}.txt`,
-				raw = `user/transcripts/raw/${ticket.get('channel')}.log`,
-				json = `user/transcripts/raw/entities/${ticket.get('channel')}.json`;
+			let txt = join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+				raw = join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
+				json = join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`);
 
 			if (fs.existsSync(txt)) fs.unlinkSync(txt);
 			if (fs.existsSync(raw)) fs.unlinkSync(raw);
