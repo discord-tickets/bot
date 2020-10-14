@@ -43,14 +43,13 @@ module.exports = {
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':x: **No permission**')
-					.setDescription(`You don't have permission to rename this channel as you are not staff.`)
+					.setDescription('You don\'t have permission to rename this channel as you are not staff.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		let newname = args.join(' ');
-		message.channel.setName(newname);
+		message.channel.setName(args.join(' ')); // new channel name
 
 		message.channel.send(
 			new MessageEmbed()
