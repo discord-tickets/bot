@@ -122,7 +122,7 @@ module.exports = {
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
 			}
 			],
-			reason: 'User requested a new support ticket channel'
+			reason: 'User requested a new support ticket channel (panel reaction)'
 		}).then(async c => {
 			Ticket.update({
 				channel: c.id
