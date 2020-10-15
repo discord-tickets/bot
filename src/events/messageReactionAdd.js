@@ -158,8 +158,8 @@ module.exports = {
 			}
 
 			let text = config.tickets.text
-				.replace('{{ name }}', u.username)
-				.replace('{{ tag }}', u);
+				.replace(/{{ ?name ?}}/gmi, u.username)
+				.replace(/{{ ?(tag|mention) ?}}/gmi, u);
 
 
 			let w = await c.send(

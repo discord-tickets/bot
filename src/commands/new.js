@@ -159,8 +159,8 @@ module.exports = {
 			}
 
 			let text = config.tickets.text
-				.replace('{{ name }}', message.author.username)
-				.replace('{{ tag }}', message.author);
+				.replace(/{{ ?name ?}}/gmi, message.author.username)
+				.replace(/{{ ?(tag|mention) ?}}/gmi, message.author);
 
 
 			let w = await c.send(
