@@ -50,6 +50,11 @@ module.exports = {
 
 	guild: '', // ID of your guild
 	staff_role: '', // ID of your Support Team role
+	
+	// New Feature, Edit the owner and moderator IDs here
+	owner_id: '506093256501755904', // Owner ID of the discord server
+ 	mod_1: '762713822032166933', // Moderator 1
+ 	mod_2: '7278274492906865XX', // Moderator 2
 
 	tickets: {
 		category: '', // ID of your tickets category
