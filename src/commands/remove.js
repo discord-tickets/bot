@@ -66,13 +66,73 @@ module.exports = {
 
 		let member = guild.member(message.mentions.users.first() || guild.members.cache.get(args[0]));
 
-		if (!member || member.id === message.author.id || member.id === guild.me.id)
+		if(!member)  // Invalid or Unknown Member
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(':x: **Unknown member**')
 					.setDescription('Please mention a valid member.')
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
+		
+		if(member.id === guild.me.id) // Person trying to remove bot.  
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **ACCESS DENIED!**')
+					.setDescription('Are you trying to remove me? No, you can not.')
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
+		
+		if(member.id === message.author.id)  // Person trying to remove himself/herself
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **You will lock yourself.**')
+					.setDescription('If you do this, you will lock yourself out this ticket. We blocked this action for you!')
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
+		
+		if(member.id == config.mod_1)  // Person trying to remove a moderator
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **ACCESS DENIED**')
+					.setDescription('You are not allowed to remove moderators from the ticket. You have been warned.')
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
+		
+		if(member.id == config.mod_2)  // Person trying to remove another moderator
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **ACCESS DENIED**')
+					.setDescription('You are not allowed to remove moderators from the ticket. You have been warned.')
+					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
+					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+					.setFooter(guild.name, guild.iconURL())
+			);
+		
+		if(member.id == config.owner_id)  // Person is trying to remove the server owner.
+			return message.channel.send(
+				new MessageEmbed()
+					.setColor(config.err_colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(':x: **Useless Action Blocked**')
+					.setDescription('You can\'t just remove the server owner from the ticket. Even if I or anyone rewrite the permissions to remove him from the ticket, it is impossible.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
