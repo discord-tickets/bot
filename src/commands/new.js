@@ -91,23 +91,7 @@ module.exports = {
 			type: 'text',
 			topic: `${message.author} | ${topic}`,
 			parent: config.tickets.category,
-			permissionOverwrites: [{
-				id: guild.roles.everyone,
-				deny: ['VIEW_CHANNEL', 'SEND_MESSAGES']
-			},
-			{
-				id: client.user,
-				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
-			},
-			{
-				id: message.member,
-				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
-			},
-			{
-				id: supportRole,
-				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
-			}
-			],
+			permissionOverwrites: [],
 			reason: 'User requested a new support ticket channel'
 		}).then(async c => {
 
