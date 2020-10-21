@@ -190,6 +190,7 @@ module.exports = {
 						.setTitle('Ticket closed')
 						.addField('Creator', `<@${ticket.creator}>`, true)
 						.addField('Closed by', message.author, true)
+						.addField("Ticket ID", ticket.id, true)
 						.setFooter(guild.name, guild.iconURL())
 						.setTimestamp()
 				);
