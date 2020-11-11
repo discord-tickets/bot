@@ -36,9 +36,11 @@ For installation, configuration, usage, and other information, **go to the [wiki
 ---
 
 <div align="center">
-  <a href="https://private-hosting.eu/">
-    <img src="https://i.imgur.com/eSXhP9C.png"/>
-  </a>
+	<a href="https://private-hosting.eu/">
+		<img src="https://i.imgur.com/eSXhP9C.png"/>
+	</a>
+	<br />
+	<br />
 	<b>
 		<a href="https://private-hosting.eu/">Sponsored by Private-Hosting</a>
 	</b>
