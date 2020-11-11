@@ -32,3 +32,18 @@ For installation, configuration, usage, and other information, **go to the [wiki
 ## Donate
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/eartharoid)
+
+---
+
+<div align="center">
+  <a href="https://private-hosting.eu/">
+    <img src="https://i.imgur.com/lVUp9vv.png" style="width:100px;height:auto;"/>
+  </a>
+	<b>
+		<a href="https://private-hosting.eu/">Sponsored by Private-Hosting</a>
+	</b>
+	<br>
+	<sub>
+		Cheap and powerful servers with 100% uptime.
+	</sub>
+</div>
