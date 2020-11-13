@@ -117,22 +117,17 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 		};
 
 		data.messages = [];
-		let line,
-			lineNumber = 0;
+		let line;
 
 		const lineByLine = new Readlines(join(__dirname, raw));
 
 		// eslint-disable-next-line no-cond-assign
 		while (line = lineByLine.next()) {
-			
 			let message = JSON.parse(line.toString('ascii'));
 			let index = data.messages.findIndex(m => m.id === message.id);
 			if (index === -1) data.messages.push(message);
 			else data.messages[index] = message;
-			lineNumber++;
 		}
-
-		data.ticket.messages = lineNumber;
 
 		let endpoint = config.transcripts.web.server;
 
