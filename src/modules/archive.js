@@ -9,7 +9,7 @@
 
 const Logger = require('leekslazylogger');
 const log = new Logger();
-const lineReader = require('line-reader');
+const Readlines = require('n-readlines');
 const fs = require('fs');
 const { join } = require('path');
 const dtf = require('@eartharoid/dtf');
@@ -117,41 +117,50 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 		};
 
 		data.messages = [];
+		let line,
+			lineNumber = 0;
 
-		lineReader.eachLine(raw, line => {
-			let message = JSON.parse(line);
+		const lineByLine = new Readlines(join(__dirname, raw));
+
+		// eslint-disable-next-line no-cond-assign
+		while (line = lineByLine.next()) {
+			
+			let message = JSON.parse(line.toString('ascii'));
 			let index = data.messages.findIndex(m => m.id === message.id);
 			if (index === -1) data.messages.push(message);
 			else data.messages[index] = message;
-		}, () => {
-			let endpoint = config.transcripts.web.server;
+			lineNumber++;
+		}
 
-			if (endpoint[endpoint.length - 1] === '/') endpoint = endpoint.slice(0, -1);
+		data.ticket.messages = lineNumber;
 
-			endpoint += `/${data.ticket.creator}/${data.ticket.channel}/?key=${process.env.ARCHIVES_KEY}`;
+		let endpoint = config.transcripts.web.server;
 
-			fetch(encodeURI(endpoint), {
-				method: 'post',
-				body:    JSON.stringify(data),
-				headers: { 'Content-Type': 'application/json' },
-			})
-				.then(res => res.json())
-				.then(res => {
-					if (res.status !== 200) {
-						log.warn(res);
-						return resolve(new Error(`${res.status} (${res.message})`));
-					}
+		if (endpoint[endpoint.length - 1] === '/') endpoint = endpoint.slice(0, -1);
 
-					log.success(`Uploaded ticket #${ticket.id} archive to server`);
+		endpoint += `/${data.ticket.creator}/${data.ticket.channel}/?key=${process.env.ARCHIVES_KEY}`;
 
-					fs.unlinkSync(join(__dirname, raw));
-					fs.unlinkSync(join(__dirname, json));
+		fetch(encodeURI(endpoint), {
+			method: 'post',
+			body: JSON.stringify(data),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then(res => res.json())
+			.then(res => {
+				if (res.status !== 200) {
+					log.warn(res);
+					return resolve(new Error(`${res.status} (${res.message})`));
+				}
 
-					resolve(res.url);
-				}).catch(e => {
-					log.warn(e);
-					return resolve(e);
-				});
-		});
+				log.success(`Uploaded ticket #${ticket.id} archive to server`);
+
+				fs.unlinkSync(join(__dirname, raw));
+				fs.unlinkSync(join(__dirname, json));
+
+				resolve(res.url);
+			}).catch(e => {
+				log.warn(e);
+				return resolve(e);
+			});
 	})();
 });
