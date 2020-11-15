@@ -123,7 +123,7 @@ module.exports.export = (Ticket, channel) => new Promise((resolve, reject) => {
 
 		// eslint-disable-next-line no-cond-assign
 		while (line = lineByLine.next()) {
-			let message = JSON.parse(line.toString('ascii'));
+			let message = JSON.parse(line.toString('utf8'));
 			let index = data.messages.findIndex(m => m.id === message.id);
 			if (index === -1) data.messages.push(message);
 			else data.messages[index] = message;
