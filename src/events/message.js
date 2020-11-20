@@ -58,7 +58,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle(':x: No permission')
+					.setTitle('❌ No permission')
 					.setDescription(`**You do not have permission to use the \`${command.name}\` command** (requires \`${command.permission}\`).`)
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -89,7 +89,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
-						.setDescription(`:x: Please wait ${timeLeft.toFixed(1)} second(s) before reusing the \`${command.name}\` command.`)
+						.setDescription(`❌ Please wait ${timeLeft.toFixed(1)} second(s) before reusing the \`${command.name}\` command.`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 			}
@@ -104,7 +104,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		} catch (error) {
 			log.warn(`An error occurred whilst executing the '${command.name}' command`);
 			log.error(error);
-			message.channel.send(`:x: An error occurred whilst executing the \`${command.name}\` command.`);
+			message.channel.send(`❌ An error occurred whilst executing the \`${command.name}\` command.`);
 		}
 	}
 };

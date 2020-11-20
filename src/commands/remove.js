@@ -23,7 +23,7 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle(':x: **This isn\'t a ticket channel**')
+			.setTitle('❌ **This isn\'t a ticket channel**')
 			.setDescription('Use this command in the ticket channel you want to remove a user from, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -45,7 +45,7 @@ module.exports = {
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
 			if (!ticket) {
 				notTicket
-					.setTitle(':x: **Channel is not a ticket**')
+					.setTitle('❌ **Channel is not a ticket**')
 					.setDescription(`${channel} is not a ticket channel.`);
 				return message.channel.send(notTicket);
 			}
@@ -56,7 +56,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **No permission**')
+					.setTitle('❌ **No permission**')
 					.setDescription(`You don't have permission to alter ${channel} as it does not belong to you and you are not staff.`)
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -71,7 +71,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **Unknown member**')
+					.setTitle('❌ **Unknown member**')
 					.setDescription('Please mention a valid member.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -101,7 +101,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
-					.setTitle(':white_check_mark: **Member removed**')
+					.setTitle('✅ **Member removed**')
 					.setDescription(`${member} has been removed from <#${ticket.channel}>`)
 					.setFooter(guild.name, guild.iconURL())
 			);

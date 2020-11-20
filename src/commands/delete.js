@@ -30,7 +30,7 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle(':x: **This isn\'t a ticket channel**')
+			.setTitle('❌ **This isn\'t a ticket channel**')
 			.setDescription('Use this command in the ticket channel you want to delete, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -58,7 +58,7 @@ module.exports = {
 			});
 			if (!ticket) {
 				notTicket
-					.setTitle(':x: **Channel is not a ticket**')
+					.setTitle('❌ **Channel is not a ticket**')
 					.setDescription(`${channel} is not a ticket channel.`);
 				return message.channel.send(notTicket);
 			}
@@ -69,7 +69,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **No permission**')
+					.setTitle('❌ **No permission**')
 					.setDescription(`You don't have permission to delete ${channel} as it does not belong to you and you are not staff.`)
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -82,11 +82,11 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle(':grey_question: Are you sure?')
+				.setTitle('❔ Are you sure?')
 				.setDescription(
 					`:warning: This action is **irreversible**, the ticket will be completely removed from the database.
 					You will **not** be able to view a transcript/archive of the channel later.
-					Use the \`close\` command instead if you don't want this behaviour.\n**React with :white_check_mark: to confirm.**`)
+					Use the \`close\` command instead if you don't want this behaviour.\n**React with ✅ to confirm.**`)
 				.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 		);
 
@@ -113,7 +113,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`:white_check_mark: **Ticket ${ticket.id} deleted**`)
+					.setTitle(`✅ **Ticket ${ticket.id} deleted**`)
 					.setDescription('The channel will be automatically deleted in a few seconds.')
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -162,7 +162,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(':x: **Expired**')
+						.setTitle('❌ **Expired**')
 						.setDescription('You took too long to react; confirmation failed.')
 						.setFooter(guild.name, guild.iconURL()));
 

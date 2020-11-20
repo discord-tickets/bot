@@ -58,7 +58,7 @@ module.exports = {
 				return message.channel.send(
 					new MessageEmbed()
 						.setColor(config.err_colour)
-						.setDescription(`:x: **Invalid command name** (\`${config.prefix}help\`)`)
+						.setDescription(`❌ **Invalid command name** (\`${config.prefix}help\`)`)
 				);
 
 

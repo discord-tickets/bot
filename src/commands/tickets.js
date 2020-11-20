@@ -24,7 +24,7 @@ module.exports = {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle(':x: **Error**')
+					.setTitle('❌ **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -39,7 +39,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(':x: **No permission**')
+						.setTitle('❌ **No permission**')
 						.setDescription('You don\'t have permission to list others\' tickets as you are not staff.')
 						.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)

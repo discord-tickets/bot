@@ -6,8 +6,8 @@ Release versions that will receive security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 2.x     | :white_check_mark: |
-| < 2.0   | :x:                |
+| 2.x     | ✅ |
+| < 2.0   | ❌                |
 
 ## Reporting a Vulnerability
 

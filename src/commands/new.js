@@ -27,7 +27,7 @@ module.exports = {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle(':x: **Error**')
+					.setTitle('❌ **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -53,7 +53,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
+					.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
 					.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 					.setFooter(guild.name + ' | This message will be deleted in 15 seconds', guild.iconURL())
 			);
@@ -71,7 +71,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **Description too long**')
+					.setTitle('❌ **Description too long**')
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -123,7 +123,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':white_check_mark: **Ticket created**')
+					.setTitle('✅ **Ticket created**')
 					.setDescription(`Your ticket has been created: ${c}`)
 					.setFooter(client.user.username + ' | This message will be deleted in 15 seconds', client.user.displayAvatarURL())
 			);

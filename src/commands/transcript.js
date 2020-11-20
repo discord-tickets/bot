@@ -37,7 +37,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **Unknown ticket**')
+					.setTitle('❌ **Unknown ticket**')
 					.setDescription('Couldn\'t find a closed ticket with that ID')
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -48,7 +48,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **No permission**')
+					.setTitle('❌ **No permission**')
 					.setDescription(`You don't have permission to view ticket ${id} as it does not belong to you and you are not staff.`)
 					.setFooter(guild.name, guild.iconURL())
 			);

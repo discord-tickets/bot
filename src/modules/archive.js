@@ -40,7 +40,7 @@ module.exports.add = (message) => {
 		fs.appendFileSync(join(__dirname, raw), JSON.stringify({
 			id: message.id,
 			author: message.author.id,
-			content: message.content, // do not use cleanContent!
+			content: message.content, // do not use cleanContent, we want to include the mentions!
 			time: message.createdTimestamp,
 			embeds: embeds,
 			attachments: [...message.attachments.values()]

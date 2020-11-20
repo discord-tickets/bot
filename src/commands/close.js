@@ -26,7 +26,7 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle(':x: **This isn\'t a ticket channel**')
+			.setTitle('❌ **This isn\'t a ticket channel**')
 			.setDescription('Use this command in the ticket channel you want to close, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -53,7 +53,7 @@ module.exports = {
 			});
 			if (!ticket) {
 				notTicket
-					.setTitle(':x: **Channel is not a ticket**')
+					.setTitle('❌ **Channel is not a ticket**')
 					.setDescription(`${channel} is not a ticket channel.`);
 				return message.channel.send(notTicket);
 			}
@@ -65,7 +65,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **No permission**')
+					.setTitle('❌ **No permission**')
 					.setDescription(`You don't have permission to close ${channel} as it does not belong to you and you are not staff.`)
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -82,8 +82,8 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle(':grey_question: Are you sure?')
-				.setDescription(`${pre}\n**React with :white_check_mark: to confirm.**`)
+				.setTitle('❔ Are you sure?')
+				.setDescription(`${pre}\n**React with ✅ to confirm.**`)
 				.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 		);
 
@@ -111,7 +111,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`:white_check_mark: **Ticket ${ticket.id} closed**`)
+					.setTitle(`✅ **Ticket ${ticket.id} closed**`)
 					.setDescription('The channel will be automatically deleted in a few seconds, once the contents have been archived.')
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -157,7 +157,7 @@ module.exports = {
 					try {
 						dm.send(res).then();
 					} catch (e) {
-						message.channel.send(':x: Couldn\'t send DM');
+						message.channel.send('❌ Couldn\'t send DM');
 					}
 				}
 			}
@@ -205,7 +205,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(':x: **Expired**')
+						.setTitle('❌ **Expired**')
 						.setDescription('You took too long to react; confirmation failed.')
 						.setFooter(guild.name, guild.iconURL()));
 

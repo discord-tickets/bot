@@ -29,7 +29,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **This isn\'t a ticket channel**')
+					.setTitle('❌ **This isn\'t a ticket channel**')
 					.setDescription('Use this command in the ticket channel you want to close, or mention the channel.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
@@ -43,7 +43,7 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(':x: **Description too long**')
+					.setTitle('❌ **Description too long**')
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -63,7 +63,7 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle(':white_check_mark: **Ticket updated**')
+				.setTitle('✅ **Ticket updated**')
 				.setDescription('The topic has been changed.')
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);

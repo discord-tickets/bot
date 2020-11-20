@@ -40,7 +40,7 @@ module.exports = {
 			return channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
-					.setTitle(':x: **Error**')
+					.setTitle('❌ **Error**')
 					.setDescription(`${config.name} has not been set up correctly. Could not find a 'support team' role with the id \`${config.staff_role}\``)
 					.setFooter(channel.guild.name, channel.guild.iconURL())
 			);
@@ -72,7 +72,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
+						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
 						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name, channel.guild.iconURL())
 				);
@@ -81,7 +81,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`:x: **You already have ${tickets.count} or more open tickets**`)
+						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
 						.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
 				);
