@@ -1,6 +1,6 @@
 {
 	"name": "@eartharoid/discordtickets",
-	"version": "2.1.2",
+	"version": "2.1.3",
 	"private": true,
 	"description": "An open-source & self-hosted Discord bot for ticket management.",
 	"main": "src/index.js",
