@@ -60,6 +60,12 @@ module.exports = {
 
 		}
 
+		let paths = {
+			text: join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+			log: join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
+			json: join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`)
+		};
+
 		if (message.author.id !== ticket.creator && !message.member.roles.cache.has(config.staff_role))
 			return message.channel.send(
 				new MessageEmbed()
@@ -73,10 +79,9 @@ module.exports = {
 			);
 
 		let success;
-		let pre = fs.existsSync(join(__dirname, `../../user/transcripts/text/${channel.id}.txt`)) ||
-			fs.existsSync(join(__dirname, `../../user/transcripts/raw/${channel.id}.log`)) ?
-			`You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\`` :
-			'';
+		let pre = fs.existsSync(paths.text) || fs.existsSync(paths.log)
+			? `You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\``
+			: '';
 
 		let confirm = await message.channel.send(
 			new MessageEmbed()
@@ -95,6 +100,7 @@ module.exports = {
 			});
 
 		collector.on('collect', async () => {
+			let users = [];
 			if (channel.id !== message.channel.id) {
 				channel.send(
 					new MessageEmbed()
@@ -135,16 +141,18 @@ module.exports = {
 						.setTitle(`Ticket ${ticket.id}`)
 						.setFooter(guild.name, guild.iconURL());
 
-					if (fs.existsSync(join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`))) {
+					if (fs.existsSync(paths.text)) {
 						embed.addField('Text transcript', 'See attachment');
 						res.files = [{
-							attachment: join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+							attachment: paths.text,
 							name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
 						}];
 					}
 
-					if (fs.existsSync(join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`)) && fs.existsSync(join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`))) {
-						embed.addField('Web archive', await archive.export(Ticket, channel));
+					if (fs.existsSync(paths.log) && fs.existsSync(paths.json)) {
+						let data = JSON.parse(fs.readFileSync(paths.json));
+						for (u in data.entities.users) users.push(u);
+						embed.addField('Web archive', await archive.export(Ticket, channel)); // this will also delete these files
 					}
 
 					if (embed.fields.length < 1) {
@@ -183,17 +191,19 @@ module.exports = {
 			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
 
 			if (config.logs.discord.enabled) {
-				client.channels.cache.get(config.logs.discord.channel).send(
-					new MessageEmbed()
-						.setColor(config.colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('Ticket closed')
-						.addField('Creator', `<@${ticket.creator}>`, true)
-						.addField('Closed by', message.author, true)
-						.addField("Ticket ID", ticket.id, true)
-						.setFooter(guild.name, guild.iconURL())
-						.setTimestamp()
-				);
+				let embed = new MessageEmbed()
+					.setColor(config.colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(`Ticket ${ticket.id} closed`)
+					.addField('Creator', `<@${ticket.creator}>`, true)
+					.addField('Closed by', message.author, true)
+					.setFooter(guild.name, guild.iconURL())
+					.setTimestamp();
+				
+				if (users.length > 1)
+					embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
+				
+				client.channels.cache.get(config.logs.discord.channel).send(embed);
 			}
 		});
 
