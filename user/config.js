@@ -48,11 +48,11 @@ module.exports = {
 	err_colour: 'RED',
 	cooldown: 3,
 
-	guild: '', // ID of your guild
-	staff_role: '', // ID of your Support Team role
+	guild: '', // ID of your guild (REQUIRED)
+	staff_role: '', // ID of your Support Team role (REQUIRED)
 
 	tickets: {
-		category: '', // ID of your tickets category
+		category: '', // ID of your tickets category (REQUIRED)
 		send_img: true,
 		ping: 'here',
 		text: `Hello there, {{ tag }}!
@@ -70,7 +70,8 @@ module.exports = {
 		web: {
 			enabled: false,
 			server: 'https://tickets.example.com',
-		}
+		},
+		channel: '' // ID of your archives channel
 	},
 
 	panel: {

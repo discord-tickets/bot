@@ -163,7 +163,7 @@ module.exports = {
 					
 					try {
 						dm.send(res);
-						if (config.logs.discord.enabled) client.channels.cache.get(config.logs.discord.channel).send(res);
+						if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
 					} catch (e) {
 						message.channel.send('❌ Couldn\'t send DM or transcript log message');
 					}
