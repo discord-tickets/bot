@@ -160,12 +160,12 @@ module.exports = {
 					}
 
 					res.embed = embed;
-
 					
 					try {
-						dm.send(res).then();
+						dm.send(res);
+						if (config.logs.discord.enabled) client.channels.cache.get(config.logs.discord.channel).send(res);
 					} catch (e) {
-						message.channel.send('❌ Couldn\'t send DM');
+						message.channel.send('❌ Couldn\'t send DM or transcript log message');
 					}
 				}
 			}
