@@ -126,13 +126,7 @@ module.exports = {
 				let u = await client.users.fetch(ticket.creator);
 
 				if (u) {
-					let dm;
-					try {
-						dm = u.dmChannel || await u.createDM();
-					} catch (e) {
-						log.warn(`Could not create DM channel with ${u.tag}`);
-					}
-
+					const archive = client.channels.cache.find(ch => ch.id === "yourchannelidhere")
 
 					let res = {};
 					const embed = new MessageEmbed()
@@ -163,9 +157,9 @@ module.exports = {
 
 					
 					try {
-						dm.send(res).then();
+						archive.send(res)
 					} catch (e) {
-						message.channel.send('❌ Couldn\'t send DM');
+						message.channel.send('❌ Couldn\'t send to Logging Channel.');
 					}
 				}
 			}
