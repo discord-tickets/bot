@@ -132,7 +132,7 @@ module.exports = {
 					} catch (e) {
 						log.warn(`Could not create DM channel with ${u.tag}`);
 					}
-					const archive = client.channels.cache.find(ch => ch.id === "")
+
 
 					let res = {};
 					const embed = new MessageEmbed()
@@ -160,13 +160,12 @@ module.exports = {
 					}
 
 					res.embed = embed;
-
 					
 					try {
-						archive.send(res)
-						dm.send(res)
+						dm.send(res);
+						if (config.logs.discord.enabled) client.channels.cache.get(config.logs.discord.channel).send(res);
 					} catch (e) {
-						message.channel.send('❌ Couldn\'t send to Logging Channel.');
+						message.channel.send('❌ Couldn\'t send DM or transcript log message');
 					}
 				}
 			}
