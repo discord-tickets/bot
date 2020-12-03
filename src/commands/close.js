@@ -126,7 +126,7 @@ module.exports = {
 				let u = await client.users.fetch(ticket.creator);
 
 				if (u) {
-					const archive = client.channels.cache.find(ch => ch.id === "yourchannelidhere")
+					const archive = client.channels.cache.find(ch => ch.id === "")
 
 					let res = {};
 					const embed = new MessageEmbed()
