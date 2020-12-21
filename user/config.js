@@ -47,7 +47,6 @@ module.exports = {
 	colour: '#009999',
 	err_colour: 'RED',
 	cooldown: 3,
-	default_topic: '',
 	guild: '', // ID of your guild (REQUIRED)
 	staff_role: '', // ID of your Support Team role (REQUIRED)
 
@@ -65,6 +64,10 @@ module.exports = {
 	},
 
 	tickets: {
+		default_topic: {
+			command: 'No topic given',
+			panel: 'Created via panel'
+		},
 		category: '', // ID of your tickets category (REQUIRED)
 		send_img: true,
 		ping: 'here',
