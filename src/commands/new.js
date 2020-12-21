@@ -23,7 +23,8 @@ module.exports = {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
-		if (!supportRole)
+		if (config.commands.new.enabled) {
+			if (!supportRole)
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -75,7 +76,7 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		else if (topic.length < 1) topic = 'No topic given';
+		else if (topic.length < 1) topic = config.default_topic;
 
 		let ticket = await Ticket.create({
 			channel: '',
@@ -192,5 +193,6 @@ module.exports = {
 
 
 		}).catch(log.error);
+		}
 	},
 };

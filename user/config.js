@@ -47,9 +47,22 @@ module.exports = {
 	colour: '#009999',
 	err_colour: 'RED',
 	cooldown: 3,
-
+	default_topic: 'Support Needed',
 	guild: '', // ID of your guild (REQUIRED)
 	staff_role: '', // ID of your Support Team role (REQUIRED)
+
+	commands: {
+		close: {
+			confirmation: true,
+			send_transcripts: true
+		},
+		delete: {
+			confirmation: true
+		},
+		new: {
+			enabled: true
+		},
+	},
 
 	tickets: {
 		category: '', // ID of your tickets category (REQUIRED)
