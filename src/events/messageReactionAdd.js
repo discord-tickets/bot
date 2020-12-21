@@ -89,7 +89,13 @@ module.exports = {
 			}
 		}
 
-		let topic = config.default_topic;
+
+		if (/^[a-zA-Z0-9]+$/.test(config.default_topic)) {
+			topic = config.default_topic;
+		} else {
+			topic = 'No topic given (created via panel)';
+		}
+		
 
 		let ticket = await Ticket.create({
 			channel: '',

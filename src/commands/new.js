@@ -67,7 +67,7 @@ module.exports = {
 
 
 		let topic = args.join(' ');
-		if (topic.length > 256)
+		if (topic.length > 256) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -76,7 +76,12 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		else if (topic.length < 1) topic = config.default_topic;
+		} else if (/^[a-zA-Z0-9]+$/.test(config.default_topic)) {
+			topic = config.default_topic;
+		}
+		else if (topic.length < 1) {
+			topic = 'No topic given';
+		}
 
 		let ticket = await Ticket.create({
 			channel: '',

@@ -47,7 +47,7 @@ module.exports = {
 	colour: '#009999',
 	err_colour: 'RED',
 	cooldown: 3,
-	default_topic: 'Support Needed',
+	default_topic: '',
 	guild: '', // ID of your guild (REQUIRED)
 	staff_role: '', // ID of your Support Team role (REQUIRED)
 
