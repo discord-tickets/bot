@@ -76,7 +76,7 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		} else if (/^[a-zA-Z0-9]+$/.test(config.default_topic)) {
+		} if (!/("|'|`)("|'|`)/.test(config.default_topic)) {
 			topic = config.default_topic;
 		}
 		else if (topic.length < 1) {
