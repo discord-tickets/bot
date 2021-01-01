@@ -11,6 +11,7 @@ const log = new Logger();
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
+const config = require(join(__dirname, '../../user/', require('../').config));
 
 module.exports = {
 	name: 'new',
@@ -19,10 +20,16 @@ module.exports = {
 	aliases: ['ticket', 'open'],
 	example: 'new my server won\'t start',
 	args: false,
+	disabled: !config.commands.new.enabled,
 	async execute(client, message, args, {config, Ticket}) {
+
+		if (!config.commands.new.enabled) return; // stop if the command is disabled
+
+
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
+		
 		if (!supportRole)
 			return message.channel.send(
 				new MessageEmbed()
@@ -66,7 +73,7 @@ module.exports = {
 
 
 		let topic = args.join(' ');
-		if (topic.length > 256)
+		if (topic.length > 256) {
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -75,7 +82,10 @@ module.exports = {
 					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
-		else if (topic.length < 1) topic = 'No topic given';
+		}
+		else if (topic.length < 1) {
+			topic = config.tickets.default_topic.command;
+		}
 
 		let ticket = await Ticket.create({
 			channel: '',
@@ -192,5 +202,6 @@ module.exports = {
 
 
 		}).catch(log.error);
+
 	},
 };

@@ -89,8 +89,8 @@ module.exports = {
 			}
 		}
 
-		let topic = 'No topic given (created via panel)';
-
+		let topic = config.tickets.default_topic.command;
+		
 		let ticket = await Ticket.create({
 			channel: '',
 			creator: u.id,

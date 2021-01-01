@@ -26,7 +26,7 @@ module.exports = {
 			let cmds = [];
 
 			for (let command of commands) {
-				if (command.hide) continue;
+				if (command.hide || command.disabled) continue;
 				if (command.permission && !message.member.hasPermission(command.permission)) continue;
 
 				let desc = command.description;

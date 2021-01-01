@@ -78,53 +78,88 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		let success;
-		let pre = fs.existsSync(paths.text) || fs.existsSync(paths.log)
-			? `You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\``
-			: '';
-
-		let confirm = await message.channel.send(
-			new MessageEmbed()
-				.setColor(config.colour)
-				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('❔ Are you sure?')
-				.setDescription(`${pre}\n**React with ✅ to confirm.**`)
-				.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
-		);
-
-		await confirm.react('✅');
-
-		const collector = confirm.createReactionCollector(
-			(r, u) => r.emoji.name === '✅' && u.id === message.author.id, {
-				time: 15000
-			});
-
-		collector.on('collect', async () => {
-			let users = [];
-			if (channel.id !== message.channel.id) {
-				channel.send(
-					new MessageEmbed()
-						.setColor(config.colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('**Ticket closed**')
-						.setDescription(`Ticket closed by ${message.author}`)
-						.setFooter(guild.name, guild.iconURL())
-				);
-			}
-
-			confirm.reactions.removeAll();
-			confirm.edit(
+		
+		if (config.commands.close.confirmation) {
+			let success;
+			let pre = fs.existsSync(paths.text) || fs.existsSync(paths.log)
+				? `You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\``
+				: '';
+				
+			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`✅ **Ticket ${ticket.id} closed**`)
-					.setDescription('The channel will be automatically deleted in a few seconds, once the contents have been archived.')
-					.setFooter(guild.name, guild.iconURL())
+					.setTitle('❔ Are you sure?')
+					.setDescription(`${pre}\n**React with ✅ to confirm.**`)
+					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 			);
+
+			await confirm.react('✅');
+
+			const collector = confirm.createReactionCollector(
+				(r, u) => r.emoji.name === '✅' && u.id === message.author.id, {
+					time: 15000
+				});
+
+			collector.on('collect', async () => {
+				if (channel.id !== message.channel.id) {
+					channel.send(
+						new MessageEmbed()
+							.setColor(config.colour)
+							.setAuthor(message.author.username, message.author.displayAvatarURL())
+							.setTitle('**Ticket closed**')
+							.setDescription(`Ticket closed by ${message.author}`)
+							.setFooter(guild.name, guild.iconURL())
+					);
+				}
+
+				confirm.reactions.removeAll();
+				confirm.edit(
+					new MessageEmbed()
+						.setColor(config.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(`✅ **Ticket ${ticket.id} closed**`)
+						.setDescription('The channel will be automatically deleted in a few seconds, once the contents have been archived.')
+						.setFooter(guild.name, guild.iconURL())
+				);
+				
+
+				if (channel.id !== message.channel.id)
+					message.delete({
+						timeout: 5000
+					}).then(() => confirm.delete());
+				
+				success = true;
+				close();
+			});
+
+
+			collector.on('end', () => {
+				if (!success) {
+					confirm.reactions.removeAll();
+					confirm.edit(
+						new MessageEmbed()
+							.setColor(config.err_colour)
+							.setAuthor(message.author.username, message.author.displayAvatarURL())
+							.setTitle('❌ **Expired**')
+							.setDescription('You took too long to react; confirmation failed.')
+							.setFooter(guild.name, guild.iconURL()));
+
+					message.delete({
+						timeout: 10000
+					}).then(() => confirm.delete());
+				}
+			});
+		} else {
+			close();
+		}
+
+		
+		async function close () {
+			let users = [];
 
 			if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
 				let u = await client.users.fetch(ticket.creator);
-
 				if (u) {
 					let dm;
 					try {
@@ -132,7 +167,6 @@ module.exports = {
 					} catch (e) {
 						log.warn(`Could not create DM channel with ${u.tag}`);
 					}
-
 
 					let res = {};
 					const embed = new MessageEmbed()
@@ -160,9 +194,9 @@ module.exports = {
 					}
 
 					res.embed = embed;
-					
+
 					try {
-						dm.send(res);
+						if (config.commands.close.send_transcripts) dm.send(res);
 						if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
 					} catch (e) {
 						message.channel.send('❌ Couldn\'t send DM or transcript log message');
@@ -171,7 +205,6 @@ module.exports = {
 			}
 
 			// update database
-			success = true;
 			ticket.update({
 				open: false
 			}, {
@@ -180,13 +213,10 @@ module.exports = {
 				}
 			});
 
-			// delete messages and channel
-			setTimeout(() => {
-				channel.delete();
-				if (channel.id !== message.channel.id)
-					message.delete()
-						.then(() => confirm.delete());
-			}, 5000);
+			// delete channel
+			channel.delete({
+				timeout: 5000
+			});
 
 			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
 
@@ -199,32 +229,12 @@ module.exports = {
 					.addField('Closed by', message.author, true)
 					.setFooter(guild.name, guild.iconURL())
 					.setTimestamp();
-				
+
 				if (users.length > 1)
 					embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
-				
+
 				client.channels.cache.get(config.logs.discord.channel).send(embed);
 			}
-		});
-
-
-		collector.on('end', () => {
-			if (!success) {
-				confirm.reactions.removeAll();
-				confirm.edit(
-					new MessageEmbed()
-						.setColor(config.err_colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('❌ **Expired**')
-						.setDescription('You took too long to react; confirmation failed.')
-						.setFooter(guild.name, guild.iconURL()));
-
-				message.delete({
-					timeout: 10000
-				})
-					.then(() => confirm.delete());
-			}
-		});
-
+		}
 	}
 };
