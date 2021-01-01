@@ -78,11 +78,13 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		let success;
-		let pre = fs.existsSync(paths.text) || fs.existsSync(paths.log)
-			? `You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\``
-			: '';
+		
 		if (config.commands.close.confirmation) {
+			let success;
+			let pre = fs.existsSync(paths.text) || fs.existsSync(paths.log)
+				? `You will be able to view an archived version later with \`${config.prefix}transcript ${ticket.id}\``
+				: '';
+				
 			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
@@ -96,11 +98,10 @@ module.exports = {
 
 			const collector = confirm.createReactionCollector(
 				(r, u) => r.emoji.name === '✅' && u.id === message.author.id, {
-				time: 15000
-			});
+					time: 15000
+				});
 
 			collector.on('collect', async () => {
-				let users = [];
 				if (channel.id !== message.channel.id) {
 					channel.send(
 						new MessageEmbed()
@@ -121,11 +122,15 @@ module.exports = {
 						.setDescription('The channel will be automatically deleted in a few seconds, once the contents have been archived.')
 						.setFooter(guild.name, guild.iconURL())
 				);
+				
+
+				if (channel.id !== message.channel.id)
+					message.delete({
+						timeout: 5000
+					}).then(() => confirm.delete());
+				
 				success = true;
-				closeTicket();
-				if (config.commands.close.send_transcripts) {
-					sendTranscript();
-				}
+				close();
 			});
 
 
@@ -142,58 +147,19 @@ module.exports = {
 
 					message.delete({
 						timeout: 10000
-					})
-						.then(() => confirm.delete());
+					}).then(() => confirm.delete());
 				}
 			});
 		} else {
-			success = true;
-			closeTicket();
+			close();
 		}
 
-		async function closeTicket() {
-			// update database
-			ticket.update({
-				open: false
-			}, {
-				where: {
-					channel: channel.id
-				}
-			});
+		
+		async function close () {
+			let users = [];
 
-			// delete messages and channel
-			setTimeout(() => {
-				channel.delete();
-				if (channel.id !== message.channel.id)
-					message.delete()
-						.then(() => confirm.delete());
-			}, 5000);
-
-			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
-
-			if (config.logs.discord.enabled) {
-				let embed = new MessageEmbed()
-					.setColor(config.colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`Ticket ${ticket.id} closed`)
-					.addField('Creator', `<@${ticket.creator}>`, true)
-					.addField('Closed by', message.author, true)
-					.setFooter(guild.name, guild.iconURL())
-					.setTimestamp();
-
-				if (users.length > 1)
-					embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
-
-				client.channels.cache.get(config.logs.discord.channel).send(embed);
-			}
-		}
-		if (config.commands.close.send_transcripts) {
-			sendTranscript();
-		}
-		async function sendTranscript() {
 			if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
 				let u = await client.users.fetch(ticket.creator);
-
 				if (u) {
 					let dm;
 					try {
@@ -201,7 +167,6 @@ module.exports = {
 					} catch (e) {
 						log.warn(`Could not create DM channel with ${u.tag}`);
 					}
-
 
 					let res = {};
 					const embed = new MessageEmbed()
@@ -229,17 +194,47 @@ module.exports = {
 					}
 
 					res.embed = embed;
+
 					try {
-						if (success) {
-							dm.send(res);
-							if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
-						}
+						if (config.commands.close.send_transcripts) dm.send(res);
+						if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
 					} catch (e) {
 						message.channel.send('❌ Couldn\'t send DM or transcript log message');
 					}
 				}
 			}
-		}
 
+			// update database
+			ticket.update({
+				open: false
+			}, {
+				where: {
+					channel: channel.id
+				}
+			});
+
+			// delete channel
+			channel.delete({
+				timeout: 5000
+			});
+
+			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
+
+			if (config.logs.discord.enabled) {
+				let embed = new MessageEmbed()
+					.setColor(config.colour)
+					.setAuthor(message.author.username, message.author.displayAvatarURL())
+					.setTitle(`Ticket ${ticket.id} closed`)
+					.addField('Creator', `<@${ticket.creator}>`, true)
+					.addField('Closed by', message.author, true)
+					.setFooter(guild.name, guild.iconURL())
+					.setTimestamp();
+
+				if (users.length > 1)
+					embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
+
+				client.channels.cache.get(config.logs.discord.channel).send(embed);
+			}
+		}
 	}
 };

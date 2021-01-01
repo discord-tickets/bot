@@ -50,6 +50,21 @@ module.exports = {
 	guild: '', // ID of your guild (REQUIRED)
 	staff_role: '', // ID of your Support Team role (REQUIRED)
 
+	tickets: {
+		category: '', // ID of your tickets category (REQUIRED)
+		send_img: true,
+		ping: 'here',
+		text: `Hello there, {{ tag }}!
+		A member of staff will assist you shortly.
+		In the mean time, please describe your issue in as much detail as possible! :)`,
+		pin: false,
+		max: 3,
+		default_topic: {
+			command: 'No topic given',
+			panel: 'Created via panel'
+		}
+	},
+
 	commands: {
 		close: {
 			confirmation: true,
@@ -61,21 +76,6 @@ module.exports = {
 		new: {
 			enabled: true
 		},
-	},
-
-	tickets: {
-		default_topic: {
-			command: 'No topic given',
-			panel: 'Created via panel'
-		},
-		category: '', // ID of your tickets category (REQUIRED)
-		send_img: true,
-		ping: 'here',
-		text: `Hello there, {{ tag }}!
-		A member of staff will assist you shortly.
-		In the mean time, please describe your issue in as much detail as possible! :)`,
-		pin: false,
-		max: 3
 	},
 
 	transcripts: {

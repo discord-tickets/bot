@@ -89,11 +89,7 @@ module.exports = {
 			}
 		}
 
-		if (!/("|'|`)("|'|`)/.test(config.default_topic)) {
-			topic = config.tickets.default_topic.panel;
-		} else {
-			topic = 'No topic given (created via panel)';
-		}
+		let topic = config.tickets.default_topic.command;
 		
 		let ticket = await Ticket.create({
 			channel: '',

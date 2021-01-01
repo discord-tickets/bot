@@ -11,6 +11,7 @@ const log = new Logger();
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
+const config = require(join(__dirname, '../../user/', require('../').config));
 
 module.exports = {
 	name: 'new',
@@ -19,12 +20,17 @@ module.exports = {
 	aliases: ['ticket', 'open'],
 	example: 'new my server won\'t start',
 	args: false,
+	disabled: !config.commands.new.enabled,
 	async execute(client, message, args, {config, Ticket}) {
+
+		if (!config.commands.new.enabled) return; // stop if the command is disabled
+
+
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
-		if (config.commands.new.enabled) {
-			if (!supportRole)
+		
+		if (!supportRole)
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -196,6 +202,6 @@ module.exports = {
 
 
 		}).catch(log.error);
-		}
+
 	},
 };

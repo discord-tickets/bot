@@ -76,8 +76,9 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		let success;
+		
 		if (config.commands.delete.confirmation) {
+			let success;
 			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
@@ -94,8 +95,8 @@ module.exports = {
 
 			const collector = confirm.createReactionCollector(
 				(r, u) => r.emoji.name === '✅' && u.id === message.author.id, {
-				time: 15000
-			});
+					time: 15000
+				});
 
 			collector.on('collect', async () => {
 				if (channel.id !== message.channel.id)
@@ -117,7 +118,16 @@ module.exports = {
 						.setDescription('The channel will be automatically deleted in a few seconds.')
 						.setFooter(guild.name, guild.iconURL())
 				);
+
+				if (channel.id !== message.channel.id)
+					message.delete({
+						timeout: 5000
+					}).then(() => confirm.delete());
+
+				success = true;
+				del();
 			});
+
 			collector.on('end', () => {
 				if (!success) {
 					confirm.reactions.removeAll();
@@ -131,44 +141,47 @@ module.exports = {
 
 					message.delete({
 						timeout: 10000
-					})
-						.then(() => confirm.delete());
+					}).then(() => confirm.delete());
 				}
 			});
+		} else {
+			del();
 		}
-		let txt = join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
-			raw = join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
-			json = join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`);
 
-		if (fs.existsSync(txt)) fs.unlinkSync(txt);
-		if (fs.existsSync(raw)) fs.unlinkSync(raw);
-		if (fs.existsSync(json)) fs.unlinkSync(json);
 
-		// update database
-		success = true;
-		ticket.destroy(); // remove ticket from database
+		async function del () {
+			let txt = join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+				raw = join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
+				json = join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`);
 
-		// delete messages and channel
-		setTimeout(() => {
-			channel.delete();
-			if (channel.id !== message.channel.id)
-				message.delete()
-					.then(() => confirm.delete());
-		}, 5000);
+			if (fs.existsSync(txt)) fs.unlinkSync(txt);
+			if (fs.existsSync(raw)) fs.unlinkSync(raw);
+			if (fs.existsSync(json)) fs.unlinkSync(json);
 
-		log.info(`${message.author.tag} deleted a ticket (#ticket-${ticket.id})`);
+			// update database
+			ticket.destroy(); // remove ticket from database
 
-		if (config.logs.discord.enabled) {
-			client.channels.cache.get(config.logs.discord.channel).send(
-				new MessageEmbed()
-					.setColor(config.colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('Ticket deleted')
-					.addField('Creator', `<@${ticket.creator}>`, true)
-					.addField('Deleted by', message.author, true)
-					.setFooter(guild.name, guild.iconURL())
-					.setTimestamp()
-			);
+			// channel
+			channel.delete({
+				timeout: 5000
+			});
+
+
+			log.info(`${message.author.tag} deleted a ticket (#ticket-${ticket.id})`);
+
+			if (config.logs.discord.enabled) {
+				client.channels.cache.get(config.logs.discord.channel).send(
+					new MessageEmbed()
+						.setColor(config.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle('Ticket deleted')
+						.addField('Creator', `<@${ticket.creator}>`, true)
+						.addField('Deleted by', message.author, true)
+						.setFooter(guild.name, guild.iconURL())
+						.setTimestamp()
+				);
+			}
 		}
+		
 	}
 };
