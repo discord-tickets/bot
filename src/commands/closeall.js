@@ -22,7 +22,7 @@ module.exports = {
 	aliases: ['ca'],
 	example: 'closeall',
 	args: false,
-	disabled: !config.commands.new.enabled,
+	disabled: !config.commands.closeall.enabled,
 	async execute(client, message, args, {
 		config,
 		Ticket
@@ -41,13 +41,13 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 		
-		let tickets = await Ticket.findAll({
+		let tickets = await Ticket.findAndCountAll({
 			where: {
 				open: true,
-			}
+			},
 		});
 
-		if (tickets.length == 0) 
+		if (tickets.count === 0) 
 			return message.channel.send(
 				new MessageEmbed()
 					.setColor(config.err_colour)
@@ -57,17 +57,19 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-		log.info(`Found ${tickets.length} open tickets`);
+		log.info(`Found ${tickets.count} open tickets`);
 		
 		if (config.commands.close.confirmation) {
 			let success;
-			let pre = `Transcript versions may be available using the \`${config.prefix}\``;
+			let pre = config.transcripts.text.enabled || config.transcripts.web.enabled
+				? `You will be able to view an archived version of each ticket later with \`${config.prefix}transcript <id>\``
+				: '';
 
 			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❔ Are you sure?')
+					.setTitle(`❔ Are you sure you want to close **${tickets.count}** tickets?`)
 					.setDescription(`${pre}\n**React with ✅ to confirm.**`)
 					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 			);
@@ -84,8 +86,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`**\`${tickets.length}\` tickets closed**`)
-						.setDescription(`**\`${tickets.length}\`** tickets closed by ${message.author}`)
+						.setTitle(`**\`${tickets.count}\` tickets closed**`)
+						.setDescription(`**\`${tickets.count}\`** tickets closed by ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 
@@ -94,7 +96,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ ** \`${tickets.length}\` tickets closed**`)
+						.setTitle(`✅ ** \`${tickets.count}\` tickets closed**`)
 						.setDescription('The channels will be automatically deleted in a few seconds, once the contents have been archived.')
 						.setFooter(guild.name, guild.iconURL())
 				);
@@ -127,13 +129,12 @@ module.exports = {
 			closeAll();
 		}
 
+		
 		async function closeAll() {
-			let users = [];
+			tickets.rows.forEach(async ticket => {
+				let users = [];
 
-			if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
-
-				// LOOP START
-				tickets.forEach(async ticket => {
+				if (config.transcripts.text.enabled || config.transcripts.web.enabled) {
 					let {
 						channel,
 						id,
@@ -159,9 +160,9 @@ module.exports = {
 						const embed = new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username)
-							.setTitle(`${tickets.length} tickets`)
+							.setTitle(`Ticket ${id}`)
 							.setFooter(guild.name, guild.iconURL());
-						
+							
 						if (fs.existsSync(paths.text)) {
 							embed.addField('Text Transcript', 'See attachment');
 							res.files = [{
@@ -201,23 +202,23 @@ module.exports = {
 							.then(o => log.info(`Deleted channel with name: '#${o.name}' <${o.id}>`))
 							.catch(e => log.error(e)))
 						.catch(e => log.error(e));
-				});
 
-				if (config.logs.discord.enabled) {
-					let embed = new MessageEmbed()
-						.setColor(config.colour)
-						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`${tickets.length} ticket${tickets.length > 1 ? 's' : ''} closed (${config.prefix}closeall)`)
-						.addField('Closed by', message.author, true)
-						.setFooter(guild.name, guild.iconURL())
-						.setTimestamp();
+					if (config.logs.discord.enabled) {
+						let embed = new MessageEmbed()
+							.setColor(config.colour)
+							.setAuthor(message.author.username, message.author.displayAvatarURL())
+							.setTitle(`${tickets.count} ticket${tickets.count > 1 ? 's' : ''} closed (${config.prefix}closeall)`)
+							.addField('Closed by', message.author, true)
+							.setFooter(guild.name, guild.iconURL())
+							.setTimestamp();
 
-					if (users.length > 1)
-						embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
-					
-					client.channels.cache.get(config.logs.discord.channel).send(embed);
+						if (users.length > 1)
+							embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
+						
+						client.channels.cache.get(config.logs.discord.channel).send(embed);
+					}
 				}
-			}
+			});
 		}
 		
 	},
