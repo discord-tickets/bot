@@ -174,7 +174,7 @@ module.exports = {
 
 						if (fs.existsSync(paths.log) && fs.existsSync(paths.json)) {
 							let data = JSON.parse(fs.readFileSync(paths.json));
-							for (u in data.entities.users) users.push(u);
+							data.entities.users.forEach(u => users.push(u));
 							embed.addField('Web archive', await archive.export(Ticket, channel));
 						}
 
@@ -198,8 +198,8 @@ module.exports = {
 
 					client.channels.fetch(channel)
 						.then(c => c.delete()
-								.then(o => log.info(`Deleted channel with name: \'#${o.name}\' <${o.id}>`))
-								.catch(e => log.error(e)))
+							.then(o => log.info(`Deleted channel with name: '#${o.name}' <${o.id}>`))
+							.catch(e => log.error(e)))
 						.catch(e => log.error(e));
 				});
 			}
