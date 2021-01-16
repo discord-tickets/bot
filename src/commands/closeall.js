@@ -43,11 +43,7 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 		
-		let tickets;
-		let channel;
-
-		channel = message.channel;
-		tickets = await Ticket.findAll({
+		let tickets = await Ticket.findAll({
 			where: {
 				open: true,
 			}
@@ -86,16 +82,14 @@ module.exports = {
 				}); 
 
 			collector.on('collect', async () => {
-				if (channel.id != message.channel.id) {
-					channel.send(
-						new MessageEmbed()
-							.setColor(config.colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(`**\`${tickets.length}\` tickets closed**`)
-							.setDescription(`**\`${tickets.length}\`** tickets closed by ${message.author}`)
-							.setFooter(guild.name, guild.iconURL())
-					);
-				}
+				message.channel.send(
+					new MessageEmbed()
+						.setColor(config.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(`**\`${tickets.length}\` tickets closed**`)
+						.setDescription(`**\`${tickets.length}\`** tickets closed by ${message.author}`)
+						.setFooter(guild.name, guild.iconURL())
+				);
 
 				confirm.reactions.removeAll();
 				confirm.edit(
@@ -107,10 +101,9 @@ module.exports = {
 						.setFooter(guild.name, guild.iconURL())
 				);
 
-				if (channel.id !== message.channel.id)
-					message.delete({
-						timeout: 5000,
-					}).then(() => confirm.delete());
+				message.delete({
+					timeout: 5000,
+				}).then(() => confirm.delete());
 
 				success = true;
 				closeAll();
@@ -143,11 +136,17 @@ module.exports = {
 
 				// LOOP START
 				tickets.forEach(async ticket => {
-					let user = await client.users.fetch(ticket.creator);
+					let {
+						channel,
+						id,
+						creator
+					} = ticket;
+
+					let user = await client.users.fetch(creator);
 					let paths = {
-						text: join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
-						log: join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
-						json: join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`)
+						text: join(__dirname, `../../user/transcripts/text/${channel}.txt`),
+						log: join(__dirname, `../../user/transcripts/raw/${channel}.log`),
+						json: join(__dirname, `../../user/transcripts/raw/entities/${channel}.json`)
 					};
 
 					if (user) {
@@ -169,13 +168,13 @@ module.exports = {
 							embed.addField('Text Transcript', 'See attachment');
 							res.files = [{
 								attachment: paths.text,
-								name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
+								name: `ticket-${id}-${channel}.txt`
 							}];
 						}
 
 						if (fs.existsSync(paths.log) && fs.existsSync(paths.json)) {
 							let data = JSON.parse(fs.readFileSync(paths.json));
-							for (user in data.entities.users) users.push(user);
+							for (u in data.entities.users) users.push(u);
 							embed.addField('Web archive', await archive.export(Ticket, channel));
 						}
 
@@ -189,11 +188,22 @@ module.exports = {
 						}
 					}
 
+					await Ticket.update({
+						open: false,
+					}, {
+						where: {
+							id,
+						}
+					});
+
+					client.channels.fetch(channel)
+						.then(c => c.delete()
+								.then(o => log.info(`Deleted channel with name: \'#${o.name}\' <${o.id}>`))
+								.catch(e => log.error(e)))
+						.catch(e => log.error(e));
 				});
 			}
 		}
-
-		// TODO: possibly make users allow to close all of their issues?
 		
 	},
 };
