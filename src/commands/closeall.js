@@ -13,6 +13,7 @@ const {
 const fs = require('fs');
 const { join } = require('path');
 const config = require(join(__dirname, '../../user/', require('../').config));
+const archive = require('../modules/archive');
 
 // Similar to 'close' command, however it iterates through them.
 
@@ -36,8 +37,8 @@ module.exports = {
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle('❌ **No permission**')
-					.setDescription(`You do not have permission to use this command as you are not a staff member.`)
-					.addField('Usage', `\`${config.prefix}${this.name}${" " + this.usage}\`\n`)
+					.setDescription('You do not have permission to use this command as you are not a staff member.')
+					.addField('Usage', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
 			);
@@ -82,7 +83,7 @@ module.exports = {
 			const collector = confirm.createReactionCollector(
 				(reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id, {
 					time: 15000,
-			});
+				}); 
 
 			collector.on('collect', async () => {
 				if (channel.id != message.channel.id) {
@@ -113,7 +114,7 @@ module.exports = {
 
 				success = true;
 				closeAll();
-			})
+			});
 
 			collector.on('end', () => {
 				if (!success) {
@@ -190,12 +191,6 @@ module.exports = {
 
 				});
 			}
-
-			await Ticket.destroy({
-				where: {
-					open: true,
-				},
-			});
 		}
 
 		// TODO: possibly make users allow to close all of their issues?
