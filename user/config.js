@@ -76,6 +76,9 @@ module.exports = {
 		new: {
 			enabled: true
 		},
+		closeall: {
+			enabled: true,
+		},
 	},
 
 	transcripts: {
