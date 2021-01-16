@@ -7,15 +7,13 @@
 
 const Logger = require('leekslazylogger');
 const log = new Logger();
-const {
-	MessageEmbed
-} = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
 const config = require(join(__dirname, '../../user/', require('../').config));
 const archive = require('../modules/archive');
 
-// Similar to 'close' command, however it iterates through them.
+// A slight modification to the 'close' command to allow multiple tickets to be closed at once
 
 module.exports = {
 	name: 'closeall',
@@ -196,12 +194,29 @@ module.exports = {
 						}
 					});
 
+					log.info(log.format(`${message.author.tag} closed ticket &7${id}&f`));
+
 					client.channels.fetch(channel)
 						.then(c => c.delete()
 							.then(o => log.info(`Deleted channel with name: '#${o.name}' <${o.id}>`))
 							.catch(e => log.error(e)))
 						.catch(e => log.error(e));
 				});
+
+				if (config.logs.discord.enabled) {
+					let embed = new MessageEmbed()
+						.setColor(config.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(`${tickets.length} ticket${tickets.length > 1 ? 's' : ''} closed (${config.prefix}closeall)`)
+						.addField('Closed by', message.author, true)
+						.setFooter(guild.name, guild.iconURL())
+						.setTimestamp();
+
+					if (users.length > 1)
+						embed.addField('Members', users.map(u => `<@${u}>`).join('\n'));
+					
+					client.channels.cache.get(config.logs.discord.channel).send(embed);
+				}
 			}
 		}
 		
