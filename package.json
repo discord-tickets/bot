@@ -25,7 +25,7 @@
 		"tedious": "9.x"
 	},
 	"devDependencies": {
-		"eslint": "^7.17.0",
+		"eslint": "^7.18.0",
 		"nodemon": "^2.0.7"
 	},
 	"scripts": {
