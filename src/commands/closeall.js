@@ -12,6 +12,7 @@ const fs = require('fs');
 const { join } = require('path');
 const config = require(join(__dirname, '../../user/', require('../').config));
 const archive = require('../modules/archive');
+const { plural } = require('../modules/utils');
 
 // A slight modification to the 'close' command to allow multiple tickets to be closed at once
 
@@ -207,7 +208,7 @@ module.exports = {
 						let embed = new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(`${tickets.count} ticket${tickets.count > 1 ? 's' : ''} closed (${config.prefix}closeall)`)
+							.setTitle(`${tickets.count} ${plural('ticket', tickets.count)} closed (${config.prefix}closeall)`)
 							.addField('Closed by', message.author, true)
 							.setFooter(guild.name, guild.iconURL())
 							.setTimestamp();
