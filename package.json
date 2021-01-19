@@ -13,7 +13,8 @@
 		"n-readlines": "^1.0.1",
 		"node-fetch": "^2.6.1",
 		"sequelize": "^6.3.5",
-		"terminal-link": "^2.1.1"
+		"terminal-link": "^2.1.1",
+		"to-time": "^1.0.2"
 	},
 	"optionalDependencies": {
 		"sqlite3": "^5.0.0"
