@@ -12,9 +12,11 @@
 		"leekslazylogger": "^2.0.7",
 		"n-readlines": "^1.0.1",
 		"node-fetch": "^2.6.1",
-		"sequelize": "^6.3.5",
+		"sequelize": "^6.4.0",
 		"terminal-link": "^2.1.1",
 		"to-time-monthsfork": "^1.1.3"
+		"sequelize": "^6.4.0",
+		"terminal-link": "^2.1.1"
 	},
 	"optionalDependencies": {
 		"sqlite3": "^5.0.0"
@@ -26,7 +28,7 @@
 		"tedious": "9.x"
 	},
 	"devDependencies": {
-		"eslint": "^7.17.0",
+		"eslint": "^7.18.0",
 		"nodemon": "^2.0.7"
 	},
 	"scripts": {
