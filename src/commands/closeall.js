@@ -15,7 +15,6 @@ const archive = require('../modules/archive');
 const { plural } = require('../modules/utils');
 const { Op } = require('sequelize');
 const toTime = require('to-time-monthsfork');
-const { time } = require('@eartharoid/dtf');
 
 // A slight modification to the 'close' command to allow multiple tickets to be closed at once
 
@@ -64,7 +63,7 @@ module.exports = {
 						.addField('Usage', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
 						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 						.setFooter(guild.name, guild.iconURL())
-				)
+				);
 			}
 			
 			tickets = await Ticket.findAndCountAll({
