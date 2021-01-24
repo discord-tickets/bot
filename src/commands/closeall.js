@@ -21,9 +21,9 @@ const toTime = require('to-time-monthsfork');
 module.exports = {
 	name: 'closeall',
 	description: 'Closes all currently open tickets older than a specified time length',
-	usage: '<timestamp>',
+	usage: '[time]',
 	aliases: ['ca'],
-	example: 'closeall 1y 2m',
+	example: 'closeall 1y 2mo',
 	args: false,
 	disabled: !config.commands.closeall.enabled,
 	async execute(client, message, args, {
