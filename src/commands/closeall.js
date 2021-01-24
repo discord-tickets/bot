@@ -23,7 +23,7 @@ module.exports = {
 	description: 'Closes all currently open tickets older than a specified time length',
 	usage: '[time]',
 	aliases: ['ca'],
-	example: 'closeall 1y 2mo',
+	example: 'closeall 1mo 1w',
 	args: false,
 	disabled: !config.commands.closeall.enabled,
 	async execute(client, message, args, {
