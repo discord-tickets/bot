@@ -23,6 +23,8 @@ DiscordTickets is a Discord bot for managing support ticket channels, to allow y
 
 For installation, configuration, usage, and other information, **go to the [wiki](https://github.com/Eartharoid/DiscordTickets/wiki).**
 
+Basic installation support will be provided on Discord, however if you really don't know what you're doing, you can purchase the [premium support setup service](https://ko-fi.com/s/34ccccfbd6) and I will install the bot and portal (archives web server) for you.
+
 ## Support
 
 **[Go to the wiki](https://github.com/Eartharoid/DiscordTickets/wiki)**, or ask for help in [#support](https://discordapp.com/channels/451745464480432129/475351519516950548) on [Discord](https://discord.gg/pXc9vyC).
