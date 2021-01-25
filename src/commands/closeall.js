@@ -12,15 +12,18 @@ const fs = require('fs');
 const { join } = require('path');
 const config = require(join(__dirname, '../../user/', require('../').config));
 const archive = require('../modules/archive');
+const { plural } = require('../modules/utils');
+const { Op } = require('sequelize');
+const toTime = require('to-time-monthsfork');
 
 // A slight modification to the 'close' command to allow multiple tickets to be closed at once
 
 module.exports = {
 	name: 'closeall',
-	description: 'Closes all currently open tickets.',
-	usage: '',
+	description: 'Closes all currently open tickets older than a specified time length',
+	usage: '[time]',
 	aliases: ['ca'],
-	example: 'closeall',
+	example: 'closeall 1mo 1w',
 	args: false,
 	disabled: !config.commands.closeall.enabled,
 	async execute(client, message, args, {
@@ -41,11 +44,43 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 		
-		let tickets = await Ticket.findAndCountAll({
-			where: {
-				open: true,
-			},
-		});
+		let tickets;
+
+		if (args.length > 0) {
+			let time, maxDate;
+			let timestamp = args.join(' ');
+
+			try {
+				time = toTime(timestamp).milliseconds();
+				maxDate = new Date(Date.now() - time);
+			} catch (error) {
+				return message.channel.send(
+					new MessageEmbed()
+						.setColor(config.err_colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle('❌ **Invalid Timestamp**')
+						.setDescription(`The timestamp that you specified, \`${timestamp}\`, was invalid.`)
+						.addField('Usage', `\`${config.prefix}${this.name}${' ' + this.usage}\`\n`)
+						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
+						.setFooter(guild.name, guild.iconURL())
+				);
+			}
+			
+			tickets = await Ticket.findAndCountAll({
+				where: {
+					open: true,
+					updatedAt: {
+						[Op.lte]: maxDate,
+					}
+				},
+			});
+		} else {
+			tickets = await Ticket.findAndCountAll({
+				where: {
+					open: true,
+				},
+			});
+		}
 
 		if (tickets.count === 0) 
 			return message.channel.send(
@@ -207,7 +242,7 @@ module.exports = {
 						let embed = new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(`${tickets.count} ticket${tickets.count > 1 ? 's' : ''} closed (${config.prefix}closeall)`)
+							.setTitle(`${tickets.count} ${plural('ticket', tickets.count)} closed (${config.prefix}closeall)`)
 							.addField('Closed by', message.author, true)
 							.setFooter(guild.name, guild.iconURL())
 							.setTimestamp();

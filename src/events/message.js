@@ -30,7 +30,12 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		 */
 
 		let ticket = await Ticket.findOne({ where: { channel: message.channel.id } });
-		if (ticket) archive.add(message); // add message to archive
+		if (ticket) {
+			archive.add(message); // add message to archive
+			// Update the ticket updated at so closeall can get most recent
+			ticket.changed('updatedAt', true);
+			ticket.save();
+		}
 
 		if (message.author.bot || message.author.id === client.user.id) return; // goodbye bots
 
