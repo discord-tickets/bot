@@ -1,0 +1,32 @@
+# Project information
+site_name: DiscordTickets
+site_description: 'An open-source and self-hosted ticket management bot for Discord - a free alternative to TicketTool/TicketsBot /Tickety premium/whitelabel bots. Highly customisable, and has an optional web server for transcripts/archives.'
+site_author: 'eartharoid'
+
+
+
+# Repository
+repo_url: https://github.com/eartharoid/DiscordTickets
+repo_name: eartharoid/DiscordTickets
+edit_uri: ""
+
+# Configuration
+theme:
+  name: material
+  palette:
+    scheme: preference
+plugins:
+  - git-revision-date-localized:
+      type: timeago
+      time_zone: Europe/London
+      fallback_to_build_date: false
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+nav:
+  - Home: index.md
+  - Archives: archives.md
+  - Configuration: configuration.md
+  - Hosting:
+    - REPL: hosting/REPL.md
