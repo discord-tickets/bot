@@ -62,7 +62,12 @@ module.exports = {
 		default_topic: {
 			command: 'No topic given',
 			panel: 'Created via panel'
-		}
+		},
+		images:[
+			"https://media.giphy.com/media/kDCZh6entUzEfNrwWl/giphy.gif",
+			"https://media.giphy.com/media/QA7jLTxulFxDOVMXKT/giphy.gif",
+			"https://media.giphy.com/media/Ynwz5DSgRNwJi7vZ5E/giphy.gif"
+		]
 	},
 
 	commands: {
