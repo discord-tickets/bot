@@ -5,8 +5,6 @@
  * 
  */
 
-const Logger = require('leekslazylogger');
-const log = new Logger();
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
@@ -26,7 +24,7 @@ module.exports = {
 	example: 'closeall 1mo 1w',
 	args: false,
 	disabled: !config.commands.closeall.enabled,
-	async execute(client, message, args, {
+	async execute(client, message, args, log, {
 		config,
 		Ticket
 	}) {

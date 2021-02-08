@@ -7,13 +7,11 @@
  */
 
 const { Collection, MessageEmbed } = require('discord.js');
-const Logger = require('leekslazylogger');
-const log = new Logger();
 const archive = require('../modules/archive');
 
 module.exports = {
 	event: 'message',
-	async execute(client, [message], {config, Ticket, Setting}) {
+	async execute(client, log, [message], {config, Ticket, Setting}) {
 
 		const guild = client.guilds.cache.get(config.guild);
 
@@ -104,7 +102,7 @@ Type \`${config.prefix}new\` on the server to create a new ticket.`);
 		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 		try {
-			command.execute(client, message, args, {config, Ticket, Setting});
+			command.execute(client, message, args, log, {config, Ticket, Setting});
 			log.console(`${message.author.tag} used the '${command.name}' command`);
 		} catch (error) {
 			log.warn(`An error occurred whilst executing the '${command.name}' command`);
