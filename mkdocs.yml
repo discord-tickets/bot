@@ -2,7 +2,7 @@
 site_name: DiscordTickets
 site_description: An open-source & self-hosted Discord bot for ticket management.
 site_author: eartharoid
-site_url: https://eartharoid.github.io/discordtickets
+site_url: https://discordtickets.eartharoid.me
 
 # Repository
 repo_name: eartharoid/DiscordTickets
