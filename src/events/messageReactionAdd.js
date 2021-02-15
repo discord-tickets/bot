@@ -6,15 +6,13 @@
  *
  */
 
-const Logger = require('leekslazylogger');
-const log = new Logger();
 const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
 
 module.exports = {
 	event: 'messageReactionAdd',
-	async execute(client, [r, u], {config, Ticket, Setting}) {
+	async execute(client, log, [r, u], {config, Ticket, Setting}) {
 		if (r.partial) {
 			try {
 				await r.fetch();

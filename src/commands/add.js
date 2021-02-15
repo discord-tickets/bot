@@ -7,8 +7,6 @@
  */
 
 const { MessageEmbed } = require('discord.js');
-const Logger = require('leekslazylogger');
-const log = new Logger();
 
 module.exports = {
 	name: 'add',
@@ -17,7 +15,7 @@ module.exports = {
 	aliases: ['none'],
 	example: 'add @member to #ticket-23',
 	args: true,
-	async execute(client, message, args, {config, Ticket}) {
+	async execute(client, message, args, log, {config, Ticket}) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const notTicket = new MessageEmbed()

@@ -6,8 +6,6 @@
  *
  */
 
-const Logger = require('leekslazylogger');
-const log = new Logger();
 const {
 	MessageEmbed
 } = require('discord.js');
@@ -21,7 +19,7 @@ module.exports = {
 	aliases: ['del'],
 	example: 'delete #ticket-17',
 	args: false,
-	async execute(client, message, args, {
+	async execute(client, message, _args, log, {
 		config,
 		Ticket
 	}) {

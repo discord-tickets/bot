@@ -6,14 +6,12 @@
  *
  */
 
-const Logger = require('leekslazylogger');
-const log = new Logger();
 const fs = require('fs');
 const { join } = require('path');
 
 module.exports = {
 	event: 'messageDelete',
-	async execute(_client, [message], {config, Ticket}) {
+	async execute(_client, log, [message], {config, Ticket}) {
 		if (!config.transcripts.web.enabled) return;
 
 		if (message.partial) {

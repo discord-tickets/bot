@@ -12,7 +12,7 @@ const config = require('../../user/' + require('../').config);
 
 module.exports = {
 	event: 'ready',
-	execute(client) {
+	execute(client, log) {
 		log.success(`Authenticated as ${client.user.tag}`);
 
 		const updatePresence = () => {

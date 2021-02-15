@@ -6,12 +6,9 @@
  *
  */
 
-const Logger = require('leekslazylogger');
-const log = new Logger();
-
 module.exports = {
 	event: 'warn',
-	execute(_client, [e]) {
+	execute(_client, log, [e]) {
 		log.warn(e);
 	}
 };

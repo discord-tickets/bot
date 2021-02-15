@@ -23,7 +23,7 @@
 		"mysql2": "2.x",
 		"mariadb": "2.x",
 		"pg": "8.x",
-		"tedious": "9.x"
+		"tedious": "11.x"
 	},
 	"devDependencies": {
 		"eslint": "^7.19.0",
