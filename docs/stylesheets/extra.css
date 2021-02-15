@@ -1,0 +1,24 @@
+a code {
+	color: var(--md-primary-fg-color) !important;
+	background-color: rgba(213, 0, 44, 0.1) !important;
+	transition: color 125ms;
+	transition: background-color 125ms
+}
+
+a code:hover {
+	/* ONLY WORKS ON SLATE THEME
+	color: #81E8ED !important;
+	background-color: rgba(129, 232, 237, 0.1) !important; */
+	color: var(--md-primary-fg-color--dark) !important;
+}
+
+.md-announce {
+	background-color: var(--md-primary-fg-color--dark) !important;
+	color: white;
+}
+
+.md-announce a, .md-announce a:hover {
+	color: white !important;
+	/* text-decoration: underline; */
+	font-weight: bold;
+}

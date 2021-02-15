@@ -1,10 +1,10 @@
-logs/
+# directories
 .vscode/
 node_modules/
-user/dev.env
-user/dev.config.js
-user/storage.db
-user/transcripts/text/*.txt
-user/transcripts/raw/*.log
-user/transcripts/raw/entities/*.json
+logs/
+site/
+
+# files
+.env
+user/config.js
 *.code-workspace

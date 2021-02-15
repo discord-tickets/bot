@@ -27,8 +27,8 @@ module.exports = {
 		type: 'sqlite'
 	},
 	portal: {
-		enabled: true,
-		host: 'https://tickets.eartharoid.me'
+		enabled: false,
+		host: 'https://tickets.example.com'
 	},
 	presences: [
 		{

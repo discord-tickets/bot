@@ -1,14 +1,15 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
+## Supported versions
 
 Release versions that will receive security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 2.x     | ✅ |
-| < 2.0   | ❌                |
+| Version | Supported      |
+| ------- | -------------- |
+| 3.x     | ✅            |
+| 2.x     | ⚠️ Deprecated |
+| < 2.0   | ❌            |
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
 If you find a vulnerability, please [email me](mailto:contact@eartharoid.me).

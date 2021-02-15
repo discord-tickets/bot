@@ -1,0 +1,82 @@
+# Project information
+site_name: DiscordTickets
+site_description: An open-source & self-hosted Discord bot for ticket management.
+site_author: eartharoid
+site_url: https://eartharoid.github.io/discordtickets
+
+# Repository
+repo_name: eartharoid/DiscordTickets
+repo_url: https://github.com/eartharoid/DiscordTickets
+edit_uri: blob/master/docs/
+
+# Copyright
+copyright: '&copy; 2021 Isaac Saunders'
+
+# Configuration
+extra_css:
+    - stylesheets/extra.css
+
+theme:
+  name: material
+  language: en
+
+  custom_dir: overrides/
+  
+  palette:
+    scheme: default
+    primary: primary
+    accent: primary
+
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  features:
+    - instant
+    - tabs
+    - navigation.expand
+
+  logo: /img/logo.png
+  favicon: /img/favicon.ico
+
+# Extras
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/eartharoid
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/eartharoid
+
+plugins:
+  - search # necessary for search to work
+  - git-revision-date-localized # last modified date at bottom of page
+  - awesome-pages # custom nav order
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - footnotes
+  - meta
+# pymd
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
