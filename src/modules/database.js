@@ -42,18 +42,22 @@ module.exports = (log) => {
 	switch (type) {
 	case 'mysql':
 		database = `mysql://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`;
+		log.info('Using MySQL as database backend');
 		break;
 	case 'mongo':
 	case 'mongodb':
 		database = `mongodb://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`;
+		log.info('Using MongoDB as database backend');
 		break;
 	case 'postgre':
 	case 'postgres':
 	case 'postgresql':
 		database = `postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}`;
+		log.info('Using Postgres as database backend');
 		break;
 	default: // sqlite
 		database = `sqlite://${path('./user/database.sqlite')}`;
+		log.info('Using SQLite as database backend');
 		break;
 	}
 
