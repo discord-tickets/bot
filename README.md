@@ -1,4 +1,7 @@
 # Please download from [releases](https://github.com/eartharoid/DiscordTickets/releases) or [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) - master branch is currently a work in progress
+
+https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=...
+
 # DiscordTickets
 
 [![Run on Repl.it](https://repl.it/badge/github/eartharoid/DiscordTickets)](https://repl.it/github/eartharoid/DiscordTickets) [![GitHub issues](https://img.shields.io/github/issues/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/issues)    [![GitHub stars](https://img.shields.io/github/stars/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)    [![GitHub forks](https://img.shields.io/github/forks/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/network)    [![GitHub license](https://img.shields.io/github/license/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/LICENSE)    ![Codacy grade](https://img.shields.io/codacy/grade/14e6851c85444424b75b8bc3f93e93db?logo=codacy&style=flat-square)    [![Discord support server](https://discordapp.com/api/guilds/451745464480432129/embed.png?style=shield)](https://discord.gg/pXc9vyC)

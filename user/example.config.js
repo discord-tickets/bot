@@ -23,9 +23,6 @@
  */
 
 module.exports = {
-	storage: {
-		type: 'sqlite'
-	},
 	portal: {
 		enabled: false,
 		host: 'https://tickets.example.com'

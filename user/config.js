@@ -23,9 +23,6 @@
  */
 
 module.exports = {
-	storage: {
-		type: 'sqlite'
-	},
 	portal: {
 		enabled: true,
 		host: 'https://tickets.eartharoid.me'

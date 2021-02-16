@@ -7,4 +7,5 @@ site/
 # files
 .env
 user/config.js
+user/database.sqlite
 *.code-workspace

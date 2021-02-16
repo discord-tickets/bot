@@ -1,2 +1,16 @@
 {% extends "base.html" %}
 {% block announce %}{% include "announce.html" ignore missing %}{% endblock %}
+
+{% block content %}
+  {{ super() }}
+  <footer class="sponsorship">
+    <hr>
+    <a href="https://github.com/eartharoid/DiscordTickets/?sponsor=1" title="Donate to support this project">
+      <span class="twemoji heart-throb-hover">
+        {% set icon = "octicons/heart-fill-16" %}
+        {% include ".icons/" ~ icon ~ ".svg" %}
+      </span>
+    </a>
+    <hr>
+  </footer>
+{% endblock %}
