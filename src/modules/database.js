@@ -21,7 +21,7 @@ module.exports = (log) => {
 
 	if (!supported.includes(type)) {
 		log.report('Invalid database type');
-		throw new Error('DB_TYPE is not valid type');
+		throw new Error(`DB_TYPE (${type}) is not a valid type`);
 	}
 
 	try {

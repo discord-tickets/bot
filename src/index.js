@@ -49,7 +49,7 @@ log.report = error => {
 		'<< Issue report >>',
 		'Please include this information if you ask for help about the following error!',
 		`Support server: ${terminalLink('go.eartharoid.me/discord', 'https://go.eartharoid.me/discord')}`,
-		`Node.JS version: ${process.versions.node.split('.')}`,
+		`Node.JS version: ${process.versions.node}`,
 		`Bot version: ${version}`,
 		`Platform: ${process.platform}`
 	];
