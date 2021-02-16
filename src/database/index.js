@@ -14,22 +14,23 @@ module.exports = async (log) => {
 		DB_HOST,
 		DB_USER,
 		DB_PASS,
-		DB_NAME
+		DB_NAME,
+		DB_TABLE_PREFIX
 	} = process.env;
 
 	let type = (DB_TYPE || 'sqlite').toLowerCase();
 
 	if (!supported.includes(type)) {
-		log.report('Invalid database type');
-		throw new Error(`DB_TYPE (${type}) is not a valid type`);
+		log.error(new Error(`DB_TYPE (${type}) is not a valid type`));
+		return process.exit();
 	}
 
 	try {
 		types[type].packages.forEach(pkg => require(pkg));
 	} catch {
-		log.report('Specified database type is not installed');
 		let required = types[type].packages.map(i => `"${i}"`).join(' and ');
-		throw new Error(`Please install the package(s) for your selected database type: ${required}`);
+		log.error(new Error(`Please install the package(s) for your selected database type: ${required}`));
+		return process.exit();
 	}
 
 	let sequelize;
@@ -56,6 +57,7 @@ module.exports = async (log) => {
 	} catch (error) {
 		log.warn('Unable to connect to database');
 		log.error(error);
+		return process.exit();
 	}
 
 	/* let models = {};
@@ -70,25 +72,23 @@ module.exports = async (log) => {
 	const Guild = sequelize.define('Guild', {
 		id: {
 			type: DataTypes.CHAR(18),
-			primaryKey: true
-		},
-		prefix: {
-			type: DataTypes.STRING, // STRING(255) = VARCHAR(255)
-			defaultValue: config.defaults.prefix
+			primaryKey: true,
+			allowNull: false,
 		},
 		locale: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.locale
 		}
 	}, {
-		tableName: 'guilds'
+		tableName: DB_TABLE_PREFIX + 'guilds'
 	});
 
 
 	const Ticket = sequelize.define('Ticket', {
 		id: {
 			type: DataTypes.CHAR(18),
-			primaryKey: true
+			primaryKey: true,
+			allowNull: false,
 		},
 		guild: {
 			type: DataTypes.STRING,
@@ -99,14 +99,15 @@ module.exports = async (log) => {
 			},	
 		}
 	}, {
-		tableName: 'tickets'
+		tableName: DB_TABLE_PREFIX + 'tickets'
 	});
 
 	// eslint-disable-next-line no-unused-vars
 	const Message = sequelize.define('Message', {
 		id: {
 			type: DataTypes.CHAR(18),
-			primaryKey: true
+			primaryKey: true,
+			allowNull: false,
 		},
 		ticket: {
 			type: DataTypes.STRING,
@@ -117,7 +118,7 @@ module.exports = async (log) => {
 			},
 		}
 	}, {
-		tableName: 'messages'
+		tableName: DB_TABLE_PREFIX + 'messages'
 	});
 
 	sequelize.sync();

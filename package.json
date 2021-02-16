@@ -32,10 +32,12 @@
 		"discord.js": "^12.5.1",
 		"dotenv": "^8.2.0",
 		"keyv": "^4.0.3",
+		"leeks.js": "^0.0.9",
 		"leekslazylogger": "^2.0.7",
 		"node-fetch": "^2.6.1",
 		"sequelize": "^6.5.0",
-		"terminal-link": "^2.1.1"
+		"terminal-link": "^2.1.1",
+		"yarpm": "^1.1.1"
 	},
 	"devDependencies": {
 		"eslint": "^7.20.0",

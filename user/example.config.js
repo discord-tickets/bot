@@ -29,20 +29,19 @@ module.exports = {
 	},
 	presences: [
 		{
-			activity: '%snew | %shelp',
+			activity: '/new | /help',
 			type: 'PLAYING'
 		},
 		{
-			activity: 'with tickets | %shelp',
+			activity: 'with tickets | /help',
 			type: 'PLAYING'
 		},
 		{
-			activity: 'for new tickets | %shelp',
+			activity: 'for new tickets | /help',
 			type: 'WATCHING'
 		},
 	],
 	defaults: {
-		prefix: '-',
 		colour: '#009999',
 		locale: 'en-GB'
 	},

@@ -36,12 +36,28 @@ require('dotenv').config({
 
 const config = require('../user/config');
 
+require('./banner')();
+
 const Logger = require('leekslazylogger');
 const log = new Logger({
 	name: 'DiscordTickets by eartharoid',
 	debug: config.debug,
 	logToFile: config.logs.enabled,
-	keepFor: config.logs.keep_for
+	keepFor: config.logs.keep_for,
+	custom: {
+		listeners: {
+			title: 'info',
+			prefix: 'listeners'
+		},
+		commands: {
+			title: 'info',
+			prefix: 'commands'
+		},
+		plugins: {
+			title: 'info',
+			prefix: 'plugins'
+		}
+	}
 });
 
 
@@ -60,12 +76,24 @@ log.report = error => {
 
 const terminalLink = require('terminal-link');
 const I18n = require('@eartharoid/i18n');
+const { CommandManager } = require('./modules/commands');
 
-const { Client } = require('discord.js');
+const {
+	Client,
+	Intents
+} = require('discord.js');
+
 class Bot extends Client {
 	constructor() {
 		super({
-			autoReconnect: true,
+			partials: [
+				'MESSAGE',
+				'CHANNEL',
+				'REACTION'
+			],
+			ws: {
+				intents: Intents.NON_PRIVILEGED,
+			}
 		});
 
 		Object.assign(this, {
@@ -75,10 +103,17 @@ class Bot extends Client {
 			i18n: new I18n(path('./src/locales'), 'en-GB')
 		});
 
-		this.log.info('Connecting to Discord API');
+		(async () => {
+			this.listeners = require('./modules/listeners')(this);
+			this.commands = new CommandManager(this);
+			this.plugins = await require('./modules/plugins')(this);
 
-		this.login();
+			this.log.info('Connecting to Discord API');
+			
+			this.login();
+		})();
 	}
+
 }
 
 new Bot();

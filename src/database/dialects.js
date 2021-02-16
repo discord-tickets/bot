@@ -19,7 +19,7 @@ module.exports = {
 		dialect: 'mariadb',
 		package: ['mariadb']
 	},
-	postgre: {
+	postgre: { // this is wrong
 		name: 'PostgreSQL',
 		dialect: 'postgres',
 		packages: ['pg', 'pg-hstore']
