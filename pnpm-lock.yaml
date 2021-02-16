@@ -1,5 +1,6 @@
 dependencies:
   '@eartharoid/i18n': 0.0.1
+  command-exists: 1.2.9
   discord.js: 12.5.1
   dotenv: 8.2.0
   keyv: 4.0.3
@@ -8,7 +9,6 @@ dependencies:
   node-fetch: 2.6.1
   sequelize: 6.5.0_fb66e8c649bde1be622cc06164c9e22d
   terminal-link: 2.1.1
-  yarpm: 1.1.1
 devDependencies:
   eslint: 7.20.0
   mariadb: 2.5.2
@@ -611,6 +611,7 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
     engines:
       node: '>= 8'
     resolution:
@@ -1902,6 +1903,7 @@ packages:
     resolution:
       integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
   /path-key/3.1.1:
+    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -2336,11 +2338,13 @@ packages:
   /shebang-command/2.0.0:
     dependencies:
       shebang-regex: 3.0.0
+    dev: true
     engines:
       node: '>=8'
     resolution:
       integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==
   /shebang-regex/3.0.0:
+    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -2773,6 +2777,7 @@ packages:
   /which/2.0.2:
     dependencies:
       isexe: 2.0.0
+    dev: true
     engines:
       node: '>= 8'
     hasBin: true
@@ -2882,16 +2887,9 @@ packages:
   /yallist/4.0.0:
     resolution:
       integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
-  /yarpm/1.1.1:
-    dependencies:
-      command-exists: 1.2.9
-      cross-spawn: 7.0.3
-    dev: false
-    hasBin: true
-    resolution:
-      integrity: sha512-A3gVdtyld+gYcVmKScvJqS2oT/i9xdsb/SqDsY9c0+BeYdYBUJrRfr4pD7UP+5uXEneJ0BL0rC/6rd1fnlYEcg==
 specifiers:
   '@eartharoid/i18n': ^0.0.1
+  command-exists: ^1.2.9
   discord.js: ^12.5.1
   dotenv: ^8.2.0
   eslint: ^7.20.0
@@ -2908,4 +2906,3 @@ specifiers:
   sqlite3: ^5.0.2
   tedious: ^11.0.3
   terminal-link: ^2.1.1
-  yarpm: ^1.1.1

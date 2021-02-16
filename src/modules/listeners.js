@@ -7,7 +7,6 @@ module.exports = client => {
 
 	for (const file of files) {
 		const listener = require(`../listeners/${file}`);
-		// client.on(listener.event, ...args => listener.execute(client, ...args));
-		client.on(listener.event, args => listener.execute(client, args));
+		client.on(listener.event, (...args) => listener.execute(client, ...args));
 	}
 };

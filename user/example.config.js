@@ -23,6 +23,19 @@
  */
 
 module.exports = {
+	debug: false,
+	defaults: {
+		colour: '#009999',
+		locale: 'en-GB'
+	},
+	logs: {
+		enabled: true,
+		keep_for: 30
+	},
+	plugins: [
+		// 'dsctickets.plugin-name'
+		'discordtickets-portal'
+	],
 	portal: {
 		enabled: false,
 		host: 'https://tickets.example.com'
@@ -41,14 +54,5 @@ module.exports = {
 			type: 'WATCHING'
 		},
 	],
-	defaults: {
-		colour: '#009999',
-		locale: 'en-GB'
-	},
-	logs: {
-		enabled: true,
-		keep_for: 30
-	},
-	debug: false,
 	update_notice: true,
 };

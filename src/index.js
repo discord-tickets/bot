@@ -60,21 +60,6 @@ const log = new Logger({
 	}
 });
 
-
-log.report = error => {
-	let report = [
-		'<< Issue report >>',
-		'Please include this information if you ask for help about the following error!',
-		`Support server: ${terminalLink('go.eartharoid.me/discord', 'https://go.eartharoid.me/discord')}`,
-		`Node.JS version: ${process.versions.node}`,
-		`Bot version: ${version}`,
-		`Platform: ${process.platform}`
-	];
-	log.warn(report.join('\n'));
-	if (error) log.error(error);
-};
-
-const terminalLink = require('terminal-link');
 const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
 
@@ -109,7 +94,7 @@ class Bot extends Client {
 			this.plugins = await require('./modules/plugins')(this);
 
 			this.log.info('Connecting to Discord API');
-			
+
 			this.login();
 		})();
 	}
@@ -119,7 +104,8 @@ class Bot extends Client {
 new Bot();
 
 process.on('unhandledRejection', error => {
-	log.report();
+	log.notice('PLEASE INCLUDE THIS INFORMATION:');
+	log.warn(`Discord Tickets v${version}, Node ${process.versions.node} (${process.platform})`);
 	log.warn('An error was not caught');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}: ${error}`);
 	log.error(error);
