@@ -39,11 +39,12 @@ module.exports = {
 		{
 			activity: 'for new tickets | %shelp',
 			type: 'WATCHING'
-		}
+		},
 	],
 	defaults: {
 		prefix: '-',
 		colour: '#009999',
+		locale: 'en-GB'
 	},
 	logs: {
 		enabled: true,

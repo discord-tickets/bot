@@ -34,21 +34,26 @@
 		"keyv": "^4.0.3",
 		"leekslazylogger": "^2.0.7",
 		"node-fetch": "^2.6.1",
+		"sequelize": "^6.5.0",
 		"terminal-link": "^2.1.1"
 	},
+	"devDependencies": {
+		"eslint": "^7.20.0",
+		"mariadb": "^2.5.2",
+		"mysql2": "^2.2.5",
+		"nodemon": "^2.0.7",
+		"pg": "^8.5.1",
+		"pg-hstore": "^2.3.3",
+		"tedious": "^11.0.3"
+	},
 	"optionalDependencies": {
-		"@keyv/sqlite": "^2.0.2"
+		"sqlite3": "^5.0.2"
 	},
 	"peerDependencies": {
-		"@keyv/mongo": "^1.1.0",
-		"@keyv/mysql": "^1.1.4",
-		"@keyv/postgres": "^1.0.16"
-	},
-	"devDependencies": {
-		"@keyv/mongo": "^1.1.0",
-		"@keyv/mysql": "^1.1.4",
-		"@keyv/postgres": "^1.0.16",
-		"eslint": "^7.20.0",
-		"nodemon": "^2.0.7"
+		"mariadb": "^2.5.2",
+		"mysql2": "^2.2.5",
+		"pg": "^8.5.1",
+		"pg-hstore": "^2.3.3",
+		"tedious": "^11.0.3"
 	}
 }

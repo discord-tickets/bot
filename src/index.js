@@ -28,9 +28,11 @@ const { version } = require('../package.json');
 const fs = require('fs');
 const { path } = require('./utils/fs');
 if (!fs.existsSync(path('./.env'))) return console.log('Please make a copy of \'example.env\' called \'.env\'');
-if (!fs.existsSync(path('./user/config.js'))) return console.log('Please make a copy of \'example.config.js\' called \'config.js\'');
+if (!fs.existsSync(path('./user/config.js'))) return console.log('Please make a copy of \'user/example.config.js\' called \'user/config.js\'');
 
-require('dotenv').config();
+require('dotenv').config({
+	path: path('./.env')
+});
 
 const config = require('../user/config');
 
@@ -43,7 +45,6 @@ const log = new Logger({
 });
 
 
-const terminalLink = require('terminal-link');
 log.report = error => {
 	let report = [
 		'<< Issue report >>',
@@ -57,6 +58,9 @@ log.report = error => {
 	if (error) log.error(error);
 };
 
+const terminalLink = require('terminal-link');
+const I18n = require('@eartharoid/i18n');
+
 const { Client } = require('discord.js');
 class Bot extends Client {
 	constructor() {
@@ -66,8 +70,9 @@ class Bot extends Client {
 
 		Object.assign(this, {
 			config,
-			db: require('./modules/database')(log),
+			db: require('./database')(log),
 			log,
+			i18n: new I18n(path('./src/locales'), 'en-GB')
 		});
 
 		this.log.info('Connecting to Discord API');
