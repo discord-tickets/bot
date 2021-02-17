@@ -80,15 +80,13 @@ module.exports = class PluginManager {
 		}
 	}
 
-	/**
-	 * Automatically register and load plugins
-	 */
+	/** Automatically register and load plugins */
 	load() {
 		// normal plugins (NPM)
 		this.client.config.plugins.forEach(plugin => {
 			try {
-				let pkg = require(`${plugin}/package.json`);
 				let main = require(plugin);
+				let pkg = require(`${plugin}/package.json`);
 				this.registerPlugin(true, main, pkg);
 			} catch (e) {
 				this.client.log.warn(`An error occurred whilst loading ${plugin}; have you installed it?`);

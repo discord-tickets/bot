@@ -10,14 +10,14 @@
  *      Quick Start
  * ---------------------
  *
- * 	> For detailed instructions, visit the documentation: https://eartharoid.github.io/discordtickets
+ * 	> For detailed instructions, visit the documentation: https://discordtickets.eartharoid.me
  *
  * ---------------------
  *       Support
  * ---------------------
  *
  * 	> Discord support server: https://go.eartharoid.me/discord
- * 	> Wiki: https://eartharoid.github.io/discordtickets
+ * 	> Documentation: https://discordtickets.eartharoid.me
  *
  * ###############################################################################################
  */
@@ -35,12 +35,8 @@ module.exports = {
 	max_listeners: 10,
 	plugins: [
 		// 'dsctickets.plugin-name'
-		'discordtickets-portal'
+		// 'discordtickets-portal'
 	],
-	portal: {
-		enabled: false,
-		host: 'https://tickets.example.com'
-	},
 	presences: [
 		{
 			activity: '/new | /help',

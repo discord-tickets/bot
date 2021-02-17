@@ -28,29 +28,30 @@ if (node_version < 14)
 const fs = require('fs');
 const { path } = require('./utils/fs');
 
-const ENV_PATH = path('./.env');
-const EXAMPLE_ENV_PATH = path('./example.env');
-if (!fs.existsSync(ENV_PATH )) {
-	if (!fs.existsSync(EXAMPLE_ENV_PATH)) {
-		console.log('Error: \'.env\' not found, and unable to create it due to \'example.env\' being missing');
+const checkFile = (file, example) => {
+
+	file = path(file);
+	example = path(example);
+
+	if (fs.existsSync(file)) return true;
+	if (!fs.existsSync(example)) {
+		console.log(`Error: '${file}' not found, and unable to create it due to '${example}' being missing`);
 		return process.exit();
 	}
-	console.log('Copying \'example.env\' to \'.env\'');
-	fs.copyFileSync(EXAMPLE_ENV_PATH, ENV_PATH);
-	console.log('Please set your bot\'s token in your \'.env\' file');
+
+	console.log(`Copying '${example}' to '${file}'`);
+	fs.copyFileSync(example, file);
+	return false;
+
+};
+
+if (!checkFile('./.env', './example.env')) {
+	console.log('Please set your bot\'s token in \'.env\'');
 	process.exit();
 }
-	
-const CONFIG_PATH = path('./user/config.js');
-const EXAMPLE_CONFIG_PATH = path('./user/example.config.js');
-if (!fs.existsSync(CONFIG_PATH)) {
-	if (!fs.existsSync(EXAMPLE_CONFIG_PATH)) {
-		console.log('Error: \'user/config.js\' not found, and unable to create it due to \'user/example.config.js\' being missing');
-		return process.exit();
-	}
-	console.log('Copying \'user/example.config.js\' to \'user/config.js\'');
-	fs.copyFileSync(EXAMPLE_CONFIG_PATH, CONFIG_PATH);
-}
+
+checkFile('./user/config.js', './user/example.config.js');
+
 
 
 require('dotenv').config({
@@ -105,33 +106,36 @@ class Bot extends Client {
 			}
 		});
 		
-		/** The global bot configuration */
-		this.config= config;
-		/** A sequelize instance */
-		this.db = require('./database')(log), // this.db.models.Ticket...
-		/** A leekslazylogger instance */
-		this.log = log;
-		/** An @eartharoid/i18n instance */
-		this.i18n = new I18n(path('./src/locales'), 'en-GB');
-		
-		// set the max listeners for each event to the number in the config
-		this.setMaxListeners(this.config.max_listeners);
+		(async () => {
+			/** The global bot configuration */
+			this.config = config;
 
-		// check for updates
-		require('./updater')(this);
-		// load internal listeners
-		require('./modules/listeners')(this);
+			/** A sequelize instance */
+			this.db = await require('./database')(log), // this.db.models.Ticket...
 
-		/** The command manager, used by internal and plugin commands */
-		this.commands = new CommandManager(this);
-		/** The plugin manager */
-		this.plugins = new PluginManager(this);
-		// load plugins
-		this.plugins.load();
+			/** A leekslazylogger instance */
+			this.log = log;
 
-		this.log.info('Connecting to Discord API...');
+			/** An @eartharoid/i18n instance */
+			this.i18n = new I18n(path('./src/locales'), 'en-GB');
 
-		this.login();
+			this.setMaxListeners(this.config.max_listeners); // set the max listeners for each event
+	
+			require('./updater')(this); // check for updates
+			require('./modules/listeners')(this); // load internal listeners
+
+			/** The command manager, used by internal and plugin commands */
+			this.commands = new CommandManager(this);
+			this.commands.load(); // load internal commands
+
+			/** The plugin manager */
+			this.plugins = new PluginManager(this);
+			this.plugins.load(); // load plugins
+
+			this.log.info('Connecting to Discord API...');
+
+			this.login();
+		})();
 	}
 
 }
