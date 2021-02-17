@@ -62,7 +62,6 @@ markdown_extensions:
       permalink: true
   - footnotes
   - meta
-# pymd
   - pymdownx.arithmatex
   - pymdownx.betterem:
       smart_enable: all
