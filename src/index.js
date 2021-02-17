@@ -25,14 +25,33 @@ const node_version = Number(process.versions.node.split('.')[0]);
 if (node_version < 14)
 	return console.log(`Error: DiscordTickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
-const { version } = require('../package.json');
 const fs = require('fs');
 const { path } = require('./utils/fs');
 
-if (!fs.existsSync(path('./.env')))
-	return console.log('Please make a copy of \'example.env\' called \'.env\'');
-if (!fs.existsSync(path('./user/config.js')))
-	return console.log('Please make a copy of \'user/example.config.js\' called \'user/config.js\'');
+const ENV_PATH = path('./.env');
+const EXAMPLE_ENV_PATH = path('./example.env');
+if (!fs.existsSync(ENV_PATH )) {
+	if (!fs.existsSync(EXAMPLE_ENV_PATH)) {
+		console.log('Error: \'.env\' not found, and unable to create it due to \'example.env\' being missing');
+		return process.exit();
+	}
+	console.log('Copying \'example.env\' to \'.env\'');
+	fs.copyFileSync(EXAMPLE_ENV_PATH, ENV_PATH);
+	console.log('Please set your bot\'s token in your \'.env\' file');
+	process.exit();
+}
+	
+const CONFIG_PATH = path('./user/config.js');
+const EXAMPLE_CONFIG_PATH = path('./user/example.config.js');
+if (!fs.existsSync(CONFIG_PATH)) {
+	if (!fs.existsSync(EXAMPLE_CONFIG_PATH)) {
+		console.log('Error: \'user/config.js\' not found, and unable to create it due to \'user/example.config.js\' being missing');
+		return process.exit();
+	}
+	console.log('Copying \'user/example.config.js\' to \'user/config.js\'');
+	fs.copyFileSync(EXAMPLE_CONFIG_PATH, CONFIG_PATH);
+}
+
 
 require('dotenv').config({
 	path: path('./.env')
@@ -85,6 +104,7 @@ class Bot extends Client {
 				intents: Intents.NON_PRIVILEGED,
 			}
 		});
+		
 		/** The global bot configuration */
 		this.config= config;
 		/** A sequelize instance */
@@ -118,6 +138,7 @@ class Bot extends Client {
 
 new Bot();
 
+const { version } = require('../package.json');
 process.on('unhandledRejection', error => {
 	log.notice('PLEASE INCLUDE THIS INFORMATION:');
 	log.warn(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
