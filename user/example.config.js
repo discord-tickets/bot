@@ -32,6 +32,7 @@ module.exports = {
 		enabled: true,
 		keep_for: 30
 	},
+	max_listeners: 10,
 	plugins: [
 		// 'dsctickets.plugin-name'
 		'discordtickets-portal'
@@ -54,5 +55,6 @@ module.exports = {
 			type: 'WATCHING'
 		},
 	],
+	super_secret_setting: true,
 	update_notice: true,
 };

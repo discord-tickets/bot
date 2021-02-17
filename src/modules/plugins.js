@@ -1,4 +1,4 @@
-module.exports = async client => {
+module.exports = client => {
 	client.config.plugins.forEach(plugin => {
 		try {
 			let package = require(`${plugin}/package.json`);

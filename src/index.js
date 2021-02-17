@@ -22,13 +22,17 @@
  */
 
 const node_version = Number(process.versions.node.split('.')[0]);
-if (node_version < 14) return console.log(`Error: DiscordTickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
-const { version } = require('../package.json');
+if (node_version < 14)
+	return console.log(`Error: DiscordTickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
+const { version } = require('../package.json');
 const fs = require('fs');
 const { path } = require('./utils/fs');
-if (!fs.existsSync(path('./.env'))) return console.log('Please make a copy of \'example.env\' called \'.env\'');
-if (!fs.existsSync(path('./user/config.js'))) return console.log('Please make a copy of \'user/example.config.js\' called \'user/config.js\'');
+
+if (!fs.existsSync(path('./.env')))
+	return console.log('Please make a copy of \'example.env\' called \'.env\'');
+if (!fs.existsSync(path('./user/config.js')))
+	return console.log('Please make a copy of \'user/example.config.js\' called \'user/config.js\'');
 
 require('dotenv').config({
 	path: path('./.env')
@@ -82,21 +86,22 @@ class Bot extends Client {
 		});
 
 		Object.assign(this, {
+			commands: new CommandManager(this),
 			config,
-			db: require('./database')(log),
+			db: require('./database')(log), // this.db.models.Ticket...
 			log,
 			i18n: new I18n(path('./src/locales'), 'en-GB')
 		});
 
-		(async () => {
-			this.listeners = require('./modules/listeners')(this);
-			this.commands = new CommandManager(this);
-			this.plugins = await require('./modules/plugins')(this);
+		this.setMaxListeners(this.config.max_listeners);
 
-			this.log.info('Connecting to Discord API');
+		require('./updater')(this);
+		require('./modules/listeners')(this);
+		require('./modules/plugins')(this);
 
-			this.login();
-		})();
+		this.log.info('Connecting to Discord API...');
+
+		this.login();
 	}
 
 }
@@ -105,7 +110,7 @@ new Bot();
 
 process.on('unhandledRejection', error => {
 	log.notice('PLEASE INCLUDE THIS INFORMATION:');
-	log.warn(`Discord Tickets v${version}, Node ${process.versions.node} (${process.platform})`);
+	log.warn(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
 	log.warn('An error was not caught');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}: ${error}`);
 	log.error(error);

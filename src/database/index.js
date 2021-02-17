@@ -60,15 +60,6 @@ module.exports = async (log) => {
 		return process.exit();
 	}
 
-	/* let models = {};
-	let files = fs.readdirSync(path('src/database/models/')).filter(file => file.endsWith('.js'));
-
-	for (let file of files) {
-		let table = require(`./models/${file}`);
-		let model = sequelize.define(table.name, table.model);
-		models[table.name] = model;
-	} */
-
 	const Guild = sequelize.define('Guild', {
 		id: {
 			type: DataTypes.CHAR(18),
@@ -123,5 +114,5 @@ module.exports = async (log) => {
 
 	sequelize.sync();
 
-	return sequelize.models;
+	return sequelize;
 };
