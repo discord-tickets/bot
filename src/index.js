@@ -66,6 +66,7 @@ const log = new Logger({
 
 const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
+const { PluginManager } = require('./modules/plugins');
 
 const {
 	Client,
@@ -84,20 +85,29 @@ class Bot extends Client {
 				intents: Intents.NON_PRIVILEGED,
 			}
 		});
-
-		Object.assign(this, {
-			commands: new CommandManager(this),
-			config,
-			db: require('./database')(log), // this.db.models.Ticket...
-			log,
-			i18n: new I18n(path('./src/locales'), 'en-GB')
-		});
-
+		/** The global bot configuration */
+		this.config= config;
+		/** A sequelize instance */
+		this.db = require('./database')(log), // this.db.models.Ticket...
+		/** A leekslazylogger instance */
+		this.log = log;
+		/** An @eartharoid/i18n instance */
+		this.i18n = new I18n(path('./src/locales'), 'en-GB');
+		
+		// set the max listeners for each event to the number in the config
 		this.setMaxListeners(this.config.max_listeners);
 
+		// check for updates
 		require('./updater')(this);
+		// load internal listeners
 		require('./modules/listeners')(this);
-		require('./modules/plugins')(this);
+
+		/** The command manager, used by internal and plugin commands */
+		this.commands = new CommandManager(this);
+		/** The plugin manager */
+		this.plugins = new PluginManager(this);
+		// load plugins
+		this.plugins.load();
 
 		this.log.info('Connecting to Discord API...');
 
