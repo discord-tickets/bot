@@ -23,7 +23,7 @@ theme:
   custom_dir: overrides/
   
   palette:
-    scheme: default
+    scheme: preference
     primary: primary
     accent: primary
 
@@ -49,7 +49,8 @@ extra:
 
 plugins:
   - search # necessary for search to work
-  - git-revision-date-localized # last modified date at bottom of page
+  - git-revision-date-localized: # last modified date at bottom of page
+      # type: timeago
   - awesome-pages # custom nav order
 
 # Extensions
