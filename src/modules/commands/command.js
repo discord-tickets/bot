@@ -1,92 +1,106 @@
 /* eslint-disable no-unused-vars */
-const { Client } = require('discord.js');
+const { Client, GuildMember, Guild, Channel } = require('discord.js');
 
 const fs = require('fs');
 const { join } = require('path');
 const { path } = require('../../utils/fs');
 
-/** A plugin */
-module.exports = class Plugin {
+/**
+ * A command
+ */
+module.exports = class Command {
 	/**
-	 * Create a new Plugin
-	 * @param {Client} client The Discord Client
-	 * @param {String} id The plugin ID
-	 * @param {Object} options Plugin options
-	 * @param {String} options.name A human-friendly name (can be different to the name in package.json)
+ 	 * A command option choice
+ 	 * @typedef CommandOptionChoice
+	 * @property {string} name - Choice name (1-100)
+	 * @property {(string|number)} value - choice value
+ 	 */
+
+	/**
+	 * A command option
+	 * @typedef CommandOption
+	 * @property {number} type - [ApplicationCommandOptionType](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoptiontype)
+	 * @property {string} name - Option name (1-32)
+	 * @property {string} description - Option description (1-100)
+	 * @property {boolean} [required] - Required?
+	 * @property {CommandOptionChoice[]} [choices] - Array of choices
+	 * @property {CommandOption[]} [options] - Array of options if this option is a subcommand/subcommand group
 	 */
-	constructor(client, id, options = {}) {
-		/** The human-friendly name of the plugin */
-		this.name = options.name || id;
-		
+
+	/**
+	 * Create a new Command
+	 * @param {Client} client - The Discord Client
+	 * @param {Object} data - Command data
+	 * @param {string} data.name - The name of the command (3-32)
+	 * @param {string} data.description - The description of the command (1-100)
+	 * @param {CommandOption[]} data.options - The command options, max of 10
+	 */
+	constructor(client, data) {	
+
 		/** The Discord Client */
 		this.client = client;
 
-		/** The PluginManager */
-		this.manager = this.client.plugins;
+		/** The CommandManager */
+		this.manager = this.client.commands;
 
-		// Object.assign(this, this.manager.plugins.get(id));
-		// make JSDoc happy
+		if (typeof data !== 'object') {
+			throw new TypeError(`Expected type of data to be an object, got ${typeof data}`);
+		}
 
-		let {
-			version,
-			author,
-			description
-		} = this.manager.plugins.get(id);
+		/**
+		 * The name of the command 
+		 * @type {string}
+		 */
+		this.name = data.name;
 
-		/** The unique ID of the plugin (NPM package name) */
-		this.id = id;
+		/**
+		 * The command description
+		 * @type {string}
+		*/
+		this.description = data.description;
 
-		/** The version of the plugin (NPM package version) */
-		this.version = version;
+		/** 
+		 * The command options
+		 * @type {CommandOption[]}
+		 */
+		this.options = data.options;
 
-		/** The plugin author's name (NPM package author) */
-		this.author = author;
+		/** True if command is internal, false if it is from a plugin */
+		this.internal = data.internal;
 
-		/** The plugin description (NPM package description) */
-		this.description = description;
-
-		this.directory = {};
 		
-		/** A cleaned version of the plugin's ID suitable for use in the  directory name */
-		this.directory.name = this.id.replace(/@[-_a-zA-Z0-9]+\//, '');
-
-		/** The absolute path of the plugin directory */
-		this.directory.path = path(`./user/plugins/${this.directory.name}`);
-	}
-
-	/**
-	 * Create the plugin directory if it doesn't already exist
-	 * @returns {Boolean} True if created, false if it already existed
-	 */
-	createDirectory() {
-		if (!fs.existsSync(this.directory.path)) {
-			this.client.log.plugins(`Creating plugin directory for "${this.name}"`);
-			fs.mkdirSync(this.directory.path);
-			return true;
-		} else {
-			return false;
+		this.manager.check(data); // validate
+		
+		try {
+			this.manager.register(this); // register the command
+		} catch (e) {
+			return this.client.log.error(e);
 		}
+
+		this.client.api.applications(this.client.user.id).commands.post({ data }); // post command to Discord
+
+		let internal = this.internal ? 'internal ' : '';
+		this.client.log.commands(`Loaded ${internal}"${this.name}" command`);
+
 	}
 
 	/**
-	 * Create the plugin config file if it doesn't already exist
-	 * @param {Object} template The default config template
-	 * @returns {Boolean} True if created, false if it already existed
+	 * [ApplicationCommandInteractionDataOption](https://discord.com/developers/docs/interactions/slash-commands#interaction-applicationcommandinteractiondataoption)
+	 * @typedef {Object} ApplicationCommandInteractionDataOption
+	 * @property {string} name - Name of the parameter
+	 * @property {*} value - The value
+	 * @property {(undefined|ApplicationCommandInteractionDataOption[])} options - Present if the option is a subcommand/subcommand group
 	 */
-	createConfig(template) {
-		this.createDirectory();
-		let file = join(this.directory.path, 'config.json');
-		if (!fs.existsSync(file)) {
-			this.client.log.plugins(`Creating plugin config file for "${this.name}"`);
-			fs.writeFileSync(file, JSON.stringify(template, null, 2));
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 	/**
-	 * The main function where your code should go. Create functions and event listeners here
+	 * The code to be executed when a command is invoked
+	 * @abstract
+	 * @param {Object} data - Object containing data about the command invocation
+	 * @param {(undefined|ApplicationCommandInteractionDataOption[])} data.args - Command arguments
+	 * @param {Channel} data.channel- The channel object
+	 * @param {Guild} data.guild- The guild object
+	 * @param {GuildMember} data.member - The member object
+	 * @param {string} data.token - The token used to respond to the interaction
 	 */
-	load() {}
+	async execute(data) {}
 };

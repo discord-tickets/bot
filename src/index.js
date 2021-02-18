@@ -69,10 +69,6 @@ const log = new Logger({
 	logToFile: config.logs.enabled,
 	keepFor: config.logs.keep_for,
 	custom: {
-		listeners: {
-			title: 'info',
-			prefix: 'listeners'
-		},
 		commands: {
 			title: 'info',
 			prefix: 'commands'
@@ -84,6 +80,7 @@ const log = new Logger({
 	}
 });
 
+const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
 const { PluginManager } = require('./modules/plugins');
@@ -93,6 +90,10 @@ const {
 	Intents
 } = require('discord.js');
 
+/**
+ * The bot client
+ * @extends {Client}
+ */
 class Bot extends Client {
 	constructor() {
 		super({
@@ -101,6 +102,7 @@ class Bot extends Client {
 				'CHANNEL',
 				'REACTION'
 			],
+			presence: selectPresence(),
 			ws: {
 				intents: Intents.NON_PRIVILEGED,
 			}
@@ -126,7 +128,6 @@ class Bot extends Client {
 
 			/** The command manager, used by internal and plugin commands */
 			this.commands = new CommandManager(this);
-			this.commands.load(); // load internal commands
 
 			/** The plugin manager */
 			this.plugins = new PluginManager(this);
@@ -144,7 +145,7 @@ new Bot();
 
 const { version } = require('../package.json');
 process.on('unhandledRejection', error => {
-	log.notice('PLEASE INCLUDE THIS INFORMATION:');
+	log.notice('PLEASE INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE FOLLOWING ERROR:');
 	log.warn(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
 	log.warn('An error was not caught');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}: ${error}`);

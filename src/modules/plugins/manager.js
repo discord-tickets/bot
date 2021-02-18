@@ -7,7 +7,9 @@ const fs = require('fs');
 const { join } = require('path');
 const { path } = require('../../utils/fs');
 
-/** Manages the loading of plugins */
+/**
+ * Manages the loading of plugins
+ */
 module.exports = class PluginManager {
 	/**
 	 * Create a PluginManager instance
@@ -16,6 +18,7 @@ module.exports = class PluginManager {
 	constructor(client) {
 		/** The Discord Client */
 		this.client = client;
+		
 		/** A discord.js Collection (Map) of loaded plugins */
 		this.plugins = new Collection();
 

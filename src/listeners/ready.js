@@ -16,9 +16,21 @@ module.exports = {
 				method: 'post',
 			}).catch(e => {
 				// fail quietly, it doesn't really matter if it didn't work
-				log.debug('Failed to post to discordtickets-telemetry');
+				log.debug('Warning: failed to post to discordtickets-telemetry');
 				log.debug(e);
 			});
 		}
+
+		client.commands.load(); // load internal commands
+
+		if (client.config.presence.presences.length > 1) {
+			const { selectPresence } = require('../utils/discord');
+			setInterval(() => {
+				let presence = selectPresence();
+				client.user.setPresence(presence);
+				client.log.debug(`Updated presence: ${presence.activity.type} ${presence.activity.name}`);
+			}, client.config.presence.duration * 1000);
+		}
+		
 	}
 };

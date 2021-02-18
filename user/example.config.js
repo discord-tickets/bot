@@ -34,23 +34,32 @@ module.exports = {
 	},
 	max_listeners: 10,
 	plugins: [
-		// 'dsctickets.plugin-name'
-		// 'discordtickets-portal'
 	],
-	presences: [
-		{
-			activity: '/new | /help',
-			type: 'PLAYING'
-		},
-		{
-			activity: 'with tickets | /help',
-			type: 'PLAYING'
-		},
-		{
-			activity: 'for new tickets | /help',
-			type: 'WATCHING'
-		},
-	],
+	presence: {
+		presences: [
+			{
+				activity: '/new | /help',
+				type: 'PLAYING',
+				status: 'online'
+			},
+			{
+				activity: 'with tickets | /help',
+				type: 'PLAYING'
+			},
+			{
+				activity: 'for new tickets | /help',
+				type: 'WATCHING'
+			},
+			{
+				activity: 'Minecraft',
+				type: 'STREAMING',
+				status: 'dnd',
+				url: 'https://www.twitch.tv/twitch'
+			},
+		],
+		randomise: true,
+		duration: 60
+	},
 	super_secret_setting: true,
 	update_notice: true,
 };
