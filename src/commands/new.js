@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const {
 	Command,
 	OptionTypes
@@ -8,7 +9,7 @@ module.exports = class NewCommand extends Command {
 		super(client, {
 			internal: true,
 			name: 'new',
-			description: 'Create a new ticket',
+			description: 'Create a new support ticket',
 			options: [
 				// {
 				// 	name: 'category',
@@ -26,11 +27,15 @@ module.exports = class NewCommand extends Command {
 		});
 	}
 
-	async execute(data) {
-		console.log(data.args);
-		console.log(data.channel.name);
-		console.log(data.member.user.tag);
-		console.log(data.guild.name);
-		console.log(data.token);
+	async execute({ guild, member, channel, args}, interaction) {
+		console.log(args);
+		// console.log(channel.name);
+		// console.log(member.user.tag);
+		// console.log(guild.name);
+
+		const i18n = this.client.i18n.get(/* GET GUILD LOCALE FROM SETTINGS */);
+
+		return new MessageEmbed()
+			.setTitle(i18n('bot.version', require('../../package.json').version));
 	}
 };

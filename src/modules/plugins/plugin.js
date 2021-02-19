@@ -17,7 +17,7 @@ module.exports = class Plugin {
 	 * @param {String} options.name A human-friendly name (can be different to the name in package.json)
 	 * @param {String[]} options.commands An array of command names the plugin registers
 	 */
-	constructor(client, id, options = {}) {
+	constructor(client, about, options = {}) {
 		/** The Discord Client */
 		this.client = client;
 
@@ -28,10 +28,11 @@ module.exports = class Plugin {
 		// make JSDoc happy
 
 		let {
+			id,
 			version,
 			author,
 			description
-		} = this.manager.plugins.get(id);
+		} = about;
 
 		/**
 		 * The human-friendly name of the plugin
@@ -125,7 +126,15 @@ module.exports = class Plugin {
 	}
 
 	/**
-	 * The main function where your code should go. Create functions and event listeners here
+	 * The function where any code that needs to be executed before the client is ready should go.
+	 * **This is executed _BEFORE_ the ready event**
+	 * @abstract
+	 */
+	preload() { }
+
+	/**
+	 * The main function where your code should go. Create commands and event listeners here.
+	 * **This is executed _after_ the ready event**
 	 * @abstract
 	 */
 	load() {}

@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-const { PresenceData } = require('discord.js');
+const Discord = require('discord.js');
 
 const config = require('../../user/config');
 
@@ -7,10 +6,30 @@ let current_presence = -1;
 
 module.exports = {
 	/**
-	 * Select a presence from the config
-	 * @returns {PresenceData}
+	 * Resolves data and files so embeds can be sent as a response to a slash command
+	 * @param {Discord.Client} channel_id - Text channel ID
+	 * @param {string} channel_id - Text channel ID
+	 * @param {*} content - Message content 
+	 * @returns {Object}
 	 */
-	selectPresence() {
+	createMessage: async (client, channel_id, content) => {
+		let msg = await Discord.APIMessage.create(client.channels.resolve(channel_id), content)
+			.resolveData()
+			.resolveFiles();
+		return { ...msg.data, files: msg.files };
+	},
+
+	/**
+	 * Generate flags
+	 * @param {boolean} secret - Ephemeral message?
+	 */
+	flags: (secret) => secret ? 1 << 64 : undefined,
+
+	/**
+	 * Select a presence from the config
+	 * @returns {Discord.PresenceData}
+	 */
+	selectPresence: () => {
 		let length = config.presence.presences.length;
 		if (length === 0) return {};
 		
@@ -41,5 +60,5 @@ module.exports = {
 			},
 			status
 		};
-	}
+	},
 };

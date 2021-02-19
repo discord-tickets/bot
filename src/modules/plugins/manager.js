@@ -62,15 +62,10 @@ module.exports = class PluginManager {
 			description
 		};
 
-		this.plugins.set(id, about);
-
 		try {
-			let plugin = new Main(this.client, id);
-			plugin.load();
-
-			this.plugins.set(id, Object.assign(about, {
-				name: plugin.name || id,
-			}));
+			let plugin = new Main(this.client, about);
+			this.plugins.set(id, plugin);
+			plugin.preload();
 			
 		} catch (e) {
 			if (npm) {

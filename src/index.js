@@ -146,7 +146,7 @@ new Bot();
 const { version } = require('../package.json');
 process.on('unhandledRejection', error => {
 	log.notice('PLEASE INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE FOLLOWING ERROR:');
-	log.warn(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
+	log.notice(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
 	log.warn('An error was not caught');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}: ${error}`);
 	log.error(error);

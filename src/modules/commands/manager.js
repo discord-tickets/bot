@@ -40,8 +40,9 @@ module.exports = class CommandManager {
 
 	/** Register a command */
 	register(cmd) {
-		const is_internal = (this.commands.has(cmd.name) && cmd.internal)
-			|| (this.commands.has(cmd.name) && this.commands.get(cmd.name).internal);
+		const exists = this.commands.has(cmd.name);
+		const is_internal = (exists && cmd.internal)
+			|| (exists && this.commands.get(cmd.name).internal);
 
 		if (is_internal) {
 			let plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
@@ -51,7 +52,7 @@ module.exports = class CommandManager {
 				this.client.log.commands(`An unknown plugin has overridden the internal "${cmd.name}" command`);	
 			if(cmd.internal) return;
 		}
-		else if (this.commands.has(cmd.name))
+		else if (exists)
 			throw new Error(`A non-internal command with the name "${cmd.name}" already exists`);
 		
 		this.commands.set(cmd.name, cmd);
@@ -134,6 +135,48 @@ module.exports = class CommandManager {
 
 			num++;
 		});
+	}
+
+	/**
+	 * Execute a command
+	 * @param {string} cmd_name - Name of the command
+	 * @param {interaction} interaction - Command interaction
+	 */
+	async execute(cmd_name, interaction) {
+		if (!this.commands.has(cmd_name))
+			throw new Error(`Unregistered command: "${cmd_name}"`);
+		
+		let args = {};
+		if (interaction.data.options)
+			interaction.data.options.forEach(({ name, value }) => args[name] = value);
+			
+		let data = { args };
+		data.guild = await this.client.guilds.fetch(interaction.guild_id);
+		data.channel = await this.client.channels.fetch(interaction.channel_id),
+		data.member = await data.guild.members.fetch(interaction.member.user.id);
+
+		const cmd = this.commands.get(cmd_name);
+
+		// if (cmd.staff_only) {
+		// 	return await cmd.sendResponse(interaction, msg, true);
+		// }
+
+		const no_perm = cmd.permissions instanceof Array
+			&& !data.member.hasPermission(cmd.permissions);
+		if (no_perm) {
+			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
+			let msg = `❌ You do not have the permissions required to use this command:\n${perms}`;
+			return await cmd.sendResponse(interaction, msg, true);
+		}
+
+		await cmd.deferResponse(interaction, true);
+		
+		this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
+
+		let res = await cmd.execute(data, interaction); // run the command 
+
+		if (typeof res === 'object' || typeof res === 'string')
+			cmd.sendResponse(interaction, res, res.secret);
 	}
 
 };

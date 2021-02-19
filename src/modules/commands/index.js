@@ -11,4 +11,9 @@ module.exports = {
 		CHANNEL: 7,
 		ROLE: 8,
 	},
+	ResponseTypes: {
+		Pong: 1,
+		ChannelMessageWithSource: 4,
+		DeferredChannelMessageWithSource: 5,
+	},
 };

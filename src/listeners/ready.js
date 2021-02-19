@@ -23,6 +23,8 @@ module.exports = {
 
 		client.commands.load(); // load internal commands
 
+		client.plugins.plugins.forEach(p => p.load()); // call load function for each plugin
+
 		if (client.config.presence.presences.length > 1) {
 			const { selectPresence } = require('../utils/discord');
 			setInterval(() => {

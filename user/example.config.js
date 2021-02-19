@@ -26,7 +26,8 @@ module.exports = {
 	debug: false,
 	defaults: {
 		colour: '#009999',
-		locale: 'en-GB'
+		locale: 'en-GB',
+		log_messages: true, // required for transcripts/archives
 	},
 	logs: {
 		enabled: true,
@@ -50,12 +51,12 @@ module.exports = {
 				activity: 'for new tickets | /help',
 				type: 'WATCHING'
 			},
-			{
+			/* { // an example
 				activity: 'Minecraft',
 				type: 'STREAMING',
 				status: 'dnd',
 				url: 'https://www.twitch.tv/twitch'
-			},
+			}, */
 		],
 		randomise: true,
 		duration: 60
