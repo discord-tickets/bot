@@ -144,7 +144,7 @@ module.exports = class CommandManager {
 	 */
 	async execute(cmd_name, interaction) {
 		if (!this.commands.has(cmd_name))
-			throw new Error(`Unregistered command: "${cmd_name}"`);
+			throw new Error(`Received "${cmd_name}" command invocation, but the command manager does not have a "${cmd_name}" command`);
 		
 		let args = {};
 		if (interaction.data.options)
@@ -168,15 +168,18 @@ module.exports = class CommandManager {
 			let msg = `❌ You do not have the permissions required to use this command:\n${perms}`;
 			return await cmd.sendResponse(interaction, msg, true);
 		}
+			
+		try {
+			await cmd.deferResponse(interaction, true);
+			this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
+			let res = await cmd.execute(data, interaction); // run the command 
+			if (typeof res === 'object' || typeof res === 'string')
+				cmd.sendResponse(interaction, res, res.secret);
+		} catch (e) {
+			this.client.log.warn(`[COMMANDS] An error occurred whilst executed the ${cmd} command`);
+			this.client.log.error(e);
+		}
 
-		await cmd.deferResponse(interaction, true);
-		
-		this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
-
-		let res = await cmd.execute(data, interaction); // run the command 
-
-		if (typeof res === 'object' || typeof res === 'string')
-			cmd.sendResponse(interaction, res, res.secret);
 	}
 
 };
