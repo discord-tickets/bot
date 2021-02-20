@@ -85,6 +85,11 @@ module.exports = async (log) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		number: {
+			type: DataTypes.INTEGER,
+			autoIncrement: true,
+			allowNull: false,
+		},
 		guild: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -92,7 +97,7 @@ module.exports = async (log) => {
 				model: Guild,
 				key: 'id'
 			},	
-		}
+		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
 	});

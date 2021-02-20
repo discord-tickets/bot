@@ -152,7 +152,9 @@ module.exports = class Command {
 		this.client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 5,
-				flags: flags(secret),
+				data: {
+					flags: flags(secret)
+				},
 			}
 		});
 	}
@@ -168,16 +170,18 @@ module.exports = class Command {
 			this.client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
-					flags: flags(secret),
-					data: await createMessage(this.client, interaction.channel_id, content)
+					data: {
+						flags: flags(secret),
+						...await createMessage(this.client, interaction.channel_id, content)
+					}
 				}
 			});
 		else
 			this.client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 4,
-					flags: flags(secret),
 					data: {
+						flags: flags(secret),
 						content
 					}
 				}

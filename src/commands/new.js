@@ -34,7 +34,6 @@ module.exports = class NewCommand extends Command {
 
 		return new MessageEmbed()
 			.setColor(settings.colour)
-			.setTitle(i18n('bot.version', require('../../package.json').version))
-			.secret = true;
+			.setTitle(i18n('bot.version', require('../../package.json').version));
 	}
 };
