@@ -8,7 +8,7 @@ module.exports = {
 			client.log.debug('Received interaction ping, responding with pong');
 			await client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
-					type: 1,
+					type: 1, // PONG
 				}
 			});
 			break;
@@ -16,8 +16,6 @@ module.exports = {
 			client.commands.execute(interaction.data.name, interaction);
 			break;
 		}
-
-		
 
 	}
 };

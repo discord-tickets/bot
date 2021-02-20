@@ -1,5 +1,13 @@
 {
+	"admin_only": "❌ You must be an administrator to use this command.",
 	"bot": {
 		"version": "DiscordTickets v%s by eartharoid"
-	}
+	},
+	"cmd": {
+		"new": {
+
+		}
+	},
+	"no_perm": "❌ You do not have the permissions required to use this command:\n%s",	
+	"support_only": "❌ You must be a member of staff to use this command."
 }

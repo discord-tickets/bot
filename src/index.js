@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * @name @eartharoid/discordtickets
- * @description An open-source & self-hosted Discord bot for ticket management.
+ * @description An open-source Discord bot for ticket management
  * @copyright 2021 Isaac Saunders
  * @license GNU-GPLv3
  */
@@ -52,8 +52,6 @@ if (!checkFile('./.env', './example.env')) {
 
 checkFile('./user/config.js', './user/example.config.js');
 
-
-
 require('dotenv').config({
 	path: path('./.env')
 });
@@ -67,6 +65,7 @@ const log = new Logger({
 	name: 'DiscordTickets by eartharoid',
 	debug: config.debug,
 	logToFile: config.logs.enabled,
+	directory: path('./logs/'),
 	keepFor: config.logs.keep_for,
 	custom: {
 		commands: {
@@ -76,6 +75,10 @@ const log = new Logger({
 		plugins: {
 			title: 'info',
 			prefix: 'plugins'
+		},
+		tickets: {
+			title: 'info',
+			prefix: 'tickets'
 		}
 	}
 });
@@ -84,6 +87,8 @@ const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
 const { PluginManager } = require('./modules/plugins');
+
+require('./modules/structures')(); // load extended structures before creating the client
 
 const {
 	Client,

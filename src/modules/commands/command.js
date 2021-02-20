@@ -177,7 +177,9 @@ module.exports = class Command {
 				data: {
 					type: 4,
 					flags: flags(secret),
-					content
+					data: {
+						content
+					}
 				}
 			});	
 	}

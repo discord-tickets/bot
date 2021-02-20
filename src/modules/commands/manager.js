@@ -140,7 +140,7 @@ module.exports = class CommandManager {
 	/**
 	 * Execute a command
 	 * @param {string} cmd_name - Name of the command
-	 * @param {interaction} interaction - Command interaction
+	 * @param {Interaction} interaction - Command interaction
 	 */
 	async execute(cmd_name, interaction) {
 		if (!this.commands.has(cmd_name))
@@ -157,6 +157,11 @@ module.exports = class CommandManager {
 
 		const cmd = this.commands.get(cmd_name);
 
+		let settings = await data.guild.settings;
+		if (!settings)
+			settings = await data.guild.createSettings();
+		const i18n = this.client.i18n.get(settings.locale);
+
 		// if (cmd.staff_only) {
 		// 	return await cmd.sendResponse(interaction, msg, true);
 		// }
@@ -165,7 +170,7 @@ module.exports = class CommandManager {
 			&& !data.member.hasPermission(cmd.permissions);
 		if (no_perm) {
 			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
-			let msg = `❌ You do not have the permissions required to use this command:\n${perms}`;
+			let msg = i18n('no_perm', perms);
 			return await cmd.sendResponse(interaction, msg, true);
 		}
 			

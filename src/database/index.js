@@ -66,6 +66,10 @@ module.exports = async (log) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		colour: {
+			type: DataTypes.STRING,
+			defaultValue: config.defaults.colour
+		},
 		locale: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.locale

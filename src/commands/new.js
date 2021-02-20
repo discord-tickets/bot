@@ -28,14 +28,13 @@ module.exports = class NewCommand extends Command {
 	}
 
 	async execute({ guild, member, channel, args}, interaction) {
-		console.log(args);
-		// console.log(channel.name);
-		// console.log(member.user.tag);
-		// console.log(guild.name);
 
-		const i18n = this.client.i18n.get(/* GET GUILD LOCALE FROM SETTINGS */);
+		let settings = await guild.settings;
+		const i18n = this.client.i18n.get(settings.locale);
 
 		return new MessageEmbed()
-			.setTitle(i18n('bot.version', require('../../package.json').version));
+			.setColor(settings.colour)
+			.setTitle(i18n('bot.version', require('../../package.json').version))
+			.secret = true;
 	}
 };

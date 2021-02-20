@@ -6,8 +6,19 @@ Structures.extend('Guild', Guild => {
 			super(client, data);
 		}
 
+		createSettings() {
+			return this.client.db.models.Guild.create({
+				id: this.id
+			});
+		}
+
+		async deleteSettings() {
+			let row = await this.settings;
+			return await row.destroy();
+		}
+
 		get settings() {
-			return this.client.db.Guild.findOne({
+			return this.client.db.models.Guild.findOne({
 				where: {
 					id: this.id
 				}
