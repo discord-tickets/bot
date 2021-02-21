@@ -27,13 +27,16 @@ module.exports = class NewCommand extends Command {
 		});
 	}
 
-	async execute({ guild, member, channel, args}, interaction) {
+	async execute({ guild, member, channel, args }, interaction) {
 
 		let settings = await guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		return new MessageEmbed()
-			.setColor(settings.colour)
-			.setTitle(i18n('bot.version', require('../../package.json').version));
+		channel.send(
+			new MessageEmbed()
+				.setColor(settings.colour)
+				.setTitle(i18n('bot.version', require('../../package.json').version))
+				.setDescription(args.topic)
+		);
 	}
 };

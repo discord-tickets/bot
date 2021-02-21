@@ -7,7 +7,7 @@ let current_presence = -1;
 module.exports = {
 	/**
 	 * Resolves data and files so embeds can be sent as a response to a slash command
-	 * @param {Discord.Client} channel_id - Text channel ID
+	 * @param {Discord.Client} client - The Discord Client
 	 * @param {string} channel_id - Text channel ID
 	 * @param {*} content - Message content 
 	 * @returns {Object}
@@ -24,6 +24,15 @@ module.exports = {
 	 * @param {boolean} secret - Ephemeral message?
 	 */
 	flags: (secret) => secret ? 1 << 64 : undefined,
+
+	/**
+	 * Set message entities
+	 * @param {Discord.Message} message - The message to set entities for
+	 */
+
+	messageEntities(message) {
+		const { client } = message;
+	},
 
 	/**
 	 * Select a presence from the config

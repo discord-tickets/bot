@@ -139,10 +139,11 @@ module.exports = class CommandManager {
 
 	/**
 	 * Execute a command
-	 * @param {string} cmd_name - Name of the command
 	 * @param {Interaction} interaction - Command interaction
 	 */
-	async execute(cmd_name, interaction) {
+	async handle(interaction) {
+		const cmd_name = interaction.data.name;
+
 		if (!this.commands.has(cmd_name))
 			throw new Error(`Received "${cmd_name}" command invocation, but the command manager does not have a "${cmd_name}" command`);
 		
@@ -175,11 +176,11 @@ module.exports = class CommandManager {
 		}
 			
 		try {
-			await cmd.deferResponse(interaction, true);
+			await cmd.acknowledge(interaction, true); // respond to discord
 			this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
-			let res = await cmd.execute(data, interaction); // run the command 
-			if (typeof res === 'object' || typeof res === 'string')
-				cmd.sendResponse(interaction, res, res.secret);
+			/* let res =  */await cmd.execute(data, interaction); // run the command 
+			// if (typeof res === 'object' || typeof res === 'string')
+			// 	cmd.sendResponse(interaction, res, res.secret);
 		} catch (e) {
 			this.client.log.warn(`[COMMANDS] An error occurred whilst executed the ${cmd} command`);
 			this.client.log.error(e);

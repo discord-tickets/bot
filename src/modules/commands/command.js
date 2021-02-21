@@ -35,9 +35,10 @@ module.exports = class Command {
 	 * @param {Object} data - Command data
 	 * @param {string} data.name - The name of the command (3-32)
 	 * @param {string} data.description - The description of the command (1-100)
-	 * @param {boolean} staff_only - Only allow staff to use this command?
-	 * @param {string[]} permissions - Array of permissions needed for a user to use this command
-	 * @param {CommandOption[]} data.options - The command options, max of 10
+	 * @param {boolean} [data.staff_only] - Only allow staff to use this command?
+	 * @param {string[]} [data.permissions] - Array of permissions needed for a user to use this command
+	 * @param {boolean} [data.global] - Create a global command?
+	 * @param {CommandOption[]} [data.options] - The command options (parameters), max of 10
 	 */
 	constructor(client, data) {
 
@@ -75,6 +76,13 @@ module.exports = class Command {
 		*/
 		this.permissions = data.permissions;
 
+		/**
+		 * Is this a global command?
+		 * @type {boolean}
+		 * @default true
+		*/
+		this.global = data.global === false ? false : true;
+
 		/** 
 		 * The command options
 		 * @type {CommandOption[]}
@@ -103,7 +111,8 @@ module.exports = class Command {
 			return this.client.log.error(e);
 		}
 
-		this.client.api.applications(this.client.user.id).commands.post({ data }); // post command to Discord
+		if (this.global)
+			this.client.api.applications(this.client.user.id).commands.post({ data }); // post command to Discord
 
 		let internal = this.internal ? 'internal ' : '';
 		this.client.log.commands(`Loaded ${internal}"${this.name}" command`);
@@ -124,9 +133,9 @@ module.exports = class Command {
 	 * @property {string} interaction.id - ID of the interaction
 	 * @property {number} interaction.type - Type of interaction
 	 * @property {ApplicationCommandInteractionData} interaction.data - Interaction data
-	 * @property {Guild} interaction.guild- The guild object
-	 * @property {Channel} interaction.channel- The channel object
-	 * @property {GuildMember} interaction.member - The member object
+	 * @property {Object} interaction.guild- The guild object
+	 * @property {Object} interaction.channel- The channel object
+	 * @property {Object} interaction.member - The member object
 	 * @property {string} interaction.token - The token used to respond to the interaction
 	 */
 
@@ -138,7 +147,6 @@ module.exports = class Command {
 	 * @param {Channel} data.channel- The channel object
 	 * @param {Guild} data.guild- The guild object
 	 * @param {GuildMember} data.member - The member object
-	 * @param {string} data.token - The token used to respond to the interaction
 	 * @param {Interaction} interaction - Interaction object
 	 */
 	async execute(data, interaction) { }
@@ -146,15 +154,15 @@ module.exports = class Command {
 	/**
 	 * Defer the response to respond later
 	 * @param {Interaction} interaction - Interaction object 
-	 * @param {boolean} secret - Ephemeral message? **NOTE: EMBEDS AND ATTACHMENTS DO NOT RENDER IF TRUE**
+	 * @param {boolean} secret - Ephemeral?
 	 */
-	async deferResponse(interaction, secret) {
+	async acknowledge(interaction, secret) {
 		this.client.api.interactions(interaction.id, interaction.token).callback.post({
 			data: {
 				type: 5,
-				data: {
-					flags: flags(secret)
-				},
+				// data: {
+				// 	flags: flags(secret)
+				// },
 			}
 		});
 	}

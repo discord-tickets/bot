@@ -13,7 +13,7 @@ module.exports = {
 			});
 			break;
 		case 2:
-			client.commands.execute(interaction.data.name, interaction);
+			client.commands.handle(interaction);
 			break;
 		}
 
