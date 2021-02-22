@@ -174,7 +174,7 @@ module.exports = class Command {
 	 * @param {boolean} secret - Ephemeral message? **NOTE: EMBEDS AND ATTACHMENTS DO NOT RENDER IF TRUE**
 	 */
 	async sendResponse(interaction, content, secret) {
-		const send = this.client.api.interactions(interaction.id, interaction.token).messages['@original'].patch;
+		const send = this.client.api.webhooks(this.client.fetchApplication().id, interaction.token).messages['@original'].patch;
 		if (typeof content === 'object')
 			send({
 				data: {
