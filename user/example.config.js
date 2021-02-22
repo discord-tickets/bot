@@ -28,6 +28,8 @@ module.exports = {
 		colour: '#009999',
 		locale: 'en-GB',
 		log_messages: true, // required for transcripts/archives
+		prefix: '-',
+		ticket_welcome: 'Hello {{name}}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
 	},
 	logs: {
 		enabled: true,

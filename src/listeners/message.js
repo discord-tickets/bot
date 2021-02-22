@@ -2,18 +2,30 @@ module.exports = {
 	event: 'message',
 	execute: async (client, message) => {
 
-		let settings = await message.guild.settings;
+		let settings = await message.guild?.settings;
 
-		if (settings.log_messages) {
-			if (message.type !== 'DEFAULT') return;
+		if (settings?.log_messages) {
+			if (message.system) return;
 
-			let ticket = await client.tickets.get(message.channel.id);
+			let ticket = await client.db.models.Ticket.findOne({
+				where: {
+					id: message.channel.id
+				}
+			});
 
 			if (ticket) {
-				client.db.models.Message.create({
+				await client.db.models.Message.create({
 					id: message.id,
 					ticket: ticket.id,
-					author: message.author.id
+					author: message.author.id,
+					updates: [{
+						content: message.content,
+						time: message.createdTimestamp,
+						embeds: message.embeds.map(embed => {
+							return { ...message.embeds[embed] };
+						}),
+						attachments: [ ...message.attachments.values() ]
+					}]
 				});
 			}
 		}

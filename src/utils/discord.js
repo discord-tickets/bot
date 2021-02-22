@@ -26,15 +26,6 @@ module.exports = {
 	flags: (secret) => secret ? 1 << 64 : undefined,
 
 	/**
-	 * Set message entities
-	 * @param {Discord.Message} message - The message to set entities for
-	 */
-
-	messageEntities(message) {
-		const { client } = message;
-	},
-
-	/**
 	 * Select a presence from the config
 	 * @returns {Discord.PresenceData}
 	 */
