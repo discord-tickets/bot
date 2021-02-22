@@ -1,11 +1,5 @@
 # Contributing
 
-Thank you for considering contributing to DiscordTickets.
-
-Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md), which all contributors must follow.
-
-You don't need to write code to contribute; all contributions are welcome and encouraged. You could:
-
 - [Contributing](#contributing)
 	- [Submitting a bug report](#submitting-a-bug-report)
 	- [Submitting a feature request](#submitting-a-feature-request)
@@ -15,6 +9,21 @@ You don't need to write code to contribute; all contributions are welcome and en
 		- [Updating documentation](#updating-documentation)
 			- [Website](#website)
 			- [JSDoc](#jsdoc)
+
+Thank you for considering contributing to DiscordTickets.
+
+Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md), which all contributors must follow.
+
+You don't need to write code to contribute; all contributions are welcome and encouraged. You could:
+
+- [Submit a bug report](#submitting-a-bug-report) issue
+- Help with bug triage
+- [Request a new feature (or an improvement to an existing feature)](#submitting-a-feature-request)
+- [Improve documentation](#updating-documentation) (the [website](https://discordtickets.eartharoid.me), or JSDoc comments)
+- [Help translate](#translating)
+- Create a tutorial (a video or page on the docs)
+- [Answer someone's question in Discussions](https://github.com/eartharoid/DiscordTickets/discussions/categories/support-q-a?discussions_q=category%3A%22Support+%28Q%26A%29%22+is%3Aunanswered)
+- Respond to an issue or pull request
 
 If you want to contribute but don't know how, and this file doesn't answer your questions, [start a discussion](https://github.com/eartharoid/DiscordTickets/discussions/new) or [join the Discord support & community server](https://go.eartharoid.me/discord) to ask for guidance.
 
