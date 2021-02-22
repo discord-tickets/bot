@@ -25,7 +25,6 @@ An open-source ticket management bot for Discord - a free alternative to the pre
 
 - [What is this?](#what-is-this)
 	- [Features](#features)
-		- [Localisable](#localisable)
 	- [Screenshots](#screenshots)
 - [Getting started](#getting-started)
 - [Documentation](#documentation)
@@ -52,41 +51,44 @@ DiscordTickets is packed full of features, many of which were suggested by its u
 - Request someone else to make a plugin
 - [Submit a feature request](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
 
+Here's some of the things that makes DiscordTickets awesome:
+
 <!-- omit in toc -->
-#### Highly customisable
+#### 1. Highly customisable
 
 Some messages can be configured for each server and for each ticket category. Every other message is set in the locale files, making it relatively easy to override the default messages.
 
 You can also configure the functionality of the bot to your liking and add commands with plugins.
 
-#### Localisable
+<!-- omit in toc -->
+#### 2. Localisable
 
 If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md#translating) it yourself.
 
 Plugin authors are encouraged to support multiple languages as well.
 
 <!-- omit in toc -->
-#### Multiple ticket categories
+#### 3. Multiple ticket categories
 
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
 
 <!-- omit in toc -->
-#### A beautiful ticket archives portal
+#### 4. A beautiful ticket archives portal
 
 Add the official [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) plugin for an instant ticket archives website.
 
 <!-- omit in toc -->
-#### Plugin support
+#### 5. Plugin support
 
 Developers can add a lot of functionality to DiscordTickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) is an example of what can be done with plugins.
 
 <!-- omit in toc -->
-#### Open-source and self-hosted
+#### 6. Open-source and self-hosted
 
 It's yours.
 
 <!-- omit in toc -->
-#### Supports multiple databases
+#### 7. Supports multiple databases
 
 DiscordTickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostreSQL, or MSSQL for your database, with very little setup.
 
@@ -117,7 +119,7 @@ If the [documentation](https://discordtickets.eartharoid.me) leaves you with que
 
 ## Contributing
 
-For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md) given before doing so.
+For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md) given before doing so.
 
 ## Contributors
 
