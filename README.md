@@ -20,6 +20,8 @@ The following information is about v3. Please read the README file on the v2 bra
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
 
+<br><br>
+
 <!-- omit in toc -->
 ## Table of contents
 
@@ -122,6 +124,10 @@ If the [documentation](https://discordtickets.eartharoid.me) leaves you with que
 For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md) given before doing so.
 
 ## Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/CONTRIBUTORS.md)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thank you to everyone to has contributed to DiscordTickets, including everyone who has:
 
