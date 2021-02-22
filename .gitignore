@@ -9,4 +9,3 @@ site/
 user/config.js
 user/database.sqlite
 user/plugins/*/
-*.code-workspace

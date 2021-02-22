@@ -1,5 +1,7 @@
 # Contributing
 
+**Table of contents**
+
 - [Contributing](#contributing)
 	- [Submitting a bug report](#submitting-a-bug-report)
 	- [Submitting a feature request](#submitting-a-feature-request)
@@ -55,6 +57,8 @@ If you would like to request changes to an existing feature, it may be better to
 ## Creating a pull request
 
 To edit the documentation, translate, or contribute code to this project, you will need to [create a new pull request](https://github.com/eartharoid/DiscordTickets/compare). For large changes, you should **consider creating an issue** (or commenting on an existing one) first, as it could save you some time.
+
+You should name your commits using [**this commit message format**](https://github.com/angular/material/blob/master/.github/CONTRIBUTING.md#-commit-message-format).
 
 ### Contributing code
 
