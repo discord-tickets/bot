@@ -1,7 +1,7 @@
 <!-- omit in toc -->
-# ⚠️ Please download from [releases](https://github.com/eartharoid/DiscordTickets/releases) or [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) - master branch is currently a work in progress
+# ⚠️ The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for the current version of the code and [documentation](https://github.com/eartharoid/DiscordTickets/wiki)
 
-The following information is about v3. Please read the README file on the v2 branch for information that is about the current version.
+The following information is about v3. Please read the README file on the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for information that is about the current version.
 
 <hr><br><br>
 <!-- new readme content -->
@@ -104,10 +104,10 @@ If you choose SQLite, which is the default as it is the easiest, you don't need 
 
 ## Getting started
 
-| [**Host it yourself**](https://discordtickets.eartharoid.me/installation) | [**Fully managed hosting**](https://go.eartharoid.me/discord) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| [**Host it yourself**](https://discordtickets.eartharoid.me/installation) | [**Fully managed hosting**](https://discordtickets.eartharoid.me/hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 |:-:|:-:|:-:|
-| Recommended if you have a host and you've done this before | Recommended if you have no idea what you're doing | Try out the bot, not recommended for production use |
-| [Go to the docs »](https://discordtickets.eartharoid.me/installation) | [Create a ticket on Discord »](https://go.eartharoid.me/discord) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| Recommended if you have a host and you've done this before. | Recommended if you have no idea what you're doing. | Try out the bot. Not recommended for production use. |
+| [Go to the docs »](https://discordtickets.eartharoid.me/installation) | [Learn more »](https://discordtickets.eartharoid.me/hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 
 ## Documentation
 
