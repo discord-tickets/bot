@@ -6,7 +6,7 @@ The following information is about v3. Please read the README file on the [v2 br
 <hr><br><br>
 <!-- new readme content -->
 
-<img src='./docs/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
+<img src='https://discordtickets.eartharoid.me/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
 <!-- <img align='left' width='0' height='192px' hspace='10'/> -->
 
 <!-- omit in toc -->
