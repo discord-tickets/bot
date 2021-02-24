@@ -38,45 +38,28 @@ DiscordTickets is packed full of features, many of which were suggested by its u
 
 Here's some of the things that makes DiscordTickets awesome:
 
-<!-- omit in toc -->
-#### 1. Highly customisable
-
+1. **Highly customisable**  
 Some messages can be configured for each server and for each ticket category. Every other message is set in the locale files, making it relatively easy to override the default messages.
-
 You can also configure the functionality of the bot to your liking and add commands with plugins.
 
-<!-- omit in toc -->
-#### 2. Localisable
-
+2. **Localisable**  
 If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md#translating) it yourself.
-
 Plugin authors are encouraged to support multiple languages as well.
 
-<!-- omit in toc -->
-#### 3. Multiple ticket categories
-
+3. **Multiple ticket categories**  
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
 
-<!-- omit in toc -->
-#### 4. A beautiful ticket archives portal
-
+4. **A beautiful ticket archives portal**  
 Add the official [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) plugin for an instant ticket archives website.
 
-<!-- omit in toc -->
-#### 5. Plugin support
-
+5. **Plugin support**  
 Developers can add a lot of functionality to DiscordTickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) is an example of what can be done with plugins.
 
-<!-- omit in toc -->
-#### 6. Open-source and self-hosted
-
+6. **Open-source and self-hosted**  
 It's yours.
 
-<!-- omit in toc -->
-#### 7. Supports multiple databases
-
+7. **Supports multiple databases**  
 DiscordTickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostgreSQL, or MSSQL for your database, with very little setup.
-
 If you choose SQLite, which is the default as it is the easiest, you don't need to do anything! If you choose to use another database (recommended), you only need to install the package(s) with NPM and create the database. All of the database tables are created automatically, regardless of which database type you use.
 
 ### Screenshots
