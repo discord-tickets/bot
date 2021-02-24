@@ -1,11 +1,3 @@
-<!-- omit in toc -->
-# ⚠️ The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for the current version of the code and [documentation](https://github.com/eartharoid/DiscordTickets/wiki)
-
-The following information is about v3. Please read the README file on the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for information that is about the current version.
-
-<hr><br><br>
-<!-- new readme content -->
-
 <img src='https://discordtickets.eartharoid.me/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
 <!-- <img align='left' width='0' height='192px' hspace='10'/> -->
 
@@ -22,20 +14,11 @@ An open-source ticket management bot for Discord - a free alternative to the pre
 
 <br><br>
 
-<!-- omit in toc -->
-## Table of contents
+⚠️
+**The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for the current version of the code and [documentation](https://github.com/eartharoid/DiscordTickets/wiki)**.
 
-- [What is this?](#what-is-this)
-	- [Features](#features)
-	- [Screenshots](#screenshots)
-- [Getting started](#getting-started)
-- [Documentation](#documentation)
-- [Support](#support)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
-- [Sponsors](#sponsors)
-	- [Donate](#donate)
-- [License](#license)
+⚠️
+**The following information is about v3. Please read the README file on the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for information that is about the current version.**
 
 ## What is this?
 
