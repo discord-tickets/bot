@@ -92,7 +92,7 @@ It's yours.
 <!-- omit in toc -->
 #### 7. Supports multiple databases
 
-DiscordTickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostreSQL, or MSSQL for your database, with very little setup.
+DiscordTickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostgreSQL, or MSSQL for your database, with very little setup.
 
 If you choose SQLite, which is the default as it is the easiest, you don't need to do anything! If you choose to use another database (recommended), you only need to install the package(s) with NPM and create the database. All of the database tables are created automatically, regardless of which database type you use.
 
