@@ -15,7 +15,7 @@ module.exports = {
 	aliases: ['data', 'statistics'],
 	
 	args: false,
-	async execute(client, message, _args, {config, Ticket}) {
+	async execute(client, message, _args, _log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let open = await Ticket.count({ where: { open: true } });

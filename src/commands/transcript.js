@@ -20,7 +20,7 @@ module.exports = {
 	aliases: ['archive', 'download'],
 	example: 'transcript 57',
 	args: true,
-	async execute(client, message, args, {config, Ticket}) {
+	async execute(client, message, args, _log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 		const id = args[0];
 

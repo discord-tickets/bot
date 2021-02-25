@@ -19,10 +19,7 @@ module.exports = {
 	aliases: ['del'],
 	example: 'delete #ticket-17',
 	args: false,
-	async execute(client, message, _args, log, {
-		config,
-		Ticket
-	}) {
+	async execute(client, message, _args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const notTicket = new MessageEmbed()

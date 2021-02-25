@@ -15,7 +15,7 @@ module.exports = {
 	aliases: ['command', 'commands'],
 	example: 'help new',
 	args: false,
-	execute(client, message, args, log, {config}) {
+	execute(client, message, args, log, { config }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const commands = Array.from(client.commands.values());

@@ -15,7 +15,7 @@ module.exports = {
 	aliases: ['edit'],
 	example: 'topic need help error',
 	args: true,
-	async execute(client, message, args, {config, Ticket}) {
+	async execute(client, message, args, _log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let ticket = await Ticket.findOne({

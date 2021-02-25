@@ -15,7 +15,7 @@ module.exports = {
 	aliases: ['widget'],
 	args: false,
 	permission: 'MANAGE_GUILD',
-	async execute(client, message, _args, log, {config, Setting}) {
+	async execute(client, message, _args, log, { config, Setting }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let msgID = await Setting.findOne({ where: { key: 'panel_msg_id' } });

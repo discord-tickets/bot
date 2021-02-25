@@ -15,7 +15,7 @@ module.exports = {
 	aliases: ['none'],
 	example: 'transfer @user',
 	args: true,
-	async execute(client, message, args, { config, Ticket }) {
+	async execute(client, message, args, _log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		let ticket = await Ticket.findOne({

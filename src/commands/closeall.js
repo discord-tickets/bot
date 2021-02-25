@@ -24,10 +24,7 @@ module.exports = {
 	example: 'closeall 1mo 1w',
 	args: false,
 	disabled: !config.commands.closeall.enabled,
-	async execute(client, message, args, log, {
-		config,
-		Ticket
-	}) {
+	async execute(client, message, args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		if (!message.member.roles.cache.has(config.staff_role))

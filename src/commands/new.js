@@ -19,7 +19,7 @@ module.exports = {
 	example: 'new my server won\'t start',
 	args: false,
 	disabled: !config.commands.new.enabled,
-	async execute(client, message, args, log, {config, Ticket}) {
+	async execute(client, message, args, log, { config, Ticket }) {
 
 		if (!config.commands.new.enabled) return; // stop if the command is disabled
 

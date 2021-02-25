@@ -16,7 +16,7 @@ module.exports = {
 	usage: '[@member]',
 	aliases: ['list'],
 	args: false,
-	async execute(client, message, args, {config, Ticket}) {
+	async execute(client, message, args, _log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
 
 		const supportRole = guild.roles.cache.get(config.staff_role);
