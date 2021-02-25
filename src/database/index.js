@@ -82,6 +82,29 @@ module.exports = async (log) => {
 		tableName: DB_TABLE_PREFIX + 'guilds'
 	});
 
+	const Category = sequelize.define('Category', {
+		id: {
+			type: DataTypes.CHAR(18),
+			primaryKey: true,
+			allowNull: false,
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'name_guild'
+		},
+		guild: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			references: {
+				model: Guild,
+				key: 'id'
+			},
+			unique: 'name_guild'
+		},
+	}, {
+		tableName: DB_TABLE_PREFIX + 'categories'
+	});
 
 	const Ticket = sequelize.define('Ticket', {
 		id: {
@@ -101,6 +124,14 @@ module.exports = async (log) => {
 				model: Guild,
 				key: 'id'
 			},	
+		},
+		category: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			references: {
+				model: Category,
+				key: 'id'
+			},
 		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
