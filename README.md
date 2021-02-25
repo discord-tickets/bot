@@ -26,7 +26,7 @@ DiscordTickets is a Discord bot for creating and managing "support ticket" chann
 
 DiscordTickets is feature-rich and much more customisable than many of the bots mentioned above. As it is intended for self-hosting, the bot can have your community or company's logo, for free.
 
-Although intended for use in a single Discord server, the bot can also function in multiple servers at once if run more than one community.
+Although intended for use in a single Discord server, the bot can also function in multiple servers at once if you run more than one community.
 
 ### Features
 
@@ -91,20 +91,16 @@ For contributing instructions, or to find out all of the ways you can contribute
 
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/CONTRIBUTORS.md)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 Thank you to everyone to has contributed to DiscordTickets, including everyone who has:
 
 - Contributed code
 - Translated
 - Improved documentation
-- Supported and helped others
-- Created resources such as tutorials
-- Created a public plugin
 - Reported bugs
 - Requested a feature
+- Given help or support to other users
+- Created a public plugin
+- Created resources such as tutorials
 
 **A full list of contributors can be found in [CONTRIBUTORS.md](https://github.com/eartharoid/DiscordTickets/blob/master/CONTRIBUTORS.md).**
 

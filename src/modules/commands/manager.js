@@ -7,7 +7,7 @@ const fs = require('fs');
 const { path } = require('../../utils/fs');
 
 /**
- * Manages the loading of commands
+ * Manages the loading and execution of commands
  */
 module.exports = class CommandManager {
 	/**

@@ -86,6 +86,7 @@ const log = new Logger({
 const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
+const TicketManager = require('./modules/tickets');
 const { PluginManager } = require('./modules/plugins');
 
 require('./modules/structures')(); // load extended structures before creating the client
@@ -131,6 +132,9 @@ class Bot extends Client {
 			require('./updater')(this); // check for updates
 			require('./modules/listeners')(this); // load internal listeners
 
+			/** The ticket manager */
+			this.tickets = new TicketManager(this);
+
 			/** The command manager, used by internal and plugin commands */
 			this.commands = new CommandManager(this);
 
@@ -153,7 +157,7 @@ process.on('unhandledRejection', error => {
 	log.notice('PLEASE INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE FOLLOWING ERROR:');
 	log.notice(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
 	log.warn('An error was not caught');
-	if (error instanceof Error) log.warn(`Uncaught ${error.name}: ${error}`);
+	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
 	log.error(error);
 });
 

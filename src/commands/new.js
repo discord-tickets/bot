@@ -32,7 +32,7 @@ module.exports = class NewCommand extends Command {
 		let settings = await guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		channel.send(
+		await channel.send(
 			new MessageEmbed()
 				.setColor(settings.colour)
 				.setTitle(i18n('bot.version', require('../../package.json').version))

@@ -41,16 +41,16 @@ module.exports = {
 	presence: {
 		presences: [
 			{
-				activity: '/new | /help',
+				activity: '/new',
 				type: 'PLAYING',
 				status: 'online'
 			},
 			{
-				activity: 'with tickets | /help',
+				activity: 'with tickets',
 				type: 'PLAYING'
 			},
 			{
-				activity: 'for new tickets | /help',
+				activity: 'for new tickets',
 				type: 'WATCHING'
 			},
 			/* { // an example

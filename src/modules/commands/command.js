@@ -12,11 +12,11 @@ const Plugin = require('../plugins/plugin');
  */
 module.exports = class Command {
 	/**
-	   * A command option choice
-	   * @typedef CommandOptionChoice
+	 * A command option choice
+	 * @typedef CommandOptionChoice
 	 * @property {string} name - Choice name (1-100)
 	 * @property {(string|number)} value - choice value
-	   */
+	 */
 
 	/**
 	 * A command option
@@ -173,10 +173,11 @@ module.exports = class Command {
 	 * @param {*} content - Message content
 	 * @param {boolean} secret - Ephemeral message? **NOTE: EMBEDS AND ATTACHMENTS DO NOT RENDER IF TRUE**
 	 */
-	async sendResponse(interaction, content, secret) {
-		const send = this.client.api.webhooks(this.client.fetchApplication().id, interaction.token).messages['@original'].patch;
+	async respond(interaction, content, secret) {
+		let application = await this.client.fetchApplication();
+		const send = this.client.api.webhooks(application.id, interaction.token).messages['@original'].patch;
 		if (typeof content === 'object')
-			send({
+			await send({
 				data: {
 					type: 4,
 					data: {
@@ -186,7 +187,7 @@ module.exports = class Command {
 				}
 			});
 		else if (typeof content === 'string')
-			send({
+			await send({
 				data: {
 					type: 4,
 					data: {
@@ -195,21 +196,5 @@ module.exports = class Command {
 					}
 				}
 			});	
-	}
-
-	/**
-	 * Edit the original interaction response
-	 * @param {Interaction} interaction - Interaction object
-	 * @param {*} content - Message content
-	 */
-	async editResponse(interaction, content) {
-		if (typeof content === 'object')
-			this.client.api.interactions(interaction.id, interaction.token).messages.patch({
-				embeds: content
-			});
-		else
-			this.client.api.interactions(interaction.id, interaction.token).messages.patch({
-				content
-			});
 	}
 };
