@@ -60,7 +60,7 @@ const config = require('../user/config');
 
 require('./banner')();
 
-const Logger = require('leekslazylogger');
+const Logger = require('leekslazylogger-fastify');
 const log = new Logger({
 	name: 'DiscordTickets by eartharoid',
 	debug: config.debug,
@@ -71,6 +71,10 @@ const log = new Logger({
 		commands: {
 			title: 'info',
 			prefix: 'commands'
+		},
+		http: {
+			title: 'info',
+			prefix: 'http'
 		},
 		plugins: {
 			title: 'info',
@@ -88,6 +92,7 @@ const I18n = require('@eartharoid/i18n');
 const { CommandManager } = require('./modules/commands');
 const TicketManager = require('./modules/tickets');
 const { PluginManager } = require('./modules/plugins');
+const SettingsServer = require('./server');
 
 require('./modules/structures')(); // load extended structures before creating the client
 
@@ -141,6 +146,9 @@ class Bot extends Client {
 			/** The plugin manager */
 			this.plugins = new PluginManager(this);
 			this.plugins.load(); // load plugins
+
+			/** SettingsServer internal plugin instance */
+			this.server = new SettingsServer(this);
 
 			this.log.info('Connecting to Discord API...');
 
