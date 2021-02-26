@@ -12,6 +12,7 @@ module.exports = async (log) => {
 	const {
 		DB_TYPE,
 		DB_HOST,
+		DB_PORT,
 		DB_USER,
 		DB_PASS,
 		DB_NAME,
@@ -47,6 +48,7 @@ module.exports = async (log) => {
 		sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 			dialect: types[type].dialect,
 			host: DB_HOST,
+			port: DB_PORT,
 			logging: log.debug
 		});
 	}
