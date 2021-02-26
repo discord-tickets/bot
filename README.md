@@ -1,8 +1,8 @@
-<img src='https://discordtickets.eartharoid.me/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
+<img src='https://discordtickets.app/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
 <!-- <img align='left' width='0' height='192px' hspace='10'/> -->
 
 <!-- omit in toc -->
-# [DiscordTickets](https://discordtickets.eartharoid.me)
+# [DiscordTickets](https://discordtickets.app)
 
 [![GitHub stars](https://img.shields.io/github/stars/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)
@@ -70,18 +70,18 @@ If you choose SQLite, which is the default as it is the easiest, you don't need 
 
 ## Getting started
 
-| [**Host it yourself**](https://discordtickets.eartharoid.me/installation) | [**Fully managed hosting**](https://discordtickets.eartharoid.me/hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| [**Host it yourself**](https://discordtickets.app/installation) | [**Fully managed hosting**](https://discordtickets.app/hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 |:-:|:-:|:-:|
 | Recommended if you have a host and you've done this before. | Recommended if you have no idea what you're doing. | Try out the bot. Not recommended for production use. |
-| [Go to the docs »](https://discordtickets.eartharoid.me/installation) | [Learn more »](https://discordtickets.eartharoid.me/hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| [Go to the docs »](https://discordtickets.app/installation) | [Learn more »](https://discordtickets.app/hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 
 ## Documentation
 
-You will find most of information you need at [discordtickets.eartharoid.me](https://discordtickets.eartharoid.me).
+You will find most of information you need at [discordtickets.app](https://discordtickets.app).
 
 ## Support
 
-If the [documentation](https://discordtickets.eartharoid.me) leaves you with questions, you can ask for help in the [discussions](https://github.com/eartharoid/DiscordTickets/discussions/categories/support-q-a) or join the support server on Discord.
+If the [documentation](https://discordtickets.app) leaves you with questions, you can ask for help in the [discussions](https://github.com/eartharoid/DiscordTickets/discussions/categories/support-q-a) or join the support server on Discord.
 
 [![Discord](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://go.eartharoid.me/discord)
 

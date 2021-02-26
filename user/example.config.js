@@ -10,14 +10,14 @@
  *      Quick Start
  * ---------------------
  *
- * 	> For detailed instructions, visit the documentation: https://discordtickets.eartharoid.me
+ * 	> For detailed instructions, visit the documentation: https://discordtickets.app
  *
  * ---------------------
  *       Support
  * ---------------------
  *
  * 	> Discord support server: https://go.eartharoid.me/discord
- * 	> Documentation: https://discordtickets.eartharoid.me
+ * 	> Documentation: https://discordtickets.app
  *
  * ###############################################################################################
  */

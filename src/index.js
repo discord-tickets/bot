@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * 
- * @name @eartharoid/discordtickets
+ * @name @eartharoid/discord-tickets
  * @description An open-source Discord bot for ticket management
  * @copyright 2021 Isaac Saunders
  * @license GNU-GPLv3

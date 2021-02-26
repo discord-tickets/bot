@@ -21,7 +21,7 @@ You don't need to write code to contribute; all contributions are welcome and en
 - [Submit a bug report](#submitting-a-bug-report) issue
 - Help with bug triage
 - [Request a new feature (or an improvement to an existing feature)](#submitting-a-feature-request)
-- [Improve documentation](#updating-documentation) (the [website](https://discordtickets.eartharoid.me), or JSDoc comments)
+- [Improve documentation](#updating-documentation) (the [website](https://discordtickets.app), or JSDoc comments)
 - [Help translate](#translating)
 - Create a tutorial (a video or page on the docs)
 - [Answer someone's question in Discussions](https://github.com/eartharoid/DiscordTickets/discussions/categories/support-q-a?discussions_q=category%3A%22Support+%28Q%26A%29%22+is%3Aunanswered)

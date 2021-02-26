@@ -1,5 +1,5 @@
 {
-	"name": "@eartharoid/discordtickets",
+	"name": "@eartharoid/discord-tickets",
 	"version": "3.0.0",
 	"private": true,
 	"description": "An open-source Discord bot for ticket management",
@@ -25,7 +25,7 @@
 	"bugs": {
 		"url": "https://github.com/eartharoid/DiscordTickets/issues"
 	},
-	"homepage": "https://discordtickets.eartharoid.me",
+	"homepage": "https://discordtickets.app",
 	"funding": "https://github.com/eartharoid/DiscordTickets/?sponsor=1",
 	"dependencies": {
 		"@eartharoid/i18n": "^0.0.1",

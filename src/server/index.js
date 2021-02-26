@@ -1,7 +1,7 @@
 const { Plugin } = require('../modules/plugins');
 
 module.exports = class SettingsServer extends Plugin {
-	constructor(client){
+	constructor(client) {
 		super(client, {
 			id: 'internal.settings'
 		}, {
