@@ -60,32 +60,7 @@ const config = require('../user/config');
 
 require('./banner')();
 
-const Logger = require('leekslazylogger-fastify');
-const log = new Logger({
-	name: 'DiscordTickets by eartharoid',
-	debug: config.debug,
-	logToFile: config.logs.enabled,
-	directory: path('./logs/'),
-	keepFor: config.logs.keep_for,
-	custom: {
-		commands: {
-			title: 'info',
-			prefix: 'commands'
-		},
-		http: {
-			title: 'info',
-			prefix: 'http'
-		},
-		plugins: {
-			title: 'info',
-			prefix: 'plugins'
-		},
-		tickets: {
-			title: 'info',
-			prefix: 'tickets'
-		}
-	}
-});
+const log = require('./logger');
 
 const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
