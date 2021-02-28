@@ -40,10 +40,6 @@ module.exports = new Logger({
 			type: 'info',
 			format: '&7[{timestamp}]&r &3[INFO] &d(COMMANDS)&r {text}'
 		},
-		http: {
-			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(HTTP)&r {text}'
-		},
 		plugins: {
 			type: 'info',
 			format: '&7[{timestamp}]&r &3[INFO] &d(PLUGINS)&r {text}'
@@ -51,6 +47,14 @@ module.exports = new Logger({
 		tickets: {
 			type: 'info',
 			format: '&7[{timestamp}]&r &3[INFO] &d(TICKETS)&r {text}'
+		},
+		http: {
+			type: 'info',
+			format: '&7[{timestamp}]&r &3[INFO] &d(HTTP)&r {text}'
+		},
+		ws: {
+			type: 'info',
+			format: '&7[{timestamp}]&r &3[INFO] &d(WS)&r {text}'
 		}
 	}
 });

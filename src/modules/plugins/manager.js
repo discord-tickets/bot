@@ -34,7 +34,7 @@ module.exports = class PluginManager {
 	 * @param {Plugin} Main The Plugin class
 	 * @param {Object} pkg Contents of package.json
 	 */
-	registerPlugin(npm, Main, pkg) {
+	register(npm, Main, pkg) {
 		let {
 			name: id,
 			version,
@@ -85,7 +85,7 @@ module.exports = class PluginManager {
 			try {
 				let main = require(plugin);
 				let pkg = require(`${plugin}/package.json`);
-				this.registerPlugin(true, main, pkg);
+				this.register(true, main, pkg);
 			} catch (e) {
 				this.client.log.warn(`An error occurred whilst loading ${plugin}; have you installed it?`);
 				this.client.log.error(e);
@@ -99,7 +99,7 @@ module.exports = class PluginManager {
 			if (!fs.existsSync(path(`./user/plugins/${dir}/package.json`))) return;
 			let pkg = require(`../../../user/plugins/${dir}/package.json`);
 			let main = require(join(`../../../user/plugins/${dir}/`, pkg.main));
-			this.registerPlugin(false, main, pkg);
+			this.register(false, main, pkg);
 		});
 	}
 

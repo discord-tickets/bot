@@ -6,6 +6,7 @@ site/
 
 # files
 .env
+sskey.env
 user/config.js
 user/database.sqlite
 user/plugins/*/
