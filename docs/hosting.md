@@ -1,1 +1,0 @@
-# Fully managed hosting
