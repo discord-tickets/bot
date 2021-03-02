@@ -67,6 +67,7 @@ Any code changes should be accompanied by any necessary documentation changes.
 You should install the ESLint extension in your editor help you follow the code style.
 
 - Use single quotes
+- Classes should be named in PascalCase
 - Functions should be named in camelCase
 - Variables and constants should be named in snake_case
 
