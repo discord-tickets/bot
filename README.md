@@ -4,9 +4,9 @@
 <!-- omit in toc -->
 # [DiscordTickets](https://discordtickets.app)
 
-[![GitHub stars](https://img.shields.io/github/stars/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/stargazers)
-[![License](https://img.shields.io/github/license/eartharoid/DiscordTickets?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
+[![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/LICENSE)
 ![Codacy grade](https://img.shields.io/codacy/grade/14e6851c85444424b75b8bc3f93e93db?logo=codacy&style=flat-square)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://discord.gg/pXc9vyC)
 
@@ -15,10 +15,10 @@ An open-source ticket management bot for Discord - a free alternative to the pre
 <br><br>
 
 ⚠️
-**The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for the current version of the code and [documentation](https://github.com/eartharoid/DiscordTickets/wiki)**.
+**The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/discord-tickets/bot/tree/v2) for the current version of the code and [documentation](https://github.com/discord-tickets/bot/wiki)**.
 
 ⚠️
-**The following information is about v3. Please read the README file on the [v2 branch](https://github.com/eartharoid/DiscordTickets/tree/v2) for information that is about the current version.**
+**The following information is about v3. Please read the README file on the [v2 branch](https://github.com/discord-tickets/bot/tree/v2) for information that is about the current version.**
 
 ## What is this?
 
@@ -34,7 +34,7 @@ DiscordTickets is packed full of features, many of which were suggested by its u
 
 - Create a plugin for it, if you can code JavaScript
 - Request someone else to make a plugin
-- [Submit a feature request](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
+- [Submit a feature request](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
 
 Here's some of the things that makes DiscordTickets awesome:
 
@@ -43,17 +43,17 @@ Some messages can be configured for each server and for each ticket category. Ev
 You can also configure the functionality of the bot to your liking and add commands with plugins.
 
 2. **Localisable**  
-If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md#translating) it yourself.
+If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md#translating) it yourself.
 Plugin authors are encouraged to support multiple languages as well.
 
 3. **Multiple ticket categories**  
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
 
 4. **A beautiful ticket archives portal**  
-Add the official [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) plugin for an instant ticket archives website.
+Add the official [DiscordTickets-Portal](https://github.com/discord-tickets/portal) plugin for an instant ticket archives website.
 
 5. **Plugin support**  
-Developers can add a lot of functionality to DiscordTickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal) is an example of what can be done with plugins.
+Developers can add a lot of functionality to DiscordTickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [DiscordTickets-Portal](https://github.com/discord-tickets/portal) is an example of what can be done with plugins.
 
 6. **Open-source and self-hosted**  
 It's yours.
@@ -81,13 +81,13 @@ You will find most of information you need at [discordtickets.app](https://disco
 
 ## Support
 
-If the [documentation](https://discordtickets.app) leaves you with questions, you can ask for help in the [discussions](https://github.com/eartharoid/DiscordTickets/discussions/categories/support-q-a) or join the support server on Discord.
+If the [documentation](https://discordtickets.app) leaves you with questions, you can ask for help in the [discussions](https://github.com/discord-tickets/bot/discussions/categories/support-q-a) or join the support server on Discord.
 
 [![Discord](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://go.eartharoid.me/discord)
 
 ## Contributing
 
-For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/eartharoid/DiscordTickets/blob/master/.github/CONTRIBUTING.md) given before doing so.
+For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md) given before doing so.
 
 ## Contributors
 
@@ -102,7 +102,7 @@ Thank you to everyone to has contributed to DiscordTickets, including everyone w
 - Created a public plugin
 - Created resources such as tutorials
 
-**A full list of contributors can be found in [CONTRIBUTORS.md](https://github.com/eartharoid/DiscordTickets/blob/master/CONTRIBUTORS.md).**
+**A full list of contributors can be found in [CONTRIBUTORS.md](https://github.com/discord-tickets/bot/blob/master/CONTRIBUTORS.md).**
 
 ## Sponsors
 
@@ -114,7 +114,7 @@ Does your community or company use DiscordTickets? Sponsor the project to get yo
 
 ## License
 
-DiscordTickets is licensed under the [GPLv3 license](https://github.com/eartharoid/DiscordTickets/blob/master/LICENSE).
+DiscordTickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/master/LICENSE).
 
 DiscordTickets is not related to Discord Inc.
 

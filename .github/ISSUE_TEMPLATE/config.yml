@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: GitHub Discussions
-    url: https://github.com/eartharoid/DiscordTickets/discussions
+    url: https://github.com/discord-tickets/bot/discussions
     about: Request new features, share ideas and guides, ask for help, or just talk.
   - name: Discord support server
     url: https://go.eartharoid.me/discord

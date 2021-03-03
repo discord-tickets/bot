@@ -2,5 +2,5 @@
 	"files": [
 		"CONTRIBUTORS.md"
 	],
-	"badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](https://github.com/eartharoid/DiscordTickets/blob/master/CONTRIBUTORS.md)"
+	"badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/CONTRIBUTORS.md)"
 }

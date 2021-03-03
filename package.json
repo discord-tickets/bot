@@ -13,7 +13,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/eartharoid/DiscordTickets.git"
+		"url": "git+https://github.com/discord-tickets/bot.git"
 	},
 	"keywords": [
 		"discord",
@@ -23,10 +23,10 @@
 	"author": "eartharoid",
 	"license": "GPL-3.0",
 	"bugs": {
-		"url": "https://github.com/eartharoid/DiscordTickets/issues"
+		"url": "https://github.com/discord-tickets/bot/issues"
 	},
 	"homepage": "https://discordtickets.app",
-	"funding": "https://github.com/eartharoid/DiscordTickets/?sponsor=1",
+	"funding": "https://github.com/discord-tickets/bot/?sponsor=1",
 	"dependencies": {
 		"@eartharoid/i18n": "^0.0.1",
 		"boxen": "^5.0.0",
