@@ -127,6 +127,24 @@ class Bot extends Client {
 		})();
 	}
 
+	async postGuildData(guild) {
+		/**
+		 * OH NO, TELEMETRY!?
+		 * Relax, you can see the source here: https://github.com/discord-tickets/stats
+		 */
+		if (this.config.super_secret_setting) { // you can disable it if you really want
+			const fetch = require('node-fetch');
+			let members = (await guild.fetch()).approximateMemberCount;
+			fetch(`https://telemetry.discordtickets.app/guild?id=${guild.id}&members=${members}`, {
+				method: 'post',
+			}).catch(e => {
+				// fail quietly, it doesn't really matter if it didn't work
+				this.log.debug('Warning: failed to post to telemetry.discordtickets.app/guild');
+				this.log.debug(e);
+			});
+		}
+	}
+
 }
 
 new Bot();

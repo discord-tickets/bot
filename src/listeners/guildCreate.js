@@ -3,5 +3,6 @@ module.exports = {
 	execute: async (client, guild) => {
 		client.log.info(`Added to ${guild.name}`);
 		await guild.createSettings();
+		await client.postGuildData(guild);
 	}
 };
