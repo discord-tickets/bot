@@ -8,15 +8,16 @@ module.exports = {
 
 		/**
 		 * OH NO, TELEMETRY!?
-		 * Relax, it just counts how many people are using DiscordTickets.
+		 * Relax, it just counts how many people are using DiscordTickets by storing the bot's ID.
+		 * You can see the source here: <https://repl.it/@eartharoid/DiscordTickets-Telemetry#index.js>
 		 */
-		if (client.config.super_secret_setting) {
+		if (client.config.super_secret_setting) { // you can disable it if you really want
 			const fetch = require('node-fetch');
-			fetch(`https://discordtickets-telemetry.eartharoid.repl.co/?id=${client.user.id}`, {
+			fetch(`https://telemetry.discordtickets.app/?id=${client.user.id}`, {
 				method: 'post',
 			}).catch(e => {
 				// fail quietly, it doesn't really matter if it didn't work
-				log.debug('Warning: failed to post to discordtickets-telemetry');
+				log.debug('Warning: failed to post to telemetry.discordtickets.app');
 				log.debug(e);
 			});
 		}
