@@ -41,7 +41,7 @@ module.exports = async (log) => {
 		sequelize = new Sequelize({
 			dialect: types[type].dialect,
 			storage: path('./user/database.sqlite'),
-			logging: log.debug
+			logging: text => log.debug(text)
 		});
 	} else {
 		log.info(`Connecting to ${types[type].name} database...`);
