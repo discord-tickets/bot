@@ -49,7 +49,7 @@ module.exports = async (log) => {
 			dialect: types[type].dialect,
 			host: DB_HOST,
 			port: DB_PORT,
-			logging: log.debug
+			logging: text => log.debug(text)
 		});
 	}
 
