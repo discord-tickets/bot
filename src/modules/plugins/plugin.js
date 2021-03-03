@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 const { Client } = require('discord.js');
-
+const Command = require('../commands/command');
+const {
+	OptionTypes,
+	ResponseTypes
+} = require('../commands/helpers');
 const fs = require('fs');
 const { join } = require('path');
 const { path } = require('../../utils/fs');
@@ -24,8 +28,8 @@ module.exports = class Plugin {
 		/** The PluginManager */
 		this.manager = this.client.plugins;
 
-		// Object.assign(this, this.manager.plugins.get(id));
-		// make JSDoc happy
+		/** An official plugin? */
+		this.official = this.manager.official.includes(this.id);
 
 		let {
 			id,
@@ -80,6 +84,12 @@ module.exports = class Plugin {
 		this.directory = {
 			name: clean,
 			path: path(`./user/plugins/${clean}`)
+		};
+
+		this.helpers = {
+			Command,
+			OptionTypes,
+			ResponseTypes
 		};
 	}
 

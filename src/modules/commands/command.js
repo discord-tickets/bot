@@ -5,7 +5,6 @@ const fs = require('fs');
 const { join } = require('path');
 const { path } = require('../../utils/fs');
 const { createMessage, flags } = require('../../utils/discord');
-const Plugin = require('../plugins/plugin');
 
 /**
  * A command

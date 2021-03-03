@@ -1,6 +1,4 @@
 module.exports = {
-	CommandManager: require('./manager'),
-	Command: require('./command'),
 	OptionTypes: {
 		SUB_COMMAND: 1,
 		SUB_COMMAND_GROUP: 2,
@@ -15,5 +13,5 @@ module.exports = {
 		Pong: 1,
 		ChannelMessageWithSource: 4,
 		DeferredChannelMessageWithSource: 5,
-	},
+	}
 };

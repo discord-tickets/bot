@@ -182,7 +182,7 @@ module.exports = class CommandManager {
 			// if (typeof res === 'object' || typeof res === 'string')
 			// 	cmd.sendResponse(interaction, res, res.secret);
 		} catch (e) {
-			this.client.log.warn(`[COMMANDS] An error occurred whilst executed the ${cmd} command`);
+			this.client.log.warn(`(COMMANDS) An error occurred whilst executed the ${cmd_name} command`);
 			this.client.log.error(e);
 		}
 

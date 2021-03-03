@@ -3,10 +3,6 @@ const { Collection, Client } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Plugin = require('./plugin');
 
-const fs = require('fs');
-const { join } = require('path');
-const { path } = require('../../utils/fs');
-
 /**
  * Manages the loading of plugins
  */
@@ -24,17 +20,22 @@ module.exports = class PluginManager {
 
 		/** Array of official plugins to be used to check if a plugin is official */
 		this.official = [
+			'dsctickets.settings-server',
 			'dsctickets.portal'
 		];
 	}
 
+	handleError(id) {
+		if (!this.official.includes(id))
+			this.client.log.notice(`"${id}" is NOT an official plugin, please do not ask for help with it in the Discord Tickets support server, seek help from the plugin author instead.`);
+	}
+
 	/**
 	 * Register and load a plugin
-	 * @param {Boolean} npm Installed by NPM?
-	 * @param {Plugin} Main The Plugin class
-	 * @param {Object} pkg Contents of package.json
+	 * @param {Plugin} plugin - the Plugin class
+	 * @param {Object} pkg - contents of package.json
 	 */
-	register(npm, Main, pkg) {
+	register(plugin, pkg) {
 		let {
 			name: id,
 			version,
@@ -43,17 +44,13 @@ module.exports = class PluginManager {
 		} = pkg;
 
 		if (this.plugins.has(id)) {
-			this.client.log.warn(`[PLUGINS] A plugin with the ID "${id}" is already loaded, skipping`);
+			this.client.log.warn(`(PLUGINS) A plugin with the ID "${id}" is already loaded, skipping`);
 			return;
 		}
 
 		if (typeof author === 'object') {
 			author = author.name || 'unknown';
 		}
-
-		let loading = npm ? 'Loading' : 'Sideloading';
-
-		this.client.log.plugins(`${loading} "${id}" v${version} by ${author}`);
 
 		let about = {
 			id,
@@ -63,16 +60,13 @@ module.exports = class PluginManager {
 		};
 
 		try {
-			let plugin = new Main(this.client, about);
+			plugin = new (plugin(Plugin))(this.client, about);
 			this.plugins.set(id, plugin);
-			plugin.preload();
-			
+			this.client.log.plugins(`Loading "${plugin.name}" v${version} by ${author}`);
+			plugin.preload();	
 		} catch (e) {
-			if (npm) {
-				this.client.log.warn(`An error occurred whilst loading "${id}"`);
-			} else {
-				this.client.log.warn(`An error occurred whilst sideloading "${id}"; have you manually installed its dependencies?`);
-			}
+			this.handleError(id);
+			this.client.log.warn(`An error occurred whilst loading the "${id}" plugin`);
 			this.client.log.error(e);
 			process.exit();
 		}
@@ -80,26 +74,17 @@ module.exports = class PluginManager {
 
 	/** Automatically register and load plugins */
 	load() {
-		// normal plugins (NPM)
 		this.client.config.plugins.forEach(plugin => {
 			try {
 				let main = require(plugin);
 				let pkg = require(`${plugin}/package.json`);
-				this.register(true, main, pkg);
+				this.register(main, pkg);
 			} catch (e) {
+				this.handleError(plugin);
 				this.client.log.warn(`An error occurred whilst loading ${plugin}; have you installed it?`);
 				this.client.log.error(e);
 				process.exit();
 			}
-		});
-
-		// sideload plugins for development
-		const dirs = fs.readdirSync(path('./user/plugins'));
-		dirs.forEach(dir => {
-			if (!fs.existsSync(path(`./user/plugins/${dir}/package.json`))) return;
-			let pkg = require(`../../../user/plugins/${dir}/package.json`);
-			let main = require(join(`../../../user/plugins/${dir}/`, pkg.main));
-			this.register(false, main, pkg);
 		});
 	}
 

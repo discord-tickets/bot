@@ -64,10 +64,9 @@ const log = require('./logger');
 
 const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
-const { CommandManager } = require('./modules/commands');
+const CommandManager = require('./modules/commands/manager');
+const PluginManager = require('./modules/plugins/manager');
 const TicketManager = require('./modules/tickets');
-const { PluginManager } = require('./modules/plugins');
-const SettingsServer = require('./server');
 
 require('./modules/structures')(); // load extended structures before creating the client
 
@@ -121,9 +120,6 @@ class Bot extends Client {
 			/** The plugin manager */
 			this.plugins = new PluginManager(this);
 			this.plugins.load(); // load plugins
-
-			/** SettingsServer internal plugin instance */
-			this.server = new SettingsServer(this);
 
 			this.log.info('Connecting to Discord API...');
 

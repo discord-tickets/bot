@@ -1,8 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const {
-	Command,
-	OptionTypes
-} = require('../modules/commands');
+const { OptionTypes } = require('../modules/commands/helpers');
+const Command = require('../modules/commands/command');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {

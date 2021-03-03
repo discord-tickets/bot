@@ -37,6 +37,7 @@ module.exports = {
 	},
 	max_listeners: 10,
 	plugins: [
+		'dsctickets.settings-server',
 	],
 	presence: {
 		presences: [
