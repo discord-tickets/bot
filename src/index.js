@@ -136,7 +136,7 @@ class Bot extends Client {
 		if (this.config.super_secret_setting) { // you can disable it if you really want
 			const fetch = require('node-fetch');
 			let tickets = await this.db.models.Ticket.count();
-			fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, {
+			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, {
 				method: 'post',
 			}).catch(e => {
 				// fail quietly, it doesn't really matter if it didn't work
@@ -144,7 +144,7 @@ class Bot extends Client {
 			});
 			this.guilds.cache.forEach(async g => {
 				let members = (await g.fetch()).approximateMemberCount;
-				fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, {
+				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, {
 					method: 'post',
 				}).catch(e => {
 					this.log.debug(e);
