@@ -1,7 +1,7 @@
 module.exports = {
 	event: 'ready',
 	once: true,
-	execute: (client) => {
+	execute: async (client) => {
 
 		client.log.success(`Connected to Discord as "${client.user.tag}"`);
 
@@ -18,21 +18,11 @@ module.exports = {
 			}, client.config.presence.duration * 1000);
 		}
 
-		/**
-		 * OH NO, TELEMETRY!?
-		 * Relax, it just counts how many people are using DiscordTickets.
-		 * You can see the source here: https://github.com/discord-tickets/stats
-		 */
-		if (client.config.super_secret_setting) { // you can disable it if you really want
-			const fetch = require('node-fetch');
-			fetch(`https://telemetry.discordtickets.app/client?id=${client.user.id}`, {
-				method: 'post',
-			}).catch(e => {
-				// fail quietly, it doesn't really matter if it didn't work
-				client.log.debug('Warning: failed to post to telemetry.discordtickets.app/client');
-				client.log.debug(e);
-			});
-			client.guilds.cache.forEach(async g => await client.postGuildData(g));
+		if(client.config.super_secret_setting) {
+			setInterval(async () => {
+				await client.postStats();
+			}, 3600000);
+			await client.postStats();
 		}
 		
 	}
