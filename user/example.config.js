@@ -26,8 +26,8 @@ module.exports = {
 	debug: false,
 	defaults: {
 		colour: '#009999',
-		locale: 'en-GB',
-		log_messages: true, // required for transcripts/archives
+		locale: 'en-GB', // can **not** be set for each server
+		log_messages: true, // transcripts/archives will be empty if false
 		prefix: '-',
 		ticket_welcome: 'Hello {{name}}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
 	},

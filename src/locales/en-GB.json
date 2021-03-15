@@ -1,11 +1,22 @@
 {
 	"admin_only": "❌ You must be an administrator to use this command.",
 	"bot": {
-		"version": "DiscordTickets v%s by eartharoid"
+		"version": "Discord Tickets v%s by eartharoid"
 	},
-	"cmd": {
+	"commands": {
 		"new": {
-
+			"name": "new",
+			"description": "Create a new support ticket",
+			"options": {
+				"category": {
+					"name": "category",
+					"description": "The category you would like to create a new ticket for"
+				},
+				"topic": {
+					"name": "topic",
+					"description": "The topic of the ticket"
+				}
+			}
 		}
 	},
 	"no_perm": "❌ You do not have the permissions required to use this command:\n%s",	

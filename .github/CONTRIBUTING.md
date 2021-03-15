@@ -12,7 +12,7 @@
 			- [Website](#website)
 			- [JSDoc](#jsdoc)
 
-Thank you for considering contributing to DiscordTickets.
+Thank you for considering contributing to Discord Tickets.
 
 Before contributing, please read the [code of conduct](CODE_OF_CONDUCT.md), which all contributors must follow.
 
@@ -42,7 +42,7 @@ Please label your issues appropriately.
 - General questions (also on [Discord](https://go.eartharoid.me/discord))
 - Requesting new features
 
-Please read ["Welcome to DiscordTickets Discussions!"](https://github.com/discord-tickets/bot/discussions/77) before starting a discussion!
+Please read ["Welcome to Discord Tickets Discussions!"](https://github.com/discord-tickets/bot/discussions/77) before starting a discussion!
 
 ## Submitting a bug report
 

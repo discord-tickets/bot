@@ -173,6 +173,75 @@ module.exports = async (log) => {
 		tableName: DB_TABLE_PREFIX + 'messages'
 	});
 
+	// eslint-disable-next-line no-unused-vars
+	const UserEntity = sequelize.define('UserEntity', {
+		user: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+			unique: 'id_ticket'
+		},
+		ticket: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'id_ticket',
+			references: {
+				model: Ticket,
+				key: 'id'
+			},	
+		},
+		avatar: DataTypes.STRING,
+		username: DataTypes.STRING,
+		discriminator: DataTypes.STRING,
+		display_name: DataTypes.STRING,
+		colour: DataTypes.INTEGER,
+		bot: DataTypes.BOOLEAN
+	}, {
+		tableName: DB_TABLE_PREFIX + 'user_entities'
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const ChannelEntity = sequelize.define('ChannelEntity', {
+		channel: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+			unique: 'id_ticket'
+		},
+		ticket: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'id_ticket',
+			references: {
+				model: Ticket,
+				key: 'id'
+			},
+		},
+		name: DataTypes.STRING,
+	}, {
+		tableName: DB_TABLE_PREFIX + 'channel_entities'
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const RoleEntity = sequelize.define('RoleEntity', {
+		role: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+			unique: 'id_ticket'
+		},
+		ticket: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'id_ticket',
+			references: {
+				model: Ticket,
+				key: 'id'
+			},
+		},
+		name: DataTypes.STRING,
+		colour: DataTypes.INTEGER,
+	}, {
+		tableName: DB_TABLE_PREFIX + 'role_entities'
+	});
+
 	sequelize.sync();
 
 	return sequelize;

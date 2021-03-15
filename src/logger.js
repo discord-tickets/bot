@@ -2,7 +2,7 @@ const { path } = require('./utils/fs');
 const config = require('../user/config');
 const Logger = require('leekslazylogger-fastify');
 module.exports = new Logger({
-	name: 'DiscordTickets by eartharoid',
+	name: 'Discord Tickets by eartharoid',
 	debug: config.debug,
 	logToFile: config.logs.enabled,
 	splitFile: true,

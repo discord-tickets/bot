@@ -4,21 +4,22 @@ const Command = require('../modules/commands/command');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {
+		const i18n = client.i18n.get();
 		super(client, {
 			internal: true,
-			name: 'new',
-			description: 'Create a new support ticket',
+			name: i18n('commands.new.name'),
+			description: i18n('commands.new.description'),
 			options: [
 				// {
-				// 	name: 'category',
+				// 	name: i18n('commands.new.options.category.name'),
 				// 	type: OptionTypes.STRING,
-				//	description: 'The category you would like to create a new ticket for',
+				//	description: i18n('commands.new.options.topic.description'),
 				// 	required: true,
 				// },
 				{
-					name: 'topic',
+					name: i18n('commands.new.options.topic.name'),
 					type: OptionTypes.STRING,
-					description: 'The topic of the ticket',
+					description: i18n('commands.new.options.topic.description'),
 					required: false,
 				}
 			]

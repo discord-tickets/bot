@@ -2,7 +2,7 @@
 <!-- <img align='left' width='0' height='192px' hspace='10'/> -->
 
 <!-- omit in toc -->
-# [DiscordTickets](https://discordtickets.app)
+# [Discord Tickets](https://discordtickets.app)
 
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
@@ -22,21 +22,21 @@ An open-source ticket management bot for Discord - a free alternative to the pre
 
 ## What is this?
 
-DiscordTickets is a Discord bot for creating and managing "support ticket" channels. It is a free and open-source alternative to the popular paid "premium" and "white-label" ticketing bots, such as [Ticket Tool](https://tickettool.xyz/), [TicketsBot](https://ticketsbot.net/), [Tickety](https://tickety.net/), [Helper.gg](https://helper.gg/), [Helper](https://helper.wtf), and others.
+Discord Tickets is a Discord bot for creating and managing "support ticket" channels. It is a free and open-source alternative to the popular paid "premium" and "white-label" ticketing bots, such as [Ticket Tool](https://tickettool.xyz/), [TicketsBot](https://ticketsbot.net/), [Tickety](https://tickety.net/), [Helper.gg](https://helper.gg/), [Helper](https://helper.wtf), and others.
 
-DiscordTickets is feature-rich and much more customisable than many of the bots mentioned above. As it is intended for self-hosting, the bot can have your community or company's logo, for free.
+Discord Tickets is feature-rich and much more customisable than many of the bots mentioned above. As it is intended for self-hosting, the bot can have your community or company's logo, for free.
 
 Although intended for use in a single Discord server, the bot can also function in multiple servers at once if you run more than one community.
 
 ### Features
 
-DiscordTickets is packed full of features, many of which were suggested by its users. If it's missing a feature you want, you can:
+Discord Tickets is packed full of features, many of which were suggested by its users. If it's missing a feature you want, you can:
 
 - Create a plugin for it, if you can code JavaScript
 - Request someone else to make a plugin
 - [Submit a feature request](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
 
-Here's some of the things that makes DiscordTickets awesome:
+Here's some of the things that makes Discord Tickets awesome:
 
 1. **Highly customisable**  
 Some messages can be configured for each server and for each ticket category. Every other message is set in the locale files, making it relatively easy to override the default messages.
@@ -50,16 +50,16 @@ Plugin authors are encouraged to support multiple languages as well.
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
 
 4. **A beautiful ticket archives portal**  
-Add the official [DiscordTickets-Portal](https://github.com/discord-tickets/portal) plugin for an instant ticket archives website.
+Add the official [Discord Tickets-Portal](https://github.com/discord-tickets/portal) plugin for an instant ticket archives website.
 
 5. **Plugin support**  
-Developers can add a lot of functionality to DiscordTickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [DiscordTickets-Portal](https://github.com/discord-tickets/portal) is an example of what can be done with plugins.
+Developers can add a lot of functionality to Discord Tickets without modifying the source code by creating plugins. Plugins can listen for client and ticket events, create commands, and more. [Discord Tickets-Portal](https://github.com/discord-tickets/portal) is an example of what can be done with plugins.
 
 6. **Open-source and self-hosted**  
 It's yours.
 
 7. **Supports multiple databases**  
-DiscordTickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostgreSQL, or MSSQL for your database, with very little setup.
+Discord Tickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostgreSQL, or MSSQL for your database, with very little setup.
 If you choose SQLite, which is the default as it is the easiest, you don't need to do anything! If you choose to use another database (recommended), you only need to install the package(s) with NPM and create the database. All of the database tables are created automatically, regardless of which database type you use.
 
 ### Screenshots
@@ -91,7 +91,7 @@ For contributing instructions, or to find out all of the ways you can contribute
 
 ## Contributors
 
-Thank you to everyone to has contributed to DiscordTickets, including everyone who has:
+Thank you to everyone to has contributed to Discord Tickets, including everyone who has:
 
 - Contributed code
 - Translated
@@ -106,7 +106,7 @@ Thank you to everyone to has contributed to DiscordTickets, including everyone w
 
 ## Sponsors
 
-Does your community or company use DiscordTickets? Sponsor the project to get your logo shown here.
+Does your community or company use Discord Tickets? Sponsor the project to get your logo shown here.
 
 ### Donate
 
@@ -114,8 +114,8 @@ Does your community or company use DiscordTickets? Sponsor the project to get yo
 
 ## License
 
-DiscordTickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/master/LICENSE).
+Discord Tickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/master/LICENSE).
 
-DiscordTickets is not related to Discord Inc.
+Discord Tickets is not related to Discord Inc.
 
 © 2021 Isaac Saunders

@@ -1,5 +1,5 @@
 /**
- * DiscordTickets
+ * Discord Tickets
  * Copyright (C) 2021 Isaac Saunders
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 
 const node_version = Number(process.versions.node.split('.')[0]);
 if (node_version < 14)
-	return console.log(`Error: DiscordTickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
+	return console.log(`Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
 const fs = require('fs');
 const { path } = require('./utils/fs');
@@ -130,7 +130,7 @@ class Bot extends Client {
 	async postStats() {
 		/**
 		 * OH NO, TELEMETRY!?
-		 * Relax, it just counts how many people are using DiscordTickets.
+		 * Relax, it just counts how many people are using Discord Tickets.
 		 * You can see the source here: https://github.com/discord-tickets/stats
 		 */
 		if (this.config.super_secret_setting) { // you can disable it if you really want

@@ -1,5 +1,5 @@
 <!--
-	Thank you for contributing to DiscordTickets.
+	Thank you for contributing to Discord Tickets.
 	If you haven't already, please read the CONTRIBUTING file (.github/CONTRIBUTING.md) before creating a pull request.
 	Unless this pull request is for something minor like a fixing a typo, you should create an issue first.
 -->
