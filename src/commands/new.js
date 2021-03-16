@@ -4,18 +4,18 @@ const Command = require('../modules/commands/command');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {
-		const i18n = client.i18n.get();
+		const i18n = client.i18n.get(client.config.locale);
 		super(client, {
 			internal: true,
 			name: i18n('commands.new.name'),
 			description: i18n('commands.new.description'),
 			options: [
-				// {
-				// 	name: i18n('commands.new.options.category.name'),
-				// 	type: OptionTypes.STRING,
-				//	description: i18n('commands.new.options.topic.description'),
-				// 	required: true,
-				// },
+				{
+					name: i18n('commands.new.options.category.name'),
+					type: OptionTypes.STRING,
+					description: i18n('commands.new.options.topic.description'),
+					required: true,
+				},
 				{
 					name: i18n('commands.new.options.topic.name'),
 					type: OptionTypes.STRING,

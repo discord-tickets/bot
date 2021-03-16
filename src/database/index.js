@@ -57,7 +57,7 @@ module.exports = async (log) => {
 		await sequelize.authenticate();
 		log.success('Connected to database successfully');
 	} catch (error) {
-		log.warn('Unable to connect to database');
+		log.warn('Failed to connect to database');
 		log.error(error);
 		return process.exit();
 	}
@@ -71,10 +71,6 @@ module.exports = async (log) => {
 		colour: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.colour
-		},
-		locale: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.locale
 		},
 		log_messages: {
 			type: DataTypes.BOOLEAN,
