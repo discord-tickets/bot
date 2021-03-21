@@ -203,7 +203,7 @@ module.exports = {
 
 						if (fs.existsSync(paths.log) && fs.existsSync(paths.json)) {
 							let data = JSON.parse(fs.readFileSync(paths.json));
-							data.entities.users.forEach(u => users.push(u));
+							for (let u in data.entities.users) users.push(u);
 							embed.addField('Web archive', await archive.export(Ticket, channel));
 						}
 
