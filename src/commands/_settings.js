@@ -8,6 +8,7 @@ module.exports = class SettingsCommand extends Command {
 			slash: false,
 			name: i18n('commands.settings.name'),
 			description: i18n('commands.settings.description'),
+			permissions: ['MANAGE_GUILD']
 		});
 	}
 
@@ -16,6 +17,6 @@ module.exports = class SettingsCommand extends Command {
 		let settings = await guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		message.channel.send('Settings!');
+		channel.send('Settings!');
 	}
 };
