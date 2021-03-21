@@ -17,6 +17,10 @@
 					"description": "The topic of the ticket"
 				}
 			}
+		},
+		"settings": {
+			"name": "settings",
+			"description": "Configure Discord Tickets"
 		}
 	},
 	"no_perm": "❌ You do not have the permissions required to use this command:\n%s",	

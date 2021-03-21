@@ -1,10 +1,16 @@
 /* eslint-disable no-unused-vars */
-const { Client, GuildMember, Guild, Channel } = require('discord.js');
+const {
+	Client,
+	GuildMember,
+	Guild,
+	Channel,
+	Message
+} = require('discord.js');
 
-const fs = require('fs');
-const { join } = require('path');
-const { path } = require('../../utils/fs');
-const { createMessage, flags } = require('../../utils/discord');
+const {
+	createMessage,
+	flags
+} = require('../../utils/discord');
 
 /**
  * A command
@@ -34,6 +40,7 @@ module.exports = class Command {
 	 * @param {Object} data - Command data
 	 * @param {string} data.name - The name of the command (3-32)
 	 * @param {string} data.description - The description of the command (1-100)
+	 * @param {boolean} [data.slash] - Register as a slash command? **Defaults to `true`**
 	 * @param {boolean} [data.staff_only] - Only allow staff to use this command?
 	 * @param {string[]} [data.permissions] - Array of permissions needed for a user to use this command
 	 * @param {boolean} [data.global] - Create a global command?
@@ -62,6 +69,12 @@ module.exports = class Command {
 		 * @type {string}
 		*/
 		this.description = data.description;
+
+		/**
+		 * Register as a slash command?
+		 * @type {boolean}
+		*/
+		this.slash = data.slash === false ? false : true;
 
 		/**
 		 * Only allow staff to use this command?
@@ -110,7 +123,7 @@ module.exports = class Command {
 			return this.client.log.error(e);
 		}
 
-		if (this.global)
+		if (this.slash && this.global)
 			this.client.api.applications(this.client.user.id).commands.post({ data }); // post command to Discord
 
 		let internal = this.internal ? 'internal ' : '';
@@ -146,9 +159,9 @@ module.exports = class Command {
 	 * @param {Channel} data.channel- The channel object
 	 * @param {Guild} data.guild- The guild object
 	 * @param {GuildMember} data.member - The member object
-	 * @param {Interaction} interaction - Interaction object
+	 * @param {(Interaction|Message)} interaction_or_message - Interaction object
 	 */
-	async execute(data, interaction) { }
+	async execute(data, interaction_or_message) { }
 
 	/**
 	 * Defer the response to respond later

@@ -4,6 +4,7 @@ module.exports = {
 
 		let settings = await message.guild?.settings;
 
+		// message collection for ticket archiving 
 		if (settings?.log_messages) {
 			if (message.system) return;
 
@@ -29,6 +30,9 @@ module.exports = {
 				});
 			}
 		}
-		
+
+		// non-slash commands
+		if (message.content.match(/^tickets\/(\S+)/mi))
+			client.commands.handle(message, false);
 	}
 };

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const { Collection, Client } = require('discord.js');
+const { Collection, Client, Message } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Command = require('./command');
 
@@ -139,48 +139,64 @@ module.exports = class CommandManager {
 
 	/**
 	 * Execute a command
-	 * @param {Interaction} interaction - Command interaction
+	 * @param {(Interaction|Message)} interaction - Command interaction, or message
 	 */
-	async handle(interaction) {
-		const cmd_name = interaction.data.name;
+	async handle(interaction, slash) {
+		slash = slash === false ? false : true;
+		let cmd_name,
+			args = {},
+			data = {},
+			guild_id,
+			channel_id,
+			member_id;
 
-		if (!this.commands.has(cmd_name))
+		if (slash) {
+			cmd_name = interaction.data.name;
+
+			guild_id = interaction.guild_id;
+			channel_id = interaction.channel_id;
+			member_id = interaction.member.user.id;
+
+			if (interaction.data.options)
+				interaction.data.options.forEach(({ name, value }) => args[name] = value);
+		} else {
+			cmd_name = interaction.content.match(/^tickets\/(\S+)/mi);
+			if (cmd_name) cmd_name = cmd_name[1];
+
+			guild_id = interaction.guild.id;
+			channel_id = interaction.channel.id;
+			member_id = interaction.author.id;
+		}
+
+		if (cmd_name === null || !this.commands.has(cmd_name))
 			throw new Error(`Received "${cmd_name}" command invocation, but the command manager does not have a "${cmd_name}" command`);
-		
-		let args = {};
-		if (interaction.data.options)
-			interaction.data.options.forEach(({ name, value }) => args[name] = value);
 			
-		let data = { args };
-		data.guild = await this.client.guilds.fetch(interaction.guild_id);
-		data.channel = await this.client.channels.fetch(interaction.channel_id),
-		data.member = await data.guild.members.fetch(interaction.member.user.id);
+		data.args = args;
+		data.guild = await this.client.guilds.fetch(guild_id);
+		data.channel = await this.client.channels.fetch(channel_id),
+		data.member = await data.guild.members.fetch(member_id);
 
 		const cmd = this.commands.get(cmd_name);
 
 		let settings = await data.guild.settings;
-		if (!settings)
-			settings = await data.guild.createSettings();
+		if (!settings) settings = await data.guild.createSettings();
 		const i18n = this.client.i18n.get(settings.locale);
 
-		// if (cmd.staff_only) {
-		// 	return await cmd.sendResponse(interaction, msg, true);
-		// }
+		// if (cmd.staff_only) {}
 
 		const no_perm = cmd.permissions instanceof Array
 			&& !data.member.hasPermission(cmd.permissions);
 		if (no_perm) {
 			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
 			let msg = i18n('no_perm', perms);
-			return await cmd.sendResponse(interaction, msg, true);
+			if (slash) return await cmd.sendResponse(interaction, msg, true);
+			else return await interaction.channel.send(msg);
 		}
 			
 		try {
-			await cmd.acknowledge(interaction, true); // respond to discord
+			if (slash) await cmd.acknowledge(interaction, true); // respond to discord
 			this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
-			/* let res =  */await cmd.execute(data, interaction); // run the command 
-			// if (typeof res === 'object' || typeof res === 'string')
-			// 	cmd.sendResponse(interaction, res, res.secret);
+			await cmd.execute(data, interaction); // run the command 
 		} catch (e) {
 			this.client.log.warn(`(COMMANDS) An error occurred whilst executed the ${cmd_name} command`);
 			this.client.log.error(e);
