@@ -5,7 +5,7 @@ module.exports = {
 
 		switch (interaction.type) {
 		case 1:
-			client.log.debug('Received interaction ping, responding with pong');
+			client.log.info('Received interaction ping, responding with pong');
 			await client.api.interactions(interaction.id, interaction.token).callback.post({
 				data: {
 					type: 1, // PONG
@@ -13,7 +13,7 @@ module.exports = {
 			});
 			break;
 		case 2:
-			client.commands.handle(interaction);
+			client.commands.handle(interaction, true);
 			break;
 		}
 

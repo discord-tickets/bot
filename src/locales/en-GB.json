@@ -23,6 +23,7 @@
 			"description": "Configure Discord Tickets"
 		}
 	},
+	"must_be_slash": "❌ This command must be invoked by a slash command interaction (`/%s`).",
 	"no_perm": "❌ You do not have the permissions required to use this command:\n%s",	
 	"support_only": "❌ You must be a member of staff to use this command."
 }

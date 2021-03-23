@@ -5,7 +5,6 @@ const {
 const { path } = require('../utils/fs');
 const config = require('../../user/config');
 const types = require('./dialects');
-const supported = Object.keys(types);
 
 module.exports = async (log) => {
 
@@ -21,6 +20,7 @@ module.exports = async (log) => {
 
 	let type = (DB_TYPE || 'sqlite').toLowerCase();
 
+	const supported = Object.keys(types);
 	if (!supported.includes(type)) {
 		log.error(new Error(`DB_TYPE (${type}) is not a valid type`));
 		return process.exit();
@@ -68,9 +68,21 @@ module.exports = async (log) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		locale: {
+			type: DataTypes.STRING,
+			defaultValue: config.locale
+		},
 		colour: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.colour
+		},
+		success_colour: {
+			type: DataTypes.STRING,
+			defaultValue: 'GREEN'
+		},
+		error_colour: {
+			type: DataTypes.STRING,
+			defaultValue: 'RED'
 		},
 		log_messages: {
 			type: DataTypes.BOOLEAN,
@@ -100,6 +112,9 @@ module.exports = async (log) => {
 			},
 			unique: 'name_guild'
 		},
+		roles: {
+			type: DataTypes.JSON
+		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'categories'
 	});

@@ -25,12 +25,12 @@
 module.exports = {
 	debug: false,
 	defaults: {
-		colour: '#009999',
+		colour: '#009999', // https://discord.js.org/#/docs/main/stable/typedef/ColorResolvable
 		log_messages: true, // transcripts/archives will be empty if false
 		prefix: '-',
 		ticket_welcome: 'Hello {{name}}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
 	},
-	locale: 'en-GB',
+	locale: 'en-GB', // used for globals (such as commands) and the default guild locale
 	logs: {
 		enabled: true,
 		keep_for: 30

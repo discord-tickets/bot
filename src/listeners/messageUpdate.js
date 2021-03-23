@@ -2,12 +2,13 @@ module.exports = {
 	event: 'msgUpdate',
 	execute: async (client, oldm, newm) => {
 
-		if (newm.partial)
+		if (newm.partial) {
 			try {
 				await newm.fetch();
 			} catch (err) {
 				return client.log.error(err);
 			}
+		}
 
 		let settings = await newm.guild?.settings;
 

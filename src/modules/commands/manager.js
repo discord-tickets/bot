@@ -70,7 +70,7 @@ module.exports = class CommandManager {
 		if (typeof data.description !== 'string')
 			throw new TypeError(`Expected type of command description to be a string, got ${typeof data.description}`);
 
-		if (data.name.length < 1 || data.name.length > 100)
+		if (data.description.length < 1 || data.description.length > 100)
 			throw new TypeError('Length of description must be 3-32');
 
 		if (typeof data.options !== 'undefined' && !(data.options instanceof Array))
@@ -139,9 +139,9 @@ module.exports = class CommandManager {
 
 	/**
 	 * Execute a command
-	 * @param {(Interaction|Message)} interaction - Command interaction, or message
+	 * @param {(Interaction|Message)} interaction_or_message - Command interaction or message
 	 */
-	async handle(interaction, slash) {
+	async handle(interaction_or_message, slash) {
 		slash = slash === false ? false : true;
 		let cmd_name,
 			args = {},
@@ -151,54 +151,62 @@ module.exports = class CommandManager {
 			member_id;
 
 		if (slash) {
-			cmd_name = interaction.data.name;
+			cmd_name = interaction_or_message.data.name;
 
-			guild_id = interaction.guild_id;
-			channel_id = interaction.channel_id;
-			member_id = interaction.member.user.id;
+			guild_id = interaction_or_message.guild_id;
+			channel_id = interaction_or_message.channel_id;
+			member_id = interaction_or_message.member.user.id;
 
-			if (interaction.data.options)
-				interaction.data.options.forEach(({ name, value }) => args[name] = value);
+			if (interaction_or_message.data.options)
+				interaction_or_message.data.options.forEach(({ name, value }) => args[name] = value);
 		} else {
-			cmd_name = interaction.content.match(/^tickets\/(\S+)/mi);
+			cmd_name = interaction_or_message.content.match(/^tickets\/(\S+)/mi);
 			if (cmd_name) cmd_name = cmd_name[1];
 
-			guild_id = interaction.guild.id;
-			channel_id = interaction.channel.id;
-			member_id = interaction.author.id;
+			guild_id = interaction_or_message.guild.id;
+			channel_id = interaction_or_message.channel.id;
+			member_id = interaction_or_message.author.id;
 		}
 
 		if (cmd_name === null || !this.commands.has(cmd_name))
-			throw new Error(`Received "${cmd_name}" command invocation, but the command manager does not have a "${cmd_name}" command`);
+			return this.client.log.warn(`Received "${cmd_name}" command invocation, but the command manager does not have a "${cmd_name}" command registered`);
 			
 		data.args = args;
 		data.guild = await this.client.guilds.fetch(guild_id);
 		data.channel = await this.client.channels.fetch(channel_id),
 		data.member = await data.guild.members.fetch(member_id);
 
-		const cmd = this.commands.get(cmd_name);
-
 		let settings = await data.guild.settings;
 		if (!settings) settings = await data.guild.createSettings();
 		const i18n = this.client.i18n.get(settings.locale);
 
-		// if (cmd.staff_only) {}
+		const cmd = this.commands.get(cmd_name);
+
+		if (cmd.slash && !slash) {
+			this.client.log.commands(`Blocking command execution for the "${cmd_name}" command as it was invoked by a message, not a slash command interaction_or_message.`);
+			try {
+				data.channel.send(i18n('must_be_slash', cmd_name)); // interaction_or_message.reply
+			} catch (err) {
+				this.client.log.warn('Failed to reply to blocked command invocation message');
+			}
+			return;
+		}
 
 		const no_perm = cmd.permissions instanceof Array
 			&& !data.member.hasPermission(cmd.permissions);
 		if (no_perm) {
 			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
 			let msg = i18n('no_perm', perms);
-			if (slash) return await cmd.sendResponse(interaction, msg, true);
-			else return await interaction.channel.send(msg);
+			if (slash) return await cmd.respond(interaction_or_message, msg, true);
+			else return await interaction_or_message.channel.send(msg);
 		}
 			
 		try {
-			if (slash) await cmd.acknowledge(interaction, true); // respond to discord
+			if (slash) await cmd.acknowledge(interaction_or_message, true); // respond to discord
 			this.client.log.commands(`Executing "${cmd_name}" command (invoked by ${data.member.user.tag})`);
-			await cmd.execute(data, interaction); // run the command 
+			await cmd.execute(data, interaction_or_message); // run the command 
 		} catch (e) {
-			this.client.log.warn(`(COMMANDS) An error occurred whilst executed the ${cmd_name} command`);
+			this.client.log.warn(`An error occurred whilst executing the ${cmd_name} command`);
 			this.client.log.error(e);
 		}
 

@@ -39,16 +39,36 @@ module.exports = class TicketManager extends EventEmitter {
 	/**
 	 * Close a ticket
 	 * @param {string} ticket - The channel ID, or the ticket number
+	 * @param {string} [closer] - ID of the member who is closing the ticket
 	 */
-	async close(ticket) {
+	async close(ticket, closer) {
+		if (!this.client.channels.resolve(ticket)) {
+			let row = await this.client.db.Models.Ticket.findOne({
+				where: {
+					number: ticket
+				}
+			});
+			if (!row) throw new Error(`Could not find a ticket with number ${ticket}`);
+			ticket = row.id;
+		}
+			
+		let row = await this.client.db.Models.Ticket.findOne({
+			where: {
+				id: ticket
+			}
+		});
 
+		if (!row) throw new Error(`Could not find a ticket with ID ${ticket}`);
+
+		this.emit('beforeClose', ticket, closer);
+
+		/**
+		 * 
+		 * 
+		 * for each message in table, create entities
+		 * 
+		 * 
+		 */
 	}
 
-	/**
-	 * Close multiple tickets
-	 * @param {string[]} tickets - An array of channel IDs to close **(does not accept ticket numbers)**
-	 */
-	async closeMultiple(tickets) {
-
-	}
 };
