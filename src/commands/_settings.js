@@ -107,7 +107,6 @@ module.exports = class SettingsCommand extends Command {
 					roles: c.roles
 				};
 			});
-			console.log(data)
 
 			let attachment = new MessageAttachment(
 				Buffer.from(JSON.stringify(data, null, 2)),
