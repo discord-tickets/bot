@@ -68,13 +68,13 @@ module.exports = class SettingsCommand extends Command {
 					);
 				} else {
 					// create a new category
-					let created = await guild.channels.create(c.name, {
+					let cat_channel = await guild.channels.create(c.name, {
 						type: 'category',
 						reason: `Tickets category created by ${member.user.tag}`,
 						permissionOverwrites: permissions
 					});
 					await this.client.db.models.Category.create({
-						id: created.id,
+						id: cat_channel.id,
 						name: c.name,
 						guild: guild.id,
 						roles: c.roles
@@ -82,7 +82,7 @@ module.exports = class SettingsCommand extends Command {
 				}
 			}
 
-			channel.send(`\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\``);
+			channel.send(i18n('commands.settings.response.updated'));
 		} else {
 			// upload settings as json to be modified
 			let data = {
@@ -100,20 +100,21 @@ module.exports = class SettingsCommand extends Command {
 				}
 			});
 
-			for (let c of categories) {
-				data.categories.push({
+			data.categories = categories.map(c =>{
+				return {
 					id: c.id,
 					name: c.name,
 					roles: c.roles
-				});
-			}
+				};
+			});
+			console.log(data)
 
 			let attachment = new MessageAttachment(
 				Buffer.from(JSON.stringify(data, null, 2)),
 				`Settings for ${guild.name}.json`
 			);
 
-			channel.send(i18n('commands.settings.response'), {
+			channel.send({
 				files: [attachment]
 			});
 		}

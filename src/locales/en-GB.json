@@ -20,7 +20,10 @@
 		},
 		"settings": {
 			"name": "settings",
-			"description": "Configure Discord Tickets"
+			"description": "Configure Discord Tickets",
+			"response": {
+				"updated": "✅ Settings have been updated."
+			}
 		}
 	},
 	"must_be_slash": "❌ This command must be invoked by a slash command interaction (`/%s`).",
