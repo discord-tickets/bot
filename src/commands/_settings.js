@@ -22,9 +22,10 @@ module.exports = class SettingsCommand extends Command {
 		let attachments = [ ...message.attachments.values() ];
 
 		if (attachments.length >= 1) {
-			// load settings from json
-			let data = await (await fetch(attachments[0].url)).json();
 
+			// load settings from json
+			this.client.log.info(`Downloading settings for "${guild.name}"`);
+			let data = await (await fetch(attachments[0].url)).json();
 			settings.colour = data.colour;
 			settings.error_colour = data.error_colour;
 			settings.locale = data.locale;
@@ -33,22 +34,8 @@ module.exports = class SettingsCommand extends Command {
 			await settings.save();
 
 			for (let c of data.categories) {
-				let permissions = [
-					...[
-						{
-							id: guild.roles.everyone,
-							deny: ['VIEW_CHANNEL']
-						}
-					],
-					...c.roles.map(r => {
-						return {
-							id: r,
-							allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'ATTACH_FILES']
-						};
-					})
-				];
-
 				if (c.id) {
+
 					// existing category
 					let category = await this.client.db.models.Category.findOne({
 						where: {
@@ -60,18 +47,44 @@ module.exports = class SettingsCommand extends Command {
 					category.save();
 
 					let cat_channel = await this.client.channels.fetch(c.id);
-					await cat_channel.edit({
-						name: c.name, // await cat_channel.setName(c.name);
-						permissionOverwrites: permissions // await cat_channel.overwritePermissions(permissions);
-					},
-					`Tickets category updated by ${member.user.tag}`
-					);
+
+					if (cat_channel.name !== c.name)
+						await cat_channel.setName(c.name, `Tickets category updated by ${member.user.tag}`);
+
+					for (let r of c.roles) {
+						await cat_channel.updateOverwrite(r, {
+							VIEW_CHANNEL: true,
+							READ_MESSAGE_HISTORY: true,
+							SEND_MESSAGES: true,
+							ATTACH_FILES: true
+						}, `Tickets category updated by ${member.user.tag}`);
+					}
+
 				} else {
+
 					// create a new category
+					const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 					let cat_channel = await guild.channels.create(c.name, {
 						type: 'category',
 						reason: `Tickets category created by ${member.user.tag}`,
-						permissionOverwrites: permissions
+						permissionOverwrites: [
+							...[
+								{
+									id: guild.roles.everyone,
+									deny: ['VIEW_CHANNEL']
+								},
+								{
+									id: this.client.user.id,
+									allow: allowed_permissions
+								}
+							],
+							...c.roles.map(r => {
+								return {
+									id: r,
+									allow: allowed_permissions
+								};
+							})
+						]
 					});
 					await this.client.db.models.Category.create({
 						id: cat_channel.id,
@@ -79,11 +92,14 @@ module.exports = class SettingsCommand extends Command {
 						guild: guild.id,
 						roles: c.roles
 					});
+
 				}
 			}
-
+			this.client.log.success(`Updated guild settings for "${guild.name}"`);
 			channel.send(i18n('commands.settings.response.updated'));
+		
 		} else {
+
 			// upload settings as json to be modified
 			let data = {
 				categories: [],
@@ -116,6 +132,7 @@ module.exports = class SettingsCommand extends Command {
 			channel.send({
 				files: [attachment]
 			});
+			
 		}
 	}
 };

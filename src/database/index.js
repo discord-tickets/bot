@@ -104,7 +104,7 @@ module.exports = async (log) => {
 			unique: 'name_guild'
 		},
 		guild: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			references: {
 				model: Guild,
@@ -131,7 +131,7 @@ module.exports = async (log) => {
 			allowNull: false,
 		},
 		guild: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			references: {
 				model: Guild,
@@ -139,12 +139,16 @@ module.exports = async (log) => {
 			},	
 		},
 		category: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			references: {
 				model: Category,
 				key: 'id'
 			},
+		},
+		creator: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
 		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
@@ -158,7 +162,7 @@ module.exports = async (log) => {
 			allowNull: false,
 		},
 		ticket: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			references: {
 				model: Ticket,
@@ -192,7 +196,7 @@ module.exports = async (log) => {
 			unique: 'id_ticket'
 		},
 		ticket: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			unique: 'id_ticket',
 			references: {
@@ -218,7 +222,7 @@ module.exports = async (log) => {
 			unique: 'id_ticket'
 		},
 		ticket: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			unique: 'id_ticket',
 			references: {
@@ -239,7 +243,7 @@ module.exports = async (log) => {
 			unique: 'id_ticket'
 		},
 		ticket: {
-			type: DataTypes.STRING,
+			type: DataTypes.CHAR(18),
 			allowNull: false,
 			unique: 'id_ticket',
 			references: {
