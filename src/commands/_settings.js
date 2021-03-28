@@ -44,6 +44,8 @@ module.exports = class SettingsCommand extends Command {
 					});
 					category.name = c.name;
 					category.roles = c.roles;
+					category.max_per_member = c.max_per_member;
+					category.name_format = c.name_format;
 					category.save();
 
 					let cat_channel = await this.client.channels.fetch(c.id);
@@ -67,6 +69,7 @@ module.exports = class SettingsCommand extends Command {
 					let cat_channel = await guild.channels.create(c.name, {
 						type: 'category',
 						reason: `Tickets category created by ${member.user.tag}`,
+						position: 0,
 						permissionOverwrites: [
 							...[
 								{
@@ -88,9 +91,11 @@ module.exports = class SettingsCommand extends Command {
 					});
 					await this.client.db.models.Category.create({
 						id: cat_channel.id,
+						max_per_member: c.max_per_member,
 						name: c.name,
+						name_format: c.name_format,
 						guild: guild.id,
-						roles: c.roles
+						roles: c.roles,
 					});
 
 				}
@@ -119,7 +124,9 @@ module.exports = class SettingsCommand extends Command {
 			data.categories = categories.map(c =>{
 				return {
 					id: c.id,
+					max_per_member: c.max_per_member,
 					name: c.name,
+					name_format: c.name_format,
 					roles: c.roles
 				};
 			});

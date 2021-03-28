@@ -101,7 +101,7 @@ module.exports = async (log) => {
 		name: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			unique: 'name_guild'
+			unique: 'name-guild'
 		},
 		guild: {
 			type: DataTypes.CHAR(18),
@@ -110,10 +110,19 @@ module.exports = async (log) => {
 				model: Guild,
 				key: 'id'
 			},
-			unique: 'name_guild'
+			unique: 'name-guild'
 		},
 		roles: {
 			type: DataTypes.JSON
+		},
+		max_per_member: {
+			type: DataTypes.INTEGER,
+			defaultValue: 1
+		},
+		name_format: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: config.defaults.name_format
 		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'categories'
@@ -127,8 +136,8 @@ module.exports = async (log) => {
 		},
 		number: {
 			type: DataTypes.INTEGER,
-			autoIncrement: true,
 			allowNull: false,
+			unique: 'number-guild'
 		},
 		guild: {
 			type: DataTypes.CHAR(18),
@@ -136,7 +145,8 @@ module.exports = async (log) => {
 			references: {
 				model: Guild,
 				key: 'id'
-			},	
+			},
+			unique: 'number-guild'
 		},
 		category: {
 			type: DataTypes.CHAR(18),
@@ -150,6 +160,10 @@ module.exports = async (log) => {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
 		},
+		open: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true
+		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
 	});
@@ -193,12 +207,12 @@ module.exports = async (log) => {
 		user: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket'
+			unique: 'id-ticket'
 		},
 		ticket: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket',
+			unique: 'id-ticket',
 			references: {
 				model: Ticket,
 				key: 'id'
@@ -219,12 +233,12 @@ module.exports = async (log) => {
 		channel: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket'
+			unique: 'id-ticket'
 		},
 		ticket: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket',
+			unique: 'id-ticket',
 			references: {
 				model: Ticket,
 				key: 'id'
@@ -240,12 +254,12 @@ module.exports = async (log) => {
 		role: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket'
+			unique: 'id-ticket'
 		},
 		ticket: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'id_ticket',
+			unique: 'id-ticket',
 			references: {
 				model: Ticket,
 				key: 'id'

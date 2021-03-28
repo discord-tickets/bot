@@ -8,53 +8,54 @@ module.exports = new Logger({
 	splitFile: true,
 	directory: path('./logs/'),
 	keepFor: config.logs.keep_for,
+	timestamp: 'YYYY-MM-DD HH:mm:ss',
 	levels: {
 		_logger: {
-			format: '&7[{timestamp}]&r [LOGGER] {text}'
+			format: '&f&!7{timestamp}&r [LOGGER] {text}'
 		},
 		basic: {
-			format: '[{timestamp}] {text}'
+			format: '&f&!7{timestamp} {text}'
 		},
 		console: {
-			format: '[{timestamp}] [INFO] {text}'
+			format: '&f&!7{timestamp} [INFO] {text}'
 		},
 		info: {
-			format: '&7[{timestamp}]&r &3[INFO] &b{text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &b{text}'
 		},
 		success: {
-			format: '&7[{timestamp}]&r &2[SUCCESS] &a{text}'
+			format: '&f&!7{timestamp}&r &2[SUCCESS] &a{text}'
 		},
 		debug: {
-			format: '&7[{timestamp}]&r &1[DEBUG] &9{text}'
+			format: '&f&!7{timestamp}&r &1[DEBUG] &9{text}'
 		},
 		notice: {
-			format: '&7[{timestamp}]&r &0&!6[NOTICE] {text}'
+			format: '&f&!7{timestamp}&r &0&!6[NOTICE] {text}'
 		},
 		warn: {
-			format: '&7[{timestamp}]&r &6[WARN] &e{text}'
+			format: '&f&!7{timestamp}&r &6[WARN] &e{text}'
 		},
 		error: {
-			format: '&7[{timestamp}]&r &4[ERROR] &c{text}'
+			format: '&f&!7{timestamp}&r &4[ERROR] &c{text}'
 		},
 		commands: {
 			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(COMMANDS)&r {text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &d(COMMANDS)&r {text}'
 		},
 		plugins: {
 			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(PLUGINS)&r {text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &d(PLUGINS)&r {text}'
 		},
 		tickets: {
 			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(TICKETS)&r {text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &d(TICKETS)&r {text}'
 		},
 		http: {
 			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(HTTP)&r {text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &d(HTTP)&r {text}'
 		},
 		ws: {
 			type: 'info',
-			format: '&7[{timestamp}]&r &3[INFO] &d(WS)&r {text}'
+			format: '&f&!7{timestamp}&r &3[INFO] &d(WS)&r {text}'
 		}
 	}
 });

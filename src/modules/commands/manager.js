@@ -183,7 +183,7 @@ module.exports = class CommandManager {
 		const cmd = this.commands.get(cmd_name);
 
 		if (cmd.slash && !slash) {
-			this.client.log.commands(`Blocking command execution for the "${cmd_name}" command as it was invoked by a message, not a slash command interaction_or_message.`);
+			this.client.log.commands(`Blocking command execution for the "${cmd_name}" command as it was invoked by a message, not a slash command interaction.`);
 			try {
 				data.channel.send(i18n('must_be_slash', cmd_name)); // interaction_or_message.reply
 			} catch (err) {

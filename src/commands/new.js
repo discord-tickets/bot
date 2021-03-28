@@ -9,6 +9,7 @@ module.exports = class NewCommand extends Command {
 			internal: true,
 			name: i18n('commands.new.name'),
 			description: i18n('commands.new.description'),
+			// slash: false,
 			options: [
 				{
 					name: i18n('commands.new.options.category.name'),
@@ -37,5 +38,8 @@ module.exports = class NewCommand extends Command {
 				.setTitle(i18n('bot.version', require('../../package.json').version))
 				.setDescription(args.topic)
 		);
+
+		// this.client.tickets.create(guild.id, member.id, args.category, args.topic);
+		this.client.tickets.create(guild.id, member.id, '825861413687787560');
 	}
 };
