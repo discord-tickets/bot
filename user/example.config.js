@@ -26,6 +26,7 @@ module.exports = {
 	debug: false,
 	defaults: {
 		colour: '#009999', // https://discord.js.org/#/docs/main/stable/typedef/ColorResolvable
+		command_prefix: 'tickets/',
 		log_messages: true, // transcripts/archives will be empty if false
 		name_format: 'ticket-{number}',
 		prefix: '-',

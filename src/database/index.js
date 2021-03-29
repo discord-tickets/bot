@@ -72,6 +72,10 @@ module.exports = async (log) => {
 			type: DataTypes.STRING,
 			defaultValue: config.locale
 		},
+		command_prefix: {
+			type: DataTypes.STRING,
+			defaultValue: config.defaults.command_prefix
+		},
 		colour: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.colour

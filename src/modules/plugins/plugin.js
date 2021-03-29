@@ -1,10 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { Client } = require('discord.js');
 const Command = require('../commands/command');
-const {
-	OptionTypes,
-	ResponseTypes
-} = require('../commands/helpers');
 const fs = require('fs');
 const { join } = require('path');
 const { path } = require('../../utils/fs');
@@ -84,12 +80,6 @@ module.exports = class Plugin {
 		this.directory = {
 			name: clean,
 			path: path(`./user/plugins/${clean}`)
-		};
-
-		this.helpers = {
-			Command,
-			OptionTypes,
-			ResponseTypes
 		};
 	}
 

@@ -31,8 +31,6 @@ module.exports = {
 			}
 		}
 
-		// non-slash commands
-		if (message.content.match(/^tickets\/(\S+)/mi))
-			client.commands.handle(message, false);
+		client.commands.handle(message);
 	}
 };

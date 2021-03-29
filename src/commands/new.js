@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const { OptionTypes } = require('../modules/commands/helpers');
 const Command = require('../modules/commands/command');
 
 module.exports = class NewCommand extends Command {
@@ -9,37 +8,41 @@ module.exports = class NewCommand extends Command {
 			internal: true,
 			name: i18n('commands.new.name'),
 			description: i18n('commands.new.description'),
-			// slash: false,
-			options: [
+			aliases: [
+				i18n('commands.new.aliases.open'),
+				i18n('commands.new.aliases.create'),
+			],
+			args: [
 				{
-					name: i18n('commands.new.options.category.name'),
-					type: OptionTypes.STRING,
-					description: i18n('commands.new.options.topic.description'),
+					name: i18n('commands.new.args.category.name'),
+					description: i18n('commands.new.args.topic.description'),
 					required: true,
 				},
 				{
-					name: i18n('commands.new.options.topic.name'),
-					type: OptionTypes.STRING,
-					description: i18n('commands.new.options.topic.description'),
+					name: i18n('commands.new.args.topic.name'),
+					description: i18n('commands.new.args.topic.description'),
 					required: false,
 				}
 			]
 		});
 	}
 
-	async execute({ guild, member, channel, args }, interaction) {
+	async execute(message, args, raw_args) {
 
-		let settings = await guild.settings;
+		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		await channel.send(
+		await message.channel.send(
 			new MessageEmbed()
 				.setColor(settings.colour)
 				.setTitle(i18n('bot.version', require('../../package.json').version))
 				.setDescription(args.topic)
 		);
 
-		// this.client.tickets.create(guild.id, member.id, args.category, args.topic);
-		this.client.tickets.create(guild.id, member.id, '825861413687787560');
+		// console.log(this.aliases)
+		// console.log(args.category)
+		// console.log(args.topic)
+
+		// this.client.tickets.create(message.guild.id, message.member.id, '825861413687787560', args.topic);
 	}
 };
