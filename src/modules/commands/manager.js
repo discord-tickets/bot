@@ -66,9 +66,9 @@ module.exports = class CommandManager {
 	 * @param {Message} message - Command message
 	 */
 	async handle(message) {
-
 		let settings = await message.guild.settings;
 		if (!settings) settings = await message.guild.createSettings();
+		
 		const prefix = settings.command_prefix;
 		const i18n = this.client.i18n.get(settings.locale);
 
@@ -81,7 +81,7 @@ module.exports = class CommandManager {
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd);
 
-		let data = [...raw_args.matchAll(/(\w*)\s?:\s?("(.*)"|[\w<>@!#]*)/gmi)];
+		let data = [ ...raw_args.matchAll(/(\w+)\??\s?:\s?(["`'](.*)["`'];|[\w<>@!#]+)/gmi) ];
 		let args = {};
 		data.forEach(arg => args[arg[1]] = arg[3] || arg[2]);
 
@@ -91,19 +91,19 @@ module.exports = class CommandManager {
 			return message.channel.send(i18n('no_perm', perms));
 		}
 
-		let guild_categories = await this.client.db.models.Category.findAll({
-			where: {
-				guild: message.guild.id
-			}
-		});
-
 		if (cmd.staff_only) {
 			let staff_roles = new Set(); // eslint-disable-line no-undef
+			let guild_categories = await this.client.db.models.Category.findAll({
+				where: {
+					guild: message.guild.id
+				}
+			});
 			guild_categories.forEach(cat => {
 				cat.roles.forEach(r => staff_roles.add(r));
 			});
 			staff_roles = staff_roles.filter(r => message.member.roles.cache.has(r));
-			if (staff_roles.length === 0) {
+			const not_staff = staff_roles.length === 0;
+			if (not_staff) {
 				return message.channel.send(i18n('staff_only'));
 			}
 		}
@@ -115,7 +115,6 @@ module.exports = class CommandManager {
 			this.client.log.warn(`An error occurred whilst executing the ${cmd_name} command`);
 			this.client.log.error(e);
 		}
-
 	}
 
 };

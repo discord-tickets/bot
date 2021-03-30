@@ -22,6 +22,9 @@
 			"name": "new"
 		},
 		"settings": {
+			"aliases": {
+				"config": "config"
+			},
 			"description": "Configure Discord Tickets",
 			"name": "settings",
 			"response": {
