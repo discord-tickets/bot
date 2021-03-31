@@ -1,30 +1,8 @@
-const Discord = require('discord.js');
-
 const config = require('../../user/config');
 
 let current_presence = -1;
 
 module.exports = {
-	/**
-	 * Resolves data and files so embeds can be sent as a response to a slash command
-	 * @param {Discord.Client} client - The Discord Client
-	 * @param {string} channel_id - Text channel ID
-	 * @param {*} content - Message content 
-	 * @returns {Object}
-	 */
-	createMessage: async (client, channel_id, content) => {
-		let msg = await Discord.APIMessage.create(client.channels.resolve(channel_id), content)
-			.resolveData()
-			.resolveFiles();
-		return { ...msg.data, files: msg.files };
-	},
-
-	/**
-	 * Generate flags
-	 * @param {boolean} secret - Ephemeral message?
-	 */
-	flags: (secret) => secret ? 1 << 64 : undefined,
-
 	/**
 	 * Select a presence from the config
 	 * @returns {Discord.PresenceData}

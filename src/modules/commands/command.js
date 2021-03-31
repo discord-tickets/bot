@@ -8,9 +8,9 @@ module.exports = class Command {
 	 * @param {Object} data - Command data
 	 * @param {string} data.name - The name of the command (3-32)
 	 * @param {string} data.description - The description of the command (1-100)
-	 * @param {boolean} [data.slash] - Register as a slash command? **Defaults to `true`**
 	 * @param {boolean} [data.staff_only] - Only allow staff to use this command?
 	 * @param {string[]} [data.permissions] - Array of permissions needed for a user to use this command
+	 * @param {boolean} [data.process_args] - Should the command handler process named arguments?
 	 * @param {CommandArgument[]} [data.args] - The command's arguments
 	 */
 	constructor(client, data) {
@@ -48,14 +48,22 @@ module.exports = class Command {
 		/**
 		 * Only allow staff to use this command?
 		 * @type {boolean}
-		*/
-		this.staff_only = data.staff_only;
+		 * @default false
+		 */
+		this.staff_only = data.staff_only === true ? true : false;
 
 		/**
 		 * Array of permissions needed for a user to use this command
 		 * @type {string[]}
 		*/
 		this.permissions = data.permissions;
+
+		/**
+		 * Should the command handler process named arguments?
+		 * @type {boolean}
+		 * @default false
+		 */
+		this.process_args = data.process_args === true ? true : false;
 
 		/** 
 		 * The command options
@@ -90,8 +98,8 @@ module.exports = class Command {
 	 * The code to be executed when a command is invoked
 	 * @abstract
 	 * @param {Message} message - The message that invoked this command
-	 * @param {object?} args - Command arguments
+	 * @param {(object|string)?} args - Named command arguments, or the message content with the prefix and command removed
 	 */
-	async execute(message, args) { }
+	async execute(message, args) { } // eslint-disable-line no-unused-vars
 
 };

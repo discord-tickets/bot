@@ -12,6 +12,7 @@ module.exports = class NewCommand extends Command {
 				i18n('commands.new.aliases.open'),
 				i18n('commands.new.aliases.create'),
 			],
+			process_args: false,
 			args: [
 				{
 					name: i18n('commands.new.args.category.name'),
@@ -27,7 +28,7 @@ module.exports = class NewCommand extends Command {
 		});
 	}
 
-	async execute(message, args, raw_args) {
+	async execute(message, args) {
 
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
@@ -36,12 +37,7 @@ module.exports = class NewCommand extends Command {
 			new MessageEmbed()
 				.setColor(settings.colour)
 				.setTitle(i18n('bot.version', require('../../package.json').version))
-				.setDescription(args.topic)
 		);
-
-		// console.log(this.aliases)
-		// console.log(args.category)
-		// console.log(args.topic)
 
 		// this.client.tickets.create(message.guild.id, message.member.id, '825861413687787560', args.topic);
 	}

@@ -81,9 +81,12 @@ module.exports = class CommandManager {
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd);
 
-		let data = [ ...raw_args.matchAll(/(\w+)\??\s?:\s?(["`'](.*)["`'];|[\w<>@!#]+)/gmi) ];
-		let args = {};
-		data.forEach(arg => args[arg[1]] = arg[3] || arg[2]);
+		let args = raw_args;
+		if (cmd.process_args) {
+			args = {};
+			let data = [...raw_args.matchAll(/(\w+)\??\s?:\s?(["`'](.*)["`'];|[\w<>@!#]+)/gmi)];
+			data.forEach(arg => args[arg[1]] = arg[3] || arg[2]);
+		}
 
 		const no_perm = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
 		if (no_perm) {
