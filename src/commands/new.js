@@ -15,11 +15,6 @@ module.exports = class NewCommand extends Command {
 			process_args: false,
 			args: [
 				{
-					name: i18n('commands.new.args.category.name'),
-					description: i18n('commands.new.args.topic.description'),
-					required: true,
-				},
-				{
 					name: i18n('commands.new.args.topic.name'),
 					description: i18n('commands.new.args.topic.description'),
 					required: false,
@@ -33,11 +28,26 @@ module.exports = class NewCommand extends Command {
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		await message.channel.send(
-			new MessageEmbed()
-				.setColor(settings.colour)
-				.setTitle(i18n('bot.version', require('../../package.json').version))
-		);
+		let { count: cat_count, rows: categories } = await this.client.db.models.Category.findAndCountAll({
+			where: {
+				guild: message.guild.id
+			}
+		});
+
+		switch (cat_count) {
+		case 0:
+			return await message.channel.send(
+				new MessageEmbed()
+					.setColor(settings.error_colour)
+					.setTitle(i18n('commands.new.response.no_categories.title'))
+					.setDescription(i18n('commands.new.response.no_categories.description'))
+			);
+		case 1:
+			break;
+		default:
+		}
+
+		
 
 		// this.client.tickets.create(message.guild.id, message.member.id, '825861413687787560', args.topic);
 	}

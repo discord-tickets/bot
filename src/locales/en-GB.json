@@ -1,6 +1,14 @@
 {
 	"bot": {
-		"version": "Discord Tickets v%s by eartharoid"
+		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+	},
+	"cmd_usage": {
+		"title": "`%s` command usage",
+		"description": "**Usage:** %s"
+	},
+	"cmd_usage_named_args": {
+		"title": "`%s` command usage",
+		"description": "This command uses named arguments:\n`%s argName: value anotherArg: \"A string value\";`\n\n**Required arguments are prefixed with `❗`.**"
 	},
 	"commands": {
 		"new": {
@@ -18,8 +26,14 @@
 					"description": "The topic of the ticket"
 				}
 			},
-			"description": "Create a new support ticket",
-			"name": "new"
+			"description": "Create a new ticket",
+			"name": "new",
+			"response": {
+				"no_categories": {
+					"title": "❌ Can't create ticket",
+					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
+				}
+			}
 		},
 		"settings": {
 			"aliases": {
@@ -32,6 +46,16 @@
 			}
 		}
 	},
-	"no_perm": "❌ You do not have the permissions required to use this command:\n%s",
-	"staff_only": "❌ You must be a member of staff to use this command."
+	"command_execution_error": {
+		"title": "⚠️",
+		"description": "An unexpected error occurred during command execution.\nPlease ask a server administrator to check the console output / logs for details."
+	},
+	"missing_perms": {
+		"title": "❌",
+		"description": "You do not have the permissions required to use this command:\n%s"
+	},
+	"staff_only": {
+		"title": "❌",
+		"description": "You must be a member of staff to use this command."
+	}
 }
