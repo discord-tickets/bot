@@ -1,12 +1,11 @@
 const EventEmitter = require('events');
-// eslint-disable-next-line no-unused-vars
-const { Client } = require('discord.js');
+const TicketArchives = require('./archives');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
 	/**
 	 * Create a TicketManager instance
-	   * @param {Client} client
+	 * @param {Client} client
 	 */
 	constructor(client) {
 		super();
@@ -15,6 +14,8 @@ module.exports = class TicketManager extends EventEmitter {
 		this.client = client;
 
 		this.setMaxListeners(this.client.config.max_listeners);
+
+		this.archives = new TicketArchives(this.client);
 	}
 
 	/**
@@ -55,6 +56,13 @@ module.exports = class TicketManager extends EventEmitter {
 			reason: `${member.tag} requested a new ticket channel`
 		});
 
+		await t_channel.updateOverwrite(creator_id, {
+			VIEW_CHANNEL: true,
+			READ_MESSAGE_HISTORY: true,
+			SEND_MESSAGES: true,
+			ATTACH_FILES: true
+		}, `Ticket channel created by ${member.user.tag}`);
+
 		let t_row = await this.client.db.models.Ticket.create({
 			id: t_channel.id,
 			number,
@@ -69,60 +77,54 @@ module.exports = class TicketManager extends EventEmitter {
 
 	/**
 	 * Get a ticket
-	 * @param {(string|number)} ticket - The channel ID, or the ticket number
+	 * @param {(string|number)} ticket_id - The channel ID, or the ticket number
 	 * @param {string} guild_id - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
 	 */
-	async get(ticket, guild_id) {
-		let row = await this.resolveTicket(ticket, guild_id);
-		if (!row) throw new Error(`Could not find a ticket with ID ${ticket}`);
+	async get(ticket_id, guild_id) {
+		return await this.resolve(ticket_id, guild_id);
 	}
 
 	/**
 	 * Close a ticket
-	 * @param {(string|number)} ticket - The channel ID, or the ticket number
-	 * @param {(string|null)} closer_id - ID of the member who is closing the ticket, or null
+	 * @param {(string|number)} ticket_id - The channel ID, or the ticket number
+	 * @param {string?} closer_id - ID of the member who is closing the ticket, or null
 	 * @param {string} [guild_id] - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
 	 */
-	async close(ticket, closer_id, guild_id) {
-		let row = await this.resolveTicket(ticket, guild_id);
-		if (!row) throw new Error(`Could not find a ticket with ID ${ticket}`);
+	async close(ticket_id, closer_id, guild_id) {
+		let t_row = await this.resolve(ticket_id, guild_id);
+		if (!t_row) throw new Error(`Could not find a ticket with ID ${ticket_id}`);
+		ticket_id = t_row.id;
 
-		this.emit('beforeClose', ticket, closer_id);
+		this.emit('beforeClose', ticket_id, closer_id);
 
-		/**
-		 * 
-		 * 
-		 * for each message of ticket, create entities
-		 * 
-		 * 
-		 */
+		// ...
 
-		this.emit('close', ticket, closer_id);
+		this.emit('close', ticket_id, closer_id);
 	}
 
 	/**
 	 * 
-	 * @param {(string|number)} ticket - ID or number of the ticket 
+	 * @param {(string|number)} ticket_id - ID or number of the ticket
 	 * @param {string} [guild_id] - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
 	 */
-	async resolve(ticket, guild_id) {
-		if (!this.client.channels.resolve(ticket)) {
-			let row = await this.client.db.models.Ticket.findOne({
+	async resolve(ticket_id, guild_id) {
+		if (!this.client.channels.resolve(ticket_id)) {
+			let t_row = await this.client.db.models.Ticket.findOne({
 				where: {
-					number: ticket,
+					number: ticket_id,
 					guild_id
 				}
 			});
-			ticket = row?.id;
+			ticket_id = t_row?.id;
 		}
 
-		let row = await this.client.db.models.Ticket.findOne({
+		let t_row = await this.client.db.models.Ticket.findOne({
 			where: {
-				id: ticket
+				id: ticket_id
 			}
 		});
 
-		return row;
+		return t_row;
 	}
 
 };

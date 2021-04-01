@@ -16,11 +16,13 @@
  * ###############################################################################################
  */
 
+const prefix = '-';
+
 module.exports = {
 	debug: false,
 	defaults: {
 		colour: '#009999', // https://discord.js.org/#/docs/main/stable/typedef/ColorResolvable
-		command_prefix: 'tickets/',
+		command_prefix: prefix,
 		log_messages: true, // transcripts/archives will be empty if false
 		name_format: 'ticket-{number}',
 		ticket_welcome: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
@@ -36,9 +38,8 @@ module.exports = {
 	presence: {
 		presences: [
 			{
-				activity: '/new',
-				type: 'PLAYING',
-				status: 'online'
+				activity: `${prefix}new`,
+				type: 'PLAYING'
 			},
 			{
 				activity: 'with tickets',

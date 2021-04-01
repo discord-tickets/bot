@@ -99,7 +99,7 @@ module.exports = class CommandManager {
 					let embed = new MessageEmbed()
 						.setColor(settings.error_colour)
 						.setTitle(i18n('cmd_usage.title', cmd_name))
-						.setDescription(i18n('cmd_usage.named_args_description') + i18n('cmd_usage.description', usage, example));
+						.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
 					cmd.args.forEach(a => addArgs(embed, a));
 					return message.channel.send(embed);
 				}

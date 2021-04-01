@@ -8,7 +8,7 @@
 			"example": "**Example:**"
 		},
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
-		"named_args_description": "This command uses named arguments.\n\n",
+		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
 	},
 	"commands": {

@@ -66,7 +66,7 @@ const { selectPresence } = require('./utils/discord');
 const I18n = require('@eartharoid/i18n');
 const CommandManager = require('./modules/commands/manager');
 const PluginManager = require('./modules/plugins/manager');
-const TicketManager = require('./modules/tickets');
+const TicketManager = require('./modules/tickets/manager');
 
 require('./modules/structures')(); // load extended structures before creating the client
 

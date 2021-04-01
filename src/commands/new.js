@@ -18,7 +18,7 @@ module.exports = class NewCommand extends Command {
 					name: i18n('commands.new.args.topic.name'),
 					description: i18n('commands.new.args.topic.description'),
 					example: i18n('commands.new.args.topic.example'),
-					required: true,
+					required: false,
 				}
 			]
 		});
