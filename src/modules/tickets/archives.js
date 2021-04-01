@@ -1,3 +1,5 @@
+const { int2hex } = require('../../utils');
+
 /** Manages ticket archiving */
 module.exports = class TicketArchives  {
 	/**
@@ -103,7 +105,7 @@ module.exports = class TicketArchives  {
 				username: message.author.username,
 				discriminator: message.author.discriminator,
 				display_name: message.member.displayName,
-				colour: message.member.displayColor === 0 ? null : message.member.displayColor,
+				colour: message.member.displayColor === 0 ? null : int2hex(message.member.displayColor),
 				bot: message.author.bot
 			});
 
@@ -117,12 +119,13 @@ module.exports = class TicketArchives  {
 					where: m_model_data,
 					defaults: m_model_data
 				});
+
 				await m_row.update({
 					avatar: member.user.displayAvatarURL(),
 					username: member.user.username,
 					discriminator: member.user.discriminator,
 					display_name: member.displayName,
-					colour: member.displayColor === 0 ? null : member.displayColor,
+					colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
 					bot: member.user.bot
 				});
 			});
@@ -154,7 +157,7 @@ module.exports = class TicketArchives  {
 				});
 				await r_row.update({
 					name: role.name,
-					colour: role.color === 0 ? 7506394 : role.color
+					colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
 				});
 			});
 		}

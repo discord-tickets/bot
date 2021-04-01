@@ -270,7 +270,7 @@ module.exports = async (log) => {
 			},
 		},
 		name: DataTypes.STRING,
-		colour: DataTypes.INTEGER,
+		colour: DataTypes.CHAR(6),
 	}, {
 		tableName: DB_TABLE_PREFIX + 'role_entities'
 	});
