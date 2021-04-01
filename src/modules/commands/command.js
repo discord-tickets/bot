@@ -71,11 +71,16 @@ module.exports = class Command {
 		 */
 		this.args = data.args;
 
+		for (let arg in this.args) {
+			if (!this.args[arg].example)
+				throw new Error(`The "${this.name}" command's "${this.args[arg].name}" argument does not have an example!`);
+		}
+
 		/**
 		 * True if command is internal, false if it is from a plugin
 		 * @type {boolean}
 		 */
-		this.internal = data.internal;
+		this.internal = data.internal === true ? true : false;
 
 		if (!this.internal) {
 			/**
@@ -98,7 +103,7 @@ module.exports = class Command {
 	 * The code to be executed when a command is invoked
 	 * @abstract
 	 * @param {Message} message - The message that invoked this command
-	 * @param {(object|string)?} args - Named command arguments, or the message content with the prefix and command removed
+	 * @param {(object|string)} [args] - Named command arguments, or the message content with the prefix and command removed
 	 */
 	async execute(message, args) { } // eslint-disable-line no-unused-vars
 

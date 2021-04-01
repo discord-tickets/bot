@@ -3,12 +3,13 @@
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"title": "`%s` command usage",
-		"description": "**Usage:** %s"
-	},
-	"cmd_usage_named_args": {
-		"title": "`%s` command usage",
-		"description": "This command uses named arguments:\n`%s argName: value anotherArg: \"A string value\";`\n\n**Required arguments are prefixed with `❗`.**"
+		"args": {
+			"description": "**Description:**",
+			"example": "**Example:**"
+		},
+		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"named_args_description": "This command uses named arguments.\n\n",
+		"title": "`%s` command usage"
 	},
 	"commands": {
 		"new": {
@@ -23,7 +24,8 @@
 				},
 				"topic": {
 					"name": "topic",
-					"description": "The topic of the ticket"
+					"description": "The topic of the ticket",
+					"example": "Problem with billing"
 				}
 			},
 			"description": "Create a new ticket",

@@ -7,17 +7,11 @@
  * |____/  |_| |___/  \___|  \___/  |_|     \__,_|     |_|   |_|  \___| |_|\_\  \___|  \__| |___/
  *
  * ---------------------
- *      Quick Start
- * ---------------------
- *
- * 	> For detailed instructions, visit the documentation: https://discordtickets.app
- *
- * ---------------------
  *       Support
  * ---------------------
  *
- * 	> Discord support server: https://go.eartharoid.me/discord
  * 	> Documentation: https://discordtickets.app
+ * 	> Discord support server: https://go.eartharoid.me/discord
  *
  * ###############################################################################################
  */
@@ -29,13 +23,13 @@ module.exports = {
 		command_prefix: 'tickets/',
 		log_messages: true, // transcripts/archives will be empty if false
 		name_format: 'ticket-{number}',
-		prefix: '-',
-		ticket_welcome: 'Hello {{name}}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
+		ticket_welcome: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
 	},
 	locale: 'en-GB', // used for globals (such as commands) and the default guild locale
 	logs: {
 		enabled: true,
-		keep_for: 30
+		keep_for: 30,
+		split: true,
 	},
 	max_listeners: 10,
 	plugins: [],

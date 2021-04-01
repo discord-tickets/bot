@@ -199,7 +199,7 @@ module.exports = async (log) => {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false,
 		},
-		updates: {
+		data: {
 			type: DataTypes.JSON
 		},
 	}, {

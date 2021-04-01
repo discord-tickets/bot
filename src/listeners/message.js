@@ -4,29 +4,30 @@ module.exports = {
 
 		let settings = await message.guild?.settings;
 
-		// message collection for ticket archiving 
+		// message collection for t_row archiving 
 		if (settings?.log_messages) {
 			if (message.system) return;
 
-			let ticket = await client.db.models.Ticket.findOne({
+			let t_row = await client.db.models.Ticket.findOne({
 				where: {
 					id: message.channel.id
 				}
 			});
 
-			if (ticket) {
+			if (t_row) {
+				let embeds = [];
+				for (let embed in message.embeds) embeds.push({ ...message.embeds[embed] });
+
 				await client.db.models.Message.create({
 					id: message.id,
-					ticket: ticket.id,
+					ticket: t_row.id,
 					author: message.author.id,
-					updates: [{
+					data: {
 						content: message.content,
-						time: message.createdTimestamp,
-						embeds: message.embeds.map(embed => {
-							return { ...message.embeds[embed] };
-						}),
-						attachments: [ ...message.attachments.values() ]
-					}]
+						// time: message.createdTimestamp,
+						embeds,
+						attachments: [...message.attachments.values()]
+					}
 				});
 			}
 		}

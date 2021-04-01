@@ -9,7 +9,7 @@ module.exports = {
 
 			let msg = await client.db.models.Message.findOne({
 				where: {
-					id: message.channel.id
+					id: message.id
 				}
 			});
 

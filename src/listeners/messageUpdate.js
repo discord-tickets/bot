@@ -1,5 +1,5 @@
 module.exports = {
-	event: 'msgUpdate',
+	event: 'messageUpdate',
 	execute: async (client, oldm, newm) => {
 
 		if (newm.partial) {
@@ -12,34 +12,31 @@ module.exports = {
 
 		let settings = await newm.guild?.settings;
 
-		if (settings?.messages) {
+		if (settings?.log_messages) {
 			if (newm.system) return;
 
-			let msg = await client.db.models.msg.findOne({
+			let m_row = await client.db.models.Message.findOne({
 				where: {
-					id: newm.channel.id
+					id: newm.id
 				}
 			});
 
-			if (msg) {	
-				let embeds = msg.embeds.map(embed => {
-					return { ...msg.embeds[embed] };
-				});
-				
-				if (msg.editedTimestamp) { // message has been edited
-					msg.updates.unshift({
-						content: msg.content,
-						time: msg.editedTimestamp,
-						embeds,
-						attachments: [ ...msg.attachments.values() ]
-					});
-					msg.edited = true;
-				}
-				else { // probably just a link embed loading
-					msg.updates[0] = Object.assign(msg.updates[0], embeds);
-				}
+			if (m_row) {	
+				let embeds = [];
+				for (let embed in newm.embeds) embeds.push({ ...newm.embeds[embed] });
 
-				await msg.save(); // save changes to msg row
+				m_row.data = {
+					content: newm.content,
+					// time: newm.editedTimestamp,
+					embeds: newm.embeds.map(embed => {
+						return { ...newm.embeds[embed] };
+					}),
+					attachments: [...newm.attachments.values()]
+				};
+
+				if (newm.editedTimestamp) m_row.edited = true;
+
+				await m_row.save(); // save changes
 			}
 		}
 	}

@@ -72,31 +72,35 @@ module.exports = class CommandManager {
 		const prefix = settings.command_prefix;
 		const i18n = this.client.i18n.get(settings.locale);
 
-		let cmd_name = message.content.match(new RegExp(`^${prefix}(\\S+)`, 'mi'));
+		let cmd_name = message.content.match(new RegExp(`^${prefix.replace(/(?=\W)/g, '\\')}(\\S+)`, 'mi'));
 		if (!cmd_name) return;
 
-		let raw_args = message.content.replace(cmd_name[0], '').trim();
-		cmd_name = cmd_name[1];
+		let raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
+		cmd_name = cmd_name[1]; // set cmd_name to the actual string
 
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
-		if (!cmd);
+		if (!cmd) return;
 
 		let args = raw_args;
 
+		const addArgs = (embed, arg) => {
+			let required = arg.required ? '`❗` ' : '';
+			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description')} ${arg.description}\n» ${i18n('cmd_usage.args.example')} \`${arg.example}\``);
+		};
+
 		if (cmd.process_args) {
 			args = {};
-			let data = [ ...raw_args.matchAll(/(\w+)\??\s?:\s?(["`'](.*)["`'];|[\w<>@!#]+)/gmi) ];
-			data.forEach(arg => args[arg[1]] = arg[3] || arg[2]);
+			let data = [...raw_args.matchAll(/(?<key>\w+)\??\s?:\s?(?<value>([^;]|;{2})*);/gmi)];
+			data.forEach(arg => args[arg.groups.key] = arg.groups.value.replace(/;{2}/gm, ';'));
 			for (let arg of cmd.args) {
-				if (!args[arg]) {
+				if (arg.required && !args[arg]) {
+					let usage = `${prefix + cmd_name} ${cmd.args.map(arg => arg.required ? `<${arg.name};>` : `[${arg.name};]`).join(' ')}`;
+					let example = `${prefix + cmd_name} ${cmd.args.map(arg => `${arg.name}: ${arg.example};`).join(' ')}`;
 					let embed = new MessageEmbed()
 						.setColor(settings.error_colour)
-						.setTitle(i18n('cmd_usage_named_args.title', cmd_name))
-						.setDescription(i18n('cmd_usage_named_args.description', settings.command_prefix + cmd_name));
-					cmd.args.forEach(a => {
-						let required = a.required ? '`❗` ' : '';
-						embed.addField(required + a.name, a.description);
-					});
+						.setTitle(i18n('cmd_usage.title', cmd_name))
+						.setDescription(i18n('cmd_usage.named_args_description') + i18n('cmd_usage.description', usage, example));
+					cmd.args.forEach(a => addArgs(embed, a));
 					return message.channel.send(embed);
 				}
 			}
@@ -104,15 +108,13 @@ module.exports = class CommandManager {
 			const args_num = raw_args.split(' ').filter(arg => arg.length !== 0).length;
 			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0);
 			if (args_num < required_args) {
-				let usage = cmd.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ');
+				let usage = `${prefix + cmd_name} ${cmd.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
+				let example = `${prefix + cmd_name} ${cmd.args.map(arg => `${arg.example}`).join(' ')}`;
 				let embed = new MessageEmbed()
 					.setColor(settings.error_colour)
 					.setTitle(i18n('cmd_usage.title', cmd_name))
-					.setDescription(i18n('cmd_usage.description', `\`${settings.command_prefix + cmd_name} ${usage}\``));
-				cmd.args.forEach(a => {
-					let required = a.required ? '`❗` ' : '';
-					embed.addField(required + a.name, a.description);
-				});
+					.setDescription(i18n('cmd_usage.description', usage, example));
+				cmd.args.forEach(a => addArgs(embed, a));
 				return message.channel.send(embed);
 			}
 		}
@@ -152,7 +154,7 @@ module.exports = class CommandManager {
 			
 		try {
 			this.client.log.commands(`Executing "${cmd.name}" command (invoked by ${message.author.tag})`);
-			await cmd.execute(message, args, raw_args); // execute the command 
+			await cmd.execute(message, args); // execute the command 
 		} catch (e) {
 			this.client.log.warn(`An error occurred whilst executing the ${cmd.name} command`);
 			this.client.log.error(e);

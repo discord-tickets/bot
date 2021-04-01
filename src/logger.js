@@ -5,7 +5,7 @@ module.exports = new Logger({
 	name: 'Discord Tickets by eartharoid',
 	debug: config.debug,
 	logToFile: config.logs.enabled,
-	splitFile: true,
+	splitFile: config.logs.split,
 	directory: path('./logs/'),
 	keepFor: config.logs.keep_for,
 	timestamp: 'YYYY-MM-DD HH:mm:ss',
