@@ -3,6 +3,14 @@
  */
 module.exports = class Command {
 	/**
+	 * 
+	 * @typedef CommandArgument
+	 * @property {string} name - The argument's name
+	 * @property {string} description - The argument's description
+	 * @property {string} example - An example value
+	 * @property {boolean?} required - Is this arg required? Defaults to `false`
+	 */
+	/**
 	 * Create a new Command
 	 * @param {Client} client - The Discord Client
 	 * @param {Object} data - Command data
@@ -69,7 +77,7 @@ module.exports = class Command {
 		 * The command options
 		 * @type {CommandArgument[]}
 		 */
-		this.args = data.args;
+		this.args = data.args || [];
 
 		for (let arg in this.args) {
 			if (!this.args[arg].example)

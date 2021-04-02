@@ -167,6 +167,10 @@ module.exports = async (log) => {
 		open: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		closed_by: {
+			type: DataTypes.CHAR(18),
+			allowNull: true,
 		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
@@ -226,7 +230,7 @@ module.exports = async (log) => {
 		username: DataTypes.STRING,
 		discriminator: DataTypes.STRING,
 		display_name: DataTypes.STRING,
-		colour: DataTypes.INTEGER,
+		colour: DataTypes.CHAR(6),
 		bot: DataTypes.BOOLEAN
 	}, {
 		tableName: DB_TABLE_PREFIX + 'user_entities'

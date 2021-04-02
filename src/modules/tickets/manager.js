@@ -1,5 +1,7 @@
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
+const { MessageEmbed } = require('discord.js');
+const { int2hex } = require('../../utils');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -47,13 +49,13 @@ module.exports = class TicketManager extends EventEmitter {
 		let member = await guild.members.fetch(creator_id);
 		let name = cat_row.name_format
 			.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
-			.replace(/{+\s?number\s?}+/gi, number);
+			.replace(/{+\s?num(ber)?\s?}+/gi, number);
 
 		let t_channel = await guild.channels.create(name, {
 			type: 'text',
 			topic: `${member}${topic.length > 0 ? ` | ${topic}` : ''}`,
 			parent: category_id,
-			reason: `${member.tag} requested a new ticket channel`
+			reason: `${member.user.tag} requested a new ticket channel`
 		});
 
 		await t_channel.updateOverwrite(creator_id, {
@@ -95,11 +97,53 @@ module.exports = class TicketManager extends EventEmitter {
 		if (!t_row) throw new Error(`Could not find a ticket with ID ${ticket_id}`);
 		ticket_id = t_row.id;
 
-		this.emit('beforeClose', ticket_id, closer_id);
+		this.emit('beforeClose', ticket_id);
 
-		// ...
+		let u_model_data = {
+			user: closer_id,
+			ticket: ticket_id
+		};
+		let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
+			where: u_model_data,
+			defaults: u_model_data
+		});
 
-		this.emit('close', ticket_id, closer_id);
+		let guild = this.client.guilds.cache.get(t_row.guild);
+		let member = await guild.members.fetch(closer_id);
+
+		await u_row.update({
+			avatar: member.user.displayAvatarURL(),
+			username: member.user.username,
+			discriminator: member.user.discriminator,
+			display_name: member.displayName,
+			colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
+			bot: member.user.bot
+		});
+
+		await t_row.update({
+			open: false,
+			closed_by: closer_id
+		});
+
+		let channel = await this.client.channels.fetch(t_row.channel);
+
+		if (channel) {
+			let settings = await guild.settings;
+			const i18n = this.client.i18n.get(settings.locale);
+
+			await channel.send(
+				new MessageEmbed()
+					.setColor(settings.success_colour)
+					.setTitle(i18n('commands.close.response.closed.title'))
+					.setDescription(i18n('commands.close.response.closed.description', member.user.toString()))
+			);
+
+			setTimeout(async () => {
+				await channel.delete(`Ticket channel closed by ${member.user.tag}`);
+			}, 5000);
+		}
+
+		this.emit('close', ticket_id);
 	}
 
 	/**
