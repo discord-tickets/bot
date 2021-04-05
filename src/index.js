@@ -97,14 +97,14 @@ class Bot extends Client {
 			/** The global bot configuration */
 			this.config = config;
 
-			/** A sequelize instance */
-			this.db = await require('./database')(log), // this.db.models.Ticket...
-
 			/** A leekslazylogger instance */
 			this.log = log;
 
 			/** An @eartharoid/i18n instance */
 			this.i18n = new I18n(path('./src/locales'), 'en-GB');
+
+			/** A sequelize instance */
+			this.db = await require('./database')(this), // this.db.models.Ticket...
 
 			this.setMaxListeners(this.config.max_listeners); // set the max listeners for each event
 	

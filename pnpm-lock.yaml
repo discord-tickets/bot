@@ -12,7 +12,6 @@ dependencies:
   terminal-link: 2.1.1
 devDependencies:
   eslint: 7.21.0
-  jsdoc: 3.6.6
   mariadb: 2.5.2
   mysql2: 2.2.5
   nodemon: 2.0.7
@@ -86,13 +85,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-4vrIhfJyfNf+lCtXC2ck1rKSzDwciqF7IWFhXXrSOUC2O5DrVp+w4c6ed4AllTxhTkUP5x2tYj41VaxdVMMRDw==
-  /@babel/parser/7.13.4:
-    dev: true
-    engines:
-      node: '>=6.0.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-uvoOulWHhI+0+1f9L4BoozY7U5cIkZ9PgJqvb041d6vypgUmtVPG4vmGm4pSggjl8BELzvHyUeJSUyEMY6b+qA==
   /@discordjs/collection/0.1.6:
     dev: false
     resolution:
@@ -416,10 +408,6 @@ packages:
     optional: true
     resolution:
       integrity: sha1-E+v+d4oDIFz+A3UUgeu0szAMEmo=
-  /bluebird/3.7.2:
-    dev: true
-    resolution:
-      integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
   /boxen/4.2.0:
     dependencies:
       ansi-align: 3.0.0
@@ -516,14 +504,6 @@ packages:
   /caseless/0.12.0:
     resolution:
       integrity: sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
-  /catharsis/0.8.11:
-    dependencies:
-      lodash: 4.17.21
-    dev: true
-    engines:
-      node: '>= 8'
-    resolution:
-      integrity: sha512-a+xUyMV7hD1BrDQA/3iPV7oc+6W26BgVJO05PGEoatMyIuPScQKsde6i3YorWX1qs+AZjnJ18NqdKoCtKiNh1g==
   /chalk/2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -829,10 +809,6 @@ packages:
       node: '>=8.6'
     resolution:
       integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
-  /entities/2.0.3:
-    dev: true
-    resolution:
-      integrity: sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -845,12 +821,6 @@ packages:
       node: '>=0.8.0'
     resolution:
       integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
-  /escape-string-regexp/2.0.0:
-    dev: true
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
   /eslint-scope/5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -1469,12 +1439,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
-  /js2xmlparser/4.0.1:
-    dependencies:
-      xmlcreate: 2.0.3
-    dev: true
-    resolution:
-      integrity: sha512-KrPTolcw6RocpYjdC7pL7v62e55q7qOMHvLX1UCLc5AAS8qeJ6nukarEJAF2KL2PZxlbGueEbINqZR2bDe/gUw==
   /jsbi/3.1.4:
     dev: true
     resolution:
@@ -1482,28 +1446,6 @@ packages:
   /jsbn/0.1.1:
     resolution:
       integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
-  /jsdoc/3.6.6:
-    dependencies:
-      '@babel/parser': 7.13.4
-      bluebird: 3.7.2
-      catharsis: 0.8.11
-      escape-string-regexp: 2.0.0
-      js2xmlparser: 4.0.1
-      klaw: 3.0.0
-      markdown-it: 10.0.0
-      markdown-it-anchor: 5.3.0_markdown-it@10.0.0
-      marked: 0.8.2
-      mkdirp: 1.0.4
-      requizzle: 0.2.3
-      strip-json-comments: 3.1.1
-      taffydb: 2.6.2
-      underscore: 1.10.2
-    dev: true
-    engines:
-      node: '>=8.15.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-znR99e1BHeyEkSvgDDpX0sTiTu+8aQyDl9DawrkOGZTTW8hv0deIFXx87114zJ7gRaDZKVQD/4tr1ifmJp9xhQ==
   /json-buffer/3.0.0:
     dev: true
     resolution:
@@ -1564,12 +1506,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-9ykJ/46SN/9KPM/sichzQ7OvXyGDYKGTaDlKMGCAlg2UK8KRy4jb0d8sFc+0Tt0YYnThq8X2RZgCg74RPxgcVA==
-  /klaw/3.0.0:
-    dependencies:
-      graceful-fs: 4.2.6
-    dev: true
-    resolution:
-      integrity: sha512-0Fo5oir+O9jnXu5EefYbVK+mHMBeEVEy2cmctR1O1NECcCkPRreJKrS6Qt/j3KC2C148Dfo9i3pCmCMsdqGr0g==
   /latest-version/5.1.0:
     dependencies:
       package-json: 6.5.0
@@ -1611,12 +1547,6 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==
-  /linkify-it/2.2.0:
-    dependencies:
-      uc.micro: 1.0.6
-    dev: true
-    resolution:
-      integrity: sha512-GnAl/knGn+i1U/wjBz3akz2stz+HrHLsxMwHQGofCDfPvlf+gDKN58UtfmUquTY4/MXeE2x7k19KQmeoZi94Iw==
   /lodash/4.17.20:
     resolution:
       integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
@@ -1676,36 +1606,6 @@ packages:
       node: '>= 10.13'
     resolution:
       integrity: sha512-SfaBl5/LiX2qJNNr7wCQvizVjtWxVm1CUWYKe+y4OMeyYMM6g0GhwX7/BbGtv/O3WthnGrM+Kj1imFnlescO0w==
-  /markdown-it-anchor/5.3.0_markdown-it@10.0.0:
-    dependencies:
-      markdown-it: 10.0.0
-    dev: true
-    peerDependencies:
-      markdown-it: '*'
-    resolution:
-      integrity: sha512-/V1MnLL/rgJ3jkMWo84UR+K+jF1cxNG1a+KwqeXqTIJ+jtA8aWSHuigx8lTzauiIjBDbwF3NcWQMotd0Dm39jA==
-  /markdown-it/10.0.0:
-    dependencies:
-      argparse: 1.0.10
-      entities: 2.0.3
-      linkify-it: 2.2.0
-      mdurl: 1.0.1
-      uc.micro: 1.0.6
-    dev: true
-    hasBin: true
-    resolution:
-      integrity: sha512-YWOP1j7UbDNz+TumYP1kpwnP0aEa711cJjrAQrzd0UXlbJfc5aAq0F/PZHjiioqDC1NKgvIMX+o+9Bk7yuM2dg==
-  /marked/0.8.2:
-    dev: true
-    engines:
-      node: '>= 8.16.2'
-    hasBin: true
-    resolution:
-      integrity: sha512-EGwzEeCcLniFX51DhTpmTom+dSA/MG/OBUDjnWtHbEnjAH180VzUeAw+oE4+Zv+CoYBWyRlYOTR0N8SO9R1PVw==
-  /mdurl/1.0.1:
-    dev: true
-    resolution:
-      integrity: sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
   /mime-db/1.45.0:
     engines:
       node: '>= 0.6'
@@ -1755,13 +1655,6 @@ packages:
     optional: true
     resolution:
       integrity: sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
-  /mkdirp/1.0.4:
-    dev: true
-    engines:
-      node: '>=10'
-    hasBin: true
-    resolution:
-      integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
   /moment-timezone/0.5.33:
     dependencies:
       moment: 2.29.1
@@ -2347,12 +2240,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
-  /requizzle/0.2.3:
-    dependencies:
-      lodash: 4.17.21
-    dev: true
-    resolution:
-      integrity: sha512-YanoyJjykPxGHii0fZP0uUPEXpvqfBDxWV7s6GKAiiOsiqhX6vHNyW3Qzdmqp/iq/ExbhaGbVrjB4ruEVSM4GQ==
   /resolve-from/4.0.0:
     dev: true
     engines:
@@ -2698,10 +2585,6 @@ packages:
       node: '>=10.0.0'
     resolution:
       integrity: sha512-rxZevLGTUzWna/qBLObOe16kB2RTnnbhciwgPbMMlazz1yZGVEgnZK762xyVdVznhqxrfCeBMmMkgOOaPwjH7g==
-  /taffydb/2.6.2:
-    dev: true
-    resolution:
-      integrity: sha1-fLy2S1oUG2ou/CxdLGe04VCyomg=
   /tar/2.2.2:
     dependencies:
       block-stream: 0.0.9
@@ -2865,20 +2748,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
-  /uc.micro/1.0.6:
-    dev: true
-    resolution:
-      integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==
   /undefsafe/2.0.3:
     dependencies:
       debug: 2.6.9
     dev: true
     resolution:
       integrity: sha512-nrXZwwXrD/T/JXeygJqdCO6NZZ1L66HrxM/Z7mIq2oPanoN0F1nLx3lwJMu6AwJY69hdixaFQOuoYsMjE5/C2A==
-  /underscore/1.10.2:
-    dev: true
-    resolution:
-      integrity: sha512-N4P+Q/BuyuEKFJ43B9gYuOj4TQUHXX+j2FqguVOpjkssLUUrnJofCcBccJSCoeturDoZU6GorDTHSvUDlSQbTg==
   /underscore/1.12.0:
     dev: true
     resolution:
@@ -3061,10 +2936,6 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA==
-  /xmlcreate/2.0.3:
-    dev: true
-    resolution:
-      integrity: sha512-HgS+X6zAztGa9zIK3Y3LXuJes33Lz9x+YyTxgrkIdabu2vqcGOWwdfCpf1hWLRrd553wd4QCDf6BBO6FfdsRiQ==
   /xmldom/0.4.0:
     dev: true
     engines:
@@ -3102,7 +2973,6 @@ specifiers:
   dotenv: ^8.2.0
   eslint: ^7.21.0
   fs-extra: ^9.1.0
-  jsdoc: ^3.6.6
   leeks.js: ^0.0.9
   leekslazylogger-fastify: ^0.1.0
   mariadb: ^2.5.2

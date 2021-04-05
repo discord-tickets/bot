@@ -1,3 +1,5 @@
+const { MessageEmbed } = require('discord.js');
+
 /**
  * A command
  */
@@ -114,5 +116,48 @@ module.exports = class Command {
 	 * @param {(object|string)} [args] - Named command arguments, or the message content with the prefix and command removed
 	 */
 	async execute(message, args) { } // eslint-disable-line no-unused-vars
+
+	/**
+	 * Send a message with the command usage
+	 * @param {TextChannel} channel - The channel to send the message to
+	 * @param {string} [cmd_name] - The command alias
+	 * @returns {Message}
+	 */
+	async sendUsage(channel, cmd_name) {
+		let settings = await channel.guild.settings;
+		if (!cmd_name) cmd_name = this.name;
+
+		const prefix = settings.command_prefix;
+		const i18n = this.client.i18n.get(settings.locale);
+
+		const addArgs = (embed, arg) => {
+			let required = arg.required ? '`❗` ' : '';
+			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description', arg.description)}}\n» ${i18n('cmd_usage.args.example', arg.example)}`);
+		};
+
+		let usage,
+			example,
+			embed;
+
+		if (this.process_args) {
+			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name};>` : `[${arg.name};]`).join(' ')}`;
+			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.name}: ${arg.example};`).join(' ')}`;
+			embed = new MessageEmbed()
+				.setColor(settings.error_colour)
+				.setTitle(i18n('cmd_usage.title', cmd_name))
+				.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
+		} else {
+			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
+			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.example}`).join(' ')}`;
+			embed = new MessageEmbed()
+				.setColor(settings.error_colour)
+				.setTitle(i18n('cmd_usage.title', cmd_name))
+				.setDescription(i18n('cmd_usage.description', usage, example));
+		}
+
+		this.args.forEach(arg => addArgs(embed, arg));
+		return await channel.send(embed);
+		
+	}
 
 };

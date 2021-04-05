@@ -21,9 +21,6 @@ module.exports = class TicketArchives  {
 		});
 
 		if (t_row) {
-			let embeds = [];
-			for (let embed in message.embeds) embeds.push({ ...message.embeds[embed] });
-
 			await this.client.db.models.Message.create({
 				id: message.id,
 				ticket: t_row.id,
@@ -31,7 +28,9 @@ module.exports = class TicketArchives  {
 				data: {
 					content: message.content,
 					// time: message.createdTimestamp,
-					embeds,
+					embeds: message.embeds.map(embed => {
+						return { embed };
+					}),
 					attachments: [...message.attachments.values()]
 				}
 			});
@@ -48,14 +47,11 @@ module.exports = class TicketArchives  {
 		});
 
 		if (m_row) {
-			let embeds = [];
-			for (let embed in message.embeds) embeds.push({ ...message.embeds[embed] });
-
 			m_row.data = {
 				content: message.content,
 				// time: message.editedTimestamp,
 				embeds: message.embeds.map(embed => {
-					return { ...message.embeds[embed] };
+					return { embed };
 				}),
 				attachments: [...message.attachments.values()]
 			};
@@ -90,77 +86,77 @@ module.exports = class TicketArchives  {
 			}
 		});
 
-		if (m_row) {
-			// message author
-			let u_model_data = {
-				user: message.author.id,
+		if (!m_row) return;
+
+		// message author
+		let u_model_data = {
+			user: message.author.id,
+			ticket: message.channel.id
+		};
+		let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
+			where: u_model_data,
+			defaults: u_model_data
+		});
+		await u_row.update({
+			avatar: message.author.displayAvatarURL(),
+			username: message.author.username,
+			discriminator: message.author.discriminator,
+			display_name: message.member.displayName,
+			colour: message.member.displayColor === 0 ? null : int2hex(message.member.displayColor),
+			bot: message.author.bot
+		});
+
+		// mentioned members
+		message.mentions.members.forEach(async member => {
+			let m_model_data = {
+				user: member.user.id,
 				ticket: message.channel.id
 			};
-			let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
-				where: u_model_data,
-				defaults: u_model_data
-			});
-			await u_row.update({
-				avatar: message.author.displayAvatarURL(),
-				username: message.author.username,
-				discriminator: message.author.discriminator,
-				display_name: message.member.displayName,
-				colour: message.member.displayColor === 0 ? null : int2hex(message.member.displayColor),
-				bot: message.author.bot
+			let [m_row] = await this.client.db.models.UserEntity.findOrCreate({
+				where: m_model_data,
+				defaults: m_model_data
 			});
 
-			// mentioned members
-			message.mentions.members.forEach(async member => {
-				let m_model_data = {
-					user: member.user.id,
-					ticket: message.channel.id
-				};
-				let [m_row] = await this.client.db.models.UserEntity.findOrCreate({
-					where: m_model_data,
-					defaults: m_model_data
-				});
-
-				await m_row.update({
-					avatar: member.user.displayAvatarURL(),
-					username: member.user.username,
-					discriminator: member.user.discriminator,
-					display_name: member.displayName,
-					colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
-					bot: member.user.bot
-				});
+			await m_row.update({
+				avatar: member.user.displayAvatarURL(),
+				username: member.user.username,
+				discriminator: member.user.discriminator,
+				display_name: member.displayName,
+				colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
+				bot: member.user.bot
 			});
+		});
 
-			// mentioned channels
-			message.mentions.channels.forEach(async channel => {
-				let c_model_data = {
-					channel: channel.id,
-					ticket: message.channel.id
-				};
-				let [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
-					where: c_model_data,
-					defaults: c_model_data
-				});
-				await c_row.update({
-					name: channel.name
-				});
+		// mentioned channels
+		message.mentions.channels.forEach(async channel => {
+			let c_model_data = {
+				channel: channel.id,
+				ticket: message.channel.id
+			};
+			let [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
+				where: c_model_data,
+				defaults: c_model_data
 			});
+			await c_row.update({
+				name: channel.name
+			});
+		});
 
-			// mentioned roles
-			message.mentions.roles.forEach(async role => {
-				let r_model_data = {
-					role: role.id,
-					ticket: message.channel.id
-				};
-				let [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
-					where: r_model_data,
-					defaults: r_model_data
-				});
-				await r_row.update({
-					name: role.name,
-					colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
-				});
+		// mentioned roles
+		message.mentions.roles.forEach(async role => {
+			let r_model_data = {
+				role: role.id,
+				ticket: message.channel.id
+			};
+			let [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
+				where: r_model_data,
+				defaults: r_model_data
 			});
-		}
+			await r_row.update({
+				name: role.name,
+				colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
+			});
+		});
 		
 	}
 

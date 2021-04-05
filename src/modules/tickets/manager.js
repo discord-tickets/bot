@@ -75,6 +75,7 @@ module.exports = class TicketManager extends EventEmitter {
 		});
 
 		this.emit('create', t_row.id, creator_id);
+		return t_row;
 	}
 
 	/**
@@ -144,6 +145,7 @@ module.exports = class TicketManager extends EventEmitter {
 		}
 
 		this.emit('close', ticket_id);
+		return t_row;
 	}
 
 	/**

@@ -4,8 +4,18 @@ let current_presence = -1;
 
 module.exports = {
 	/**
+	 * 
+	 * @param {string} text 
+	 * @param {string} [additional] 
+	 * @returns {string}
+	 */
+	footer: (text, additional) => {
+		if (text && additional) return `${text} | ${additional}`;
+		else return text || additional || '';
+	},
+	/**
 	 * Select a presence from the config
-	 * @returns {Discord.PresenceData}
+	 * @returns {PresenceData}
 	 */
 	selectPresence: () => {
 		let length = config.presence.presences.length;

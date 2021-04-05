@@ -83,39 +83,20 @@ module.exports = class CommandManager {
 
 		let args = raw_args;
 
-		const addArgs = (embed, arg) => {
-			let required = arg.required ? '`❗` ' : '';
-			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description')} ${arg.description}\n» ${i18n('cmd_usage.args.example')} \`${arg.example}\``);
-		};
-
 		if (cmd.process_args) {
 			args = {};
 			let data = [...raw_args.matchAll(/(?<key>\w+)\??\s?:\s?(?<value>([^;]|;{2})*);/gmi)];
 			data.forEach(arg => args[arg.groups.key] = arg.groups.value.replace(/;{2}/gm, ';'));
 			for (let arg of cmd.args) {
 				if (arg.required && !args[arg]) {
-					let usage = `${prefix + cmd_name} ${cmd.args.map(arg => arg.required ? `<${arg.name};>` : `[${arg.name};]`).join(' ')}`;
-					let example = `${prefix + cmd_name} ${cmd.args.map(arg => `${arg.name}: ${arg.example};`).join(' ')}`;
-					let embed = new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('cmd_usage.title', cmd_name))
-						.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
-					cmd.args.forEach(a => addArgs(embed, a));
-					return message.channel.send(embed);
+					return await cmd.sendUsage(message.channel, cmd_name);
 				}
 			}
 		} else {
 			const args_num = raw_args.split(' ').filter(arg => arg.length !== 0).length;
 			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0);
 			if (args_num < required_args) {
-				let usage = `${prefix + cmd_name} ${cmd.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-				let example = `${prefix + cmd_name} ${cmd.args.map(arg => `${arg.example}`).join(' ')}`;
-				let embed = new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('cmd_usage.title', cmd_name))
-					.setDescription(i18n('cmd_usage.description', usage, example));
-				cmd.args.forEach(a => addArgs(embed, a));
-				return message.channel.send(embed);
+				return await cmd.sendUsage(message.channel, cmd_name);
 			}
 		}
 
@@ -158,7 +139,6 @@ module.exports = class CommandManager {
 		} catch (e) {
 			this.client.log.warn(`An error occurred whilst executing the ${cmd.name} command`);
 			this.client.log.error(e);
-			// await message.channel.send(i18n('command_execution_error'));
 			await message.channel.send(
 				new MessageEmbed()
 					.setColor('ORANGE')

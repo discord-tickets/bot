@@ -4,17 +4,25 @@
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:**",
-			"example": "**Example:**"
+			"description": "**Description:** %s",
+			"example": "**Example:** `%s`"
 		},
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
 	},
+	"collector_expires_in": "Expires in %d seconds",
 	"commands": {
 		"close": {
 			"aliases": {
 				"delete": "delete"
+			},
+			"args": {
+				"ticket": {
+					"name": "ticket",
+					"description": "The number or a channel mention of the ticket to close",
+					"example": "217"
+				}
 			},
 			"description": "Close a ticket channel",
 			"name": "close",
@@ -31,10 +39,6 @@
 				"open": "open"
 			},
 			"args": {
-				"category": {
-					"name": "category",
-					"description": "The category you would like to create a new ticket for"
-				},
 				"topic": {
 					"name": "topic",
 					"description": "The topic of the ticket",
@@ -46,11 +50,27 @@
 			"response": {
 				"created": {
 					"title": "✅ Ticket created",
-					"description": ""
+					"description": "Your ticket has been created: %s."
+				},
+				"has_a_ticket": {
+					"title": "❌ You already have an open ticket",
+					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
+				},
+				"max_tickets": {
+					"title": "❌ You already have %d open tickets",
+					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
 				},
 				"no_categories": {
 					"title": "❌ Can't create ticket",
 					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
+				},
+				"select_category": {
+					"title": "Please select the ticket category",
+					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
+				},
+				"select_category_timeout": {
+					"title": "❌ Reaction time expired",
+					"description": "You took too long to select the ticket category."
 				}
 			}
 		},
@@ -67,8 +87,9 @@
 	},
 	"command_execution_error": {
 		"title": "⚠️",
-		"description": "An unexpected error occurred during command execution.\nPlease ask a server administrator to check the console output / logs for details."
+		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
 	},
+	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
 	"missing_perms": {
 		"title": "❌",
 		"description": "You do not have the permissions required to use this command:\n%s"

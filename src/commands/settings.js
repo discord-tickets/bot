@@ -31,6 +31,7 @@ module.exports = class SettingsCommand extends Command {
 			settings.colour = data.colour;
 			settings.command_prefix = data.command_prefix;
 			settings.error_colour = data.error_colour;
+			settings.footer = data.footer;
 			settings.locale = data.locale;
 			settings.log_messages = data.log_messages;
 			settings.success_colour = data.success_colour;
@@ -114,6 +115,7 @@ module.exports = class SettingsCommand extends Command {
 				colour: settings.colour,
 				command_prefix: settings.command_prefix,
 				error_colour: settings.error_colour,
+				footer: settings.footer,
 				locale: settings.locale,
 				log_messages: settings.log_messages,
 				success_colour: settings.success_colour,
