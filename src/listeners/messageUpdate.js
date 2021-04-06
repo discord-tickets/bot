@@ -10,11 +10,11 @@ module.exports = {
 			}
 		}
 
-		let settings = await newm.guild?.settings;
+		if (!newm.guild) return;
 
-		if (settings?.log_messages) {
-			if (newm.system) return;
-			client.tickets.archives.updateMessage(newm);
-		}
+		let settings = await newm.guild.settings;
+		if (!settings) settings = await newm.guild.createSettings();
+
+		if (settings.log_messages && !newm.system) client.tickets.archives.updateMessage(newm); // update the message in the database
 	}
 };

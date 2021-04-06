@@ -1,7 +1,5 @@
 // eslint-disable-next-line no-unused-vars
 const { Collection, Client, Message, MessageEmbed } = require('discord.js');
-// eslint-disable-next-line no-unused-vars
-const Command = require('./command');
 
 const fs = require('fs');
 const { path } = require('../../utils/fs');
@@ -41,8 +39,7 @@ module.exports = class CommandManager {
 	/** Register a command */
 	register(cmd) {
 		const exists = this.commands.has(cmd.name);
-		const is_internal = (exists && cmd.internal)
-			|| (exists && this.commands.get(cmd.name).internal);
+		const is_internal = (exists && cmd.internal) || (exists && this.commands.get(cmd.name).internal);
 
 		if (is_internal) {
 			let plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
@@ -67,16 +64,18 @@ module.exports = class CommandManager {
 	 */
 	async handle(message) {
 		let settings = await message.guild.settings;
-		if (!settings) settings = await message.guild.createSettings();
-		
-		const prefix = settings.command_prefix;
+
 		const i18n = this.client.i18n.get(settings.locale);
 
-		let cmd_name = message.content.match(new RegExp(`^${prefix.replace(/(?=\W)/g, '\\')}(\\S+)`, 'mi'));
-		if (!cmd_name) return;
+		const prefix = settings.command_prefix;
+		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
+		const client_mention = `<@!?${this.client.user.id}>`;
+
+		let cmd_name = message.content.match(new RegExp(`^(${escaped_prefix}|${client_mention}\\s?)(\\S+)`, 'mi')); // capture prefix and command
+		if (!cmd_name) return; // stop here if the message is not a command
 
 		let raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
-		cmd_name = cmd_name[1]; // set cmd_name to the actual string
+		cmd_name = cmd_name[2].toLowerCase(); // set cmd_name to the actual command alias, effectively removing the prefix
 
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd) return;
@@ -85,16 +84,16 @@ module.exports = class CommandManager {
 
 		if (cmd.process_args) {
 			args = {};
-			let data = [...raw_args.matchAll(/(?<key>\w+)\??\s?:\s?(?<value>([^;]|;{2})*);/gmi)];
-			data.forEach(arg => args[arg.groups.key] = arg.groups.value.replace(/;{2}/gm, ';'));
+			let data = [...raw_args.matchAll(/(?<key>\w+)\??\s?:\s?(?<value>([^;]|;{2})*);/gmi)]; // an array of argument objects
+			data.forEach(arg => args[arg.groups.key] = arg.groups.value.replace(/;{2}/gm, ';')); // put the data into a useful format
 			for (let arg of cmd.args) {
 				if (arg.required && !args[arg]) {
-					return await cmd.sendUsage(message.channel, cmd_name);
+					return await cmd.sendUsage(message.channel, cmd_name); // send usage if any required arg is missing
 				}
 			}
 		} else {
-			const args_num = raw_args.split(' ').filter(arg => arg.length !== 0).length;
-			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0);
+			const args_num = raw_args.split(' ').filter(arg => arg.length !== 0).length; // count the number of single-word args were given
+			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0); // count how many of the args are required
 			if (args_num < required_args) {
 				return await cmd.sendUsage(message.channel, cmd_name);
 			}
@@ -120,8 +119,8 @@ module.exports = class CommandManager {
 			});
 			guild_categories.forEach(cat => {
 				cat.roles.forEach(r => staff_roles.add(r));
-			});
-			staff_roles = staff_roles.filter(r => message.member.roles.cache.has(r));
+			}); // add all of the staff role IDs to the Set
+			staff_roles = staff_roles.filter(r => message.member.roles.cache.has(r)); // filter out any roles that the member does not have
 			const not_staff = staff_roles.length === 0;
 			if (not_staff) {
 				return await message.channel.send(
@@ -144,7 +143,7 @@ module.exports = class CommandManager {
 					.setColor('ORANGE')
 					.setTitle(i18n('command_execution_error.title'))
 					.setDescription(i18n('command_execution_error.description'))
-			);
+			); // hopefully no user will ever see this message
 		}
 	}
 

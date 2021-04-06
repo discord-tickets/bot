@@ -108,10 +108,10 @@ module.exports = class NewCommand extends Command {
 					.setFooter(settings.footer, message.guild.iconURL())
 			);
 		} else if (categories.count === 1) {
-			create(categories.rows[0]);
+			create(categories.rows[0]); // skip the category selection
 		} else {
-			let letters_array = Object.values(letters);
-			let category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`);
+			let letters_array = Object.values(letters); // convert the A-Z emoji object to an array
+			let category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`); // list category names with an A-Z emoji
 			let collector_message = await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)
@@ -122,11 +122,11 @@ module.exports = class NewCommand extends Command {
 			);
 
 			for (let i in categories.rows) {
-				await collector_message.react(letters_array[i]);
+				await collector_message.react(letters_array[i]); // add the correct number of letter reactions
 			}
 
 			const collector_filter = (reaction, user) => {
-				let allowed = letters_array.slice(0, categories.count);
+				let allowed = letters_array.slice(0, categories.count); // get the first x letters of the emoji array
 				return user.id === message.author.id && allowed.includes(reaction.emoji.name);
 			};
 
@@ -135,10 +135,10 @@ module.exports = class NewCommand extends Command {
 			});
 
 			collector.on('collect', async (reaction) => {
-				let index = letters_array.findIndex(value => value === reaction.emoji.name);
+				let index = letters_array.findIndex(value => value === reaction.emoji.name); // find where the letter is in the alphabet
 				if (index === -1) return await collector_message.delete({ timeout: 15000 });
 				await collector_message.reactions.removeAll();
-				create(categories.rows[index], collector_message);
+				create(categories.rows[index], collector_message); // create the ticket, passing the existing response message to be edited instead of creating a new one
 			});
 
 			collector.on('end', async (collected) => {
@@ -152,7 +152,10 @@ module.exports = class NewCommand extends Command {
 							.setDescription(i18n('commands.new.response.select_category_timeout.description', category_list.join('\n')))
 							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 					);
-					collector_message.delete({ timeout: 15000 });
+					setTimeout(async () => {
+						await collector_message.delete();
+						await message.delete();
+					}, 15000);
 				}
 			});
 		}

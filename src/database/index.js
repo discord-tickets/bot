@@ -68,33 +68,33 @@ module.exports = async (client) => {
 			primaryKey: true,
 			allowNull: false,
 		},
-		locale: {
+		colour: {
 			type: DataTypes.STRING,
-			defaultValue: config.locale
+			defaultValue: config.defaults.colour
 		},
 		command_prefix: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.command_prefix
 		},
-		colour: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.colour
-		},
-		success_colour: {
-			type: DataTypes.STRING,
-			defaultValue: 'GREEN'
-		},
 		error_colour: {
 			type: DataTypes.STRING,
 			defaultValue: 'RED'
+		},
+		footer: {
+			type: DataTypes.STRING,
+			defaultValue: 'Discord Tickets by eartharoid'
+		},
+		locale: {
+			type: DataTypes.STRING,
+			defaultValue: config.locale
 		},
 		log_messages: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: config.defaults.log_messages
 		},
-		footer: {
+		success_colour: {
 			type: DataTypes.STRING,
-			defaultValue: 'Discord Tickets by eartharoid'
+			defaultValue: 'GREEN'
 		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'guilds'
@@ -106,11 +106,6 @@ module.exports = async (client) => {
 			primaryKey: true,
 			allowNull: false,
 		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: 'name-guild'
-		},
 		guild: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
@@ -120,18 +115,36 @@ module.exports = async (client) => {
 			},
 			unique: 'name-guild'
 		},
-		roles: {
-			type: DataTypes.JSON
-		},
 		max_per_member: {
 			type: DataTypes.INTEGER,
 			defaultValue: 1
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'name-guild'
 		},
 		name_format: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			defaultValue: config.defaults.name_format
-		}
+		},
+		opening_message: {
+			type: DataTypes.STRING,
+			defaultValue: config.defaults.opening_message,
+		},
+		require_topic: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true,
+		},
+		roles: {
+			type: DataTypes.JSON,
+			allowNull: false,
+		},
+		questions: {
+			type: DataTypes.JSON,
+			allowNull: true,
+		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'categories'
 	});
@@ -142,10 +155,21 @@ module.exports = async (client) => {
 			primaryKey: true,
 			allowNull: false,
 		},
-		number: {
-			type: DataTypes.INTEGER,
+		category: {
+			type: DataTypes.CHAR(18),
 			allowNull: false,
-			unique: 'number-guild'
+			references: {
+				model: Category,
+				key: 'id'
+			},
+		},
+		closed_by: {
+			type: DataTypes.CHAR(18),
+			allowNull: true,
+		},
+		creator: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
 		},
 		guild: {
 			type: DataTypes.CHAR(18),
@@ -156,30 +180,19 @@ module.exports = async (client) => {
 			},
 			unique: 'number-guild'
 		},
-		category: {
-			type: DataTypes.CHAR(18),
+		number: {
+			type: DataTypes.INTEGER,
 			allowNull: false,
-			references: {
-				model: Category,
-				key: 'id'
-			},
-		},
-		topic: {
-			type: DataTypes.STRING,
-			allowNull: true,
-		},
-		creator: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
+			unique: 'number-guild'
 		},
 		open: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
 		},
-		closed_by: {
-			type: DataTypes.CHAR(18),
+		topic: {
+			type: DataTypes.STRING,
 			allowNull: true,
-		}
+		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'tickets'
 	});
@@ -191,6 +204,22 @@ module.exports = async (client) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		author: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+		},
+		data: {
+			type: DataTypes.JSON,
+			allowNull: false,
+		},
+		deleted: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
+		edited: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
 		ticket: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
@@ -199,31 +228,31 @@ module.exports = async (client) => {
 				key: 'id'
 			},
 		},
-		author: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-		},
-		edited: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-		},
-		deleted: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-		},
-		data: {
-			type: DataTypes.JSON
-		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'messages'
 	});
 
 	// eslint-disable-next-line no-unused-vars
 	const UserEntity = sequelize.define('UserEntity', {
-		user: {
-			type: DataTypes.CHAR(18),
+		avatar: {
+			type: DataTypes.STRING,
 			allowNull: false,
-			unique: 'id-ticket'
+		},
+		bot: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
+		colour: {
+			type: DataTypes.CHAR(6),
+			allowNull: true,
+		},
+		discriminator: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		display_name: {
+			type: DataTypes.STRING,
+			allowNull: false,
 		},
 		ticket: {
 			type: DataTypes.CHAR(18),
@@ -232,14 +261,17 @@ module.exports = async (client) => {
 			references: {
 				model: Ticket,
 				key: 'id'
-			},	
+			},
 		},
-		avatar: DataTypes.STRING,
-		username: DataTypes.STRING,
-		discriminator: DataTypes.STRING,
-		display_name: DataTypes.STRING,
-		colour: DataTypes.CHAR(6),
-		bot: DataTypes.BOOLEAN
+		user: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+			unique: 'id-ticket'
+		},
+		username: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'user_entities'
 	});
@@ -251,6 +283,10 @@ module.exports = async (client) => {
 			allowNull: false,
 			unique: 'id-ticket'
 		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		ticket: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
@@ -260,13 +296,20 @@ module.exports = async (client) => {
 				key: 'id'
 			},
 		},
-		name: DataTypes.STRING,
 	}, {
 		tableName: DB_TABLE_PREFIX + 'channel_entities'
 	});
 
 	// eslint-disable-next-line no-unused-vars
 	const RoleEntity = sequelize.define('RoleEntity', {
+		colour: {
+			type: DataTypes.CHAR(6),
+			defaultValue: '7289DA',
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		role: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
@@ -281,8 +324,6 @@ module.exports = async (client) => {
 				key: 'id'
 			},
 		},
-		name: DataTypes.STRING,
-		colour: DataTypes.CHAR(6),
 	}, {
 		tableName: DB_TABLE_PREFIX + 'role_entities'
 	});

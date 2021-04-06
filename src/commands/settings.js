@@ -46,10 +46,12 @@ module.exports = class SettingsCommand extends Command {
 							id: c.id
 						}
 					});
-					category.name = c.name;
-					category.roles = c.roles;
 					category.max_per_member = c.max_per_member;
+					category.name = c.name;
 					category.name_format = c.name_format;
+					category.opening_message = c.opening_message;
+					category.require_topic = c.require_topic;
+					category.roles = c.roles;
 					category.save();
 
 					let cat_channel = await this.client.channels.fetch(c.id);
@@ -99,6 +101,8 @@ module.exports = class SettingsCommand extends Command {
 						name: c.name,
 						name_format: c.name_format,
 						guild: message.guild.id,
+						opening_message: c.opening_message,
+						require_topic: c.require_topic,
 						roles: c.roles,
 					});
 
@@ -133,6 +137,8 @@ module.exports = class SettingsCommand extends Command {
 					max_per_member: c.max_per_member,
 					name: c.name,
 					name_format: c.name_format,
+					opening_message: c.opening_message,
+					require_topic: c.require_topic,
 					roles: c.roles
 				};
 			});
