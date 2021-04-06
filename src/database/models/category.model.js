@@ -1,0 +1,52 @@
+const { DataTypes } = require('sequelize');
+module.exports = ({ config }, sequelize) => {
+	const { DB_TABLE_PREFIX } = process.env;
+	sequelize.define('Category', {
+		id: {
+			type: DataTypes.CHAR(18),
+			primaryKey: true,
+			allowNull: false,
+		},
+		guild: {
+			type: DataTypes.CHAR(18),
+			allowNull: false,
+			references: {
+				model: DB_TABLE_PREFIX + 'guilds',
+				key: 'id'
+			},
+			unique: 'name-guild'
+		},
+		max_per_member: {
+			type: DataTypes.INTEGER,
+			defaultValue: 1
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: 'name-guild'
+		},
+		name_format: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: config.defaults.name_format
+		},
+		opening_message: {
+			type: DataTypes.STRING,
+			defaultValue: config.defaults.opening_message,
+		},
+		require_topic: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: true,
+		},
+		roles: {
+			type: DataTypes.JSON,
+			allowNull: false,
+		},
+		questions: {
+			type: DataTypes.JSON,
+			allowNull: true,
+		},
+	}, {
+		tableName: DB_TABLE_PREFIX + 'categories'
+	});
+};

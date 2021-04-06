@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const Command = require('../modules/commands/command');
 const { footer } = require('../utils/discord');
 const { letters } = require('../utils/emoji');
+const { wait } = require('../utils');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {
@@ -87,8 +88,12 @@ module.exports = class NewCommand extends Command {
 			}
 
 			setTimeout(async () => {
-				await response.delete();
-				await message.delete();
+				await response
+					.delete()
+					.catch(() => this.client.log.warn('Failed to delete response message'));
+				await message
+					.delete()
+					.catch(() => this.client.log.warn('Failed to delete original message'));
 			}, 15000);
 		};
 
@@ -122,7 +127,8 @@ module.exports = class NewCommand extends Command {
 			);
 
 			for (let i in categories.rows) {
-				await collector_message.react(letters_array[i]); // add the correct number of letter reactions
+				collector_message.react(letters_array[i]); // add the correct number of letter reactions
+				await wait(1000); // 1 reaction per second rate-limit
 			}
 
 			const collector_filter = (reaction, user) => {
@@ -153,8 +159,12 @@ module.exports = class NewCommand extends Command {
 							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 					);
 					setTimeout(async () => {
-						await collector_message.delete();
-						await message.delete();
+						await collector_message
+							.delete()
+							.catch(() => this.client.log.warn('Failed to delete response (collector) message'));
+						await message
+							.delete()
+							.catch(() => this.client.log.warn('Failed to delete original message'));
 					}, 15000);
 				}
 			});

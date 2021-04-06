@@ -29,44 +29,67 @@ const fs = require('fs');
 const { path } = require('./utils/fs');
 
 const checkFile = (file, example) => {
-
-	file = path(file);
-	example = path(example);
-
-	if (fs.existsSync(file)) return true;
-	if (!fs.existsSync(example)) {
-		console.log(`Error: '${file}' not found, and unable to create it due to '${example}' being missing`);
+	if (fs.existsSync(path(file))) return true;
+	if (!fs.existsSync(path(example))) {
+		console.log(`Error: "${file}" not found, and unable to create it due to "${example}" being missing.`);
 		return process.exit();
 	}
-
-	console.log(`Copying '${example}' to '${file}'`);
-	fs.copyFileSync(example, file);
+	console.log(`Copying "${example}" to "${file}"...`);
+	fs.copyFileSync(path(example), path(file));
 	return false;
-
 };
 
+checkFile('./user/config.js', './user/example.config.js');
+
 if (!checkFile('./.env', './example.env')) {
-	console.log('Please set your bot\'s token in \'.env\'');
+	console.log('Generating database encryption key...');
+
+	const file = path('./.env');
+	const crypto = require('crypto');
+
+	let key = 'DB_ENCRYPTION_KEY=';
+	let value = crypto
+		.randomBytes(24)
+		.toString('hex');
+
+	let data = fs.readFileSync(file, {
+		encoding: 'utf-8'
+	});
+	data = data.replace(key, key + value);
+
+	fs.writeFileSync(file, data);
+
+	console.log('Saved.');
+	console.log('Please set your bot\'s "DISCORD_TOKEN" in "./.env".');
+
 	process.exit();
 }
-
-checkFile('./user/config.js', './user/example.config.js');
 
 require('dotenv').config({
 	path: path('./.env')
 });
 
-const config = require('../user/config');
-
 require('./banner')();
 
 const log = require('./logger');
 
+const { version } = require('../package.json');
+process.on('unhandledRejection', error => {
+	log.notice('PLEASE INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE FOLLOWING ERROR:');
+	log.notice(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
+	log.warn('An error was not caught');
+	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
+	log.error(error);
+});
+
 const { selectPresence } = require('./utils/discord');
+const Cryptr = require('cryptr');
 const I18n = require('@eartharoid/i18n');
 const CommandManager = require('./modules/commands/manager');
 const PluginManager = require('./modules/plugins/manager');
 const TicketManager = require('./modules/tickets/manager');
+
+const fetch = require('node-fetch');
 
 require('./modules/structures')(); // load extended structures before creating the client
 
@@ -95,12 +118,15 @@ class Bot extends Client {
 		
 		(async () => {
 			/** The global bot configuration */
-			this.config = config;
+			this.config = require('../user/config');
 
-			/** A leekslazylogger instance */
+			/** A [leekslazylogger](https://logger.eartharoid.me) instance */
 			this.log = log;
 
-			/** An @eartharoid/i18n instance */
+			/** A [Cryptr](https://www.npmjs.com/package/cryptr) instance */
+			this.cryptr = new Cryptr(process.env.DB_ENCRYPTION_KEY);
+
+			/** An [@eartharoid/i18n](https://github.com/eartharoid/i18n) instance */
 			this.i18n = new I18n(path('./src/locales'), 'en-GB');
 
 			/** A sequelize instance */
@@ -134,12 +160,11 @@ class Bot extends Client {
 		 * You can see the source here: https://github.com/discord-tickets/stats
 		 */
 		if (this.config.super_secret_setting) { // you can disable it if you really want
-			const fetch = require('node-fetch');
 			let tickets = await this.db.models.Ticket.count();
 			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, {
 				method: 'post',
 			}).catch(e => {
-				// fail quietly, it doesn't really matter if it didn't work
+				this.log.warn('Failed to post tickets count to stats server (you can disable sending stats by setting "super_secret_setting" to false)');
 				this.log.debug(e);
 			});
 			this.guilds.cache.forEach(async g => {
@@ -147,6 +172,7 @@ class Bot extends Client {
 				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, {
 					method: 'post',
 				}).catch(e => {
+					// don't spam a warning for each server
 					this.log.debug(e);
 				});
 			});
@@ -156,13 +182,3 @@ class Bot extends Client {
 }
 
 new Bot();
-
-const { version } = require('../package.json');
-process.on('unhandledRejection', error => {
-	log.notice('PLEASE INCLUDE THIS INFORMATION IF YOU ASK FOR HELP ABOUT THE FOLLOWING ERROR:');
-	log.notice(`Discord Tickets v${version}, Node v${process.versions.node} on ${process.platform}`);
-	log.warn('An error was not caught');
-	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
-	log.error(error);
-});
-

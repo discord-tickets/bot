@@ -11,6 +11,9 @@ module.exports = class TicketArchives  {
 		/** The Discord Client */
 		this.client = client;
 
+		this.encrypt = this.client.cryptr.encrypt;
+		this.decrypt = this.client.cryptr.decrypt;
+
 	}
 
 	async addMessage(message) {
@@ -25,14 +28,14 @@ module.exports = class TicketArchives  {
 				id: message.id,
 				ticket: t_row.id,
 				author: message.author.id,
-				data: {
+				data: this.encrypt(JSON.stringify({
 					content: message.content,
 					// time: message.createdTimestamp,
 					embeds: message.embeds.map(embed => {
 						return { embed };
 					}),
 					attachments: [...message.attachments.values()]
-				}
+				}))
 			});
 
 			this.updateEntities(message);
@@ -47,14 +50,13 @@ module.exports = class TicketArchives  {
 		});
 
 		if (m_row) {
-			m_row.data = {
+			m_row.data = this.encrypt(JSON.stringify({
 				content: message.content,
-				// time: message.editedTimestamp,
 				embeds: message.embeds.map(embed => {
 					return { embed };
 				}),
 				attachments: [...message.attachments.values()]
-			};
+			}));
 
 			if (message.editedTimestamp) {
 				m_row.edited = true;
@@ -99,9 +101,9 @@ module.exports = class TicketArchives  {
 		});
 		await u_row.update({
 			avatar: message.author.displayAvatarURL(),
-			username: message.author.username,
+			username: this.encrypt(message.author.username),
 			discriminator: message.author.discriminator,
-			display_name: message.member.displayName,
+			display_name: this.encrypt(message.member.displayName),
 			colour: message.member.displayColor === 0 ? null : int2hex(message.member.displayColor),
 			bot: message.author.bot
 		});
@@ -119,9 +121,9 @@ module.exports = class TicketArchives  {
 
 			await m_row.update({
 				avatar: member.user.displayAvatarURL(),
-				username: member.user.username,
+				username: this.encrypt(member.user.username),
 				discriminator: member.user.discriminator,
-				display_name: member.displayName,
+				display_name: this.encrypt(member.displayName),
 				colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
 				bot: member.user.bot
 			});
@@ -138,7 +140,7 @@ module.exports = class TicketArchives  {
 				defaults: c_model_data
 			});
 			await c_row.update({
-				name: channel.name
+				name: this.encrypt(channel.name)
 			});
 		});
 
@@ -153,7 +155,7 @@ module.exports = class TicketArchives  {
 				defaults: r_model_data
 			});
 			await r_row.update({
-				name: role.name,
+				name: this.encrypt(role.name),
 				colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
 			});
 		});

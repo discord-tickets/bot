@@ -1,9 +1,9 @@
 dependencies:
   '@eartharoid/i18n': 0.0.1
   boxen: 5.0.0
+  cryptr: 6.0.2
   discord.js: 12.5.1
   dotenv: 8.2.0
-  fs-extra: 9.1.0
   leeks.js: 0.0.9
   leekslazylogger-fastify: 0.1.0
   node-fetch: 2.6.1
@@ -355,12 +355,6 @@ packages:
   /asynckit/0.4.0:
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
-  /at-least-node/1.0.0:
-    dev: false
-    engines:
-      node: '>= 4.0.0'
-    resolution:
-      integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
   /aws-sign2/0.7.0:
     resolution:
       integrity: sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=
@@ -641,6 +635,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
+  /cryptr/6.0.2:
+    dev: false
+    resolution:
+      integrity: sha512-1TRHI4bmuLIB8WgkH9eeYXzhEg1T4tonO4vVaMBKKde8Dre51J68nAgTVXTwMYXAf7+mV2gBCkm/9wksjSb2sA==
   /dashdash/1.14.1:
     dependencies:
       assert-plus: 1.0.0
@@ -1045,17 +1043,6 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
-  /fs-extra/9.1.0:
-    dependencies:
-      at-least-node: 1.0.0
-      graceful-fs: 4.2.6
-      jsonfile: 6.1.0
-      universalify: 2.0.0
-    dev: false
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==
   /fs-minipass/1.2.7:
     dependencies:
       minipass: 2.9.0
@@ -1467,14 +1454,6 @@ packages:
   /json-stringify-safe/5.0.1:
     resolution:
       integrity: sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
-  /jsonfile/6.1.0:
-    dependencies:
-      universalify: 2.0.0
-    dev: false
-    optionalDependencies:
-      graceful-fs: 4.2.6
-    resolution:
-      integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==
   /jsprim/1.4.1:
     dependencies:
       assert-plus: 1.0.0
@@ -2766,12 +2745,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==
-  /universalify/2.0.0:
-    dev: false
-    engines:
-      node: '>= 10.0.0'
-    resolution:
-      integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
   /update-notifier/4.1.3:
     dependencies:
       boxen: 4.2.0
@@ -2969,10 +2942,10 @@ packages:
 specifiers:
   '@eartharoid/i18n': ^0.0.1
   boxen: ^5.0.0
+  cryptr: ^6.0.2
   discord.js: ^12.5.1
   dotenv: ^8.2.0
   eslint: ^7.21.0
-  fs-extra: ^9.1.0
   leeks.js: ^0.0.9
   leekslazylogger-fastify: ^0.1.0
   mariadb: ^2.5.2

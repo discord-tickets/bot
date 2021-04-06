@@ -71,8 +71,10 @@ module.exports = class TicketManager extends EventEmitter {
 			guild: guild_id,
 			category: category_id,
 			creator: creator_id,
-			topic
+			topic: this.client.cryptr.encrypt(topic)
 		});
+
+		this.client.log.info(`${member.user.tag} created a new ticket in "${guild.name}"`);
 
 		this.emit('create', t_row.id, creator_id);
 		return t_row;
@@ -143,6 +145,8 @@ module.exports = class TicketManager extends EventEmitter {
 				await channel.delete(`Ticket channel closed by ${member.user.tag}`);
 			}, 5000);
 		}
+
+		this.client.log.info(`${member.user.tag} closed a ticket (${ticket_id})`);
 
 		this.emit('close', ticket_id);
 		return t_row;

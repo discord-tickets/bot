@@ -30,9 +30,9 @@
 	"dependencies": {
 		"@eartharoid/i18n": "^0.0.1",
 		"boxen": "^5.0.0",
+		"cryptr": "^6.0.2",
 		"discord.js": "^12.5.1",
 		"dotenv": "^8.2.0",
-		"fs-extra": "^9.1.0",
 		"leeks.js": "^0.0.9",
 		"leekslazylogger-fastify": "^0.1.0",
 		"node-fetch": "^2.6.1",

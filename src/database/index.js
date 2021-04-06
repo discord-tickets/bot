@@ -1,9 +1,6 @@
-const { 
-	Sequelize,
-	DataTypes
-} = require('sequelize');
+const { Sequelize } = require('sequelize');
+const fs = require('fs');
 const { path } = require('../utils/fs');
-const config = require('../../user/config');
 const types = require('./dialects');
 
 module.exports = async (client) => {
@@ -14,8 +11,7 @@ module.exports = async (client) => {
 		DB_PORT,
 		DB_USER,
 		DB_PASS,
-		DB_NAME,
-		DB_TABLE_PREFIX
+		DB_NAME
 	} = process.env;
 
 	let type = (DB_TYPE || 'sqlite').toLowerCase();
@@ -62,273 +58,18 @@ module.exports = async (client) => {
 		return process.exit();
 	}
 
-	const Guild = sequelize.define('Guild', {
-		id: {
-			type: DataTypes.CHAR(18),
-			primaryKey: true,
-			allowNull: false,
-		},
-		colour: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.colour
-		},
-		command_prefix: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.command_prefix
-		},
-		error_colour: {
-			type: DataTypes.STRING,
-			defaultValue: 'RED'
-		},
-		footer: {
-			type: DataTypes.STRING,
-			defaultValue: 'Discord Tickets by eartharoid'
-		},
-		locale: {
-			type: DataTypes.STRING,
-			defaultValue: config.locale
-		},
-		log_messages: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: config.defaults.log_messages
-		},
-		success_colour: {
-			type: DataTypes.STRING,
-			defaultValue: 'GREEN'
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'guilds'
-	});
+	const models = fs.readdirSync(path('./src/database/models'))
+		.filter(filename => filename.endsWith('.model.js'));
 
-	const Category = sequelize.define('Category', {
-		id: {
-			type: DataTypes.CHAR(18),
-			primaryKey: true,
-			allowNull: false,
-		},
-		guild: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			references: {
-				model: Guild,
-				key: 'id'
-			},
-			unique: 'name-guild'
-		},
-		max_per_member: {
-			type: DataTypes.INTEGER,
-			defaultValue: 1
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			unique: 'name-guild'
-		},
-		name_format: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			defaultValue: config.defaults.name_format
-		},
-		opening_message: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.opening_message,
-		},
-		require_topic: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true,
-		},
-		roles: {
-			type: DataTypes.JSON,
-			allowNull: false,
-		},
-		questions: {
-			type: DataTypes.JSON,
-			allowNull: true,
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'categories'
-	});
+	for (const model of models) {
+		require(`./models/${model}`)(client, sequelize);
+	}
 
-	const Ticket = sequelize.define('Ticket', {
-		id: {
-			type: DataTypes.CHAR(18),
-			primaryKey: true,
-			allowNull: false,
-		},
-		category: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			references: {
-				model: Category,
-				key: 'id'
-			},
-		},
-		closed_by: {
-			type: DataTypes.CHAR(18),
-			allowNull: true,
-		},
-		creator: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-		},
-		guild: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			references: {
-				model: Guild,
-				key: 'id'
-			},
-			unique: 'number-guild'
-		},
-		number: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			unique: 'number-guild'
-		},
-		open: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true
-		},
-		topic: {
-			type: DataTypes.STRING,
-			allowNull: true,
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'tickets'
+	sequelize.sync({
+		alter: {
+			drop: false
+		}
 	});
-
-	// eslint-disable-next-line no-unused-vars
-	const Message = sequelize.define('Message', {
-		id: {
-			type: DataTypes.CHAR(18),
-			primaryKey: true,
-			allowNull: false,
-		},
-		author: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-		},
-		data: {
-			type: DataTypes.JSON,
-			allowNull: false,
-		},
-		deleted: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-		},
-		edited: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-		},
-		ticket: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			references: {
-				model: Ticket,
-				key: 'id'
-			},
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'messages'
-	});
-
-	// eslint-disable-next-line no-unused-vars
-	const UserEntity = sequelize.define('UserEntity', {
-		avatar: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		bot: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-		},
-		colour: {
-			type: DataTypes.CHAR(6),
-			allowNull: true,
-		},
-		discriminator: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		display_name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		ticket: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket',
-			references: {
-				model: Ticket,
-				key: 'id'
-			},
-		},
-		user: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket'
-		},
-		username: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'user_entities'
-	});
-
-	// eslint-disable-next-line no-unused-vars
-	const ChannelEntity = sequelize.define('ChannelEntity', {
-		channel: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket'
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		ticket: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket',
-			references: {
-				model: Ticket,
-				key: 'id'
-			},
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'channel_entities'
-	});
-
-	// eslint-disable-next-line no-unused-vars
-	const RoleEntity = sequelize.define('RoleEntity', {
-		colour: {
-			type: DataTypes.CHAR(6),
-			defaultValue: '7289DA',
-		},
-		name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
-		role: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket'
-		},
-		ticket: {
-			type: DataTypes.CHAR(18),
-			allowNull: false,
-			unique: 'id-ticket',
-			references: {
-				model: Ticket,
-				key: 'id'
-			},
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'role_entities'
-	});
-
-	sequelize.sync();
 
 	return sequelize;
 };
