@@ -13,6 +13,45 @@
 	},
 	"collector_expires_in": "Expires in %d seconds",
 	"commands": {
+		"blacklist": {
+			"aliases": {
+				"unblacklist": "unblacklist"
+			},
+			"args": {
+				"member": {
+					"name": "member",
+					"description": "A member mention or ID",
+					"example": "@naughty"
+				}
+			},
+			"description": "Blacklist/unblacklist a member from interacting with the bot",
+			"name": "blacklist",
+			"response": {
+				"added": {
+					"title": "✅ Added member to blacklist",
+					"description": "%s has been added to the blacklist. They will no longer be able to interact with the bot."
+				},
+				"already_in_list": {
+					"title": "❌ Can't add member to blacklist",
+					"description": "%s is already blacklisted, so can not be added to the blacklist."
+				},
+				"list": {
+					"title": "📃 Blacklisted members"
+				},
+				"not_in_list": {
+					"title": "❌ Can't remove member from blacklist",
+					"description": "%s is not blacklisted, so can not be unblacklisted."
+				},
+				"illegal_action": {
+					"title": "❌ You can't blacklist this member",
+					"description": "%s is a staff member and cannot be blacklisted."
+				},
+				"removed": {
+					"title": "✅ Removed member from blacklist",
+					"description": "%s has been removed from the blacklist. They can now use the bot again."
+				}
+			}
+		},
 		"close": {
 			"aliases": {
 				"delete": "delete"
@@ -65,7 +104,7 @@
 					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
 				},
 				"select_category": {
-					"title": "Please select the ticket category",
+					"title": "🔤 Please select the ticket category",
 					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
 				},
 				"select_category_timeout": {
