@@ -21,9 +21,10 @@
  * @license GNU-GPLv3
  */
 
+process.title = 'Discord Tickets';
 const node_version = Number(process.versions.node.split('.')[0]);
 if (node_version < 14)
-	return console.log(`Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
+	return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
 const fs = require('fs');
 const { path } = require('./utils/fs');
@@ -31,7 +32,7 @@ const { path } = require('./utils/fs');
 const checkFile = (file, example) => {
 	if (fs.existsSync(path(file))) return true;
 	if (!fs.existsSync(path(example))) {
-		console.log(`Error: "${file}" not found, and unable to create it due to "${example}" being missing.`);
+		console.log(`\x07Error: "${file}" not found, and unable to create it due to "${example}" being missing.`);
 		return process.exit();
 	}
 	console.log(`Copying "${example}" to "${file}"...`);
@@ -60,7 +61,7 @@ if (!checkFile('./.env', './example.env')) {
 	fs.writeFileSync(file, data);
 
 	console.log('Saved.');
-	console.log('Please set your bot\'s "DISCORD_TOKEN" in "./.env".');
+	console.log('\x07Please set your bot\'s "DISCORD_TOKEN" in "./.env".');
 
 	process.exit();
 }
