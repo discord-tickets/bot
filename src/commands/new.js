@@ -60,7 +60,7 @@ module.exports = class NewCommand extends Command {
 					let list = tickets.rows.map(row => {
 						if (row.topic) {
 							let description = row.topic.substring(0, 30);
-							let ellipses = description.length > 30 ? '...' : '';
+							let ellipses = row.topic.length > 30 ? '...' : '';
 							return `<#${row.id}>: \`${description}${ellipses}\``;
 						} else {
 							return `<#${row.id}>`;
