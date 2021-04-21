@@ -1,7 +1,7 @@
 module.exports = {
 	event: 'messageReactionAdd',
 	execute: async (client, r, u) => {
-		const guild = r.message;
+		const guild = r.message.guild;
 		if (!guild) return;
 
 		let settings = await guild.settings;
