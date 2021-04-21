@@ -23,6 +23,10 @@ module.exports = (client, sequelize) => {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
 		},
+		first_response: {
+			type: DataTypes.DATE,
+			allowNull: true,
+		},
 		guild: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,

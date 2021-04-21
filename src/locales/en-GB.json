@@ -18,37 +18,41 @@
 				"unblacklist": "unblacklist"
 			},
 			"args": {
-				"member": {
-					"name": "member",
-					"description": "A member mention or ID",
-					"example": "@naughty"
+				"member_or_role": {
+					"name": "memberOrRole",
+					"description": "A member mention, a role mention, or the ID of a member or role",
+					"example": "@naughty-member"
 				}
 			},
 			"description": "Blacklist/unblacklist a member from interacting with the bot",
 			"name": "blacklist",
 			"response": {
-				"added": {
-					"title": "✅ Added member to blacklist",
-					"description": "%s has been added to the blacklist. They will no longer be able to interact with the bot."
-				},
-				"already_in_list": {
-					"title": "❌ Can't add member to blacklist",
-					"description": "%s is already blacklisted, so can not be added to the blacklist."
-				},
-				"list": {
-					"title": "📃 Blacklisted members"
-				},
-				"not_in_list": {
-					"title": "❌ Can't remove member from blacklist",
-					"description": "%s is not blacklisted, so can not be unblacklisted."
+				"empty_list": {
+					"title": "📃 Blacklisted members and roles",
+					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist."
 				},
 				"illegal_action": {
 					"title": "❌ You can't blacklist this member",
 					"description": "%s is a staff member and cannot be blacklisted."
 				},
-				"removed": {
+				"list": {
+					"title": "📃 Blacklisted members and roles"
+				},
+				"member_added": {
+					"title": "✅ Added member to blacklist",
+					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot."
+				},
+				"member_removed": {
 					"title": "✅ Removed member from blacklist",
-					"description": "%s has been removed from the blacklist. They can now use the bot again."
+					"description": "<@%s> has been removed from the blacklist. They can now use the bot again."
+				},
+				"role_added": {
+					"title": "✅ Added role to blacklist",
+					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot."
+				},
+				"role_removed": {
+					"title": "✅ Removed role from blacklist",
+					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again."
 				}
 			}
 		},

@@ -7,6 +7,10 @@ module.exports = ({ config }, sequelize) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		blacklist: {
+			type: DataTypes.JSON,
+			defaultValue: [],
+		},
 		colour: {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.colour

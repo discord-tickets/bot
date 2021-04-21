@@ -53,9 +53,7 @@ module.exports = class CommandManager {
 			throw new Error(`A non-internal command with the name "${cmd.name}" already exists`);
 		
 		this.commands.set(cmd.name, cmd);
-
-		let internal = cmd.internal ? 'internal ' : '';
-		this.client.log.commands(`Loaded ${internal}"${cmd.name}" command`);
+		this.client.log.commands(`Loaded "${cmd.name}" command`);
 	}
 
 	/**
@@ -110,26 +108,13 @@ module.exports = class CommandManager {
 			);
 		}
 
-		if (cmd.staff_only) {
-			let staff_roles = new Set();
-			let guild_categories = await this.client.db.models.Category.findAll({
-				where: {
-					guild: message.guild.id
-				}
-			});
-			guild_categories.forEach(cat => {
-				cat.roles.forEach(r => staff_roles.add(r));
-			}); // add all of the staff role IDs to the Set
-			staff_roles = staff_roles.filter(r => message.member.roles.cache.has(r)); // filter out any roles that the member does not have
-			const not_staff = staff_roles.length === 0;
-			if (not_staff) {
-				return await message.channel.send(
-					new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('staff_only.title'))
-						.setDescription(i18n('staff_only.description'))
-				);
-			}
+		if (cmd.staff_only && await message.member.isStaff() === false) {
+			return await message.channel.send(
+				new MessageEmbed()
+					.setColor(settings.error_colour)
+					.setTitle(i18n('staff_only.title'))
+					.setDescription(i18n('staff_only.description'))
+			);
 		}
 			
 		try {
