@@ -41,18 +41,21 @@ module.exports = class SettingsCommand extends Command {
 				if (c.id) {
 
 					// existing category
-					let category = await this.client.db.models.Category.findOne({
+					let cat_row = await this.client.db.models.Category.findOne({
 						where: {
 							id: c.id
 						}
 					});
-					category.max_per_member = c.max_per_member;
-					category.name = c.name;
-					category.name_format = c.name_format;
-					category.opening_message = c.opening_message;
-					category.require_topic = c.require_topic;
-					category.roles = c.roles;
-					category.save();
+					cat_row.image = c.image;
+					cat_row.max_per_member = c.max_per_member;
+					cat_row.name = c.name;
+					cat_row.name_format = c.name_format;
+					cat_row.opening_message = c.opening_message;
+					cat_row.opening_questions = c.opening_questions;
+					cat_row.require_topic = c.require_topic;
+					cat_row.roles = c.roles;
+					cat_row.survey = c.survey;
+					cat_row.save();
 
 					let cat_channel = await this.client.channels.fetch(c.id);
 
@@ -95,27 +98,71 @@ module.exports = class SettingsCommand extends Command {
 							})
 						]
 					});
+
 					await this.client.db.models.Category.create({
 						id: cat_channel.id,
+						guild: message.guild.id,
+						image: c.image,
 						max_per_member: c.max_per_member,
 						name: c.name,
 						name_format: c.name_format,
-						guild: message.guild.id,
 						opening_message: c.opening_message,
+						opening_questions: c.opening_questions,
 						require_topic: c.require_topic,
 						roles: c.roles,
+						survey: c.survey
 					});
 
 				}
 			}
+
+			for (let survey in data.surveys) {
+				let survey_data = {
+					guild: message.guild.id,
+					name: survey,
+				};
+				let [s_row] = await this.client.db.models.Survey.findOrCreate({
+					where: survey_data,
+					defaults: survey_data
+				});
+				s_row.questions = data.surveys[survey];
+				await s_row.save();
+			}
+
 			this.client.log.success(`Updated guild settings for "${message.guild.name}"`);
 			message.channel.send(i18n('commands.settings.response.updated'));
 		
 		} else {
 
-			// upload settings as json to be modified
+			// upload settings as json to be edited
+
+			let categories = await this.client.db.models.Category.findAll({
+				where: {
+					guild: message.guild.id
+				}
+			});
+			
+			let surveys = await this.client.db.models.Survey.findAll({
+				where: {
+					guild: message.guild.id
+				}
+			});
+
 			let data = {
-				categories: [],
+				categories: categories.map(c => {
+					return {
+						id: c.id,
+						image: c.image,
+						max_per_member: c.max_per_member,
+						name: c.name,
+						name_format: c.name_format,
+						opening_message: c.opening_message,
+						opening_questions: c.opening_questions,
+						require_topic: c.require_topic,
+						roles: c.roles,
+						survey: c.survey
+					};
+				}),
 				colour: settings.colour,
 				command_prefix: settings.command_prefix,
 				error_colour: settings.error_colour,
@@ -123,25 +170,12 @@ module.exports = class SettingsCommand extends Command {
 				locale: settings.locale,
 				log_messages: settings.log_messages,
 				success_colour: settings.success_colour,
+				surveys: {},
 			};
 
-			let categories = await this.client.db.models.Category.findAll({
-				where: {
-					guild: message.guild.id
-				}
-			});
-
-			data.categories = categories.map(c =>{
-				return {
-					id: c.id,
-					max_per_member: c.max_per_member,
-					name: c.name,
-					name_format: c.name_format,
-					opening_message: c.opening_message,
-					require_topic: c.require_topic,
-					roles: c.roles
-				};
-			});
+			for (let survey in surveys) {
+				data.surveys[surveys[survey].name] = surveys[survey].questions;
+			}
 
 			let attachment = new MessageAttachment(
 				Buffer.from(JSON.stringify(data, null, 2)),

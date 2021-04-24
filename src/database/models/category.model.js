@@ -16,6 +16,10 @@ module.exports = ({ config }, sequelize) => {
 			},
 			unique: 'name-guild'
 		},
+		image: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
 		max_per_member: {
 			type: DataTypes.INTEGER,
 			defaultValue: 1
@@ -34,6 +38,10 @@ module.exports = ({ config }, sequelize) => {
 			type: DataTypes.STRING,
 			defaultValue: config.defaults.opening_message,
 		},
+		opening_questions: {
+			type: DataTypes.JSON,
+			allowNull: true,
+		},
 		require_topic: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true,
@@ -42,10 +50,10 @@ module.exports = ({ config }, sequelize) => {
 			type: DataTypes.JSON,
 			allowNull: false,
 		},
-		questions: {
-			type: DataTypes.JSON,
+		survey: {
+			type: DataTypes.STRING,
 			allowNull: true,
-		},
+		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'categories'
 	});

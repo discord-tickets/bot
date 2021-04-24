@@ -22,10 +22,12 @@
  */
 
 process.title = 'Discord Tickets';
+
 const node_version = Number(process.versions.node.split('.')[0]);
 if (node_version < 14)
 	return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
+const leeks = require('leeks.js');
 const fs = require('fs');
 const { path } = require('./utils/fs');
 
@@ -61,6 +63,7 @@ if (!checkFile('./.env', './example.env')) {
 	fs.writeFileSync(file, data);
 
 	console.log('Saved.');
+	console.log(leeks.colours.yellow('Warning: do not lose your ENV file or encryption key; you will lose access to data in the database.'));
 	console.log('\x07Please set your bot\'s "DISCORD_TOKEN" in "./.env".');
 
 	process.exit();

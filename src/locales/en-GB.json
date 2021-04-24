@@ -72,7 +72,19 @@
 			"response": {
 				"closed": {
 					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds."
+				},
+				"closed_by_member": {
+					"title": "✅ Ticket closed",
 					"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds."
+				},
+				"closed_by_member_with_reason": {
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds."
+				},
+				"closed_with_reason": {
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds."
 				}
 			}
 		},
