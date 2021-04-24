@@ -9,7 +9,7 @@ module.exports = {
 		});
 
 		for (let ticket of tickets.rows) {
-			client.tickets.close(ticket.id, null, member.guild.id, 'Member left the guild');
+			await client.tickets.close(ticket.id, null, member.guild.id, 'Member left the guild');
 		}
 
 		client.log.info(`Closed ${tickets.count} ticket(s) belonging to ${member.user.tag} who left "${member.guild.name}"`);

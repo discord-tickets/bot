@@ -59,16 +59,18 @@ module.exports = class SettingsCommand extends Command {
 
 					let cat_channel = await this.client.channels.fetch(c.id);
 
-					if (cat_channel.name !== c.name)
-						await cat_channel.setName(c.name, `Tickets category updated by ${message.member.user.tag}`);
+					if (cat_channel) {
+						if (cat_channel.name !== c.name)
+							await cat_channel.setName(c.name, `Tickets category updated by ${message.member.user.tag}`);
 
-					for (let r of c.roles) {
-						await cat_channel.updateOverwrite(r, {
-							VIEW_CHANNEL: true,
-							READ_MESSAGE_HISTORY: true,
-							SEND_MESSAGES: true,
-							ATTACH_FILES: true
-						}, `Tickets category updated by ${message.member.user.tag}`);
+						for (let r of c.roles) {
+							await cat_channel.updateOverwrite(r, {
+								VIEW_CHANNEL: true,
+								READ_MESSAGE_HISTORY: true,
+								SEND_MESSAGES: true,
+								ATTACH_FILES: true
+							}, `Tickets category updated by ${message.member.user.tag}`);
+						}
 					}
 
 				} else {
@@ -174,7 +176,8 @@ module.exports = class SettingsCommand extends Command {
 			};
 
 			for (let survey in surveys) {
-				data.surveys[surveys[survey].name] = surveys[survey].questions;
+				const { name, questions } = surveys[survey];
+				data.surveys[name] = questions;
 			}
 
 			let attachment = new MessageAttachment(

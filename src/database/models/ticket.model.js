@@ -19,6 +19,10 @@ module.exports = (client, sequelize) => {
 			type: DataTypes.CHAR(18),
 			allowNull: true,
 		},
+		closed_reason: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
 		creator: {
 			type: DataTypes.CHAR(18),
 			allowNull: false,
@@ -44,6 +48,10 @@ module.exports = (client, sequelize) => {
 		open: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: true
+		},
+		opening_message: {
+			type: DataTypes.CHAR(18),
+			allowNull: true,
 		},
 		topic: {
 			type: DataTypes.TEXT,

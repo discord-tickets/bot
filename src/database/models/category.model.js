@@ -44,7 +44,7 @@ module.exports = ({ config }, sequelize) => {
 		},
 		require_topic: {
 			type: DataTypes.BOOLEAN,
-			defaultValue: true,
+			defaultValue: false,
 		},
 		roles: {
 			type: DataTypes.JSON,

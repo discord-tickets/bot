@@ -127,6 +127,15 @@
 					"title": "❌ Reaction time expired",
 					"description": "You took too long to select the ticket category."
 				}
+			},
+			"opening_message": {
+				"fields": {
+					"topic": "Topic"
+				}
+			},
+			"request_topic": {
+				"title": "⚠️ Ticket topic",
+				"description": "Please briefly state what this ticket is about in a short sentence."
 			}
 		},
 		"settings": {

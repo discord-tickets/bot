@@ -29,6 +29,19 @@ module.exports = {
 
 		if (settings.log_messages && !message.system) client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
 
+		let t_row = await client.db.Ticket.findOne({
+			where: {
+				id: message.channel.id
+			}
+		});
+
+		const ignore = [client.user.id, t_row.creator];
+		if (t_row && !t_row.first_response && !ignore.includes(message.author.id)) {
+			t_row.update({
+				first_response: new Date()
+			});
+		}
+
 		client.commands.handle(message); // pass the message to the command handler
 	}
 };
