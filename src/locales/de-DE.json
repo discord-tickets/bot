@@ -1,17 +1,17 @@
 {
 	"bot": {
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord-Tickets] (%s) v%s von [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"description": "**Beschreibung:** %s",
+			"example": "**Beispiel:** '%s'"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"description": "**Verwendung:**\n'%s'\n\n***\n'%s'\n\nErforderliche Argumente werden mit '❗' vorangestellt.",
+		"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n",
+		"title": "'%s' Befehlsverwendung"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Läuft in %d Sekunden ab",
 	"commands": {
 		"blacklist": {
 			"aliases": {
@@ -20,147 +20,147 @@
 			"args": {
 				"member_or_role": {
 					"name": "memberOrRole",
-					"description": "A member mention, a role mention, or the ID of a member or role",
-					"example": "@naughty-member"
+					"description": "Eine Membererwähnung, eine Rollenerwähnung oder die ID eines Mitglieds oder einer Rolle",
+					"example": "@naughty-Mitglied"
 				}
 			},
-			"description": "Blacklist/unblacklist a member from interacting with the bot",
-			"name": "blacklist",
+			"description": "Blacklist/unblacklist ein Mitglied aus der Interaktion mit dem Bot",
+			"name": "Schwarze Liste",
 			"response": {
 				"empty_list": {
-					"title": "📃 Blacklisted members and roles",
-					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist."
+					"title": "📃 Mitglieder und Rollen auf der schwarzen Liste",
+					"description": "Es sind keine Mitglieder oder Rollen auf der schwarzen Liste stehen. Geben Sie '%sBlacklist <memberOrRole>' ein, um der Blacklist ein Mitglied oder eine Rolle hinzuzufügen."
 				},
 				"illegal_action": {
-					"title": "❌ You can't blacklist this member",
-					"description": "%s is a staff member and cannot be blacklisted."
+					"title": "❌ Sie können dieses Mitglied nicht auf eine schwarze Liste setzen",
+					"description": "%s ist Mitarbeiter und kann nicht auf die schwarze Liste gesetzt werden."
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 Mitglieder und Rollen auf der schwarzen Liste"
 				},
 				"member_added": {
-					"title": "✅ Added member to blacklist",
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot."
+					"title": "✅ Mitglied zur blacklist hinzugefügt",
+					"description": "<@%s> wurde der schwarzen Liste hinzugefügt. Sie werden nicht mehr in der Lage sein, mit dem Bot zu interagieren."
 				},
 				"member_removed": {
-					"title": "✅ Removed member from blacklist",
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again."
+					"title": "✅ Entferntes Mitglied von der blacklist",
+					"description": "<@%s> wurde von der schwarzen Liste entfernt. Sie können den Bot nun wieder verwenden."
 				},
 				"role_added": {
-					"title": "✅ Added role to blacklist",
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot."
+					"title": "✅ Rolle zur schwarzen Liste hinzugefügt",
+					"description": "<@&%s> wurde der schwarzen Liste hinzugefügt. Mitglieder mit dieser Rolle können nicht mehr mit dem Bot interagieren."
 				},
 				"role_removed": {
-					"title": "✅ Removed role from blacklist",
-					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again."
+					"title": "✅ Rolle entfernt von der schwarzen Liste",
+					"description": "<@&%s> wurde von der schwarzen Liste entfernt. Mitglieder mit dieser Rolle können den Bot nun wieder verwenden."
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete"
+				"delete": "Löschen"
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
-					"description": "The number or a channel mention of the ticket to close",
+					"name": "Ticket",
+					"description": "Die Nummer oder eine Kanalerwähnung des zu schließenden Tickets",
 					"example": "217"
 				}
 			},
-			"description": "Close a ticket channel",
-			"name": "close",
+			"description": "Schließen eines Ticketkanals",
+			"name": "Schließen",
 			"response": {
 				"closed": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Ticket geschlossen",
+					"description": "Dieses Ticket wurde geschlossen.\nDer Kanal wird in 5 Sekunden gelöscht."
 				},
 				"closed_by_member": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Ticket geschlossen",
+					"description": "Dieses Ticket wurde von %sgeschlossen.\nDer Kanal wird in 5 Sekunden gelöscht."
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Ticket geschlossen",
+					"description": "Dieses Ticket wurde von %sgeschlossen: '%s'\nDer Kanal wird in 5 Sekunden gelöscht."
 				},
 				"closed_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Ticket geschlossen",
+					"description": "Dieses Ticket wurde geschlossen: '%s'\nDer Kanal wird in 5 Sekunden gelöscht."
 				}
 			}
 		},
 		"new": {
 			"aliases": {
-				"create": "create",
-				"open": "open"
+				"create": "Erstellen",
+				"open": "Öffnen"
 			},
 			"args": {
 				"topic": {
-					"name": "topic",
-					"description": "The topic of the ticket",
-					"example": "Problem with billing"
+					"name": "Thema",
+					"description": "Das Thema Ticket",
+					"example": "Problem mit der Abrechnung"
 				}
 			},
-			"description": "Create a new ticket",
-			"name": "new",
+			"description": "Erstellen eines neuen Tickets",
+			"name": "Neu",
 			"opening_message": {
 				"fields": {
-					"topic": "Topic"
+					"topic": "Thema"
 				}
 			},
-			"questions": "Please answer the following questions:\n\n%s",
+			"questions": "Bitte beantworten Sie folgende Fragen:\n\n%s",
 			"response": {
 				"created": {
-					"title": "✅ Ticket created",
-					"description": "Your ticket has been created: %s."
+					"title": "✅ Ticket erstellt",
+					"description": "Ihr Ticket wurde erstellt: %s."
 				},
 				"has_a_ticket": {
-					"title": "❌ You already have an open ticket",
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
+					"title": "❌ Sie haben bereits ein offenes Ticket",
+					"description": "Bitte verwenden Sie Ihr vorhandenes Ticket <#  (%s>) oder schließen Sie es, bevor Sie ein anderes ticketen."
 				},
 				"max_tickets": {
-					"title": "❌ You already have %d open tickets",
-					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
+					"title": "❌ Sie haben bereits %d offene Tickets",
+					"description": "Bitte verwenden Sie \"%sin der Nähe\", um alle nicht benötigten Tickets zu schließen.\n\n%s"
 				},
 				"no_categories": {
-					"title": "❌ Can't create ticket",
-					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
+					"title": "❌ Kann kein Ticket erstellen",
+					"description": "Ein Serveradministrator muss mindestens eine Ticketkategorie erstellen, bevor ein neues Ticket geöffnet werden kann."
 				},
 				"select_category": {
-					"title": "🔤 Please select the ticket category",
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
+					"title": "🔤 Bitte wählen Sie die Ticketkategorie aus",
+					"description": "Wählen Sie die Kategorie aus, die für das Thema Ihres Tickets am relevantesten ist:\n\n%s"
 				},
 				"select_category_timeout": {
-					"title": "❌ Reaction time expired",
-					"description": "You took too long to select the ticket category."
+					"title": "❌ Reaktionszeit abgelaufen",
+					"description": "Sie haben zu lange gebraucht, um die Ticketkategorie auszuwählen."
 				}
 			},
 			"request_topic": {
-				"title": "Ticket topic",
-				"description": "Please briefly state what this ticket is about in a a few words."
+				"title": "Ticket-Thema",
+				"description": "Bitte geben Sie kurz in wenigen Worten an, worum es bei diesem Ticket geht."
 			}
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "Config"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "Konfigurieren von Discord-Tickets",
+			"name": "Einstellungen",
 			"response": {
-				"updated": "✅ Settings have been updated."
+				"updated": "✅ Einstellungen wurden aktualisiert."
 			}
 		}
 	},
 	"command_execution_error": {
 		"title": "⚠️",
-		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
+		"description": "Während der Befehlsausführung ist ein unerwarteter Fehler aufgetreten.\nBitte bitten Sie einen Administrator, die Konsolenausgabe / Protokolle auf Details zu überprüfen."
 	},
-	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
+	"message_will_be_deleted_in": "Diese Nachricht wird in %d Sekunden gelöscht.",
 	"missing_perms": {
 		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "Sie verfügen nicht über die erforderlichen Berechtigungen, um diesen Befehl verwenden zu können:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
-		"description": "You must be a member of staff to use this command."
+		"description": "Sie müssen ein Mitarbeiter sein, um diesen Befehl verwenden zu können."
 	}
 }
