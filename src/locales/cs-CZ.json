@@ -1,15 +1,15 @@
 {
 	"bot": {
-		"version": "[Lístky na discord] (%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Popis:** %s",
-			"example": "**Příklad:** '%s'"
+			"description": "**Description:** %s",
+			"example": "**Example:** `%s`"
 		},
-		"description": "**Použití:**\n'%s'\n\n**Příklad:**\n'%s'\n\nPožadované argumenty jsou předponou '❗'.",
-		"named_args": "Tento příkaz používá pojmenované argumenty.\n\n",
-		"title": "'%s' použití příkazu"
+		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"named_args": "This command uses named arguments.\n\n",
+		"title": "`%s` command usage"
 	},
 	"collector_expires_in": "Expiruje za %d sekund",
 	"commands": {
@@ -19,148 +19,148 @@
 			},
 			"args": {
 				"member_or_role": {
-					"name": "členOrRole",
-					"description": "Zmínka o členu, zmínka o roli nebo ID člena nebo role",
-					"example": "@naughty člen"
+					"name": "memberOrRole",
+					"description": "A member mention, a role mention, or the ID of a member or role",
+					"example": "@naughty-member"
 				}
 			},
-			"description": "Blacklist/unblacklist člena z interakce s robotem",
-			"name": "Černá listina",
+			"description": "Blacklist/unblacklist a member from interacting with the bot",
+			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"title": "📃 členové a role na černé listině",
-					"description": "Na černé listině nejsou žádní členové ani role. Chcete-li%sčlena nebo <memberOrRole>na černou listinu, zadejte příkaz \" blacklist  \"."
+					"title": "📃 Blacklisted members and roles",
+					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist."
 				},
 				"illegal_action": {
-					"title": "❌ Nemůžete zasuovat tohoto člena na černou listinu.",
-					"description": "%s je zaměstnancem a nemůže být zařazen na černou listinu."
+					"title": "❌ You can't blacklist this member",
+					"description": "%s is a staff member and cannot be blacklisted."
 				},
 				"list": {
-					"title": "📃 členové a role na černé listině"
+					"title": "📃 Blacklisted members and roles"
 				},
 				"member_added": {
 					"title": "✅ Uživatel přidán na blacklist",
-					"description": "<@%s> byl přidán na černou listinu. Již nebudou moci komunikovat s robotem."
+					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot."
 				},
 				"member_removed": {
 					"title": "✅ Uživatel odstraněn z blacklistu",
-					"description": "<@%s> byla odstraněna z černé listiny. Nyní mohou robota znovu použít."
+					"description": "<@%s> has been removed from the blacklist. They can now use the bot again."
 				},
 				"role_added": {
 					"title": "✅ Role přidána na blacklist",
-					"description": "<@&%s> byl přidán na černou listinu. Členové s touto rolí již nebudou moci komunikovat s robotem."
+					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot."
 				},
 				"role_removed": {
 					"title": "✅ Role odstraněna z blacklistu",
-					"description": "<@&%s> byla odstraněna z černé listiny. Členové s touto rolí teď můžou robota znovu použít."
+					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again."
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "Odstranit"
+				"delete": "delete"
 			},
 			"args": {
 				"ticket": {
-					"name": "Lístek",
-					"description": "Číslo nebo zmínka kanálu o lístku, který chcete zavřít",
+					"name": "ticket",
+					"description": "The number or a channel mention of the ticket to close",
 					"example": "217"
 				}
 			},
-			"description": "Zavření kanálu lístku",
-			"name": "Zavřete",
+			"description": "Close a ticket channel",
+			"name": "close",
 			"response": {
 				"closed": {
-					"title": "✅ vstupenka uzavřena",
-					"description": "Tahle jízdenka byla zavřená.\nKanál bude odstraněn za 5 sekund."
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds."
 				},
 				"closed_by_member": {
-					"title": "✅ vstupenka uzavřena",
-					"description": "Tato vstupenka byla uzavřena %s.\nKanál bude odstraněn za 5 sekund."
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds."
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ vstupenka uzavřena",
-					"description": "Tento lístek byl uzavřen %s: '%s'\nKanál bude odstraněn za 5 sekund."
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds."
 				},
 				"closed_with_reason": {
-					"title": "✅ vstupenka uzavřena",
-					"description": "Tento lístek byl uzavřen: '%s'\nKanál bude odstraněn za 5 sekund."
+					"title": "✅ Ticket closed",
+					"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds."
 				}
 			}
 		},
 		"new": {
 			"aliases": {
-				"create": "Vytvořit",
-				"open": "Otevřít"
+				"create": "create",
+				"open": "open"
 			},
 			"args": {
 				"topic": {
-					"name": "Téma",
-					"description": "Téma vstupenky",
-					"example": "Problém s fakturace"
+					"name": "topic",
+					"description": "The topic of the ticket",
+					"example": "Problem with billing"
 				}
 			},
-			"description": "Vytvoření nového lístku",
-			"name": "Nwe",
+			"description": "Create a new ticket",
+			"name": "new",
 			"opening_message": {
 				"fields": {
-					"topic": "Téma"
+					"topic": "Topic"
 				}
 			},
-			"questions": "Odpovězte prosím na následující otázky:\n\n%s",
+			"questions": "Please answer the following questions:\n\n%s",
 			"response": {
 				"created": {
-					"title": "✅ lístek vytvořen",
-					"description": "Váš lístek byl vytvořen: %s."
+					"title": "✅ Ticket created",
+					"description": "Your ticket has been created: %s."
 				},
 				"has_a_ticket": {
-					"title": "❌ Již máte otevřený lístek",
-					"description": "Použijte prosím stávající lístek <#  (%s>) nebo jej před vytvořením jiného zavřete."
+					"title": "❌ You already have an open ticket",
+					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
 				},
 				"max_tickets": {
-					"title": "❌ Už máte %d vstupenky",
-					"description": "K uzavření nedýchaných vstupenek použijte \"%szavřít\".\n\n%s"
+					"title": "❌ You already have %d open tickets",
+					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
 				},
 				"no_categories": {
-					"title": "❌ Nelze vytvořit lístek",
-					"description": "Správce serveru musí před otevřením nového lístku vytvořit alespoň jednu kategorii lístků."
+					"title": "❌ Can't create ticket",
+					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
 				},
 				"select_category": {
-					"title": "🔤 Vyberte kategorii vstupenek",
-					"description": "Vyberte kategorii, která je nejrelevantnější pro téma vaší vstupenky:\n\n%s"
+					"title": "🔤 Please select the ticket category",
+					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
 				},
 				"select_category_timeout": {
-					"title": "❌ vypršela doba reakce",
-					"description": "Výběr kategorie lístků vám trval příliš dlouho."
+					"title": "❌ Reaction time expired",
+					"description": "You took too long to select the ticket category."
 				}
 			},
 			"request_topic": {
-				"title": "Téma lístku",
-				"description": "Stručně uveďte, o čem tento lístek je, několika slovy."
+				"title": "Ticket topic",
+				"description": "Please briefly state what this ticket is about in a a few words."
 			}
 		},
 		"settings": {
 			"aliases": {
-				"config": "Config"
+				"config": "config"
 			},
-			"description": "Konfigurace lístků discordu",
-			"name": "Nastavení",
+			"description": "Configure Discord Tickets",
+			"name": "settings",
 			"response": {
-				"updated": "✅ nastavení byly aktualizovány."
+				"updated": "✅ Settings have been updated."
 			}
 		}
 	},
 	"command_execution_error": {
 		"title": "⚠️",
-		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce, aby zkontroloval výstup / protokoly konzoly, zda nejsou k dispozici podrobnosti."
+		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
 	},
-	"message_will_be_deleted_in": "Tato zpráva bude odstraněna během %d sekund.",
+	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
 	"missing_perms": {
 		"title": "❌",
-		"description": "Nemáte oprávnění potřebná k použití tohoto příkazu:\n%s"
+		"description": "You do not have the permissions required to use this command:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
-		"description": "Chcete-li použít tento příkaz, musíte být zaměstnancem."
+		"description": "You must be a member of staff to use this command."
 	}
 }
