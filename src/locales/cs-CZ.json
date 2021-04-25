@@ -1,0 +1,166 @@
+{
+	"bot": {
+		"version": "[Lístky na discord] (%s) v%s by [eartharoid](%s)"
+	},
+	"cmd_usage": {
+		"args": {
+			"description": "**Popis:** %s",
+			"example": "**Příklad:** '%s'"
+		},
+		"description": "**Použití:**\n'%s'\n\n**Příklad:**\n'%s'\n\nPožadované argumenty jsou předponou '❗'.",
+		"named_args": "Tento příkaz používá pojmenované argumenty.\n\n",
+		"title": "'%s' použití příkazu"
+	},
+	"collector_expires_in": "Expiruje za %d sekund",
+	"commands": {
+		"blacklist": {
+			"aliases": {
+				"unblacklist": "unblacklist"
+			},
+			"args": {
+				"member_or_role": {
+					"name": "členOrRole",
+					"description": "Zmínka o členu, zmínka o roli nebo ID člena nebo role",
+					"example": "@naughty člen"
+				}
+			},
+			"description": "Blacklist/unblacklist člena z interakce s robotem",
+			"name": "Černá listina",
+			"response": {
+				"empty_list": {
+					"title": "📃 členové a role na černé listině",
+					"description": "Na černé listině nejsou žádní členové ani role. Chcete-li%sčlena nebo <memberOrRole>na černou listinu, zadejte příkaz \" blacklist  \"."
+				},
+				"illegal_action": {
+					"title": "❌ Nemůžete zasuovat tohoto člena na černou listinu.",
+					"description": "%s je zaměstnancem a nemůže být zařazen na černou listinu."
+				},
+				"list": {
+					"title": "📃 členové a role na černé listině"
+				},
+				"member_added": {
+					"title": "✅ Uživatel přidán na blacklist",
+					"description": "<@%s> byl přidán na černou listinu. Již nebudou moci komunikovat s robotem."
+				},
+				"member_removed": {
+					"title": "✅ Uživatel odstraněn z blacklistu",
+					"description": "<@%s> byla odstraněna z černé listiny. Nyní mohou robota znovu použít."
+				},
+				"role_added": {
+					"title": "✅ Role přidána na blacklist",
+					"description": "<@&%s> byl přidán na černou listinu. Členové s touto rolí již nebudou moci komunikovat s robotem."
+				},
+				"role_removed": {
+					"title": "✅ Role odstraněna z blacklistu",
+					"description": "<@&%s> byla odstraněna z černé listiny. Členové s touto rolí teď můžou robota znovu použít."
+				}
+			}
+		},
+		"close": {
+			"aliases": {
+				"delete": "Odstranit"
+			},
+			"args": {
+				"ticket": {
+					"name": "Lístek",
+					"description": "Číslo nebo zmínka kanálu o lístku, který chcete zavřít",
+					"example": "217"
+				}
+			},
+			"description": "Zavření kanálu lístku",
+			"name": "Zavřete",
+			"response": {
+				"closed": {
+					"title": "✅ vstupenka uzavřena",
+					"description": "Tahle jízdenka byla zavřená.\nKanál bude odstraněn za 5 sekund."
+				},
+				"closed_by_member": {
+					"title": "✅ vstupenka uzavřena",
+					"description": "Tato vstupenka byla uzavřena %s.\nKanál bude odstraněn za 5 sekund."
+				},
+				"closed_by_member_with_reason": {
+					"title": "✅ vstupenka uzavřena",
+					"description": "Tento lístek byl uzavřen %s: '%s'\nKanál bude odstraněn za 5 sekund."
+				},
+				"closed_with_reason": {
+					"title": "✅ vstupenka uzavřena",
+					"description": "Tento lístek byl uzavřen: '%s'\nKanál bude odstraněn za 5 sekund."
+				}
+			}
+		},
+		"new": {
+			"aliases": {
+				"create": "Vytvořit",
+				"open": "Otevřít"
+			},
+			"args": {
+				"topic": {
+					"name": "Téma",
+					"description": "Téma vstupenky",
+					"example": "Problém s fakturace"
+				}
+			},
+			"description": "Vytvoření nového lístku",
+			"name": "Nwe",
+			"opening_message": {
+				"fields": {
+					"topic": "Téma"
+				}
+			},
+			"questions": "Odpovězte prosím na následující otázky:\n\n%s",
+			"response": {
+				"created": {
+					"title": "✅ lístek vytvořen",
+					"description": "Váš lístek byl vytvořen: %s."
+				},
+				"has_a_ticket": {
+					"title": "❌ Již máte otevřený lístek",
+					"description": "Použijte prosím stávající lístek <#  (%s>) nebo jej před vytvořením jiného zavřete."
+				},
+				"max_tickets": {
+					"title": "❌ Už máte %d vstupenky",
+					"description": "K uzavření nedýchaných vstupenek použijte \"%szavřít\".\n\n%s"
+				},
+				"no_categories": {
+					"title": "❌ Nelze vytvořit lístek",
+					"description": "Správce serveru musí před otevřením nového lístku vytvořit alespoň jednu kategorii lístků."
+				},
+				"select_category": {
+					"title": "🔤 Vyberte kategorii vstupenek",
+					"description": "Vyberte kategorii, která je nejrelevantnější pro téma vaší vstupenky:\n\n%s"
+				},
+				"select_category_timeout": {
+					"title": "❌ vypršela doba reakce",
+					"description": "Výběr kategorie lístků vám trval příliš dlouho."
+				}
+			},
+			"request_topic": {
+				"title": "Téma lístku",
+				"description": "Stručně uveďte, o čem tento lístek je, několika slovy."
+			}
+		},
+		"settings": {
+			"aliases": {
+				"config": "Config"
+			},
+			"description": "Konfigurace lístků discordu",
+			"name": "Nastavení",
+			"response": {
+				"updated": "✅ nastavení byly aktualizovány."
+			}
+		}
+	},
+	"command_execution_error": {
+		"title": "⚠️",
+		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce, aby zkontroloval výstup / protokoly konzoly, zda nejsou k dispozici podrobnosti."
+	},
+	"message_will_be_deleted_in": "Tato zpráva bude odstraněna během %d sekund.",
+	"missing_perms": {
+		"title": "❌",
+		"description": "Nemáte oprávnění potřebná k použití tohoto příkazu:\n%s"
+	},
+	"staff_only": {
+		"title": "❌",
+		"description": "Chcete-li použít tento příkaz, musíte být zaměstnancem."
+	}
+}
