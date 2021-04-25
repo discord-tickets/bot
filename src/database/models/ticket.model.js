@@ -3,12 +3,12 @@ module.exports = (client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Ticket', {
 		id: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			primaryKey: true,
 			allowNull: false,
 		},
 		category: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
 				model: DB_TABLE_PREFIX + 'categories',
@@ -16,7 +16,7 @@ module.exports = (client, sequelize) => {
 			},
 		},
 		closed_by: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: true,
 		},
 		closed_reason: {
@@ -24,7 +24,7 @@ module.exports = (client, sequelize) => {
 			allowNull: true,
 		},
 		creator: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 		},
 		first_response: {
@@ -32,7 +32,7 @@ module.exports = (client, sequelize) => {
 			allowNull: true,
 		},
 		guild: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
 				model: DB_TABLE_PREFIX + 'guilds',
@@ -50,7 +50,7 @@ module.exports = (client, sequelize) => {
 			defaultValue: true
 		},
 		opening_message: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: true,
 		},
 		topic: {

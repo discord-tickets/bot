@@ -8,7 +8,7 @@ module.exports = (client, sequelize) => {
 		discriminator: DataTypes.STRING,
 		display_name: DataTypes.TEXT,
 		ticket: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket',
 			references: {
@@ -17,7 +17,7 @@ module.exports = (client, sequelize) => {
 			},
 		},
 		user: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket'
 		},

@@ -2,6 +2,7 @@ const EventEmitter = require('events');
 const TicketArchives = require('./archives');
 const { MessageEmbed } = require('discord.js');
 const { int2hex } = require('../../utils');
+const { footer } = require('../../utils/discord');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -69,13 +70,17 @@ module.exports = class TicketManager extends EventEmitter {
 				.catch(() => this.client.log.warn('Failed to delete system pin message'));
 		}
 
+		let questions = cat_row.opening_questions
+			.map((q, index) => `**${index + 1}.** ${q}`)
+			.join('\n\n');
+
 		if (cat_row.require_topic && topic.length === 0) {
 			let collector_message = await t_channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)
-					.setTitle(i18n('commands.new.request_topic.title'))
+					.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
 					.setDescription(i18n('commands.new.request_topic.description'))
-					.setFooter(settings.footer)
+					.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
 			);
 
 			const collector_filter = (message) => message.author.id === t_row.creator;
@@ -99,17 +104,29 @@ module.exports = class TicketManager extends EventEmitter {
 						.setFooter(settings.footer)
 				);
 				await message.react('✅');
+				collector.stop();
 			});
 
-			collector.on('end', async (collected) => {
-				if (collected.size === 0) {
-					collector_message
-						.delete()
-						.catch(() => this.client.log.warn('Failed to delete topic collector message'));
-				}
+			collector.on('end', async () => {
+				collector_message
+					.delete()
+					.catch(() => this.client.log.warn('Failed to delete topic collector message'));
+				await t_channel.send(
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setDescription(i18n('commands.new.questions', questions))
+						.setFooter(settings.footer)
+				);
 			});
-
-			
+		} else {
+			if (cat_row.opening_questions.length > 0) {
+				await t_channel.send(
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setDescription(i18n('commands.new.questions', questions))
+						.setFooter(settings.footer)
+				);
+			}
 		}
 	}
 

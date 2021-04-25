@@ -7,17 +7,18 @@ module.exports = (client, sequelize) => {
 			allowNull: true,
 		},
 		survey: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.INTEGER,
 			allowNull: false,
+			unique: 'survey-ticket',
 			references: {
 				model: DB_TABLE_PREFIX + 'surveys',
 				key: 'id'
 			},
 		},
 		ticket: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'id-ticket',
+			unique: 'survey-ticket',
 			references: {
 				model: DB_TABLE_PREFIX + 'tickets',
 				key: 'id'

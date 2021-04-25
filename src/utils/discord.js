@@ -11,7 +11,7 @@ module.exports = {
 	 */
 	footer: (text, additional) => {
 		if (text && additional) return `${text} | ${additional}`;
-		else return text || additional || '';
+		else return additional || text || '';
 	},
 	/**
 	 * Select a presence from the config

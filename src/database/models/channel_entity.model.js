@@ -3,13 +3,13 @@ module.exports = (client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('ChannelEntity', {
 		channel: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket'
 		},
 		name: DataTypes.TEXT,
 		ticket: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket',
 			references: {

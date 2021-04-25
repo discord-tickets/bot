@@ -3,7 +3,7 @@ module.exports = (client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Survey', {
 		guild: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
 				model: DB_TABLE_PREFIX + 'guilds',

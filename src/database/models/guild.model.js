@@ -3,7 +3,7 @@ module.exports = ({ config }, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Guild', {
 		id: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			primaryKey: true,
 			allowNull: false,
 		},

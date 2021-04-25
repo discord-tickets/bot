@@ -8,12 +8,12 @@ module.exports = (client, sequelize) => {
 		},
 		name: DataTypes.TEXT,
 		role: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket'
 		},
 		ticket: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			unique: 'id-ticket',
 			references: {

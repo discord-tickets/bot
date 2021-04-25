@@ -102,6 +102,12 @@
 			},
 			"description": "Create a new ticket",
 			"name": "new",
+			"opening_message": {
+				"fields": {
+					"topic": "Topic"
+				}
+			},
+			"questions": "Please answer the following questions:\n\n%s",
 			"response": {
 				"created": {
 					"title": "✅ Ticket created",
@@ -128,14 +134,9 @@
 					"description": "You took too long to select the ticket category."
 				}
 			},
-			"opening_message": {
-				"fields": {
-					"topic": "Topic"
-				}
-			},
 			"request_topic": {
-				"title": "⚠️ Ticket topic",
-				"description": "Please briefly state what this ticket is about in a short sentence."
+				"title": "Ticket topic",
+				"description": "Please briefly state what this ticket is about in a a few words."
 			}
 		},
 		"settings": {

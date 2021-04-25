@@ -3,12 +3,12 @@ module.exports = (client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Message', {
 		id: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			primaryKey: true,
 			allowNull: false,
 		},
 		author: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 		},
 		data: {
@@ -24,7 +24,7 @@ module.exports = (client, sequelize) => {
 			defaultValue: false,
 		},
 		ticket: {
-			type: DataTypes.CHAR(18),
+			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
 				model: DB_TABLE_PREFIX + 'tickets',
