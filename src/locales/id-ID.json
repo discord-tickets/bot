@@ -1,0 +1,166 @@
+{
+	"bot": {
+		"version": "[Discord Tickets](%s) versi %s oleh [eartharoid](%s)"
+	},
+	"cmd_usage": {
+		"args": {
+			"description": "**Deskripsi:** %s",
+			"example": "**Contoh:** '%s'"
+		},
+		"description": "**Pemakaian:**\n'%s'\n\n**Contoh:**\n'%s'\n\nArgumen-argumen yang dibutuhkan dimulai dengan `❗`.",
+		"named_args": "Command ini membutuhkan argument bernama.\n\n",
+		"title": "Pemakaian command '%s'"
+	},
+	"collector_expires_in": "Kadaluwarsa dalam %d detik",
+	"commands": {
+		"blacklist": {
+			"aliases": {
+				"unblacklist": "hapus blokir"
+			},
+			"args": {
+				"member_or_role": {
+					"name": "anggota atau role",
+					"description": "Sebuah mention anggota, mention role, atau ID sebuah member atau role",
+					"example": "@anggota-nakal"
+				}
+			},
+			"description": "Blok/hapus blok seorang anggota dari berinteraksi dengan bot ini",
+			"name": "blok",
+			"response": {
+				"empty_list": {
+					"title": "📃 Daftar anggota-anggota yang di blok",
+					"description": "Tidak ada anggota atau role yang di blok. Ketik `%sblok <memberOrRole>` untuk menambahkan member atau role ke daftar blokir."
+				},
+				"illegal_action": {
+					"title": "❌ Anda tidak bisa blokir anggota ini",
+					"description": "%s adalah seorang anggota staf dan tidak bisa di blokir."
+				},
+				"list": {
+					"title": "📃 Daftar anggota-anggota yang di blok"
+				},
+				"member_added": {
+					"title": "✅ Berhasil menambahkan anggota ke daftar blokir",
+					"description": "<@%s> telah ditambahkan ke daftar blokir. Mereka tidak akan lagi dapat berinteraksi dengan bot ini."
+				},
+				"member_removed": {
+					"title": "✅ Berhasil menghapus anggota dari daftar blokir",
+					"description": "<@%s> telah dihapus dari daftar blokir. Sekarang mereka dapat menggunakan bot ini lagi."
+				},
+				"role_added": {
+					"title": "✅ Berhasil menambahkan role ke daftar blokir",
+					"description": "<@&%s> telah ditambahkan ke daftar blokir. Anggota-anggota dengan role ini tidak akan lagi dapat berinteraksi dengan bot ini."
+				},
+				"role_removed": {
+					"title": "✅ Berhasil menghapus role dari daftar blokir",
+					"description": "<@&%s> telah dihapus dari daftar blokir. Anggota-anggota dengan role ini sekarang dapat menggunakan bot ini lagi."
+				}
+			}
+		},
+		"close": {
+			"aliases": {
+				"delete": "hapus"
+			},
+			"args": {
+				"ticket": {
+					"name": "tiket",
+					"description": "Nomor tiket atau mention channel tiket yang ingin ditutup",
+					"example": "217"
+				}
+			},
+			"description": "Tutup sebuah channel tiket",
+			"name": "tutup",
+			"response": {
+				"closed": {
+					"title": "✅ Tiket ditutup",
+					"description": "Tiket ini telah ditutup.\nChannel ini akan ditutup dalam 5 detik."
+				},
+				"closed_by_member": {
+					"title": "✅ Tiket ditutup",
+					"description": "Tiket ini telah ditutup oleh %s.\nChannel ini akan ditutup dalam 5 detik."
+				},
+				"closed_by_member_with_reason": {
+					"title": "✅ Tiket ditutup",
+					"description": "Tiket ini telah ditutup oleh %s: `%s`\nChannel ini akan ditutup dalam 5 detik."
+				},
+				"closed_with_reason": {
+					"title": "✅ Tiket ditutup",
+					"description": "Tiket ini telah ditutup: `%s`\nChannel ini akan ditutup dalam 5 detik."
+				}
+			}
+		},
+		"new": {
+			"aliases": {
+				"create": "buat",
+				"open": "buka"
+			},
+			"args": {
+				"topic": {
+					"name": "topik",
+					"description": "Topik tiket",
+					"example": "Masalah dengan penagihan"
+				}
+			},
+			"description": "Buat tiket baru",
+			"name": "baru",
+			"opening_message": {
+				"fields": {
+					"topic": "Topik"
+				}
+			},
+			"questions": "Tolong jawab pertanyaan-pertanyaan berikut:\n\n%s",
+			"response": {
+				"created": {
+					"title": "✅ Tiket dibuat",
+					"description": "Tiket anda telah dibuat: %s."
+				},
+				"has_a_ticket": {
+					"title": "❌ Anda sudah memiliki tiket yang buka",
+					"description": "Silahkan gunakan tiket yang ada (<#%s>) atau tutup tiket tersebut sebelum membuat tiket lain."
+				},
+				"max_tickets": {
+					"title": "❌ Anda sudah memiliki %d tiket yang buka",
+					"description": "Tolong gunakan `%stutup` untuk menutup tiket yang tidak perlu.\n\n%s"
+				},
+				"no_categories": {
+					"title": "❌ Tidak dapat membuat tiket",
+					"description": "Seorang administrator server harus membuat setidaknya satu kategori tikey sebelum tiket baru dapat dibuka."
+				},
+				"select_category": {
+					"title": "🔤 Tolong pilih kategori tiket",
+					"description": "Pilih kategory yang paling relevan denga topik tiket anda:\n\n%s"
+				},
+				"select_category_timeout": {
+					"title": "❌ Waktu reaksi habis",
+					"description": "Anda terlalu lama untuk memilih kategori tiket."
+				}
+			},
+			"request_topic": {
+				"title": "Topik tiket",
+				"description": "Tolong beri tahu secara singkat untuk apa tiket ini dibuat dalam beberapa kata."
+			}
+		},
+		"settings": {
+			"aliases": {
+				"config": "konfigurasi"
+			},
+			"description": "Konfigurasi Discord Tickets",
+			"name": "pengaturan",
+			"response": {
+				"updated": "✅ Pengaturan telah diperbarui."
+			}
+		}
+	},
+	"command_execution_error": {
+		"title": "⚠️",
+		"description": "Eror tak terduga ketika mengeksekusi command.\nTolong tanya seorang adminstrator untuk memeriksa console atau log konsol untuk detail."
+	},
+	"message_will_be_deleted_in": "Pesan ini akan dihapus dalam %d detik",
+	"missing_perms": {
+		"title": "❌",
+		"description": "Anda tidak memiliki izin yang diperlukan untuk menggunakan command ini:\n%s"
+	},
+	"staff_only": {
+		"title": "❌",
+		"description": "Anda harus menjadi salah seorang anggota staf untuk menggunakan command ini."
+	}
+}

@@ -1,0 +1,166 @@
+{
+	"bot": {
+		"version": "[Discord tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
+	},
+	"cmd_usage": {
+		"args": {
+			"description": "**Popis:** %s",
+			"example": "**Příklad:** `%s`"
+		},
+		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
+		"named_args": "Tento příkaz používá jmenné argumenty.\n\n",
+		"title": "Použití příkazu `%s`"
+	},
+	"collector_expires_in": "Expiruje za %d sekund",
+	"commands": {
+		"blacklist": {
+			"aliases": {
+				"unblacklist": "unblacklist"
+			},
+			"args": {
+				"member_or_role": {
+					"name": "uživatelNeboRole",
+					"description": "Označení člena, role nebo ID člena popřípadě ID role",
+					"example": "@nezbedný-člen"
+				}
+			},
+			"description": "Zablokuje/povolí uživateli interakci s botem",
+			"name": "blacklist",
+			"response": {
+				"empty_list": {
+					"title": "📃 Zablokovaní uživatelé a role",
+					"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <memberOrRole>` pro přidání uživatele nebo role na černou listinu."
+				},
+				"illegal_action": {
+					"title": "❌ Tohoto člena nemůžeš přidat na černou listinu",
+					"description": "%s je člen serveru a nemůže být na černé listině."
+				},
+				"list": {
+					"title": "📃 Zablokovaní uživatelé a role"
+				},
+				"member_added": {
+					"title": "✅ Uživatel přidán na blacklist",
+					"description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota."
+				},
+				"member_removed": {
+					"title": "✅ Uživatel odstraněn z blacklistu",
+					"description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota."
+				},
+				"role_added": {
+					"title": "✅ Role přidána na blacklist",
+					"description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota."
+				},
+				"role_removed": {
+					"title": "✅ Role odstraněna z blacklistu",
+					"description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota."
+				}
+			}
+		},
+		"close": {
+			"aliases": {
+				"delete": "delete"
+			},
+			"args": {
+				"ticket": {
+					"name": "ticket",
+					"description": "Číslo nebo označení kanálu s ticketem pro uzaření",
+					"example": "217"
+				}
+			},
+			"description": "Uzavře kanál s ticketem",
+			"name": "close",
+			"response": {
+				"closed": {
+					"title": "✅ Ticket uzavřen",
+					"description": "Tento ticket byl uzavřen.\nTento kanál se smaže za 5 sekund."
+				},
+				"closed_by_member": {
+					"title": "✅ Ticket uzavřen",
+					"description": "Tento ticket byl uzavřen uživatelem %s.\nTento kanál se smaže za 5 sekund."
+				},
+				"closed_by_member_with_reason": {
+					"title": "✅ Ticket uzavřen",
+					"description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nTento kanál se smaže za 5 sekund."
+				},
+				"closed_with_reason": {
+					"title": "✅ Ticket uzavřen",
+					"description": "Tento ticket byl uzavřen: `%s`\nTento kanál se smaže za 5 sekund."
+				}
+			}
+		},
+		"new": {
+			"aliases": {
+				"create": "create",
+				"open": "open"
+			},
+			"args": {
+				"topic": {
+					"name": "topic",
+					"description": "Téma ticketu",
+					"example": "Problém s fakturací"
+				}
+			},
+			"description": "Vytvoří ticket",
+			"name": "new",
+			"opening_message": {
+				"fields": {
+					"topic": "Téma"
+				}
+			},
+			"questions": "Prosím odpovězte na níže položené otázky:\n\n%s",
+			"response": {
+				"created": {
+					"title": "✅ Ticket vytvořen",
+					"description": "Tvůj ticket byl vytvořen: %s."
+				},
+				"has_a_ticket": {
+					"title": "❌ Již máte otevřený ticket",
+					"description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového."
+				},
+				"max_tickets": {
+					"title": "❌ Již máš %d otevřených ticketů",
+					"description": "Prosím použij `%sclose` pro uzavření nepotřebných ticketů.\n\n%s"
+				},
+				"no_categories": {
+					"title": "❌ Nelze vytvořit ticket",
+					"description": "Než budete moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety."
+				},
+				"select_category": {
+					"title": "🔤 Prosím vyber kategorii ticketu",
+					"description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s"
+				},
+				"select_category_timeout": {
+					"title": "❌ Doba pro reakci vypršela",
+					"description": "Výběr kategorie ticketu trvala příliš dlouho."
+				}
+			},
+			"request_topic": {
+				"title": "Téma ticketu",
+				"description": "Prosím stručně popiš několika slovy o čem je tento ticket."
+			}
+		},
+		"settings": {
+			"aliases": {
+				"config": "config"
+			},
+			"description": "Konfigurace Discord ticketů",
+			"name": "settings",
+			"response": {
+				"updated": "✅ Nastavení bylo aktualizováno."
+			}
+		}
+	},
+	"command_execution_error": {
+		"title": "⚠️",
+		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce serveru, aby zkontroloval výstup konzole / log pro více detailů."
+	},
+	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
+	"missing_perms": {
+		"title": "❌",
+		"description": "Na provedení tohoto příkazu nemáte dostatečné oprávnění:\n%s"
+	},
+	"staff_only": {
+		"title": "❌",
+		"description": "Na provedení tohoto příkazu musíte být členem týmu."
+	}
+}
