@@ -107,60 +107,60 @@
 					"topic": "Topik"
 				}
 			},
-			"questions": "Please answer the following questions:\n\n%s",
+			"questions": "Tolong jawab pertanyaan-pertanyaan berikut:\n\n%s",
 			"response": {
 				"created": {
-					"title": "✅ Ticket created",
-					"description": "Your ticket has been created: %s."
+					"title": "✅ Tiket dibuat",
+					"description": "Tiket anda telah dibuat: %s."
 				},
 				"has_a_ticket": {
-					"title": "❌ You already have an open ticket",
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
+					"title": "❌ Anda sudah memiliki tiket yang buka",
+					"description": "Silahkan gunakan tiket yang ada (<#%s>) atau tutup tiket tersebut sebelum membuat tiket lain."
 				},
 				"max_tickets": {
-					"title": "❌ You already have %d open tickets",
-					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
+					"title": "❌ Anda sudah memiliki %d tiket yang buka",
+					"description": "Tolong gunakan `%stutup` untuk menutup tiket yang tidak perlu.\n\n%s"
 				},
 				"no_categories": {
-					"title": "❌ Can't create ticket",
-					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
+					"title": "❌ Tidak dapat membuat tiket",
+					"description": "Seorang administrator server harus membuat setidaknya satu kategori tikey sebelum tiket baru dapat dibuka."
 				},
 				"select_category": {
-					"title": "🔤 Please select the ticket category",
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
+					"title": "🔤 Tolong pilih kategori tiket",
+					"description": "Pilih kategory yang paling relevan denga topik tiket anda:\n\n%s"
 				},
 				"select_category_timeout": {
-					"title": "❌ Reaction time expired",
-					"description": "You took too long to select the ticket category."
+					"title": "❌ Waktu reaksi habis",
+					"description": "Anda terlalu lama untuk memilih kategori tiket."
 				}
 			},
 			"request_topic": {
-				"title": "Ticket topic",
-				"description": "Please briefly state what this ticket is about in a a few words."
+				"title": "Topik tiket",
+				"description": "Tolong beri tahu secara singkat untuk apa tiket ini dibuat dalam beberapa kata."
 			}
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "konfigurasi"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "Konfigurasi Discord Tickets",
+			"name": "pengaturan",
 			"response": {
-				"updated": "✅ Settings have been updated."
+				"updated": "✅ Pengaturan telah diperbarui."
 			}
 		}
 	},
 	"command_execution_error": {
 		"title": "⚠️",
-		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
+		"description": "Eror tak terduga ketika mengeksekusi command.\nTolong tanya seorang adminstrator untuk memeriksa console atau log konsol untuk detail."
 	},
-	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
+	"message_will_be_deleted_in": "Pesan ini akan dihapus dalam %d detik",
 	"missing_perms": {
 		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "Anda tidak memiliki izin yang diperlukan untuk menggunakan command ini:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
-		"description": "You must be a member of staff to use this command."
+		"description": "Anda harus menjadi salah seorang anggota staf untuk menggunakan command ini."
 	}
 }
