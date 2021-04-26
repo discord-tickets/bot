@@ -8,7 +8,7 @@
 			"example": "**Příklad:** `%s`"
 		},
 		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
-		"named_args": "Tento příkaz používá jmenné argumenty.\n",
+		"named_args": "Tento příkaz používá jmenné argumenty.\n\n",
 		"title": "Použití příkazu `%s`"
 	},
 	"collector_expires_in": "Expiruje za %d sekund",
