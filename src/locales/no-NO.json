@@ -1,10 +1,10 @@
 {
 	"bot": {
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s Av [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
+			"description": "**Beskrivelse:** %s",
 			"example": "**Example:** `%s`"
 		},
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
