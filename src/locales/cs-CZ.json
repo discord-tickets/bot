@@ -90,7 +90,7 @@
 		},
 		"new": {
 			"aliases": {
-				"create": "crate",
+				"create": "create",
 				"open": "open"
 			},
 			"args": {
