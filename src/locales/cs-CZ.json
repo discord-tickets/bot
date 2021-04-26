@@ -1,13 +1,13 @@
 {
 	"bot": {
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"description": "**Popis:** %s",
+			"example": "**Příklad:** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
 	},
