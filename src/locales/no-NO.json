@@ -5,162 +5,162 @@
 	"cmd_usage": {
 		"args": {
 			"description": "**Beskrivelse:** %s",
-			"example": "**Example:** `%s`"
+			"example": "**Eksempel:** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"description": "**Bruk:**\n`%s`\n\n**Eksempel:**\n`%s`\n\nObligatoriske felt er prefikset med `❗`.",
+		"named_args": "Denne kommandoen bruker navngitte argumenter.\n\n",
+		"title": "'%s' kommandobruk"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Utløper om %d sekunder",
 	"commands": {
 		"blacklist": {
 			"aliases": {
-				"unblacklist": "unblacklist"
+				"unblacklist": "fjerne fra svarteliste"
 			},
 			"args": {
 				"member_or_role": {
-					"name": "memberOrRole",
-					"description": "A member mention, a role mention, or the ID of a member or role",
-					"example": "@naughty-member"
+					"name": "medlemEllerRolle",
+					"description": "Du må nevne en bruker, en rolle, eller en ID av en bruker eller rolle",
+					"example": "@frekt-medlem"
 				}
 			},
-			"description": "Blacklist/unblacklist a member from interacting with the bot",
-			"name": "blacklist",
+			"description": "Svarteliste/fjerne fra svarteliste et medlem fra og bruke denne botten",
+			"name": "svarteliste",
 			"response": {
 				"empty_list": {
-					"title": "📃 Blacklisted members and roles",
-					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist."
+					"title": "📃 Svartelistet medlemmer og roller",
+					"description": "Det er ingen medlemmer eller roller svartelistet. Skriv `%sblacklist <memberOrRole>` for og legge til et medlem eller rolle til svartelisten."
 				},
 				"illegal_action": {
-					"title": "❌ You can't blacklist this member",
-					"description": "%s is a staff member and cannot be blacklisted."
+					"title": "❌ Du kan ikke svarteliste dette medlemmet",
+					"description": "%s er en moderator og kan ikke bli svartelistet."
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 Svartelistet medlemmer og roller"
 				},
 				"member_added": {
-					"title": "✅ Added member to blacklist",
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot."
+					"title": "✅ La til medlemmet til svartelisten",
+					"description": "<@%s> har blitt lagt til i svartelisten. De kan ikke lengre bruke botten."
 				},
 				"member_removed": {
-					"title": "✅ Removed member from blacklist",
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again."
+					"title": "✅ Fjernet medlemmet fra svartelisten",
+					"description": "<@%s> har blitt fjernet fra svartelisten. De kan nå bruke botten igjen."
 				},
 				"role_added": {
-					"title": "✅ Added role to blacklist",
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot."
+					"title": "✅ La til rollen i svartelisten",
+					"description": "<@&%s> er lagt til i svartelisten. Medlemmer med denne rollen vil ikke lenger kunne bruke botten."
 				},
 				"role_removed": {
-					"title": "✅ Removed role from blacklist",
-					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again."
+					"title": "✅ Fjernet rollen fra svartelisten",
+					"description": "<@&%s> er fjernet fra svartelisten. Medlemmer med denne rollen kan nå bruke botten igjen."
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete"
+				"delete": "slett"
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
-					"description": "The number or a channel mention of the ticket to close",
+					"name": "billett",
+					"description": "Nummeret eller en kanal nevning av billetten som skal lukkes",
 					"example": "217"
 				}
 			},
-			"description": "Close a ticket channel",
-			"name": "close",
+			"description": "Lukke en billettkanal",
+			"name": "lukke",
 			"response": {
 				"closed": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Billetten er stengt",
+					"description": "Denne billetten er stengt.\nKanalen slettes om 5 sekunder."
 				},
 				"closed_by_member": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Billetten er stengt",
+					"description": "Denne billetten er stengt av %s.\nKanalen slettes om 5 sekunder."
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Billetten er stengt",
+					"description": "Denne billetten er lukket av %s: '%s'\nKanalen vil bli slettet om 5 sekunder."
 				},
 				"closed_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Billetten er stengt",
+					"description": "Denne billetten er lukket: '%s'\nKanalen vil bli slettet om 5 sekunder."
 				}
 			}
 		},
 		"new": {
 			"aliases": {
-				"create": "create",
-				"open": "open"
+				"create": "opprette",
+				"open": "åpne"
 			},
 			"args": {
 				"topic": {
-					"name": "topic",
-					"description": "The topic of the ticket",
-					"example": "Problem with billing"
+					"name": "emne",
+					"description": "Temaet for billetten",
+					"example": "Problem med fakturering"
 				}
 			},
-			"description": "Create a new ticket",
-			"name": "new",
+			"description": "Opprett en ny billett",
+			"name": "ny",
 			"opening_message": {
 				"fields": {
-					"topic": "Topic"
+					"topic": "Emnet"
 				}
 			},
-			"questions": "Please answer the following questions:\n\n%s",
+			"questions": "Svar på følgende spørsmål:\n\n%s",
 			"response": {
 				"created": {
-					"title": "✅ Ticket created",
-					"description": "Your ticket has been created: %s."
+					"title": "✅ Billetten er opprettet",
+					"description": "Billetten er opprettet: %s."
 				},
 				"has_a_ticket": {
-					"title": "❌ You already have an open ticket",
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
+					"title": "❌ Du har allerede en åpen billett",
+					"description": "Bruk din eksisterende billett ( <#%s>) eller lukk den før du oppretter en ny."
 				},
 				"max_tickets": {
-					"title": "❌ You already have %d open tickets",
-					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
+					"title": "❌ Du har allerede %d åpne billetter",
+					"description": "Vennligst bruk '%sclose' for å lukke unødvendige billetter.\n\n%s"
 				},
 				"no_categories": {
-					"title": "❌ Can't create ticket",
-					"description": "A server administrator must create at least one ticket category before a new ticket can be opened."
+					"title": "❌ Kan ikke opprette billett",
+					"description": "En serveradministrator må opprette minst én billettkategori før en ny billett kan åpnes."
 				},
 				"select_category": {
-					"title": "🔤 Please select the ticket category",
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s"
+					"title": "🔤 Velg billettkategori",
+					"description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s"
 				},
 				"select_category_timeout": {
-					"title": "❌ Reaction time expired",
-					"description": "You took too long to select the ticket category."
+					"title": "❌ Reaksjonstiden har utløpt",
+					"description": "Det tok for lang tid å velge billettkategorien."
 				}
 			},
 			"request_topic": {
-				"title": "Ticket topic",
-				"description": "Please briefly state what this ticket is about in a a few words."
+				"title": "Billettemne",
+				"description": "Vennligst oppgi kort hva denne billetten handler om med noen få ord."
 			}
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "konfiguration"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "Konfigurere Discord Tickets",
+			"name": "innstillinger",
 			"response": {
-				"updated": "✅ Settings have been updated."
+				"updated": "✅ innstillinger er oppdatert."
 			}
 		}
 	},
 	"command_execution_error": {
 		"title": "⚠️",
-		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
+		"description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon."
 	},
-	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
+	"message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
 	"missing_perms": {
 		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "Du har ikke tillatelsene som kreves for å bruke denne kommandoen:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
-		"description": "You must be a member of staff to use this command."
+		"description": "Du må være medlem av staben for å bruke denne kommandoen."
 	}
 }
