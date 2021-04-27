@@ -73,11 +73,9 @@ You should install the ESLint extension in your editor help you follow the code 
 
 ### Translating
 
-Please try to keep the meaning of the translation as close to the original as possible.
+Please try to keep the meaning of the translation as close to the original as possible. If you want to change the meaning, you can customise your local files after.
 
-1. Copy [`en-GB.json`](https://github.com/discord-tickets/bot/blob/master/src/locales/en-GB.json) and name it correctly
-2. Without modifying the keys (left side of the colon), translate the values (on the right side of the colon).
-3. [Create a pull request](#creating-a-pull-request)
+Create an account on [i18n.discordtickets.app](https://i18n.discordtickets.app/) to get started. Ask on [Discord](https://go.eartharoid.me/discord) or in the [discussions](https://github.com/discord-tickets/bot/discussions) to get a new language added.
 
 ### Updating documentation
 
