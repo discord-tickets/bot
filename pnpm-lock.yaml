@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@eartharoid/i18n': ^0.0.1
+  '@eartharoid/i18n': ^1.0.0
   boxen: ^5.0.0
   cryptr: ^6.0.2
   discord.js: ^12.5.1
@@ -22,7 +22,7 @@ specifiers:
   terminal-link: ^2.1.1
 
 dependencies:
-  '@eartharoid/i18n': 0.0.1
+  '@eartharoid/i18n': 1.0.0
   boxen: 5.0.0
   cryptr: 6.0.2
   discord.js: 12.5.1
@@ -130,8 +130,8 @@ packages:
     resolution: {integrity: sha512-e3mR8JY6Uuy1Zj89iYEZfvK6s81GlWEPP4gO8NzfItzF4xFGFTVTwRjZ6sCVBmbhj3ouX2pyvx8O9snx4r5Xrg==}
     dev: false
 
-  /@eartharoid/i18n/0.0.1:
-    resolution: {integrity: sha512-RXm2+aRBAa2cqp/UEPtlO1AkEJlv5/bANvuPNKA4MSp/UNRKgsJ2tRQt7YintINtgp1ZmaJMH8pxcaLUzwfKUw==}
+  /@eartharoid/i18n/1.0.0:
+    resolution: {integrity: sha512-jJlVTQxHdkuA6prAJ/7kkQhfiTTLioaRT0AQtOcSsOZZzZfzlkKvpcvUtz+qlyrL1oen+KylG0ivlCJNnRYtVA==}
     dev: false
 
   /@eslint/eslintrc/0.4.0:

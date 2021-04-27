@@ -130,8 +130,19 @@ class Bot extends Client {
 			/** A [Cryptr](https://www.npmjs.com/package/cryptr) instance */
 			this.cryptr = new Cryptr(process.env.DB_ENCRYPTION_KEY);
 
+			let locales = {};
+			fs.readdirSync(path('./src/locales'))
+				.filter(file => file.endsWith('.json'))
+				.forEach(file => {
+					let data = fs.readFileSync(path(`./src/locales/${file}`), {
+						encoding: 'utf8'
+					});
+					let name = file.slice(0, file.length - 5);
+					locales[name] = JSON.parse(data);
+				});
+
 			/** An [@eartharoid/i18n](https://github.com/eartharoid/i18n) instance */
-			this.i18n = new I18n(path('./src/locales'), 'en-GB');
+			this.i18n = new I18n('en-GB', locales);
 
 			/** A sequelize instance */
 			this.db = await require('./database')(this), // this.db.models.Ticket...

@@ -6,7 +6,7 @@ const { wait } = require('../utils');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {
-		const i18n = client.i18n.get(client.config.locale);
+		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
 			internal: true,
 			name: i18n('commands.new.name'),
@@ -30,7 +30,7 @@ module.exports = class NewCommand extends Command {
 	async execute(message, args) {
 
 		let settings = await message.guild.settings;
-		const i18n = this.client.i18n.get(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const editOrSend = async (msg, content) => {
 			if (msg) return await msg.edit(content);

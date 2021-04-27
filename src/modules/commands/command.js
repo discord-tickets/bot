@@ -128,7 +128,7 @@ module.exports = class Command {
 		if (!cmd_name) cmd_name = this.name;
 
 		const prefix = settings.command_prefix;
-		const i18n = this.client.i18n.get(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const addArgs = (embed, arg) => {
 			let required = arg.required ? '`❗` ' : '';

@@ -30,7 +30,7 @@ module.exports = class TicketManager extends EventEmitter {
 
 		let guild = this.client.guilds.cache.get(cat_row.guild);
 		let settings = await guild.settings;
-		const i18n = this.client.i18n.get(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 		let member = guild.members.cache.get(t_row.creator);
 		let t_channel = this.client.channels.cache.get(t_row.id);
 
@@ -218,7 +218,7 @@ module.exports = class TicketManager extends EventEmitter {
 
 		let guild = this.client.guilds.cache.get(t_row.guild);
 		let settings = await guild.settings;
-		const i18n = this.client.i18n.get(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 		let channel = await this.client.channels.fetch(t_row.channel);
 
 		if (closer_id) {

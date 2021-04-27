@@ -4,7 +4,7 @@ const { footer } = require('../utils/discord');
 
 module.exports = class CloseCommand extends Command {
 	constructor(client) {
-		const i18n = client.i18n.get(client.config.locale);
+		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
 			internal: true,
 			name: i18n('commands.close.name'),
@@ -27,7 +27,7 @@ module.exports = class CloseCommand extends Command {
 	async execute(message, args) {
 
 		let settings = await message.guild.settings;
-		const i18n = this.client.i18n.get(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 
 	}
 };

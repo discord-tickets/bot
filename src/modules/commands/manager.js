@@ -61,6 +61,9 @@ module.exports = class CommandManager {
 	 * @param {Message} message - Command message
 	 */
 	async handle(message) {
+		let settings = await message.guild.settings;
+		const i18n = this.client.i18n.getLocale(settings.locale);
+
 		let is_blacklisted = false;
 		if (settings.blacklist.includes(message.author.id)) {
 			is_blacklisted = true;
@@ -81,10 +84,6 @@ module.exports = class CommandManager {
 				return this.client.log.warn('Failed to react to a message');
 			}
 		}
-
-		let settings = await message.guild.settings;
-
-		const i18n = this.client.i18n.get(settings.locale);
 
 		const prefix = settings.command_prefix;
 		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
