@@ -155,7 +155,7 @@
 		"description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon."
 	},
 	"message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
-	"missing_perms": {
+	"missing_permissions": {
 		"title": "❌",
 		"description": "Du har ikke tillatelsene som kreves for å bruke denne kommandoen:\n%s"
 	},

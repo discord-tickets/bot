@@ -61,6 +61,8 @@ module.exports = class CommandManager {
 	 * @param {Message} message - Command message
 	 */
 	async handle(message) {
+		if (message.author.bot) return; //  ignore self and other bots
+
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -98,6 +100,56 @@ module.exports = class CommandManager {
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd) return;
 
+		let bot_permissions = message.guild.me.permissionsIn(message.channel);
+		let required_bot_permissions = [
+			'ADD_REACTIONS',
+			'ATTACH_FILES',
+			'EMBED_LINKS',
+			'MANAGE_CHANNELS',
+			'MANAGE_MESSAGES',
+			'READ_MESSAGE_HISTORY',
+			'SEND_MESSAGES',
+		];
+
+		if (!bot_permissions.has(required_bot_permissions)) {
+			let perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
+			if (bot_permissions.has(['EMBED_LINKS', 'SEND_MESSAGES'])) {
+				await message.channel.send(
+					new MessageEmbed()
+						.setColor('ORANGE')
+						.setTitle(i18n('bot.missing_permissions.title'))
+						.setDescription(i18n('bot.missing_permissions.description', perms))
+				);
+			} else if (bot_permissions.has('SEND_MESSAGES')) {
+				await message.channel.send('⚠️ ' + i18n('bot.missing_permissions.description', perms));
+			} else if (bot_permissions.has('ADD_REACTIONS')) {
+				await message.react('⚠️');
+			} else {
+				this.client.log.warn('Unable to respond to command due to missing permissions');
+			}
+			return;
+		}
+
+		const missing_permissions = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
+		if (missing_permissions) {
+			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
+			return await message.channel.send(
+				new MessageEmbed()
+					.setColor(settings.error_colour)
+					.setTitle(i18n('missing_permissions.title'))
+					.setDescription(i18n('missing_permissions.description', perms))
+			);
+		}
+
+		if (cmd.staff_only && await message.member.isStaff() === false) {
+			return await message.channel.send(
+				new MessageEmbed()
+					.setColor(settings.error_colour)
+					.setTitle(i18n('staff_only.title'))
+					.setDescription(i18n('staff_only.description'))
+			);
+		}
+
 		let args = raw_args;
 
 		if (cmd.process_args) {
@@ -115,26 +167,6 @@ module.exports = class CommandManager {
 			if (args_num < required_args) {
 				return await cmd.sendUsage(message.channel, cmd_name);
 			}
-		}
-
-		const missing_perms = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
-		if (missing_perms) {
-			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('missing_perms.title'))
-					.setDescription(i18n('missing_perms.description', perms))
-			);
-		}
-
-		if (cmd.staff_only && await message.member.isStaff() === false) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('staff_only.title'))
-					.setDescription(i18n('staff_only.description'))
-			);
 		}
 			
 		try {

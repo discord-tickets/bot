@@ -1,5 +1,9 @@
 {
 	"bot": {
+		"missing_permissions": {
+			"title": "⚠️",
+			"description": "Discord Tickets requires the following permissions:\n%s"
+		},
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
@@ -155,7 +159,7 @@
 		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details."
 	},
 	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
-	"missing_perms": {
+	"missing_permissions": {
 		"title": "❌",
 		"description": "You do not have the permissions required to use this command:\n%s"
 	},

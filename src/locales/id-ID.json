@@ -155,7 +155,7 @@
 		"description": "Eror tak terduga ketika mengeksekusi command.\nTolong tanya seorang adminstrator untuk memeriksa console atau log konsol untuk detail."
 	},
 	"message_will_be_deleted_in": "Pesan ini akan dihapus dalam %d detik",
-	"missing_perms": {
+	"missing_permissions": {
 		"title": "❌",
 		"description": "Anda tidak memiliki izin yang diperlukan untuk menggunakan command ini:\n%s"
 	},

@@ -155,7 +155,7 @@
 		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce serveru, aby zkontroloval výstup konzole / log pro více detailů."
 	},
 	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
-	"missing_perms": {
+	"missing_permissions": {
 		"title": "❌",
 		"description": "Na provedení tohoto příkazu nemáte dostatečné oprávnění:\n%s"
 	},
