@@ -1,5 +1,9 @@
 {
 	"bot": {
+		"missing_permissions": {
+			"title": "⚠️",
+			"description": "Discord Tickets requires the following permissions:\n%s"
+		},
 		"version": "[Discord tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
 	},
 	"cmd_usage": {
@@ -157,7 +161,7 @@
 	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
 	"missing_permissions": {
 		"title": "❌",
-		"description": "Na provedení tohoto příkazu nemáte dostatečné oprávnění:\n%s"
+		"description": "You do not have the permissions required to use this command:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",

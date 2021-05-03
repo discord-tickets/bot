@@ -1,5 +1,9 @@
 {
 	"bot": {
+		"missing_permissions": {
+			"title": "⚠️",
+			"description": "Discord Tickets requires the following permissions:\n%s"
+		},
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
