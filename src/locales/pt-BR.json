@@ -2,7 +2,7 @@
 	"bot": {
 		"missing_permissions": {
 			"title": "⚠️",
-			"description": "Discord Tickets requires the following permissions:\n%s"
+			"description": "O Bot necessita das seguintes permissões:\n%s"
 		},
 		"version": "[Discord Tickets](%s) v%s feito por [eartharoid](%s)"
 	},
@@ -161,7 +161,7 @@
 	"message_will_be_deleted_in": "Essa mensagem será deletada em %d segundos",
 	"missing_permissions": {
 		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "Você não tem as permissões necessárias para usar este comando:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
