@@ -25,7 +25,7 @@
 				"member_or_role": {
 					"name": "medlemEllerRolle",
 					"description": "Du må nevne en bruker, en rolle, eller en ID av en bruker eller rolle",
-					"example": "@frekt-medlem"
+					"example": "@NaughtyMember"
 				}
 			},
 			"description": "Svarteliste/fjerne fra svarteliste et medlem fra og bruke denne botten",
@@ -152,6 +152,19 @@
 			"response": {
 				"updated": "✅ innstillinger er oppdatert."
 			}
+		},
+		"transfer": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "A member mention or the ID of the member to transfer the ticket to",
+					"example": "@StaffMember",
+					"name": "member"
+				}
+			},
+			"description": "Transfer a ticket to another staff member",
+			"name": "transfer",
+			"response": {}
 		}
 	},
 	"command_execution_error": {

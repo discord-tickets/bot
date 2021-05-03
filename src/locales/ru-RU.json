@@ -25,7 +25,7 @@
 				"member_or_role": {
 					"name": "memberOrRole",
 					"description": "A member mention, a role mention, or the ID of a member or role",
-					"example": "@naughty-member"
+					"example": "@NaughtyMember"
 				}
 			},
 			"description": "Blacklist/unblacklist a member from interacting with the bot",
@@ -152,6 +152,19 @@
 			"response": {
 				"updated": "✅ Settings have been updated."
 			}
+		},
+		"transfer": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "A member mention or the ID of the member to transfer the ticket to",
+					"example": "@StaffMember",
+					"name": "member"
+				}
+			},
+			"description": "Transfer a ticket to another staff member",
+			"name": "transfer",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
