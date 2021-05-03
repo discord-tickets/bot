@@ -25,7 +25,7 @@
 				"member_or_role": {
 					"name": "anggota atau role",
 					"description": "Sebuah mention anggota, mention role, atau ID sebuah member atau role",
-					"example": "@anggota-nakal"
+					"example": "@NaughtyMember"
 				}
 			},
 			"description": "Blok/hapus blok seorang anggota dari berinteraksi dengan bot ini",
@@ -152,6 +152,19 @@
 			"response": {
 				"updated": "✅ Pengaturan telah diperbarui."
 			}
+		},
+		"transfer": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "A member mention or the ID of the member to transfer the ticket to",
+					"example": "@StaffMember",
+					"name": "member"
+				}
+			},
+			"description": "Transfer a ticket to another staff member",
+			"name": "transfer",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
