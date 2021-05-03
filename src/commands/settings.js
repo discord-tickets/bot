@@ -46,6 +46,7 @@ module.exports = class SettingsCommand extends Command {
 							id: c.id
 						}
 					});
+					cat_row.claiming = c.claiming;
 					cat_row.image = c.image;
 					cat_row.max_per_member = c.max_per_member;
 					cat_row.name = c.name;
@@ -103,6 +104,7 @@ module.exports = class SettingsCommand extends Command {
 
 					await this.client.db.models.Category.create({
 						id: cat_channel.id,
+						claiming: c.claiming,
 						guild: message.guild.id,
 						image: c.image,
 						max_per_member: c.max_per_member,
@@ -154,6 +156,7 @@ module.exports = class SettingsCommand extends Command {
 				categories: categories.map(c => {
 					return {
 						id: c.id,
+						claiming: c.claiming,
 						image: c.image,
 						max_per_member: c.max_per_member,
 						name: c.name,

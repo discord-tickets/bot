@@ -15,6 +15,10 @@ module.exports = (client, sequelize) => {
 				key: 'id'
 			},
 		},
+		claimed_by: {
+			type: DataTypes.CHAR(19),
+			allowNull: true,
+		},
 		closed_by: {
 			type: DataTypes.CHAR(19),
 			allowNull: true,
@@ -52,6 +56,10 @@ module.exports = (client, sequelize) => {
 		opening_message: {
 			type: DataTypes.CHAR(19),
 			allowNull: true,
+		},
+		pinned_messages: {
+			type: DataTypes.JSON,
+			defaultValue: []
 		},
 		topic: {
 			type: DataTypes.TEXT,

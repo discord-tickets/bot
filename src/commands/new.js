@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const Command = require('../modules/commands/command');
+const { MessageEmbed } = require('discord.js');
 const { footer } = require('../utils/discord');
 const { letters } = require('../utils/emoji');
 const { wait } = require('../utils');

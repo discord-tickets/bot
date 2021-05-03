@@ -12,14 +12,8 @@ Structures.extend('GuildMember', GuildMember => {
 					guild: this.guild.id
 				}
 			});
-
-			guild_categories.forEach(cat => {
-				cat.roles.forEach(r => {
-					if (this.roles.cache.has(r)) return true;
-				});
-			});
 			
-			return false;
+			return guild_categories.some(cat => cat.roles.some(r => this.roles.cache.has(r)));
 		}
 
 	};

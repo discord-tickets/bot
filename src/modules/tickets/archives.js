@@ -105,22 +105,23 @@ module.exports = class TicketArchives  {
 	}
 
 	async updateEntities(message) {
+
+		let m_row = await this.client.db.models.Message.findOne({
+			where: {
+				id: message.id
+			}
+		});
+
+		if (!m_row) return;
+
+		// message author
 		try {
-			await this.client.db.transaction(async t => {
-				let m_row = await this.client.db.models.Message.findOne({
-					where: {
-						id: message.id
-					},
-					transaction: t
-				});
-
-				if (!m_row) return;
-
-				// message author
+			await this.client.db.transaction(async t => {	
 				let u_model_data = {
 					user: message.author.id,
 					ticket: message.channel.id
 				};
+
 				let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
 					where: u_model_data,
 					defaults: u_model_data,
@@ -136,8 +137,17 @@ module.exports = class TicketArchives  {
 					bot: message.author.bot
 				}, { transaction: t  });
 
-				// mentioned members
-				message.mentions.members.forEach(async member => {
+				return u_row;
+			});
+		} catch (e) {
+			this.client.log.warn('Failed to update message author entity in ticket archive');
+			this.client.log.error(e);
+		}
+
+		// mentioned members
+		message.mentions.members.forEach(async member => {
+			try {
+				await this.client.db.transaction(async t => {
 					let m_model_data = {
 						user: member.user.id,
 						ticket: message.channel.id
@@ -156,10 +166,19 @@ module.exports = class TicketArchives  {
 						colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
 						bot: member.user.bot
 					}, { transaction: t });
-				});
 
-				// mentioned channels
-				message.mentions.channels.forEach(async channel => {
+					return m_row;
+				});
+			} catch (e) {
+				this.client.log.warn('Failed to update mentioned members entities in ticket archive');
+				this.client.log.error(e);
+			}
+		});
+
+		// mentioned channels
+		message.mentions.channels.forEach(async channel => {
+			try {
+				await this.client.db.transaction(async t => {
 					let c_model_data = {
 						channel: channel.id,
 						ticket: message.channel.id
@@ -172,10 +191,19 @@ module.exports = class TicketArchives  {
 					await c_row.update({
 						name: this.encrypt(channel.name)
 					}, { transaction: t });
-				});
 
-				// mentioned roles
-				message.mentions.roles.forEach(async role => {
+					return c_row;
+				});
+			} catch (e) {
+				this.client.log.warn('Failed to update mentioned channels entities in ticket archive');
+				this.client.log.error(e);
+			}
+		});
+
+		// mentioned roles
+		message.mentions.roles.forEach(async role => {
+			try {
+				await this.client.db.transaction(async t => {
 					let r_model_data = {
 						role: role.id,
 						ticket: message.channel.id
@@ -189,12 +217,15 @@ module.exports = class TicketArchives  {
 						name: this.encrypt(role.name),
 						colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
 					}, { transaction: t });
+
+					return r_row;
 				});
-			});
-		} catch (e) {
-			this.client.log.warn('Failed to update message entities in ticket archive');
-			this.client.log.error(e);
-		}
+			} catch (e) {
+				this.client.log.warn('Failed to update mentioned roles entities in ticket archive');
+				this.client.log.error(e);
+			}
+		});	
+		
 	}
 
 };

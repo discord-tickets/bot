@@ -7,6 +7,10 @@ module.exports = ({ config }, sequelize) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		claiming: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false,
+		},
 		guild: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,

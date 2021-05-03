@@ -2,22 +2,20 @@ const Command = require('../modules/commands/command');
 const { MessageEmbed } = require('discord.js');
 const { footer } = require('../utils/discord');
 
-module.exports = class CloseCommand extends Command {
+module.exports = class TransferCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
 			internal: true,
-			name: i18n('commands.close.name'),
-			description: i18n('commands.close.description'),
-			aliases: [
-				i18n('commands.close.aliases.delete'),
-			],
+			name: i18n('commands.transfer.name'),
+			description: i18n('commands.transfer.description'),
+			aliases: [],
 			process_args: false,
 			args: [
 				{
-					name: i18n('commands.close.args.ticket.name'),
-					description: i18n('commands.close.args.ticket.description'),
-					example: i18n('commands.close.args.ticket.example'),
+					name: i18n('commands.transfer.args.member.name'),
+					description: i18n('commands.transfer.args.member.description'),
+					example: i18n('commands.transfer.args.member.example'),
 					required: false,
 				}
 			]

@@ -23,8 +23,8 @@ module.exports = class TicketManager extends EventEmitter {
 
 	/**
 	 * Handle post-creation tasks
-	 * @param {*} t_row 
-	 * @param {*} cat_row 
+	 * @param {Model} t_row 
+	 * @param {Model} cat_row 
 	 */
 	async postCreate(t_row, cat_row) {
 
@@ -70,10 +70,17 @@ module.exports = class TicketManager extends EventEmitter {
 				.catch(() => this.client.log.warn('Failed to delete system pin message'));
 		}
 
-		let questions = cat_row.opening_questions
-			.map((q, index) => `**${index + 1}.** ${q}`)
-			.join('\n\n');
+		if (cat_row.claiming) {
+			await sent.react('🙌');
+		}
 
+		let questions;
+		if (cat_row.opening_questions) {
+			questions = cat_row.opening_questions
+				.map((q, index) => `**${index + 1}.** ${q}`)
+				.join('\n\n');
+		}
+		
 		if (cat_row.require_topic && topic.length === 0) {
 			let collector_message = await t_channel.send(
 				new MessageEmbed()
@@ -111,15 +118,17 @@ module.exports = class TicketManager extends EventEmitter {
 				collector_message
 					.delete()
 					.catch(() => this.client.log.warn('Failed to delete topic collector message'));
-				await t_channel.send(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setDescription(i18n('commands.new.questions', questions))
-						.setFooter(settings.footer)
-				);
+				if (cat_row.opening_questions) {
+					await t_channel.send(
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setDescription(i18n('commands.new.questions', questions))
+							.setFooter(settings.footer)
+					);
+				}
 			});
 		} else {
-			if (cat_row.opening_questions.length > 0) {
+			if (cat_row.opening_questions) {
 				await t_channel.send(
 					new MessageEmbed()
 						.setColor(settings.colour)
@@ -280,13 +289,15 @@ module.exports = class TicketManager extends EventEmitter {
 			}
 
 			this.client.log.info(`A ticket was closed (${ticket_id})${reason ? `: "${reason}"` : ''}`);
-
 		}
+
+		let pinned = await channel.messages.fetchPinned();
 
 		await t_row.update({
 			open: false,
 			closed_by: closer_id || null,
-			closed_reason: reason || null
+			closed_reason: reason || null,
+			pinned: [ ...pinned.keys() ]
 		});
 
 		this.emit('close', ticket_id);

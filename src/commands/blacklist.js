@@ -1,5 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const Command = require('../modules/commands/command');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class BlacklistCommand extends Command {
 	constructor(client) {
