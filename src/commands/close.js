@@ -194,7 +194,7 @@ module.exports = {
 					res.embed = embed;
 
 					try {
-						if (config.commands.close.send_transcripts) dm.send(res);
+						if (config.commands.close.send_transcripts) dm.send(res).catch(() => log.warn(`Could not send a DM to ${u.tag}`));
 						if (config.transcripts.channel.length > 1) client.channels.cache.get(config.transcripts.channel).send(res);
 					} catch (e) {
 						message.channel.send('❌ Couldn\'t send DM or transcript log message');
