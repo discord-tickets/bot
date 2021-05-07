@@ -6,17 +6,17 @@ DiscordTickets is a Discord bot for managing support ticket channels, to allow y
 
 ## Features
 
-- Highly customisable
-- Ticket "panel" / "widget" (react to embed to create ticket)
-- Simple commands
-- Supports multiple databases: SQLite (easy, default), MySQL (recommend) storage, MariaDB, PostgreSQL and Microsoft SQL Server
-- Most (all of the best) features of the premium bots, for free
-- Self-hosted with your bot application, your logo and guild name
-- Optional express.js server for web archives: [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal/)
+- Highly customisable.
+- Ticket "panel" / "widget" (react to embed to create ticket).
+- Simple commands.
+- Supports multiple databases: SQLite (easy, default), MySQL (recommended), MariaDB, PostgreSQL and Microsoft SQL Server.
+- Most (all of the best) features of the premium bots, for free.
+- Self-hosted with your bot application, your logo and guild name.
+- Optional express.js server for web archives: [DiscordTickets-Portal](https://github.com/eartharoid/DiscordTickets-Portal/).
 
 ## Screenshot
 
-*The mention and embed text are customisable. The images is randomly selected and can be changed or disabled.*
+*The mention and embed text are customisable. The images are randomly selected and can be changed or disabled.*
 ![Screenshot](https://i.imgur.com/Y1uCqJJ.gif)
 
 ## Instructions
