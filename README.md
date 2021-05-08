@@ -33,7 +33,7 @@ Modify config.js and .env as required.
 
 ## Support
 
-**[Go to the wiki](https://github.com/Eartharoid/DiscordTickets/wiki)**, or ask for help in [#support](https://discordapp.com/channels/451745464480432129/475351519516950548) on [Discord](https://discord.gg/pXc9vyC).
+**[Go to the wiki](https://github.com/Eartharoid/DiscordTickets/wiki)**, or ask for help in [#support](https://discordapp.com/channels/451745464480432129/475351519516950548) on my [Discord server](https://discord.gg/pXc9vyC).
 
 [![Discord](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://discord.gg/pXc9vyC)
 
