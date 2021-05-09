@@ -2,16 +2,16 @@
 	"bot": {
 		"missing_permissions": {
 			"title": "⚠️",
-			"description": "Discord Tickets requires the following permissions:\n%s"
+			"description": "Discord Tickets necessita i seguenti permessi.\n%s"
 		},
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"description": "**Descrizione:** %s",
+			"example": "**Esempio:** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**Uso:**\n`%s`\n\n**Esempio:**\n`%s`\n\nGli argomenti richiesti hanno il prefisso `❗`.",
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
 	},
