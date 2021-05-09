@@ -27,7 +27,7 @@ module.exports = {
 				if (command.hide || command.disabled) continue;
 				if (command.permission && !message.member.hasPermission(command.permission)) continue;
 
-				let desc = command.description;
+				let desc = command.description || 'No description';
 
 				if (desc.length > 50) desc = desc.substring(0, 50) + '...';
 				cmds.push(`**${config.prefix}${command.name}** **·** ${desc}`);
