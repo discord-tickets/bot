@@ -12,6 +12,10 @@
 			"example": "**Příklad:** `%s`"
 		},
 		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
+		"invalid_named_args": {
+			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
+			"title": ":x: Invalid syntax"
+		},
 		"named_args": "Tento příkaz používá jmenné argumenty.\n\n",
 		"title": "Použití příkazu `%s`"
 	},
@@ -23,40 +27,40 @@
 			},
 			"args": {
 				"member_or_role": {
-					"name": "uživatelNeboRole",
 					"description": "Označení člena, role nebo ID člena popřípadě ID role",
-					"example": "@NeposlušnýUživatel"
+					"example": "@NeposlušnýUživatel",
+					"name": "uživatelNeboRole"
 				}
 			},
 			"description": "Zablokuje/povolí uživateli interakci s botem",
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"title": "📃 Zablokovaní uživatelé a role",
-					"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <memberOrRole>` pro přidání uživatele nebo role na černou listinu."
+					"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <memberOrRole>` pro přidání uživatele nebo role na černou listinu.",
+					"title": "📃 Zablokovaní uživatelé a role"
 				},
 				"illegal_action": {
-					"title": "❌ Tohoto člena nemůžeš přidat na černou listinu",
-					"description": "%s je člen serveru a nemůže být na černé listině."
+					"description": "%s je člen serveru a nemůže být na černé listině.",
+					"title": "❌ Tohoto člena nemůžeš přidat na černou listinu"
 				},
 				"list": {
 					"title": "📃 Zablokovaní uživatelé a role"
 				},
 				"member_added": {
-					"title": "✅ Uživatel přidán na blacklist",
-					"description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota."
+					"description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota.",
+					"title": "✅ Uživatel přidán na blacklist"
 				},
 				"member_removed": {
-					"title": "✅ Uživatel odstraněn z blacklistu",
-					"description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota."
+					"description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota.",
+					"title": "✅ Uživatel odstraněn z blacklistu"
 				},
 				"role_added": {
-					"title": "✅ Role přidána na blacklist",
-					"description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota."
+					"description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota.",
+					"title": "✅ Role přidána na blacklist"
 				},
 				"role_removed": {
-					"title": "✅ Role odstraněna z blacklistu",
-					"description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota."
+					"description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota.",
+					"title": "✅ Role odstraněna z blacklistu"
 				}
 			}
 		},
@@ -66,29 +70,29 @@
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
 					"description": "Číslo nebo označení kanálu s ticketem pro uzaření",
-					"example": "217"
+					"example": "217",
+					"name": "ticket"
 				}
 			},
 			"description": "Uzavře kanál s ticketem",
 			"name": "close",
 			"response": {
 				"closed": {
-					"title": "✅ Ticket uzavřen",
-					"description": "Tento ticket byl uzavřen.\nTento kanál se smaže za 5 sekund."
+					"description": "Tento ticket byl uzavřen.\nTento kanál se smaže za 5 sekund.",
+					"title": "✅ Ticket uzavřen"
 				},
 				"closed_by_member": {
-					"title": "✅ Ticket uzavřen",
-					"description": "Tento ticket byl uzavřen uživatelem %s.\nTento kanál se smaže za 5 sekund."
+					"description": "Tento ticket byl uzavřen uživatelem %s.\nTento kanál se smaže za 5 sekund.",
+					"title": "✅ Ticket uzavřen"
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Ticket uzavřen",
-					"description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nTento kanál se smaže za 5 sekund."
+					"description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nTento kanál se smaže za 5 sekund.",
+					"title": "✅ Ticket uzavřen"
 				},
 				"closed_with_reason": {
-					"title": "✅ Ticket uzavřen",
-					"description": "Tento ticket byl uzavřen: `%s`\nTento kanál se smaže za 5 sekund."
+					"description": "Tento ticket byl uzavřen: `%s`\nTento kanál se smaže za 5 sekund.",
+					"title": "✅ Ticket uzavřen"
 				}
 			}
 		},
@@ -99,9 +103,9 @@
 			},
 			"args": {
 				"topic": {
-					"name": "topic",
 					"description": "Téma ticketu",
-					"example": "Problém s fakturací"
+					"example": "Problém s fakturací",
+					"name": "topic"
 				}
 			},
 			"description": "Vytvoří ticket",
@@ -114,38 +118,70 @@
 			"questions": "Prosím odpovězte na níže položené otázky:\n\n%s",
 			"response": {
 				"claimed": {
-					"title": "✅ Ticket claimed",
-					"description": "%s has claimed this ticket."
+					"description": "%s has claimed this ticket.",
+					"title": "✅ Ticket claimed"
 				},
 				"created": {
-					"title": "✅ Ticket vytvořen",
-					"description": "Tvůj ticket byl vytvořen: %s."
+					"description": "Tvůj ticket byl vytvořen: %s.",
+					"title": "✅ Ticket vytvořen"
 				},
 				"has_a_ticket": {
-					"title": "❌ Již máte otevřený ticket",
-					"description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového."
+					"description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového.",
+					"title": "❌ Již máte otevřený ticket"
 				},
 				"max_tickets": {
-					"title": "❌ Již máš %d otevřených ticketů",
-					"description": "Prosím použij `%sclose` pro uzavření nepotřebných ticketů.\n\n%s"
+					"description": "Prosím použij `%sclose` pro uzavření nepotřebných ticketů.\n\n%s",
+					"title": "❌ Již máš %d otevřených ticketů"
 				},
 				"no_categories": {
-					"title": "❌ Nelze vytvořit ticket",
-					"description": "Než budete moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety."
+					"description": "Než budete moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
+					"title": "❌ Nelze vytvořit ticket"
 				},
 				"select_category": {
-					"title": "🔤 Prosím vyber kategorii ticketu",
-					"description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s"
+					"description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s",
+					"title": "🔤 Prosím vyber kategorii ticketu"
 				},
 				"select_category_timeout": {
-					"title": "❌ Doba pro reakci vypršela",
-					"description": "Výběr kategorie ticketu trvala příliš dlouho."
+					"description": "Výběr kategorie ticketu trvala příliš dlouho.",
+					"title": "❌ Doba pro reakci vypršela"
 				}
 			},
 			"request_topic": {
-				"title": "Téma ticketu",
-				"description": "Prosím stručně popiš několika slovy o čem je tento ticket."
+				"description": "Prosím stručně popiš několika slovy o čem je tento ticket.",
+				"title": "Téma ticketu"
 			}
+		},
+		"panel": {
+			"aliases": {},
+			"args": {
+				"category": {
+					"alias": "c",
+					"description": "A category ID",
+					"example": "451745464954650634",
+					"name": "category"
+				},
+				"description": {
+					"alias": "d",
+					"description": "The description for the panel message",
+					"example": "\"React to this message to open a ticket.\"",
+					"name": "description"
+				},
+				"emoji": {
+					"alias": "e",
+					"description": "A **unicode** emoji character (escaped emoji)",
+					"example": "\\:ticket:",
+					"name": "emoji"
+				},
+				"title": {
+					"alias": "t",
+					"description": "The title for the panel message",
+					"example": "\"Support tickets\"",
+					"name": "title"
+				}
+			},
+			"description": "Create a new ticket panel",
+			"name": "panel",
+			"response": {}
 		},
 		"settings": {
 			"aliases": {
@@ -172,16 +208,16 @@
 		}
 	},
 	"command_execution_error": {
-		"title": "⚠️",
-		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce serveru, aby zkontroloval výstup konzole / log pro více detailů."
+		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce serveru, aby zkontroloval výstup konzole / log pro více detailů.",
+		"title": "⚠️"
 	},
 	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
 	"missing_permissions": {
-		"title": "❌",
-		"description": "Na provedení tohoto příkazu nemáš dostatečné oprávnění:\n%s"
+		"description": "Na provedení tohoto příkazu nemáš dostatečné oprávnění:\n%s",
+		"title": "❌"
 	},
 	"staff_only": {
-		"title": "❌",
-		"description": "Na provedení tohoto příkazu musíte být členem týmu."
+		"description": "Na provedení tohoto příkazu musíte být členem týmu.",
+		"title": "❌"
 	}
 }
