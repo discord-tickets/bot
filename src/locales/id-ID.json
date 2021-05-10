@@ -113,6 +113,10 @@
 			},
 			"questions": "Tolong jawab pertanyaan-pertanyaan berikut:\n\n%s",
 			"response": {
+				"claimed": {
+					"title": "✅ Ticket claimed",
+					"description": "%s has claimed this ticket."
+				},
 				"created": {
 					"title": "✅ Tiket dibuat",
 					"description": "Tiket anda telah dibuat: %s."
