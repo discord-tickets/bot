@@ -113,6 +113,10 @@
 			},
 			"questions": "Пожалуйста, ответьте на следующие вопросы:\n\n%s",
 			"response": {
+				"claimed": {
+					"title": "✅ Ticket claimed",
+					"description": "%s has claimed this ticket."
+				},
 				"created": {
 					"title": "✅ Тикет создан",
 					"description": "Ваш тикет был создан: %s."
