@@ -2,20 +2,20 @@
 	"bot": {
 		"missing_permissions": {
 			"title": "⚠️",
-			"description": "Discord Tickets requires the following permissions:\n%s"
+			"description": "Discord Tickets требует следующих разрешений:\n%s"
 		},
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s от [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"description": "**Описание:** %s",
+			"example": "**Пример:** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"description": "**Использование:**\n`%s`\n\n**Пример:**\n`%s`\n\nОбязательные аргументы префиксированы с `❗`.",
+		"named_args": "Эта команда использует названные аргументы.\n\n",
+		"title": "Использование команды `%s`"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Истекает через %d секунд",
 	"commands": {
 		"blacklist": {
 			"aliases": {
@@ -24,7 +24,7 @@
 			"args": {
 				"member_or_role": {
 					"name": "memberOrRole",
-					"description": "A member mention, a role mention, or the ID of a member or role",
+					"description": "Упоминание участника, упоминание роли или ID участника или роли",
 					"example": "@NaughtyMember"
 				}
 			},
@@ -32,97 +32,101 @@
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"title": "📃 Blacklisted members and roles",
+					"title": "📃 Черный список пользователей и ролей",
 					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist."
 				},
 				"illegal_action": {
-					"title": "❌ You can't blacklist this member",
-					"description": "%s is a staff member and cannot be blacklisted."
+					"title": "❌ Вы не можете добавить в черный список этого участника",
+					"description": "%s есть персоналом и не может быть внесен в черный список."
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 Черный список пользователей и ролей"
 				},
 				"member_added": {
-					"title": "✅ Added member to blacklist",
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot."
+					"title": "✅ Пользователь добавлен в черный список",
+					"description": "<@%s> добавлен в черный список. Они больше не смогут взаимодействовать с ботом."
 				},
 				"member_removed": {
-					"title": "✅ Removed member from blacklist",
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again."
+					"title": "✅ Пользователь убран из черного списка",
+					"description": "<@%s> был убран из черного списка. Теперь он может использовать бота снова."
 				},
 				"role_added": {
-					"title": "✅ Added role to blacklist",
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot."
+					"title": "✅ Добавлена роль в черный список",
+					"description": "<@&%s> добавлена в черный список. Участники с этой ролью больше не смогут взаимодействовать с ботом."
 				},
 				"role_removed": {
-					"title": "✅ Removed role from blacklist",
+					"title": "✅ Роль убрана из черного списка",
 					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again."
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete"
+				"delete": "удалить"
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
-					"description": "The number or a channel mention of the ticket to close",
+					"name": "тикет",
+					"description": "Номер или канал упоминания тикета который надо закрыть",
 					"example": "217"
 				}
 			},
-			"description": "Close a ticket channel",
-			"name": "close",
+			"description": "Закрыть тикет-канал",
+			"name": "закрыть",
 			"response": {
 				"closed": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Тикет закрыт",
+					"description": "Этот тикет закрыт.\nКанал будет удален в течении 5 секунд."
 				},
 				"closed_by_member": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Тикет закрыт",
+					"description": "Этот тикет был закрыт %s.\nКанал будет удален в течение 5 секунд."
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Тикет закрыт",
+					"description": "Этот тикет был закрыт %s: `%s`\nКанал будет удален в течение 5 секунд."
 				},
 				"closed_with_reason": {
-					"title": "✅ Ticket closed",
-					"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds."
+					"title": "✅ Тикет закрыт",
+					"description": "Этот тикет был закрыт: `%s`\nКанал будет удален в течение 5 секунд."
 				}
 			}
 		},
 		"new": {
 			"aliases": {
-				"create": "create",
-				"open": "open"
+				"create": "создать",
+				"open": "открыть"
 			},
 			"args": {
 				"topic": {
-					"name": "topic",
-					"description": "The topic of the ticket",
-					"example": "Problem with billing"
+					"name": "топик",
+					"description": "Тема билета",
+					"example": "Проблема с выставлением счетов"
 				}
 			},
-			"description": "Create a new ticket",
-			"name": "new",
+			"description": "Создание нового тикета",
+			"name": "новый",
 			"opening_message": {
 				"fields": {
-					"topic": "Topic"
+					"topic": "Топик"
 				}
 			},
-			"questions": "Please answer the following questions:\n\n%s",
+			"questions": "Пожалуйста, ответьте на следующие вопросы:\n\n%s",
 			"response": {
+				"claimed": {
+					"title": "✅ Ticket claimed",
+					"description": "%s has claimed this ticket."
+				},
 				"created": {
-					"title": "✅ Ticket created",
-					"description": "Your ticket has been created: %s."
+					"title": "✅ Тикет создан",
+					"description": "Ваш тикет был создан: %s."
 				},
 				"has_a_ticket": {
-					"title": "❌ You already have an open ticket",
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another."
+					"title": "❌ У вас уже есть открытый тикет",
+					"description": "Пожалуйста, используйте существующий тикет (<#%s>) или закройте его перед созданием нового."
 				},
 				"max_tickets": {
-					"title": "❌ You already have %d open tickets",
+					"title": "❌ У вас уже есть %d открытых тикетов",
 					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s"
 				},
 				"no_categories": {

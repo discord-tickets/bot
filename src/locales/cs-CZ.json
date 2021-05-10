@@ -113,6 +113,10 @@
 			},
 			"questions": "Prosím odpovězte na níže položené otázky:\n\n%s",
 			"response": {
+				"claimed": {
+					"title": "✅ Ticket claimed",
+					"description": "%s has claimed this ticket."
+				},
 				"created": {
 					"title": "✅ Ticket vytvořen",
 					"description": "Tvůj ticket byl vytvořen: %s."
