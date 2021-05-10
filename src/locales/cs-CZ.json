@@ -2,7 +2,7 @@
 	"bot": {
 		"missing_permissions": {
 			"title": "⚠️",
-			"description": "Discord Tickets requires the following permissions:\n%s"
+			"description": "Discord Tickets vyžaduje následující oprávnění:\n%s"
 		},
 		"version": "[Discord tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
 	},
@@ -25,7 +25,7 @@
 				"member_or_role": {
 					"name": "uživatelNeboRole",
 					"description": "Označení člena, role nebo ID člena popřípadě ID role",
-					"example": "@nezbedný-člen"
+					"example": "@NeposlušnýUživatel"
 				}
 			},
 			"description": "Zablokuje/povolí uživateli interakci s botem",
@@ -152,6 +152,19 @@
 			"response": {
 				"updated": "✅ Nastavení bylo aktualizováno."
 			}
+		},
+		"transfer": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "Zmínka uživatele nebo ID člena, na který se má ticket převést",
+					"example": "@ČlenTýmu",
+					"name": "uživatel"
+				}
+			},
+			"description": "Převede ticket na jiného člena týmu",
+			"name": "transfer",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
@@ -161,7 +174,7 @@
 	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
 	"missing_permissions": {
 		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "Na provedení tohoto příkazu nemáš dostatečné oprávnění:\n%s"
 	},
 	"staff_only": {
 		"title": "❌",
