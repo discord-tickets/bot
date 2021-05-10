@@ -4,6 +4,9 @@ const { Collection, Client, Message, MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const { path } = require('../../utils/fs');
 
+const { parseArgsStringToArgv: argv } = require('string-argv');
+const parseArgs = require('command-line-args');
+
 /**
  * Manages the loading and execution of commands
  */
@@ -153,11 +156,9 @@ module.exports = class CommandManager {
 		let args = raw_args;
 
 		if (cmd.process_args) {
-			args = {};
-			let data = [...raw_args.matchAll(/(?<key>\w+)\??\s?:\s?(?<value>([^;]|;{2})*);/gmi)]; // an array of argument objects
-			data.forEach(arg => args[arg.groups.key] = arg.groups.value.replace(/;{2}/gm, ';')); // put the data into a useful format
+			args = parseArgs(cmd.args, { argv: argv(raw_args) });
 			for (let arg of cmd.args) {
-				if (arg.required && !args[arg]) {
+				if (arg.required && args[arg.name] === undefined) {
 					return await cmd.sendUsage(message.channel, cmd_name); // send usage if any required arg is missing
 				}
 			}

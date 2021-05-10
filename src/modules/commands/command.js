@@ -21,7 +21,7 @@ module.exports = class Command {
 	 * @param {boolean} [data.staff_only] - Only allow staff to use this command?
 	 * @param {string[]} [data.permissions] - Array of permissions needed for a user to use this command
 	 * @param {boolean} [data.process_args] - Should the command handler process named arguments?
-	 * @param {CommandArgument[]} [data.args] - The command's arguments
+	 * @param {CommandArgument[]} [data.args] - The command's arguments (see [docs](https://github.com/75lb/command-line-args/blob/master/doc/option-definition.md) if using processed args)
 	 */
 	constructor(client, data) {
 
@@ -132,7 +132,7 @@ module.exports = class Command {
 
 		const addArgs = (embed, arg) => {
 			let required = arg.required ? '`❗` ' : '';
-			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description', arg.description)}}\n» ${i18n('cmd_usage.args.example', arg.example)}`);
+			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description', arg.description)}\n» ${i18n('cmd_usage.args.example', arg.example)}`);
 		};
 
 		let usage,
@@ -140,8 +140,8 @@ module.exports = class Command {
 			embed;
 
 		if (this.process_args) {
-			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name};>` : `[${arg.name};]`).join(' ')}`;
-			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.name}: ${arg.example};`).join(' ')}`;
+			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
+			example = `${prefix + cmd_name} \n${this.args.map(arg => `--${arg.name} ${arg.example}`).join('\n')}`;
 			embed = new MessageEmbed()
 				.setColor(settings.error_colour)
 				.setTitle(i18n('cmd_usage.title', cmd_name))
