@@ -4,13 +4,12 @@ module.exports = (client, sequelize) => {
 	sequelize.define('UserEntity', {
 		avatar: DataTypes.STRING,
 		bot: DataTypes.BOOLEAN,
-		colour: DataTypes.CHAR(6),
 		discriminator: DataTypes.STRING,
 		display_name: DataTypes.TEXT,
 		ticket: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'id-ticket',
+			unique: 'user-ticket',
 			references: {
 				model: DB_TABLE_PREFIX + 'tickets',
 				key: 'id'
@@ -19,9 +18,17 @@ module.exports = (client, sequelize) => {
 		user: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'id-ticket'
+			unique: 'user-ticket'
 		},
 		username: DataTypes.TEXT,
+		role: {
+			type: DataTypes.CHAR(19),
+			allowNull: false,
+			references: {
+				model: DB_TABLE_PREFIX + 'role_entities',
+				key: 'role'
+			},
+		},
 	}, {
 		tableName: DB_TABLE_PREFIX + 'user_entities'
 	});

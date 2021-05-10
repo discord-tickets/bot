@@ -1,7 +1,6 @@
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
 const { MessageEmbed } = require('discord.js');
-const { int2hex } = require('../../utils');
 const { footer } = require('../../utils/discord');
 
 /** Manages tickets */
@@ -51,7 +50,7 @@ module.exports = class TicketManager extends EventEmitter {
 			.setColor(settings.colour)
 			.setAuthor(member.user.username, member.user.displayAvatarURL())
 			.setDescription(description)
-			.setFooter(settings.footer);
+			.setFooter(settings.footer, guild.iconURL());
 
 		if (topic) embed.addField(i18n('commands.new.opening_message.fields.topic'), topic);
 
@@ -108,7 +107,7 @@ module.exports = class TicketManager extends EventEmitter {
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
 						.setDescription(description)
 						.addField(i18n('commands.new.opening_message.fields.topic'), topic)
-						.setFooter(settings.footer)
+						.setFooter(settings.footer, guild.iconURL())
 				);
 				await message.react('✅');
 				collector.stop();
@@ -123,7 +122,7 @@ module.exports = class TicketManager extends EventEmitter {
 						new MessageEmbed()
 							.setColor(settings.colour)
 							.setDescription(i18n('commands.new.questions', questions))
-							.setFooter(settings.footer)
+							.setFooter(settings.footer, guild.iconURL())
 					);
 				}
 			});
@@ -133,7 +132,7 @@ module.exports = class TicketManager extends EventEmitter {
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setDescription(i18n('commands.new.questions', questions))
-						.setFooter(settings.footer)
+						.setFooter(settings.footer, guild.iconURL())
 				);
 			}
 		}
@@ -231,25 +230,9 @@ module.exports = class TicketManager extends EventEmitter {
 		let channel = await this.client.channels.fetch(t_row.channel);
 
 		if (closer_id) {
-			let u_model_data = {
-				user: closer_id,
-				ticket: ticket_id
-			};
-			let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
-				where: u_model_data,
-				defaults: u_model_data
-			});
-
 			let member = await guild.members.fetch(closer_id);
 
-			await u_row.update({
-				avatar: member.user.displayAvatarURL(),
-				username: member.user.username,
-				discriminator: member.user.discriminator,
-				display_name: member.displayName,
-				colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
-				bot: member.user.bot
-			});
+			await this.archives.updateMember(ticket_id, member);
 
 			if (channel) {
 				let description = reason
@@ -261,7 +244,7 @@ module.exports = class TicketManager extends EventEmitter {
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
 						.setTitle(i18n('commands.close.response.closed.title'))
 						.setDescription(description)
-						.setFooter(settings.footer)
+						.setFooter(settings.footer, guild.iconURL())
 				);
 
 				setTimeout(async () => {
@@ -280,7 +263,7 @@ module.exports = class TicketManager extends EventEmitter {
 						.setColor(settings.success_colour)
 						.setTitle(i18n('commands.close.response.closed.title'))
 						.setDescription(description)
-						.setFooter(settings.footer)
+						.setFooter(settings.footer, guild.iconURL())
 				);
 
 				setTimeout(async () => {

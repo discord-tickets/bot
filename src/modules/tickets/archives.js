@@ -41,7 +41,7 @@ module.exports = class TicketArchives  {
 						createdAt: new Date(message.createdTimestamp)
 					}, { transaction: t });
 
-					this.updateEntities(message);
+					await this.updateEntities(message);
 				}
 			});
 		} catch (e) {
@@ -71,7 +71,7 @@ module.exports = class TicketArchives  {
 
 					if (message.editedTimestamp) {
 						m_row.edited = true;
-						this.updateEntities(message);
+						await this.updateEntities(message);
 					}
 
 					await m_row.save({ transaction: t }); // save changes
@@ -105,37 +105,52 @@ module.exports = class TicketArchives  {
 	}
 
 	async updateEntities(message) {
+		// message author
+		await this.updateMember(message.channel.id, message.member);
 
-		let m_row = await this.client.db.models.Message.findOne({
-			where: {
-				id: message.id
-			}
+		// mentioned members
+		message.mentions.members.forEach(async member => {
+			await this.updateMember(message.channel.id, member);
 		});
 
-		if (!m_row) return;
+		// mentioned channels
+		message.mentions.channels.forEach(async channel => {
+			await this.updateChannel(message.channel.id, channel);
+		});
 
-		// message author
+		// mentioned roles
+		message.mentions.roles.forEach(async role => {
+			await this.updateRole(message.channel.id, role);
+		});
+	}
+
+	async updateMember(ticket_id, member) {
+		await this.updateRole(ticket_id, member.roles.highest);
+
 		try {
-			await this.client.db.transaction(async t => {	
+			await this.client.db.transaction(async t => {
 				let u_model_data = {
-					user: message.author.id,
-					ticket: message.channel.id
+					user: member.user.id,
+					ticket: ticket_id
 				};
 
 				let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
 					where: u_model_data,
-					defaults: u_model_data,
+					defaults: {
+						...u_model_data,
+						role: member.roles.highest.id
+					},
 					transaction: t
 				});
 
 				await u_row.update({
-					avatar: message.author.displayAvatarURL(),
-					username: this.encrypt(message.author.username),
-					discriminator: message.author.discriminator,
-					display_name: this.encrypt(message.member.displayName),
-					colour: message.member.displayColor === 0 ? null : int2hex(message.member.displayColor),
-					bot: message.author.bot
-				}, { transaction: t  });
+					avatar: member.user.displayAvatarURL(),
+					username: this.encrypt(member.user.username),
+					discriminator: member.user.discriminator,
+					display_name: this.encrypt(member.displayName),
+					role: member.roles.highest.id,
+					bot: member.user.bot
+				}, { transaction: t });
 
 				return u_row;
 			});
@@ -143,89 +158,57 @@ module.exports = class TicketArchives  {
 			this.client.log.warn('Failed to update message author entity in ticket archive');
 			this.client.log.error(e);
 		}
+	}
 
-		// mentioned members
-		message.mentions.members.forEach(async member => {
-			try {
-				await this.client.db.transaction(async t => {
-					let m_model_data = {
-						user: member.user.id,
-						ticket: message.channel.id
-					};
-					let [m_row] = await this.client.db.models.UserEntity.findOrCreate({
-						where: m_model_data,
-						defaults: m_model_data,
-						transaction: t
-					});
-
-					await m_row.update({
-						avatar: member.user.displayAvatarURL(),
-						username: this.encrypt(member.user.username),
-						discriminator: member.user.discriminator,
-						display_name: this.encrypt(member.displayName),
-						colour: member.displayColor === 0 ? null : int2hex(member.displayColor),
-						bot: member.user.bot
-					}, { transaction: t });
-
-					return m_row;
+	async updateChannel(ticket_id, channel) {
+		try {
+			await this.client.db.transaction(async t => {
+				let c_model_data = {
+					channel: channel.id,
+					ticket: ticket_id
+				};
+				let [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
+					where: c_model_data,
+					defaults: c_model_data,
+					transaction: t
 				});
-			} catch (e) {
-				this.client.log.warn('Failed to update mentioned members entities in ticket archive');
-				this.client.log.error(e);
-			}
-		});
 
-		// mentioned channels
-		message.mentions.channels.forEach(async channel => {
-			try {
-				await this.client.db.transaction(async t => {
-					let c_model_data = {
-						channel: channel.id,
-						ticket: message.channel.id
-					};
-					let [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
-						where: c_model_data,
-						defaults: c_model_data,
-						transaction: t
-					});
-					await c_row.update({
-						name: this.encrypt(channel.name)
-					}, { transaction: t });
+				await c_row.update({
+					name: this.encrypt(channel.name)
+				}, { transaction: t });
 
-					return c_row;
+				return c_row;
+			});
+		} catch (e) {
+			this.client.log.warn('Failed to update mentioned channels entities in ticket archive');
+			this.client.log.error(e);
+		}
+	}
+
+	async updateRole(ticket_id, role) {
+		try {
+			await this.client.db.transaction(async t => {
+				let r_model_data = {
+					role: role.id,
+					ticket: ticket_id
+				};
+				let [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
+					where: r_model_data,
+					defaults: r_model_data,
+					transaction: t
 				});
-			} catch (e) {
-				this.client.log.warn('Failed to update mentioned channels entities in ticket archive');
-				this.client.log.error(e);
-			}
-		});
 
-		// mentioned roles
-		message.mentions.roles.forEach(async role => {
-			try {
-				await this.client.db.transaction(async t => {
-					let r_model_data = {
-						role: role.id,
-						ticket: message.channel.id
-					};
-					let [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
-						where: r_model_data,
-						defaults: r_model_data,
-						transaction: t
-					});
-					await r_row.update({
-						name: this.encrypt(role.name),
-						colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
-					}, { transaction: t });
+				await r_row.update({
+					name: this.encrypt(role.name),
+					colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
+				}, { transaction: t });
 
-					return r_row;
-				});
-			} catch (e) {
-				this.client.log.warn('Failed to update mentioned roles entities in ticket archive');
-				this.client.log.error(e);
-			}
-		});	
-		
+				return r_row;
+			});
+		} catch (e) {
+			this.client.log.warn('Failed to update mentioned roles entities in ticket archive');
+			this.client.log.error(e);
+		}
 	}
 
 };

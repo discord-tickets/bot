@@ -10,12 +10,12 @@ module.exports = (client, sequelize) => {
 		role: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'id-ticket'
+			unique: 'role-ticket'
 		},
 		ticket: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'id-ticket',
+			unique: 'role-ticket',
 			references: {
 				model: DB_TABLE_PREFIX + 'tickets',
 				key: 'id'
