@@ -156,7 +156,17 @@ module.exports = class CommandManager {
 		let args = raw_args;
 
 		if (cmd.process_args) {
-			args = parseArgs(cmd.args, { argv: argv(raw_args) });
+			try {
+				args = parseArgs(cmd.args, { argv: argv(raw_args) });
+			} catch (error) {
+				let help_cmd = `${settings.command_prefix}${i18n('commands.help.name')} ${cmd_name}`;
+				return await message.channel.send(
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('cmd_usage.invalid_named_args.title'))
+						.setDescription(i18n('cmd_usage.invalid_named_args.description', error.message, help_cmd))
+				);
+			}
 			for (let arg of cmd.args) {
 				if (arg.required && args[arg.name] === undefined) {
 					return await cmd.sendUsage(message.channel, cmd_name); // send usage if any required arg is missing
