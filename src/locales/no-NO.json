@@ -113,6 +113,10 @@
 			},
 			"questions": "Svar på følgende spørsmål:\n\n%s",
 			"response": {
+				"claimed": {
+					"title": "✅ Ticket claimed",
+					"description": "%s has claimed this ticket."
+				},
 				"created": {
 					"title": "✅ Billetten er opprettet",
 					"description": "Billetten er opprettet: %s."
