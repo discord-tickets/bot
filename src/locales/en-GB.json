@@ -23,9 +23,9 @@
 			},
 			"args": {
 				"member_or_role": {
-					"name": "memberOrRole",
 					"description": "A member mention, a role mention, or the ID of a member or role",
-					"example": "@NaughtyMember"
+					"example": "@NaughtyMember",
+					"name": "memberOrRole"
 				}
 			},
 			"description": "Blacklist/unblacklist a member from interacting with the bot",
@@ -66,9 +66,9 @@
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
 					"description": "The number or a channel mention of the ticket to close",
-					"example": "217"
+					"example": "217",
+					"name": "ticket"
 				}
 			},
 			"description": "Close a ticket channel",
@@ -99,9 +99,9 @@
 			},
 			"args": {
 				"topic": {
-					"name": "topic",
 					"description": "The topic of the ticket",
-					"example": "Problem with billing"
+					"example": "Problem with billing",
+					"name": "topic"
 				}
 			},
 			"description": "Create a new ticket",
@@ -146,6 +146,38 @@
 				"title": "Ticket topic",
 				"description": "Please briefly state what this ticket is about in a a few words."
 			}
+		},
+		"panel": {
+			"aliases": {},
+			"args": {
+				"category": {
+					"alias": "c",
+					"description": "A category ID",
+					"example": "451745464954650634",
+					"name": "category"
+				},
+				"description": {
+					"alias": "d",
+					"description": "The description for the panel message",
+					"example": "\"React to this message to open a ticket.\"",
+					"name": "description"
+				},
+				"emoji": {
+					"alias": "e",
+					"description": "A **unicode** emoji character (escaped emoji)",
+					"example": "\\:ticket:",
+					"name": "emoji"
+				},
+				"title": {
+					"alias": "t",
+					"description": "The title for the panel message",
+					"example": "\"Support tickets\"",
+					"name": "title"
+				}
+			},
+			"description": "Create a new ticket panel",
+			"name": "panel",
+			"response": {}
 		},
 		"settings": {
 			"aliases": {
