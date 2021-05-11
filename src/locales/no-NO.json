@@ -169,7 +169,7 @@
 				"emoji": {
 					"alias": "e",
 					"description": "A **unicode** emoji character (escaped emoji)",
-					"example": "\\:ticket:",
+					"example": "🎫",
 					"name": "emoji"
 				},
 				"title": {
