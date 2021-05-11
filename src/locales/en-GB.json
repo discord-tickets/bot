@@ -14,7 +14,7 @@
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"invalid_named_args": {
 			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": ":x: Invalid syntax"
+			"title": "❌ Invalid syntax"
 		},
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
@@ -124,6 +124,9 @@
 				"created": {
 					"description": "Your ticket has been created: %s.",
 					"title": "✅ Ticket created"
+				},
+				"error": {
+					"title": "❌ Error"
 				},
 				"has_a_ticket": {
 					"description": "Please use your existing ticket (<#%s>) or close it before creating another.",
