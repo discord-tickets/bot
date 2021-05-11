@@ -94,6 +94,8 @@ module.exports = class PanelCommand extends Command {
 		let panel_channel,
 			panel_message;
 		
+		let emoji_map = args[arg_categories];
+		
 		let embed = new MessageEmbed()
 			.setColor(settings.colour)
 			.setFooter(settings.footer, message.guild.iconURL());
@@ -160,10 +162,10 @@ module.exports = class PanelCommand extends Command {
 					await panel_message.react(args[arg_emoji][0]);
 				} else {
 					// multi category
-
-					let emoji_map = {};
 					let description = '';
 
+					emoji_map = {};
+					
 					for (let i in args[arg_emoji]) {
 						emoji_map[args[arg_emoji][i]] = args[arg_categories][i];
 						let cat_row = await this.client.db.models.Category.findOne({
@@ -192,7 +194,7 @@ module.exports = class PanelCommand extends Command {
 		message.channel.send(`✅ ${panel_channel}`);
 
 		await this.client.db.models.Panel.create({
-			categories: args[arg_categories],
+			categories: emoji_map,
 			channel: panel_channel.id,
 			guild: message.guild.id,
 			message: panel_message.id,
