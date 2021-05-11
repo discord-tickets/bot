@@ -18,7 +18,8 @@ module.exports = class TransferCommand extends Command {
 					example: i18n('commands.transfer.args.member.example'),
 					required: false,
 				}
-			]
+			],
+			staff_only: true
 		});
 	}
 
