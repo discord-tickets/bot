@@ -55,7 +55,6 @@ module.exports = class PanelCommand extends Command {
 	}
 
 	async execute(message, args) {
-
 		const arg_title = this.args[0].name;
 		const arg_description = this.args[1].name;
 		const arg_emoji = this.args[2].name;
@@ -66,6 +65,7 @@ module.exports = class PanelCommand extends Command {
 
 		console.log(args)
 		message.channel.send(Object.keys(args).map(arg => `${arg}: \`${args[arg]}\``).join('\n'))
+		console.log(args.category)
 
 		if (!args[arg_emoji]) {
 			// reaction-less panel
@@ -80,6 +80,5 @@ module.exports = class PanelCommand extends Command {
 				}
 			}
 		}
-
 	}
 };

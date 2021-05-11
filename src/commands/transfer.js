@@ -23,9 +23,7 @@ module.exports = class TransferCommand extends Command {
 	}
 
 	async execute(message, args) {
-
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
-
 	}
 };

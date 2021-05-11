@@ -17,7 +17,6 @@ module.exports = class SettingsCommand extends Command {
 	}
 
 	async execute(message) {
-
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -191,7 +190,7 @@ module.exports = class SettingsCommand extends Command {
 			message.channel.send({
 				files: [attachment]
 			});
-			
+	
 		}
 	}
 };

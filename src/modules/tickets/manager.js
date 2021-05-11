@@ -156,6 +156,11 @@ module.exports = class TicketManager extends EventEmitter {
 
 		if (!cat_row)
 			throw new Error('Ticket category does not exist');
+		
+		let cat_channel = await this.client.channels.fetch(category_id);
+
+		if (cat_channel.children.size >= 50)
+			throw new Error('Ticket category has reached child channel limit (50)');
 
 		let number = (await this.client.db.models.Ticket.count({
 			where: {

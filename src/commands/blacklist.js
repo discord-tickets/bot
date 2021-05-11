@@ -25,7 +25,6 @@ module.exports = class BlacklistCommand extends Command {
 	}
 
 	async execute(message, args) {
-
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -101,6 +100,5 @@ module.exports = class BlacklistCommand extends Command {
 
 		settings.blacklist = new_blacklist;
 		await settings.save();
-
 	}
 };
