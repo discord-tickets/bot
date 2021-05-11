@@ -12,6 +12,10 @@
 			"example": "**Eksempel:** `%s`"
 		},
 		"description": "**Bruk:**\n`%s`\n\n**Eksempel:**\n`%s`\n\nObligatoriske felt er prefikset med `❗`.",
+		"invalid_named_args": {
+			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
+			"title": ":x: Invalid syntax"
+		},
 		"named_args": "Denne kommandoen bruker navngitte argumenter.\n\n",
 		"title": "'%s' kommandobruk"
 	},
@@ -23,40 +27,40 @@
 			},
 			"args": {
 				"member_or_role": {
-					"name": "medlemEllerRolle",
 					"description": "Du må nevne en bruker, en rolle, eller en ID av en bruker eller rolle",
-					"example": "@NaughtyMember"
+					"example": "@NaughtyMember",
+					"name": "medlemEllerRolle"
 				}
 			},
 			"description": "Svarteliste/fjerne fra svarteliste et medlem fra og bruke denne botten",
 			"name": "svarteliste",
 			"response": {
 				"empty_list": {
-					"title": "📃 Svartelistet medlemmer og roller",
-					"description": "Det er ingen medlemmer eller roller svartelistet. Skriv `%sblacklist <memberOrRole>` for og legge til et medlem eller rolle til svartelisten."
+					"description": "Det er ingen medlemmer eller roller svartelistet. Skriv `%sblacklist <memberOrRole>` for og legge til et medlem eller rolle til svartelisten.",
+					"title": "📃 Svartelistet medlemmer og roller"
 				},
 				"illegal_action": {
-					"title": "❌ Du kan ikke svarteliste dette medlemmet",
-					"description": "%s er en moderator og kan ikke bli svartelistet."
+					"description": "%s er en moderator og kan ikke bli svartelistet.",
+					"title": "❌ Du kan ikke svarteliste dette medlemmet"
 				},
 				"list": {
 					"title": "📃 Svartelistet medlemmer og roller"
 				},
 				"member_added": {
-					"title": "✅ La til medlemmet til svartelisten",
-					"description": "<@%s> har blitt lagt til i svartelisten. De kan ikke lengre bruke botten."
+					"description": "<@%s> har blitt lagt til i svartelisten. De kan ikke lengre bruke botten.",
+					"title": "✅ La til medlemmet til svartelisten"
 				},
 				"member_removed": {
-					"title": "✅ Fjernet medlemmet fra svartelisten",
-					"description": "<@%s> har blitt fjernet fra svartelisten. De kan nå bruke botten igjen."
+					"description": "<@%s> har blitt fjernet fra svartelisten. De kan nå bruke botten igjen.",
+					"title": "✅ Fjernet medlemmet fra svartelisten"
 				},
 				"role_added": {
-					"title": "✅ La til rollen i svartelisten",
-					"description": "<@&%s> er lagt til i svartelisten. Medlemmer med denne rollen vil ikke lenger kunne bruke botten."
+					"description": "<@&%s> er lagt til i svartelisten. Medlemmer med denne rollen vil ikke lenger kunne bruke botten.",
+					"title": "✅ La til rollen i svartelisten"
 				},
 				"role_removed": {
-					"title": "✅ Fjernet rollen fra svartelisten",
-					"description": "<@&%s> er fjernet fra svartelisten. Medlemmer med denne rollen kan nå bruke botten igjen."
+					"description": "<@&%s> er fjernet fra svartelisten. Medlemmer med denne rollen kan nå bruke botten igjen.",
+					"title": "✅ Fjernet rollen fra svartelisten"
 				}
 			}
 		},
@@ -66,29 +70,29 @@
 			},
 			"args": {
 				"ticket": {
-					"name": "billett",
 					"description": "Nummeret eller en kanal nevning av billetten som skal lukkes",
-					"example": "217"
+					"example": "217",
+					"name": "billett"
 				}
 			},
 			"description": "Lukke en billettkanal",
 			"name": "lukke",
 			"response": {
 				"closed": {
-					"title": "✅ Billetten er stengt",
-					"description": "Denne billetten er stengt.\nKanalen slettes om 5 sekunder."
+					"description": "Denne billetten er stengt.\nKanalen slettes om 5 sekunder.",
+					"title": "✅ Billetten er stengt"
 				},
 				"closed_by_member": {
-					"title": "✅ Billetten er stengt",
-					"description": "Denne billetten er stengt av %s.\nKanalen slettes om 5 sekunder."
+					"description": "Denne billetten er stengt av %s.\nKanalen slettes om 5 sekunder.",
+					"title": "✅ Billetten er stengt"
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Billetten er stengt",
-					"description": "Denne billetten er lukket av %s: '%s'\nKanalen vil bli slettet om 5 sekunder."
+					"description": "Denne billetten er lukket av %s: '%s'\nKanalen vil bli slettet om 5 sekunder.",
+					"title": "✅ Billetten er stengt"
 				},
 				"closed_with_reason": {
-					"title": "✅ Billetten er stengt",
-					"description": "Denne billetten er lukket: '%s'\nKanalen vil bli slettet om 5 sekunder."
+					"description": "Denne billetten er lukket: '%s'\nKanalen vil bli slettet om 5 sekunder.",
+					"title": "✅ Billetten er stengt"
 				}
 			}
 		},
@@ -99,9 +103,9 @@
 			},
 			"args": {
 				"topic": {
-					"name": "emne",
 					"description": "Temaet for billetten",
-					"example": "Problem med fakturering"
+					"example": "Problem med fakturering",
+					"name": "emne"
 				}
 			},
 			"description": "Opprett en ny billett",
@@ -114,38 +118,70 @@
 			"questions": "Svar på følgende spørsmål:\n\n%s",
 			"response": {
 				"claimed": {
-					"title": "✅ Ticket claimed",
-					"description": "%s has claimed this ticket."
+					"description": "%s has claimed this ticket.",
+					"title": "✅ Ticket claimed"
 				},
 				"created": {
-					"title": "✅ Billetten er opprettet",
-					"description": "Billetten er opprettet: %s."
+					"description": "Billetten er opprettet: %s.",
+					"title": "✅ Billetten er opprettet"
 				},
 				"has_a_ticket": {
-					"title": "❌ Du har allerede en åpen billett",
-					"description": "Bruk din eksisterende billett ( <#%s>) eller lukk den før du oppretter en ny."
+					"description": "Bruk din eksisterende billett ( <#%s>) eller lukk den før du oppretter en ny.",
+					"title": "❌ Du har allerede en åpen billett"
 				},
 				"max_tickets": {
-					"title": "❌ Du har allerede %d åpne billetter",
-					"description": "Vennligst bruk '%sclose' for å lukke unødvendige billetter.\n\n%s"
+					"description": "Vennligst bruk '%sclose' for å lukke unødvendige billetter.\n\n%s",
+					"title": "❌ Du har allerede %d åpne billetter"
 				},
 				"no_categories": {
-					"title": "❌ Kan ikke opprette billett",
-					"description": "En serveradministrator må opprette minst én billettkategori før en ny billett kan åpnes."
+					"description": "En serveradministrator må opprette minst én billettkategori før en ny billett kan åpnes.",
+					"title": "❌ Kan ikke opprette billett"
 				},
 				"select_category": {
-					"title": "🔤 Velg billettkategori",
-					"description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s"
+					"description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s",
+					"title": "🔤 Velg billettkategori"
 				},
 				"select_category_timeout": {
-					"title": "❌ Reaksjonstiden har utløpt",
-					"description": "Det tok for lang tid å velge billettkategorien."
+					"description": "Det tok for lang tid å velge billettkategorien.",
+					"title": "❌ Reaksjonstiden har utløpt"
 				}
 			},
 			"request_topic": {
-				"title": "Billettemne",
-				"description": "Vennligst oppgi kort hva denne billetten handler om med noen få ord."
+				"description": "Vennligst oppgi kort hva denne billetten handler om med noen få ord.",
+				"title": "Billettemne"
 			}
+		},
+		"panel": {
+			"aliases": {},
+			"args": {
+				"category": {
+					"alias": "c",
+					"description": "A category ID",
+					"example": "451745464954650634",
+					"name": "category"
+				},
+				"description": {
+					"alias": "d",
+					"description": "The description for the panel message",
+					"example": "\"React to this message to open a ticket.\"",
+					"name": "description"
+				},
+				"emoji": {
+					"alias": "e",
+					"description": "A **unicode** emoji character (escaped emoji)",
+					"example": "\\:ticket:",
+					"name": "emoji"
+				},
+				"title": {
+					"alias": "t",
+					"description": "The title for the panel message",
+					"example": "\"Support tickets\"",
+					"name": "title"
+				}
+			},
+			"description": "Create a new ticket panel",
+			"name": "panel",
+			"response": {}
 		},
 		"settings": {
 			"aliases": {
@@ -172,16 +208,16 @@
 		}
 	},
 	"command_execution_error": {
-		"title": "⚠️",
-		"description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon."
+		"description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon.",
+		"title": "⚠️"
 	},
 	"message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
 	"missing_permissions": {
-		"title": "❌",
-		"description": "You do not have the permissions required to use this command:\n%s"
+		"description": "You do not have the permissions required to use this command:\n%s",
+		"title": "❌"
 	},
 	"staff_only": {
-		"title": "❌",
-		"description": "Du må være medlem av staben for å bruke denne kommandoen."
+		"description": "Du må være medlem av staben for å bruke denne kommandoen.",
+		"title": "❌"
 	}
 }

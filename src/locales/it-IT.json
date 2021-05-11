@@ -12,6 +12,10 @@
 			"example": "**Esempio:** `%s`"
 		},
 		"description": "**Uso:**\n`%s`\n\n**Esempio:**\n`%s`\n\nGli argomenti richiesti hanno il prefisso `❗`.",
+		"invalid_named_args": {
+			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
+			"title": ":x: Invalid syntax"
+		},
 		"named_args": "Questo comando utilizza argomenti denominati.\n\n",
 		"title": "Utilizzo dei comandi '%s'"
 	},
@@ -23,40 +27,40 @@
 			},
 			"args": {
 				"member_or_role": {
-					"name": "membroORuolo",
 					"description": "Menziona un membro, un ruolo, o l'ID di un membro o di un ruolo",
-					"example": "@NaughtyMember"
+					"example": "@NaughtyMember",
+					"name": "membroORuolo"
 				}
 			},
 			"description": "Blacklista o unblacklista un utente dal bot",
 			"name": "lista nera",
 			"response": {
 				"empty_list": {
-					"title": "📃 Membri e ruoli nella blacklist",
-					"description": "Non ci sono membri o ruoli blacklistati. Digita %sblacklist <memberOrRole>` per aggiungere un membro o un ruolo alla blacklist."
+					"description": "Non ci sono membri o ruoli blacklistati. Digita %sblacklist <memberOrRole>` per aggiungere un membro o un ruolo alla blacklist.",
+					"title": "📃 Membri e ruoli nella blacklist"
 				},
 				"illegal_action": {
-					"title": "❌ Non puoi blacklistare questo utente",
-					"description": "%s è un membro dello staff e non può essere blacklistato."
+					"description": "%s è un membro dello staff e non può essere blacklistato.",
+					"title": "❌ Non puoi blacklistare questo utente"
 				},
 				"list": {
 					"title": "📃 Membri e ruoli nella blacklist"
 				},
 				"member_added": {
-					"title": "✅ Aggiunto membro alla blacklist",
-					"description": "<@%s> è stato aggiunto alla blacklist. Non saranno più in grado di interagire con il bot."
+					"description": "<@%s> è stato aggiunto alla blacklist. Non saranno più in grado di interagire con il bot.",
+					"title": "✅ Aggiunto membro alla blacklist"
 				},
 				"member_removed": {
-					"title": "✅ Membro rimosso dalla blacklist",
-					"description": "<@%s> è stato rimosso dalla blacklist. Da ora potrà ritornare ad usare il bot."
+					"description": "<@%s> è stato rimosso dalla blacklist. Da ora potrà ritornare ad usare il bot.",
+					"title": "✅ Membro rimosso dalla blacklist"
 				},
 				"role_added": {
-					"title": "✅ Aggiunto ruolo alla blacklist",
-					"description": "<@&%s> è stato aggiunto alla blacklist. I membri con questo ruolo non saranno più in grado di interagire con il bot."
+					"description": "<@&%s> è stato aggiunto alla blacklist. I membri con questo ruolo non saranno più in grado di interagire con il bot.",
+					"title": "✅ Aggiunto ruolo alla blacklist"
 				},
 				"role_removed": {
-					"title": "✅ Ruolo rimosso dalla blacklist",
-					"description": "<@&%s> è stato rimosso dalla blacklist. I membri con questo ruolo da ora potranno ritornare ad usare il bot."
+					"description": "<@&%s> è stato rimosso dalla blacklist. I membri con questo ruolo da ora potranno ritornare ad usare il bot.",
+					"title": "✅ Ruolo rimosso dalla blacklist"
 				}
 			}
 		},
@@ -66,29 +70,29 @@
 			},
 			"args": {
 				"ticket": {
-					"name": "ticket",
 					"description": "Il numero o il canale menzionato del ticket da chiudere",
-					"example": "217"
+					"example": "217",
+					"name": "ticket"
 				}
 			},
 			"description": "Chiudi un ticket",
 			"name": "chiudi",
 			"response": {
 				"closed": {
-					"title": "✅ Ticket chiuso",
-					"description": "Questo ticket è stato chiuso.\nIl canale verrà eliminato tra 5 secondi."
+					"description": "Questo ticket è stato chiuso.\nIl canale verrà eliminato tra 5 secondi.",
+					"title": "✅ Ticket chiuso"
 				},
 				"closed_by_member": {
-					"title": "✅ Ticket chiuso",
-					"description": "Questo ticket è stato chiuso da %s.\nIl canale verrà eliminato tra 5 secondi."
+					"description": "Questo ticket è stato chiuso da %s.\nIl canale verrà eliminato tra 5 secondi.",
+					"title": "✅ Ticket chiuso"
 				},
 				"closed_by_member_with_reason": {
-					"title": "✅ Ticket chiuso",
-					"description": "Il ticket è stato chiuso da %s: `%s`\nIl canale verrà eliminato tra 5 secondi."
+					"description": "Il ticket è stato chiuso da %s: `%s`\nIl canale verrà eliminato tra 5 secondi.",
+					"title": "✅ Ticket chiuso"
 				},
 				"closed_with_reason": {
-					"title": "✅ Ticket chiuso",
-					"description": "Il ticket è stato chiuso: `%s`\nIl canale verrà eliminato tra 5 secondi."
+					"description": "Il ticket è stato chiuso: `%s`\nIl canale verrà eliminato tra 5 secondi.",
+					"title": "✅ Ticket chiuso"
 				}
 			}
 		},
@@ -99,9 +103,9 @@
 			},
 			"args": {
 				"topic": {
-					"name": "argomento",
 					"description": "L'argomento del ticket",
-					"example": "Problema con la fattura"
+					"example": "Problema con la fattura",
+					"name": "argomento"
 				}
 			},
 			"description": "Crea un nuovo ticket",
@@ -114,38 +118,70 @@
 			"questions": "Si prega di rispondere alle seguenti domande:\n\n%s",
 			"response": {
 				"claimed": {
-					"title": "✅ Ticket claimed",
-					"description": "%s has claimed this ticket."
+					"description": "%s has claimed this ticket.",
+					"title": "✅ Ticket claimed"
 				},
 				"created": {
-					"title": "✅ Ticket creato",
-					"description": "Il tuo ticket è stato creato: %s."
+					"description": "Il tuo ticket è stato creato: %s.",
+					"title": "✅ Ticket creato"
 				},
 				"has_a_ticket": {
-					"title": "❌ Hai già un ticket aperto",
-					"description": "Ti preghiamo di utilizzare il tuo ticket già creato (<#%s>) o di chiuderlo prima di crearne un altro."
+					"description": "Ti preghiamo di utilizzare il tuo ticket già creato (<#%s>) o di chiuderlo prima di crearne un altro.",
+					"title": "❌ Hai già un ticket aperto"
 				},
 				"max_tickets": {
-					"title": "❌ Hai già %d ticket aperti",
-					"description": "Per favore utilizza `%sclose` per chiudere i ticket non necessari.\n\n%s"
+					"description": "Per favore utilizza `%sclose` per chiudere i ticket non necessari.\n\n%s",
+					"title": "❌ Hai già %d ticket aperti"
 				},
 				"no_categories": {
-					"title": "❌ Impossibile creare un ticket",
-					"description": "Un amministratore del server deve creare almeno una categoria per i ticket prima di aprire un nuovo ticket."
+					"description": "Un amministratore del server deve creare almeno una categoria per i ticket prima di aprire un nuovo ticket.",
+					"title": "❌ Impossibile creare un ticket"
 				},
 				"select_category": {
-					"title": "🔤 Seleziona la categoria dei ticket",
-					"description": "Seleziona la categoria che si attiene di più all'argomento del tuo ticket:\n\n%s"
+					"description": "Seleziona la categoria che si attiene di più all'argomento del tuo ticket:\n\n%s",
+					"title": "🔤 Seleziona la categoria dei ticket"
 				},
 				"select_category_timeout": {
-					"title": "❌ Tempo scaduto",
-					"description": "Hai impiegato troppo tempo per selezionare la categoria del ticket."
+					"description": "Hai impiegato troppo tempo per selezionare la categoria del ticket.",
+					"title": "❌ Tempo scaduto"
 				}
 			},
 			"request_topic": {
-				"title": "Argomento del ticket",
-				"description": "Descrivi brevemente di cosa hai bisogno."
+				"description": "Descrivi brevemente di cosa hai bisogno.",
+				"title": "Argomento del ticket"
 			}
+		},
+		"panel": {
+			"aliases": {},
+			"args": {
+				"category": {
+					"alias": "c",
+					"description": "A category ID",
+					"example": "451745464954650634",
+					"name": "category"
+				},
+				"description": {
+					"alias": "d",
+					"description": "The description for the panel message",
+					"example": "\"React to this message to open a ticket.\"",
+					"name": "description"
+				},
+				"emoji": {
+					"alias": "e",
+					"description": "A **unicode** emoji character (escaped emoji)",
+					"example": "\\:ticket:",
+					"name": "emoji"
+				},
+				"title": {
+					"alias": "t",
+					"description": "The title for the panel message",
+					"example": "\"Support tickets\"",
+					"name": "title"
+				}
+			},
+			"description": "Create a new ticket panel",
+			"name": "panel",
+			"response": {}
 		},
 		"settings": {
 			"aliases": {
@@ -172,16 +208,16 @@
 		}
 	},
 	"command_execution_error": {
-		"title": "⚠️",
-		"description": "Errore imprevisto durante l'esecuzione del comando.\nChiedere a un amministratore di controllare l'output / i registri della console per i dettagli."
+		"description": "Errore imprevisto durante l'esecuzione del comando.\nChiedere a un amministratore di controllare l'output / i registri della console per i dettagli.",
+		"title": "⚠️"
 	},
 	"message_will_be_deleted_in": "Questo messaggio verrà eliminato in %d secondi",
 	"missing_permissions": {
-		"title": "❌",
-		"description": "Non hai i permessi richiesti per utilizzare questo comando:\n%s"
+		"description": "Non hai i permessi richiesti per utilizzare questo comando:\n%s",
+		"title": "❌"
 	},
 	"staff_only": {
-		"title": "❌",
-		"description": "Devi essere un membro dello staff per usare questo comando."
+		"description": "Devi essere un membro dello staff per usare questo comando.",
+		"title": "❌"
 	}
 }
