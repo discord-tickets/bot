@@ -36,6 +36,7 @@
 		"dotenv": "^8.2.0",
 		"leeks.js": "^0.0.9",
 		"leekslazylogger-fastify": "^0.1.0",
+		"node-emoji": "^1.10.0",
 		"node-fetch": "^2.6.1",
 		"semver": "^7.3.4",
 		"sequelize": "^6.5.0",

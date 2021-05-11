@@ -23,6 +23,16 @@ module.exports = {
 					first_response: new Date()
 				});
 			}
+		} else {
+			let p_row = await client.db.models.Panel.findOne({
+				where: {
+					channel: message.channel.id
+				}
+			});
+
+			if (p_row) {
+				// handle reaction-less panel
+			}
 		}
 
 		client.commands.handle(message); // pass the message to the command handler

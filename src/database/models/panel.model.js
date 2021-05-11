@@ -6,6 +6,10 @@ module.exports = (client, sequelize) => {
 			type: DataTypes.JSON,
 			allowNull: false
 		},
+		channel: {
+			type: DataTypes.CHAR(19),
+			allowNull: false
+		},
 		guild: {
 			type: DataTypes.CHAR(19),
 			allowNull: false,
@@ -17,10 +21,6 @@ module.exports = (client, sequelize) => {
 		message: {
 			type: DataTypes.CHAR(19),
 			allowNull: false
-		},
-		reactionless: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false
 		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'panels'

@@ -157,11 +157,11 @@
 		"panel": {
 			"aliases": {},
 			"args": {
-				"category": {
+				"categories": {
 					"alias": "c",
 					"description": "A category ID",
 					"example": "451745464954650634",
-					"name": "category"
+					"name": "categories"
 				},
 				"description": {
 					"alias": "d",
@@ -171,7 +171,7 @@
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "A **unicode** emoji character (escaped emoji)",
+					"description": "An emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
@@ -184,7 +184,16 @@
 			},
 			"description": "Create a new ticket panel",
 			"name": "panel",
-			"response": {}
+			"response": {
+				"invalid_category": {
+					"description": "One or more of the specified category IDs is invalid.",
+					"title": "❌ Invalid category"
+				},
+				"mismatch": {
+					"description": "Please provide the name number of emojis and category IDs.",
+					"title": "❌ Invalid input"
+				}
+			}
 		},
 		"settings": {
 			"aliases": {
