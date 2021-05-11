@@ -14,7 +14,7 @@
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"invalid_named_args": {
 			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": ":x: Invalid syntax"
+			"title": "❌ Invalid syntax"
 		},
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
@@ -125,6 +125,9 @@
 					"description": "Your ticket has been created: %s.",
 					"title": "✅ Ticket created"
 				},
+				"error": {
+					"title": "❌ Error"
+				},
 				"has_a_ticket": {
 					"description": "Please use your existing ticket (<#%s>) or close it before creating another.",
 					"title": "❌ You already have an open ticket"
@@ -154,11 +157,11 @@
 		"panel": {
 			"aliases": {},
 			"args": {
-				"category": {
+				"categories": {
 					"alias": "c",
 					"description": "A category ID",
 					"example": "451745464954650634",
-					"name": "category"
+					"name": "categories"
 				},
 				"description": {
 					"alias": "d",
@@ -168,7 +171,7 @@
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "A **unicode** emoji character (escaped emoji)",
+					"description": "An emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
@@ -181,7 +184,16 @@
 			},
 			"description": "Create a new ticket panel",
 			"name": "panel",
-			"response": {}
+			"response": {
+				"invalid_category": {
+					"description": "One or more of the specified category IDs is invalid.",
+					"title": "❌ Invalid category"
+				},
+				"mismatch": {
+					"description": "Please provide the name number of emojis and category IDs.",
+					"title": "❌ Invalid input"
+				}
+			}
 		},
 		"settings": {
 			"aliases": {
