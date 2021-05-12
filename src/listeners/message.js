@@ -28,6 +28,8 @@ module.exports = {
 				});
 			}
 		} else {
+			if (message.author.bot) return;
+			
 			let p_row = await client.db.models.Panel.findOne({
 				where: {
 					channel: message.channel.id
