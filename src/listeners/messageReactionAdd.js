@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-
 const { footer } = require('../utils/discord');
 
 module.exports = {
