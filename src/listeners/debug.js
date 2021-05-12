@@ -1,6 +1,15 @@
-module.exports = {
-	event: 'debug',
-	execute: (client, data) => {
-		if (client.config.debug) client.log.debug(data);
+const EventListener = require('../modules/listeners/listener');
+
+module.exports = class DebugEventListener extends EventListener {
+	constructor(client) {
+		super(client, {
+			event: 'debug'
+		});
+	}
+
+	async execute(data) {
+		if (this.client.config.debug) {
+			this.client.log.debug(data);
+		}
 	}
 };

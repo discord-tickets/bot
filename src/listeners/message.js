@@ -1,16 +1,23 @@
+const EventListener = require('../modules/listeners/listener');
+
 const { MessageEmbed } = require('discord.js');
 const { footer } = require('../utils/discord');
 
-module.exports = {
-	event: 'message',
-	execute: async (client, message) => {
+module.exports = class MessageEventListener extends EventListener {
+	constructor(client) {
+		super(client, {
+			event: 'message'
+		});
+	}
+
+	async execute(message) {
 		if (!message.guild) return;
 
 		let settings = await message.guild.settings;
 		if (!settings) settings = await message.guild.createSettings();
-		const i18n = client.i18n.getLocale(settings.locale);
+		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let t_row = await client.db.models.Ticket.findOne({
+		let t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: message.channel.id
 			}
@@ -18,10 +25,10 @@ module.exports = {
 
 		if (t_row) {
 			if (settings.log_messages && !message.system) {
-				client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
+				this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
 			}
 
-			const ignore = [client.user.id, t_row.creator];
+			const ignore = [this.client.user.id, t_row.creator];
 			if (!t_row.first_response && !ignore.includes(message.author.id)) {
 				t_row.update({
 					first_response: new Date()
@@ -29,8 +36,8 @@ module.exports = {
 			}
 		} else {
 			if (message.author.bot) return;
-			
-			let p_row = await client.db.models.Panel.findOne({
+
+			let p_row = await this.client.db.models.Panel.findOne({
 				where: {
 					channel: message.channel.id
 				}
@@ -41,13 +48,13 @@ module.exports = {
 
 				await message.delete();
 
-				let cat_row = await client.db.models.Category.findOne({
+				let cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: p_row.categories
 					}
 				});
 
-				let tickets = await client.db.models.Ticket.findAndCountAll({
+				let tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {
 						category: cat_row.id,
 						creator: message.author.id,
@@ -94,7 +101,7 @@ module.exports = {
 					}
 				} else {
 					try {
-						await client.tickets.create(message.guild.id, message.author.id, cat_row.id, message.cleanContent);
+						await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, message.cleanContent);
 					} catch (error) {
 						const embed = new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -118,6 +125,7 @@ module.exports = {
 			}
 		}
 
-		client.commands.handle(message); // pass the message to the command handler
+		this.client.commands.handle(message); // pass the message to the command handler
 	}
 };
+

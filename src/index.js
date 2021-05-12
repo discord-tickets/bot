@@ -89,6 +89,7 @@ process.on('unhandledRejection', error => {
 const { selectPresence } = require('./utils/discord');
 const Cryptr = require('cryptr');
 const I18n = require('@eartharoid/i18n');
+const ListenerLoader = require('./modules/listeners/loader');
 const CommandManager = require('./modules/commands/manager');
 const PluginManager = require('./modules/plugins/manager');
 const TicketManager = require('./modules/tickets/manager');
@@ -150,7 +151,9 @@ class Bot extends Client {
 			this.setMaxListeners(this.config.max_listeners); // set the max listeners for each event
 	
 			require('./updater')(this); // check for updates
-			require('./modules/listeners')(this); // load internal listeners
+			
+			const listeners = new ListenerLoader(this);
+			listeners.load(); // load internal listeners
 
 			/** The ticket manager */
 			this.tickets = new TicketManager(this);

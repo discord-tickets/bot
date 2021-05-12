@@ -16,12 +16,12 @@ module.exports = async client => {
 	if (!semver.valid(latest)) return;
 
 	if (semver.lt(current, latest)) {
-		client.log.notice(client.log.f(`There is an update available for Discord Tickets (${current} -> ${update.tag_name})`));
+		client.log.notice(`There is an update available for Discord Tickets (${current} -> ${update.tag_name})`);
 
 		let lines = [
-			`&6You are currently using &c${current}&6, the latest is &a${update.tag_name}&6.`,
-			`&6Download "&f${update.name}&6" from`,
-			link('&6the GitHub releases page', 'https://github.com/discord-tickets/bot/releases/')
+			`&k&6You are currently using &c${current}&6, the latest is &a${update.tag_name}&6.&r`,
+			`&k&6Download "&f${update.name}&6" from&r`,
+			link('&k&6the GitHub releases page.&r&6', 'https://github.com/discord-tickets/bot/releases/')
 		];
 
 		console.log(

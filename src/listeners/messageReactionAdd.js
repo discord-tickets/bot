@@ -1,36 +1,43 @@
+const EventListener = require('../modules/listeners/listener');
+
 const { MessageEmbed } = require('discord.js');
 const { footer } = require('../utils/discord');
 
-module.exports = {
-	event: 'messageReactionAdd',
-	execute: async (client, r, u) => {
+module.exports = class MessageReactionAddEventListener extends EventListener {
+	constructor(client) {
+		super(client, {
+			event: 'messageReactionAdd'
+		});
+	}
+
+	async execute(r, u) {
 		if (r.partial) r = await r.fetch();
 
 		if (u.partial) u = await u.fetch();
 
-		if (u.id === client.user.id) return;
+		if (u.id === this.client.user.id) return;
 
 		const guild = r.message.guild;
 		if (!guild) return;
 
 		let settings = await guild.settings;
 		if (!settings) settings = await guild.createSettings();
-		const i18n = client.i18n.getLocale(settings.locale);
-		
+		const i18n = this.client.i18n.getLocale(settings.locale);
+
 		const channel = r.message.channel;
 		const member = await guild.members.fetch(u.id);
 
 		if (settings.blacklist.includes(u.id)) {
-			return client.log.info(`Ignoring blacklisted member ${u.tag}`);
+			return this.client.log.info(`Ignoring blacklisted member ${u.tag}`);
 		} else {
 			settings.blacklist.forEach(element => {
 				if (guild.roles.cache.has(element) && member.roles.cache.has(element)) {
-					return client.log.info(`Ignoring member ${u.tag} with blacklisted role`);
+					return this.client.log.info(`Ignoring member ${u.tag} with blacklisted role`);
 				}
 			});
 		}
-		
-		let t_row = await client.db.models.Ticket.findOne({
+
+		let t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: channel.id
 			}
@@ -48,7 +55,7 @@ module.exports = {
 					VIEW_CHANNEL: true,
 				}, `Ticket claimed by ${member.user.tag}`);
 
-				let cat_row = await client.db.models.Category.findOne({
+				let cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: t_row.category
 					}
@@ -60,7 +67,7 @@ module.exports = {
 					}, `Ticket claimed by ${member.user.tag}`);
 				}
 
-				client.log.info(`${member.user.tag} has claimed "${channel.name}" in "${guild.name}"`);
+				this.client.log.info(`${member.user.tag} has claimed "${channel.name}" in "${guild.name}"`);
 
 				await channel.send(
 					new MessageEmbed()
@@ -74,7 +81,7 @@ module.exports = {
 				await r.users.remove(u.id);
 			}
 		} else {
-			let p_row = await client.db.models.Panel.findOne({
+			let p_row = await this.client.db.models.Panel.findOne({
 				where: {
 					message: r.message.id
 				}
@@ -83,17 +90,17 @@ module.exports = {
 			if (p_row && typeof p_row.categories !== 'string') {
 				// panels
 				await r.users.remove(u.id);
-				
+
 				let category_id = p_row.categories[r.emoji.name];
 				if (!category_id) return;
 
-				let cat_row = await client.db.models.Category.findOne({
+				let cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: category_id
 					}
 				});
 
-				let tickets = await client.db.models.Ticket.findAndCountAll({
+				let tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {
 						category: cat_row.id,
 						creator: u.id,
@@ -140,7 +147,7 @@ module.exports = {
 					}
 				} else {
 					try {
-						await client.tickets.create(guild.id, u.id, cat_row.id);
+						await this.client.tickets.create(guild.id, u.id, cat_row.id);
 					} catch (error) {
 						const embed = new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -157,7 +164,7 @@ module.exports = {
 				}
 
 				if (response) {
-					setTimeout(async() => {
+					setTimeout(async () => {
 						await response.delete();
 					}, 15000);
 				}

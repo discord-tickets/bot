@@ -1,29 +1,34 @@
-module.exports = {
-	event: 'ready',
-	once: true,
-	execute: async (client) => {
+const EventListener = require('../modules/listeners/listener');
 
-		client.log.success(`Connected to Discord as "${client.user.tag}"`);
+module.exports = class ReadyEventListener extends EventListener {
+	constructor(client) {
+		super(client, {
+			event: 'ready',
+			once: true
+		});
+	}
 
-		client.commands.load(); // load internal commands
+	async execute() {
+		this.client.log.success(`Connected to Discord as "${this.client.user.tag}"`);
 
-		client.plugins.plugins.forEach(p => p.load()); // call load function for each plugin
+		this.client.commands.load(); // load internal commands
 
-		if (client.config.presence.presences.length > 1) {
+		this.client.plugins.plugins.forEach(p => p.load()); // call load function for each plugin
+
+		if (this.client.config.presence.presences.length > 1) {
 			const { selectPresence } = require('../utils/discord');
 			setInterval(() => {
 				let presence = selectPresence();
-				client.user.setPresence(presence);
-				client.log.debug(`Updated presence: ${presence.activity.type} ${presence.activity.name}`);
-			}, client.config.presence.duration * 1000);
+				this.client.user.setPresence(presence);
+				this.client.log.debug(`Updated presence: ${presence.activity.type} ${presence.activity.name}`);
+			}, this.client.config.presence.duration * 1000);
 		}
 
-		if(client.config.super_secret_setting) {
+		if (this.client.config.super_secret_setting) {
 			setInterval(async () => {
-				await client.postStats();
+				await this.client.postStats();
 			}, 3600000);
-			await client.postStats();
+			await this.client.postStats();
 		}
-		
 	}
 };
