@@ -46,6 +46,10 @@ module.exports = ({ config }, sequelize) => {
 			type: DataTypes.JSON,
 			allowNull: true,
 		},
+		ping: {
+			type: DataTypes.JSON,
+			defaultValue: [],
+		},
 		require_topic: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false,

@@ -52,6 +52,7 @@ module.exports = class SettingsCommand extends Command {
 					cat_row.name_format = c.name_format;
 					cat_row.opening_message = c.opening_message;
 					cat_row.opening_questions = c.opening_questions;
+					cat_row.ping = c.ping;
 					cat_row.require_topic = c.require_topic;
 					cat_row.roles = c.roles;
 					cat_row.survey = c.survey;
@@ -111,6 +112,7 @@ module.exports = class SettingsCommand extends Command {
 						name_format: c.name_format,
 						opening_message: c.opening_message,
 						opening_questions: c.opening_questions,
+						ping: c.ping,
 						require_topic: c.require_topic,
 						roles: c.roles,
 						survey: c.survey
@@ -162,6 +164,7 @@ module.exports = class SettingsCommand extends Command {
 						name_format: c.name_format,
 						opening_message: c.opening_message,
 						opening_questions: c.opening_questions,
+						ping: c.ping,
 						require_topic: c.require_topic,
 						roles: c.roles,
 						survey: c.survey

@@ -37,6 +37,16 @@ module.exports = class TicketManager extends EventEmitter {
 			? this.client.cryptr.decrypt(t_row.topic)
 			: '';
 
+		if (cat_row.ping instanceof Array) {
+			let mentions = cat_row.ping.map(id => id === 'everyone'
+				? '@everyone'
+				: id === 'here'
+					? '@here'
+					: `<@&${id}>`);
+
+			await t_channel.send(mentions.join(', '));
+		}
+
 		await t_channel.send(member.user.toString());
 
 		if (cat_row.image) {
