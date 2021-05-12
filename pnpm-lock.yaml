@@ -9,6 +9,7 @@ specifiers:
   dotenv: ^8.2.0
   eslint: ^7.21.0
   leeks.js: ^0.0.9
+  leekslazylogger: ^3.0.2
   leekslazylogger-fastify: ^0.1.0
   mariadb: ^2.5.2
   mysql2: ^2.2.5
@@ -32,6 +33,7 @@ dependencies:
   discord.js: 12.5.1
   dotenv: 8.2.0
   leeks.js: 0.0.9
+  leekslazylogger: 3.0.2
   leekslazylogger-fastify: 0.1.0
   node-emoji: 1.10.0
   node-fetch: 2.6.1
@@ -1455,6 +1457,10 @@ packages:
     resolution: {integrity: sha512-axz4CyTYNcjmQc19S0I9HSC5ONGflLVm1N0uUz/MdYvuvC94yZUP/panEm9tLAj88DesBSo6D8cuyO/ctB9kYA==}
     dev: false
 
+  /leeks.js/0.2.2:
+    resolution: {integrity: sha512-cXbDc4a0ft0pQwN2ubagjsT1xKBeW0CP6pPmbUo+KvKynFwaqtGaBjdtpwkBO5NdwSw2OcJ89BYe9mjeZEfzQQ==}
+    dev: false
+
   /leekslazylogger-fastify/0.1.0:
     resolution: {integrity: sha512-i0sEvJbzR3gFBA7zf95cMF3CORXfC5Wv4Elv34ZAdjG5zi8S4tZY4Pw5jygG0iu0W1sMxwXR+IY+4Zi9s78zTA==}
     dependencies:
@@ -1469,6 +1475,14 @@ packages:
       '@eartharoid/deep-merge': 0.0.1
       '@eartharoid/dtf': 1.0.8
       leeks.js: 0.1.1
+    dev: false
+
+  /leekslazylogger/3.0.2:
+    resolution: {integrity: sha512-eXgQuEgoSIbtwJRQXy/DHFp1255C4br+x6CtOnrBb5j3GwmeARPMutPur1cMB5YonKBZxFXnvZLqQhr69qKg5A==}
+    dependencies:
+      '@eartharoid/deep-merge': 0.0.1
+      '@eartharoid/dtf': 1.0.8
+      leeks.js: 0.2.2
     dev: false
 
   /levn/0.4.1:
