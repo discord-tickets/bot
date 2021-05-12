@@ -94,7 +94,7 @@ module.exports = class PanelCommand extends Command {
 		let panel_channel,
 			panel_message;
 		
-		let emoji_map = args[arg_categories];
+		let categories_map = args[arg_categories][0];
 		
 		let embed = new MessageEmbed()
 			.setColor(settings.colour)
@@ -157,17 +157,18 @@ module.exports = class PanelCommand extends Command {
 
 				if (args[arg_emoji].length === 1) {
 					// single category
+					categories_map = {};
+					categories_map[args[arg_emoji][0]] = args[arg_categories][0];
 					embed.setDescription(args[arg_description]);
 					panel_message = await panel_channel.send(embed);
 					await panel_message.react(args[arg_emoji][0]);
 				} else {
 					// multi category
 					let description = '';
-
-					emoji_map = {};
+					categories_map = {};
 					
 					for (let i in args[arg_emoji]) {
-						emoji_map[args[arg_emoji][i]] = args[arg_categories][i];
+						categories_map[args[arg_emoji][i]] = args[arg_categories][i];
 						let cat_row = await this.client.db.models.Category.findOne({
 							where: {
 								id: args[arg_categories][i],
@@ -194,7 +195,7 @@ module.exports = class PanelCommand extends Command {
 		message.channel.send(`✅ ${panel_channel}`);
 
 		await this.client.db.models.Panel.create({
-			categories: emoji_map,
+			categories: categories_map,
 			channel: panel_channel.id,
 			guild: message.guild.id,
 			message: panel_message.id,
