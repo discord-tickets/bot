@@ -140,6 +140,10 @@
 					"description": "Un amministratore del server deve creare almeno una categoria per i ticket prima di aprire un nuovo ticket.",
 					"title": "❌ Impossibile creare un ticket"
 				},
+				"released": {
+					"description": "%s has released this ticket.",
+					"title": "✅ Ticket released"
+				},
 				"select_category": {
 					"description": "Seleziona la categoria che si attiene di più all'argomento del tuo ticket:\n\n%s",
 					"title": "🔤 Seleziona la categoria dei ticket"
@@ -204,19 +208,6 @@
 			"response": {
 				"updated": "✅ Le impostazioni sono state aggiornate."
 			}
-		},
-		"transfer": {
-			"aliases": {},
-			"args": {
-				"member": {
-					"description": "Un membro menzionato o l'ID del membro a cui trasferire il ticket",
-					"example": "@MembroDelloStaff",
-					"name": "membro"
-				}
-			},
-			"description": "Trasferisci il ticket ad un altro membro dello staff",
-			"name": "trasferisci",
-			"response": {}
 		}
 	},
 	"command_execution_error": {
