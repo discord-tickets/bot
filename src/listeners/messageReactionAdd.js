@@ -11,9 +11,22 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 	}
 
 	async execute(r, u) {
-		if (r.partial) r = await r.fetch();
 
-		if (u.partial) u = await u.fetch();
+		if (r.partial) {
+			try {
+				await r.fetch();
+			} catch (err) {
+				return this.client.log.error(err);
+			}
+		}
+
+		if (u.partial) {
+			try {
+				await u.fetch();
+			} catch (err) {
+				return this.client.log.error(err);
+			}
+		}
 
 		if (u.id === this.client.user.id) return;
 

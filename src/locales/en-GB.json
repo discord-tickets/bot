@@ -140,6 +140,10 @@
 					"description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
 					"title": "❌ Can't create ticket"
 				},
+				"released": {
+					"description": "%s has released this ticket.",
+					"title":"✅ Ticket released"
+				},
 				"select_category": {
 					"description": "Select the category most relevant to your ticket's topic:\n\n%s",
 					"title": "🔤 Please select the ticket category"
@@ -204,19 +208,6 @@
 			"response": {
 				"updated": "✅ Settings have been updated."
 			}
-		},
-		"transfer": {
-			"aliases": {},
-			"args": {
-				"member": {
-					"description": "A member mention or the ID of the member to transfer the ticket to",
-					"example": "@StaffMember",
-					"name": "member"
-				}
-			},
-			"description": "Transfer a ticket to another staff member",
-			"name": "transfer",
-			"response": {}
 		}
 	},
 	"command_execution_error": {

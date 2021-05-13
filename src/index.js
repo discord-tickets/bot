@@ -111,8 +111,8 @@ class Bot extends Client {
 	constructor() {
 		super({
 			partials: [
-				'MESSAGE',
 				'CHANNEL',
+				'MESSAGE',
 				'REACTION'
 			],
 			presence: selectPresence(),
