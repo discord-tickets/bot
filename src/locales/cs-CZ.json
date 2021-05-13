@@ -140,6 +140,10 @@
 					"description": "Než budete moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
 					"title": "❌ Nelze vytvořit ticket"
 				},
+				"released": {
+					"description": "%s has released this ticket.",
+					"title": "✅ Ticket released"
+				},
 				"select_category": {
 					"description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s",
 					"title": "🔤 Prosím vyber kategorii ticketu"
@@ -204,19 +208,6 @@
 			"response": {
 				"updated": "✅ Nastavení bylo aktualizováno."
 			}
-		},
-		"transfer": {
-			"aliases": {},
-			"args": {
-				"member": {
-					"description": "Zmínka uživatele nebo ID člena, na který se má ticket převést",
-					"example": "@ČlenTýmu",
-					"name": "uživatel"
-				}
-			},
-			"description": "Převede ticket na jiného člena týmu",
-			"name": "transfer",
-			"response": {}
 		}
 	},
 	"command_execution_error": {
