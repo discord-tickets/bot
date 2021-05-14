@@ -23,6 +23,6 @@ module.exports = () => {
 `));
 	console.log(leeks.colours.cyanBright(`Discord Tickets bot v${version} by eartharoid`));
 	console.log(leeks.colours.cyanBright(homepage + '\n'));
-	console.log(leeks.colours.cyanBright(`Please ${link('donate', 'https://ko-fi.com/eartharoid')} if you find this bot useful`));
+	console.log(leeks.colours.cyanBright(link('Sponsor this project', 'https://go.eartharoid.me/sponsor-dsctickets')));
 	console.log('\n\n');
 };
