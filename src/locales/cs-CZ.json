@@ -163,39 +163,39 @@
 			"args": {
 				"categories": {
 					"alias": "c",
-					"description": "ID kategoria",
+					"description": "ID kategorie",
 					"example": "451745464954650634",
 					"name": "kategorie"
 				},
 				"description": {
 					"alias": "d",
-					"description": "The description for the panel message",
-					"example": "\"React to this message to open a ticket.\"",
-					"name": "description"
+					"description": "Popis panelu",
+					"example": "\"Zareaguj na tuto zprávu pro otevření ticketu.\"",
+					"name": "popis"
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "An emoji",
+					"description": "Emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
+					"description": "Nadpis pro zprávu panelu",
 					"example": "\"Support tickets\"",
 					"name": "title"
 				}
 			},
-			"description": "Create a new ticket panel",
+			"description": "Vytvořit nový ticket panel",
 			"name": "panel",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "Jedno nebo více ID kategorií je vadných.",
+					"title": "❌ Neplatná kategorie"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
-					"title": "❌ Invalid input"
+					"description": "Prosím zadej počet emoji a ID kategorií.",
+					"title": "❌ Neplatný vstup"
 				}
 			}
 		},
