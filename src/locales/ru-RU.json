@@ -1,8 +1,8 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"title": "⚠️",
-			"description": "Discord Tickets требует следующих разрешений:\n%s"
+			"description": "Discord Tickets требует следующих разрешений:\n%s",
+			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) v%s от [eartharoid](%s)"
 	},
@@ -66,40 +66,85 @@
 		},
 		"close": {
 			"aliases": {
-				"delete": "удалить"
+				"delete": "удалить",
+				"lock": "lock"
 			},
 			"args": {
+				"reason": {
+					"alias": "r",
+					"description": "The reason for closing the ticket(s)",
+					"example": "",
+					"name": "reason"
+				},
 				"ticket": {
-					"description": "Номер или канал упоминания тикета который надо закрыть",
+					"alias": "t",
+					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
 					"name": "тикет"
+				},
+				"time": {
+					"alias": "T",
+					"description": "Close all tickets that have been inactive for the specified time",
+					"example": "1w",
+					"name": "time"
 				}
 			},
 			"description": "Закрыть тикет-канал",
 			"name": "закрыть",
 			"response": {
 				"closed": {
-					"description": "Этот тикет закрыт.\nКанал будет удален в течении 5 секунд.",
+					"description": "Ticket #%s has been closed.",
 					"title": "✅ Тикет закрыт"
 				},
-				"closed_by_member": {
-					"description": "Этот тикет был закрыт %s.\nКанал будет удален в течение 5 секунд.",
-					"title": "✅ Тикет закрыт"
+				"closed_multiple": {
+					"description": [
+						"%d ticket has been closed.",
+						"%d tickets have been closed."
+					],
+					"title": [
+						"✅ Тикет закрыт",
+						"✅ Tickets closed"
+					]
 				},
-				"closed_by_member_with_reason": {
-					"description": "Этот тикет был закрыт %s: `%s`\nКанал будет удален в течение 5 секунд.",
-					"title": "✅ Тикет закрыт"
+				"confirm": {
+					"description": "React with ✅ to close this ticket.",
+					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+					"title": "❔ Are you sure?"
 				},
-				"closed_with_reason": {
-					"description": "Этот тикет был закрыт: `%s`\nКанал будет удален в течение 5 секунд.",
-					"title": "✅ Тикет закрыт"
+				"confirmation_timeout": {
+					"description": "You took too long to confirm.",
+					"title": "❌ Reaction time expired"
+				},
+				"confirm_multiple": {
+					"description": [
+						"React with ✅ to close %d ticket.",
+						"React with ✅ to close %d tickets."
+					],
+					"title": "❔ Are you sure?"
+				},
+				"invalid_time": {
+					"description": "The time period provided could not be parsed.",
+					"title": "❌ Invalid input"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"title": "❌ This isn't a ticket channel"
+				},
+				"no_tickets": {
+					"description": "There are no tickets which have been inactive for this time period.",
+					"title": "❌ No tickets to close"
+				},
+				"unresolvable": {
+					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+					"title": "❌ Error"
 				}
 			}
 		},
 		"new": {
 			"aliases": {
 				"create": "создать",
-				"open": "открыть"
+				"open": "открыть",
+				"ticket": "тикет"
 			},
 			"args": {
 				"topic": {
@@ -117,10 +162,6 @@
 			},
 			"questions": "Пожалуйста, ответьте на следующие вопросы:\n\n%s",
 			"response": {
-				"claimed": {
-					"description": "%s has claimed this ticket.",
-					"title": "✅ Ticket claimed"
-				},
 				"created": {
 					"description": "Ваш тикет был создан: %s.",
 					"title": "✅ Тикет создан"
@@ -139,10 +180,6 @@
 				"no_categories": {
 					"description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
 					"title": "❌ Can't create ticket"
-				},
-				"released": {
-					"description": "%s has released this ticket.",
-					"title": "✅ Ticket released"
 				},
 				"select_category": {
 					"description": "Select the category most relevant to your ticket's topic:\n\n%s",
@@ -222,5 +259,31 @@
 	"staff_only": {
 		"description": "You must be a member of staff to use this command.",
 		"title": "❌"
+	},
+	"ticket": {
+		"claimed": {
+			"description": "%s has claimed this ticket.",
+			"title": "✅ Ticket claimed"
+		},
+		"closed": {
+			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Тикет закрыт"
+		},
+		"closed_by_member": {
+			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Тикет закрыт"
+		},
+		"closed_by_member_with_reason": {
+			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Тикет закрыт"
+		},
+		"closed_with_reason": {
+			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Тикет закрыт"
+		},
+		"released": {
+			"description": "%s has released this ticket.",
+			"title": "✅ Ticket released"
+		}
 	}
 }
