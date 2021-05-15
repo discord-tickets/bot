@@ -86,8 +86,8 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('commands.new.response.claimed.title'))
-						.setDescription(i18n('commands.new.response.claimed.description', member.toString()))
+						.setTitle(i18n('ticket.claimed.title'))
+						.setDescription(i18n('ticket.claimed.description', member.toString()))
 						.setFooter(settings.footer, guild.iconURL())
 				);
 			} else {

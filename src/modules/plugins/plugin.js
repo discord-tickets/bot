@@ -38,7 +38,7 @@ module.exports = class Plugin {
 		 * The human-friendly name of the plugin
 		 * @type {string}
 		 */
-		this.name = options.name || id;
+		this.name = options.name ?? id;
 
 		/** 
 		 * An array of commands from this plugin

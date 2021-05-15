@@ -81,7 +81,7 @@ module.exports = class SettingsCommand extends Command {
 					let cat_channel = await message.guild.channels.create(c.name, {
 						type: 'category',
 						reason: `Tickets category created by ${message.member.user.tag}`,
-						position: 0,
+						position: 1,
 						permissionOverwrites: [
 							...[
 								{

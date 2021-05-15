@@ -21,134 +21,6 @@ module.exports = class TicketManager extends EventEmitter {
 	}
 
 	/**
-	 * Handle post-creation tasks
-	 * @param {Model} t_row 
-	 * @param {Model} cat_row 
-	 */
-	async postCreate(t_row, cat_row) {
-
-		let guild = this.client.guilds.cache.get(cat_row.guild);
-		let settings = await guild.settings;
-		const i18n = this.client.i18n.getLocale(settings.locale);
-		let member = guild.members.cache.get(t_row.creator);
-		let t_channel = this.client.channels.cache.get(t_row.id);
-
-		let topic = t_row.topic
-			? this.client.cryptr.decrypt(t_row.topic)
-			: '';
-
-		if (cat_row.ping instanceof Array) {
-			let mentions = cat_row.ping.map(id => id === 'everyone'
-				? '@everyone'
-				: id === 'here'
-					? '@here'
-					: `<@&${id}>`);
-
-			await t_channel.send(mentions.join(', '));
-		}
-
-		await t_channel.send(member.user.toString());
-
-		if (cat_row.image) {
-			await t_channel.send(cat_row.image);
-		}
-
-		let description = cat_row.opening_message
-			.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
-			.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, member.user.toString());
-		let embed = new MessageEmbed()
-			.setColor(settings.colour)
-			.setAuthor(member.user.username, member.user.displayAvatarURL())
-			.setDescription(description)
-			.setFooter(settings.footer, guild.iconURL());
-
-		if (topic) embed.addField(i18n('commands.new.opening_message.fields.topic'), topic);
-
-		let sent = await t_channel.send(embed);
-		await sent.pin({ reason: 'Ticket opening message' });
-
-		await t_row.update({
-			opening_message: sent.id
-		});
-
-		let pinned = t_channel.messages.cache.last();
-
-		if (pinned.system) {
-			pinned
-				.delete({ reason: 'Cleaning up system message' })
-				.catch(() => this.client.log.warn('Failed to delete system pin message'));
-		}
-
-		if (cat_row.claiming) {
-			await sent.react('🙌');
-		}
-
-		let questions;
-		if (cat_row.opening_questions) {
-			questions = cat_row.opening_questions
-				.map((q, index) => `**${index + 1}.** ${q}`)
-				.join('\n\n');
-		}
-		
-		if (cat_row.require_topic && topic.length === 0) {
-			let collector_message = await t_channel.send(
-				new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
-					.setDescription(i18n('commands.new.request_topic.description'))
-					.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
-			);
-
-			const collector_filter = (message) => message.author.id === t_row.creator;
-
-			let collector = t_channel.createMessageCollector(collector_filter, {
-				time: 120000
-			});
-
-			collector.on('collect', async (message) => {
-				topic = message.content;
-				await t_row.update({
-					topic: this.client.cryptr.encrypt(topic)
-				});
-				await t_channel.setTopic(`${member} | ${topic}`, { reason: 'User updated ticket topic' });
-				await sent.edit(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setDescription(description)
-						.addField(i18n('commands.new.opening_message.fields.topic'), topic)
-						.setFooter(settings.footer, guild.iconURL())
-				);
-				await message.react('✅');
-				collector.stop();
-			});
-
-			collector.on('end', async () => {
-				collector_message
-					.delete()
-					.catch(() => this.client.log.warn('Failed to delete topic collector message'));
-				if (cat_row.opening_questions) {
-					await t_channel.send(
-						new MessageEmbed()
-							.setColor(settings.colour)
-							.setDescription(i18n('commands.new.questions', questions))
-							.setFooter(settings.footer, guild.iconURL())
-					);
-				}
-			});
-		} else {
-			if (cat_row.opening_questions) {
-				await t_channel.send(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setDescription(i18n('commands.new.questions', questions))
-						.setFooter(settings.footer, guild.iconURL())
-				);
-			}
-		}
-	}
-
-	/**
 	 * Create a new ticket
 	 * @param {string} guild_id - ID of the guild to create the ticket in
 	 * @param {string} creator_id - ID of the ticket creator (user)
@@ -207,11 +79,128 @@ module.exports = class TicketManager extends EventEmitter {
 			topic: topic.length === 0 ? null : this.client.cryptr.encrypt(topic)
 		});
 
+		(async () => {
+			let settings = await guild.settings;
+			const i18n = this.client.i18n.getLocale(settings.locale);
+
+			topic = t_row.topic
+				? this.client.cryptr.decrypt(t_row.topic)
+				: '';
+
+			if (cat_row.ping instanceof Array && cat_row.ping.length > 0) {
+				let mentions = cat_row.ping.map(id => id === 'everyone'
+					? '@everyone'
+					: id === 'here'
+						? '@here'
+						: `<@&${id}>`);
+
+				await t_channel.send(mentions.join(', '));
+			}
+
+			await t_channel.send(member.user.toString());
+
+			if (cat_row.image) {
+				await t_channel.send(cat_row.image);
+			}
+
+			let description = cat_row.opening_message
+				.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
+				.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, member.user.toString());
+			let embed = new MessageEmbed()
+				.setColor(settings.colour)
+				.setAuthor(member.user.username, member.user.displayAvatarURL())
+				.setDescription(description)
+				.setFooter(settings.footer, guild.iconURL());
+
+			if (topic) embed.addField(i18n('commands.new.opening_message.fields.topic'), topic);
+
+			let sent = await t_channel.send(embed);
+			await sent.pin({ reason: 'Ticket opening message' });
+
+			await t_row.update({
+				opening_message: sent.id
+			});
+
+			let pinned = t_channel.messages.cache.last();
+
+			if (pinned.system) {
+				pinned
+					.delete({ reason: 'Cleaning up system message' })
+					.catch(() => this.client.log.warn('Failed to delete system pin message'));
+			}
+
+			if (cat_row.claiming) {
+				await sent.react('🙌');
+			}
+
+			let questions;
+			if (cat_row.opening_questions) {
+				questions = cat_row.opening_questions
+					.map((q, index) => `**${index + 1}.** ${q}`)
+					.join('\n\n');
+			}
+
+			if (cat_row.require_topic && topic.length === 0) {
+				let collector_message = await t_channel.send(
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
+						.setDescription(i18n('commands.new.request_topic.description'))
+						.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
+				);
+
+				const collector_filter = (message) => message.author.id === t_row.creator;
+
+				let collector = t_channel.createMessageCollector(collector_filter, {
+					time: 120000
+				});
+
+				collector.on('collect', async (message) => {
+					topic = message.content;
+					await t_row.update({
+						topic: this.client.cryptr.encrypt(topic)
+					});
+					await t_channel.setTopic(`${member} | ${topic}`, { reason: 'User updated ticket topic' });
+					await sent.edit(
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setAuthor(member.user.username, member.user.displayAvatarURL())
+							.setDescription(description)
+							.addField(i18n('commands.new.opening_message.fields.topic'), topic)
+							.setFooter(settings.footer, guild.iconURL())
+					);
+					await message.react('✅');
+					collector.stop();
+				});
+
+				collector.on('end', async () => {
+					collector_message
+						.delete()
+						.catch(() => this.client.log.warn('Failed to delete topic collector message'));
+					if (cat_row.opening_questions) {
+						await t_channel.send(
+							new MessageEmbed()
+								.setColor(settings.colour)
+								.setDescription(i18n('commands.new.questions', questions))
+								.setFooter(settings.footer, guild.iconURL())
+						);
+					}
+				});
+			} else {
+				if (cat_row.opening_questions) {
+					await t_channel.send(
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setDescription(i18n('commands.new.questions', questions))
+							.setFooter(settings.footer, guild.iconURL())
+					);
+				}
+			}
+		})();
+
 		this.client.log.info(`${member.user.tag} created a new ticket in "${guild.name}"`);
 
 		this.emit('create', t_row.id, creator_id);
-
-		this.postCreate(t_row, cat_row);
 
 		return t_row;
 	}
@@ -234,7 +223,7 @@ module.exports = class TicketManager extends EventEmitter {
 	 */
 	async close(ticket_id, closer_id, guild_id, reason) {
 		let t_row = await this.resolve(ticket_id, guild_id);
-		if (!t_row) throw new Error(`Could not find a ticket with ID ${ticket_id}`);
+		if (!t_row) throw new Error(`A ticket with the ID or number "${ticket_id}" could not be resolved`);
 		ticket_id = t_row.id;
 
 		this.emit('beforeClose', ticket_id);
@@ -242,7 +231,7 @@ module.exports = class TicketManager extends EventEmitter {
 		let guild = this.client.guilds.cache.get(t_row.guild);
 		let settings = await guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
-		let channel = await this.client.channels.fetch(t_row.channel);
+		let channel = await this.client.channels.fetch(t_row.id);
 
 		if (closer_id) {
 			let member = await guild.members.fetch(closer_id);
@@ -251,13 +240,13 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (channel) {
 				let description = reason
-					? i18n('commands.close.response.closed_by_member_with_reason.description', member.user.toString(), reason)
-					: i18n('commands.close.response.closed_by_member.description', member.user.toString());
+					? i18n('ticket.closed_by_member_with_reason.description', member.user.toString(), reason)
+					: i18n('ticket.closed_by_member.description', member.user.toString());
 				await channel.send(
 					new MessageEmbed()
 						.setColor(settings.success_colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('commands.close.response.closed.title'))
+						.setTitle(i18n('ticket.closed.title'))
 						.setDescription(description)
 						.setFooter(settings.footer, guild.iconURL())
 				);
@@ -271,12 +260,12 @@ module.exports = class TicketManager extends EventEmitter {
 		} else {
 			if (channel) {
 				let description = reason
-					? i18n('commands.close.response.closed_with_reason.description')
-					: i18n('commands.close.response.closed.description');
+					? i18n('ticket.closed_with_reason.description')
+					: i18n('ticket.closed.description');
 				await channel.send(
 					new MessageEmbed()
 						.setColor(settings.success_colour)
-						.setTitle(i18n('commands.close.response.closed.title'))
+						.setTitle(i18n('ticket.closed.title'))
 						.setDescription(description)
 						.setFooter(settings.footer, guild.iconURL())
 				);
@@ -294,8 +283,8 @@ module.exports = class TicketManager extends EventEmitter {
 		await t_row.update({
 			open: false,
 			closed_by: closer_id || null,
-			closed_reason: reason || null,
-			pinned: [ ...pinned.keys() ]
+			closed_reason: reason ? this.client.cryptr.encrypt(reason) : null,
+			pinned_messages: [...pinned.keys()]
 		});
 
 		this.emit('close', ticket_id);
@@ -308,22 +297,22 @@ module.exports = class TicketManager extends EventEmitter {
 	 * @param {string} [guild_id] - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
 	 */
 	async resolve(ticket_id, guild_id) {
-		if (!this.client.channels.resolve(ticket_id)) {
-			let t_row = await this.client.db.models.Ticket.findOne({
+		let t_row;
+
+		if (this.client.channels.resolve(ticket_id)) {
+			t_row = await this.client.db.models.Ticket.findOne({
 				where: {
-					number: ticket_id,
-					guild_id
+					id: ticket_id
 				}
 			});
-			if (!t_row) return null;
-			ticket_id = t_row.id;
+		} else {
+			t_row = await this.client.db.models.Ticket.findOne({
+				where: {
+					number: ticket_id,
+					guild: guild_id
+				}
+			});
 		}
-
-		let t_row = await this.client.db.models.Ticket.findOne({
-			where: {
-				id: ticket_id
-			}
-		});
 
 		return t_row;
 	}

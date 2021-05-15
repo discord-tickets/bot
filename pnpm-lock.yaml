@@ -8,9 +8,8 @@ specifiers:
   discord.js: ^12.5.1
   dotenv: ^8.2.0
   eslint: ^7.21.0
-  leeks.js: ^0.0.9
-  leekslazylogger: ^3.0.2
-  leekslazylogger-fastify: ^0.1.0
+  leeks.js: ^0.2.2
+  leekslazylogger-fastify: ^0.1.1
   mariadb: ^2.5.2
   mysql2: ^2.2.5
   node-emoji: ^1.10.0
@@ -24,6 +23,7 @@ specifiers:
   string-argv: ^0.3.1
   tedious: ^11.0.3
   terminal-link: ^2.1.1
+  to-time-monthsfork: ^1.1.4
 
 dependencies:
   '@eartharoid/i18n': 1.0.0
@@ -32,15 +32,15 @@ dependencies:
   cryptr: 6.0.2
   discord.js: 12.5.1
   dotenv: 8.2.0
-  leeks.js: 0.0.9
-  leekslazylogger: 3.0.2
-  leekslazylogger-fastify: 0.1.0
+  leeks.js: 0.2.2
+  leekslazylogger-fastify: 0.1.1
   node-emoji: 1.10.0
   node-fetch: 2.6.1
   semver: 7.3.4
   sequelize: 6.5.0_fb66e8c649bde1be622cc06164c9e22d
   string-argv: 0.3.1
   terminal-link: 2.1.1
+  to-time-monthsfork: 1.1.4
 
 optionalDependencies:
   sqlite3: 5.0.2
@@ -403,6 +403,10 @@ packages:
     resolution: {integrity: sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=}
     dependencies:
       tweetnacl: 0.14.5
+
+  /bignumber.js/2.4.0:
+    resolution: {integrity: sha1-g4qZLan51zfg9LLbC+YrsJ3Qxeg=}
+    dev: false
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -1449,32 +1453,16 @@ packages:
       package-json: 6.5.0
     dev: true
 
-  /leeks.js/0.0.9:
-    resolution: {integrity: sha512-e6UVJ1fj8f2clpHy+KpXVWVxjzB3XYFGyKRJHDlT8Gy/75BT+9bYUacpHSCoXp7RTtyMSr4eBjZrp0nHyyQVbg==}
-    dev: false
-
-  /leeks.js/0.1.1:
-    resolution: {integrity: sha512-axz4CyTYNcjmQc19S0I9HSC5ONGflLVm1N0uUz/MdYvuvC94yZUP/panEm9tLAj88DesBSo6D8cuyO/ctB9kYA==}
-    dev: false
-
   /leeks.js/0.2.2:
     resolution: {integrity: sha512-cXbDc4a0ft0pQwN2ubagjsT1xKBeW0CP6pPmbUo+KvKynFwaqtGaBjdtpwkBO5NdwSw2OcJ89BYe9mjeZEfzQQ==}
     dev: false
 
-  /leekslazylogger-fastify/0.1.0:
-    resolution: {integrity: sha512-i0sEvJbzR3gFBA7zf95cMF3CORXfC5Wv4Elv34ZAdjG5zi8S4tZY4Pw5jygG0iu0W1sMxwXR+IY+4Zi9s78zTA==}
+  /leekslazylogger-fastify/0.1.1:
+    resolution: {integrity: sha512-O/BFEYpsjCX3/6/GnhwajJ/CA/T9F4AwiRAPyN6y7ET0PgPfv+Q6uLktKiK/ZBcVH0f+VunSPdD0UyTXbzj7wQ==}
     dependencies:
       fastify-plugin: 3.0.0
-      leekslazylogger: 3.0.1
+      leekslazylogger: 3.0.2
       on-finished: 2.3.0
-    dev: false
-
-  /leekslazylogger/3.0.1:
-    resolution: {integrity: sha512-8o0iFuChUyjYYPFz64OfXEdQYn/H4DXyDHyuEP2hFwU/R2Bru4zP4NZbo64PzNwLBDmYZx+06xrsU4oE9WQaJg==}
-    dependencies:
-      '@eartharoid/deep-merge': 0.0.1
-      '@eartharoid/dtf': 1.0.8
-      leeks.js: 0.1.1
     dev: false
 
   /leekslazylogger/3.0.2:
@@ -2551,6 +2539,13 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
+
+  /to-time-monthsfork/1.1.4:
+    resolution: {integrity: sha512-3bWuIwm9QeOAq/UClxFp86QMSJ4GVHmAT8X+pkM0mIMVrpJPLfSieY5qvSsfLJugLNWTVpYJ2ayKWXH3jcAdow==}
+    engines: {node: '>=4.6'}
+    dependencies:
+      bignumber.js: 2.4.0
+    dev: false
 
   /toposort-class/1.0.1:
     resolution: {integrity: sha1-f/0feMi+KMO6Rc1OGj9e4ZO9mYg=}

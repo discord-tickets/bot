@@ -9,6 +9,7 @@
 [![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/LICENSE)
 ![Codacy grade](https://img.shields.io/codacy/grade/14e6851c85444424b75b8bc3f93e93db?logo=codacy&style=flat-square)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://discord.gg/pXc9vyC)
+[![Crowdin](https://badges.crowdin.net/discord-tickets/localized.svg)](https://i18n.discordtickets.app/project/discord-tickets)
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
 

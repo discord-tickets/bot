@@ -34,15 +34,15 @@
 		"cryptr": "^6.0.2",
 		"discord.js": "^12.5.1",
 		"dotenv": "^8.2.0",
-		"leeks.js": "^0.0.9",
-		"leekslazylogger": "^3.0.2",
-		"leekslazylogger-fastify": "^0.1.0",
+		"leeks.js": "^0.2.2",
+		"leekslazylogger-fastify": "^0.1.1",
 		"node-emoji": "^1.10.0",
 		"node-fetch": "^2.6.1",
 		"semver": "^7.3.4",
 		"sequelize": "^6.5.0",
 		"string-argv": "^0.3.1",
-		"terminal-link": "^2.1.1"
+		"terminal-link": "^2.1.1",
+		"to-time-monthsfork": "^1.1.4"
 	},
 	"devDependencies": {
 		"eslint": "^7.21.0",

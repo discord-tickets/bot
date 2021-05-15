@@ -1,7 +1,6 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../utils/discord');
 
 module.exports = class MessageReactionRemoveEventListener extends EventListener {
 	constructor(client) {
@@ -76,8 +75,8 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('commands.new.response.released.title'))
-						.setDescription(i18n('commands.new.response.released.description', member.toString()))
+						.setTitle(i18n('ticket.released.title'))
+						.setDescription(i18n('ticket.released.description', member.toString()))
 						.setFooter(settings.footer, guild.iconURL())
 				);
 			} else {

@@ -12,8 +12,9 @@ module.exports = class NewCommand extends Command {
 			name: i18n('commands.new.name'),
 			description: i18n('commands.new.description'),
 			aliases: [
-				i18n('commands.new.aliases.open'),
 				i18n('commands.new.aliases.create'),
+				i18n('commands.new.aliases.open'),
+				i18n('commands.new.aliases.ticket'),
 			],
 			process_args: false,
 			args: [
@@ -151,8 +152,11 @@ module.exports = class NewCommand extends Command {
 			});
 
 			collector.on('collect', async (reaction) => {
+				collector.stop();
 				let index = letters_array.findIndex(value => value === reaction.emoji.name); // find where the letter is in the alphabet
-				if (index === -1) return await collector_message.delete({ timeout: 15000 });
+				if (index === -1) return setTimeout(async () => {
+					await collector_message.delete();
+				}, 15000);
 				await collector_message.reactions.removeAll();
 				create(categories.rows[index], collector_message); // create the ticket, passing the existing response message to be edited instead of creating a new one
 			});
@@ -165,7 +169,7 @@ module.exports = class NewCommand extends Command {
 							.setColor(settings.error_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.select_category_timeout.title'))
-							.setDescription(i18n('commands.new.response.select_category_timeout.description', category_list.join('\n')))
+							.setDescription(i18n('commands.new.response.select_category_timeout.description'))
 							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 					);
 					setTimeout(async () => {

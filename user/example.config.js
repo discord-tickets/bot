@@ -46,7 +46,7 @@ module.exports = {
 				type: 'PLAYING'
 			},
 			{
-				activity: 'for new tickets',
+				activity: 'tickets',
 				type: 'WATCHING'
 			},
 			/* { // an example

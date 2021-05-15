@@ -44,6 +44,10 @@ module.exports = (client, sequelize) => {
 			},
 			unique: 'number-guild'
 		},
+		last_message: {
+			type: DataTypes.DATE,
+			allowNull: true,
+		},
 		number: {
 			type: DataTypes.INTEGER,
 			allowNull: false,

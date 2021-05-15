@@ -45,7 +45,7 @@ module.exports = class Command {
 		 * The command's aliases
 		 * @type {string[]}
 		 */
-		this.aliases = data.aliases || [];
+		this.aliases = data.aliases ?? [];
 
 		if (!this.aliases.includes(this.name)) this.aliases.unshift(this.name);
 
@@ -79,12 +79,7 @@ module.exports = class Command {
 		 * The command options
 		 * @type {CommandArgument[]}
 		 */
-		this.args = data.args || [];
-
-		for (let arg in this.args) {
-			if (!this.args[arg].example)
-				throw new Error(`The "${this.name}" command's "${this.args[arg].name}" argument does not have an example!`);
-		}
+		this.args = data.args ?? [];
 
 		/**
 		 * True if command is internal, false if it is from a plugin
@@ -132,7 +127,9 @@ module.exports = class Command {
 
 		const addArgs = (embed, arg) => {
 			let required = arg.required ? '`❗` ' : '';
-			embed.addField(required + arg.name, `» ${i18n('cmd_usage.args.description', arg.description)}\n» ${i18n('cmd_usage.args.example', arg.example)}`);
+			let description = `» ${i18n('cmd_usage.args.description', arg.description)}`;
+			if (arg.example) description += `\n» ${i18n('cmd_usage.args.example', arg.example)}`;
+			embed.addField(required + arg.name, description);
 		};
 
 		let usage,
@@ -141,14 +138,14 @@ module.exports = class Command {
 
 		if (this.process_args) {
 			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + cmd_name} \n${this.args.map(arg => `--${arg.name} ${arg.example}`).join('\n')}`;
+			example = `${prefix + cmd_name} \n${this.args.map(arg => `--${arg.name} ${arg.example || ''}`).join('\n')}`;
 			embed = new MessageEmbed()
 				.setColor(settings.error_colour)
 				.setTitle(i18n('cmd_usage.title', cmd_name))
 				.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
 		} else {
 			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.example}`).join(' ')}`;
+			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.example || ''}`).join(' ')}`;
 			embed = new MessageEmbed()
 				.setColor(settings.error_colour)
 				.setTitle(i18n('cmd_usage.title', cmd_name))

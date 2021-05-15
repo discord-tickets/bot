@@ -24,16 +24,13 @@ module.exports = class MessageEventListener extends EventListener {
 		});
 
 		if (t_row) {
-			if (settings.log_messages && !message.system) {
-				this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
-			}
+			if (settings.log_messages && !message.system) this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
 
 			const ignore = [this.client.user.id, t_row.creator];
-			if (!t_row.first_response && !ignore.includes(message.author.id)) {
-				t_row.update({
-					first_response: new Date()
-				});
-			}
+			if (!t_row.first_response && !ignore.includes(message.author.id)) t_row.first_response = new Date();
+
+			t_row.last_message = new Date();
+			await t_row.save();
 		} else {
 			if (message.author.bot) return;
 

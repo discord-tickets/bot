@@ -49,7 +49,7 @@ module.exports = class PluginManager {
 		}
 
 		if (typeof author === 'object') {
-			author = author.name || 'unknown';
+			author = author.name ?? 'unknown';
 		}
 
 		let about = {
