@@ -1,8 +1,8 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"title": "⚠️",
-			"description": "Discord Tickets requires the following permissions:\n%s"
+			"description": "Discord Tickets requires the following permissions:\n%s",
+			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) versi %s oleh [eartharoid](%s)"
 	},
@@ -66,40 +66,85 @@
 		},
 		"close": {
 			"aliases": {
-				"delete": "hapus"
+				"delete": "hapus",
+				"lock": "lock"
 			},
 			"args": {
+				"reason": {
+					"alias": "r",
+					"description": "The reason for closing the ticket(s)",
+					"example": "",
+					"name": "reason"
+				},
 				"ticket": {
-					"description": "Nomor tiket atau mention channel tiket yang ingin ditutup",
+					"alias": "t",
+					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
 					"name": "tiket"
+				},
+				"time": {
+					"alias": "T",
+					"description": "Close all tickets that have been inactive for the specified time",
+					"example": "1w",
+					"name": "time"
 				}
 			},
 			"description": "Tutup sebuah channel tiket",
 			"name": "tutup",
 			"response": {
 				"closed": {
-					"description": "Tiket ini telah ditutup.\nChannel ini akan ditutup dalam 5 detik.",
+					"description": "Ticket #%s has been closed.",
 					"title": "✅ Tiket ditutup"
 				},
-				"closed_by_member": {
-					"description": "Tiket ini telah ditutup oleh %s.\nChannel ini akan ditutup dalam 5 detik.",
-					"title": "✅ Tiket ditutup"
+				"closed_multiple": {
+					"description": [
+						"%d ticket has been closed.",
+						"%d tickets have been closed."
+					],
+					"title": [
+						"✅ Tiket ditutup",
+						"✅ Tickets closed"
+					]
 				},
-				"closed_by_member_with_reason": {
-					"description": "Tiket ini telah ditutup oleh %s: `%s`\nChannel ini akan ditutup dalam 5 detik.",
-					"title": "✅ Tiket ditutup"
+				"confirm": {
+					"description": "React with ✅ to close this ticket.",
+					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+					"title": "❔ Are you sure?"
 				},
-				"closed_with_reason": {
-					"description": "Tiket ini telah ditutup: `%s`\nChannel ini akan ditutup dalam 5 detik.",
-					"title": "✅ Tiket ditutup"
+				"confirmation_timeout": {
+					"description": "You took too long to confirm.",
+					"title": "❌ Waktu reaksi habis"
+				},
+				"confirm_multiple": {
+					"description": [
+						"React with ✅ to close %d ticket.",
+						"React with ✅ to close %d tickets."
+					],
+					"title": "❔ Are you sure?"
+				},
+				"invalid_time": {
+					"description": "The time period provided could not be parsed.",
+					"title": "❌ Invalid input"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"title": "❌ This isn't a ticket channel"
+				},
+				"no_tickets": {
+					"description": "There are no tickets which have been inactive for this time period.",
+					"title": "❌ No tickets to close"
+				},
+				"unresolvable": {
+					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+					"title": "❌ Error"
 				}
 			}
 		},
 		"new": {
 			"aliases": {
 				"create": "buat",
-				"open": "buka"
+				"open": "buka",
+				"ticket": "tiket"
 			},
 			"args": {
 				"topic": {
@@ -117,10 +162,6 @@
 			},
 			"questions": "Tolong jawab pertanyaan-pertanyaan berikut:\n\n%s",
 			"response": {
-				"claimed": {
-					"description": "%s has claimed this ticket.",
-					"title": "✅ Ticket claimed"
-				},
 				"created": {
 					"description": "Tiket anda telah dibuat: %s.",
 					"title": "✅ Tiket dibuat"
@@ -139,10 +180,6 @@
 				"no_categories": {
 					"description": "Seorang administrator server harus membuat setidaknya satu kategori tikey sebelum tiket baru dapat dibuka.",
 					"title": "❌ Tidak dapat membuat tiket"
-				},
-				"released": {
-					"description": "%s has released this ticket.",
-					"title": "✅ Ticket released"
 				},
 				"select_category": {
 					"description": "Pilih kategory yang paling relevan denga topik tiket anda:\n\n%s",
@@ -222,5 +259,31 @@
 	"staff_only": {
 		"description": "Anda harus menjadi salah seorang anggota staf untuk menggunakan command ini.",
 		"title": "❌"
+	},
+	"ticket": {
+		"claimed": {
+			"description": "%s has claimed this ticket.",
+			"title": "✅ Ticket claimed"
+		},
+		"closed": {
+			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Tiket ditutup"
+		},
+		"closed_by_member": {
+			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Tiket ditutup"
+		},
+		"closed_by_member_with_reason": {
+			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Tiket ditutup"
+		},
+		"closed_with_reason": {
+			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Tiket ditutup"
+		},
+		"released": {
+			"description": "%s has released this ticket.",
+			"title": "✅ Ticket released"
+		}
 	}
 }
