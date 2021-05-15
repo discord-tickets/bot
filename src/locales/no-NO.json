@@ -140,6 +140,10 @@
 					"description": "En serveradministrator må opprette minst én billettkategori før en ny billett kan åpnes.",
 					"title": "❌ Kan ikke opprette billett"
 				},
+				"released": {
+					"description": "%s has released this ticket.",
+					"title": "✅ Ticket released"
+				},
 				"select_category": {
 					"description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s",
 					"title": "🔤 Velg billettkategori"
@@ -204,19 +208,6 @@
 			"response": {
 				"updated": "✅ innstillinger er oppdatert."
 			}
-		},
-		"transfer": {
-			"aliases": {},
-			"args": {
-				"member": {
-					"description": "A member mention or the ID of the member to transfer the ticket to",
-					"example": "@StaffMember",
-					"name": "member"
-				}
-			},
-			"description": "Transfer a ticket to another staff member",
-			"name": "transfer",
-			"response": {}
 		}
 	},
 	"command_execution_error": {
