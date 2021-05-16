@@ -97,8 +97,6 @@ module.exports = class TicketManager extends EventEmitter {
 				await t_channel.send(mentions.join(', '));
 			}
 
-			await t_channel.send(member.user.toString());
-
 			if (cat_row.image) {
 				await t_channel.send(cat_row.image);
 			}
@@ -114,7 +112,7 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('commands.new.opening_message.fields.topic'), topic);
 
-			let sent = await t_channel.send(embed);
+			let sent = await t_channel.send(member.user.toString(), embed);
 			await sent.pin({ reason: 'Ticket opening message' });
 
 			await t_row.update({
