@@ -110,7 +110,7 @@ module.exports = class TicketManager extends EventEmitter {
 				.setDescription(description)
 				.setFooter(settings.footer, guild.iconURL());
 
-			if (topic) embed.addField(i18n('commands.new.opening_message.fields.topic'), topic);
+			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
 			let sent = await t_channel.send(member.user.toString(), embed);
 			await sent.pin({ reason: 'Ticket opening message' });
@@ -164,7 +164,7 @@ module.exports = class TicketManager extends EventEmitter {
 							.setColor(settings.colour)
 							.setAuthor(member.user.username, member.user.displayAvatarURL())
 							.setDescription(description)
-							.addField(i18n('commands.new.opening_message.fields.topic'), topic)
+							.addField(i18n('ticket.opening_message.fields.topic'), topic)
 							.setFooter(settings.footer, guild.iconURL())
 					);
 					await message.react('✅');
@@ -179,7 +179,7 @@ module.exports = class TicketManager extends EventEmitter {
 						await t_channel.send(
 							new MessageEmbed()
 								.setColor(settings.colour)
-								.setDescription(i18n('commands.new.questions', questions))
+								.setDescription(i18n('ticket.questions', questions))
 								.setFooter(settings.footer, guild.iconURL())
 						);
 					}
@@ -189,7 +189,7 @@ module.exports = class TicketManager extends EventEmitter {
 					await t_channel.send(
 						new MessageEmbed()
 							.setColor(settings.colour)
-							.setDescription(i18n('commands.new.questions', questions))
+							.setDescription(i18n('ticket.questions', questions))
 							.setFooter(settings.footer, guild.iconURL())
 					);
 				}
