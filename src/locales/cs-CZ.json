@@ -21,13 +21,31 @@
 	},
 	"collector_expires_in": "Expiruje za %d sekund",
 	"commands": {
+		"add": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to add to the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to add the member to",
+					"example": "217",
+					"name": "ticket"
+				}
+			},
+			"description": "Add a member to a ticket",
+			"name": "add",
+			"response": {}
+		},
 		"blacklist": {
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
 			"args": {
 				"member_or_role": {
-					"description": "Označení člena, role nebo ID člena popřípadě ID role",
+					"description": "The member or role to add/remove",
 					"example": "@NeposlušnýUživatel",
 					"name": "uživatelNeboRole"
 				}
@@ -140,6 +158,22 @@
 				}
 			}
 		},
+		"help": {
+			"aliases": {
+				"command": "command",
+				"commands": "commands"
+			},
+			"args": {
+				"member": {
+					"description": "The command to display information about",
+					"example": "new",
+					"name": "command"
+				}
+			},
+			"description": "List commands you have access to, or find out more about a command",
+			"name": "help",
+			"response": {}
+		},
 		"new": {
 			"aliases": {
 				"create": "create",
@@ -236,6 +270,24 @@
 				}
 			}
 		},
+		"remove": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to remove from the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to remove the member from",
+					"example": "217",
+					"name": "ticket"
+				}
+			},
+			"description": "Remove a member from a ticket",
+			"name": "remove",
+			"response": {}
+		},
 		"settings": {
 			"aliases": {
 				"config": "config"
@@ -245,6 +297,26 @@
 			"response": {
 				"updated": "✅ Nastavení bylo aktualizováno."
 			}
+		},
+		"stats": {
+			"aliases": {},
+			"args": {},
+			"description": "Display ticket statistics",
+			"name": "stats",
+			"response": {}
+		},
+		"topic": {
+			"aliases": {},
+			"args": {
+				"new_topic": {
+					"description": "The new topic of the ticket",
+					"example": "billing issue",
+					"name": "new_topic"
+				}
+			},
+			"description": "Change the topic of the ticket",
+			"name": "topic",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
