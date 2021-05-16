@@ -303,7 +303,24 @@
 			},
 			"description": "Remove a member from a ticket",
 			"name": "remove",
-			"response": {}
+			"response": {
+				"removed": {
+					"description": "%s has been removed from %s.",
+					"title": "✅ Member removed"
+				},
+				"no_member": {
+					"description": "Please mention the member you want to remove.",
+					"title": "❌ Unknown member"
+				},
+				"no_permission": {
+					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"title": "❌ Insufficient permission"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel, or mention the channel.",
+					"title": "❌ Это не канал тикета"
+				}
+			}
 		},
 		"settings": {
 			"aliases": {
@@ -373,6 +390,10 @@
 		"member_added": {
 			"description": "%s has been added by %s",
 			"title": "Member added"
+		},
+		"member_removed": {
+			"description": "%s has been removed by %s",
+			"title": "Member removed"
 		},
 		"released": {
 			"description": "%s выпустил этот тикет.",
