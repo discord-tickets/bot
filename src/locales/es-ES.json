@@ -206,12 +206,6 @@
 			},
 			"description": "Create a new ticket",
 			"name": "new",
-			"opening_message": {
-				"fields": {
-					"topic": "Topic"
-				}
-			},
-			"questions": "Please answer the following questions:\n\n%s",
 			"response": {
 				"created": {
 					"description": "Your ticket has been created: %s.",
@@ -350,7 +344,16 @@
 			},
 			"description": "Change the topic of the ticket",
 			"name": "topic",
-			"response": {}
+			"response": {
+				"changed": {
+					"description": "This ticket's topic has been changed.",
+					"title": "✅ Topic changed"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel you want to change the topic of.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		}
 	},
 	"command_execution_error": {
@@ -395,6 +398,12 @@
 			"description": "%s has been removed by %s",
 			"title": "Member removed"
 		},
+		"opening_message": {
+			"fields": {
+				"topic": "Topic"
+			}
+		},
+		"questions": "Please answer the following questions:\n\n%s",
 		"released": {
 			"description": "%s has released this ticket.",
 			"title": "✅ Ticket released"
