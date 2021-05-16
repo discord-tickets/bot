@@ -330,8 +330,25 @@
 			"aliases": {},
 			"args": {},
 			"description": "Display ticket statistics",
+			"fields": {
+				"messages": "Messages",
+				"response_time": {
+					"minutes": "%s minutes",
+					"title": "Avg. response time"
+				},
+				"tickets": "Tickets"
+			},
 			"name": "stats",
-			"response": {}
+			"response": {
+				"global": {
+					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
+					"title": "📊 Global stats"
+				},
+				"guild": {
+					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
+					"title": "📊 This server's stats"
+				}
+			}
 		},
 		"topic": {
 			"aliases": {},
