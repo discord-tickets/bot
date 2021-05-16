@@ -64,7 +64,7 @@ module.exports = class SettingsCommand extends Command {
 
 					if (cat_channel) {
 						if (cat_channel.name !== c.name)
-							await cat_channel.setName(c.name, `Tickets category updated by ${message.member.user.tag}`);
+							await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
 
 						for (let r of c.roles) {
 							await cat_channel.updateOverwrite(r, {
@@ -72,7 +72,7 @@ module.exports = class SettingsCommand extends Command {
 								READ_MESSAGE_HISTORY: true,
 								SEND_MESSAGES: true,
 								ATTACH_FILES: true
-							}, `Tickets category updated by ${message.member.user.tag}`);
+							}, `Tickets category updated by ${message.author.tag}`);
 						}
 					}
 
@@ -82,7 +82,7 @@ module.exports = class SettingsCommand extends Command {
 					const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 					let cat_channel = await message.guild.channels.create(c.name, {
 						type: 'category',
-						reason: `Tickets category created by ${message.member.user.tag}`,
+						reason: `Tickets category created by ${message.author.tag}`,
 						position: 1,
 						permissionOverwrites: [
 							...[
