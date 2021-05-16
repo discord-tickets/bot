@@ -144,7 +144,7 @@ module.exports = class TicketArchives  {
 				});
 
 				await u_row.update({
-					avatar: member.user.displayAvatarURL(),
+					avatar: member.user.avatar,
 					username: this.encrypt(member.user.username),
 					discriminator: member.user.discriminator,
 					display_name: this.encrypt(member.displayName),
