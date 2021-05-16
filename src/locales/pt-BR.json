@@ -1,8 +1,8 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"title": "⚠️",
-			"description": "O Bot necessita das seguintes permissões:\n%s"
+			"description": "O Bot necessita das seguintes permissões:\n%s",
+			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) v%s feito por [eartharoid](%s)"
 	},
@@ -21,13 +21,31 @@
 	},
 	"collector_expires_in": "Expira em %d segundos",
 	"commands": {
+		"add": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to add to the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to add the member to",
+					"example": "217",
+					"name": "ticket"
+				}
+			},
+			"description": "Add a member to a ticket",
+			"name": "add",
+			"response": {}
+		},
 		"blacklist": {
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
 			"args": {
 				"member_or_role": {
-					"description": "Mencione o membro, cargo ou ID do membro",
+					"description": "The member or role to add/remove",
 					"example": "@NaughtyMember",
 					"name": "membroOuCargo"
 				}
@@ -66,40 +84,101 @@
 		},
 		"close": {
 			"aliases": {
-				"delete": "deletar"
+				"delete": "deletar",
+				"lock": "lock"
 			},
 			"args": {
+				"reason": {
+					"alias": "r",
+					"description": "The reason for closing the ticket(s)",
+					"example": "",
+					"name": "reason"
+				},
 				"ticket": {
-					"description": "O número ou uma menção do canal do ticket para fechar",
+					"alias": "t",
+					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
 					"name": "ticket"
+				},
+				"time": {
+					"alias": "T",
+					"description": "Close all tickets that have been inactive for the specified time",
+					"example": "1w",
+					"name": "time"
 				}
 			},
 			"description": "Feche um canal de ticket",
 			"name": "close",
 			"response": {
 				"closed": {
-					"description": "Esse ticket foi fechado.\nA sala será deletada em 5 segundos.",
+					"description": "Ticket #%s has been closed.",
 					"title": "✅ Ticket fechado"
 				},
-				"closed_by_member": {
-					"description": "Esse ticket foi fechado por %s.\nA sala será deletada em 5 segundos.",
-					"title": "✅ Ticket fechado"
+				"closed_multiple": {
+					"description": [
+						"%d ticket has been closed.",
+						"%d tickets have been closed."
+					],
+					"title": [
+						"✅ Ticket fechado",
+						"✅ Tickets closed"
+					]
 				},
-				"closed_by_member_with_reason": {
-					"description": "Esse ticket foi fechado por %s: `%s`\nA sala será deletada em 5 segundos.",
-					"title": "✅ Ticket fechado"
+				"confirm": {
+					"description": "React with ✅ to close this ticket.",
+					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+					"title": "❔ Are you sure?"
 				},
-				"closed_with_reason": {
-					"description": "Esse ticket foi fechado: `%s`\nA sala será deletada em 5 segundos.",
-					"title": "✅ Ticket fechado"
+				"confirmation_timeout": {
+					"description": "You took too long to confirm.",
+					"title": "❌ Tempo de reação expirado"
+				},
+				"confirm_multiple": {
+					"description": [
+						"React with ✅ to close %d ticket.",
+						"React with ✅ to close %d tickets."
+					],
+					"title": "❔ Are you sure?"
+				},
+				"invalid_time": {
+					"description": "The time period provided could not be parsed.",
+					"title": "❌ Invalid input"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"title": "❌ This isn't a ticket channel"
+				},
+				"no_tickets": {
+					"description": "There are no tickets which have been inactive for this time period.",
+					"title": "❌ No tickets to close"
+				},
+				"unresolvable": {
+					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+					"title": "❌ Error"
 				}
 			}
+		},
+		"help": {
+			"aliases": {
+				"command": "command",
+				"commands": "commands"
+			},
+			"args": {
+				"member": {
+					"description": "The command to display information about",
+					"example": "new",
+					"name": "command"
+				}
+			},
+			"description": "List commands you have access to, or find out more about a command",
+			"name": "help",
+			"response": {}
 		},
 		"new": {
 			"aliases": {
 				"create": "criar",
-				"open": "abrir"
+				"open": "abrir",
+				"ticket": "ticket"
 			},
 			"args": {
 				"topic": {
@@ -117,10 +196,6 @@
 			},
 			"questions": "Por favor responda as seguintes questões:\n\n%s",
 			"response": {
-				"claimed": {
-					"description": "%s has claimed this ticket.",
-					"title": "✅ Ticket claimed"
-				},
 				"created": {
 					"description": "Seu ticket foi criado: %s.",
 					"title": "✅ Ticket criado"
@@ -139,10 +214,6 @@
 				"no_categories": {
 					"description": "Um administrador do servidor deve criar pelo menos uma categoria de ticket antes que um novo ticket possa ser aberto.",
 					"title": "❌ Não é possível criar ticket"
-				},
-				"released": {
-					"description": "%s has released this ticket.",
-					"title": "✅ Ticket released"
 				},
 				"select_category": {
 					"description": "Selecione a categoria mais relevante para o tópico do seu ticket:\n\n%s",
@@ -199,6 +270,24 @@
 				}
 			}
 		},
+		"remove": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to remove from the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to remove the member from",
+					"example": "217",
+					"name": "ticket"
+				}
+			},
+			"description": "Remove a member from a ticket",
+			"name": "remove",
+			"response": {}
+		},
 		"settings": {
 			"aliases": {
 				"config": "config"
@@ -208,6 +297,26 @@
 			"response": {
 				"updated": "✅ Configurações enviadas com sucesso."
 			}
+		},
+		"stats": {
+			"aliases": {},
+			"args": {},
+			"description": "Display ticket statistics",
+			"name": "stats",
+			"response": {}
+		},
+		"topic": {
+			"aliases": {},
+			"args": {
+				"new_topic": {
+					"description": "The new topic of the ticket",
+					"example": "billing issue",
+					"name": "new_topic"
+				}
+			},
+			"description": "Change the topic of the ticket",
+			"name": "assunto",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
@@ -222,5 +331,31 @@
 	"staff_only": {
 		"description": "Você precisa ser um membro da staff para utilizar esse comando.",
 		"title": "❌"
+	},
+	"ticket": {
+		"claimed": {
+			"description": "%s has claimed this ticket.",
+			"title": "✅ Ticket claimed"
+		},
+		"closed": {
+			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Ticket fechado"
+		},
+		"closed_by_member": {
+			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Ticket fechado"
+		},
+		"closed_by_member_with_reason": {
+			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Ticket fechado"
+		},
+		"closed_with_reason": {
+			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"title": "✅ Ticket fechado"
+		},
+		"released": {
+			"description": "%s has released this ticket.",
+			"title": "✅ Ticket released"
+		}
 	}
 }
