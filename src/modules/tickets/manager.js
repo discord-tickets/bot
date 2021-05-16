@@ -206,15 +206,6 @@ module.exports = class TicketManager extends EventEmitter {
 	}
 
 	/**
-	 * Get a ticket
-	 * @param {(string|number)} ticket_id - The channel ID, or the ticket number
-	 * @param {string} guild_id - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
-	 */
-	async get(ticket_id, guild_id) {
-		return await this.resolve(ticket_id, guild_id);
-	}
-
-	/**
 	 * Close a ticket
 	 * @param {(string|number)} ticket_id - The channel ID, or the ticket number
 	 * @param {string?} closer_id - ID of the member who is closing the ticket, or null
