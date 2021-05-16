@@ -34,6 +34,7 @@
 		"cryptr": "^6.0.2",
 		"discord.js": "^12.5.1",
 		"dotenv": "^8.2.0",
+		"keyv": "^4.0.3",
 		"leeks.js": "^0.2.2",
 		"leekslazylogger-fastify": "^0.1.1",
 		"node-emoji": "^1.10.0",
