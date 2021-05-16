@@ -8,10 +8,12 @@ module.exports = class SettingsCommand extends Command {
 		super(client, {
 			internal: true,
 			name: i18n('commands.settings.name'),
+			description: i18n('commands.settings.description'),
 			aliases: [
 				i18n('commands.settings.aliases.config'),
 			],
-			description: i18n('commands.settings.description'),
+			process_args: false,
+			args: [],
 			permissions: ['MANAGE_GUILD']
 		});
 	}

@@ -11,7 +11,6 @@ module.exports = class BlacklistCommand extends Command {
 			aliases: [
 				i18n('commands.blacklist.aliases.unblacklist'),
 			],
-			permissions: ['MANAGE_GUILD'], // staff_only: true,
 			process_args: false,
 			args: [
 				{
@@ -20,7 +19,8 @@ module.exports = class BlacklistCommand extends Command {
 					example: i18n('commands.blacklist.args.member_or_role.example'),
 					required: false,
 				}
-			]
+			],
+			permissions: ['MANAGE_GUILD']
 		});
 	}
 
