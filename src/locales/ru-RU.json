@@ -14,7 +14,7 @@
 		"description": "**Использование:**\n`%s`\n\n**Пример:**\n`%s`\n\nОбязательные аргументы префиксированы с `❗`.",
 		"invalid_named_args": {
 			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"title": "❌ Неверный синтаксис"
 		},
 		"named_args": "Эта команда использует названные аргументы.\n\n",
 		"title": "Использование команды `%s`"
