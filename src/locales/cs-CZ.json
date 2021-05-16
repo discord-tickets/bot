@@ -37,7 +37,24 @@
 			},
 			"description": "Add a member to a ticket",
 			"name": "add",
-			"response": {}
+			"response": {
+				"added": {
+					"description": "%s has been added to %s.",
+					"title": "✅ Member added"
+				},
+				"no_member": {
+					"description": "Please mention the member you want to add.",
+					"title": "❌ Unknown member"
+				},
+				"no_permission": {
+					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
+					"title": "❌ Insufficient permission"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel, or mention the channel.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		},
 		"blacklist": {
 			"aliases": {
@@ -352,6 +369,10 @@
 		"closed_with_reason": {
 			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
 			"title": "✅ Ticket uzavřen"
+		},
+		"member_added": {
+			"description": "%s has been added by %s",
+			"title": "Member added"
 		},
 		"released": {
 			"description": "%s has released this ticket.",
