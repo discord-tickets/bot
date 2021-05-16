@@ -93,6 +93,8 @@ module.exports = class AddCommand extends Command {
 			ATTACH_FILES: true
 		}, `${message.author.tag} added ${member.user.tag} to the ticket`);
 
+		await this.client.tickets.archives.updateMember(ticket.id, member);
+
 		this.client.log.info(`${message.author.tag} added ${member.user.tag} to ${ticket.id}`);
 	}
 };

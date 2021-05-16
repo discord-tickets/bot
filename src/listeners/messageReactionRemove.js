@@ -55,7 +55,7 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 
 				await channel.permissionOverwrites
 					.get(member.user.id)
-					.delete(`Ticket released by ${member.user.tag}`);
+					?.delete(`Ticket released by ${member.user.tag}`);
 
 				let cat_row = await this.client.db.models.Category.findOne({
 					where: {
