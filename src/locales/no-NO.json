@@ -21,13 +21,31 @@
 	},
 	"collector_expires_in": "Utløper om %d sekunder",
 	"commands": {
+		"add": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to add to the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to add the member to",
+					"example": "217",
+					"name": "billett"
+				}
+			},
+			"description": "Add a member to a ticket",
+			"name": "add",
+			"response": {}
+		},
 		"blacklist": {
 			"aliases": {
 				"unblacklist": "fjerne fra svarteliste"
 			},
 			"args": {
 				"member_or_role": {
-					"description": "Du må nevne en bruker, en rolle, eller en ID av en bruker eller rolle",
+					"description": "The member or role to add/remove",
 					"example": "@NaughtyMember",
 					"name": "medlemEllerRolle"
 				}
@@ -140,6 +158,22 @@
 				}
 			}
 		},
+		"help": {
+			"aliases": {
+				"command": "command",
+				"commands": "commands"
+			},
+			"args": {
+				"member": {
+					"description": "The command to display information about",
+					"example": "ny",
+					"name": "command"
+				}
+			},
+			"description": "List commands you have access to, or find out more about a command",
+			"name": "help",
+			"response": {}
+		},
 		"new": {
 			"aliases": {
 				"create": "opprette",
@@ -236,6 +270,24 @@
 				}
 			}
 		},
+		"remove": {
+			"aliases": {},
+			"args": {
+				"member": {
+					"description": "The member to remove from the ticket",
+					"example": "@someone",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "The ticket to remove the member from",
+					"example": "217",
+					"name": "billett"
+				}
+			},
+			"description": "Remove a member from a ticket",
+			"name": "remove",
+			"response": {}
+		},
 		"settings": {
 			"aliases": {
 				"config": "konfiguration"
@@ -245,6 +297,26 @@
 			"response": {
 				"updated": "✅ innstillinger er oppdatert."
 			}
+		},
+		"stats": {
+			"aliases": {},
+			"args": {},
+			"description": "Display ticket statistics",
+			"name": "stats",
+			"response": {}
+		},
+		"topic": {
+			"aliases": {},
+			"args": {
+				"new_topic": {
+					"description": "The new topic of the ticket",
+					"example": "billing issue",
+					"name": "new_topic"
+				}
+			},
+			"description": "Change the topic of the ticket",
+			"name": "emne",
+			"response": {}
 		}
 	},
 	"command_execution_error": {
