@@ -79,8 +79,6 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 						.setDescription(i18n('ticket.released.description', member.toString()))
 						.setFooter(settings.footer, guild.iconURL())
 				);
-			} else {
-				await r.users.remove(u.id);
 			}
 		}
 	}
