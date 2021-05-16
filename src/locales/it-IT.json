@@ -206,12 +206,6 @@
 			},
 			"description": "Crea un nuovo ticket",
 			"name": "nuovo",
-			"opening_message": {
-				"fields": {
-					"topic": "Argomento"
-				}
-			},
-			"questions": "Si prega di rispondere alle seguenti domande:\n\n%s",
 			"response": {
 				"created": {
 					"description": "Il tuo ticket è stato creato: %s.",
@@ -350,7 +344,16 @@
 			},
 			"description": "Change the topic of the ticket",
 			"name": "argomento",
-			"response": {}
+			"response": {
+				"changed": {
+					"description": "This ticket's topic has been changed.",
+					"title": "✅ Topic changed"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel you want to change the topic of.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		}
 	},
 	"command_execution_error": {
@@ -395,6 +398,12 @@
 			"description": "%s has been removed by %s",
 			"title": "Member removed"
 		},
+		"opening_message": {
+			"fields": {
+				"topic": "Topic"
+			}
+		},
+		"questions": "Please answer the following questions:\n\n%s",
 		"released": {
 			"description": "%s has released this ticket.",
 			"title": "✅ Ticket released"
