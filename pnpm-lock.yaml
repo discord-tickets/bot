@@ -8,6 +8,7 @@ specifiers:
   discord.js: ^12.5.1
   dotenv: ^8.2.0
   eslint: ^7.21.0
+  jsonschema: ^1.4.0
   keyv: ^4.0.3
   leeks.js: ^0.2.2
   leekslazylogger-fastify: ^0.1.1
@@ -33,6 +34,7 @@ dependencies:
   cryptr: 6.0.2
   discord.js: 12.5.1
   dotenv: 8.2.0
+  jsonschema: 1.4.0
   keyv: 4.0.3
   leeks.js: 0.2.2
   leekslazylogger-fastify: 0.1.1
@@ -1421,6 +1423,10 @@ packages:
 
   /json-stringify-safe/5.0.1:
     resolution: {integrity: sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=}
+
+  /jsonschema/1.4.0:
+    resolution: {integrity: sha512-/YgW6pRMr6M7C+4o8kS+B/2myEpHCrxO4PEWnqJNBFMjn7EWXqlQ4tGwL6xTHeRplwuZmcAncdvfOad1nT2yMw==}
+    dev: false
 
   /jsprim/1.4.1:
     resolution: {integrity: sha1-MT5mvB5cwG5Di8G3SZwuXFastqI=}

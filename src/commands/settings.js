@@ -1,6 +1,7 @@
 const Command = require('../modules/commands/command');
 const fetch = require('node-fetch');
 const { MessageAttachment } = require('discord.js');
+const { Validator } = require('jsonschema');
 
 module.exports = class SettingsCommand extends Command {
 	constructor(client) {
@@ -16,6 +17,108 @@ module.exports = class SettingsCommand extends Command {
 			args: [],
 			permissions: ['MANAGE_GUILD']
 		});
+
+		this.schema = {
+			type: 'object',
+			properties: {
+				categories: {
+					type: 'array',
+					items: {
+						type: 'object',
+						properties: {
+							id: {
+								type: 'string'
+							},
+							claiming: {
+								type: 'boolean'
+							},
+							image: {
+								type: ['string', 'null']
+							},
+							max_per_member: {
+								type: 'number'
+							},
+							name: {
+								type: 'string'
+							},
+							name_format: {
+								type: 'string'
+							},
+							opening_message: {
+								type: 'string'
+							},
+							opening_questions: {
+								type: ['array', 'null'],
+								items: {
+									type: 'string'
+								}
+							},
+							ping: {
+								type: ['array', 'null'],
+								items: {
+									type: 'string'
+								}
+							},
+							require_topic: {
+								type: 'boolean'
+							},
+							roles: {
+								type: 'array',
+								items: {
+									type: 'string'
+								}
+							},
+							survey: {
+								type: ['string', 'null']
+							}
+						},
+						required: [
+							'name',
+							'name_format',
+							'opening_message',
+							'roles'
+						]
+					}
+				},
+				colour: {
+					type: 'string'
+				},
+				command_prefix: {
+					type: 'string'
+				},
+				error_colour: {
+					type: 'string'
+				},
+				footer: {
+					type: 'string'
+				},
+				locale: {
+					type: 'string'
+				},
+				log_messages: {
+					type: 'boolean'
+				},
+				success_colour: {
+					type: 'string'
+				},
+				surveys: {
+					type: 'object'
+				}
+			},
+			required: [
+				'categories',
+				'colour',
+				'command_prefix',
+				'error_colour',
+				'footer',
+				'locale',
+				'log_messages',
+				'success_colour',
+				'surveys'
+			]
+		};
+
+		this.v = new Validator();
 	}
 
 	async execute(message) {
@@ -29,6 +132,14 @@ module.exports = class SettingsCommand extends Command {
 			// load settings from json
 			this.client.log.info(`Downloading settings for "${message.guild.name}"`);
 			let data = await (await fetch(attachments[0].url)).json();
+
+			const { valid, errors } = this.v.validate(data, this.schema);
+
+			if (!valid) {
+				this.client.log.warn('Settings validation error');
+				return await message.channel.send(i18n('commands.settings.response.invalid', errors.map(error => `\`${error.stack}\``).join(',\n')));
+			}
+
 			settings.colour = data.colour;
 			settings.command_prefix = data.command_prefix;
 			settings.error_colour = data.error_colour;
@@ -137,7 +248,7 @@ module.exports = class SettingsCommand extends Command {
 			}
 
 			this.client.log.success(`Updated guild settings for "${message.guild.name}"`);
-			message.channel.send(i18n('commands.settings.response.updated'));
+			return await message.channel.send(i18n('commands.settings.response.updated'));
 		
 		} else {
 

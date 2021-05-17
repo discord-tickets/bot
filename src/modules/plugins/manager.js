@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const { Collection, Client } = require('discord.js');
+const { Collection } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
 const Plugin = require('./plugin');
 
