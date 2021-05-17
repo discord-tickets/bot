@@ -323,6 +323,7 @@
 			"description": "Configura il bot discord dei ticket",
 			"name": "impostazioni",
 			"response": {
+				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 				"updated": "✅ Le impostazioni sono state aggiornate."
 			}
 		},
