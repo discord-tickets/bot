@@ -1,6 +1,7 @@
 const Command = require('../modules/commands/command');
 const fetch = require('node-fetch');
-const { MessageAttachment } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageAttachment, Message } = require('discord.js');
 const { Validator } = require('jsonschema');
 
 module.exports = class SettingsCommand extends Command {
@@ -18,109 +19,16 @@ module.exports = class SettingsCommand extends Command {
 			permissions: ['MANAGE_GUILD']
 		});
 
-		this.schema = {
-			type: 'object',
-			properties: {
-				categories: {
-					type: 'array',
-					items: {
-						type: 'object',
-						properties: {
-							id: {
-								type: 'string'
-							},
-							claiming: {
-								type: 'boolean'
-							},
-							image: {
-								type: ['string', 'null']
-							},
-							max_per_member: {
-								type: 'number'
-							},
-							name: {
-								type: 'string'
-							},
-							name_format: {
-								type: 'string'
-							},
-							opening_message: {
-								type: 'string'
-							},
-							opening_questions: {
-								type: ['array', 'null'],
-								items: {
-									type: 'string'
-								}
-							},
-							ping: {
-								type: ['array', 'null'],
-								items: {
-									type: 'string'
-								}
-							},
-							require_topic: {
-								type: 'boolean'
-							},
-							roles: {
-								type: 'array',
-								items: {
-									type: 'string'
-								}
-							},
-							survey: {
-								type: ['string', 'null']
-							}
-						},
-						required: [
-							'name',
-							'name_format',
-							'opening_message',
-							'roles'
-						]
-					}
-				},
-				colour: {
-					type: 'string'
-				},
-				command_prefix: {
-					type: 'string'
-				},
-				error_colour: {
-					type: 'string'
-				},
-				footer: {
-					type: 'string'
-				},
-				locale: {
-					type: 'string'
-				},
-				log_messages: {
-					type: 'boolean'
-				},
-				success_colour: {
-					type: 'string'
-				},
-				surveys: {
-					type: 'object'
-				}
-			},
-			required: [
-				'categories',
-				'colour',
-				'command_prefix',
-				'error_colour',
-				'footer',
-				'locale',
-				'log_messages',
-				'success_colour',
-				'surveys'
-			]
-		};
+		this.schema = require('../settings_schema.json');
 
 		this.v = new Validator();
 	}
 
+	/**
+	 * @param {Message} message
+	 * @param {*} args
+	 * @returns {Promise<void|any>}
+	 */
 	async execute(message) {
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
