@@ -323,6 +323,7 @@
 			"description": "Configure Discord Tickets",
 			"name": "settings",
 			"response": {
+				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 				"updated": "✅ Настройки были обновлены."
 			}
 		},
