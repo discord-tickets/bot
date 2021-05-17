@@ -15,7 +15,10 @@ module.exports = class PluginManager {
 		/** The Discord Client */
 		this.client = client;
 		
-		/** A discord.js Collection (Map) of loaded plugins */
+		/**
+		 * A discord.js Collection (Map) of loaded plugins
+		 * @type {Collection<string, import('./plugin')>}
+		 */
 		this.plugins = new Collection();
 
 		/** Array of official plugins to be used to check if a plugin is official */

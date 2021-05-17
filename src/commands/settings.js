@@ -26,7 +26,7 @@ module.exports = class SettingsCommand extends Command {
 
 	/**
 	 * @param {Message} message
-	 * @param {*} args
+	 * @param {string} args
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {

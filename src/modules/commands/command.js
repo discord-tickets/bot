@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, Message } = require('discord.js');
 
 /**
  * A command
@@ -66,7 +67,7 @@ module.exports = class Command {
 		 * Array of permissions needed for a user to use this command
 		 * @type {string[]}
 		*/
-		this.permissions = data.permissions;
+		this.permissions = data.permissions ?? [];
 
 		/**
 		 * Should the command handler process named arguments?
@@ -115,12 +116,12 @@ module.exports = class Command {
 	/**
 	 * Send a message with the command usage
 	 * @param {TextChannel} channel - The channel to send the message to
-	 * @param {string} [cmd_name] - The command alias
+	 * @param {string} [alias] - The command alias
 	 * @returns {Message}
 	 */
-	async sendUsage(channel, cmd_name) {
+	async sendUsage(channel, alias) {
 		let settings = await channel.guild.settings;
-		if (!cmd_name) cmd_name = this.name;
+		if (!alias) alias = this.name;
 
 		const prefix = settings.command_prefix;
 		const i18n = this.client.i18n.getLocale(settings.locale);
@@ -137,18 +138,18 @@ module.exports = class Command {
 			embed;
 
 		if (this.process_args) {
-			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + cmd_name} \n${this.args.map(arg => `--${arg.name} ${arg.example || ''}`).join('\n')}`;
+			usage = `${prefix + alias} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
+			example = `${prefix + alias} \n${this.args.map(arg => `--${arg.name} ${arg.example || ''}`).join('\n')}`;
 			embed = new MessageEmbed()
 				.setColor(settings.error_colour)
-				.setTitle(i18n('cmd_usage.title', cmd_name))
+				.setTitle(i18n('cmd_usage.title', alias))
 				.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
 		} else {
-			usage = `${prefix + cmd_name} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + cmd_name} ${this.args.map(arg => `${arg.example || ''}`).join(' ')}`;
+			usage = `${prefix + alias} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
+			example = `${prefix + alias} ${this.args.map(arg => `${arg.example || ''}`).join(' ')}`;
 			embed = new MessageEmbed()
 				.setColor(settings.error_colour)
-				.setTitle(i18n('cmd_usage.title', cmd_name))
+				.setTitle(i18n('cmd_usage.title', alias))
 				.setDescription(i18n('cmd_usage.description', usage, example));
 		}
 

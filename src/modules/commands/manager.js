@@ -19,7 +19,10 @@ module.exports = class CommandManager {
 		/** The Discord Client */
 		this.client = client;
 
-		/** A discord.js Collection (Map) of loaded commands */
+		/**
+		 * A discord.js Collection (Map) of loaded commands
+		 * @type {Collection<string, import('./command')>}
+		 */
 		this.commands = new Collection();
 	}
 

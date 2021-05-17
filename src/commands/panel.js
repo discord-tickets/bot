@@ -1,5 +1,6 @@
 const Command = require('../modules/commands/command');
-const { MessageEmbed } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, Message } = require('discord.js');
 const { some, wait } = require('../utils');
 const { emojify } = require('node-emoji');
 
@@ -56,6 +57,11 @@ module.exports = class PanelCommand extends Command {
 		});
 	}
 
+	/**
+	 * @param {Message} message
+	 * @param {*} args
+	 * @returns {Promise<void|any>}
+	 */
 	async execute(message, args) {
 		// localised command and arg names are a pain
 		const arg_title = this.args[0].name;

@@ -1,5 +1,6 @@
 const Command = require('../modules/commands/command');
-const { MessageEmbed } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, Message } = require('discord.js');
 
 module.exports = class RemoveCommand extends Command {
 	constructor(client) {
@@ -27,6 +28,11 @@ module.exports = class RemoveCommand extends Command {
 		});
 	}
 
+	/**
+	 * @param {Message} message
+	 * @param {string} args
+	 * @returns {Promise<void|any>}
+	 */
 	async execute(message, args) {
 		let settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);

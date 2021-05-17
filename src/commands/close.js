@@ -1,5 +1,6 @@
 const Command = require('../modules/commands/command');
-const { MessageEmbed, MessageMentions } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, MessageMentions, Message } = require('discord.js');
 const { Op } = require('sequelize');
 const toTime = require('to-time-monthsfork');
 const { footer } = require('../utils/discord');
@@ -48,6 +49,11 @@ module.exports = class CloseCommand extends Command {
 		});
 	}
 
+	/**
+	 * @param {Message} message
+	 * @param {*} args
+	 * @returns {Promise<void|any>}
+	 */
 	async execute(message, args) {
 		const arg_ticket = this.args[0].name;
 		const arg_reason = this.args[1].name;
