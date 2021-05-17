@@ -323,6 +323,7 @@
 			"description": "Konfigurasi Discord Tickets",
 			"name": "pengaturan",
 			"response": {
+				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 				"updated": "✅ Pengaturan telah diperbarui."
 			}
 		},
