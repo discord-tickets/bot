@@ -323,6 +323,7 @@
 			"description": "Configurar o BOT",
 			"name": "settings",
 			"response": {
+				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 				"updated": "✅ Configurações enviadas com sucesso."
 			}
 		},
