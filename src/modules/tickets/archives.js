@@ -4,7 +4,7 @@ const { int2hex } = require('../../utils');
 module.exports = class TicketArchives  {
 	/**
 	 * Create a TicketArchives instance
-	 * @param {Client} client
+	 * @param {import('../..').Bot} client
 	 */
 	constructor(client) {
 

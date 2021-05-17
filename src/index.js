@@ -104,7 +104,8 @@ const {
 } = require('discord.js');
 
 /**
- * The bot client
+ * The Discord client
+ * @typedef {Bot} Bot
  * @extends {Client}
  */
 class Bot extends Client {

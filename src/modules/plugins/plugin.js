@@ -11,7 +11,7 @@ const { path } = require('../../utils/fs');
 module.exports = class Plugin {
 	/**
 	 * Create a new Plugin
-	 * @param {Client} client The Discord Client
+	 * @param {import('../..').Bot} client The Discord Client
 	 * @param {String} id The plugin ID
 	 * @param {Object} options Plugin options
 	 * @param {String} options.name A human-friendly name (can be different to the name in package.json)

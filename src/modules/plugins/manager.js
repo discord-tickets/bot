@@ -9,7 +9,7 @@ const Plugin = require('./plugin');
 module.exports = class PluginManager {
 	/**
 	 * Create a PluginManager instance
-	 * @param {Client} client 
+	 * @param {import('../..').Bot} client 
 	 */
 	constructor(client) {
 		/** The Discord Client */

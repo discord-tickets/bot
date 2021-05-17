@@ -14,7 +14,7 @@ module.exports = class Command {
 	 */
 	/**
 	 * Create a new Command
-	 * @param {Client} client - The Discord Client
+	 * @param {import('../../').Bot} client - The Discord Client
 	 * @param {Object} data - Command data
 	 * @param {string} data.name - The name of the command (3-32)
 	 * @param {string} data.description - The description of the command (1-100)

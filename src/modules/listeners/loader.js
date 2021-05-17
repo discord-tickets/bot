@@ -7,7 +7,7 @@ const { path } = require('../../utils/fs');
 module.exports = class ListenerLoader {
 	/**
 	 * Create a ListenerLoader instance
-	 * @param {Client} client 
+	 * @param {import('../..').Bot} client 
 	 */
 	constructor(client) {
 		/** The Discord Client */

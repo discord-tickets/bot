@@ -13,7 +13,7 @@ const parseArgs = require('command-line-args');
 module.exports = class CommandManager {
 	/**
 	 * Create a CommandManager instance
-	 * @param {Client} client 
+	 * @param {import('../..').Bot} client 
 	 */
 	constructor(client) {
 		/** The Discord Client */

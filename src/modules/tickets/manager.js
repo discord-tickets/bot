@@ -7,7 +7,7 @@ const { footer } = require('../../utils/discord');
 module.exports = class TicketManager extends EventEmitter {
 	/**
 	 * Create a TicketManager instance
-	 * @param {Client} client
+	 * @param {import('../..').Bot} client
 	 */
 	constructor(client) {
 		super();
