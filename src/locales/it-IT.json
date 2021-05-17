@@ -181,7 +181,7 @@
 				"commands": "commands"
 			},
 			"args": {
-				"member": {
+				"command": {
 					"description": "The command to display information about",
 					"example": "nuovo",
 					"name": "command"
@@ -189,7 +189,15 @@
 			},
 			"description": "List commands you have access to, or find out more about a command",
 			"name": "help",
-			"response": {}
+			"response": {
+				"list": {
+					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`.To create a ticket, type `{prefix}new [topic]`.",
+					"fields": {
+						"commands": "Commands"
+					},
+					"title": "❔ Help"
+				}
+			}
 		},
 		"new": {
 			"aliases": {
