@@ -102,6 +102,8 @@ const {
 	Client,
 	Intents
 } = require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const FastifyLogger = require('leekslazylogger-fastify');
 
 /**
  * The Discord client
@@ -126,10 +128,16 @@ class Bot extends Client {
 			/** The global bot configuration */
 			this.config = require('../user/config');
 
-			/** A [leekslazylogger](https://logger.eartharoid.me) instance */
+			/**
+			 * A [leekslazylogger](https://logger.eartharoid.me) instance
+			 * @type {FastifyLogger}
+			 */
 			this.log = log;
 
-			/** A [Cryptr](https://www.npmjs.com/package/cryptr) instance */
+			/**
+			 * A [Cryptr](https://www.npmjs.com/package/cryptr) instance
+			 * @type {Cryptr}
+			 */
 			this.cryptr = new Cryptr(process.env.DB_ENCRYPTION_KEY);
 
 			const locales = {};
@@ -143,7 +151,10 @@ class Bot extends Client {
 					locales[name] = JSON.parse(data);
 				});
 
-			/** An [@eartharoid/i18n](https://github.com/eartharoid/i18n) instance */
+			/**
+			 * An [@eartharoid/i18n](https://github.com/eartharoid/i18n) instance
+			 * @type {I18n}
+			 */
 			this.i18n = new I18n('en-GB', locales);
 
 			/** A sequelize instance */
@@ -154,7 +165,7 @@ class Bot extends Client {
 			require('./updater')(this); // check for updates
 			
 			const listeners = new ListenerLoader(this);
-			listeners.load(); // load internal listeners
+			listeners.load(); // load listeners
 
 			/** The ticket manager */
 			this.tickets = new TicketManager(this);
