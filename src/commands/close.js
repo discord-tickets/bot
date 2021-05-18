@@ -59,7 +59,7 @@ module.exports = class CloseCommand extends Command {
 		const arg_reason = this.args[1].name;
 		const arg_time = this.args[2].name;
 
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		if (args[arg_time]) {
@@ -77,7 +77,7 @@ module.exports = class CloseCommand extends Command {
 				);
 			}
 
-			let tickets = await this.client.db.models.Ticket.findAndCountAll({
+			const tickets = await this.client.db.models.Ticket.findAndCountAll({
 				where: {
 					last_message: {
 						[Op.lte]: new Date(Date.now() - period)
@@ -95,7 +95,7 @@ module.exports = class CloseCommand extends Command {
 						.setFooter(settings.footer, message.guild.iconURL())
 				);
 			} else {
-				let collector_message = await message.channel.send(
+				const collector_message = await message.channel.send(
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setTitle(i18n('commands.close.response.confirm_multiple.title'))
@@ -109,7 +109,7 @@ module.exports = class CloseCommand extends Command {
 					return user.id === message.author.id && reaction.emoji.name === '✅';
 				};
 
-				let collector = collector_message.createReactionCollector(collector_filter, {
+				const collector = collector_message.createReactionCollector(collector_filter, {
 					time: 30000
 				});
 
@@ -124,7 +124,7 @@ module.exports = class CloseCommand extends Command {
 							.setFooter(settings.footer, message.guild.iconURL())
 					);
 
-					for (let ticket of tickets.rows) {
+					for (const ticket of tickets.rows) {
 						await this.client.tickets.close(ticket.id, message.author.id, message.guild.id, args[arg_reason]);
 					}
 
@@ -186,7 +186,7 @@ module.exports = class CloseCommand extends Command {
 				}
 			}
 
-			let collector_message = await message.channel.send(
+			const collector_message = await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.close.response.confirm.title'))
@@ -200,7 +200,7 @@ module.exports = class CloseCommand extends Command {
 				return user.id === message.author.id && reaction.emoji.name === '✅';
 			};
 
-			let collector = collector_message.createReactionCollector(collector_filter, {
+			const collector = collector_message.createReactionCollector(collector_filter, {
 				time: 30000
 			});
 

@@ -22,7 +22,7 @@ module.exports = class ListenerLoader {
 			try {
 				file = require(`../../listeners/${file}`);
 				const listener = new file(this.client);
-				let on = listener.once ? 'once' : 'on';
+				const on = listener.once ? 'once' : 'on';
 				if (listener.raw)
 					this.client.ws[on](listener.event, (...data) => listener.execute(...data));
 				else

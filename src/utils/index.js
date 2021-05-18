@@ -1,7 +1,7 @@
 module.exports = {
 	int2hex: (int) => int.toString(16).toUpperCase(),
 	some: async (array, func) => {
-		for (let element of array) {
+		for (const element of array) {
 			if (await func(element)) return true;
 		}
 		return false;

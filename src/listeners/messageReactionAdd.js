@@ -50,7 +50,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 			});
 		}
 
-		let t_row = await this.client.db.models.Ticket.findOne({
+		const t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: channel.id
 			}
@@ -68,13 +68,13 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 					VIEW_CHANNEL: true,
 				}, `Ticket claimed by ${member.user.tag}`);
 
-				let cat_row = await this.client.db.models.Category.findOne({
+				const cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: t_row.category
 					}
 				});
 
-				for (let role of cat_row.roles) {
+				for (const role of cat_row.roles) {
 					await channel.updateOverwrite(role, {
 						VIEW_CHANNEL: false,
 					}, `Ticket claimed by ${member.user.tag}`);
@@ -94,7 +94,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				await r.users.remove(u.id);
 			}
 		} else {
-			let p_row = await this.client.db.models.Panel.findOne({
+			const p_row = await this.client.db.models.Panel.findOne({
 				where: {
 					message: r.message.id
 				}
@@ -104,16 +104,16 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				// panels
 				await r.users.remove(u.id);
 
-				let category_id = p_row.categories[r.emoji.name];
+				const category_id = p_row.categories[r.emoji.name];
 				if (!category_id) return;
 
-				let cat_row = await this.client.db.models.Category.findOne({
+				const cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: category_id
 					}
 				});
 
-				let tickets = await this.client.db.models.Ticket.findAndCountAll({
+				const tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {
 						category: cat_row.id,
 						creator: u.id,
@@ -137,10 +137,10 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							response = await channel.send(embed);
 						}
 					} else {
-						let list = tickets.rows.map(row => {
+						const list = tickets.rows.map(row => {
 							if (row.topic) {
-								let description = row.topic.substring(0, 30);
-								let ellipses = row.topic.length > 30 ? '...' : '';
+								const description = row.topic.substring(0, 30);
+								const ellipses = row.topic.length > 30 ? '...' : '';
 								return `<#${row.id}>: \`${description}${ellipses}\``;
 							} else {
 								return `<#${row.id}>`;

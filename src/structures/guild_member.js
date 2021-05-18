@@ -7,7 +7,7 @@ Structures.extend('GuildMember', GuildMember => {
 		}
 
 		async isStaff() {
-			let guild_categories = await this.client.db.models.Category.findAll({
+			const guild_categories = await this.client.db.models.Category.findAll({
 				where: {
 					guild: this.guild.id
 				}

@@ -19,7 +19,7 @@ module.exports = class TicketArchives  {
 	async addMessage(message) {
 		try {
 			// await this.client.db.transaction(async t => {
-			let t_row = await this.client.db.models.Ticket.findOne({
+			const t_row = await this.client.db.models.Ticket.findOne({
 				where: {
 					id: message.channel.id
 				},
@@ -53,7 +53,7 @@ module.exports = class TicketArchives  {
 	async updateMessage(message) {
 		try {
 			// await this.client.db.transaction(async t => {
-			let m_row = await this.client.db.models.Message.findOne({
+			const m_row = await this.client.db.models.Message.findOne({
 				where: {
 					id: message.id
 				},
@@ -86,7 +86,7 @@ module.exports = class TicketArchives  {
 	async deleteMessage(message) {
 		try {
 			// await this.client.db.transaction(async t => {
-			let msg = await this.client.db.models.Message.findOne({
+			const msg = await this.client.db.models.Message.findOne({
 				where: {
 					id: message.id
 				},
@@ -129,12 +129,12 @@ module.exports = class TicketArchives  {
 
 		try {
 			// await this.client.db.transaction(async t => {
-			let u_model_data = {
+			const u_model_data = {
 				user: member.user.id,
 				ticket: ticket_id
 			};
 
-			let [u_row] = await this.client.db.models.UserEntity.findOrCreate({
+			const [u_row] = await this.client.db.models.UserEntity.findOrCreate({
 				where: u_model_data,
 				defaults: {
 					...u_model_data,
@@ -163,11 +163,11 @@ module.exports = class TicketArchives  {
 	async updateChannel(ticket_id, channel) {
 		try {
 			// await this.client.db.transaction(async t => {
-			let c_model_data = {
+			const c_model_data = {
 				channel: channel.id,
 				ticket: ticket_id
 			};
-			let [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
+			const [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
 				where: c_model_data,
 				defaults: c_model_data,
 				/* transaction: t */
@@ -188,11 +188,11 @@ module.exports = class TicketArchives  {
 	async updateRole(ticket_id, role) {
 		try {
 			// await this.client.db.transaction(async t => {
-			let r_model_data = {
+			const r_model_data = {
 				role: role.id,
 				ticket: ticket_id
 			};
-			let [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
+			const [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
 				where: r_model_data,
 				defaults: r_model_data,
 				/* transaction: t */

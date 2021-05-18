@@ -95,6 +95,9 @@
 		},
 		"surveys": {
 			"type": "object"
+		},
+		"tags": {
+			"type": "object"
 		}
 	},
 	"required": [
@@ -106,6 +109,7 @@
 		"locale",
 		"log_messages",
 		"success_colour",
-		"surveys"
+		"surveys",
+		"tags"
 	]
 }

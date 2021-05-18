@@ -30,7 +30,7 @@ module.exports = class TicketManager extends EventEmitter {
 	async create(guild_id, creator_id, category_id, topic) {
 		if (!topic) topic = '';
 
-		let cat_row = await this.client.db.models.Category.findOne({
+		const cat_row = await this.client.db.models.Category.findOne({
 			where: {
 				id: category_id
 			}
@@ -39,24 +39,24 @@ module.exports = class TicketManager extends EventEmitter {
 		if (!cat_row)
 			throw new Error('Ticket category does not exist');
 		
-		let cat_channel = await this.client.channels.fetch(category_id);
+		const cat_channel = await this.client.channels.fetch(category_id);
 
 		if (cat_channel.children.size >= 50)
 			throw new Error('Ticket category has reached child channel limit (50)');
 
-		let number = (await this.client.db.models.Ticket.count({
+		const number = (await this.client.db.models.Ticket.count({
 			where: {
 				guild: guild_id
 			}
 		})) + 1;
 
-		let guild = this.client.guilds.cache.get(guild_id);
-		let member = await guild.members.fetch(creator_id);
-		let name = cat_row.name_format
+		const guild = this.client.guilds.cache.get(guild_id);
+		const member = await guild.members.fetch(creator_id);
+		const name = cat_row.name_format
 			.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
 			.replace(/{+\s?num(ber)?\s?}+/gi, number);
 
-		let t_channel = await guild.channels.create(name, {
+		const t_channel = await guild.channels.create(name, {
 			type: 'text',
 			topic: `${member}${topic.length > 0 ? ` | ${topic}` : ''}`,
 			parent: category_id,
@@ -70,7 +70,7 @@ module.exports = class TicketManager extends EventEmitter {
 			ATTACH_FILES: true
 		}, `Ticket channel created by ${member.user.tag}`);
 
-		let t_row = await this.client.db.models.Ticket.create({
+		const t_row = await this.client.db.models.Ticket.create({
 			id: t_channel.id,
 			number,
 			guild: guild_id,
@@ -80,7 +80,7 @@ module.exports = class TicketManager extends EventEmitter {
 		});
 
 		(async () => {
-			let settings = await guild.settings;
+			const settings = await guild.settings;
 			const i18n = this.client.i18n.getLocale(settings.locale);
 
 			topic = t_row.topic
@@ -88,7 +88,7 @@ module.exports = class TicketManager extends EventEmitter {
 				: '';
 
 			if (cat_row.ping instanceof Array && cat_row.ping.length > 0) {
-				let mentions = cat_row.ping.map(id => id === 'everyone'
+				const mentions = cat_row.ping.map(id => id === 'everyone'
 					? '@everyone'
 					: id === 'here'
 						? '@here'
@@ -101,10 +101,10 @@ module.exports = class TicketManager extends EventEmitter {
 				await t_channel.send(cat_row.image);
 			}
 
-			let description = cat_row.opening_message
+			const description = cat_row.opening_message
 				.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
 				.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, member.user.toString());
-			let embed = new MessageEmbed()
+			const embed = new MessageEmbed()
 				.setColor(settings.colour)
 				.setAuthor(member.user.username, member.user.displayAvatarURL())
 				.setDescription(description)
@@ -112,14 +112,14 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
-			let sent = await t_channel.send(member.user.toString(), embed);
+			const sent = await t_channel.send(member.user.toString(), embed);
 			await sent.pin({ reason: 'Ticket opening message' });
 
 			await t_row.update({
 				opening_message: sent.id
 			});
 
-			let pinned = t_channel.messages.cache.last();
+			const pinned = t_channel.messages.cache.last();
 
 			if (pinned.system) {
 				pinned
@@ -139,7 +139,7 @@ module.exports = class TicketManager extends EventEmitter {
 			}
 
 			if (cat_row.require_topic && topic.length === 0) {
-				let collector_message = await t_channel.send(
+				const collector_message = await t_channel.send(
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
@@ -149,7 +149,7 @@ module.exports = class TicketManager extends EventEmitter {
 
 				const collector_filter = (message) => message.author.id === t_row.creator;
 
-				let collector = t_channel.createMessageCollector(collector_filter, {
+				const collector = t_channel.createMessageCollector(collector_filter, {
 					time: 120000
 				});
 
@@ -211,24 +211,24 @@ module.exports = class TicketManager extends EventEmitter {
 	 * @param {string} [reason] - The reason for closing the ticket
 	 */
 	async close(ticket_id, closer_id, guild_id, reason) {
-		let t_row = await this.resolve(ticket_id, guild_id);
+		const t_row = await this.resolve(ticket_id, guild_id);
 		if (!t_row) throw new Error(`A ticket with the ID or number "${ticket_id}" could not be resolved`);
 		ticket_id = t_row.id;
 
 		this.emit('beforeClose', ticket_id);
 
-		let guild = this.client.guilds.cache.get(t_row.guild);
-		let settings = await guild.settings;
+		const guild = this.client.guilds.cache.get(t_row.guild);
+		const settings = await guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
-		let channel = await this.client.channels.fetch(t_row.id);
+		const channel = await this.client.channels.fetch(t_row.id);
 
 		if (closer_id) {
-			let member = await guild.members.fetch(closer_id);
+			const member = await guild.members.fetch(closer_id);
 
 			await this.archives.updateMember(ticket_id, member);
 
 			if (channel) {
-				let description = reason
+				const description = reason
 					? i18n('ticket.closed_by_member_with_reason.description', member.user.toString(), reason)
 					: i18n('ticket.closed_by_member.description', member.user.toString());
 				await channel.send(
@@ -248,7 +248,7 @@ module.exports = class TicketManager extends EventEmitter {
 			this.client.log.info(`${member.user.tag} closed a ticket (${ticket_id})${reason ? `: "${reason}"` : ''}`);
 		} else {
 			if (channel) {
-				let description = reason
+				const description = reason
 					? i18n('ticket.closed_with_reason.description')
 					: i18n('ticket.closed.description');
 				await channel.send(
@@ -267,7 +267,7 @@ module.exports = class TicketManager extends EventEmitter {
 			this.client.log.info(`A ticket was closed (${ticket_id})${reason ? `: "${reason}"` : ''}`);
 		}
 
-		let pinned = await channel.messages.fetchPinned();
+		const pinned = await channel.messages.fetchPinned();
 
 		await t_row.update({
 			open: false,

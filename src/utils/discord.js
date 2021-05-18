@@ -18,7 +18,7 @@ module.exports = {
 	 * @returns {PresenceData}
 	 */
 	selectPresence: () => {
-		let length = config.presence.presences.length;
+		const length = config.presence.presences.length;
 		if (length === 0) return {};
 		
 		let num;
@@ -33,7 +33,7 @@ module.exports = {
 			num = current_presence;
 		}
 
-		let {
+		const {
 			activity: name,
 			status,
 			type,

@@ -34,11 +34,11 @@ module.exports = class AddCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let ticket = message.mentions.channels.first() ?? message.channel;
-		let t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);	
+		const ticket = message.mentions.channels.first() ?? message.channel;
+		const t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);	
 
 		if (!t_row) {
 			return await message.channel.send(
@@ -50,7 +50,7 @@ module.exports = class AddCommand extends Command {
 			);
 		}
 
-		let member = message.mentions.members.first() ?? message.guild.members.cache.get(args);
+		const member = message.mentions.members.first() ?? message.guild.members.cache.get(args);
 
 		if (!member) {
 			return await message.channel.send(

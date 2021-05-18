@@ -18,7 +18,7 @@ module.exports = class ReadyEventListener extends EventListener {
 		if (this.client.config.presence.presences.length > 1) {
 			const { selectPresence } = require('../utils/discord');
 			setInterval(() => {
-				let presence = selectPresence();
+				const presence = selectPresence();
 				this.client.user.setPresence(presence);
 				this.client.log.debug(`Updated presence: ${presence.activity.type} ${presence.activity.name}`);
 			}, this.client.config.presence.duration * 1000);

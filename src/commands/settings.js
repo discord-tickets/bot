@@ -19,7 +19,7 @@ module.exports = class SettingsCommand extends Command {
 			permissions: ['MANAGE_GUILD']
 		});
 
-		this.schema = require('../settings_schema.json');
+		this.schema = require('../settings.schema.json');
 
 		this.v = new Validator();
 	}
@@ -30,16 +30,16 @@ module.exports = class SettingsCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let attachments = [ ...message.attachments.values() ];
+		const attachments = [ ...message.attachments.values() ];
 
 		if (attachments.length >= 1) {
 
 			// load settings from json
 			this.client.log.info(`Downloading settings for "${message.guild.name}"`);
-			let data = await (await fetch(attachments[0].url)).json();
+			const data = await (await fetch(attachments[0].url)).json();
 
 			const { valid, errors } = this.v.validate(data, this.schema);
 
@@ -55,13 +55,14 @@ module.exports = class SettingsCommand extends Command {
 			settings.locale = data.locale;
 			settings.log_messages = data.log_messages;
 			settings.success_colour = data.success_colour;
+			settings.tags = data.tags;
 			await settings.save();
 
-			for (let c of data.categories) {
+			for (const c of data.categories) {
 				if (c.id) {
 
 					// existing category
-					let cat_row = await this.client.db.models.Category.findOne({
+					const cat_row = await this.client.db.models.Category.findOne({
 						where: {
 							id: c.id
 						}
@@ -79,13 +80,13 @@ module.exports = class SettingsCommand extends Command {
 					cat_row.survey = c.survey;
 					cat_row.save();
 
-					let cat_channel = await this.client.channels.fetch(c.id);
+					const cat_channel = await this.client.channels.fetch(c.id);
 
 					if (cat_channel) {
 						if (cat_channel.name !== c.name)
 							await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
 
-						for (let r of c.roles) {
+						for (const r of c.roles) {
 							await cat_channel.updateOverwrite(r, {
 								VIEW_CHANNEL: true,
 								READ_MESSAGE_HISTORY: true,
@@ -99,7 +100,7 @@ module.exports = class SettingsCommand extends Command {
 
 					// create a new category
 					const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
-					let cat_channel = await message.guild.channels.create(c.name, {
+					const cat_channel = await message.guild.channels.create(c.name, {
 						type: 'category',
 						reason: `Tickets category created by ${message.author.tag}`,
 						position: 1,
@@ -142,12 +143,12 @@ module.exports = class SettingsCommand extends Command {
 				}
 			}
 
-			for (let survey in data.surveys) {
-				let survey_data = {
+			for (const survey in data.surveys) {
+				const survey_data = {
 					guild: message.guild.id,
 					name: survey,
 				};
-				let [s_row] = await this.client.db.models.Survey.findOrCreate({
+				const [s_row] = await this.client.db.models.Survey.findOrCreate({
 					where: survey_data,
 					defaults: survey_data
 				});
@@ -162,19 +163,19 @@ module.exports = class SettingsCommand extends Command {
 
 			// upload settings as json to be edited
 
-			let categories = await this.client.db.models.Category.findAll({
+			const categories = await this.client.db.models.Category.findAll({
 				where: {
 					guild: message.guild.id
 				}
 			});
 			
-			let surveys = await this.client.db.models.Survey.findAll({
+			const surveys = await this.client.db.models.Survey.findAll({
 				where: {
 					guild: message.guild.id
 				}
 			});
 
-			let data = {
+			const data = {
 				categories: categories.map(c => {
 					return {
 						id: c.id,
@@ -199,14 +200,15 @@ module.exports = class SettingsCommand extends Command {
 				log_messages: settings.log_messages,
 				success_colour: settings.success_colour,
 				surveys: {},
+				tags: settings.tags
 			};
 
-			for (let survey in surveys) {
+			for (const survey in surveys) {
 				const { name, questions } = surveys[survey];
 				data.surveys[name] = questions;
 			}
 
-			let attachment = new MessageAttachment(
+			const attachment = new MessageAttachment(
 				Buffer.from(JSON.stringify(data, null, 2)),
 				`Settings for ${message.guild.name}.json`
 			);

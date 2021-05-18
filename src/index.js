@@ -50,8 +50,8 @@ if (!checkFile('./.env', './example.env')) {
 	const file = path('./.env');
 	const crypto = require('crypto');
 
-	let key = 'DB_ENCRYPTION_KEY=';
-	let value = crypto
+	const key = 'DB_ENCRYPTION_KEY=';
+	const value = crypto
 		.randomBytes(24)
 		.toString('hex');
 
@@ -132,14 +132,14 @@ class Bot extends Client {
 			/** A [Cryptr](https://www.npmjs.com/package/cryptr) instance */
 			this.cryptr = new Cryptr(process.env.DB_ENCRYPTION_KEY);
 
-			let locales = {};
+			const locales = {};
 			fs.readdirSync(path('./src/locales'))
 				.filter(file => file.endsWith('.json'))
 				.forEach(file => {
-					let data = fs.readFileSync(path(`./src/locales/${file}`), {
+					const data = fs.readFileSync(path(`./src/locales/${file}`), {
 						encoding: 'utf8'
 					});
-					let name = file.slice(0, file.length - 5);
+					const name = file.slice(0, file.length - 5);
 					locales[name] = JSON.parse(data);
 				});
 
@@ -179,7 +179,7 @@ class Bot extends Client {
 		 * You can see the source here: https://github.com/discord-tickets/stats
 		 */
 		if (this.config.super_secret_setting) { // you can disable it if you really want
-			let tickets = await this.db.models.Ticket.count();
+			const tickets = await this.db.models.Ticket.count();
 			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, {
 				method: 'post',
 			}).catch(e => {
@@ -187,7 +187,7 @@ class Bot extends Client {
 				this.log.debug(e);
 			});
 			this.guilds.cache.forEach(async g => {
-				let members = (await g.fetch()).approximateMemberCount;
+				const members = (await g.fetch()).approximateMemberCount;
 				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, {
 					method: 'post',
 				}).catch(e => {

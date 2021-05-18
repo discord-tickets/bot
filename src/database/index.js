@@ -14,7 +14,7 @@ module.exports = async (client) => {
 		DB_NAME
 	} = process.env;
 
-	let type = (DB_TYPE || 'sqlite').toLowerCase();
+	const type = (DB_TYPE || 'sqlite').toLowerCase();
 
 	const supported = Object.keys(types);
 	if (!supported.includes(type)) {
@@ -25,7 +25,7 @@ module.exports = async (client) => {
 	try {
 		types[type].packages.forEach(pkg => require(pkg));
 	} catch {
-		let required = types[type].packages.map(i => `"${i}"`).join(' and ');
+		const required = types[type].packages.map(i => `"${i}"`).join(' and ');
 		client.log.error(new Error(`Please install the package(s) for your selected database type: ${required}`));
 		return process.exit();
 	}

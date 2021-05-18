@@ -35,7 +35,7 @@ module.exports = class NewCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const editOrSend = async (msg, content) => {
@@ -44,7 +44,7 @@ module.exports = class NewCommand extends Command {
 		};
 
 		const create = async (cat_row, response) => {
-			let tickets = await this.client.db.models.Ticket.findAndCountAll({
+			const tickets = await this.client.db.models.Ticket.findAndCountAll({
 				where: {
 					category: cat_row.id,
 					creator: message.author.id,
@@ -63,10 +63,10 @@ module.exports = class NewCommand extends Command {
 							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 					);
 				} else {
-					let list = tickets.rows.map(row => {
+					const list = tickets.rows.map(row => {
 						if (row.topic) {
-							let description = row.topic.substring(0, 30);
-							let ellipses = row.topic.length > 30 ? '...' : '';
+							const description = row.topic.substring(0, 30);
+							const ellipses = row.topic.length > 30 ? '...' : '';
 							return `<#${row.id}>: \`${description}${ellipses}\``;
 						} else {
 							return `<#${row.id}>`;
@@ -83,7 +83,7 @@ module.exports = class NewCommand extends Command {
 				}
 			} else {
 				try {
-					let t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, args);
+					const t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, args);
 					response = await editOrSend(response,
 						new MessageEmbed()
 							.setColor(settings.success_colour)
@@ -114,7 +114,7 @@ module.exports = class NewCommand extends Command {
 			}, 15000);
 		};
 
-		let categories = await this.client.db.models.Category.findAndCountAll({
+		const categories = await this.client.db.models.Category.findAndCountAll({
 			where: {
 				guild: message.guild.id
 			}
@@ -132,9 +132,9 @@ module.exports = class NewCommand extends Command {
 		} else if (categories.count === 1) {
 			create(categories.rows[0]); // skip the category selection
 		} else {
-			let letters_array = Object.values(letters); // convert the A-Z emoji object to an array
-			let category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`); // list category names with an A-Z emoji
-			let collector_message = await message.channel.send(
+			const letters_array = Object.values(letters); // convert the A-Z emoji object to an array
+			const category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`); // list category names with an A-Z emoji
+			const collector_message = await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
@@ -143,23 +143,23 @@ module.exports = class NewCommand extends Command {
 					.setFooter(footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())
 			);
 
-			for (let i in categories.rows) {
+			for (const i in categories.rows) {
 				collector_message.react(letters_array[i]); // add the correct number of letter reactions
 				await wait(1000); // 1 reaction per second rate-limit
 			}
 
 			const collector_filter = (reaction, user) => {
-				let allowed = letters_array.slice(0, categories.count); // get the first x letters of the emoji array
+				const allowed = letters_array.slice(0, categories.count); // get the first x letters of the emoji array
 				return user.id === message.author.id && allowed.includes(reaction.emoji.name);
 			};
 
-			let collector = collector_message.createReactionCollector(collector_filter, {
+			const collector = collector_message.createReactionCollector(collector_filter, {
 				time: 30000
 			});
 
 			collector.on('collect', async (reaction) => {
 				collector.stop();
-				let index = letters_array.findIndex(value => value === reaction.emoji.name); // find where the letter is in the alphabet
+				const index = letters_array.findIndex(value => value === reaction.emoji.name); // find where the letter is in the alphabet
 				if (index === -1) return setTimeout(async () => {
 					await collector_message.delete();
 				}, 15000);

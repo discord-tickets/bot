@@ -13,7 +13,7 @@ Structures.extend('Guild', Guild => {
 		}
 
 		async deleteSettings() {
-			let row = await this.settings;
+			const row = await this.settings;
 			return await row.destroy();
 		}
 

@@ -39,7 +39,7 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 		const channel = r.message.channel;
 		const member = await guild.members.fetch(u.id);
 
-		let t_row = await this.client.db.models.Ticket.findOne({
+		const t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: channel.id
 			}
@@ -57,13 +57,13 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 					.get(member.user.id)
 					?.delete(`Ticket released by ${member.user.tag}`);
 
-				let cat_row = await this.client.db.models.Category.findOne({
+				const cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: t_row.category
 					}
 				});
 
-				for (let role of cat_row.roles) {
+				for (const role of cat_row.roles) {
 					await channel.updateOverwrite(role, {
 						VIEW_CHANNEL: true,
 					}, `Ticket released by ${member.user.tag}`);

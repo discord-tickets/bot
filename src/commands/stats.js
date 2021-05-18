@@ -27,7 +27,7 @@ module.exports = class StatsCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const messages = await this.client.db.models.Message.findAndCountAll();
@@ -35,7 +35,7 @@ module.exports = class StatsCommand extends Command {
 		let stats = await this.cache.get(message.guild.id);
 
 		if (!stats) {
-			let tickets = await this.client.db.models.Ticket.findAndCountAll({
+			const tickets = await this.client.db.models.Ticket.findAndCountAll({
 				where: {
 					guild: message.guild.id
 				}
@@ -60,7 +60,7 @@ module.exports = class StatsCommand extends Command {
 			await this.cache.set(message.guild.id, stats, 60 * 60 * 1000); // cache for an hour
 		}
 
-		let guild_embed = new MessageEmbed()
+		const guild_embed = new MessageEmbed()
 			.setColor(settings.colour)
 			.setTitle(i18n('commands.stats.response.guild.title'))
 			.setDescription(i18n('commands.stats.response.guild.description'))

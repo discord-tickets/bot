@@ -69,7 +69,7 @@ module.exports = class PanelCommand extends Command {
 		const arg_emoji = this.args[2].name;
 		const arg_categories = this.args[3].name;
 
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		if (!args[arg_emoji])
@@ -78,7 +78,7 @@ module.exports = class PanelCommand extends Command {
 		args[arg_emoji] = args[arg_emoji].map(emoji => emojify(emoji.replace(/\\/g, '')));
 
 		const invalid_category = await some(args[arg_categories], async id => {
-			let cat_row = await this.client.db.models.Category.findOne({
+			const cat_row = await this.client.db.models.Category.findOne({
 				where: {
 					id: id,
 					guild: message.guild.id
@@ -102,7 +102,7 @@ module.exports = class PanelCommand extends Command {
 		
 		let categories_map = args[arg_categories][0];
 		
-		let embed = new MessageEmbed()
+		const embed = new MessageEmbed()
 			.setColor(settings.colour)
 			.setFooter(settings.footer, message.guild.iconURL());
 		
@@ -173,9 +173,9 @@ module.exports = class PanelCommand extends Command {
 					let description = '';
 					categories_map = {};
 					
-					for (let i in args[arg_emoji]) {
+					for (const i in args[arg_emoji]) {
 						categories_map[args[arg_emoji][i]] = args[arg_categories][i];
-						let cat_row = await this.client.db.models.Category.findOne({
+						const cat_row = await this.client.db.models.Category.findOne({
 							where: {
 								id: args[arg_categories][i],
 								guild: message.guild.id
@@ -187,7 +187,7 @@ module.exports = class PanelCommand extends Command {
 					embed.setDescription(args[arg_description] + '\n' + description);
 					panel_message = await panel_channel.send(embed);
 
-					for (let emoji of args[arg_emoji]) {
+					for (const emoji of args[arg_emoji]) {
 						await panel_message.react(emoji);
 						await wait(1000); // 1 reaction per second rate-limit
 					}

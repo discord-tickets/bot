@@ -48,7 +48,7 @@ module.exports = class CommandManager {
 		const is_internal = (exists && cmd.internal) || (exists && this.commands.get(cmd.name).internal);
 
 		if (is_internal) {
-			let plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
+			const plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
 			if (plugin)
 				this.client.log.commands(`The "${plugin.name}" plugin has overridden the internal "${cmd.name}" command`);
 			else
@@ -69,7 +69,7 @@ module.exports = class CommandManager {
 	async handle(message) {
 		if (message.author.bot) return; //  ignore self and other bots
 
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		let is_blacklisted = false;
@@ -100,14 +100,14 @@ module.exports = class CommandManager {
 		let cmd_name = message.content.match(new RegExp(`^(${escaped_prefix}|${client_mention}\\s?)(\\S+)`, 'mi')); // capture prefix and command
 		if (!cmd_name) return; // stop here if the message is not a command
 
-		let raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
+		const raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
 		cmd_name = cmd_name[2].toLowerCase(); // set cmd_name to the actual command alias, effectively removing the prefix
 
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd) return;
 
-		let bot_permissions = message.guild.me.permissionsIn(message.channel);
-		let required_bot_permissions = [
+		const bot_permissions = message.guild.me.permissionsIn(message.channel);
+		const required_bot_permissions = [
 			'ADD_REACTIONS',
 			'ATTACH_FILES',
 			'EMBED_LINKS',
@@ -118,7 +118,7 @@ module.exports = class CommandManager {
 		];
 
 		if (!bot_permissions.has(required_bot_permissions)) {
-			let perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
+			const perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
 			if (bot_permissions.has(['EMBED_LINKS', 'SEND_MESSAGES'])) {
 				await message.channel.send(
 					new MessageEmbed()
@@ -138,7 +138,7 @@ module.exports = class CommandManager {
 
 		const missing_permissions = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
 		if (missing_permissions) {
-			let perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
+			const perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
 			return await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.error_colour)
@@ -162,7 +162,7 @@ module.exports = class CommandManager {
 			try {
 				args = parseArgs(cmd.args, { argv: argv(raw_args) });
 			} catch (error) {
-				let help_cmd = `${settings.command_prefix}${i18n('commands.help.name')} ${cmd_name}`;
+				const help_cmd = `${settings.command_prefix}${i18n('commands.help.name')} ${cmd_name}`;
 				return await message.channel.send(
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -170,7 +170,7 @@ module.exports = class CommandManager {
 						.setDescription(i18n('cmd_usage.invalid_named_args.description', error.message, help_cmd))
 				);
 			}
-			for (let arg of cmd.args) {
+			for (const arg of cmd.args) {
 				if (arg.required && args[arg.name] === undefined) {
 					return await cmd.sendUsage(message.channel, cmd_name); // send usage if any required arg is missing
 				}

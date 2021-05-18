@@ -31,10 +31,10 @@ module.exports = class BlacklistCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let member = message.mentions.members.first();
+		const member = message.mentions.members.first();
 
 		if (member && (await member.isStaff() || member.hasPermission(this.permissions))) {
 			return await message.channel.send(
@@ -47,9 +47,9 @@ module.exports = class BlacklistCommand extends Command {
 		}
 		
 		
-		let role = message.mentions.roles.first();
+		const role = message.mentions.roles.first();
 		let id;
-		let input = args.trim().split(/\s/g)[0];
+		const input = args.trim().split(/\s/g)[0];
 
 		if (member) id = member.id;
 		else if (role) id = role.id;
@@ -64,7 +64,7 @@ module.exports = class BlacklistCommand extends Command {
 			);
 		} else {
 			// list blacklisted members
-			let blacklist = settings.blacklist.map(element => {
+			const blacklist = settings.blacklist.map(element => {
 				const is_role = message.guild.roles.cache.has(element);
 				if (is_role) return `» <@&${element}> (\`${element}\`)`;
 				else return `» <@${element}> (\`${element}\`)`;
@@ -79,10 +79,10 @@ module.exports = class BlacklistCommand extends Command {
 		}
 
 		const is_role = role !== undefined || message.guild.roles.cache.has(id);
-		let member_or_role = is_role ? 'role' : 'member';
-		let index = settings.blacklist.findIndex(element => element === id);
+		const member_or_role = is_role ? 'role' : 'member';
+		const index = settings.blacklist.findIndex(element => element === id);
 
-		let new_blacklist = [ ...settings.blacklist];
+		const new_blacklist = [ ...settings.blacklist ];
 
 		if (index === -1) {
 			new_blacklist.push(id);

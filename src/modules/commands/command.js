@@ -120,14 +120,14 @@ module.exports = class Command {
 	 * @returns {Message}
 	 */
 	async sendUsage(channel, alias) {
-		let settings = await channel.guild.settings;
+		const settings = await channel.guild.settings;
 		if (!alias) alias = this.name;
 
 		const prefix = settings.command_prefix;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const addArgs = (embed, arg) => {
-			let required = arg.required ? '`❗` ' : '';
+			const required = arg.required ? '`❗` ' : '';
 			let description = `» ${i18n('cmd_usage.args.description', arg.description)}`;
 			if (arg.example) description += `\n» ${i18n('cmd_usage.args.example', arg.example)}`;
 			embed.addField(required + arg.name, description);

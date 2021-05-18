@@ -8,14 +8,14 @@ module.exports = class GuildMemberRemoveEventListener extends EventListener {
 	}
 
 	async execute(member) {
-		let tickets = await this.client.db.models.Ticket.findAndCountAll({
+		const tickets = await this.client.db.models.Ticket.findAndCountAll({
 			where: {
 				creator: member.id,
 				guild: member.guild.id
 			}
 		});
 
-		for (let ticket of tickets.rows) {
+		for (const ticket of tickets.rows) {
 			await this.client.tickets.close(ticket.id, null, member.guild.id, 'Member left the guild');
 		}
 

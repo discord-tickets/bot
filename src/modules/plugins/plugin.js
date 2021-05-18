@@ -27,7 +27,7 @@ module.exports = class Plugin {
 		/** An official plugin? */
 		this.official = this.manager.official.includes(this.id);
 
-		let {
+		const {
 			id,
 			version,
 			author,
@@ -70,7 +70,7 @@ module.exports = class Plugin {
 		 */
 		this.description = description;
 
-		let clean = this.id.replace(/@[-_a-zA-Z0-9]+\//, '');
+		const clean = this.id.replace(/@[-_a-zA-Z0-9]+\//, '');
 
 		/**
 		 * Information about the plugin directory
@@ -104,7 +104,7 @@ module.exports = class Plugin {
 	 */
 	createConfig(template) {
 		this.createDirectory();
-		let file = join(this.directory.path, 'config.json');
+		const file = join(this.directory.path, 'config.json');
 		if (!fs.existsSync(file)) {
 			this.client.log.plugins(`Creating plugin config file for "${this.name}"`);
 			fs.writeFileSync(file, JSON.stringify(template, null, 2));
@@ -120,7 +120,7 @@ module.exports = class Plugin {
 	 */
 	resetConfig(template) {
 		this.createDirectory();
-		let file = join(this.directory.path, 'config.json');
+		const file = join(this.directory.path, 'config.json');
 		this.client.log.plugins(`Resetting plugin config file for "${this.name}"`);
 		fs.writeFileSync(file, JSON.stringify(template, null, 2));
 	}

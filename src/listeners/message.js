@@ -17,7 +17,7 @@ module.exports = class MessageEventListener extends EventListener {
 		if (!settings) settings = await message.guild.createSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let t_row = await this.client.db.models.Ticket.findOne({
+		const t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: message.channel.id
 			}
@@ -34,7 +34,7 @@ module.exports = class MessageEventListener extends EventListener {
 		} else {
 			if (message.author.bot) return;
 
-			let p_row = await this.client.db.models.Panel.findOne({
+			const p_row = await this.client.db.models.Panel.findOne({
 				where: {
 					channel: message.channel.id
 				}
@@ -45,13 +45,13 @@ module.exports = class MessageEventListener extends EventListener {
 
 				await message.delete();
 
-				let cat_row = await this.client.db.models.Category.findOne({
+				const cat_row = await this.client.db.models.Category.findOne({
 					where: {
 						id: p_row.categories
 					}
 				});
 
-				let tickets = await this.client.db.models.Ticket.findAndCountAll({
+				const tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {
 						category: cat_row.id,
 						creator: message.author.id,
@@ -75,10 +75,10 @@ module.exports = class MessageEventListener extends EventListener {
 							response = await message.channel.send(embed);
 						}
 					} else {
-						let list = tickets.rows.map(row => {
+						const list = tickets.rows.map(row => {
 							if (row.topic) {
-								let description = row.topic.substring(0, 30);
-								let ellipses = row.topic.length > 30 ? '...' : '';
+								const description = row.topic.substring(0, 30);
+								const ellipses = row.topic.length > 30 ? '...' : '';
 								return `<#${row.id}>: \`${description}${ellipses}\``;
 							} else {
 								return `<#${row.id}>`;

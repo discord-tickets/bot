@@ -55,7 +55,7 @@ module.exports = class PluginManager {
 			author = author.name ?? 'unknown';
 		}
 
-		let about = {
+		const about = {
 			id,
 			version,
 			author,
@@ -79,8 +79,8 @@ module.exports = class PluginManager {
 	load() {
 		this.client.config.plugins.forEach(plugin => {
 			try {
-				let main = require(plugin);
-				let pkg = require(`${plugin}/package.json`);
+				const main = require(plugin);
+				const pkg = require(`${plugin}/package.json`);
 				this.register(main, pkg);
 			} catch (e) {
 				this.handleError(plugin);

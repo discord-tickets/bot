@@ -28,10 +28,10 @@ module.exports = class TopicCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		let settings = await message.guild.settings;
+		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		let t_row = await this.client.db.models.Ticket.findOne({
+		const t_row = await this.client.db.models.Ticket.findOne({
 			where: {
 				id: message.channel.id
 			}
@@ -51,18 +51,18 @@ module.exports = class TopicCommand extends Command {
 			topic: this.client.cryptr.encrypt(args)
 		});
 
-		let member = await message.guild.members.fetch(t_row.creator);
+		const member = await message.guild.members.fetch(t_row.creator);
 		/* await  */message.channel.setTopic(`${member} | ${args}`, { reason: 'User updated ticket topic' });
 
-		let cat_row = await this.client.db.models.Category.findOne({
+		const cat_row = await this.client.db.models.Category.findOne({
 			where: {
 				id: t_row.category
 			}
 		});
-		let description = cat_row.opening_message
+		const description = cat_row.opening_message
 			.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
 			.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, member.user.toString());
-		let opening_message = await message.channel.messages.fetch(t_row.opening_message);
+		const opening_message = await message.channel.messages.fetch(t_row.opening_message);
 
 		await opening_message.edit(
 			new MessageEmbed()

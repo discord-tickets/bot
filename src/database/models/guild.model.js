@@ -39,6 +39,10 @@ module.exports = ({ config }, sequelize) => {
 			type: DataTypes.STRING,
 			defaultValue: 'GREEN'
 		},
+		tags: {
+			type: DataTypes.JSON,
+			defaultValue: {}
+		}
 	}, {
 		tableName: DB_TABLE_PREFIX + 'guilds'
 	});
