@@ -181,7 +181,7 @@
 				"commands": "commands"
 			},
 			"args": {
-				"member": {
+				"command": {
 					"description": "The command to display information about",
 					"example": "new",
 					"name": "command"
@@ -189,7 +189,15 @@
 			},
 			"description": "List commands you have access to, or find out more about a command",
 			"name": "help",
-			"response": {}
+			"response": {
+				"list": {
+					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`.To create a ticket, type `{prefix}new [topic]`.",
+					"fields": {
+						"commands": "Commands"
+					},
+					"title": "❔ Help"
+				}
+			}
 		},
 		"new": {
 			"aliases": {
@@ -206,12 +214,6 @@
 			},
 			"description": "Criar um novo Ticket",
 			"name": "new",
-			"opening_message": {
-				"fields": {
-					"topic": "Assunto"
-				}
-			},
-			"questions": "Por favor responda as seguintes questões:\n\n%s",
 			"response": {
 				"created": {
 					"description": "Seu ticket foi criado: %s.",
@@ -303,7 +305,24 @@
 			},
 			"description": "Remove a member from a ticket",
 			"name": "remove",
-			"response": {}
+			"response": {
+				"removed": {
+					"description": "%s has been removed from %s.",
+					"title": "✅ Member removed"
+				},
+				"no_member": {
+					"description": "Please mention the member you want to remove.",
+					"title": "❌ Unknown member"
+				},
+				"no_permission": {
+					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"title": "❌ Insufficient permission"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel, or mention the channel.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		},
 		"settings": {
 			"aliases": {
@@ -312,6 +331,7 @@
 			"description": "Configurar o BOT",
 			"name": "settings",
 			"response": {
+				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 				"updated": "✅ Configurações enviadas com sucesso."
 			}
 		},
@@ -319,8 +339,52 @@
 			"aliases": {},
 			"args": {},
 			"description": "Display ticket statistics",
+			"fields": {
+				"messages": "Messages",
+				"response_time": {
+					"minutes": "%s minutes",
+					"title": "Avg. response time"
+				},
+				"tickets": "Tickets"
+			},
 			"name": "stats",
-			"response": {}
+			"response": {
+				"global": {
+					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
+					"title": "📊 Global stats"
+				},
+				"guild": {
+					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
+					"title": "📊 This server's stats"
+				}
+			}
+		},
+		"tag": {
+			"aliases": {
+				"faq": "faq",
+				"t": "t",
+				"tags": "tags"
+			},
+			"args": {
+				"tag": {
+					"description": "The name of the tag to use",
+					"example": "website",
+					"name": "tag"
+				}
+			},
+			"description": "Use a tag response",
+			"name": "tag",
+			"response": {
+				"error": "❌ Error",
+				"list": {
+					"title": "📃 Tag list"
+				},
+				"missing": "This tag requires the following arguments:\n%s",
+				"not_a_ticket": {
+					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		},
 		"topic": {
 			"aliases": {},
@@ -333,7 +397,16 @@
 			},
 			"description": "Change the topic of the ticket",
 			"name": "assunto",
-			"response": {}
+			"response": {
+				"changed": {
+					"description": "This ticket's topic has been changed.",
+					"title": "✅ Topic changed"
+				},
+				"not_a_ticket": {
+					"description": "Please use this command in the ticket channel you want to change the topic of.",
+					"title": "❌ This isn't a ticket channel"
+				}
+			}
 		}
 	},
 	"command_execution_error": {
@@ -374,6 +447,16 @@
 			"description": "%s has been added by %s",
 			"title": "Member added"
 		},
+		"member_removed": {
+			"description": "%s has been removed by %s",
+			"title": "Member removed"
+		},
+		"opening_message": {
+			"fields": {
+				"topic": "Topic"
+			}
+		},
+		"questions": "Please answer the following questions:\n\n%s",
 		"released": {
 			"description": "%s has released this ticket.",
 			"title": "✅ Ticket released"
