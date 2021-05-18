@@ -24,7 +24,8 @@ module.exports = class TagCommand extends Command {
 					example: i18n('commands.tag.args.tag.example'),
 					required: false,
 				}
-			]
+			],
+			staff_only: true
 		});
 	}
 
@@ -61,7 +62,7 @@ module.exports = class TagCommand extends Command {
 						.setFooter(settings.footer, message.guild.iconURL())
 				);
 			}
-			
+
 			let expected = placeholders
 				.filter(p => p.startsWith(':'))
 				.map(p => {
