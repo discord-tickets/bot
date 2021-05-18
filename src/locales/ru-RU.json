@@ -359,6 +359,33 @@
 				}
 			}
 		},
+		"tag": {
+			"aliases": {
+				"faq": "faq",
+				"t": "t",
+				"tags": "tags"
+			},
+			"args": {
+				"tag": {
+					"description": "The name of the tag to use",
+					"example": "website",
+					"name": "tag"
+				}
+			},
+			"description": "Use a tag response",
+			"name": "tag",
+			"response": {
+				"error": "❌ Ошибка",
+				"list": {
+					"title": "📃 Tag list"
+				},
+				"missing": "This tag requires the following arguments:\n%s",
+				"not_a_ticket": {
+					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+					"title": "❌ Это не канал тикета"
+				}
+			}
+		},
 		"topic": {
 			"aliases": {},
 			"args": {
