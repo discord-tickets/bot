@@ -50,7 +50,7 @@ module.exports = class TagCommand extends Command {
 
 		if (tag_name && settings.tags[tag_name]) {
 			const tag = settings.tags[tag_name];
-			const placeholders = [...tag.matchAll(/(?<!\\){{1,2}\s?([A-Za-z0-9._:]+)\s?(?<!\\)}{1,2}/gi) ].map(p => p[1]);
+			const placeholders = [...tag.matchAll(/(?<!\\){{1,2}\s?([A-Za-z0-9._:]+)\s?(?<!\\)}{1,2}/gi)].map(p => p[1]);
 			const requires_ticket = placeholders.some(p => p.startsWith('ticket.'));
 
 			if (requires_ticket && !t_row) {
@@ -103,8 +103,9 @@ module.exports = class TagCommand extends Command {
 
 			if (requires_ticket) {
 				args.ticket = t_row.toJSON();
-				args.ticket.topic = this.client.cryptr.decrypt(args.ticket.topic);
+				args.ticket.topic = t_row.topic ? this.client.cryptr.decrypt(t_row.topic) : null;
 			}
+
 			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, ($, $1) => this.client.i18n.resolve(args, $1));
 			return await message.channel.send(
 				new MessageEmbed()
