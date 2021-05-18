@@ -60,7 +60,6 @@ module.exports = class SettingsCommand extends Command {
 
 			for (const c of data.categories) {
 				if (c.id) {
-
 					// existing category
 					const cat_row = await this.client.db.models.Category.findOne({
 						where: {
@@ -95,9 +94,7 @@ module.exports = class SettingsCommand extends Command {
 							}, `Tickets category updated by ${message.author.tag}`);
 						}
 					}
-
 				} else {
-
 					// create a new category
 					const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 					const cat_channel = await message.guild.channels.create(c.name, {
@@ -139,7 +136,6 @@ module.exports = class SettingsCommand extends Command {
 						roles: c.roles,
 						survey: c.survey
 					});
-
 				}
 			}
 
@@ -158,9 +154,7 @@ module.exports = class SettingsCommand extends Command {
 
 			this.client.log.success(`Updated guild settings for "${message.guild.name}"`);
 			return await message.channel.send(i18n('commands.settings.response.updated'));
-		
 		} else {
-
 			// upload settings as json to be edited
 
 			const categories = await this.client.db.models.Category.findAll({
@@ -216,7 +210,6 @@ module.exports = class SettingsCommand extends Command {
 			message.channel.send({
 				files: [attachment]
 			});
-	
 		}
 	}
 };

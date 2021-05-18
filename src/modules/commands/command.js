@@ -117,7 +117,7 @@ module.exports = class Command {
 	 * Send a message with the command usage
 	 * @param {TextChannel} channel - The channel to send the message to
 	 * @param {string} [alias] - The command alias
-	 * @returns {Message}
+	 * @returns {Promise<Message>}
 	 */
 	async sendUsage(channel, alias) {
 		const settings = await channel.guild.settings;

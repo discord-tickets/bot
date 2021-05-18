@@ -176,7 +176,7 @@ module.exports = class CommandManager {
 				}
 			}
 		} else {
-			const args_num = raw_args.split(' ').filter(arg => arg.length !== 0).length; // count the number of single-word args were given
+			const args_num = raw_args.split(/\s/g).filter(arg => arg.length !== 0).length; // count the number of single-word args were given
 			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0); // count how many of the args are required
 			if (args_num < required_args) {
 				return await cmd.sendUsage(message.channel, cmd_name);
