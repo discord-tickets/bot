@@ -13,10 +13,10 @@ const archive = require('../modules/archive');
 
 module.exports = {
 	name: 'close',
-	description: 'Close a ticket; either a specified (mentioned) channel, or the channel the command is used in.',
+	description: 'Close an interview; either a specified (mentioned) channel, or the channel the command is used in.',
 	usage: '[ticket]',
 	aliases: ['none'],
-	example: 'close #ticket-17',
+	example: 'close #interview-beyondboy',
 	args: false,
 	async execute(client, message, _args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -24,8 +24,8 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to close, or mention the channel.')
+			.setTitle('❌ **This isn\'t an interview channel**')
+			.setDescription('Use this command in the interview channel you want to close, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 			.setFooter(guild.name, guild.iconURL());
@@ -51,8 +51,8 @@ module.exports = {
 			});
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Channel is not an interview**')
+					.setDescription(`${channel} is not an interview channel.`);
 				return message.channel.send(notTicket);
 			}
 
@@ -60,6 +60,7 @@ module.exports = {
 
 		let paths = {
 			text: join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+			html: join(__dirname, `../../user/transcripts/html/${ticket.get('channel')}.html`),
 			log: join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
 			json: join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`)
 		};
@@ -105,8 +106,8 @@ module.exports = {
 						new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle('**Ticket closed**')
-							.setDescription(`Ticket closed by ${message.author}`)
+							.setTitle('**Interview closed**')
+							.setDescription(`Interview closed by ${message.author}`)
 							.setFooter(guild.name, guild.iconURL())
 					);
 				}
@@ -116,7 +117,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ **Ticket ${ticket.id} closed**`)
+						.setTitle(`✅ **Interview ${ticket.id} closed**`)
 						.setDescription('The channel will be automatically deleted in a few seconds, once the contents have been archived.')
 						.setFooter(guild.name, guild.iconURL())
 				);
@@ -170,14 +171,14 @@ module.exports = {
 					const embed = new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`Ticket ${ticket.id}`)
+						.setTitle(`Interview of ${u.username}`)
 						.setFooter(guild.name, guild.iconURL());
 
-					if (fs.existsSync(paths.text)) {
+					if (fs.existsSync(paths.html)) {
 						embed.addField('Text transcript', 'See attachment');
 						res.files = [{
-							attachment: paths.text,
-							name: `ticket-${ticket.id}-${ticket.get('channel')}.txt`
+							attachment: paths.html,
+							name: `interview-${u.username}.html`
 						}];
 					}
 
@@ -188,7 +189,7 @@ module.exports = {
 					}
 
 					if (embed.fields.length < 1) {
-						embed.setDescription(`No text transcripts or archive data exists for ticket ${ticket.id}`);
+						embed.setDescription(`No text transcripts or archive data exists for interview ${u.username}`);
 					}
 
 					res.embed = embed;
@@ -216,7 +217,7 @@ module.exports = {
 				timeout: 5000
 			});
 
-			log.info(`${message.author.tag} closed a ticket (#ticket-${ticket.id})`);
+			log.info(`${message.author.tag} closed a interview (#ticket-${ticket.id})`);
 
 			if (config.logs.discord.enabled) {
 				let embed = new MessageEmbed()

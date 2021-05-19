@@ -13,7 +13,7 @@ const config = require(join(__dirname, '../../user/', require('../').config));
 
 module.exports = {
 	name: 'new',
-	description: 'Create a new support ticket',
+	description: 'Create a new interview',
 	usage: '[brief description]',
 	aliases: ['ticket', 'open'],
 	example: 'new my server won\'t start',
@@ -58,8 +58,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
-					.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
+					.setTitle(`❌ **You already have ${tickets.count} or more open interviews**`)
+					.setDescription(`Use \`${config.prefix}close\` to close unneeded interviews.\n\n${ticketList.join(',\n')}`)
 					.setFooter(guild.name + ' | This message will be deleted in 15 seconds', guild.iconURL())
 			);
 
@@ -77,7 +77,7 @@ module.exports = {
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle('❌ **Description too long**')
-					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
+					.setDescription('Please limit your interview topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -116,7 +116,7 @@ module.exports = {
 				allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'ATTACH_FILES', 'READ_MESSAGE_HISTORY']
 			}
 			],
-			reason: 'User requested a new support ticket channel'
+			reason: 'User requested an interview channel'
 		}).then(async c => {
 
 			Ticket.update({
@@ -131,8 +131,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('✅ **Ticket created**')
-					.setDescription(`Your ticket has been created: ${c}`)
+					.setTitle('✅ **Interview created**')
+					.setDescription(`Your interview has been created: ${c}`)
 					.setFooter(client.user.username + ' | This message will be deleted in 15 seconds', client.user.displayAvatarURL())
 			);
 
@@ -155,7 +155,7 @@ module.exports = {
 				ping = `@${config.tickets.ping},\n`;
 			}
 
-			await c.send(ping + `${message.author} has created a new ticket`);
+			await c.send(`${message.author} has created a new interview`);
 
 			if (config.tickets.send_img) {
 				const images = fs.readdirSync(join(__dirname, '../../user/images'));
@@ -188,7 +188,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('New ticket')
+						.setTitle('New interview')
 						.setDescription(`\`${topic}\``)
 						.addField('Creator', message.author, true)
 						.addField('Channel', c, true)
@@ -196,7 +196,7 @@ module.exports = {
 						.setTimestamp()
 				);
 
-			log.info(`${message.author.tag} created a new ticket (#${name})`);
+			log.info(`${message.author.tag} created a new interview (#${name})`);
 
 
 		}).catch(log.error);

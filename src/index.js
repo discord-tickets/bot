@@ -146,21 +146,21 @@ for (const file of commands) {
 log.info(`Loaded ${events.length} events and ${commands.length} commands`);
 
 const one_day = 1000 * 60 * 60 * 24;
-const txt = '../user/transcripts/text';
+const html = '../user/transcripts/html';
 const clean = () => {
-	const files = fs.readdirSync(join(__dirname, txt)).filter(file => file.endsWith('.txt'));
+	const files = fs.readdirSync(join(__dirname, html)).filter(file => file.endsWith('.html'));
 	let total = 0;
 	for (const file of files) {
-		let diff = (new Date() - new Date(fs.statSync(join(__dirname, txt, file)).mtime));
-		if (Math.floor(diff / one_day) > config.transcripts.text.keep_for) {
-			fs.unlinkSync(join(__dirname, txt, file));
+		let diff = (new Date() - new Date(fs.statSync(join(__dirname, html, file)).mtime));
+		if (Math.floor(diff / one_day) > config.transcripts.html.keep_for) {
+			fs.unlinkSync(join(__dirname, html, file));
 			total++;
 		}
 	}
 	if (total > 0) log.info(`Deleted ${total} old text ${utils.plural('transcript', total)}`);
 };
 
-if (config.transcripts.text.enabled) {
+if (config.transcripts.html.enabled) {
 	clean();
 	setInterval(clean, one_day);
 }

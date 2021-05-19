@@ -70,8 +70,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
-						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
+						.setTitle(`❌ **You already have ${tickets.count} or more open  interviews**`)
+						.setDescription(`Use \`${config.prefix}close\` in a server channel to close unneeded  interviews.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name, channel.guild.iconURL())
 				);
 			} catch (e) {
@@ -79,8 +79,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.err_colour)
 						.setAuthor(u.username, u.displayAvatarURL())
-						.setTitle(`❌ **You already have ${tickets.count} or more open tickets**`)
-						.setDescription(`Use \`${config.prefix}close\` to close unneeded tickets.\n\n${ticketList.join(',\n')}`)
+						.setTitle(`❌ **You already have ${tickets.count} or more open  interviews**`)
+						.setDescription(`Use \`${config.prefix}close\` to close unneeded  interviews.\n\n${ticketList.join(',\n')}`)
 						.setFooter(channel.guild.name + ' | This message will be deleted in 15 seconds', channel.guild.iconURL())
 				);
 				return m.delete({ timeout: 15000 });
@@ -97,7 +97,7 @@ module.exports = {
 			topic: topic
 		});
 
-		let name = 'ticket-' + ticket.id;
+		let name = 'interview-' + u.username;
 
 		channel.guild.channels.create(name, {
 			type: 'text',
@@ -144,7 +144,7 @@ module.exports = {
 				ping = `@${config.tickets.ping},\n`;
 			}
 
-			await c.send(ping + `${u} has created a new ticket`);
+			await c.send(`Welcome ${u}! `);
 
 			if (config.tickets.send_img) {
 				const images = fs.readdirSync(join(__dirname, '../../user/images'));

@@ -12,7 +12,7 @@ const { join } = require('path');
 
 module.exports = {
 	name: 'tickets',
-	description: 'List your recent tickets to access transcripts / archives.',
+	description: 'List your recent interviews to access transcripts / archives.',
 	usage: '[@member]',
 	aliases: ['list'],
 	args: false,
@@ -40,7 +40,7 @@ module.exports = {
 						.setColor(config.err_colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
 						.setTitle('❌ **No permission**')
-						.setDescription('You don\'t have permission to list others\' tickets as you are not staff.')
+						.setDescription('You don\'t have permission to list others\' interviews as you are not staff.')
 						.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 						.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 						.setFooter(guild.name, guild.iconURL())
@@ -69,7 +69,7 @@ module.exports = {
 		let embed = new MessageEmbed()
 			.setColor(config.colour)
 			.setAuthor(user.username, user.displayAvatarURL())
-			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} tickets`)
+			.setTitle(`${context === 'self' ? 'Your' : user.username + '\'s'} interviews`)
 			.setFooter(guild.name + ' | This message will be deleted in 60 seconds', guild.iconURL());
 
 		/* if (config.transcripts.web.enabled) {
@@ -88,7 +88,7 @@ module.exports = {
 			let desc = closedTickets.rows[t].topic.substring(0, 30);
 			let transcript = '';
 			let c = closedTickets.rows[t].channel;
-			if (config.transcripts.web.enabled || fs.existsSync(join(__dirname, `../../user/transcripts/text/${c}.txt`))) {
+			if (config.transcripts.web.enabled || fs.existsSync(join(__dirname, `../../user/transcripts/html/${c}.html`))) {
 				transcript = `\n> Type \`${config.prefix}transcript ${closedTickets.rows[t].id}\` to view.`;
 			}
 
@@ -97,8 +97,8 @@ module.exports = {
 		}
 
 		let pre = context === 'self' ? 'You have' : user.username + ' has';
-		embed.addField('Open tickets', openTickets.count === 0 ? `${pre} no open tickets.` : open.join('\n\n'), false);
-		embed.addField('Closed tickets', closedTickets.count === 0 ? `${pre} no old tickets` : closed.join('\n\n'), false);
+		embed.addField('Open interviews', openTickets.count === 0 ? `${pre} no open interviews.` : open.join('\n\n'), false);
+		embed.addField('Closed interviews', closedTickets.count === 0 ? `${pre} no old interviews` : closed.join('\n\n'), false);
 
 		message.delete({timeout: 15000});
 

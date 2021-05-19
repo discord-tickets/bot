@@ -19,7 +19,7 @@ module.exports = {
 			log.console(`Received a DM from ${message.author.tag}: ${message.cleanContent}`);
 			return message.channel.send(`Hello there, ${message.author.username}!
 I am the support bot for **${guild}**.
-Type \`${config.prefix}new\` on the server to create a new ticket.`);
+Type \`${config.prefix}new\` on the server to create a new interview.`);
 		} // stop here if is DM
 
 		/**

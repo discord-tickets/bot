@@ -18,7 +18,7 @@ const toTime = require('to-time-monthsfork');
 
 module.exports = {
 	name: 'closeall',
-	description: 'Closes all currently open tickets older than a specified time length',
+	description: 'Closes all currently open interviews older than a specified time length',
 	usage: '[time]',
 	aliases: ['ca'],
 	example: 'closeall 1mo 1w',
@@ -82,8 +82,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.display)
-					.setTitle('❌ **No open tickets**')
-					.setDescription('There are no open tickets to close.')
+					.setTitle('❌ **No open interviews**')
+					.setDescription('There are no open interviews to close.')
 					.setFooter(guild.name, guild.iconURL())
 			);
 
@@ -92,14 +92,14 @@ module.exports = {
 		if (config.commands.close.confirmation) {
 			let success;
 			let pre = config.transcripts.text.enabled || config.transcripts.web.enabled
-				? `You will be able to view an archived version of each ticket later with \`${config.prefix}transcript <id>\``
+				? `You will be able to view an archived version of each interview later with \`${config.prefix}transcript <id>\``
 				: '';
 
 			let confirm = await message.channel.send(
 				new MessageEmbed()
 					.setColor(config.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(`❔ Are you sure you want to close **${tickets.count}** tickets?`)
+					.setTitle(`❔ Are you sure you want to close **${tickets.count}** interviews?`)
 					.setDescription(`${pre}\n**React with ✅ to confirm.**`)
 					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
 			);
@@ -116,8 +116,8 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`**\`${tickets.count}\` tickets closed**`)
-						.setDescription(`**\`${tickets.count}\`** tickets closed by ${message.author}`)
+						.setTitle(`**\`${tickets.count}\` interviews closed**`)
+						.setDescription(`**\`${tickets.count}\`** interviews closed by ${message.author}`)
 						.setFooter(guild.name, guild.iconURL())
 				);
 
@@ -126,7 +126,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ ** \`${tickets.count}\` tickets closed**`)
+						.setTitle(`✅ ** \`${tickets.count}\` interview closed**`)
 						.setDescription('The channels will be automatically deleted in a few seconds, once the contents have been archived.')
 						.setFooter(guild.name, guild.iconURL())
 				);
@@ -174,6 +174,7 @@ module.exports = {
 					let user = await client.users.fetch(creator);
 					let paths = {
 						text: join(__dirname, `../../user/transcripts/text/${channel}.txt`),
+						html: join(__dirname, `../../user/transcripts/html/${channel}.html`),
 						log: join(__dirname, `../../user/transcripts/raw/${channel}.log`),
 						json: join(__dirname, `../../user/transcripts/raw/entities/${channel}.json`)
 					};
@@ -190,14 +191,14 @@ module.exports = {
 						const embed = new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username)
-							.setTitle(`Ticket ${id}`)
+							.setTitle(`Interview ${u.username}`)
 							.setFooter(guild.name, guild.iconURL());
 							
 						if (fs.existsSync(paths.text)) {
 							embed.addField('Text Transcript', 'See attachment');
 							res.files = [{
-								attachment: paths.text,
-								name: `ticket-${id}-${channel}.txt`
+								attachment: paths.html,
+								name: `ticket-${id}-${channel}.html`
 							}];
 						}
 
@@ -225,7 +226,7 @@ module.exports = {
 						}
 					});
 
-					log.info(log.format(`${message.author.tag} closed ticket &7${id}&f`));
+					log.info(log.format(`${message.author.tag} closed interview &7${id}&f`));
 
 					client.channels.fetch(channel)
 						.then(c => c.delete()

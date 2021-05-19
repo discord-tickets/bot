@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'transfer',
-	description: 'Transfer ownership of a ticket channel',
+	description: 'Transfer ownership of an interview channel',
 	usage: '<@member>',
 	aliases: ['none'],
 	example: 'transfer @user',
@@ -29,8 +29,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to change owner.')
+					.setTitle('❌ **This isn\'t a interview channel**')
+					.setDescription('Use this command in the interview channel you want to change owner.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
@@ -79,8 +79,8 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('✅ **Ticket transferred**')
-				.setDescription(`Ownership of this ticket has been transferred to ${member}.`)
+				.setTitle('✅ **Interview transferred**')
+				.setDescription(`Ownership of this interview has been transferred to ${member}.`)
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);
 	}

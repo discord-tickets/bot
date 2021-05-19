@@ -14,10 +14,10 @@ const { join } = require('path');
 
 module.exports = {
 	name: 'delete',
-	description: 'Delete a ticket. Similar to closing a ticket, but does not save transcript or archives.',
+	description: 'Delete an interview. Similar to closing an interview, but does not save transcript or archives.',
 	usage: '[ticket]',
 	aliases: ['del'],
-	example: 'delete #ticket-17',
+	example: 'delete #interview-beyondboy',
 	args: false,
 	async execute(client, message, _args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -26,7 +26,7 @@ module.exports = {
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to delete, or mention the channel.')
+			.setDescription('Use this command in the interview channel you want to delete, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 			.setFooter(guild.name, guild.iconURL());
@@ -53,8 +53,8 @@ module.exports = {
 			});
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Channel is not an interview**')
+					.setDescription(`${channel} is not a interview channel.`);
 				return message.channel.send(notTicket);
 			}
 
@@ -80,7 +80,7 @@ module.exports = {
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle('❔ Are you sure?')
 					.setDescription(
-						`:warning: This action is **irreversible**, the ticket will be completely removed from the database.
+						`:warning: This action is **irreversible**, the interview will be completely removed from the database.
 						You will **not** be able to view a transcript/archive of the channel later.
 						Use the \`close\` command instead if you don't want this behaviour.\n**React with ✅ to confirm.**`)
 					.setFooter(guild.name + ' | Expires in 15 seconds', guild.iconURL())
@@ -99,8 +99,8 @@ module.exports = {
 						new MessageEmbed()
 							.setColor(config.colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle('**Ticket deleted**')
-							.setDescription(`Ticket deleted by ${message.author}`)
+							.setTitle('**Iterview deleted**')
+							.setDescription(`Interview deleted by ${message.author}`)
 							.setFooter(guild.name, guild.iconURL())
 					);
 
@@ -109,7 +109,7 @@ module.exports = {
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle(`✅ **Ticket ${ticket.id} deleted**`)
+						.setTitle(`✅ **Interview ${u.username} deleted**`)
 						.setDescription('The channel will be automatically deleted in a few seconds.')
 						.setFooter(guild.name, guild.iconURL())
 				);
@@ -146,10 +146,12 @@ module.exports = {
 
 		async function del () {
 			let txt = join(__dirname, `../../user/transcripts/text/${ticket.get('channel')}.txt`),
+				html = join(__dirname, `../../user/transcripts/html/${ticket.get('channel')}.html`),
 				raw = join(__dirname, `../../user/transcripts/raw/${ticket.get('channel')}.log`),
 				json = join(__dirname, `../../user/transcripts/raw/entities/${ticket.get('channel')}.json`);
 
 			if (fs.existsSync(txt)) fs.unlinkSync(txt);
+			if (fs.existsSync(html)) fs.unlinkSync(html);
 			if (fs.existsSync(raw)) fs.unlinkSync(raw);
 			if (fs.existsSync(json)) fs.unlinkSync(json);
 
@@ -162,14 +164,14 @@ module.exports = {
 			});
 
 
-			log.info(`${message.author.tag} deleted a ticket (#ticket-${ticket.id})`);
+			log.info(`${message.author.tag} deleted a interview (#ticket-${ticket.id})`);
 
 			if (config.logs.discord.enabled) {
 				client.channels.cache.get(config.logs.discord.channel).send(
 					new MessageEmbed()
 						.setColor(config.colour)
 						.setAuthor(message.author.username, message.author.displayAvatarURL())
-						.setTitle('Ticket deleted')
+						.setTitle('Interview deleted')
 						.addField('Creator', `<@${ticket.creator}>`, true)
 						.addField('Deleted by', message.author, true)
 						.setFooter(guild.name, guild.iconURL())

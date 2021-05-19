@@ -10,10 +10,10 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'add',
-	description: 'Add a member to a ticket channel',
+	description: 'Add a member to an interview',
 	usage: '<@member> [... #channel]',
 	aliases: ['none'],
-	example: 'add @member to #ticket-23',
+	example: 'add @member to #interview-beyondboy',
 	args: true,
 	async execute(client, message, args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -21,8 +21,8 @@ module.exports = {
 		const notTicket = new MessageEmbed()
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
-			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to add a user to, or mention the channel.')
+			.setTitle('❌ **This isn\'t an interview**')
+			.setDescription('Use this command in the interview channel you want to add a user to, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 			.setFooter(guild.name, guild.iconURL());
@@ -40,8 +40,8 @@ module.exports = {
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Channel is not an interview**')
+					.setDescription(`${channel} is not an interview channel.`);
 				return message.channel.send(notTicket);
 			}
 		}

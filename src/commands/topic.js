@@ -10,7 +10,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'topic',
-	description: 'Edit a ticket topic',
+	description: 'Edit an interview topic',
 	usage: '<topic>',
 	aliases: ['edit'],
 	example: 'topic need help error',
@@ -29,8 +29,8 @@ module.exports = {
 				new MessageEmbed()
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle('❌ **This isn\'t a ticket channel**')
-					.setDescription('Use this command in the ticket channel you want to close, or mention the channel.')
+					.setTitle('❌ **This isn\'t an interview channel**')
+					.setDescription('Use this command in the interview channel you want to close, or mention the channel.')
 					.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 					.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 					.setFooter(guild.name, guild.iconURL())
@@ -44,7 +44,7 @@ module.exports = {
 					.setColor(config.err_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle('❌ **Description too long**')
-					.setDescription('Please limit your ticket topic to less than 256 characters. A short sentence will do.')
+					.setDescription('Please limit your interview topic to less than 256 characters. A short sentence will do.')
 					.setFooter(guild.name, guild.iconURL())
 			);
 		}
@@ -63,7 +63,7 @@ module.exports = {
 			new MessageEmbed()
 				.setColor(config.colour)
 				.setAuthor(message.author.username, message.author.displayAvatarURL())
-				.setTitle('✅ **Ticket updated**')
+				.setTitle('✅ **Interview updated**')
 				.setDescription('The topic has been changed.')
 				.setFooter(client.user.username, client.user.displayAvatarURL())
 		);

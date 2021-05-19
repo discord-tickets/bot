@@ -10,10 +10,10 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'remove',
-	description: 'Remove a member from ticket channel',
+	description: 'Remove a member from interview channel',
 	usage: '<@member> [... #channel]',
 	aliases: ['none'],
-	example: 'remove @member from #ticket-23',
+	example: 'remove @member from #interview-beyondboy',
 	args: true,
 	async execute(client, message, args, log, { config, Ticket }) {
 		const guild = client.guilds.cache.get(config.guild);
@@ -22,7 +22,7 @@ module.exports = {
 			.setColor(config.err_colour)
 			.setAuthor(message.author.username, message.author.displayAvatarURL())
 			.setTitle('❌ **This isn\'t a ticket channel**')
-			.setDescription('Use this command in the ticket channel you want to remove a user from, or mention the channel.')
+			.setDescription('Use this command in the interview channel you want to remove a user from, or mention the channel.')
 			.addField('Usage', `\`${config.prefix}${this.name} ${this.usage}\`\n`)
 			.addField('Help', `Type \`${config.prefix}help ${this.name}\` for more information`)
 			.setFooter(guild.name, guild.iconURL());
@@ -43,8 +43,8 @@ module.exports = {
 			ticket = await Ticket.findOne({ where: { channel: channel.id } });
 			if (!ticket) {
 				notTicket
-					.setTitle('❌ **Channel is not a ticket**')
-					.setDescription(`${channel} is not a ticket channel.`);
+					.setTitle('❌ **Channel is not a interview**')
+					.setDescription(`${channel} is not a interview channel.`);
 				return message.channel.send(notTicket);
 			}
 		}
@@ -104,7 +104,7 @@ module.exports = {
 					.setFooter(guild.name, guild.iconURL())
 			);
 
-			log.info(`${message.author.tag} removed a user from a ticket (#${message.channel.id})`);
+			log.info(`${message.author.tag} removed a user from a interview (#${message.channel.id})`);
 		} catch (error) {
 			log.error(error);
 		}

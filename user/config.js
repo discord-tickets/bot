@@ -27,7 +27,7 @@
  */
 
 module.exports = {
-	prefix: '-',
+	prefix: '?',
 	name: 'DiscordTickets',
 	presences: [
 		{
@@ -44,24 +44,20 @@ module.exports = {
 		}
 	],
 	append_presence: ' | %shelp',
-	colour: '#009999',
+	colour: '#1ec45c',
 	err_colour: 'RED',
 	cooldown: 3,
-	guild: '', // ID of your guild (REQUIRED)
-	staff_role: '', // ID of your Support Team role (REQUIRED)
+	guild: '834290682243317820', // ID of your guild (REQUIRED)
+	staff_role: '842088216059838485', // ID of your Support Team role (REQUIRED)
 
 	tickets: {
-		category: '', // ID of your tickets category (REQUIRED)
-		send_img: true,
-		ping: 'here',
-		text: `Hello there, {{ tag }}!
-		A member of staff will assist you shortly.
-		In the mean time, please describe your issue in as much detail as possible! :)`,
+		category: '844114081513340928', // ID of your tickets category (REQUIRED)
+		send_img: false,
+		text: `Please complete the following to proceed with interview: \n1.Change discord name to match in-game name.\n2. Where did you find us?\n3.Post profile & home base with builder selection drop down.\n4.Post location/time zone.\n5.Post player tag!`,
 		pin: false,
-		max: 3,
+		max: 1,
 		default_topic: {
-			command: 'No topic given',
-			panel: 'Created via panel'
+			
 		}
 	},
 
@@ -82,20 +78,20 @@ module.exports = {
 	},
 
 	transcripts: {
-		text: {
+		html: {
 			enabled: true,
-			keep_for: 90,
+			keep_for:365,
 		},
 		web: {
 			enabled: false,
 			server: 'https://tickets.example.com',
 		},
-		channel: '' // ID of your archives channel
+		channel: '844239451416690700' // ID of your archives channel
 	},
 
 	panel: {
-		title: 'Support Tickets',
-		description: 'Need help? No problem! React to this panel to create a new support ticket so our Support Team can assist you.',
+		title: 'Applications',
+		description: 'Interested in joining the Wookie Force? React below to create an interview.',
 		reaction: '🧾'
 	},
 
@@ -106,7 +102,7 @@ module.exports = {
 	logs: {
 		files: {
 			enabled: true,
-			keep_for: 7
+			keep_for: 365
 		},
 		discord: {
 			enabled: false,

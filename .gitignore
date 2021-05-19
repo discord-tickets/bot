@@ -2,6 +2,7 @@ logs/
 .vscode/
 node_modules/
 user/dev.env
+user/.env
 user/dev.config.js
 user/storage.db
 user/transcripts/text/*.txt
