@@ -82,7 +82,7 @@ module.exports = class BlacklistCommand extends Command {
 		const member_or_role = is_role ? 'role' : 'member';
 		const index = settings.blacklist.findIndex(element => element === id);
 
-		const new_blacklist = [ ...settings.blacklist ];
+		const new_blacklist = [...settings.blacklist];
 
 		if (index === -1) {
 			new_blacklist.push(id);

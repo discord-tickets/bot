@@ -19,8 +19,7 @@ module.exports = class SettingsCommand extends Command {
 			permissions: ['MANAGE_GUILD']
 		});
 
-		this.schema = require('../settings.schema.json');
-
+		this.schema = require('./extra/settings.schema.json');
 		this.v = new Validator();
 	}
 
@@ -33,7 +32,7 @@ module.exports = class SettingsCommand extends Command {
 		const settings = await message.guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const attachments = [ ...message.attachments.values() ];
+		const attachments = [...message.attachments.values()];
 
 		if (attachments.length >= 1) {
 
@@ -207,7 +206,7 @@ module.exports = class SettingsCommand extends Command {
 				`Settings for ${message.guild.name}.json`
 			);
 
-			message.channel.send({
+			return await message.channel.send({
 				files: [attachment]
 			});
 		}

@@ -51,16 +51,16 @@ module.exports = class TicketManager extends EventEmitter {
 		})) + 1;
 
 		const guild = this.client.guilds.cache.get(guild_id);
-		const member = await guild.members.fetch(creator_id);
+		const creator = await guild.members.fetch(creator_id);
 		const name = cat_row.name_format
-			.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
+			.replace(/{+\s?(user)?name\s?}+/gi, creator.displayName)
 			.replace(/{+\s?num(ber)?\s?}+/gi, number);
 
 		const t_channel = await guild.channels.create(name, {
 			type: 'text',
-			topic: `${member}${topic.length > 0 ? ` | ${topic}` : ''}`,
+			topic: `${creator}${topic.length > 0 ? ` | ${topic}` : ''}`,
 			parent: category_id,
-			reason: `${member.user.tag} requested a new ticket channel`
+			reason: `${creator.user.tag} requested a new ticket channel`
 		});
 
 		t_channel.updateOverwrite(creator_id, {
@@ -68,7 +68,7 @@ module.exports = class TicketManager extends EventEmitter {
 			READ_MESSAGE_HISTORY: true,
 			SEND_MESSAGES: true,
 			ATTACH_FILES: true
-		}, `Ticket channel created by ${member.user.tag}`);
+		}, `Ticket channel created by ${creator.user.tag}`);
 
 		const t_row = await this.client.db.models.Ticket.create({
 			id: t_channel.id,
@@ -102,17 +102,17 @@ module.exports = class TicketManager extends EventEmitter {
 			}
 
 			const description = cat_row.opening_message
-				.replace(/{+\s?(user)?name\s?}+/gi, member.displayName)
-				.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, member.user.toString());
+				.replace(/{+\s?(user)?name\s?}+/gi, creator.displayName)
+				.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, creator.user.toString());
 			const embed = new MessageEmbed()
 				.setColor(settings.colour)
-				.setAuthor(member.user.username, member.user.displayAvatarURL())
+				.setAuthor(creator.user.username, creator.user.displayAvatarURL())
 				.setDescription(description)
 				.setFooter(settings.footer, guild.iconURL());
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
-			const sent = await t_channel.send(member.user.toString(), embed);
+			const sent = await t_channel.send(creator.user.toString(), embed);
 			await sent.pin({ reason: 'Ticket opening message' });
 
 			await t_row.update({
@@ -158,11 +158,11 @@ module.exports = class TicketManager extends EventEmitter {
 					await t_row.update({
 						topic: this.client.cryptr.encrypt(topic)
 					});
-					await t_channel.setTopic(`${member} | ${topic}`, { reason: 'User updated ticket topic' });
+					await t_channel.setTopic(`${creator} | ${topic}`, { reason: 'User updated ticket topic' });
 					await sent.edit(
 						new MessageEmbed()
 							.setColor(settings.colour)
-							.setAuthor(member.user.username, member.user.displayAvatarURL())
+							.setAuthor(creator.user.username, creator.user.displayAvatarURL())
 							.setDescription(description)
 							.addField(i18n('ticket.opening_message.fields.topic'), topic)
 							.setFooter(settings.footer, guild.iconURL())
@@ -196,7 +196,7 @@ module.exports = class TicketManager extends EventEmitter {
 			}
 		})();
 
-		this.client.log.info(`${member.user.tag} created a new ticket in "${guild.name}"`);
+		this.client.log.info(`${creator.user.tag} created a new ticket in "${guild.name}"`);
 
 		this.emit('create', t_row.id, creator_id);
 
@@ -222,32 +222,38 @@ module.exports = class TicketManager extends EventEmitter {
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const channel = await this.client.channels.fetch(t_row.id);
 
-		if (closer_id) {
-			const member = await guild.members.fetch(closer_id);
+		const close = async () => {
+			const pinned = await channel.messages.fetchPinned();
+			await t_row.update({
+				open: false,
+				closed_by: closer_id || null,
+				closed_reason: reason ? this.client.cryptr.encrypt(reason) : null,
+				pinned_messages: [...pinned.keys()]
+			});
 
-			await this.archives.updateMember(ticket_id, member);
+			if (closer_id) {
+				const closer = await guild.members.fetch(closer_id);
 
-			if (channel) {
+				await this.archives.updateMember(ticket_id, closer);
+
 				const description = reason
-					? i18n('ticket.closed_by_member_with_reason.description', member.user.toString(), reason)
-					: i18n('ticket.closed_by_member.description', member.user.toString());
+					? i18n('ticket.closed_by_member_with_reason.description', closer.user.toString(), reason)
+					: i18n('ticket.closed_by_member.description', closer.user.toString());
 				await channel.send(
 					new MessageEmbed()
 						.setColor(settings.success_colour)
-						.setAuthor(member.user.username, member.user.displayAvatarURL())
+						.setAuthor(closer.user.username, closer.user.displayAvatarURL())
 						.setTitle(i18n('ticket.closed.title'))
 						.setDescription(description)
 						.setFooter(settings.footer, guild.iconURL())
 				);
 
 				setTimeout(async () => {
-					await channel.delete(`Ticket channel closed by ${member.user.tag}${reason ? `: "${reason}"` : ''}`);
+					await channel.delete(`Ticket channel closed by ${closer.user.tag}${reason ? `: "${reason}"` : ''}`);
 				}, 5000);
-			}
 
-			this.client.log.info(`${member.user.tag} closed a ticket (${ticket_id})${reason ? `: "${reason}"` : ''}`);
-		} else {
-			if (channel) {
+				this.client.log.info(`${closer.user.tag} closed a ticket (${ticket_id})${reason ? `: "${reason}"` : ''}`);
+			} else {
 				const description = reason
 					? i18n('ticket.closed_with_reason.description')
 					: i18n('ticket.closed.description');
@@ -262,19 +268,99 @@ module.exports = class TicketManager extends EventEmitter {
 				setTimeout(async () => {
 					await channel.delete(`Ticket channel closed${reason ? `: "${reason}"` : ''}`);
 				}, 5000);
+
+				this.client.log.info(`A ticket was closed (${ticket_id})${reason ? `: "${reason}"` : ''}`);
 			}
+		};
 
-			this.client.log.info(`A ticket was closed (${ticket_id})${reason ? `: "${reason}"` : ''}`);
+		if (channel) {
+			const creator = await guild.members.fetch(t_row.creator);
+
+			const cat_row = await this.client.db.models.Category.findOne({
+				where: {
+					id: t_row.category
+				}
+			});
+
+			if (creator && cat_row.survey) {
+				const survey = await this.client.db.models.Survey.findOne({
+					where: {
+						guild: t_row.guild,
+						name: cat_row.survey
+					}
+				});
+
+				if (survey) {
+					const r_collector_message = await channel.send(
+						creator.toString(),
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setTitle(i18n('ticket.survey.start.title'))
+							.setDescription(i18n('ticket.survey.start.description', creator.toString(), survey.questions.length))
+							.setFooter(i18n('collector_expires_in', 60))
+					);
+
+					await r_collector_message.react('✅');
+
+					const collector_filter = (reaction, user) => {
+						return user.id === creator.user.id && reaction.emoji.name === '✅';
+					};
+
+					const r_collector = r_collector_message.createReactionCollector(collector_filter, {
+						time: 60000
+					});
+
+					r_collector.on('collect', async () => {
+						r_collector.stop();
+						const filter = message => message.author.id === creator.id;
+						let answers = [];
+						let number = 1;
+						for (const question of survey.questions) {
+							await channel.send(
+								new MessageEmbed()
+									.setColor(settings.colour)
+									.setTitle(`${number++}/${survey.questions.length}`)
+									.setDescription(question)
+									.setFooter(i18n('collector_expires_in', 60))
+							);
+
+							try {
+								const collected = await channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] });
+								answers.push(collected.first().content);
+							} catch (collected) {
+								return await close();
+							}
+						}
+
+						await channel.send(
+							new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setTitle(i18n('ticket.survey.complete.title'))
+								.setDescription(i18n('ticket.survey.complete.description'))
+								.setFooter(settings.footer, guild.iconURL())
+						);
+
+						answers = answers.map(a => this.client.cryptr.encrypt(a));
+						await this.client.db.models.SurveyResponse.create({
+							answers,
+							survey: survey.id,
+							ticket: t_row.id
+						});
+
+						await close();
+
+					});
+
+					r_collector.on('end', async (collected) => {
+						if (collected.size === 0) {
+							await close();
+						}
+					});
+				}
+			} else {
+				await close();
+			}
 		}
-
-		const pinned = await channel.messages.fetchPinned();
-
-		await t_row.update({
-			open: false,
-			closed_by: closer_id || null,
-			closed_reason: reason ? this.client.cryptr.encrypt(reason) : null,
-			pinned_messages: [...pinned.keys()]
-		});
 
 		this.emit('close', ticket_id);
 		return t_row;

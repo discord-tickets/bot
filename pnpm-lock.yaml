@@ -13,6 +13,7 @@ specifiers:
   leeks.js: ^0.2.2
   leekslazylogger-fastify: ^0.1.1
   mariadb: ^2.5.2
+  mustache: ^4.2.0
   mysql2: ^2.2.5
   node-emoji: ^1.10.0
   node-fetch: ^2.6.1
@@ -38,6 +39,7 @@ dependencies:
   keyv: 4.0.3
   leeks.js: 0.2.2
   leekslazylogger-fastify: 0.1.1
+  mustache: 4.2.0
   node-emoji: 1.10.0
   node-fetch: 2.6.1
   semver: 7.3.4
@@ -1624,6 +1626,11 @@ packages:
 
   /ms/2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
+
+  /mustache/4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+    dev: false
 
   /mysql2/2.2.5:
     resolution: {integrity: sha512-XRqPNxcZTpmFdXbJqb+/CtYVLCx14x1RTeNMD4954L331APu75IC74GDqnZMEt1kwaXy6TySo55rF2F3YJS78g==}
