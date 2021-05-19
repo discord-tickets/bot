@@ -70,7 +70,7 @@ module.exports = class SurveyCommand extends Command {
 				encoding: 'utf8'
 			});
 
-			template = template.replace(/\n|\t/, '');
+			template = template.replace(/[\r\n\t]/g, '');
 
 			survey.questions.unshift('Ticket #');
 
