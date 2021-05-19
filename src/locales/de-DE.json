@@ -359,6 +359,25 @@
 				}
 			}
 		},
+		"survey": {
+			"aliases": {
+				"surveys": "surveys"
+			},
+			"args": {
+				"survey": {
+					"description": "The name of the survey to view responses of",
+					"example": "support",
+					"name": "survey"
+				}
+			},
+			"description": "View survey responses",
+			"name": "survey",
+			"response": {
+				"list": {
+					"title": "📃 Surveys"
+				}
+			}
+		},
 		"tag": {
 			"aliases": {
 				"faq": "faq",
@@ -460,6 +479,16 @@
 		"released": {
 			"description": "%s has released this ticket.",
 			"title": "✅ Ticket released"
+		},
+		"survey": {
+			"complete": {
+				"description": "Thank you for your feedback.",
+				"title": "✅ Thank you"
+			},
+			"start": {
+				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+				"title": "❔ Feedback"
+			}
 		}
 	}
 }
