@@ -4,12 +4,12 @@
 
 Release versions that will receive security updates.
 
-| Version | Supported      |
-| ------- | -------------- |
-| 3.x     | ✅            |
-| 2.x     | ⚠️ Deprecated |
-| < 2.0   | ❌            |
+| Version | Supported |
+| ------- | --------- |
+| 3.x     | ✅         |
+| 2.x     | ❌         |
+| 1.x     | ❌         |
 
 ## Reporting a vulnerability
 
-If you find a vulnerability, please [email me](mailto:contact@eartharoid.me).
+If you find a vulnerability, please send an email to [contact@discordtickets.app](mailto:contact@discordtickets.app).
