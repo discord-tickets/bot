@@ -106,6 +106,7 @@ module.exports = class TagCommand extends Command {
 				args.ticket.topic = t_row.topic ? this.client.cryptr.decrypt(t_row.topic) : null;
 			}
 
+			// note that this regex is slightly different to the other
 			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, ($, $1) => this.client.i18n.resolve(args, $1));
 			return await message.channel.send(
 				new MessageEmbed()
