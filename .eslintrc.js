@@ -24,6 +24,13 @@ module.exports = {
 		'semi': [
 			'error',
 			'always'
+		],
+		'prefer-const': [
+			'error',
+			{
+				'destructuring': 'any',
+				'ignoreReadBeforeAssign': false
+			}
 		]
 	}
 };
