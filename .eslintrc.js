@@ -17,6 +17,13 @@ module.exports = {
 			'warn',
 			'windows'
 		],
+		'prefer-const': [
+			'error',
+			{
+				'destructuring': 'any',
+				'ignoreReadBeforeAssign': false
+			}
+		],
 		'quotes': [
 			'error',
 			'single'
@@ -25,12 +32,5 @@ module.exports = {
 			'error',
 			'always'
 		],
-		'prefer-const': [
-			'error',
-			{
-				'destructuring': 'any',
-				'ignoreReadBeforeAssign': false
-			}
-		]
 	}
 };
