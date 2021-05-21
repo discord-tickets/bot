@@ -14,7 +14,7 @@ module.exports = {
 			'tab'
 		],
 		'linebreak-style': [
-			'warn',
+			'off',
 			'windows'
 		],
 		'prefer-const': [
