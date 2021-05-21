@@ -21,13 +21,13 @@ const prefix = '-';
 module.exports = {
 	debug: false,
 	defaults: {
-		colour: '#009999', // https://discord.js.org/#/docs/main/stable/typedef/ColorResolvable
+		colour: '#009999',
 		command_prefix: prefix,
-		log_messages: true, // transcripts/archives will be empty if false
+		log_messages: true,
 		name_format: 'ticket-{number}',
 		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__'
 	},
-	locale: 'en-GB', // used for globals (such as commands) and the default guild locale
+	locale: 'en-GB',
 	logs: {
 		enabled: true,
 		keep_for: 30,
@@ -50,14 +50,6 @@ module.exports = {
 				activity: 'tickets',
 				type: 'WATCHING'
 			}
-			/*
-			 * { // an example
-			 * activity: 'Minecraft',
-			 * type: 'STREAMING',
-			 * status: 'dnd',
-			 * url: 'https://www.twitch.tv/twitch'
-			 * },
-			 */
 		],
 		randomise: true
 	},
