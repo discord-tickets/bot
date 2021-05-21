@@ -6,5 +6,5 @@ module.exports = {
 	 * @param {string} path - A path relative to the root of the project (like "./user/config.js")
 	 * @returns {string} absolute path
 	 */
-	path: path => join(__dirname, '../../', path),
+	path: path => join(__dirname, '../../', path)
 };

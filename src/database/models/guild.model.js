@@ -2,48 +2,47 @@ const { DataTypes } = require('sequelize');
 module.exports = ({ config }, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Guild', {
-		id: {
-			type: DataTypes.CHAR(19),
-			primaryKey: true,
-			allowNull: false,
-		},
+
 		blacklist: {
-			type: DataTypes.JSON,
 			defaultValue: [],
+			type: DataTypes.JSON
 		},
 		colour: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.colour
+			defaultValue: config.defaults.colour,
+			type: DataTypes.STRING
 		},
 		command_prefix: {
-			type: DataTypes.STRING,
-			defaultValue: config.defaults.command_prefix
+			defaultValue: config.defaults.command_prefix,
+			type: DataTypes.STRING
 		},
 		error_colour: {
-			type: DataTypes.STRING,
-			defaultValue: 'RED'
+			defaultValue: 'RED',
+			type: DataTypes.STRING
 		},
 		footer: {
-			type: DataTypes.STRING,
-			defaultValue: 'Discord Tickets by eartharoid'
+			defaultValue: 'Discord Tickets by eartharoid',
+			type: DataTypes.STRING
+		},
+		id: {
+			allowNull: false,
+			primaryKey: true,
+			type: DataTypes.CHAR(19)
 		},
 		locale: {
-			type: DataTypes.STRING,
-			defaultValue: config.locale
+			defaultValue: config.locale,
+			type: DataTypes.STRING
 		},
 		log_messages: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: config.defaults.log_messages
+			defaultValue: config.defaults.log_messages,
+			type: DataTypes.BOOLEAN
 		},
 		success_colour: {
-			type: DataTypes.STRING,
-			defaultValue: 'GREEN'
+			defaultValue: 'GREEN',
+			type: DataTypes.STRING
 		},
 		tags: {
-			type: DataTypes.JSON,
-			defaultValue: {}
+			defaultValue: {},
+			type: DataTypes.JSON
 		}
-	}, {
-		tableName: DB_TABLE_PREFIX + 'guilds'
-	});
+	}, { tableName: DB_TABLE_PREFIX + 'guilds' });
 };

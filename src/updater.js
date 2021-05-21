@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fetch = require('node-fetch');
 const boxen = require('boxen');
 const link = require('terminal-link');
@@ -26,11 +27,11 @@ module.exports = async client => {
 
 		console.log(
 			boxen(format(lines.join('\n')), {
-				padding: 1,
-				margin: 1,
 				align: 'center',
 				borderColor: 'yellow',
-				borderStyle: 'round'
+				borderStyle: 'round',
+				margin: 1,
+				padding: 1
 			})
 		);
 	}

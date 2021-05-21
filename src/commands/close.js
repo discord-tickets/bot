@@ -1,6 +1,10 @@
 const Command = require('../modules/commands/command');
 // eslint-disable-next-line no-unused-vars
-const { MessageEmbed, MessageMentions, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed,
+	MessageMentions
+} = require('discord.js');
 const { Op } = require('sequelize');
 const toTime = require('to-time-monthsfork');
 const { footer } = require('../utils/discord');
@@ -9,43 +13,40 @@ module.exports = class CloseCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.close.name'),
-			description: i18n('commands.close.description'),
 			aliases: [
 				i18n('commands.close.aliases.delete'),
-				i18n('commands.close.aliases.lock'),
+				i18n('commands.close.aliases.lock')
 			],
-			process_args: true,
 			args: [
 				{
-					name: i18n('commands.close.args.ticket.name'),
+					alias: i18n('commands.close.args.ticket.alias'),
 					description: i18n('commands.close.args.ticket.description'),
 					example: i18n('commands.close.args.ticket.example'),
+					name: i18n('commands.close.args.ticket.name'),
 					required: false,
-					// for arg parsing
-					alias: i18n('commands.close.args.ticket.alias'),
 					type: String
 				},
 				{
-					name: i18n('commands.close.args.reason.name'),
+					alias: i18n('commands.close.args.reason.alias'),
 					description: i18n('commands.close.args.reason.description'),
 					example: i18n('commands.close.args.reason.example'),
+					name: i18n('commands.close.args.reason.name'),
 					required: false,
-					// for arg parsing
-					alias: i18n('commands.close.args.reason.alias'),
 					type: String
 				},
 				{
-					name: i18n('commands.close.args.time.name'),
+					alias: i18n('commands.close.args.time.alias'),
 					description: i18n('commands.close.args.time.description'),
 					example: i18n('commands.close.args.time.example'),
+					name: i18n('commands.close.args.time.name'),
 					required: false,
-					// for arg parsing
-					alias: i18n('commands.close.args.time.alias'),
 					type: String
 				}
-			]
+			],
+			description: i18n('commands.close.description'),
+			internal: true,
+			name: i18n('commands.close.name'),
+			process_args: true
 		});
 	}
 
@@ -79,10 +80,8 @@ module.exports = class CloseCommand extends Command {
 
 			const tickets = await this.client.db.models.Ticket.findAndCountAll({
 				where: {
-					last_message: {
-						[Op.lte]: new Date(Date.now() - period)
-					},
-					guild: message.guild.id
+					guild: message.guild.id,
+					last_message: { [Op.lte]: new Date(Date.now() - period) }
 				}
 			});
 
@@ -105,13 +104,9 @@ module.exports = class CloseCommand extends Command {
 
 				await collector_message.react('✅');
 
-				const collector_filter = (reaction, user) => {
-					return user.id === message.author.id && reaction.emoji.name === '✅';
-				};
+				const collector_filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
 
-				const collector = collector_message.createReactionCollector(collector_filter, {
-					time: 30000
-				});
+				const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
 
 				collector.on('collect', async () => {
 					await collector_message.reactions.removeAll();
@@ -130,7 +125,7 @@ module.exports = class CloseCommand extends Command {
 
 				});
 
-				collector.on('end', async (collected) => {
+				collector.on('end', async collected => {
 					if (collected.size === 0) {
 						await collector_message.reactions.removeAll();
 						await collector_message.edit(
@@ -169,11 +164,7 @@ module.exports = class CloseCommand extends Command {
 					);
 				}
 			} else {
-				t_row = await this.client.db.models.Ticket.findOne({
-					where: {
-						id: message.channel.id
-					}
-				});
+				t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
 				if (!t_row) {
 					return await message.channel.send(
@@ -196,13 +187,9 @@ module.exports = class CloseCommand extends Command {
 
 			await collector_message.react('✅');
 
-			const collector_filter = (reaction, user) => {
-				return user.id === message.author.id && reaction.emoji.name === '✅';
-			};
+			const collector_filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
 
-			const collector = collector_message.createReactionCollector(collector_filter, {
-				time: 30000
-			});
+			const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
 
 			collector.on('collect', async () => {
 				collector.stop();
@@ -223,7 +210,7 @@ module.exports = class CloseCommand extends Command {
 				await this.client.tickets.close(t_row.id, message.author.id, message.guild.id, args[arg_reason]);
 			});
 
-			collector.on('end', async (collected) => {
+			collector.on('end', async collected => {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
 					await collector_message.edit(
@@ -244,7 +231,7 @@ module.exports = class CloseCommand extends Command {
 					}, 15000);
 				}
 			});
-			
+
 		}
 	}
 };

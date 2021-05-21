@@ -2,67 +2,65 @@ const { DataTypes } = require('sequelize');
 module.exports = ({ config }, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Category', {
-		id: {
-			type: DataTypes.CHAR(19),
-			primaryKey: true,
-			allowNull: false,
-		},
 		claiming: {
-			type: DataTypes.BOOLEAN,
 			defaultValue: false,
+			type: DataTypes.BOOLEAN
 		},
 		guild: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
-				model: DB_TABLE_PREFIX + 'guilds',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'guilds'
 			},
+			type: DataTypes.CHAR(19),
 			unique: 'name-guild'
 		},
+		id: {
+			allowNull: false,
+			primaryKey: true,
+			type: DataTypes.CHAR(19)
+		},
 		image: {
-			type: DataTypes.STRING,
 			allowNull: true,
+			type: DataTypes.STRING
 		},
 		max_per_member: {
-			type: DataTypes.INTEGER,
-			defaultValue: 1
+			defaultValue: 1,
+			type: DataTypes.INTEGER
 		},
 		name: {
-			type: DataTypes.STRING,
 			allowNull: false,
+			type: DataTypes.STRING,
 			unique: 'name-guild'
 		},
 		name_format: {
-			type: DataTypes.STRING,
 			allowNull: false,
-			defaultValue: config.defaults.name_format
+			defaultValue: config.defaults.name_format,
+			type: DataTypes.STRING
 		},
 		opening_message: {
-			type: DataTypes.STRING,
 			defaultValue: config.defaults.opening_message,
+			type: DataTypes.STRING
 		},
 		opening_questions: {
-			type: DataTypes.JSON,
 			allowNull: true,
+			type: DataTypes.JSON
 		},
 		ping: {
-			type: DataTypes.JSON,
 			defaultValue: [],
+			type: DataTypes.JSON
 		},
 		require_topic: {
-			type: DataTypes.BOOLEAN,
 			defaultValue: false,
+			type: DataTypes.BOOLEAN
 		},
 		roles: {
-			type: DataTypes.JSON,
 			allowNull: false,
+			type: DataTypes.JSON
 		},
 		survey: {
-			type: DataTypes.STRING,
 			allowNull: true,
+			type: DataTypes.STRING
 		}
-	}, {
-		tableName: DB_TABLE_PREFIX + 'categories'
-	});
+	}, { tableName: DB_TABLE_PREFIX + 'categories' });
 };

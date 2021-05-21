@@ -20,26 +20,22 @@ module.exports = class TicketArchives  {
 		try {
 			// await this.client.db.transaction(async t => {
 			const t_row = await this.client.db.models.Ticket.findOne({
-				where: {
-					id: message.channel.id
-				},
+				where: { id: message.channel.id }
 				/* transaction: t */
 			});
 
 			if (t_row) {
 				await this.client.db.models.Message.create({
-					id: message.id,
-					ticket: t_row.id,
 					author: message.author.id,
+					createdAt: new Date(message.createdTimestamp),
 					data: this.encrypt(JSON.stringify({
+						attachments: [...message.attachments.values()],
 						content: message.content,
-						embeds: message.embeds.map(embed => {
-							return { embed };
-						}),
-						attachments: [...message.attachments.values()]
+						embeds: message.embeds.map(embed => ({ embed }))
 					})),
-					createdAt: new Date(message.createdTimestamp)
-				}, /* { transaction: t } */);
+					id: message.id,
+					ticket: t_row.id
+				} /* { transaction: t } */);
 
 				await this.updateEntities(message);
 			}
@@ -54,19 +50,15 @@ module.exports = class TicketArchives  {
 		try {
 			// await this.client.db.transaction(async t => {
 			const m_row = await this.client.db.models.Message.findOne({
-				where: {
-					id: message.id
-				},
+				where: { id: message.id }
 				/* transaction: t */
 			});
 
 			if (m_row) {
 				m_row.data = this.encrypt(JSON.stringify({
+					attachments: [...message.attachments.values()],
 					content: message.content,
-					embeds: message.embeds.map(embed => {
-						return { embed };
-					}),
-					attachments: [...message.attachments.values()]
+					embeds: message.embeds.map(embed => ({ embed }))
 				}));
 
 				if (message.editedTimestamp) {
@@ -87,9 +79,7 @@ module.exports = class TicketArchives  {
 		try {
 			// await this.client.db.transaction(async t => {
 			const msg = await this.client.db.models.Message.findOne({
-				where: {
-					id: message.id
-				},
+				where: { id: message.id }
 				/* transaction: t */
 			});
 
@@ -130,27 +120,27 @@ module.exports = class TicketArchives  {
 		try {
 			// await this.client.db.transaction(async t => {
 			const u_model_data = {
-				user: member.user.id,
-				ticket: ticket_id
+				ticket: ticket_id,
+				user: member.user.id
 			};
 
 			const [u_row] = await this.client.db.models.UserEntity.findOrCreate({
-				where: u_model_data,
 				defaults: {
 					...u_model_data,
 					role: member.roles.highest.id
 				},
+				where: u_model_data
 				/* transaction: t */
 			});
 
 			await u_row.update({
 				avatar: member.user.avatar,
-				username: this.encrypt(member.user.username),
+				bot: member.user.bot,
 				discriminator: member.user.discriminator,
 				display_name: this.encrypt(member.displayName),
 				role: member.roles.highest.id,
-				bot: member.user.bot
-			}, /* { transaction: t } */);
+				username: this.encrypt(member.user.username)
+			} /* { transaction: t } */);
 
 			return u_row;
 			// });
@@ -168,14 +158,12 @@ module.exports = class TicketArchives  {
 				ticket: ticket_id
 			};
 			const [c_row] = await this.client.db.models.ChannelEntity.findOrCreate({
-				where: c_model_data,
 				defaults: c_model_data,
+				where: c_model_data
 				/* transaction: t */
 			});
 
-			await c_row.update({
-				name: this.encrypt(channel.name)
-			}, /* { transaction: t } */);
+			await c_row.update({ name: this.encrypt(channel.name) } /* { transaction: t } */);
 
 			return c_row;
 			// });
@@ -193,15 +181,15 @@ module.exports = class TicketArchives  {
 				ticket: ticket_id
 			};
 			const [r_row] = await this.client.db.models.RoleEntity.findOrCreate({
-				where: r_model_data,
 				defaults: r_model_data,
+				where: r_model_data
 				/* transaction: t */
 			});
 
 			await r_row.update({
-				name: this.encrypt(role.name),
-				colour: role.color === 0 ? '7289DA' : int2hex(role.color) // 7289DA = 7506394
-			}, /* { transaction: t } */);
+				colour: role.color === 0 ? '7289DA' : int2hex(role.color), // 7289DA = 7506394
+				name: this.encrypt(role.name)
+			} /* { transaction: t } */);
 
 			return r_row;
 			// });

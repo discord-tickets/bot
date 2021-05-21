@@ -5,9 +5,7 @@ const { footer } = require('../utils/discord');
 
 module.exports = class MessageEventListener extends EventListener {
 	constructor(client) {
-		super(client, {
-			event: 'message'
-		});
+		super(client, { event: 'message' });
 	}
 
 	async execute(message) {
@@ -16,11 +14,7 @@ module.exports = class MessageEventListener extends EventListener {
 		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const t_row = await this.client.db.models.Ticket.findOne({
-			where: {
-				id: message.channel.id
-			}
-		});
+		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
 		if (t_row) {
 			if (settings.log_messages && !message.system) this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
@@ -33,22 +27,14 @@ module.exports = class MessageEventListener extends EventListener {
 		} else {
 			if (message.author.bot) return;
 
-			const p_row = await this.client.db.models.Panel.findOne({
-				where: {
-					channel: message.channel.id
-				}
-			});
+			const p_row = await this.client.db.models.Panel.findOne({ where: { channel: message.channel.id } });
 
 			if (p_row && typeof p_row.categories === 'string') {
 				// handle reaction-less panel
 
 				await message.delete();
 
-				const cat_row = await this.client.db.models.Category.findOne({
-					where: {
-						id: p_row.categories
-					}
-				});
+				const cat_row = await this.client.db.models.Category.findOne({ where: { id: p_row.categories } });
 
 				const tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {

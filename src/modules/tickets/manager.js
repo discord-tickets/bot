@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
 const { MessageEmbed } = require('discord.js');
@@ -25,30 +26,20 @@ module.exports = class TicketManager extends EventEmitter {
 	 * @param {string} guild_id - ID of the guild to create the ticket in
 	 * @param {string} creator_id - ID of the ticket creator (user)
 	 * @param {string} category_id - ID of the ticket category
-	 * @param {string} [topic] - The ticket topic 
+	 * @param {string} [topic] - The ticket topic
 	 */
 	async create(guild_id, creator_id, category_id, topic) {
 		if (!topic) topic = '';
 
-		const cat_row = await this.client.db.models.Category.findOne({
-			where: {
-				id: category_id
-			}
-		});
+		const cat_row = await this.client.db.models.Category.findOne({ where: { id: category_id } });
 
-		if (!cat_row)
-			throw new Error('Ticket category does not exist');
-		
+		if (!cat_row) throw new Error('Ticket category does not exist');
+
 		const cat_channel = await this.client.channels.fetch(category_id);
 
-		if (cat_channel.children.size >= 50)
-			throw new Error('Ticket category has reached child channel limit (50)');
+		if (cat_channel.children.size >= 50) throw new Error('Ticket category has reached child channel limit (50)');
 
-		const number = (await this.client.db.models.Ticket.count({
-			where: {
-				guild: guild_id
-			}
-		})) + 1;
+		const number = (await this.client.db.models.Ticket.count({ where: { guild: guild_id } })) + 1;
 
 		const guild = this.client.guilds.cache.get(guild_id);
 		const creator = await guild.members.fetch(creator_id);
@@ -57,25 +48,25 @@ module.exports = class TicketManager extends EventEmitter {
 			.replace(/{+\s?num(ber)?\s?}+/gi, number);
 
 		const t_channel = await guild.channels.create(name, {
-			type: 'text',
-			topic: `${creator}${topic.length > 0 ? ` | ${topic}` : ''}`,
 			parent: category_id,
-			reason: `${creator.user.tag} requested a new ticket channel`
+			reason: `${creator.user.tag} requested a new ticket channel`,
+			topic: `${creator}${topic.length > 0 ? ` | ${topic}` : ''}`,
+			type: 'text'
 		});
 
 		t_channel.updateOverwrite(creator_id, {
-			VIEW_CHANNEL: true,
+			ATTACH_FILES: true,
 			READ_MESSAGE_HISTORY: true,
 			SEND_MESSAGES: true,
-			ATTACH_FILES: true
+			VIEW_CHANNEL: true
 		}, `Ticket channel created by ${creator.user.tag}`);
 
 		const t_row = await this.client.db.models.Ticket.create({
-			id: t_channel.id,
-			number,
-			guild: guild_id,
 			category: category_id,
 			creator: creator_id,
+			guild: guild_id,
+			id: t_channel.id,
+			number,
 			topic: topic.length === 0 ? null : this.client.cryptr.encrypt(topic)
 		});
 
@@ -115,9 +106,7 @@ module.exports = class TicketManager extends EventEmitter {
 			const sent = await t_channel.send(creator.user.toString(), embed);
 			await sent.pin({ reason: 'Ticket opening message' });
 
-			await t_row.update({
-				opening_message: sent.id
-			});
+			await t_row.update({ opening_message: sent.id });
 
 			const pinned = t_channel.messages.cache.last();
 
@@ -147,17 +136,13 @@ module.exports = class TicketManager extends EventEmitter {
 						.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
 				);
 
-				const collector_filter = (message) => message.author.id === t_row.creator;
+				const collector_filter = message => message.author.id === t_row.creator;
 
-				const collector = t_channel.createMessageCollector(collector_filter, {
-					time: 120000
-				});
+				const collector = t_channel.createMessageCollector(collector_filter, { time: 120000 });
 
-				collector.on('collect', async (message) => {
+				collector.on('collect', async message => {
 					topic = message.content;
-					await t_row.update({
-						topic: this.client.cryptr.encrypt(topic)
-					});
+					await t_row.update({ topic: this.client.cryptr.encrypt(topic) });
 					await t_channel.setTopic(`${creator} | ${topic}`, { reason: 'User updated ticket topic' });
 					await sent.edit(
 						new MessageEmbed()
@@ -225,9 +210,9 @@ module.exports = class TicketManager extends EventEmitter {
 		const close = async () => {
 			const pinned = await channel.messages.fetchPinned();
 			await t_row.update({
-				open: false,
 				closed_by: closer_id || null,
 				closed_reason: reason ? this.client.cryptr.encrypt(reason) : null,
+				open: false,
 				pinned_messages: [...pinned.keys()]
 			});
 
@@ -276,11 +261,7 @@ module.exports = class TicketManager extends EventEmitter {
 		if (channel) {
 			const creator = await guild.members.fetch(t_row.creator);
 
-			const cat_row = await this.client.db.models.Category.findOne({
-				where: {
-					id: t_row.category
-				}
-			});
+			const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
 			if (creator && cat_row.survey) {
 				const survey = await this.client.db.models.Survey.findOne({
@@ -302,13 +283,9 @@ module.exports = class TicketManager extends EventEmitter {
 
 					await r_collector_message.react('✅');
 
-					const collector_filter = (reaction, user) => {
-						return user.id === creator.user.id && reaction.emoji.name === '✅';
-					};
+					const collector_filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
 
-					const r_collector = r_collector_message.createReactionCollector(collector_filter, {
-						time: 60000
-					});
+					const r_collector = r_collector_message.createReactionCollector(collector_filter, { time: 60000 });
 
 					r_collector.on('collect', async () => {
 						r_collector.stop();
@@ -325,7 +302,11 @@ module.exports = class TicketManager extends EventEmitter {
 							);
 
 							try {
-								const collected = await channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] });
+								const collected = await channel.awaitMessages(filter, {
+									errors: ['time'],
+									max: 1,
+									time: 60000
+								});
 								answers.push(collected.first().content);
 							} catch (collected) {
 								return await close();
@@ -351,7 +332,7 @@ module.exports = class TicketManager extends EventEmitter {
 
 					});
 
-					r_collector.on('end', async (collected) => {
+					r_collector.on('end', async collected => {
 						if (collected.size === 0) {
 							await close();
 						}
@@ -367,7 +348,7 @@ module.exports = class TicketManager extends EventEmitter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param {(string|number)} ticket_id - ID or number of the ticket
 	 * @param {string} [guild_id] - The ID of the ticket's guild (used if a ticket number is provided instead of ID)
 	 */
@@ -375,16 +356,12 @@ module.exports = class TicketManager extends EventEmitter {
 		let t_row;
 
 		if (this.client.channels.resolve(ticket_id)) {
-			t_row = await this.client.db.models.Ticket.findOne({
-				where: {
-					id: ticket_id
-				}
-			});
+			t_row = await this.client.db.models.Ticket.findOne({ where: { id: ticket_id } });
 		} else {
 			t_row = await this.client.db.models.Ticket.findOne({
 				where: {
-					number: ticket_id,
-					guild: guild_id
+					guild: guild_id,
+					number: ticket_id
 				}
 			});
 		}

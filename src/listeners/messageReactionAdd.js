@@ -5,9 +5,7 @@ const { footer } = require('../utils/discord');
 
 module.exports = class MessageReactionAddEventListener extends EventListener {
 	constructor(client) {
-		super(client, {
-			event: 'messageReactionAdd'
-		});
+		super(client, { event: 'messageReactionAdd' });
 	}
 
 	async execute(r, u) {
@@ -49,34 +47,20 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 			});
 		}
 
-		const t_row = await this.client.db.models.Ticket.findOne({
-			where: {
-				id: channel.id
-			}
-		});
+		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: channel.id } });
 
 		if (t_row && t_row.opening_message === r.message.id) {
 			if (r.emoji.name === '🙌' && await member.isStaff()) {
 				// ticket claiming
 
-				await t_row.update({
-					claimed_by: member.user.id
-				});
+				await t_row.update({ claimed_by: member.user.id });
 
-				await channel.updateOverwrite(member.user.id, {
-					VIEW_CHANNEL: true,
-				}, `Ticket claimed by ${member.user.tag}`);
+				await channel.updateOverwrite(member.user.id, { VIEW_CHANNEL: true }, `Ticket claimed by ${member.user.tag}`);
 
-				const cat_row = await this.client.db.models.Category.findOne({
-					where: {
-						id: t_row.category
-					}
-				});
+				const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
 				for (const role of cat_row.roles) {
-					await channel.updateOverwrite(role, {
-						VIEW_CHANNEL: false,
-					}, `Ticket claimed by ${member.user.tag}`);
+					await channel.updateOverwrite(role, { VIEW_CHANNEL: false }, `Ticket claimed by ${member.user.tag}`);
 				}
 
 				this.client.log.info(`${member.user.tag} has claimed "${channel.name}" in "${guild.name}"`);
@@ -93,11 +77,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				await r.users.remove(u.id);
 			}
 		} else {
-			const p_row = await this.client.db.models.Panel.findOne({
-				where: {
-					message: r.message.id
-				}
-			});
+			const p_row = await this.client.db.models.Panel.findOne({ where: { message: r.message.id } });
 
 			if (p_row && typeof p_row.categories !== 'string') {
 				// panels
@@ -106,11 +86,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				const category_id = p_row.categories[r.emoji.name];
 				if (!category_id) return;
 
-				const cat_row = await this.client.db.models.Category.findOne({
-					where: {
-						id: category_id
-					}
-				});
+				const cat_row = await this.client.db.models.Category.findOne({ where: { id: category_id } });
 
 				const tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {

@@ -40,31 +40,31 @@ module.exports = class Plugin {
 		 */
 		this.name = options.name ?? id;
 
-		/** 
+		/**
 		 * An array of commands from this plugin
 		 * @type {string[]}
 		 */
 		this.commands = options.commands;
 
-		/** 
+		/**
 		 * The unique ID of the plugin (NPM package name)
 		 * @type {string}
 		 */
 		this.id = id;
 
-		/** 
+		/**
 		 * The version of the plugin (NPM package version)
 		 * @type {string}
 		 */
 		this.version = version;
 
-		/** 
+		/**
 		 * The plugin author's name (NPM package author)
 		 * @type {(undefined|string)}
 		 */
 		this.author = author;
 
-		/** 
+		/**
 		 * The plugin description (NPM package description)
 		 * @type {string}
 		 */

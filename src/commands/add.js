@@ -1,30 +1,32 @@
 const Command = require('../modules/commands/command');
-// eslint-disable-next-line no-unused-vars
-const { MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 
 module.exports = class AddCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.add.name'),
-			description: i18n('commands.add.description'),
 			aliases: [],
-			process_args: false,
 			args: [
 				{
-					name: i18n('commands.add.args.member.name'),
 					description: i18n('commands.add.args.member.description'),
 					example: i18n('commands.add.args.member.example'),
-					required: true,
+					name: i18n('commands.add.args.member.name'),
+					required: true
 				},
 				{
-					name: i18n('commands.add.args.ticket.name'),
 					description: i18n('commands.add.args.ticket.description'),
 					example: i18n('commands.add.args.ticket.example'),
-					required: false,
+					name: i18n('commands.add.args.ticket.name'),
+					required: false
 				}
-			]
+			],
+			description: i18n('commands.add.description'),
+			internal: true,
+			name: i18n('commands.add.name'),
+			process_args: false
 		});
 	}
 
@@ -38,7 +40,7 @@ module.exports = class AddCommand extends Command {
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const ticket = message.mentions.channels.first() ?? message.channel;
-		const t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);	
+		const t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);
 
 		if (!t_row) {
 			return await message.channel.send(
@@ -93,10 +95,10 @@ module.exports = class AddCommand extends Command {
 		);
 
 		await ticket.updateOverwrite(member, {
-			VIEW_CHANNEL: true,
+			ATTACH_FILES: true,
 			READ_MESSAGE_HISTORY: true,
 			SEND_MESSAGES: true,
-			ATTACH_FILES: true
+			VIEW_CHANNEL: true
 		}, `${message.author.tag} added ${member.user.tag} to the ticket`);
 
 		await this.client.tickets.archives.updateMember(ticket.id, member);

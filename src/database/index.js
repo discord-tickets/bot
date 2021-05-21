@@ -3,7 +3,7 @@ const fs = require('fs');
 const { path } = require('../utils/fs');
 const types = require('./dialects');
 
-module.exports = async (client) => {
+module.exports = async client => {
 
 	const {
 		DB_TYPE,
@@ -36,8 +36,8 @@ module.exports = async (client) => {
 		client.log.info('Using SQLite storage');
 		sequelize = new Sequelize({
 			dialect: types[type].dialect,
-			storage: path('./user/database.sqlite'),
-			logging: text => client.log.debug(text)
+			logging: text => client.log.debug(text),
+			storage: path('./user/database.sqlite')
 		});
 		client.log.warn('SQLite is not sufficient for a production environment if you want to use ticket archives. You should disable "log_messages" in your servers\' settings or use a different database.');
 	} else {
@@ -45,8 +45,8 @@ module.exports = async (client) => {
 		sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 			dialect: types[type].dialect,
 			host: DB_HOST,
-			port: DB_PORT,
-			logging: text => client.log.debug(text)
+			logging: text => client.log.debug(text),
+			port: DB_PORT
 		});
 	}
 
@@ -66,11 +66,7 @@ module.exports = async (client) => {
 		require(`./models/${model}`)(client, sequelize);
 	}
 
-	sequelize.sync({
-		alter: {
-			drop: false
-		}
-	});
+	sequelize.sync({ alter: { drop: false } });
 
 	return sequelize;
 };

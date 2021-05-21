@@ -1,22 +1,24 @@
 const Command = require('../modules/commands/command');
 const fetch = require('node-fetch');
-// eslint-disable-next-line no-unused-vars
-const { MessageAttachment, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageAttachment
+} = require('discord.js');
 const { Validator } = require('jsonschema');
 
 module.exports = class SettingsCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
+			aliases: [
+				i18n('commands.settings.aliases.config')
+			],
+			args: [],
+			description: i18n('commands.settings.description'),
 			internal: true,
 			name: i18n('commands.settings.name'),
-			description: i18n('commands.settings.description'),
-			aliases: [
-				i18n('commands.settings.aliases.config'),
-			],
-			process_args: false,
-			args: [],
-			permissions: ['MANAGE_GUILD']
+			permissions: ['MANAGE_GUILD'],
+			process_args: false
 		});
 
 		this.schema = require('./extra/settings.schema.json');
@@ -40,7 +42,9 @@ module.exports = class SettingsCommand extends Command {
 			this.client.log.info(`Downloading settings for "${message.guild.name}"`);
 			const data = await (await fetch(attachments[0].url)).json();
 
-			const { valid, errors } = this.v.validate(data, this.schema);
+			const {
+				valid, errors
+			} = this.v.validate(data, this.schema);
 
 			if (!valid) {
 				this.client.log.warn('Settings validation error');
@@ -60,11 +64,7 @@ module.exports = class SettingsCommand extends Command {
 			for (const c of data.categories) {
 				if (c.id) {
 					// existing category
-					const cat_row = await this.client.db.models.Category.findOne({
-						where: {
-							id: c.id
-						}
-					});
+					const cat_row = await this.client.db.models.Category.findOne({ where: { id: c.id } });
 					cat_row.claiming = c.claiming;
 					cat_row.image = c.image;
 					cat_row.max_per_member = c.max_per_member;
@@ -81,15 +81,14 @@ module.exports = class SettingsCommand extends Command {
 					const cat_channel = await this.client.channels.fetch(c.id);
 
 					if (cat_channel) {
-						if (cat_channel.name !== c.name)
-							await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
+						if (cat_channel.name !== c.name) await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
 
 						for (const r of c.roles) {
 							await cat_channel.updateOverwrite(r, {
-								VIEW_CHANNEL: true,
+								ATTACH_FILES: true,
 								READ_MESSAGE_HISTORY: true,
 								SEND_MESSAGES: true,
-								ATTACH_FILES: true
+								VIEW_CHANNEL: true
 							}, `Tickets category updated by ${message.author.tag}`);
 						}
 					}
@@ -97,33 +96,31 @@ module.exports = class SettingsCommand extends Command {
 					// create a new category
 					const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 					const cat_channel = await message.guild.channels.create(c.name, {
-						type: 'category',
-						reason: `Tickets category created by ${message.author.tag}`,
-						position: 1,
 						permissionOverwrites: [
 							...[
 								{
-									id: message.guild.roles.everyone,
-									deny: ['VIEW_CHANNEL']
+									deny: ['VIEW_CHANNEL'],
+									id: message.guild.roles.everyone
 								},
 								{
-									id: this.client.user.id,
-									allow: allowed_permissions
+									allow: allowed_permissions,
+									id: this.client.user.id
 								}
 							],
-							...c.roles.map(r => {
-								return {
-									id: r,
-									allow: allowed_permissions
-								};
-							})
-						]
+							...c.roles.map(r => ({
+								allow: allowed_permissions,
+								id: r
+							}))
+						],
+						position: 1,
+						reason: `Tickets category created by ${message.author.tag}`,
+						type: 'category'
 					});
 
 					await this.client.db.models.Category.create({
-						id: cat_channel.id,
 						claiming: c.claiming,
 						guild: message.guild.id,
+						id: cat_channel.id,
 						image: c.image,
 						max_per_member: c.max_per_member,
 						name: c.name,
@@ -141,11 +138,11 @@ module.exports = class SettingsCommand extends Command {
 			for (const survey in data.surveys) {
 				const survey_data = {
 					guild: message.guild.id,
-					name: survey,
+					name: survey
 				};
 				const [s_row] = await this.client.db.models.Survey.findOrCreate({
-					where: survey_data,
-					defaults: survey_data
+					defaults: survey_data,
+					where: survey_data
 				});
 				s_row.questions = data.surveys[survey];
 				await s_row.save();
@@ -156,35 +153,25 @@ module.exports = class SettingsCommand extends Command {
 		} else {
 			// upload settings as json to be edited
 
-			const categories = await this.client.db.models.Category.findAll({
-				where: {
-					guild: message.guild.id
-				}
-			});
-			
-			const surveys = await this.client.db.models.Survey.findAll({
-				where: {
-					guild: message.guild.id
-				}
-			});
+			const categories = await this.client.db.models.Category.findAll({ where: { guild: message.guild.id } });
+
+			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
 
 			const data = {
-				categories: categories.map(c => {
-					return {
-						id: c.id,
-						claiming: c.claiming,
-						image: c.image,
-						max_per_member: c.max_per_member,
-						name: c.name,
-						name_format: c.name_format,
-						opening_message: c.opening_message,
-						opening_questions: c.opening_questions,
-						ping: c.ping,
-						require_topic: c.require_topic,
-						roles: c.roles,
-						survey: c.survey
-					};
-				}),
+				categories: categories.map(c => ({
+					claiming: c.claiming,
+					id: c.id,
+					image: c.image,
+					max_per_member: c.max_per_member,
+					name: c.name,
+					name_format: c.name_format,
+					opening_message: c.opening_message,
+					opening_questions: c.opening_questions,
+					ping: c.ping,
+					require_topic: c.require_topic,
+					roles: c.roles,
+					survey: c.survey
+				})),
 				colour: settings.colour,
 				command_prefix: settings.command_prefix,
 				error_colour: settings.error_colour,
@@ -197,7 +184,9 @@ module.exports = class SettingsCommand extends Command {
 			};
 
 			for (const survey in surveys) {
-				const { name, questions } = surveys[survey];
+				const {
+					name, questions
+				} = surveys[survey];
 				data.surveys[name] = questions;
 			}
 
@@ -206,9 +195,7 @@ module.exports = class SettingsCommand extends Command {
 				`Settings for ${message.guild.name}.json`
 			);
 
-			return await message.channel.send({
-				files: [attachment]
-			});
+			return await message.channel.send({ files: [attachment] });
 		}
 	}
 };

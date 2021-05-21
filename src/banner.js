@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 const link = require('terminal-link');
 const leeks = require('leeks.js');
 
-const { version, homepage } = require('../package.json');
+const {
+	version, homepage
+} = require('../package.json');
 
 module.exports = () => {
 	console.log(leeks.colours.cyan(`

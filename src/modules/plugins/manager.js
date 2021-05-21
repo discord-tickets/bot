@@ -9,12 +9,12 @@ const Plugin = require('./plugin');
 module.exports = class PluginManager {
 	/**
 	 * Create a PluginManager instance
-	 * @param {import('../..').Bot} client 
+	 * @param {import('../..').Bot} client
 	 */
 	constructor(client) {
 		/** The Discord Client */
 		this.client = client;
-		
+
 		/**
 		 * A discord.js Collection (Map) of loaded plugins
 		 * @type {Collection<string, import('./plugin')>}
@@ -29,8 +29,7 @@ module.exports = class PluginManager {
 	}
 
 	handleError(id) {
-		if (!this.official.includes(id))
-			this.client.log.notice(`"${id}" is NOT an official plugin, please do not ask for help with it in the Discord Tickets support server, seek help from the plugin author instead.`);
+		if (!this.official.includes(id)) this.client.log.notice(`"${id}" is NOT an official plugin, please do not ask for help with it in the Discord Tickets support server, seek help from the plugin author instead.`);
 	}
 
 	/**
@@ -56,17 +55,17 @@ module.exports = class PluginManager {
 		}
 
 		const about = {
-			id,
-			version,
 			author,
-			description
+			description,
+			id,
+			version
 		};
 
 		try {
 			plugin = new (plugin(Plugin))(this.client, about);
 			this.plugins.set(id, plugin);
 			this.client.log.plugins(`Loading "${plugin.name}" v${version} by ${author}`);
-			plugin.preload();	
+			plugin.preload();
 		} catch (e) {
 			this.handleError(id);
 			this.client.log.warn(`An error occurred whilst loading the "${id}" plugin`);

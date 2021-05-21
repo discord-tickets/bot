@@ -1,37 +1,36 @@
 const { DataTypes } = require('sequelize');
-module.exports = (client, sequelize) => {
+module.exports = (_client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Message', {
-		id: {
-			type: DataTypes.CHAR(19),
-			primaryKey: true,
-			allowNull: false,
-		},
+
 		author: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
+			type: DataTypes.CHAR(19)
 		},
 		data: {
-			type: DataTypes.TEXT,
 			allowNull: false,
+			type: DataTypes.TEXT
 		},
 		deleted: {
-			type: DataTypes.BOOLEAN,
 			defaultValue: false,
+			type: DataTypes.BOOLEAN
 		},
 		edited: {
-			type: DataTypes.BOOLEAN,
 			defaultValue: false,
+			type: DataTypes.BOOLEAN
+		},
+		id: {
+			allowNull: false,
+			primaryKey: true,
+			type: DataTypes.CHAR(19)
 		},
 		ticket: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
-				model: DB_TABLE_PREFIX + 'tickets',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'tickets'
 			},
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'messages'
-	});
+			type: DataTypes.CHAR(19)
+		}
+	}, { tableName: DB_TABLE_PREFIX + 'messages' });
 };

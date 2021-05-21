@@ -1,27 +1,29 @@
 const Command = require('../modules/commands/command');
-// eslint-disable-next-line no-unused-vars
-const { MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 
 module.exports = class BlacklistCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.blacklist.name'),
-			description: i18n('commands.blacklist.description'),
 			aliases: [
-				i18n('commands.blacklist.aliases.unblacklist'),
+				i18n('commands.blacklist.aliases.unblacklist')
 			],
-			process_args: false,
 			args: [
 				{
-					name: i18n('commands.blacklist.args.member_or_role.name'),
 					description: i18n('commands.blacklist.args.member_or_role.description'),
 					example: i18n('commands.blacklist.args.member_or_role.example'),
-					required: false,
+					name: i18n('commands.blacklist.args.member_or_role.name'),
+					required: false
 				}
 			],
-			permissions: ['MANAGE_GUILD']
+			description: i18n('commands.blacklist.description'),
+			internal: true,
+			name: i18n('commands.blacklist.name'),
+			permissions: ['MANAGE_GUILD'],
+			process_args: false
 		});
 	}
 
@@ -45,16 +47,19 @@ module.exports = class BlacklistCommand extends Command {
 					.setFooter(settings.footer, message.guild.iconURL())
 			);
 		}
-		
-		
+
+
 		const role = message.mentions.roles.first();
 		let id;
 		const input = args.trim().split(/\s/g)[0];
 
-		if (member) id = member.id;
-		else if (role) id = role.id;
-		else if (/\d{17,19}/.test(input)) id = input;
-		else if (settings.blacklist?.length === 0) {
+		if (member) {
+			id = member.id;
+		} else if (role) {
+			id = role.id;
+		} else if (/\d{17,19}/.test(input)) {
+			id = input;
+		} else if (settings.blacklist?.length === 0) {
 			return await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)

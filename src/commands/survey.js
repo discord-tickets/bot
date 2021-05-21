@@ -1,6 +1,10 @@
 const Command = require('../modules/commands/command');
 // eslint-disable-next-line no-unused-vars
-const { MessageAttachment, MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageAttachment,
+	MessageEmbed
+} = require('discord.js');
 const fsp = require('fs').promises;
 const { path } = require('../utils/fs');
 const mustache = require('mustache');
@@ -9,21 +13,21 @@ module.exports = class SurveyCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.survey.name'),
-			description: i18n('commands.survey.description'),
 			aliases: [
 				i18n('commands.survey.aliases.surveys')
 			],
-			process_args: false,
 			args: [
 				{
-					name: i18n('commands.survey.args.survey.name'),
 					description: i18n('commands.survey.args.survey.description'),
 					example: i18n('commands.survey.args.survey.example'),
-					required: false,
+					name: i18n('commands.survey.args.survey.name'),
+					required: false
 				}
 			],
+			description: i18n('commands.survey.description'),
+			internal: true,
+			name: i18n('commands.survey.name'),
+			process_args: false,
 			staff_only: true
 		});
 	}
@@ -39,49 +43,41 @@ module.exports = class SurveyCommand extends Command {
 
 		const survey = await this.client.db.models.Survey.findOne({
 			where: {
-				name: args,
-				guild: message.guild.id
+				guild: message.guild.id,
+				name: args
 			}
 		});
 
 		if (survey) {
-			const { rows: responses, count } = await this.client.db.models.SurveyResponse.findAndCountAll({
-				where: {
-					survey: survey.id
-				}
-			});
+			const {
+				rows: responses, count
+			} = await this.client.db.models.SurveyResponse.findAndCountAll({ where: { survey: survey.id } });
 
 			const users = new Set();
 
 
 			for (const i in responses) {
-				const ticket = await this.client.db.models.Ticket.findOne({
-					where: {
-						id: responses[i].ticket
-					}
-				});
+				const ticket = await this.client.db.models.Ticket.findOne({ where: { id: responses[i].ticket } });
 				users.add(ticket.creator);
 				const answers = responses[i].answers.map(a => this.client.cryptr.decrypt(a));
 				answers.unshift(ticket.number);
 				responses[i] = answers;
 			}
 
-			let template = await fsp.readFile(path('./src/commands/extra/survey.template.html'), {
-				encoding: 'utf8'
-			});
+			let template = await fsp.readFile(path('./src/commands/extra/survey.template.html'), { encoding: 'utf8' });
 
 			template = template.replace(/[\r\n\t]/g, '');
 
 			survey.questions.unshift('Ticket #');
 
 			const html = mustache.render(template, {
-				survey: survey.name.charAt(0).toUpperCase() + survey.name.slice(1),
+				columns: survey.questions,
 				count: {
 					responses: count,
 					users: users.size
 				},
-				columns: survey.questions,
-				responses
+				responses,
+				survey: survey.name.charAt(0).toUpperCase() + survey.name.slice(1)
 			});
 
 			const attachment = new MessageAttachment(
@@ -89,15 +85,9 @@ module.exports = class SurveyCommand extends Command {
 				`${survey.name}.html`
 			);
 
-			return await message.channel.send({
-				files: [attachment]
-			});
+			return await message.channel.send({ files: [attachment] });
 		} else {
-			const surveys = await this.client.db.models.Survey.findAll({
-				where: {
-					guild: message.guild.id
-				}
-			});
+			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
 			return await message.channel.send(

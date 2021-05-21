@@ -1,23 +1,21 @@
 const { DataTypes } = require('sequelize');
-module.exports = (client, sequelize) => {
+module.exports = (_client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('ChannelEntity', {
 		channel: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
+			type: DataTypes.CHAR(19),
 			unique: 'channel-ticket'
 		},
 		name: DataTypes.TEXT,
 		ticket: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
-			unique: 'channel-ticket',
 			references: {
-				model: DB_TABLE_PREFIX + 'tickets',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'tickets'
 			},
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'channel_entities'
-	});
+			type: DataTypes.CHAR(19),
+			unique: 'channel-ticket'
+		}
+	}, { tableName: DB_TABLE_PREFIX + 'channel_entities' });
 };

@@ -1,6 +1,8 @@
 const Command = require('../modules/commands/command');
-// eslint-disable-next-line no-unused-vars
-const { MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 const { footer } = require('../utils/discord');
 const { letters } = require('../utils/emoji');
 const { wait } = require('../utils');
@@ -9,23 +11,23 @@ module.exports = class NewCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.new.name'),
-			description: i18n('commands.new.description'),
 			aliases: [
 				i18n('commands.new.aliases.create'),
 				i18n('commands.new.aliases.open'),
-				i18n('commands.new.aliases.ticket'),
+				i18n('commands.new.aliases.ticket')
 			],
-			process_args: false,
 			args: [
 				{
-					name: i18n('commands.new.args.topic.name'),
 					description: i18n('commands.new.args.topic.description'),
 					example: i18n('commands.new.args.topic.example'),
-					required: false,
+					name: i18n('commands.new.args.topic.name'),
+					required: false
 				}
-			]
+			],
+			description: i18n('commands.new.description'),
+			internal: true,
+			name: i18n('commands.new.name'),
+			process_args: false
 		});
 	}
 
@@ -114,11 +116,7 @@ module.exports = class NewCommand extends Command {
 			}, 15000);
 		};
 
-		const categories = await this.client.db.models.Category.findAndCountAll({
-			where: {
-				guild: message.guild.id
-			}
-		});
+		const categories = await this.client.db.models.Category.findAndCountAll({ where: { guild: message.guild.id } });
 
 		if (categories.count === 0) {
 			return await message.channel.send(
@@ -153,21 +151,21 @@ module.exports = class NewCommand extends Command {
 				return user.id === message.author.id && allowed.includes(reaction.emoji.name);
 			};
 
-			const collector = collector_message.createReactionCollector(collector_filter, {
-				time: 30000
-			});
+			const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
 
-			collector.on('collect', async (reaction) => {
+			collector.on('collect', async reaction => {
 				collector.stop();
 				const index = letters_array.findIndex(value => value === reaction.emoji.name); // find where the letter is in the alphabet
-				if (index === -1) return setTimeout(async () => {
-					await collector_message.delete();
-				}, 15000);
+				if (index === -1) {
+					return setTimeout(async () => {
+						await collector_message.delete();
+					}, 15000);
+				}
 				await collector_message.reactions.removeAll();
 				create(categories.rows[index], collector_message); // create the ticket, passing the existing response message to be edited instead of creating a new one
 			});
 
-			collector.on('end', async (collected) => {
+			collector.on('end', async collected => {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
 					await collector_message.edit(

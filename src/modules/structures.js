@@ -5,6 +5,5 @@ module.exports = () => {
 	const files = fs.readdirSync(path('./src/structures'))
 		.filter(file => file.endsWith('.js'));
 
-	for (const file of files)
-		require(`../structures/${file}`);
+	for (const file of files) require(`../structures/${file}`);
 };

@@ -6,30 +6,29 @@ module.exports = (client, sequelize) => {
 		bot: DataTypes.BOOLEAN,
 		discriminator: DataTypes.STRING,
 		display_name: DataTypes.TEXT,
-		ticket: {
-			type: DataTypes.CHAR(19),
+		role: {
 			allowNull: false,
-			unique: 'user-ticket',
 			references: {
-				model: DB_TABLE_PREFIX + 'tickets',
-				key: 'id'
+				key: 'role',
+				model: DB_TABLE_PREFIX + 'role_entities'
 			},
+			type: DataTypes.CHAR(19)
 		},
-		user: {
-			type: DataTypes.CHAR(19),
+		ticket: {
 			allowNull: false,
+			references: {
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'tickets'
+			},
+			type: DataTypes.CHAR(19),
 			unique: 'user-ticket'
 		},
-		username: DataTypes.TEXT,
-		role: {
-			type: DataTypes.CHAR(19),
+		user: {
 			allowNull: false,
-			references: {
-				model: DB_TABLE_PREFIX + 'role_entities',
-				key: 'role'
-			},
+			type: DataTypes.CHAR(19),
+			unique: 'user-ticket'
 		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'user_entities'
-	});
+		username: DataTypes.TEXT
+
+	}, { tableName: DB_TABLE_PREFIX + 'user_entities' });
 };

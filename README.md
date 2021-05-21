@@ -1,25 +1,16 @@
-<img src='https://discordtickets.app/img/logo-small-circle.png' align='left' width='180px' height='180px' style='margin: 30px 40px 0 0'/>
-<!-- <img align='left' width='0' height='192px' hspace='10'/> -->
-
-<!-- omit in toc -->
-# [Discord Tickets](https://discordtickets.app)
-
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/LICENSE)
-![Codacy grade](https://img.shields.io/codacy/grade/14e6851c85444424b75b8bc3f93e93db?logo=codacy&style=flat-square)
-[![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://discord.gg/pXc9vyC)
+[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&style=flat-square)](https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade)
+[![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://go.eartharoid.me/discord)
 [![Crowdin](https://badges.crowdin.net/discord-tickets/localized.svg)](https://i18n.discordtickets.app/project/discord-tickets)
 
+<br>
+
+![Discord Tickets](https://ik.imagekit.io/eartharoid/discord-tickets/wordmark/gradient_HTC7nqZr9.png)
+
+
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
-
-<br><br>
-
-⚠️
-**The code on the master branch is for v3 which is not ready. Please go to the [v2 branch](https://github.com/discord-tickets/bot/tree/v2) for the current version of the code and [documentation](https://github.com/discord-tickets/bot/wiki)**.
-
-⚠️
-**The following information is about v3. Please read the README file on the [v2 branch](https://github.com/discord-tickets/bot/tree/v2) for information that is about the current version.**
 
 ## What is this?
 
@@ -65,7 +56,7 @@ If you choose SQLite, which is the default as it is the easiest, you don't need 
 
 ### Screenshots
 
-> screenshot of a ticket channel
+![The opening message of a ticket channel](https://i.imgur.com/2T5eSH0.png)
 <!-- -->
 > screenshot of a panel
 
@@ -117,6 +108,6 @@ Does your community or company use Discord Tickets? Sponsor the project to get y
 
 Discord Tickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/master/LICENSE).
 
-Discord Tickets is not related to Discord Inc.
+This is not an official Discord product. It is not affiliated with nor endorsed by Discord Inc.
 
 © 2021 Isaac Saunders

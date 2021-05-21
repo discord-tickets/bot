@@ -1,12 +1,14 @@
-// eslint-disable-next-line no-unused-vars
-const { MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 
 /**
  * A command
  */
 module.exports = class Command {
 	/**
-	 * 
+	 *
 	 * @typedef CommandArgument
 	 * @property {string} name - The argument's name
 	 * @property {string} description - The argument's description
@@ -37,7 +39,7 @@ module.exports = class Command {
 		}
 
 		/**
-		 * The name of the command 
+		 * The name of the command
 		 * @type {string}
 		 */
 		this.name = data.name;
@@ -53,7 +55,7 @@ module.exports = class Command {
 		/**
 		 * The command description
 		 * @type {string}
-		*/
+		 */
 		this.description = data.description;
 
 		/**
@@ -61,12 +63,12 @@ module.exports = class Command {
 		 * @type {boolean}
 		 * @default false
 		 */
-		this.staff_only = data.staff_only === true ? true : false;
+		this.staff_only = data.staff_only === true;
 
 		/**
 		 * Array of permissions needed for a user to use this command
 		 * @type {string[]}
-		*/
+		 */
 		this.permissions = data.permissions ?? [];
 
 		/**
@@ -74,9 +76,9 @@ module.exports = class Command {
 		 * @type {boolean}
 		 * @default false
 		 */
-		this.process_args = data.process_args === true ? true : false;
+		this.process_args = data.process_args === true;
 
-		/** 
+		/**
 		 * The command options
 		 * @type {CommandArgument[]}
 		 */
@@ -86,7 +88,7 @@ module.exports = class Command {
 		 * True if command is internal, false if it is from a plugin
 		 * @type {boolean}
 		 */
-		this.internal = data.internal === true ? true : false;
+		this.internal = data.internal === true;
 
 		if (!this.internal) {
 			/**
@@ -155,7 +157,7 @@ module.exports = class Command {
 
 		this.args.forEach(arg => addArgs(embed, arg));
 		return await channel.send(embed);
-		
+
 	}
 
 };

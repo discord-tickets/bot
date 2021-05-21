@@ -3,24 +3,22 @@ module.exports = (client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Survey', {
 		guild: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
-				model: DB_TABLE_PREFIX + 'guilds',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'guilds'
 			},
+			type: DataTypes.CHAR(19),
 			unique: 'name-guild'
 		},
 		name: {
-			type: DataTypes.STRING,
 			allowNull: false,
+			type: DataTypes.STRING,
 			unique: 'name-guild'
 		},
 		questions: {
-			type: DataTypes.JSON,
 			allowNull: true,
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'surveys'
-	});
+			type: DataTypes.JSON
+		}
+	}, { tableName: DB_TABLE_PREFIX + 'surveys' });
 };

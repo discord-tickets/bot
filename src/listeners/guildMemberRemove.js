@@ -2,9 +2,7 @@ const EventListener = require('../modules/listeners/listener');
 
 module.exports = class GuildMemberRemoveEventListener extends EventListener {
 	constructor(client) {
-		super(client, {
-			event: 'guildMemberRemove'
-		});
+		super(client, { event: 'guildMemberRemove' });
 	}
 
 	async execute(member) {

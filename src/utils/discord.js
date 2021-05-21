@@ -4,9 +4,9 @@ let current_presence = -1;
 
 module.exports = {
 	/**
-	 * 
-	 * @param {string} text 
-	 * @param {string} [additional] 
+	 *
+	 * @param {string} text
+	 * @param {string} [additional]
 	 * @returns {string}
 	 */
 	footer: (text, additional) => {
@@ -20,16 +20,17 @@ module.exports = {
 	selectPresence: () => {
 		const length = config.presence.presences.length;
 		if (length === 0) return {};
-		
+
 		let num;
-		if (length === 1)
+		if (length === 1) {
 			num = 0;
-		else if (config.presence.randomise)
+		} else if (config.presence.randomise) {
 			num = Math.floor(Math.random() * length);
-		else {
+		} else {
 			current_presence = current_presence + 1; // ++ doesn't work on negative numbers
-			if (current_presence === length)
+			if (current_presence === length) {
 				current_presence = 0;
+			}
 			num = current_presence;
 		}
 
@@ -48,5 +49,5 @@ module.exports = {
 			},
 			status
 		};
-	},
+	}
 };

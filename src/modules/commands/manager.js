@@ -1,5 +1,10 @@
-// eslint-disable-next-line no-unused-vars
-const { Collection, Client, Message, MessageEmbed } = require('discord.js');
+
+const {
+	Client, // eslint-disable-line no-unused-vars
+	Collection,
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 
 const fs = require('fs');
 const { path } = require('../../utils/fs');
@@ -13,7 +18,7 @@ const parseArgs = require('command-line-args');
 module.exports = class CommandManager {
 	/**
 	 * Create a CommandManager instance
-	 * @param {import('../..').Bot} client 
+	 * @param {import('../..').Bot} client
 	 */
 	constructor(client) {
 		/** The Discord Client */
@@ -49,15 +54,13 @@ module.exports = class CommandManager {
 
 		if (is_internal) {
 			const plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
-			if (plugin)
-				this.client.log.commands(`The "${plugin.name}" plugin has overridden the internal "${cmd.name}" command`);
-			else
-				this.client.log.commands(`An unknown plugin has overridden the internal "${cmd.name}" command`);	
+			if (plugin) this.client.log.commands(`The "${plugin.name}" plugin has overridden the internal "${cmd.name}" command`);
+			else this.client.log.commands(`An unknown plugin has overridden the internal "${cmd.name}" command`);
 			if(cmd.internal) return;
-		}
-		else if (exists)
+		} else if (exists) {
 			throw new Error(`A non-internal command with the name "${cmd.name}" already exists`);
-		
+		}
+
 		this.commands.set(cmd.name, cmd);
 		this.client.log.commands(`Loaded "${cmd.name}" command`);
 	}
@@ -114,7 +117,7 @@ module.exports = class CommandManager {
 			'MANAGE_CHANNELS',
 			'MANAGE_MESSAGES',
 			'READ_MESSAGE_HISTORY',
-			'SEND_MESSAGES',
+			'SEND_MESSAGES'
 		];
 
 		if (!bot_permissions.has(required_bot_permissions)) {
@@ -182,10 +185,10 @@ module.exports = class CommandManager {
 				return await cmd.sendUsage(message.channel, cmd_name);
 			}
 		}
-			
+
 		try {
 			this.client.log.commands(`Executing "${cmd.name}" command (invoked by ${message.author.tag})`);
-			await cmd.execute(message, args); // execute the command 
+			await cmd.execute(message, args); // execute the command
 		} catch (e) {
 			this.client.log.warn(`An error occurred whilst executing the ${cmd.name} command`);
 			this.client.log.error(e);

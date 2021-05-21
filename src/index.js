@@ -1,20 +1,21 @@
+/* eslint-disable no-console */
 /**
  * Discord Tickets
  * Copyright (C) 2021 Isaac Saunders
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- * 
+ *
  * @name @eartharoid/discord-tickets
  * @description An open-source Discord bot for ticket management
  * @copyright 2021 Isaac Saunders
@@ -24,8 +25,7 @@
 process.title = 'Discord Tickets';
 
 const node_version = Number(process.versions.node.split('.')[0]);
-if (node_version < 14)
-	return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
+if (node_version < 14) return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
 
 const leeks = require('leeks.js');
 const fs = require('fs');
@@ -55,9 +55,7 @@ if (!checkFile('./.env', './example.env')) {
 		.randomBytes(24)
 		.toString('hex');
 
-	let data = fs.readFileSync(file, {
-		encoding: 'utf-8'
-	});
+	let data = fs.readFileSync(file, { encoding: 'utf-8' });
 	data = data.replace(key, key + value);
 
 	fs.writeFileSync(file, data);
@@ -69,9 +67,7 @@ if (!checkFile('./.env', './example.env')) {
 	process.exit();
 }
 
-require('dotenv').config({
-	path: path('./.env')
-});
+require('dotenv').config({ path: path('./.env') });
 
 require('./banner')();
 
@@ -119,11 +115,9 @@ class Bot extends Client {
 				'REACTION'
 			],
 			presence: selectPresence(),
-			ws: {
-				intents: Intents.NON_PRIVILEGED,
-			}
+			ws: { intents: Intents.NON_PRIVILEGED }
 		});
-		
+
 		(async () => {
 			/** The global bot configuration */
 			this.config = require('../user/config');
@@ -144,9 +138,7 @@ class Bot extends Client {
 			fs.readdirSync(path('./src/locales'))
 				.filter(file => file.endsWith('.json'))
 				.forEach(file => {
-					const data = fs.readFileSync(path(`./src/locales/${file}`), {
-						encoding: 'utf8'
-					});
+					const data = fs.readFileSync(path(`./src/locales/${file}`), { encoding: 'utf8' });
 					const name = file.slice(0, file.length - 5);
 					locales[name] = JSON.parse(data);
 				});
@@ -161,9 +153,9 @@ class Bot extends Client {
 			this.db = await require('./database')(this), // this.db.models.Ticket...
 
 			this.setMaxListeners(this.config.max_listeners); // set the max listeners for each event
-	
+
 			require('./updater')(this); // check for updates
-			
+
 			const listeners = new ListenerLoader(this);
 			listeners.load(); // load listeners
 
@@ -191,17 +183,13 @@ class Bot extends Client {
 		 */
 		if (this.config.super_secret_setting) { // you can disable it if you really want
 			const tickets = await this.db.models.Ticket.count();
-			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, {
-				method: 'post',
-			}).catch(e => {
+			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, { method: 'post' }).catch(e => {
 				this.log.warn('Failed to post tickets count to stats server (you can disable sending stats by setting "super_secret_setting" to false)');
 				this.log.debug(e);
 			});
 			this.guilds.cache.forEach(async g => {
 				const members = (await g.fetch()).approximateMemberCount;
-				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, {
-					method: 'post',
-				}).catch(e => {
+				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, { method: 'post' }).catch(e => {
 					// don't spam a warning for each server
 					this.log.debug(e);
 				});

@@ -1,6 +1,8 @@
 const Command = require('../modules/commands/command');
-// eslint-disable-next-line no-unused-vars
-const { MessageEmbed, Message } = require('discord.js');
+const {
+	Message, // eslint-disable-line no-unused-vars
+	MessageEmbed
+} = require('discord.js');
 const { parseArgsStringToArgv: argv } = require('string-argv');
 const parseArgs = require('command-line-args');
 
@@ -8,41 +10,37 @@ module.exports = class TagCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			internal: true,
-			name: i18n('commands.tag.name'),
-			description: i18n('commands.tag.description'),
 			aliases: [
 				i18n('commands.tag.aliases.faq'),
 				i18n('commands.tag.aliases.t'),
-				i18n('commands.tag.aliases.tags'),
+				i18n('commands.tag.aliases.tags')
 			],
-			process_args: false,
 			args: [
 				{
-					name: i18n('commands.tag.args.tag.name'),
 					description: i18n('commands.tag.args.command.description'),
 					example: i18n('commands.tag.args.tag.example'),
-					required: false,
+					name: i18n('commands.tag.args.tag.name'),
+					required: false
 				}
 			],
+			description: i18n('commands.tag.description'),
+			internal: true,
+			name: i18n('commands.tag.name'),
+			process_args: false,
 			staff_only: true
 		});
 	}
 
 	/**
-	 * @param {Message} message 
-	 * @param {string} args 
+	 * @param {Message} message
+	 * @param {string} args
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
 		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const t_row = await this.client.db.models.Ticket.findOne({
-			where: {
-				id: message.channel.id
-			}
-		});
+		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
 		args = args.split(/\s/g); // convert to an array
 		const tag_name = args.shift(); // shift the first element
@@ -63,14 +61,12 @@ module.exports = class TagCommand extends Command {
 				);
 			}
 
-			let expected = placeholders
+			const expected = placeholders
 				.filter(p => p.startsWith(':'))
-				.map(p => {
-					return {
-						name: p.substr(1, p.length),
-						type: String,
-					};
-				});
+				.map(p => ({
+					name: p.substr(1, p.length),
+					type: String
+				}));
 
 			if (expected.length >= 1) {
 				try {
@@ -107,7 +103,7 @@ module.exports = class TagCommand extends Command {
 			}
 
 			// note that this regex is slightly different to the other
-			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, ($, $1) => this.client.i18n.resolve(args, $1));
+			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, (_$, $1) => this.client.i18n.resolve(args, $1));
 			return await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)

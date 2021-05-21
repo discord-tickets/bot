@@ -1,42 +1,42 @@
 module.exports = {
-	sqlite: {
-		name: 'SQLite',
-		dialect: 'sqlite',
-		packages: ['sqlite3'],
-	},
-	mysql: {
-		name: 'MySQL',
-		dialect: 'mysql',
-		packages: ['mysql2']
-	},
 	maria: {
-		name: 'MariaDB',
 		dialect: 'mariadb',
+		name: 'MariaDB',
 		package: ['mariadb']
 	},
 	mariadb: {
-		name: 'MariaDB',
 		dialect: 'mariadb',
+		name: 'MariaDB',
 		package: ['mariadb']
 	},
+	microsoft: {
+		dialect: 'mssql',
+		name: 'Microsoft SQL',
+		packages: ['tedious']
+	},
+	mysql: {
+		dialect: 'mysql',
+		name: 'MySQL',
+		packages: ['mysql2']
+	},
 	postgre: { // this is wrong
-		name: 'PostgreSQL',
 		dialect: 'postgres',
+		name: 'PostgreSQL',
 		packages: ['pg', 'pg-hstore']
 	},
 	postgres: {
-		name: 'PostgreSQL',
 		dialect: 'postgres',
+		name: 'PostgreSQL',
 		packages: ['pg', 'pg-hstore']
 	},
 	postgresql: {
-		name: 'PostgreSQL',
 		dialect: 'postgres',
+		name: 'PostgreSQL',
 		packages: ['pg', 'pg-hstore']
 	},
-	microsoft: {
-		name: 'Microsoft SQL',
-		dialect: 'mssql',
-		packages: ['tedious']
-	},
+	sqlite: {
+		dialect: 'sqlite',
+		name: 'SQLite',
+		packages: ['sqlite3']
+	}
 };

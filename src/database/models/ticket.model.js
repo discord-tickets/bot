@@ -1,75 +1,73 @@
 const { DataTypes } = require('sequelize');
-module.exports = (client, sequelize) => {
+module.exports = (_client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Ticket', {
-		id: {
-			type: DataTypes.CHAR(19),
-			primaryKey: true,
-			allowNull: false,
-		},
 		category: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
-				model: DB_TABLE_PREFIX + 'categories',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'categories'
 			},
+			type: DataTypes.CHAR(19)
 		},
 		claimed_by: {
-			type: DataTypes.CHAR(19),
 			allowNull: true,
+			type: DataTypes.CHAR(19)
 		},
 		closed_by: {
-			type: DataTypes.CHAR(19),
 			allowNull: true,
+			type: DataTypes.CHAR(19)
 		},
 		closed_reason: {
-			type: DataTypes.STRING,
 			allowNull: true,
+			type: DataTypes.STRING
 		},
 		creator: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
+			type: DataTypes.CHAR(19)
 		},
 		first_response: {
-			type: DataTypes.DATE,
 			allowNull: true,
+			type: DataTypes.DATE
 		},
 		guild: {
-			type: DataTypes.CHAR(19),
 			allowNull: false,
 			references: {
-				model: DB_TABLE_PREFIX + 'guilds',
-				key: 'id'
+				key: 'id',
+				model: DB_TABLE_PREFIX + 'guilds'
 			},
+			type: DataTypes.CHAR(19),
 			unique: 'number-guild'
 		},
+		id: {
+			allowNull: false,
+			primaryKey: true,
+			type: DataTypes.CHAR(19)
+		},
 		last_message: {
-			type: DataTypes.DATE,
 			allowNull: true,
+			type: DataTypes.DATE
 		},
 		number: {
-			type: DataTypes.INTEGER,
 			allowNull: false,
+			type: DataTypes.INTEGER,
 			unique: 'number-guild'
 		},
 		open: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: true
+			defaultValue: true,
+			type: DataTypes.BOOLEAN
 		},
 		opening_message: {
-			type: DataTypes.CHAR(19),
 			allowNull: true,
+			type: DataTypes.CHAR(19)
 		},
 		pinned_messages: {
-			type: DataTypes.JSON,
-			defaultValue: []
+			defaultValue: [],
+			type: DataTypes.JSON
 		},
 		topic: {
-			type: DataTypes.TEXT,
 			allowNull: true,
-		},
-	}, {
-		tableName: DB_TABLE_PREFIX + 'tickets'
-	});
+			type: DataTypes.TEXT
+		}
+	}, { tableName: DB_TABLE_PREFIX + 'tickets' });
 };
