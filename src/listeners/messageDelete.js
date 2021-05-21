@@ -10,7 +10,7 @@ module.exports = class MessageDeleteEventListener extends EventListener {
 	async execute(message) {
 		if (!message.guild) return;
 
-		const settings = await message.guild.settings;
+		const settings = await message.guild.getSettings();
 
 		if (settings.log_messages && !message.system) this.client.tickets.archives.deleteMessage(message); // mark the message as deleted in the database (if it exists)
 	}

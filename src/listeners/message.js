@@ -13,7 +13,7 @@ module.exports = class MessageEventListener extends EventListener {
 	async execute(message) {
 		if (!message.guild) return;
 
-		const settings = await message.guild.settings;
+		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const t_row = await this.client.db.models.Ticket.findOne({

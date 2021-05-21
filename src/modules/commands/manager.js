@@ -69,7 +69,7 @@ module.exports = class CommandManager {
 	async handle(message) {
 		if (message.author.bot) return; //  ignore self and other bots
 
-		const settings = await message.guild.settings;
+		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		let is_blacklisted = false;

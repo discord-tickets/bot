@@ -120,7 +120,7 @@ module.exports = class Command {
 	 * @returns {Promise<Message>}
 	 */
 	async sendUsage(channel, alias) {
-		const settings = await channel.guild.settings;
+		const settings = await channel.guild.getSettings();
 		if (!alias) alias = this.name;
 
 		const prefix = settings.command_prefix;

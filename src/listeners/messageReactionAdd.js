@@ -33,7 +33,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 		const guild = r.message.guild;
 		if (!guild) return;
 
-		const settings = await guild.settings;
+		const settings = await guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const channel = r.message.channel;

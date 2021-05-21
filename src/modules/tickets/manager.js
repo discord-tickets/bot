@@ -80,7 +80,7 @@ module.exports = class TicketManager extends EventEmitter {
 		});
 
 		(async () => {
-			const settings = await guild.settings;
+			const settings = await guild.getSettings();
 			const i18n = this.client.i18n.getLocale(settings.locale);
 
 			topic = t_row.topic
@@ -218,7 +218,7 @@ module.exports = class TicketManager extends EventEmitter {
 		this.emit('beforeClose', ticket_id);
 
 		const guild = this.client.guilds.cache.get(t_row.guild);
-		const settings = await guild.settings;
+		const settings = await guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const channel = await this.client.channels.fetch(t_row.id);
 

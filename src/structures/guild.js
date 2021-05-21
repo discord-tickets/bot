@@ -11,14 +11,15 @@ Structures.extend('Guild', Guild => {
 			return await row.destroy();
 		}
 
-		get settings() {
+		async getSettings() {
 			const data = {
 				id: this.id
 			};
-			return this.client.db.models.Guild.findOrCreate({
+			const [settings] = await this.client.db.models.Guild.findOrCreate({
 				defaults: data,
 				where: data
 			});
+			return settings;
 		}
 	};
 });

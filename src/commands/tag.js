@@ -35,7 +35,7 @@ module.exports = class TagCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.settings;
+		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const t_row = await this.client.db.models.Ticket.findOne({
