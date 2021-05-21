@@ -25,17 +25,18 @@ module.exports = {
 		command_prefix: prefix,
 		log_messages: true, // transcripts/archives will be empty if false
 		name_format: 'ticket-{number}',
-		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
+		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__'
 	},
 	locale: 'en-GB', // used for globals (such as commands) and the default guild locale
 	logs: {
 		enabled: true,
 		keep_for: 30,
-		split: true,
+		split: true
 	},
 	max_listeners: 10,
 	plugins: [],
 	presence: {
+		duration: 60,
 		presences: [
 			{
 				activity: `${prefix}new`,
@@ -48,17 +49,18 @@ module.exports = {
 			{
 				activity: 'tickets',
 				type: 'WATCHING'
-			},
-			/* { // an example
-				activity: 'Minecraft',
-				type: 'STREAMING',
-				status: 'dnd',
-				url: 'https://www.twitch.tv/twitch'
-			}, */
+			}
+			/*
+			 * { // an example
+			 * activity: 'Minecraft',
+			 * type: 'STREAMING',
+			 * status: 'dnd',
+			 * url: 'https://www.twitch.tv/twitch'
+			 * },
+			 */
 		],
-		randomise: true,
-		duration: 60
+		randomise: true
 	},
 	super_secret_setting: true,
-	update_notice: true,
+	update_notice: true
 };
