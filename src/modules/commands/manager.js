@@ -73,11 +73,11 @@ module.exports = class CommandManager {
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		let is_blacklisted = false;
-		if (settings.blacklist.includes(message.author.id)) {
+		if (settings.blacklist?.includes(message.author.id)) {
 			is_blacklisted = true;
 			this.client.log.info(`Ignoring blacklisted member ${message.author.tag}`);
 		} else {
-			settings.blacklist.forEach(element => {
+			settings.blacklist?.forEach(element => {
 				if (message.guild.roles.cache.has(element) && message.member.roles.cache.has(element)) {
 					is_blacklisted = true;
 					this.client.log.info(`Ignoring member ${message.author.tag} with blacklisted role`);

@@ -9,6 +9,5 @@ module.exports = class GuildCreateEventListener extends EventListener {
 
 	async execute(guild) {
 		this.client.log.info(`Added to "${guild.name}"`);
-		await guild.createSettings();
 	}
 };

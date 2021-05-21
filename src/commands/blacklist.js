@@ -54,7 +54,7 @@ module.exports = class BlacklistCommand extends Command {
 		if (member) id = member.id;
 		else if (role) id = role.id;
 		else if (/\d{17,19}/.test(input)) id = input;
-		else if (settings.blacklist.length === 0) {
+		else if (settings.blacklist?.length === 0) {
 			return await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.colour)
@@ -64,7 +64,7 @@ module.exports = class BlacklistCommand extends Command {
 			);
 		} else {
 			// list blacklisted members
-			const blacklist = settings.blacklist.map(element => {
+			const blacklist = settings.blacklist?.map(element => {
 				const is_role = message.guild.roles.cache.has(element);
 				if (is_role) return `» <@&${element}> (\`${element}\`)`;
 				else return `» <@${element}> (\`${element}\`)`;
@@ -80,7 +80,7 @@ module.exports = class BlacklistCommand extends Command {
 
 		const is_role = role !== undefined || message.guild.roles.cache.has(id);
 		const member_or_role = is_role ? 'role' : 'member';
-		const index = settings.blacklist.findIndex(element => element === id);
+		const index = settings.blacklist?.findIndex(element => element === id);
 
 		const new_blacklist = [...settings.blacklist];
 

@@ -18,8 +18,7 @@ module.exports = class MessageUpdateEventListener extends EventListener {
 
 		if (!newm.guild) return;
 
-		let settings = await newm.guild.settings;
-		if (!settings) settings = await newm.guild.createSettings();
+		const settings = await newm.guild.settings;
 
 		if (settings.log_messages && !newm.system) this.client.tickets.archives.updateMessage(newm); // update the message in the database
 	}

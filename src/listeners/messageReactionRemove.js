@@ -32,8 +32,7 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 		const guild = r.message.guild;
 		if (!guild) return;
 
-		let settings = await guild.settings;
-		if (!settings) settings = await guild.createSettings();
+		const settings = await guild.settings;
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const channel = r.message.channel;
