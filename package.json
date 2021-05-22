@@ -5,6 +5,7 @@
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/index.js",
 	"scripts": {
+		"lint": "eslint src --fix",
 		"start": "node src/",
 		"test": "echo \"Nothing to test! Run with 'npm start'\" && exit 1"
 	},
