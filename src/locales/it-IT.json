@@ -162,40 +162,40 @@
 					"title": "❌ Input invalido"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"description": "Si prega di utilizzare questo comando in un ticket o di usare il contrassegno del ticket.\nDigita `%shelp close` per ulteriori informazioni.",
 					"title": "❌ Questo canale non è un ticket"
 				},
 				"no_tickets": {
-					"description": "There are no tickets which have been inactive for this time period.",
-					"title": "❌ No tickets to close"
+					"description": "Non ci sono ticket che sono stati inattivi per questo periodo di tempo.",
+					"title": "❌ Nessun ticket da chiudere"
 				},
 				"unresolvable": {
-					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
-					"title": "❌ Error"
+					"description": "`%s` non poteva essere risolto in un ticket. Si prega di fornire un ID/menzione del ticket o il numero.",
+					"title": "❌ Errore"
 				}
 			}
 		},
 		"help": {
 			"aliases": {
-				"command": "command",
-				"commands": "commands"
+				"command": "comando",
+				"commands": "comandi"
 			},
 			"args": {
 				"command": {
-					"description": "The command to display information about",
+					"description": "Comando di cui visualizzare informazioni",
 					"example": "nuovo",
-					"name": "command"
+					"name": "comando"
 				}
 			},
-			"description": "List commands you have access to, or find out more about a command",
-			"name": "help",
+			"description": "Lista dei comandi a cui hai accesso o per saperne di più su un comando",
+			"name": "aiuto",
 			"response": {
 				"list": {
-					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`.To create a ticket, type `{prefix}new [topic]`.",
+					"description": "I comandi a cui hai accesso sono elencati di seguito. Per ulteriori informazioni su un comando, digita '{prefix}help [command]'. Per creare un ticket, digita '{prefix}new [topic]'.",
 					"fields": {
-						"commands": "Commands"
+						"commands": "Comandi"
 					},
-					"title": "❔ Help"
+					"title": "❔ Aiuto"
 				}
 			}
 		},
@@ -220,7 +220,7 @@
 					"title": "✅ Ticket creato"
 				},
 				"error": {
-					"title": "❌ Error"
+					"title": "❌ Errore"
 				},
 				"has_a_ticket": {
 					"description": "Ti preghiamo di utilizzare il tuo ticket già creato (<#%s>) o di chiuderlo prima di crearne un altro.",
@@ -253,38 +253,38 @@
 			"args": {
 				"categories": {
 					"alias": "c",
-					"description": "A category ID",
+					"description": "ID Categoria",
 					"example": "451745464954650634",
-					"name": "categories"
+					"name": "categorie"
 				},
 				"description": {
 					"alias": "d",
-					"description": "The description for the panel message",
-					"example": "\"React to this message to open a ticket.\"",
-					"name": "description"
+					"description": "Descrizione del messaggio del pannello",
+					"example": "\"Reagisci a questo messaggio per aprire un ticket.\"",
+					"name": "descrizione"
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "An emoji",
+					"description": "Un emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"description": "Titolo del messaggio del pannello",
+					"example": "\"Ticket di supporto\"",
+					"name": "titolo"
 				}
 			},
-			"description": "Create a new ticket panel",
-			"name": "panel",
+			"description": "Crea un nuovo pannello dei ticket",
+			"name": "pannello",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "Uno o più ID di categoria specificati non sono validi.",
+					"title": "❌ Categoria invalida"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
+					"description": "Si prega di fornire il numero dell'emoji e l'ID della categoria.",
 					"title": "❌ Input invalido"
 				}
 			}
@@ -293,29 +293,29 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "Il membro da rimuovere dal ticket",
 					"example": "@qualcuno",
 					"name": "membro"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "Il ticket da cui rimuovere il membro",
 					"example": "217",
 					"name": "ticket"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "Rimuovi un membro dal ticket",
+			"name": "rimuovi",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s è stato rimosso da %s.",
+					"title": "✅ Membro rimosso"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
+					"description": "Si prega di menzionare il membro che si desidera rimuovere.",
 					"title": "❌ Membro sconosciuto"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"description": "Non sei il creatore di questo ticket e non sei neanche un membro dello staff, di conseguenza non puoi rimuovere membri da questo ticket.",
 					"title": "❌ Permessi insufficienti"
 				},
 				"not_a_ticket": {
@@ -331,76 +331,76 @@
 			"description": "Configura il bot discord dei ticket",
 			"name": "impostazioni",
 			"response": {
-				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
+				"invalid": "❌ Le impostazioni sono invalide, si prega di fare riferimento alla documentazione.\n%s",
 				"updated": "✅ Le impostazioni sono state aggiornate."
 			}
 		},
 		"stats": {
 			"aliases": {},
 			"args": {},
-			"description": "Display ticket statistics",
+			"description": "Mostra le statistiche dei ticket",
 			"fields": {
-				"messages": "Messages",
+				"messages": "Messaggi",
 				"response_time": {
-					"minutes": "%s minutes",
-					"title": "Avg. response time"
+					"minutes": "%s minuti",
+					"title": "Tempo di risposta media"
 				},
-				"tickets": "Tickets"
+				"tickets": "Ticket"
 			},
-			"name": "stats",
+			"name": "statistiche",
 			"response": {
 				"global": {
-					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-					"title": "📊 Global stats"
+					"description": "Statistiche sui ticket in tutti i server in cui viene utilizzata questa istanza di Discord TIckets.",
+					"title": "📊 Statistiche globali"
 				},
 				"guild": {
-					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
-					"title": "📊 This server's stats"
+					"description": "Statistiche sui ticket all'interno di questo server. Questi dati vengono salvati nella cache per un'ora.",
+					"title": "📊 Statistiche di questo server"
 				}
 			}
 		},
 		"survey": {
 			"aliases": {
-				"surveys": "surveys"
+				"surveys": "sondaggi"
 			},
 			"args": {
 				"survey": {
-					"description": "The name of the survey to view responses of",
-					"example": "support",
-					"name": "survey"
+					"description": "Il nome del sondaggio per visualizzare le risposte",
+					"example": "supporto",
+					"name": "sondaggio"
 				}
 			},
-			"description": "View survey responses",
-			"name": "survey",
+			"description": "Guarda le risposte dei sondaggi",
+			"name": "sondaggio",
 			"response": {
 				"list": {
-					"title": "📃 Surveys"
+					"title": "📃 Sondaggi"
 				}
 			}
 		},
 		"tag": {
 			"aliases": {
-				"faq": "faq",
+				"faq": "domande frequenti",
 				"t": "t",
-				"tags": "tags"
+				"tags": "tag"
 			},
 			"args": {
 				"tag": {
-					"description": "The name of the tag to use",
-					"example": "website",
+					"description": "Il nome del tag da utilizzare",
+					"example": "sito web",
 					"name": "tag"
 				}
 			},
-			"description": "Use a tag response",
+			"description": "Usa un tag per rispondere",
 			"name": "tag",
 			"response": {
-				"error": "❌ Error",
+				"error": "❌ Errore",
 				"list": {
-					"title": "📃 Tag list"
+					"title": "📃 Lista dei tag"
 				},
-				"missing": "This tag requires the following arguments:\n%s",
+				"missing": "Questo tag richiede i seguenti argomenti:\n%s",
 				"not_a_ticket": {
-					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+					"description": "Questo tag può essere utilizzato solo all'interno di un ticket in quanto utilizza i riferimenti ai ticket.",
 					"title": "❌ Questo canale non è un ticket"
 				}
 			}
@@ -409,20 +409,20 @@
 			"aliases": {},
 			"args": {
 				"new_topic": {
-					"description": "The new topic of the ticket",
-					"example": "billing issue",
-					"name": "new_topic"
+					"description": "Il nuovo argomento del ticket",
+					"example": "problema di fatturazione",
+					"name": "nuovo_argomento"
 				}
 			},
-			"description": "Change the topic of the ticket",
+			"description": "Cambia l'argomento di un ticket",
 			"name": "argomento",
 			"response": {
 				"changed": {
-					"description": "This ticket's topic has been changed.",
-					"title": "✅ Topic changed"
+					"description": "L'argomento di questo biglietto è stato modificato.",
+					"title": "✅ Argomento cambiato"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel you want to change the topic of.",
+					"description": "Si prega di utilizzare questo comando in un ticket di cui si desidera modificare l'argomento.",
 					"title": "❌ Questo canale non è un ticket"
 				}
 			}
@@ -443,50 +443,50 @@
 	},
 	"ticket": {
 		"claimed": {
-			"description": "%s has claimed this ticket.",
-			"title": "✅ Ticket claimed"
+			"description": "Il ticket è in revisione da parte di %s.",
+			"title": "✅ Ticket assegnato"
 		},
 		"closed": {
-			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"description": "Questo ticket è stato chiuso.\nIl canale verrà eliminato tra 5 secondi.",
 			"title": "✅ Ticket chiuso"
 		},
 		"closed_by_member": {
-			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"description": "Questo ticket è stato chiuso da %s.\nIl canale verrà eliminato tra 5 secondi.",
 			"title": "✅ Ticket chiuso"
 		},
 		"closed_by_member_with_reason": {
-			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Il ticket è stato chiuso da %s: `%s`\nIl canale verrà rimosso tra 5 secondi.",
 			"title": "✅ Ticket chiuso"
 		},
 		"closed_with_reason": {
-			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Il ticket è stato chiuso da: `%s`\nIl canale verrà eliminato tra 5 secondi.",
 			"title": "✅ Ticket chiuso"
 		},
 		"member_added": {
-			"description": "%s has been added by %s",
-			"title": "Member added"
+			"description": "%s è stato aggiunto da %s",
+			"title": "Membro aggiunto"
 		},
 		"member_removed": {
-			"description": "%s has been removed by %s",
-			"title": "Member removed"
+			"description": "%s è stato rimosso da %s",
+			"title": "Membro rimosso"
 		},
 		"opening_message": {
 			"fields": {
-				"topic": "Topic"
+				"topic": "Argomento"
 			}
 		},
-		"questions": "Please answer the following questions:\n\n%s",
+		"questions": "Si prega di rispondere alle seguenti domande:\n\n%s",
 		"released": {
-			"description": "%s has released this ticket.",
-			"title": "✅ Ticket released"
+			"description": "%s ha rilasciato il ticket.",
+			"title": "✅ Ticket rilasciato"
 		},
 		"survey": {
 			"complete": {
-				"description": "Thank you for your feedback.",
-				"title": "✅ Thank you"
+				"description": "Grazie per il tuo feedback.",
+				"title": "✅ Grazie"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+				"description": "Ehi, %s. Prima che questo canale sia eliminato, ti dispiacerebbe completare un sondaggio %ddomande rapide? Reagisci con ✅ per avviare il sondaggio, altrimenti ignora questo messaggio.",
 				"title": "❔ Feedback"
 			}
 		}
