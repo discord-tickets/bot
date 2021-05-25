@@ -1,0 +1,33 @@
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://eartharoid.me/"><img src="https://avatars.githubusercontent.com/u/20905071?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=eartharoid" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/iDrunK65"><img src="https://avatars.githubusercontent.com/u/25486774?v=4?s=100" width="100px;" alt=""/><br /><sub><b>iDrunK65</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=iDrunK65" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nicholasyoannou"><img src="https://avatars.githubusercontent.com/u/29736141?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nicholas Y.</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=nicholasyoannou" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/RhysB"><img src="https://avatars.githubusercontent.com/u/25815220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rhys B</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=RhysB" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mgsi100"><img src="https://avatars.githubusercontent.com/u/36934590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Guzman</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=mgsi100" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/iFusionFr"><img src="https://avatars.githubusercontent.com/u/31099360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>iFusion</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=iFusionFr" title="Code">💻</a></td>
+    <td align="center"><a href="https://fivepixels.me/"><img src="https://avatars.githubusercontent.com/u/37427166?v=4?s=100" width="100px;" alt=""/><br /><sub><b>FivePixels</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=FivePixels" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://davidjcralph.co.uk/"><img src="https://avatars.githubusercontent.com/u/14052956?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Ralph</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=davidjcralph" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/OliverCordingl1"><img src="https://avatars.githubusercontent.com/u/19516518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oliver Cordingley</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=OliverCordingl1" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. [Contributions](https://github.com/discord-tickets/.github/blob/main/CONTRIBUTING.md) of any kind are welcome, read [CONTRIBUTING.md](https://github.com/discord-tickets/.github/blob/main/CONTRIBUTING.md).
