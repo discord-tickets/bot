@@ -5,6 +5,8 @@
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/index.js",
 	"scripts": {
+		"contributors:add": "all-contributors add",
+    	"contributors:generate": "all-contributors generate",
 		"lint": "eslint src --fix",
 		"start": "node src/",
 		"test": "echo \"Nothing to test! Run with 'npm start'\" && exit 1"
@@ -49,6 +51,7 @@
 		"to-time-monthsfork": "^1.1.4"
 	},
 	"devDependencies": {
+		"all-contributors-cli": "^6.20.0",
 		"eslint": "^7.21.0",
 		"mariadb": "^2.5.2",
 		"mysql2": "^2.2.5",

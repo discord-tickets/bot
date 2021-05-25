@@ -1,6 +1,24 @@
 {
-	"files": [
-		"CONTRIBUTORS.md"
-	],
-	"badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/CONTRIBUTORS.md)"
+  "projectName": "bot",
+  "projectOwner": "discord-tickets",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "eartharoid",
+      "name": "Isaac",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20905071?v=4",
+      "profile": "https://eartharoid.me/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
 }
