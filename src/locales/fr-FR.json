@@ -1,19 +1,19 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets requires the following permissions:\n%s",
+			"description": "Discord Tickets nécessite les autorisations suivantes :\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
 			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"example": "**Exemple:** '%s'"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**Utilisation:**\n'%s'\n\n**Exemple:**\n'%s'\n\nLes arguments requis sont préfixés avec '❗'.",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
+			"description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr.",
 			"title": "❌ Invalid syntax"
 		},
 		"named_args": "This command uses named arguments.\n\n",
