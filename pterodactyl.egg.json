@@ -1,1 +1,50 @@
-{}
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v1",
+        "update_url": null
+    },
+    "exported_at": "2021-05-26T15:57:45+02:00",
+    "name": "Discord Tickets",
+    "author": "contact@eartharoid.me",
+    "description": "https:\/\/discordtickets.app",
+    "features": null,
+    "images": [
+        "quay.io\/parkervcp\/pterodactyl-images:debian_nodejs-14"
+    ],
+    "file_denylist": [],
+    "startup": "if [[ -z ${VERSION} ]]; then\r\n\techo -e \\\"Please set the VERSION variable (e.g. v3.0.0)\\\"\r\n\texit 0\r\nfi\r\n\r\nif [[ -d .git ]]; then\r\n\tgit fetch --all --tags;\r\n\tgit checkout tags\/${VERSION};\r\nfi;\r\n\r\nif [[ ! -z ${PLUGINS} ]]; then\r\n\t\/usr\/local\/bin\/npm install ${PLUGINS};\r\nfi;\r\n\r\nif [ -f \/home\/container\/package.json ]; then\r\n \/usr\/local\/bin\/npm install --production;\r\nfi;\r\n\r\n\/usr\/local\/bin\/npm start",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Connected to Discord as \",\r\n    \"userInteraction\": [\r\n        \"Please set your bot's \\\"DISCORD_TOKEN\\\" in \\\".\/.env\\\".\"\r\n    ]\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\napt update\r\napt install -y git curl jq file unzip make gcc g++ python python-dev libtool\r\n\r\nmkdir -p \/mnt\/server\r\ncd \/mnt\/server\r\n\r\nif [[ -z ${VERSION} ]]; then\r\n\techo -e \\\"Please set the VERSION variable (e.g. v3.0.0)\\\"\r\n\texit 0\r\nfi\r\n\r\nif [ \\\"$(ls -A \/mnt\/server)\\\" ]; then\r\n\techo \\\"Upating...\\\"\r\n\tgit fetch --all --tags\r\n\tgit checkout tags\/${VERSION}\r\nelse\r\n\techo -e \\\"Cloning...\\\"\r\n\tgit clone https:\/\/github.com\/discord-tickets\/bot.git .\r\nfi\r\n\r\necho \\\"Installing plugins\\\"\r\nif [[ ! -z ${PUGINS} ]]; then\r\n\t\/usr\/local\/bin\/npm install ${PUGINS}\r\nfi\r\n\r\necho \\\"Installing common dependencies\\\"\r\nif [ -f \/mnt\/server\/package.json ]; then\r\n\t\/usr\/local\/bin\/npm install --production\r\nfi\r\n\r\necho -e \\\"Installed\\\"\r\nexit 0",
+            "container": "node:14-buster-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Version",
+            "description": "The version of the bot to use.",
+            "env_variable": "VERSION",
+            "default_value": "v3.0.0",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|max:20"
+        },
+        {
+            "name": "Plugins",
+            "description": "A list of extra NPM package names to install as plugins, separated by a space: \"example1 exmaple2 example3\"",
+            "env_variable": "PLUGINS",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string"
+        }
+    ]
+}
