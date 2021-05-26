@@ -4,7 +4,7 @@
         "version": "PTDL_v1",
         "update_url": null
     },
-    "exported_at": "2021-05-26T22:36:43+02:00",
+    "exported_at": "2021-05-26T22:41:44+02:00",
     "name": "Discord Tickets",
     "author": "contact@eartharoid.me",
     "description": "https:\/\/discordtickets.app",
@@ -18,7 +18,7 @@
         "files": "{}",
         "startup": "{\r\n    \"done\": \"Connected to Discord as \",\r\n    \"userInteraction\": [\r\n        \"Please set your bot's \\\"DISCORD_TOKEN\\\" in \\\".\/.env\\\".\"\r\n    ]\r\n}",
         "logs": "{}",
-        "stop": "^C"
+        "stop": "^C^C"
     },
     "scripts": {
         "installation": {
