@@ -271,20 +271,20 @@
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"description": "La description du message du panneau",
+					"example": "« Billets de soutien »",
+					"name": "titre"
 				}
 			},
-			"description": "Create a new ticket panel",
-			"name": "panel",
+			"description": "Créer un nouveau billet",
+			"name": "panneau",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "Un ou plusieurs des ID de catégorie spécifiés sont invalides.",
+					"title": "❌ catégorie Invalide"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
+					"description": "Veuillez fournir le numéro de nom des emojis et des iD de catégorie.",
 					"title": "❌ entrée invalide"
 				}
 			}
@@ -293,29 +293,29 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "Le membre à ajouter au billet",
 					"example": "@someone",
 					"name": "membre"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "Le billet pour ajouter le membre à",
 					"example": "217",
 					"name": "billet"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "Retirer un membre d’un billet",
+			"name": "enlever",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s a été ajouté à %s.",
+					"title": "✅ Membre retiré"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
+					"description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
 					"title": "❌ membre inconnu"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
 					"title": "❌ autorisation insuffisante"
 				},
 				"not_a_ticket": {
@@ -326,55 +326,55 @@
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "config (config)"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "Configurer les billets discorde",
+			"name": "paramètres",
 			"response": {
-				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
-				"updated": "✅ Settings have been updated."
+				"invalid": "❌ paramètres est invalide; veuillez consulter la documentation.\n%s",
+				"updated": "✅ paramètres ont été mis à jour."
 			}
 		},
 		"stats": {
 			"aliases": {},
 			"args": {},
-			"description": "Display ticket statistics",
+			"description": "Afficher les statistiques des billets",
 			"fields": {
 				"messages": "Messages",
 				"response_time": {
 					"minutes": "%s minutes",
-					"title": "Avg. response time"
+					"title": "Avg. temps de réponse"
 				},
-				"tickets": "Tickets"
+				"tickets": "Billet"
 			},
 			"name": "stats",
 			"response": {
 				"global": {
-					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-					"title": "📊 Global stats"
+					"description": "Statistiques sur les billets dans toutes les guildes où cette instance Discord TIckets est utilisée.",
+					"title": "📊 statistiques mondiales"
 				},
 				"guild": {
-					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
-					"title": "📊 This server's stats"
+					"description": "Statistiques sur les billets au sein de cette guilde. Ces données sont mises en cache pendant une heure.",
+					"title": "📊 statistiques de ce serveur"
 				}
 			}
 		},
 		"survey": {
 			"aliases": {
-				"surveys": "surveys"
+				"surveys": "enquêtes"
 			},
 			"args": {
 				"survey": {
-					"description": "The name of the survey to view responses of",
-					"example": "support",
-					"name": "survey"
+					"description": "Le nom de l’enquête pour afficher les réponses des",
+					"example": "soutien",
+					"name": "enquêtes"
 				}
 			},
-			"description": "View survey responses",
-			"name": "survey",
+			"description": "Voir les réponses au sondage",
+			"name": "enquêtes",
 			"response": {
 				"list": {
-					"title": "📃 Surveys"
+					"title": "📃 enquêtes"
 				}
 			}
 		},
@@ -382,25 +382,25 @@
 			"aliases": {
 				"faq": "faq",
 				"t": "t",
-				"tags": "tags"
+				"tags": "étiquettes"
 			},
 			"args": {
 				"tag": {
-					"description": "The name of the tag to use",
-					"example": "website",
-					"name": "tag"
+					"description": "Le nom de l’étiquette à utiliser",
+					"example": "site Internet",
+					"name": "étiquettes"
 				}
 			},
-			"description": "Use a tag response",
-			"name": "tag",
+			"description": "Utiliser une réponse d’étiquette",
+			"name": "étiquettes",
 			"response": {
 				"error": "❌ erreur",
 				"list": {
-					"title": "📃 Tag list"
+					"title": "📃 tag"
 				},
-				"missing": "This tag requires the following arguments:\n%s",
+				"missing": "Cette balise nécessite les arguments suivants :\n%s",
 				"not_a_ticket": {
-					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+					"description": "Cette balise ne peut être utilisée que dans un canal de billetterie car elle utilise des références de billets.",
 					"title": "❌ Ce n’est pas une chaîne de billets"
 				}
 			}
@@ -409,8 +409,8 @@
 			"aliases": {},
 			"args": {
 				"new_topic": {
-					"description": "The new topic of the ticket",
-					"example": "billing issue",
+					"description": "Le sujet du billet",
+					"example": "question de facturation",
 					"name": "new_topic"
 				}
 			},
@@ -451,43 +451,43 @@
 			"title": "✅ billet fermé"
 		},
 		"closed_by_member": {
-			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
 			"title": "✅ billet fermé"
 		},
 		"closed_by_member_with_reason": {
-			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
 			"title": "✅ billet fermé"
 		},
 		"closed_with_reason": {
-			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
 			"title": "✅ billet fermé"
 		},
 		"member_added": {
-			"description": "%s has been added by %s",
-			"title": "Member added"
+			"description": "%s a été ajouté à %s",
+			"title": "Membre a ajouté"
 		},
 		"member_removed": {
-			"description": "%s has been removed by %s",
-			"title": "Member removed"
+			"description": "%s a été ajouté à %s",
+			"title": "Membre retiré"
 		},
 		"opening_message": {
 			"fields": {
-				"topic": "Topic"
+				"topic": "Sujet"
 			}
 		},
-		"questions": "Please answer the following questions:\n\n%s",
+		"questions": "S’il vous plaît répondre aux questions suivantes:\n\n%s",
 		"released": {
-			"description": "%s has released this ticket.",
-			"title": "✅ Ticket released"
+			"description": "%s a réclamé ce billet.",
+			"title": "✅ billet fermé"
 		},
 		"survey": {
 			"complete": {
-				"description": "Thank you for your feedback.",
-				"title": "✅ Thank you"
+				"description": "Merci pour vos commentaires.",
+				"title": "✅ Merci"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
-				"title": "❔ Feedback"
+				"description": "Hé, %s. Avant que ce canal soit supprimé, pourriez-vous remplir un rapide %d-question? Réagissez avec ✅ pour démarrer ou ignorer ce message.",
+				"title": "❔ commentaires"
 			}
 		}
 	}
