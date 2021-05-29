@@ -1,6 +1,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
-[![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/main/LICENSE)
 [![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&style=flat-square)](https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://go.eartharoid.me/discord)
 [![Crowdin](https://badges.crowdin.net/discord-tickets/localized.svg)](https://i18n.discordtickets.app/project/discord-tickets)
@@ -26,7 +26,7 @@ Discord Tickets is packed full of features, many of which were suggested by its 
 
 - Create a plugin for it, if you can code JavaScript
 - Request someone else to make a plugin
-- [Submit a feature request](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
+- [Submit a feature request](https://github.com/discord-tickets/.github/blob/main/.github/CONTRIBUTING.md#submitting-a-feature-request) if you think many other users would benefit from it
 
 Here's some of the things that makes Discord Tickets awesome:
 
@@ -35,7 +35,7 @@ Some messages can be configured for each server and for each ticket category. Ev
 You can also configure the functionality of the bot to your liking and add commands with plugins.
 
 2. **Localisable**  
-If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md#translating) it yourself.
+If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/.github/blob/main/.github/CONTRIBUTING.md#translating) it yourself.
 Plugin authors are encouraged to support multiple languages as well.
 
 3. **Multiple ticket categories**  
@@ -79,7 +79,7 @@ If the [documentation](https://discordtickets.app) leaves you with questions, yo
 
 ## Contributing
 
-For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/discord-tickets/bot/blob/master/.github/CONTRIBUTING.md) given before doing so.
+For contributing instructions, or to find out all of the ways you can contribute, read [CONTRIBUTING.md](https://github.com/discord-tickets/.github/blob/main/.github/CONTRIBUTING.md). All contributions are welcome and encouraged, but please [read the information](https://github.com/discord-tickets/.github/blob/main/.github/CONTRIBUTING.md) given before doing so.
 
 ## Contributors
 
@@ -94,7 +94,7 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 - Created a public plugin
 - Created resources such as tutorials
 
-**A full list of contributors can be found in [CONTRIBUTORS.md](https://github.com/discord-tickets/bot/blob/master/CONTRIBUTORS.md).**
+**A full list of contributors can be found in [CONTRIBUTORS.md](https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md).**
 
 ## Sponsors
 
@@ -106,7 +106,7 @@ Does your community or company use Discord Tickets? Sponsor the project to get y
 
 ## License
 
-Discord Tickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/master/LICENSE).
+Discord Tickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/main/LICENSE).
 
 This is not an official Discord product. It is not affiliated with nor endorsed by Discord Inc.
 
