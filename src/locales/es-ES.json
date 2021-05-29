@@ -4,51 +4,51 @@
 			"description": "%s requiere los siguientes permisos",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s por [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
 			"description": "**Descripción** %s",
 			"example": "**Ejemplo** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**Uso:**\n`%s`\n\n**Ejemplo:**\n`%s`\n\nLos argumentos requeridos están prefijados con `❗`.",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para un ejemplo.\nPor favor pregunte al staff si no está seguro.",
+			"title": "❌ Sintaxis no válida"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "Este comando utiliza argumentos nombrados.\n\n",
+		"title": "`%s` uso del comando"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Expira en %d segundos",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
-					"example": "@someone",
-					"name": "member"
+					"description": "El miembro a agregar al ticket",
+					"example": "@alguien",
+					"name": "miembro"
 				},
 				"ticket": {
-					"description": "The ticket to add the member to",
+					"description": "El ticket para agregar al miembro a",
 					"example": "217",
 					"name": "ticket"
 				}
 			},
-			"description": "Add a member to a ticket",
-			"name": "add",
+			"description": "Agregar a un miembro al ticket",
+			"name": "agregar",
 			"response": {
 				"added": {
-					"description": "%s has been added to %s.",
-					"title": "✅ Member added"
+					"description": "%s a sido agregado a %s.",
+					"title": "✅ Miembro agregado"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to add.",
-					"title": "❌ Unknown member"
+					"description": "Por favor, menciona al miembro que desea agregar.",
+					"title": "❌ Miembro desconocido"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "No eres el creador de este ticket y no eres parte del staff, no puedes agregar miembros a este ticket.",
+					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel, or mention the channel.",
@@ -294,8 +294,8 @@
 			"args": {
 				"member": {
 					"description": "The member to remove from the ticket",
-					"example": "@someone",
-					"name": "member"
+					"example": "@alguien",
+					"name": "miembro"
 				},
 				"ticket": {
 					"description": "The ticket to remove the member from",
@@ -312,11 +312,11 @@
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unknown member"
+					"title": "❌ Miembro desconocido"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-					"title": "❌ Insufficient permission"
+					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel, or mention the channel.",
