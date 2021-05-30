@@ -43,8 +43,9 @@ module.exports = class HelpCommand extends Command {
 		} else {
 			const is_staff = await message.member.isStaff();
 			const commands = this.manager.commands.filter(command => {
-				if (command.permissions.length >= 1) return !message.member.hasPermission(command.permissions);
+				if (command.permissions.length >= 1) return message.member.hasPermission(command.permissions);
 				else if (command.staff_only) return is_staff;
+				else return true;
 			});
 			const list = commands.map(command => {
 				const description = command.description.length > 50
