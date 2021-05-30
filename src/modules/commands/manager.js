@@ -87,6 +87,8 @@ module.exports = class CommandManager {
 		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
 		if (!cmd) return;
 
+		if (typeof settings.blacklist === 'string') settings.blacklist = JSON.parse(settings.blacklist);
+
 		let is_blacklisted = false;
 		if (settings.blacklist?.includes(message.author.id)) {
 			is_blacklisted = true;
