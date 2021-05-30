@@ -40,7 +40,7 @@ module.exports = ({ config }, sequelize) => {
 		},
 		opening_message: {
 			defaultValue: config.defaults.opening_message,
-			type: DataTypes.STRING
+			type: DataTypes.TEXT
 		},
 		opening_questions: {
 			allowNull: true,
