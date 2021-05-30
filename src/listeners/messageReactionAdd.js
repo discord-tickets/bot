@@ -37,10 +37,10 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 		const channel = r.message.channel;
 		const member = await guild.members.fetch(u.id);
 
-		if (settings.blacklist?.includes(u.id)) {
+		if (settings.blacklist.includes(u.id)) {
 			return this.client.log.info(`Ignoring blacklisted member ${u.tag}`);
 		} else {
-			settings.blacklist?.forEach(element => {
+			settings.blacklist.forEach(element => {
 				if (guild.roles.cache.has(element) && member.roles.cache.has(element)) {
 					return this.client.log.info(`Ignoring member ${u.tag} with blacklisted role`);
 				}

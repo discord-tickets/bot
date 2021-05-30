@@ -2,7 +2,6 @@ const { DataTypes } = require('sequelize');
 module.exports = (_client, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Message', {
-
 		author: {
 			allowNull: false,
 			type: DataTypes.CHAR(19)

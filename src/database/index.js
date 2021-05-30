@@ -66,7 +66,7 @@ module.exports = async client => {
 		require(`./models/${model}`)(client, sequelize);
 	}
 
-	sequelize.sync({ alter: { drop: false } });
+	await sequelize.sync({ alter: { drop: false } });
 
 	return sequelize;
 };

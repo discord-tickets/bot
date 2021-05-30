@@ -4,6 +4,14 @@ module.exports = ({ config }, sequelize) => {
 	sequelize.define('Guild', {
 		blacklist: {
 			defaultValue: [],
+			get() {
+				const raw_value = this.getDataValue('blacklist');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		colour: {
