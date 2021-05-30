@@ -4,6 +4,14 @@ module.exports = (client, sequelize) => {
 	sequelize.define('SurveyResponse', {
 		answers: {
 			allowNull: true,
+			get() {
+				const raw_value = this.getDataValue('answers');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		survey: {

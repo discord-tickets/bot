@@ -49,6 +49,14 @@ module.exports = ({ config }, sequelize) => {
 		},
 		tags: {
 			defaultValue: {},
+			get() {
+				const raw_value = this.getDataValue('tags');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		}
 	}, { tableName: DB_TABLE_PREFIX + 'guilds' });

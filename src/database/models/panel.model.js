@@ -4,6 +4,14 @@ module.exports = (client, sequelize) => {
 	sequelize.define('Panel', {
 		categories: {
 			allowNull: false,
+			get() {
+				const raw_value = this.getDataValue('categories');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		channel: {

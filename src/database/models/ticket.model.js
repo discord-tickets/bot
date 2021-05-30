@@ -63,6 +63,14 @@ module.exports = (_client, sequelize) => {
 		},
 		pinned_messages: {
 			defaultValue: [],
+			get() {
+				const raw_value = this.getDataValue('pinned_messages');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		topic: {

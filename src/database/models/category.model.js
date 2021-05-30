@@ -44,10 +44,26 @@ module.exports = ({ config }, sequelize) => {
 		},
 		opening_questions: {
 			allowNull: true,
+			get() {
+				const raw_value = this.getDataValue('opening_questions');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		ping: {
 			defaultValue: [],
+			get() {
+				const raw_value = this.getDataValue('ping');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		require_topic: {
@@ -56,6 +72,14 @@ module.exports = ({ config }, sequelize) => {
 		},
 		roles: {
 			allowNull: false,
+			get() {
+				const raw_value = this.getDataValue('roles');
+				return raw_value
+					? typeof raw_value === 'string'
+						? JSON.parse(raw_value)
+						: raw_value
+					: null;
+			},
 			type: DataTypes.JSON
 		},
 		survey: {
