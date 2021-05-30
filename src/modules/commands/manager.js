@@ -74,6 +74,18 @@ module.exports = class CommandManager {
 
 		const settings = await message.guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
+		const prefix = settings.command_prefix;
+		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
+		const client_mention = `<@!?${this.client.user.id}>`;
+
+		let cmd_name = message.content.match(new RegExp(`^(${escaped_prefix}|${client_mention}\\s?)(\\S+)`, 'mi')); // capture prefix and command
+		if (!cmd_name) return; // stop here if the message is not a command
+
+		const raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
+		cmd_name = cmd_name[2].toLowerCase(); // set cmd_name to the actual command alias, effectively removing the prefix
+
+		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
+		if (!cmd) return;
 
 		let is_blacklisted = false;
 		if (settings.blacklist?.includes(message.author.id)) {
@@ -95,19 +107,6 @@ module.exports = class CommandManager {
 				return this.client.log.warn('Failed to react to a message');
 			}
 		}
-
-		const prefix = settings.command_prefix;
-		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
-		const client_mention = `<@!?${this.client.user.id}>`;
-
-		let cmd_name = message.content.match(new RegExp(`^(${escaped_prefix}|${client_mention}\\s?)(\\S+)`, 'mi')); // capture prefix and command
-		if (!cmd_name) return; // stop here if the message is not a command
-
-		const raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
-		cmd_name = cmd_name[2].toLowerCase(); // set cmd_name to the actual command alias, effectively removing the prefix
-
-		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
-		if (!cmd) return;
 
 		const bot_permissions = message.guild.me.permissionsIn(message.channel);
 		const required_bot_permissions = [
