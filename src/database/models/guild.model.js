@@ -2,7 +2,6 @@ const { DataTypes } = require('sequelize');
 module.exports = ({ config }, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Guild', {
-
 		blacklist: {
 			defaultValue: [],
 			type: DataTypes.JSON
