@@ -16,7 +16,12 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/20905071?v=4",
       "profile": "https://eartharoid.me/",
       "contributions": [
-        "code"
+        "code",
+        "maintenance",
+        "doc",
+        "review",
+        "design",
+        "ideas"
       ]
     },
     {
