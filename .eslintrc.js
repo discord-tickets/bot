@@ -72,6 +72,10 @@ module.exports = {
 		'eqeqeq': [
 			'error'
 		],
+		'func-call-spacing': [
+			'error',
+			'never'
+		],
 		'indent': [
 			'error',
 			'tab'
@@ -158,6 +162,10 @@ module.exports = {
 		'quotes': [
 			'error',
 			'single'
+		],
+		'rest-spread-spacing': [
+			'error',
+			'never'
 		],
 		'semi': [
 			'error',
