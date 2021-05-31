@@ -90,7 +90,18 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "itzJOHv",
+      "name": "itzJOHv",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68508885?v=4",
+      "profile": "https://github.com/itzJOHv",
+      "contributions": [
+        "code",
+        "question"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
