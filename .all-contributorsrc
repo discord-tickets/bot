@@ -90,7 +90,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "CanerBaba25",
+      "name": "CanerBaba25",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33705518?v=4",
+      "profile": "https://github.com/CanerBaba25",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
