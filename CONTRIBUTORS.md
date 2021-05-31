@@ -23,6 +23,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://davidjcralph.co.uk/"><img src="https://avatars.githubusercontent.com/u/14052956?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Ralph</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=davidjcralph" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/OliverCordingl1"><img src="https://avatars.githubusercontent.com/u/19516518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oliver Cordingley</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=OliverCordingl1" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/itzJOHv"><img src="https://avatars.githubusercontent.com/u/68508885?v=4?s=100" width="100px;" alt=""/><br /><sub><b>itzJOHv</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=itzJOHv" title="Code">💻</a> <a href="#question-itzJOHv" title="Answering Questions">💬</a></td>
+    <td align="center"><a href="https://github.com/CanerBaba25"><img src="https://avatars.githubusercontent.com/u/33705518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>CanerBaba25</b></sub></a><br /><a href="#translation-CanerBaba25" title="Translation">🌍</a></td>
   </tr>
 </table>
 
