@@ -20,8 +20,7 @@
         "maintenance",
         "doc",
         "review",
-        "design",
-        "ideas"
+        "design"
       ]
     },
     {
@@ -104,8 +103,9 @@
       "contributions": [
         "code",
         "question"
+      ]
     },
-    { 
+    {
       "login": "CanerBaba25",
       "name": "CanerBaba25",
       "avatar_url": "https://avatars.githubusercontent.com/u/33705518?v=4",
