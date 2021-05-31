@@ -2,12 +2,12 @@ module.exports = {
 	maria: {
 		dialect: 'mariadb',
 		name: 'MariaDB',
-		package: ['mariadb']
+		packages: ['mariadb']
 	},
 	mariadb: {
 		dialect: 'mariadb',
 		name: 'MariaDB',
-		package: ['mariadb']
+		packages: ['mariadb']
 	},
 	microsoft: {
 		dialect: 'mssql',
