@@ -191,7 +191,7 @@
 			"name": "aiuto",
 			"response": {
 				"list": {
-					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+					"description": "I comandi a cui hai accesso sono elencati di seguito. Per ulteriori informazioni su un comando, digita '{prefix}help [command]'. Per creare un ticket, digita '{prefix}new [topic]'.",
 					"fields": {
 						"commands": "Comandi"
 					},
