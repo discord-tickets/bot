@@ -117,7 +117,7 @@ module.exports = class PanelCommand extends Command {
 						id: message.guild.roles.everyone
 					},
 					{
-						allow: ['EMBED_LINKS'],
+						allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
 						id: this.client.user.id
 					}
 				],
@@ -150,7 +150,7 @@ module.exports = class PanelCommand extends Command {
 							id: message.guild.roles.everyone
 						},
 						{
-							allow: ['SEND_MESSAGES', 'EMBED_LINKS'],
+							allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
 							id: this.client.user.id
 						}
 					],
