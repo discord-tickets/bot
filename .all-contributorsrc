@@ -113,6 +113,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Felimir",
+      "name": "Fel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52141188?v=4",
+      "profile": "https://github.com/Felimir",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
