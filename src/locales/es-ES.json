@@ -51,8 +51,8 @@
 					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Por favor utiliza este comando en el canal de tickets, o menciona el canal.",
+					"title": "❌ Este no es un canal de tickets"
 				}
 			}
 		},
@@ -62,40 +62,40 @@
 			},
 			"args": {
 				"member_or_role": {
-					"description": "The member or role to add/remove",
+					"description": "El miembro o rol que se va a añadir o o remover",
 					"example": "@NaughtyMember",
 					"name": "memberOrRole"
 				}
 			},
-			"description": "Blacklist/unblacklist a member from interacting with the bot",
+			"description": "Añade o elimina de la lista negra a un miembro, para que no interactúe con el BOT",
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
-					"title": "📃 Blacklisted members and roles"
+					"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a ésta.",
+					"title": "📃 Miembros y roles en la lista negra"
 				},
 				"illegal_action": {
-					"description": "%s is a staff member and cannot be blacklisted.",
-					"title": "❌ You can't blacklist this member"
+					"description": "%s es un miembro del personal, por lo tanto no puede ser añadido en la lista negra.",
+					"title": "❌ No puedes añadir a la lista negra a este miembro"
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 Miembros y roles en la lista negra"
 				},
 				"member_added": {
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot.",
-					"title": "✅ Added member to blacklist"
+					"description": "<@%s> fue añadido a la lista negra. Ya no podrá interactuar con el BOT, a menos de que sea removido.",
+					"title": "✅ Miembro añadido a la lista negra"
 				},
 				"member_removed": {
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again.",
-					"title": "✅ Removed member from blacklist"
+					"description": "<@%s> fue eliminado de la lista negra. Ahora puede usar el BOT nuevamente.",
+					"title": "✅ Miembro eliminado de la lista negra"
 				},
 				"role_added": {
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot.",
-					"title": "✅ Added role to blacklist"
+					"description": "<@&%s> fue añadido a la lista negra. Miembros que tengan este rol no podrán interactuar con el BOT hasta que sea removido.",
+					"title": "✅ Rol añadido a la lista negra"
 				},
 				"role_removed": {
-					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again.",
-					"title": "✅ Removed role from blacklist"
+					"description": "<@&%s> fue eliminado de la lista negra. Miembros que tengan este rol pueden interactuar con el BOT nuevamente.",
+					"title": "✅ Rol removido de la lista negra"
 				}
 			}
 		},
@@ -107,42 +107,42 @@
 			"args": {
 				"reason": {
 					"alias": "r",
-					"description": "The reason for closing the ticket(s)",
+					"description": "La razón por la cual cerrar el(los) ticket(s)",
 					"example": "",
 					"name": "reason"
 				},
 				"ticket": {
 					"alias": "t",
-					"description": "The ticket to close, either the number or the channel mention/ID",
+					"description": "El ticket a cerrar, ya sea la mención o la ID del canal",
 					"example": "217",
 					"name": "ticket"
 				},
 				"time": {
 					"alias": "T",
-					"description": "Close all tickets that have been inactive for the specified time",
+					"description": "Cerrar todos los tickets que estuvieron inactivos por el tiempo especificado o más",
 					"example": "1w",
 					"name": "time"
 				}
 			},
-			"description": "Close a ticket channel",
+			"description": "Cerrar un canal de ticket",
 			"name": "close",
 			"response": {
 				"closed": {
-					"description": "Ticket #%s has been closed.",
-					"title": "✅ Ticket closed"
+					"description": "El ticket #%s fue cerrado.",
+					"title": "✅ Ticket cerrado"
 				},
 				"closed_multiple": {
 					"description": [
-						"%d ticket has been closed.",
-						"%d tickets have been closed."
+						"El ticket %d fue cerrado.",
+						"Los tickets %d fueron cerrados."
 					],
 					"title": [
-						"✅ Ticket closed",
-						"✅ Tickets closed"
+						"✅ Ticket cerrado",
+						"✅ Tickets cerrados"
 					]
 				},
 				"confirm": {
-					"description": "React with ✅ to close this ticket.",
+					"description": "Reacciona con ✅ para cerrar este ticket.",
 					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
 					"title": "❔ Are you sure?"
 				},
@@ -163,7 +163,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Este no es un canal de tickets"
 				},
 				"no_tickets": {
 					"description": "There are no tickets which have been inactive for this time period.",
@@ -319,8 +319,8 @@
 					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Por favor utiliza este comando en el canal de tickets, o menciona el canal.",
+					"title": "❌ Este no es un canal de tickets"
 				}
 			}
 		},
@@ -401,7 +401,7 @@
 				"missing": "This tag requires the following arguments:\n%s",
 				"not_a_ticket": {
 					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Este no es un canal de tickets"
 				}
 			}
 		},
@@ -423,7 +423,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel you want to change the topic of.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Este no es un canal de tickets"
 				}
 			}
 		}
@@ -448,19 +448,19 @@
 		},
 		"closed": {
 			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket cerrado"
 		},
 		"closed_by_member": {
 			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket cerrado"
 		},
 		"closed_by_member_with_reason": {
 			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket cerrado"
 		},
 		"closed_with_reason": {
 			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket cerrado"
 		},
 		"member_added": {
 			"description": "%s has been added by %s",
