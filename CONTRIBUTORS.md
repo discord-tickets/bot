@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ## Contributors ✨
 
@@ -24,6 +24,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/OliverCordingl1"><img src="https://avatars.githubusercontent.com/u/19516518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oliver Cordingley</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=OliverCordingl1" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/itzJOHv"><img src="https://avatars.githubusercontent.com/u/68508885?v=4?s=100" width="100px;" alt=""/><br /><sub><b>itzJOHv</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=itzJOHv" title="Code">💻</a> <a href="#question-itzJOHv" title="Answering Questions">💬</a></td>
     <td align="center"><a href="https://github.com/CanerBaba25"><img src="https://avatars.githubusercontent.com/u/33705518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>CanerBaba25</b></sub></a><br /><a href="#translation-CanerBaba25" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/Felimir"><img src="https://avatars.githubusercontent.com/u/52141188?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fel</b></sub></a><br /><a href="#translation-Felimir" title="Translation">🌍</a></td>
   </tr>
 </table>
 
