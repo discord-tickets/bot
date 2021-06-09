@@ -14,37 +14,37 @@
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"invalid_named_args": {
 			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"title": "❌ Ungültiger Syntax"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n",
+		"title": "`%s` Benutzung"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Läuft in %d Sekunden ab",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
+					"description": "Der User, der zum Tickt hinzugefügt werden soll",
 					"example": "@someone",
-					"name": "member"
+					"name": "Mitglied"
 				},
 				"ticket": {
-					"description": "The ticket to add the member to",
+					"description": "Das Ticket, dem der User hinzugefügt werden soll",
 					"example": "217",
-					"name": "ticket"
+					"name": "Ticket"
 				}
 			},
-			"description": "Add a member to a ticket",
-			"name": "add",
+			"description": "Füge einen User zum Ticket hinzu",
+			"name": "hinzufügen",
 			"response": {
 				"added": {
-					"description": "%s has been added to %s.",
-					"title": "✅ Member added"
+					"description": "%s wurde zu %s hinzugefügt.",
+					"title": "✅ User hinzugefügt"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to add.",
-					"title": "❌ Unknown member"
+					"description": "Bitte erwähnen sie den User, den sie hinzufügen möchten.",
+					"title": "❌ Unbekannter User"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
@@ -115,7 +115,7 @@
 					"alias": "t",
 					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
-					"name": "ticket"
+					"name": "Ticket"
 				},
 				"time": {
 					"alias": "T",
@@ -203,7 +203,7 @@
 			"aliases": {
 				"create": "create",
 				"open": "open",
-				"ticket": "ticket"
+				"ticket": "Ticket"
 			},
 			"args": {
 				"topic": {
@@ -295,12 +295,12 @@
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@someone",
-					"name": "member"
+					"name": "Mitglied"
 				},
 				"ticket": {
 					"description": "The ticket to remove the member from",
 					"example": "217",
-					"name": "ticket"
+					"name": "Ticket"
 				}
 			},
 			"description": "Remove a member from a ticket",
@@ -312,7 +312,7 @@
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unknown member"
+					"title": "❌ Unbekannter User"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
