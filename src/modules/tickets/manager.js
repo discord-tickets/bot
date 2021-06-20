@@ -97,7 +97,7 @@ module.exports = class TicketManager extends EventEmitter {
 				.replace(/{+\s?(tag|ping|mention)?\s?}+/gi, creator.user.toString());
 			const embed = new MessageEmbed()
 				.setColor(settings.colour)
-				.setAuthor(creator.user.username, creator.user.displayAvatarURL())
+				.setAuthor(creator.nickname || creator.user.username, creator.user.displayAvatarURL())
 				.setDescription(description)
 				.setFooter(settings.footer, guild.iconURL());
 
