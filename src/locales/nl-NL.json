@@ -14,7 +14,7 @@
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"invalid_named_args": {
 			"description": "Er is een fout opgetreden in het commando van uw opdracht: '%s'.\ntyp '%s' voor een voorbeeld.\nVraag het een medewerker als u denkt dat dit een fout is.",
-			"title": "❌ Invalid syntax"
+			"title": "❌ Ongeldige commando"
 		},
 		"named_args": "This command uses named arguments.\n\n",
 		"title": "`%s` command usage"
@@ -40,19 +40,19 @@
 			"response": {
 				"added": {
 					"description": "%s has been added to %s.",
-					"title": "✅ Member added"
+					"title": "✅ lid toegevoegd"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to add.",
-					"title": "❌ Unknown member"
+					"description": "Vermeld het lid dat u wilt toevoegen.",
+					"title": "❌ Onbekend lid"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "U bent niet de maker van deze ticket en u bent geen werknemer, je kunt geen leden toevoegen aan deze ticket.",
+					"title": "❌ Onvoldoende rechten"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Gebruik deze commando in het ticketkanaal of vermeld het kanaal.",
+					"title": "❌ Dit is geen ticketkanaal"
 				}
 			}
 		},
@@ -62,69 +62,69 @@
 			},
 			"args": {
 				"member_or_role": {
-					"description": "The member or role to add/remove",
+					"description": "Het lid of de rol die moet worden toegevoegd/verwijderd",
 					"example": "@NaughtyMember",
-					"name": "memberOrRole"
+					"name": "lidOrRole"
 				}
 			},
-			"description": "Blacklist/unblacklist a member from interacting with the bot",
-			"name": "blacklist",
+			"description": "Blacklist/unblacklist een lid om met de bot te interacteren",
+			"name": "Blacklist",
 			"response": {
 				"empty_list": {
-					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
-					"title": "📃 Blacklisted members and roles"
+					"description": "Er zijn geen leden of rollen op de blacklist. Typ '%sblacklist <memberOrRole>' om een lid of rol aan de blacklist toe te voegen.",
+					"title": "📃 leden en rollen op de blacklist"
 				},
 				"illegal_action": {
-					"description": "%s is a staff member and cannot be blacklisted.",
-					"title": "❌ You can't blacklist this member"
+					"description": "%s is een personeelslid en kan niet op de blacklist worden geplaatst.",
+					"title": "❌ Je kunt dit lid niet op de blacklist zetten"
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 leden en rollen op de blacklist"
 				},
 				"member_added": {
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot.",
-					"title": "✅ Added member to blacklist"
+					"description": "<@%s> is toegevoegd aan de blacklist. Ze kunnen niet langer communiceren met de bot.",
+					"title": "✅ Lid toegevoegd aan blacklist"
 				},
 				"member_removed": {
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again.",
-					"title": "✅ Removed member from blacklist"
+					"description": "<@%s> is van de blacklist verwijderd. Ze kunnen de bot nu weer gebruiken.",
+					"title": "✅ Lid van blacklist verwijderd"
 				},
 				"role_added": {
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot.",
-					"title": "✅ Added role to blacklist"
+					"description": "<@&%s> is toegevoegd aan de blacklist. Leden met deze rol kunnen niet langer communiceren met de bot.",
+					"title": "✅ Rol toegevoegd aan blacklist"
 				},
 				"role_removed": {
-					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again.",
-					"title": "✅ Removed role from blacklist"
+					"description": "<@&%s> is van de zwartelijst verwijderd. Leden met deze rol kunnen de bot nu opnieuw gebruiken.",
+					"title": "✅ Rol van blacklist verwijderd"
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete",
+				"delete": "verwijderen",
 				"lock": "lock"
 			},
 			"args": {
 				"reason": {
 					"alias": "r",
-					"description": "The reason for closing the ticket(s)",
+					"description": "De reden voor het sluiten van de ticket(s)",
 					"example": "",
-					"name": "reason"
+					"name": "reden"
 				},
 				"ticket": {
 					"alias": "t",
-					"description": "The ticket to close, either the number or the channel mention/ID",
+					"description": "De ticket dat moet worden gesloten, het nummer of de kanaalvermelding / ID",
 					"example": "217",
 					"name": "ticket"
 				},
 				"time": {
 					"alias": "T",
-					"description": "Close all tickets that have been inactive for the specified time",
+					"description": "Alle tickets sluiten die gedurende de opgegeven tijd inactief zijn geweest",
 					"example": "1w",
-					"name": "time"
+					"name": "tijd"
 				}
 			},
-			"description": "Close a ticket channel",
+			"description": "Een ticketkanaal sluiten",
 			"name": "close",
 			"response": {
 				"closed": {
@@ -163,7 +163,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Dit is geen ticketkanaal"
 				},
 				"no_tickets": {
 					"description": "There are no tickets which have been inactive for this time period.",
@@ -223,29 +223,29 @@
 					"title": "❌ Error"
 				},
 				"has_a_ticket": {
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another.",
-					"title": "❌ You already have an open ticket"
+					"description": "Gebruik uw bestaande ticket (<#%s>) of sluit de ticket voordat u een ander ticket maakt.",
+					"title": "❌ Je hebt al een ticket open staan"
 				},
 				"max_tickets": {
-					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s",
-					"title": "❌ You already have %d open tickets"
+					"description": "Gebruik '%ssluiten' om onnodige tickets te sluiten.\n\n%s",
+					"title": "❌ Je hebt al %d geopende tickets"
 				},
 				"no_categories": {
-					"description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
-					"title": "❌ Can't create ticket"
+					"description": "Een serverbeheerder moet ten minste één ticketcategorie maken voordat er een nieuw ticket kan worden geopend.",
+					"title": "❌ Kan geen ticket maken"
 				},
 				"select_category": {
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s",
-					"title": "🔤 Please select the ticket category"
+					"description": "Selecteer de categorie die het meest relevant is voor het onderwerp van uw ticket:\n\n%s",
+					"title": "🔤 Selecteer de ticketcategorie"
 				},
 				"select_category_timeout": {
-					"description": "You took too long to select the ticket category.",
+					"description": "Het duurde te lang om de ticketcategorie te selecteren.",
 					"title": "❌ Reaction time expired"
 				}
 			},
 			"request_topic": {
-				"description": "Please briefly state what this ticket is about in a a few words.",
-				"title": "Ticket topic"
+				"description": "Geef in een paar woorden kort aan waar deze ticket over gaat.",
+				"title": "Ticket onderwerp"
 			}
 		},
 		"panel": {
@@ -253,38 +253,38 @@
 			"args": {
 				"categories": {
 					"alias": "c",
-					"description": "A category ID",
+					"description": "Een categorie-ID",
 					"example": "451745464954650634",
-					"name": "categories"
+					"name": "categorieën"
 				},
 				"description": {
 					"alias": "d",
-					"description": "The description for the panel message",
-					"example": "\"React to this message to open a ticket.\"",
-					"name": "description"
+					"description": "De beschrijving voor het paneelbericht",
+					"example": "\"Reageer op dit bericht om een ticket te openen.\"",
+					"name": "beschrijving"
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "An emoji",
+					"description": "Een emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"description": "De titel voor het paneelbericht",
+					"example": "\"Ondersteuningstickets\"",
+					"name": "titel"
 				}
 			},
-			"description": "Create a new ticket panel",
-			"name": "panel",
+			"description": "Een nieuw ticketpaneel maken",
+			"name": "paneel",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "Een of meer van de opgegeven categorie-ID's zijn ongeldig.",
+					"title": "❌ ongeldige categorie"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
+					"description": "Geef het naamnummer van emoji's en categorie-ID's op.",
 					"title": "❌ Invalid input"
 				}
 			}
@@ -293,115 +293,115 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "Het lid dat van de ticket moet worden verwijderd",
 					"example": "@someone",
 					"name": "member"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "De ticket om het lid uit te verwijderen",
 					"example": "217",
 					"name": "ticket"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "Een lid uit een ticket verwijderen",
+			"name": "verwijderen",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s is verwijderd uit %s.",
+					"title": "✅ lid verwijderd"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unknown member"
+					"description": "Vermeld het lid dat u wilt verwijderen.",
+					"title": "❌ Onbekend lid"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "U bent niet de maker van dit ticket en u bent geen werknemer, je kunt geen leden van deze ticket verwijderen.",
+					"title": "❌ Onvoldoende rechten"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Gebruik deze commando in het ticketkanaal of vermeld het kanaal.",
+					"title": "❌ Dit is geen ticketkanaal"
 				}
 			}
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "configuratie"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "Discord-tickets configureren",
+			"name": "instellingen",
 			"response": {
-				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
-				"updated": "✅ Settings have been updated."
+				"invalid": "❌ Instellingen is ongeldig, raadpleeg een werknemer.\n%s",
+				"updated": "✅ Instellingen zijn bijgewerkt."
 			}
 		},
 		"stats": {
 			"aliases": {},
 			"args": {},
-			"description": "Display ticket statistics",
+			"description": "Ticketstatistieken weergeven",
 			"fields": {
-				"messages": "Messages",
+				"messages": "Berichten",
 				"response_time": {
-					"minutes": "%s minutes",
-					"title": "Avg. response time"
+					"minutes": "%s minuten",
+					"title": "Gemiddelde reactietijd"
 				},
 				"tickets": "Tickets"
 			},
-			"name": "stats",
+			"name": "statistieken",
 			"response": {
 				"global": {
-					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-					"title": "📊 Global stats"
+					"description": "Statistieken over tickets in alle gilden waar dit Discord Tickets-exemplaar wordt gebruikt.",
+					"title": "📊 Wereldwijde statistieken"
 				},
 				"guild": {
-					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
-					"title": "📊 This server's stats"
+					"description": "Statistieken over tickets binnen deze gilde. Deze gegevens worden een uur in de cache opgeslagen.",
+					"title": "📊 De statistieken van deze server"
 				}
 			}
 		},
 		"survey": {
 			"aliases": {
-				"surveys": "surveys"
+				"surveys": "enquêtes"
 			},
 			"args": {
 				"survey": {
-					"description": "The name of the survey to view responses of",
+					"description": "De naam van de enquête waarvan u de antwoorden wilt bekijken",
 					"example": "support",
-					"name": "survey"
+					"name": "enquête"
 				}
 			},
-			"description": "View survey responses",
-			"name": "survey",
+			"description": "Enquêtereacties weergeven",
+			"name": "enquête",
 			"response": {
 				"list": {
-					"title": "📃 Surveys"
+					"title": "📃 enquêtes"
 				}
 			}
 		},
 		"tag": {
 			"aliases": {
-				"faq": "faq",
+				"faq": "FAQ",
 				"t": "t",
 				"tags": "tags"
 			},
 			"args": {
 				"tag": {
-					"description": "The name of the tag to use",
+					"description": "De naam van de tag die moet worden gebruikt",
 					"example": "website",
-					"name": "tag"
+					"name": "label"
 				}
 			},
-			"description": "Use a tag response",
-			"name": "tag",
+			"description": "Een tagrespons gebruiken",
+			"name": "label",
 			"response": {
 				"error": "❌ Error",
 				"list": {
-					"title": "📃 Tag list"
+					"title": "📃 Tag lijst"
 				},
-				"missing": "This tag requires the following arguments:\n%s",
+				"missing": "Deze tag vereist de volgende argumenten:\n%s",
 				"not_a_ticket": {
-					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Deze tag kan alleen worden gebruikt binnen een ticketkanaal omdat deze ticketreferenties gebruikt.",
+					"title": "❌ Dit is geen ticketkanaal"
 				}
 			}
 		},
@@ -409,49 +409,49 @@
 			"aliases": {},
 			"args": {
 				"new_topic": {
-					"description": "The new topic of the ticket",
-					"example": "billing issue",
+					"description": "Het nieuwe onderwerp van het ticket",
+					"example": "factureringsprobleem",
 					"name": "new_topic"
 				}
 			},
-			"description": "Change the topic of the ticket",
+			"description": "Het onderwerp van het ticket wijzigen",
 			"name": "topic",
 			"response": {
 				"changed": {
-					"description": "This ticket's topic has been changed.",
-					"title": "✅ Topic changed"
+					"description": "Het onderwerp van dit ticket is gewijzigd.",
+					"title": "✅ Onderwerp gewijzigd"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel you want to change the topic of.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Gebruik deze opdracht in het ticketkanaal waarvan u het onderwerp wilt wijzigen.",
+					"title": "❌ Dit is geen ticketkanaal"
 				}
 			}
 		}
 	},
 	"command_execution_error": {
-		"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details.",
+		"description": "Er is een onverwachte fout opgetreden tijdens de uitvoering van de opdracht.\nVraag een beheerder om de console-uitvoer / logboeken te controleren voor meer informatie.",
 		"title": "⚠️"
 	},
-	"message_will_be_deleted_in": "This message will be deleted in %d seconds",
+	"message_will_be_deleted_in": "Dit bericht wordt binnen %d seconden verwijderd",
 	"missing_permissions": {
-		"description": "You do not have the permissions required to use this command:\n%s",
+		"description": "U beschikt niet over de machtigingen die nodig zijn om deze opdracht te gebruiken:\n%s",
 		"title": "❌"
 	},
 	"staff_only": {
-		"description": "You must be a member of staff to use this command.",
+		"description": "U moet een medewerker zijn om deze opdracht te kunnen gebruiken.",
 		"title": "❌"
 	},
 	"ticket": {
 		"claimed": {
-			"description": "%s has claimed this ticket.",
-			"title": "✅ Ticket claimed"
+			"description": "%s heeft dit ticket opgeëist.",
+			"title": "✅ Ticket geclaimd"
 		},
 		"closed": {
-			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"description": "Deze ticket is gesloten.\nHet kanaal wordt binnen 5 seconden verwijderd.",
 			"title": "✅ Ticket closed"
 		},
 		"closed_by_member": {
-			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"description": "Deze ticket is gesloten door %s.\nHet kanaal wordt binnen 5 seconden verwijderd.",
 			"title": "✅ Ticket closed"
 		},
 		"closed_by_member_with_reason": {
