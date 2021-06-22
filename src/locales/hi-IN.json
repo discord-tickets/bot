@@ -1,33 +1,33 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets requires the following permissions:\n%s",
+			"description": "कलह टिकट निम्नलिखित अनुमतियों की आवश्यकता है:\n%s",
 			"title": "⚠️"
 		},
 		"version": "[Discord टिकट] (%s) v%s [eartharoid](%s) द्वारा"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
+			"description": "**विवरण:** %s",
 			"example": "**उदाहरण:** '%s'"
 		},
 		"description": "*** उपयोग: **\n'%s'\n\n**उदाहरण: **\n'%s'\n\nआवश्यक तर्क '❗' के साथ पूर्वनिर्धारित हैं।",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"description": "आपके आदेश सिंटेक्स में एक त्रुटि है: '%s'। उदाहरण\nलिए '%s' टाइप।\nकृपया कर्मचारियों के एक सदस्य से पूछो अगर तुम अनिश्चित हैं ।",
+			"title": "❌ अमान्य वाक्य रचना"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "यह आदेश नामी तर्कों का उपयोग करता है।\n\n",
+		"title": "'%s' कमांड यूसेज"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "%d सेकंड में समाप्त हो रहा है",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
+					"description": "सदस्य टिकट में जोड़ने के लिए",
 					"example": "@someone",
-					"name": "member"
+					"name": "सदस्य"
 				},
 				"ticket": {
 					"description": "The ticket to add the member to",
@@ -295,7 +295,7 @@
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@someone",
-					"name": "member"
+					"name": "सदस्य"
 				},
 				"ticket": {
 					"description": "The ticket to remove the member from",
