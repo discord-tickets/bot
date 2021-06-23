@@ -35,24 +35,24 @@
 					"name": "ticket"
 				}
 			},
-			"description": "Add a member to a ticket",
+			"description": "Adicionar um usuário ao ticket",
 			"name": "add",
 			"response": {
 				"added": {
-					"description": "%s has been added to %s.",
-					"title": "✅ Member added"
+					"description": "%s foi adicionado ao ticket %s.",
+					"title": "✅ Usuário adicionado"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to add.",
-					"title": "❌ Unknown member"
+					"description": "Por favor, mencione o membro que quer adicionar",
+					"title": "❌ Membro não encontrado"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "Você não é o criador deste tíquete e não é um membro da equipe; você não pode adicionar membros a este tíquete.",
+					"title": "❌ Você não tem permissões"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Use este comando no canal do ticket ou mencione o canal.",
+					"title": "❌ Este não é um canal de ingressos"
 				}
 			}
 		},
@@ -128,50 +128,50 @@
 			"name": "close",
 			"response": {
 				"closed": {
-					"description": "Ticket #%s has been closed.",
+					"description": "Ticket #%s foi fechado.",
 					"title": "✅ Ticket fechado"
 				},
 				"closed_multiple": {
 					"description": [
-						"%d ticket has been closed.",
-						"%d tickets have been closed."
+						"%d ticket foi fechado",
+						"%d tickets foram fechados"
 					],
 					"title": [
 						"✅ Ticket fechado",
-						"✅ Tickets closed"
+						"✅ Tickets fechados"
 					]
 				},
 				"confirm": {
-					"description": "React with ✅ to close this ticket.",
-					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-					"title": "❔ Are you sure?"
+					"description": "Reaja com ✅ para confirmar",
+					"description_with_archive": "Você poderá ver uma versão arquivada dele depois.\nReaja com ✅ para fechar o ticket",
+					"title": "❔ Deseja realmente fechar o ticket?"
 				},
 				"confirmation_timeout": {
-					"description": "You took too long to confirm.",
+					"description": "Você demorou muito para confirmar.",
 					"title": "❌ Tempo de reação expirado"
 				},
 				"confirm_multiple": {
 					"description": [
-						"React with ✅ to close %d ticket.",
-						"React with ✅ to close %d tickets."
+						"Reaja com ✅ para fechar %d ticket.",
+						"Reaja com ✅ para fechar %d tickets."
 					],
-					"title": "❔ Are you sure?"
+					"title": "❔ Deseja realmente fechar o ticket?"
 				},
 				"invalid_time": {
-					"description": "The time period provided could not be parsed.",
-					"title": "❌ Invalid input"
+					"description": "O período de tempo não pode ser análisado",
+					"title": "❌ Entrada inválida"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Use este comando em um canal de ticket ou use o sinalizador de ticket.\nUse `%shelp close` para mais informações",
+					"title": "❌ Este não é um canal de ingressos"
 				},
 				"no_tickets": {
-					"description": "There are no tickets which have been inactive for this time period.",
-					"title": "❌ No tickets to close"
+					"description": "Não há tickets inativos neste período.",
+					"title": "❌ Nenhum ticket para fechar"
 				},
 				"unresolvable": {
-					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
-					"title": "❌ Error"
+					"description": "`%s` não pôde ser resolvido para um ticket. Forneça a ID / menção ou número do ticket.",
+					"title": "❌ Erro"
 				}
 			}
 		},
@@ -220,7 +220,7 @@
 					"title": "✅ Ticket criado"
 				},
 				"error": {
-					"title": "❌ Error"
+					"title": "❌ Erro"
 				},
 				"has_a_ticket": {
 					"description": "Por favor, use o seu ticket existente (<#%s>) ou feche-o antes de criar outro.",
@@ -285,7 +285,7 @@
 				},
 				"mismatch": {
 					"description": "Please provide the name number of emojis and category IDs.",
-					"title": "❌ Invalid input"
+					"title": "❌ Entrada inválida"
 				}
 			}
 		},
@@ -312,15 +312,15 @@
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unknown member"
+					"title": "❌ Membro não encontrado"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-					"title": "❌ Insufficient permission"
+					"title": "❌ Você não tem permissões"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Use este comando no canal do ticket ou mencione o canal.",
+					"title": "❌ Este não é um canal de ingressos"
 				}
 			}
 		},
@@ -394,14 +394,14 @@
 			"description": "Use a tag response",
 			"name": "tag",
 			"response": {
-				"error": "❌ Error",
+				"error": "❌ Erro",
 				"list": {
 					"title": "📃 Tag list"
 				},
 				"missing": "This tag requires the following arguments:\n%s",
 				"not_a_ticket": {
 					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Este não é um canal de ingressos"
 				}
 			}
 		},
@@ -423,7 +423,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel you want to change the topic of.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Este não é um canal de ingressos"
 				}
 			}
 		}
@@ -447,46 +447,46 @@
 			"title": "✅ Ticket claimed"
 		},
 		"closed": {
-			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"description": "Ticket fechado.\nA sala sera deletada em 5 segundos",
 			"title": "✅ Ticket fechado"
 		},
 		"closed_by_member": {
-			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"description": "Ticket fechado por %s.\nA sala sera deletada em 5 segundos",
 			"title": "✅ Ticket fechado"
 		},
 		"closed_by_member_with_reason": {
-			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Ticket fechado por %s, motivo: `%s`\nA sala sera deletada em 5 segundos",
 			"title": "✅ Ticket fechado"
 		},
 		"closed_with_reason": {
-			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Ticket foi fechado, motivo: `%s`\nA sala sera deletada em 5 segundos",
 			"title": "✅ Ticket fechado"
 		},
 		"member_added": {
-			"description": "%s has been added by %s",
-			"title": "Member added"
+			"description": "%s foi adicionado ao ticket %s",
+			"title": "Usuário adicionado"
 		},
 		"member_removed": {
-			"description": "%s has been removed by %s",
-			"title": "Member removed"
+			"description": "%s foi removido do ticket por %s",
+			"title": "Membro removido"
 		},
 		"opening_message": {
 			"fields": {
-				"topic": "Topic"
+				"topic": "Topico"
 			}
 		},
-		"questions": "Please answer the following questions:\n\n%s",
+		"questions": "Por favor responda as seguintes questões:\n\n%s",
 		"released": {
 			"description": "%s has released this ticket.",
 			"title": "✅ Ticket released"
 		},
 		"survey": {
 			"complete": {
-				"description": "Thank you for your feedback.",
-				"title": "✅ Thank you"
+				"description": "Obrigado por seu feedback.",
+				"title": "✅ Obrigado"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+				"description": "Ei, %s. Antes de este canal ser excluído, você se importaria de responder a uma pesquisa rápida com %d perguntas? Reaja com ✅ para iniciar ou ignore esta mensagem.",
 				"title": "❔ Feedback"
 			}
 		}
