@@ -311,11 +311,11 @@
 					"title": "✅สมาชิกถูกลบออกแล้ว"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
+					"description": "โปรดแท็กสมาชิกที่คุณต้องการลบ",
 					"title": "❌ Unknown member"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"description": "คุณไม่ใช่ผู้สร้างตั๋วสนับสนุนใบนี้และคุณก็ไม่ได้เป็นหนุ่งในทีมงานของเซิร์ฟเวอร์ คุณจึงไม่สามารถลบสมาชิกออกจากตั๋วนี้ได้",
 					"title": "❌ Insufficient permission"
 				},
 				"not_a_ticket": {
@@ -326,12 +326,12 @@
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "ตั้งค่า"
 			},
-			"description": "Configure Discord Tickets",
-			"name": "settings",
+			"description": "ตั้งค่าบอท Discord Tickets",
+			"name": "การตั้งค่า",
 			"response": {
-				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
+				"invalid": "❌การตั้งค่าไม่ถูกต้อง โปรดดูเอกสารประกอบ\n%s",
 				"updated": "✅ Settings have been updated."
 			}
 		},
