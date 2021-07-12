@@ -11,35 +11,35 @@
 			"description": "**Beschrijving:** %s",
 			"example": "**Voorbeeld:** '%s'"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**Gebruik:**\n'%s'\n\n**Voorbeeld:**\n'%s'\n\nVereiste argumenten worden voorafgegaan door '❗'.",
 		"invalid_named_args": {
 			"description": "Er is een fout opgetreden in het commando van uw opdracht: '%s'.\ntyp '%s' voor een voorbeeld.\nVraag het een medewerker als u denkt dat dit een fout is.",
 			"title": "❌ Ongeldige commando"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "Deze opdracht maakt gebruik van benoemde argumenten.\n\n",
+		"title": "'%s' command gebruik"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "Verloopt over %d seconden",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
-					"example": "@someone",
-					"name": "member"
+					"description": "Het lid dat aan de ticket moet worden toegevoegd",
+					"example": "@iemand",
+					"name": "lid"
 				},
 				"ticket": {
-					"description": "The ticket to add the member to",
+					"description": "De ticket om het lid aan toe te voegen",
 					"example": "217",
 					"name": "ticket"
 				}
 			},
-			"description": "Add a member to a ticket",
-			"name": "add",
+			"description": "Een lid toevoegen aan een ticket",
+			"name": "toevoegen",
 			"response": {
 				"added": {
-					"description": "%s has been added to %s.",
+					"description": "%s is toegevoegd aan %s.",
 					"title": "✅ lid toegevoegd"
 				},
 				"no_member": {
@@ -125,75 +125,75 @@
 				}
 			},
 			"description": "Een ticketkanaal sluiten",
-			"name": "close",
+			"name": "sluiten",
 			"response": {
 				"closed": {
-					"description": "Ticket #%s has been closed.",
-					"title": "✅ Ticket closed"
+					"description": "Ticket #%s is gesloten.",
+					"title": "✅ Ticket gesloten"
 				},
 				"closed_multiple": {
 					"description": [
-						"%d ticket has been closed.",
-						"%d tickets have been closed."
+						"%d ticket is gesloten.",
+						"%d tickets zijn gesloten."
 					],
 					"title": [
-						"✅ Ticket closed",
-						"✅ Tickets closed"
+						"✅ Ticket gesloten",
+						"✅ Tickets gesloten"
 					]
 				},
 				"confirm": {
-					"description": "React with ✅ to close this ticket.",
-					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-					"title": "❔ Are you sure?"
+					"description": "Reageer met ✅ om deze ticket te sluiten.",
+					"description_with_archive": "U kunt er daarna een gearchiveerde versie van bekijken.\nReageer met ✅ om deze ticket te sluiten.",
+					"title": "❔ Weet je het zeker?"
 				},
 				"confirmation_timeout": {
-					"description": "You took too long to confirm.",
-					"title": "❌ Reaction time expired"
+					"description": "Je deed er te lang over om het te bevestigen.",
+					"title": "❌ Reactietijd verstreken"
 				},
 				"confirm_multiple": {
 					"description": [
-						"React with ✅ to close %d ticket.",
-						"React with ✅ to close %d tickets."
+						"Reageer met ✅ om %d ticket te sluiten.",
+						"Reageer met ✅ om %d tickets te sluiten."
 					],
-					"title": "❔ Are you sure?"
+					"title": "❔ Weet je het zeker?"
 				},
 				"invalid_time": {
-					"description": "The time period provided could not be parsed.",
-					"title": "❌ Invalid input"
+					"description": "De opgegeven periode kan niet worden geparseerd.",
+					"title": "❌ ongeldige invoer"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"description": "Gebruik deze commando in een ticketkanaal of gebruik de ticket emoji.\nType '%shelp sluiten' voor meer informatie.",
 					"title": "❌ Dit is geen ticketkanaal"
 				},
 				"no_tickets": {
-					"description": "There are no tickets which have been inactive for this time period.",
-					"title": "❌ No tickets to close"
+					"description": "Er zijn geen tickets die inactief zijn geweest voor deze periode.",
+					"title": "❌ Geen tickets om te sluiten"
 				},
 				"unresolvable": {
-					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
-					"title": "❌ Error"
+					"description": "'%s' kon niet worden omgezet in een ticket. Geef het ticket-ID/vermelding of nummer op.",
+					"title": "❌ fout"
 				}
 			}
 		},
 		"help": {
 			"aliases": {
-				"command": "command",
-				"commands": "commands"
+				"command": "commando",
+				"commands": "commandos"
 			},
 			"args": {
 				"command": {
-					"description": "The command to display information about",
+					"description": "De commando om informatie over te krijgen",
 					"example": "new",
-					"name": "command"
+					"name": "commando"
 				}
 			},
-			"description": "List commands you have access to, or find out more about a command",
+			"description": "Opdrachten weergeven waar u toegang toe heeft, of meer informatie over een opdracht",
 			"name": "help",
 			"response": {
 				"list": {
-					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+					"description": "De commandos waar u toegang toe hebt, worden hieronder vermeld. Typ '{prefix}help [command]' voor meer informatie over een commando. Als u een ticket wilt maken, typt u '{prefix}new [topic]'.",
 					"fields": {
-						"commands": "Commands"
+						"commands": "Commandos"
 					},
 					"title": "❔ Help"
 				}
@@ -201,29 +201,29 @@
 		},
 		"new": {
 			"aliases": {
-				"create": "create",
-				"open": "open",
+				"create": "maken",
+				"open": "openen",
 				"ticket": "ticket"
 			},
 			"args": {
 				"topic": {
-					"description": "The topic of the ticket",
-					"example": "Problem with billing",
-					"name": "topic"
+					"description": "Het onderwerp van de ticket",
+					"example": "Probleem met facturering",
+					"name": "onderwerp"
 				}
 			},
-			"description": "Create a new ticket",
+			"description": "Een nieuw ticket maken",
 			"name": "new",
 			"response": {
 				"created": {
-					"description": "Your ticket has been created: %s.",
-					"title": "✅ Ticket created"
+					"description": "Uw ticket is aangemaakt: %s.",
+					"title": "✅ ticket gemaakt"
 				},
 				"error": {
-					"title": "❌ Error"
+					"title": "❌ fout"
 				},
 				"has_a_ticket": {
-					"description": "Gebruik uw bestaande ticket (<#%s>) of sluit de ticket voordat u een ander ticket maakt.",
+					"description": "Gebruik uw bestaande ticket (<#%s>) of sluit uw oude ticket voordat u een ander ticket maakt.",
 					"title": "❌ Je hebt al een ticket open staan"
 				},
 				"max_tickets": {
@@ -240,7 +240,7 @@
 				},
 				"select_category_timeout": {
 					"description": "Het duurde te lang om de ticketcategorie te selecteren.",
-					"title": "❌ Reaction time expired"
+					"title": "❌ Reactietijd verstreken"
 				}
 			},
 			"request_topic": {
@@ -285,7 +285,7 @@
 				},
 				"mismatch": {
 					"description": "Geef het naamnummer van emoji's en categorie-ID's op.",
-					"title": "❌ Invalid input"
+					"title": "❌ ongeldige invoer"
 				}
 			}
 		},
@@ -294,8 +294,8 @@
 			"args": {
 				"member": {
 					"description": "Het lid dat van de ticket moet worden verwijderd",
-					"example": "@someone",
-					"name": "member"
+					"example": "@iemand",
+					"name": "lid"
 				},
 				"ticket": {
 					"description": "De ticket om het lid uit te verwijderen",
@@ -394,7 +394,7 @@
 			"description": "Een tagrespons gebruiken",
 			"name": "label",
 			"response": {
-				"error": "❌ Error",
+				"error": "❌ fout",
 				"list": {
 					"title": "📃 Tag lijst"
 				},
@@ -415,7 +415,7 @@
 				}
 			},
 			"description": "Het onderwerp van het ticket wijzigen",
-			"name": "topic",
+			"name": "onderwerp",
 			"response": {
 				"changed": {
 					"description": "Het onderwerp van dit ticket is gewijzigd.",
@@ -448,45 +448,45 @@
 		},
 		"closed": {
 			"description": "Deze ticket is gesloten.\nHet kanaal wordt binnen 5 seconden verwijderd.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket gesloten"
 		},
 		"closed_by_member": {
 			"description": "Deze ticket is gesloten door %s.\nHet kanaal wordt binnen 5 seconden verwijderd.",
-			"title": "✅ Ticket closed"
+			"title": "✅ Ticket gesloten"
 		},
 		"closed_by_member_with_reason": {
-			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"description": "Deze ticket is gesloten door %s: '%s'\nHet kanaal wordt binnen 5 seconden verwijderd.",
+			"title": "✅ Ticket gesloten"
 		},
 		"closed_with_reason": {
-			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
-			"title": "✅ Ticket closed"
+			"description": "Deze ticket is gesloten: '%s'\nHet kanaal wordt binnen 5 seconden verwijderd.",
+			"title": "✅ Ticket gesloten"
 		},
 		"member_added": {
-			"description": "%s has been added by %s",
-			"title": "Member added"
+			"description": "%s is toegevoegd door %s",
+			"title": "Lid toegevoegd"
 		},
 		"member_removed": {
-			"description": "%s has been removed by %s",
-			"title": "Member removed"
+			"description": "%s is verwijderd door %s",
+			"title": "Lid verwijderd"
 		},
 		"opening_message": {
 			"fields": {
-				"topic": "Topic"
+				"topic": "Onderwerp"
 			}
 		},
-		"questions": "Please answer the following questions:\n\n%s",
+		"questions": "Beantwoord de volgende vragen:\n\n%s",
 		"released": {
-			"description": "%s has released this ticket.",
-			"title": "✅ Ticket released"
+			"description": "%s heeft deze ticket vrijgegeven.",
+			"title": "✅ Ticket vrijgegeven"
 		},
 		"survey": {
 			"complete": {
-				"description": "Thank you for your feedback.",
-				"title": "✅ Thank you"
+				"description": "Bedankt voor uw feedback.",
+				"title": "✅ Dank u"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+				"description": "Hey %s. Voordat dit kanaal wordt verwijderd, wilt u een snelle %d-vragen enquête invullen? Reageer met ✅ om dit bericht te starten of negeer dit bericht.",
 				"title": "❔ Feedback"
 			}
 		}
