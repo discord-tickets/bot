@@ -1,31 +1,31 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets requires the following permissions:\n%s",
+			"description": "Discord Tickets ต้องการการสิทธิ์อนุญาตดังต่อไปนี้: %s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s สร้างโดย [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Description:** %s",
-			"example": "**Example:** `%s`"
+			"description": "**คำอธิบาย:** %s",
+			"example": "**ตัวอย่าง:** `%s`"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**การใช้งาน:**\n`%s`\n\n**ตัวอย่าง:**\n`%s`\n\nอาร์กิวเมนต์ที่จำเป็นจะต้องขึ้นต้นด้วย `❗`",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"description": "มีข้อผิดพลาดในไวยากรณ์ในคำสั่งของคุณ: `%s`\nพิมพ์ `%s` เพื่อดูตัวอย่าง\nกรุณาถามทีมงานที่เกี่ยวข้องหากคุณไม่แน่ใจ",
+			"title": "❌ไวยากรณ์ไม่ถูกต้อง"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "คําสั่งนี้ใช้อาร์กิวเมนต์ที่มีชื่อ\n\n",
+		"title": "การใช้งานคำสั่ง `%s`"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "หมดอายุในอีก %d วินาที",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
+					"description": "สมาชิกที่จะเพิ่มไปยังตั๋วสนับสนุน",
 					"example": "@someone",
 					"name": "member"
 				},
@@ -261,30 +261,30 @@
 					"alias": "d",
 					"description": "The description for the panel message",
 					"example": "\"React to this message to open a ticket.\"",
-					"name": "description"
+					"name": "คำอธิบาย"
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "An emoji",
+					"description": "อิโมจิ",
 					"example": "🎫",
-					"name": "emoji"
+					"name": "อิโมจิ"
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"description": "ชื่อหัวข้อสำหรับแผงข้อความ",
+					"example": "\"ตั๋วสนับสนุน\"",
+					"name": "หัวข้อ"
 				}
 			},
-			"description": "Create a new ticket panel",
-			"name": "panel",
+			"description": "สร้างแผงตั๋วสนับสนุนใหม่",
+			"name": "แผง",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "รหัสหมวดหมู่ที่ระบุอย่างน้อยหนึ่งรายการไม่ถูกต้อง",
+					"title": "❌หมวดหมู่ไม่ถูกต้อง"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
+					"description": "โปรดระบุหมายเลขชื่ออีโมจิและรหัสหมวดหมู่",
 					"title": "❌ Invalid input"
 				}
 			}
@@ -293,22 +293,22 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "สมาชิกที่จะลบออกจากตั๋วสนับสนุน",
 					"example": "@someone",
 					"name": "member"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "ตั๋วสนับสนุนที่จะเอาสมาชิกออกจาก",
 					"example": "217",
 					"name": "ticket"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "ลบสมาชิกออกจากตั๋วสนับสนุน",
+			"name": "ลบ",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s ถูกลบออกจาก %s แล้ว",
+					"title": "✅สมาชิกถูกลบออกแล้ว"
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
