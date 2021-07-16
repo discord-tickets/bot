@@ -4,7 +4,7 @@
 			"description": "Discord Tickets erfordert die folgenden Berechtigungen: %s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
+		"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
