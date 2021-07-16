@@ -90,11 +90,11 @@
 					"title": "✅ membre ajouté à la liste noire"
 				},
 				"role_added": {
-					"description": "<@&%s> a été ajouté à la liste noire. Ils ne seront plus en mesure d’interagir avec le bot.",
+					"description": "<@&%s> a été ajouté à la liste noire. Les membres avec ce rôle ne seront plus en mesure d’interagir avec le bot.",
 					"title": "✅ membre ajouté à la liste noire"
 				},
 				"role_removed": {
-					"description": "<@&%s> a été retiré de la liste noire. Ils peuvent maintenant utiliser le bot à nouveau.",
+					"description": "<@&%s> a été retiré de la liste noire. Les membres avec ce rôle peuvent maintenant utiliser le bot à nouveau.",
 					"title": "✅ membre ajouté à la liste noire"
 				}
 			}
