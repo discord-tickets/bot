@@ -11,21 +11,21 @@
 			"description": "**설명.**%s",
 			"example": "**예시.**%s"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**사용:**\n`%s`\n\n**예시:**\n`%s`\n\n명령어를 사용하실때, 앞에 `❗`를 붙여주세요.",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Invalid syntax"
+			"description": "명령어에 `%s`라는 오류가 있습니다.\n`%s` 를 입력해보세요.\n확실하지 않다면, 관리자에게 문의 바랍니다.",
+			"title": "❌ 잘못된 구문"
 		},
-		"named_args": "This command uses named arguments.\n\n",
-		"title": "`%s` command usage"
+		"named_args": "이 명령은 명명된 인수를 사용합니다.\n",
+		"title": "'%s' 명령 사용"
 	},
-	"collector_expires_in": "Expires in %d seconds",
+	"collector_expires_in": "%d 초 안에 만료됨",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
+					"description": "티켓에 추가할 멤버",
 					"example": "@someone",
 					"name": "member"
 				},
