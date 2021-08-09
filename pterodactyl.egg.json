@@ -10,7 +10,7 @@
     "description": "https:\/\/discordtickets.app",
     "features": null,
     "images": [
-        "quay.io\/parkervcp\/pterodactyl-images:debian_nodejs-14"
+        "quay.io\/parkervcp\/pterodactyl-images:debian_nodejs-16"
     ],
     "file_denylist": [],
     "startup": "if [[ ! -z ${VERSION} ]]; then\r\n    echo -e \\\"Using version ${VERSION}\\\";\r\nelse\r\n    echo -e \\\"Please set the VERSION variable \\(e.g. v3.0.0\\)\\\";\r\n    exit 0;\r\nfi;\r\n\r\nif [[ -d .git ]]; then\r\n    git fetch --all --tags;\r\n    git checkout tags\/${VERSION};\r\nfi;\r\n\r\nif [[ ! -z ${PLUGINS} ]]; then\r\n    \/usr\/local\/bin\/npm install ${PLUGINS};\r\nfi;\r\n\r\nif [ -f \/home\/container\/package.json ]; then\r\n \/usr\/local\/bin\/npm install --production;\r\nfi;\r\n\r\n\/usr\/local\/bin\/npm start",
