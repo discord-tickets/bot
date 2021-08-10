@@ -152,39 +152,39 @@
 				},
 				"confirm_multiple": {
 					"description": [
-						"Zareagujte pomocí ✅ pro uzavření tiketu %d.",
-						"React with ✅ to close %d tickets."
+						"Zareagujte pomocí ✅ pro uzavření %d tiketu.",
+						"Zareagujte pomocí ✅ pro uzavření %d tiketů."
 					],
 					"title": "❔ Jste si jistí?"
 				},
 				"invalid_time": {
-					"description": "The time period provided could not be parsed.",
+					"description": "Zadaný čas nebyl rozpoznán.",
 					"title": "❌ Neplatný vstup"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+					"description": "Tento příkaz prosím použijte v kanálu tiketu nebo použijte vlajku tiketu.\nZadejte `%shelp close` pro více informací.",
 					"title": "❌ Toto není kanál tiketu"
 				},
 				"no_tickets": {
-					"description": "There are no tickets which have been inactive for this time period.",
-					"title": "❌ No tickets to close"
+					"description": "Nejsou zde žádné tikety, které byly aktivní po zadané časově rozmezí.",
+					"title": "❌ Žádné tikety k uzavření"
 				},
 				"unresolvable": {
-					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+					"description": "`%s` nebyl rozpoznán jako tiket. Zadejte prosím ID nebo číslo tiketu nebo jej označte.",
 					"title": "❌ Chyba"
 				}
 			}
 		},
 		"help": {
 			"aliases": {
-				"command": "command",
-				"commands": "commands"
+				"command": "příkaz",
+				"commands": "příkazy"
 			},
 			"args": {
 				"command": {
-					"description": "The command to display information about",
+					"description": "Příkaz, o němž zobrazit informace",
 					"example": "new",
-					"name": "command"
+					"name": "příkaz"
 				}
 			},
 			"description": "List commands you have access to, or find out more about a command",
