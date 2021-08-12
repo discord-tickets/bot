@@ -7,7 +7,7 @@
 
 <br>
 
-![Discord Tickets](https://ik.imagekit.io/eartharoid/discord-tickets/wordmark/gradient_HTC7nqZr9.png)
+![Discord Tickets](https://img.eartharoid.me/unsafe/https://static.eartharoid.me/discord-tickets/logo/wordmark/gradient.png)
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
 
@@ -65,7 +65,7 @@ You will find most of information you need at [discordtickets.app](https://disco
 
 If the [documentation](https://discordtickets.app) leaves you with questions, you can ask for help in the [discussions](https://github.com/discord-tickets/bot/discussions/categories/support-q-a) or join the support server on Discord.
 
-[![Discord](https://discordapp.com/api/guilds/451745464480432129/widget.png?style=banner4)](https://go.eartharoid.me/discord)
+[![Join the Discord server](https://img.eartharoid.me/unsafe/440x200/https://static.eartharoid.me/images/join-discord.png)](https://go.eartharoid.me/discord)
 
 ## Contributing
 
