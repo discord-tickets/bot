@@ -25,34 +25,34 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to add to the ticket",
-					"example": "@someone",
-					"name": "member"
+					"description": "Člen k přidání do tiketu",
+					"example": "@někdo",
+					"name": "člen"
 				},
 				"ticket": {
-					"description": "The ticket to add the member to",
+					"description": "Tiket, do kterého přidat člena",
 					"example": "217",
-					"name": "ticket"
+					"name": "tiket"
 				}
 			},
-			"description": "Add a member to a ticket",
-			"name": "add",
+			"description": "Přidat člena do tiketu",
+			"name": "pridat",
 			"response": {
 				"added": {
-					"description": "%s has been added to %s.",
-					"title": "✅ Member added"
+					"description": "%s byl přidán do %s.",
+					"title": "✅ Člen přidán"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to add.",
-					"title": "❌ Unknown member"
+					"description": "Označte prosím člena, kterého chcete přidat.",
+					"title": "❌ Neznámý člen"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "Nejste tvůrcem tohoto tiketu a nejste ani člen týmu, nemůžete do tohoto tiketu přidávat členy.",
+					"title": "❌ Nedostatečná oprávnění"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
+					"title": "❌ Toto není kanál tiketu"
 				}
 			}
 		},
@@ -62,7 +62,7 @@
 			},
 			"args": {
 				"member_or_role": {
-					"description": "The member or role to add/remove",
+					"description": "Člen nebo role j přidání/odebrání",
 					"example": "@NeposlušnýUživatel",
 					"name": "uživatelNeboRole"
 				}
@@ -101,90 +101,90 @@
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete",
-				"lock": "lock"
+				"delete": "odstranit",
+				"lock": "uzamknout"
 			},
 			"args": {
 				"reason": {
-					"alias": "r",
-					"description": "The reason for closing the ticket(s)",
+					"alias": "d",
+					"description": "Důvod k uzavření tiketu",
 					"example": "",
-					"name": "reason"
+					"name": "duvod"
 				},
 				"ticket": {
 					"alias": "t",
-					"description": "The ticket to close, either the number or the channel mention/ID",
+					"description": "Tiket k uzavření, buď číslo nebo zmínka/ID kanálu",
 					"example": "217",
-					"name": "ticket"
+					"name": "tiket"
 				},
 				"time": {
-					"alias": "T",
-					"description": "Close all tickets that have been inactive for the specified time",
+					"alias": "c",
+					"description": "Zavřít všechny tikety, které byly neaktivní po určitou dobu",
 					"example": "1w",
-					"name": "time"
+					"name": "cas"
 				}
 			},
 			"description": "Uzavře kanál s ticketem",
-			"name": "close",
+			"name": "zavrit",
 			"response": {
 				"closed": {
-					"description": "Ticket #%s has been closed.",
+					"description": "Tiket #%s byl uzavřen.",
 					"title": "✅ Ticket uzavřen"
 				},
 				"closed_multiple": {
 					"description": [
-						"%d ticket has been closed.",
-						"%d tickets have been closed."
+						"%d tiket byl uzavřen.",
+						"%d tiketů bylo uzavřeno."
 					],
 					"title": [
 						"✅ Ticket uzavřen",
-						"✅ Tickets closed"
+						"✅ Tikety uzavřeny"
 					]
 				},
 				"confirm": {
-					"description": "React with ✅ to close this ticket.",
-					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-					"title": "❔ Are you sure?"
+					"description": "Zareagujte pomocí ✅ k uzavření tohoto tiketu.",
+					"description_with_archive": "Později si budete moci zobrazit archivovanou verzi.\nZareagujte pomocí ✅ pro uzavření tohoto tiketu.",
+					"title": "❔ Jste si jistí?"
 				},
 				"confirmation_timeout": {
-					"description": "You took too long to confirm.",
+					"description": "Potvrzení vám trvalo příliš dlouho.",
 					"title": "❌ Doba pro reakci vypršela"
 				},
 				"confirm_multiple": {
 					"description": [
-						"React with ✅ to close %d ticket.",
-						"React with ✅ to close %d tickets."
+						"Zareagujte pomocí ✅ pro uzavření %d tiketu.",
+						"Zareagujte pomocí ✅ pro uzavření %d tiketů."
 					],
-					"title": "❔ Are you sure?"
+					"title": "❔ Jste si jistí?"
 				},
 				"invalid_time": {
-					"description": "The time period provided could not be parsed.",
+					"description": "Zadaný čas nebyl rozpoznán.",
 					"title": "❌ Neplatný vstup"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Tento příkaz prosím použijte v kanálu tiketu nebo použijte vlajku tiketu.\nZadejte `%shelp close` pro více informací.",
+					"title": "❌ Toto není kanál tiketu"
 				},
 				"no_tickets": {
-					"description": "There are no tickets which have been inactive for this time period.",
-					"title": "❌ No tickets to close"
+					"description": "Nejsou zde žádné tikety, které byly aktivní po zadané časově rozmezí.",
+					"title": "❌ Žádné tikety k uzavření"
 				},
 				"unresolvable": {
-					"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+					"description": "`%s` nebyl rozpoznán jako tiket. Zadejte prosím ID nebo číslo tiketu nebo jej označte.",
 					"title": "❌ Chyba"
 				}
 			}
 		},
 		"help": {
 			"aliases": {
-				"command": "command",
-				"commands": "commands"
+				"command": "příkaz",
+				"commands": "příkazy"
 			},
 			"args": {
 				"command": {
-					"description": "The command to display information about",
+					"description": "Příkaz, o němž zobrazit informace",
 					"example": "new",
-					"name": "command"
+					"name": "příkaz"
 				}
 			},
 			"description": "List commands you have access to, or find out more about a command",
@@ -203,7 +203,7 @@
 			"aliases": {
 				"create": "create",
 				"open": "open",
-				"ticket": "ticket"
+				"ticket": "tiket"
 			},
 			"args": {
 				"topic": {
@@ -294,13 +294,13 @@
 			"args": {
 				"member": {
 					"description": "The member to remove from the ticket",
-					"example": "@someone",
-					"name": "member"
+					"example": "@někdo",
+					"name": "člen"
 				},
 				"ticket": {
 					"description": "The ticket to remove the member from",
 					"example": "217",
-					"name": "ticket"
+					"name": "tiket"
 				}
 			},
 			"description": "Remove a member from a ticket",
@@ -312,15 +312,15 @@
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unknown member"
+					"title": "❌ Neznámý člen"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-					"title": "❌ Insufficient permission"
+					"title": "❌ Nedostatečná oprávnění"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
+					"title": "❌ Toto není kanál tiketu"
 				}
 			}
 		},
@@ -332,7 +332,7 @@
 			"name": "settings",
 			"response": {
 				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
-				"updated": "✅ Nastavení bylo aktualizováno."
+				"updated": "✅ Nastavení byla aktualizována."
 			}
 		},
 		"stats": {
@@ -401,7 +401,7 @@
 				"missing": "This tag requires the following arguments:\n%s",
 				"not_a_ticket": {
 					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Toto není kanál tiketu"
 				}
 			}
 		},
@@ -423,7 +423,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel you want to change the topic of.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ Toto není kanál tiketu"
 				}
 			}
 		}

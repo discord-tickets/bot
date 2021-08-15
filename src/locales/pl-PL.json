@@ -1,58 +1,58 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets erfordert die folgenden Berechtigungen: %s",
+			"description": "DiscordTickets potrzebuje tych uprawnień:\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Beschreibung:** %s",
-			"example": "**Beispiel:** '%s'"
+			"description": "**Opis:** %s",
+			"example": "**Przykład:** '%s'"
 		},
 		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Ungültiger Syntax"
+			"description": "W komendzie występuje błąd: '%s'.\nWpisz przykładowo '%s'.\nZapytaj administratora, jeżeli nie jesteś pewien.",
+			"title": "❌ Niepoprawna komenda"
 		},
-		"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n",
-		"title": "`%s` Benutzung"
+		"named_args": "To polecenie używa nazwanych argumentów.\n\n",
+		"title": "'%s' użycie komendy"
 	},
-	"collector_expires_in": "Läuft in %d Sekunden ab",
+	"collector_expires_in": "Wygasa w ciągu %d sekund",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "Der User, der zum Tickt hinzugefügt werden soll",
+					"description": "Użytkownik został dodany do ticketu",
 					"example": "@someone",
-					"name": "Mitglied"
+					"name": "użytkownik"
 				},
 				"ticket": {
-					"description": "Das Ticket, dem der User hinzugefügt werden soll",
+					"description": "The ticket to add the member to",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
-			"description": "Füge einen User zum Ticket hinzu",
-			"name": "hinzufügen",
+			"description": "Dodaj użytkownika do ticketu",
+			"name": "dodaj",
 			"response": {
 				"added": {
-					"description": "%s wurde zu %s hinzugefügt.",
-					"title": "✅ User hinzugefügt"
+					"description": "%s został dodany do %s.",
+					"title": "✅ Użytkownik dodany"
 				},
 				"no_member": {
-					"description": "Bitte erwähnen sie den User, den sie hinzufügen möchten.",
-					"title": "❌ Unbekannter User"
+					"description": "Wspomnij o osobie, którą chcesz dodać.",
+					"title": "❌ Nieznany użytkownik"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "Nie jesteś twórca tego ticketum, ani nie jesteś administratorem. Nie możesz dodać osób do tego ticketu.",
+					"title": "❌ Niewystarczające uprawnienia"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Użyj tej komendy na kanale ticketu lub wspomnij o kanale.",
+					"title": "❌ To nie jest kanał ticketu"
 				}
 			}
 		},
@@ -62,60 +62,60 @@
 			},
 			"args": {
 				"member_or_role": {
-					"description": "The member or role to add/remove",
+					"description": "Osoba albo rola do dodania/usunięcia",
 					"example": "@NaughtyMember",
-					"name": "memberOrRole"
+					"name": "osobaLubRola"
 				}
 			},
-			"description": "Blacklist/unblacklist a member from interacting with the bot",
+			"description": "Zblacklistuj/odblacklistuj osobę z interakcji z botem",
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
-					"title": "📃 Blacklisted members and roles"
+					"description": "Nie ma żadnych osób i roli, które są zblacklistowane. Wpisz `%sblacklist <memberOrRole>`, aby dodać osobę lub role do blacklisty.",
+					"title": "📃 osoby i role, które są zblacklistowane"
 				},
 				"illegal_action": {
-					"description": "%s is a staff member and cannot be blacklisted.",
-					"title": "❌ You can't blacklist this member"
+					"description": "%s jest administratorem i nie może zostać zblacklistowany.",
+					"title": "❌ Nie możesz zblacklistować tej osoby"
 				},
 				"list": {
-					"title": "📃 Blacklisted members and roles"
+					"title": "📃 osoby i role, które są zblacklistowane"
 				},
 				"member_added": {
-					"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot.",
-					"title": "✅ Added member to blacklist"
+					"description": "<@%s> została dodana do czarnej listy. Nie będą już mogli wchodzić w interakcje z botem.",
+					"title": "✅ Dodano osobę do czarnej listy"
 				},
 				"member_removed": {
-					"description": "<@%s> has been removed from the blacklist. They can now use the bot again.",
-					"title": "✅ Removed member from blacklist"
+					"description": "<@%s> został usunięty z czarnej listy. Teraz mogą ponownie użyć bota.",
+					"title": "✅ Osoba została usunięta z blacklisty"
 				},
 				"role_added": {
-					"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot.",
-					"title": "✅ Added role to blacklist"
+					"description": "<@&%s> została dodana do blacklisty. Osoby z tej roli nie będą już mogli wchodzić w interakcje z botem.",
+					"title": "✅ Dodano rolę do blacklisty"
 				},
 				"role_removed": {
-					"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again.",
-					"title": "✅ Removed role from blacklist"
+					"description": "<@&%s> został usunięty z blacklisty. Osoby z tej roli mogą teraz użyć bota ponownie.",
+					"title": "✅ Usunięto rolę z blacklisty"
 				}
 			}
 		},
 		"close": {
 			"aliases": {
-				"delete": "delete",
-				"lock": "lock"
+				"delete": "usun",
+				"lock": "zamknij"
 			},
 			"args": {
 				"reason": {
 					"alias": "r",
-					"description": "The reason for closing the ticket(s)",
+					"description": "Powód zamknięcia ticketu(-ów)",
 					"example": "",
-					"name": "reason"
+					"name": "powód"
 				},
 				"ticket": {
 					"alias": "t",
 					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				},
 				"time": {
 					"alias": "T",
@@ -163,7 +163,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ To nie jest kanał ticketu"
 				},
 				"no_tickets": {
 					"description": "There are no tickets which have been inactive for this time period.",
@@ -203,7 +203,7 @@
 			"aliases": {
 				"create": "create",
 				"open": "open",
-				"ticket": "Ticket"
+				"ticket": "ticket"
 			},
 			"args": {
 				"topic": {
@@ -223,29 +223,29 @@
 					"title": "❌ Error"
 				},
 				"has_a_ticket": {
-					"description": "Please use your existing ticket (<#%s>) or close it before creating another.",
-					"title": "❌ You already have an open ticket"
+					"description": "Użyj istniejącego ticketu <#(%s>) lub zamknij go przed utworzeniem innego.",
+					"title": "❌ Masz już otwarty ticket"
 				},
 				"max_tickets": {
-					"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s",
-					"title": "❌ You already have %d open tickets"
+					"description": "Użyj `%sclose`, aby zamknąć niepotrzebne tickety.\n\n%s",
+					"title": "❌ Masz już %d otwartych ticketów"
 				},
 				"no_categories": {
-					"description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
-					"title": "❌ Can't create ticket"
+					"description": "Administrator serwera musi utworzyć co najmniej jedną kategorię ticketu przed otwarciem nowego.",
+					"title": "❌ Nie można stworzyć ticketu"
 				},
 				"select_category": {
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s",
-					"title": "🔤 Please select the ticket category"
+					"description": "Wybierz kategorię najbardziej odpowiednią dla tematu ticketu:\n\n%s",
+					"title": "🔤 Proszę wybrać kategorię ticketu"
 				},
 				"select_category_timeout": {
-					"description": "You took too long to select the ticket category.",
+					"description": "Wybór kategorii ticketu trwał zbyt długo.",
 					"title": "❌ Reaction time expired"
 				}
 			},
 			"request_topic": {
-				"description": "Please briefly state what this ticket is about in a a few words.",
-				"title": "Ticket topic"
+				"description": "Proszę krótko opisać ten ticket.",
+				"title": "Temat ticketu"
 			}
 		},
 		"panel": {
@@ -253,38 +253,38 @@
 			"args": {
 				"categories": {
 					"alias": "c",
-					"description": "A category ID",
+					"description": "ID kategorii",
 					"example": "451745464954650634",
-					"name": "categories"
+					"name": "kategorie"
 				},
 				"description": {
 					"alias": "d",
-					"description": "The description for the panel message",
-					"example": "\"React to this message to open a ticket.\"",
-					"name": "description"
+					"description": "Opis wiadomości panelu",
+					"example": "\"Zareaguj na tę wiadomość, aby otworzyć ticket\"",
+					"name": "opis"
 				},
 				"emoji": {
 					"alias": "e",
-					"description": "An emoji",
+					"description": "emoji",
 					"example": "🎫",
 					"name": "emoji"
 				},
 				"title": {
 					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"description": "Tytuł wiadomości panelu",
+					"example": "\"Tickety wsparcia\"",
+					"name": "tytuł"
 				}
 			},
-			"description": "Create a new ticket panel",
+			"description": "Tworzenie nowego panelu ticketów",
 			"name": "panel",
 			"response": {
 				"invalid_category": {
-					"description": "One or more of the specified category IDs is invalid.",
-					"title": "❌ Invalid category"
+					"description": "Co najmniej jeden z określonych ID kategorii jest nieprawidłowy.",
+					"title": "❌ Nieprawidłowa kategoria"
 				},
 				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
+					"description": "Podaj nazwę emoji i ID kategorii.",
 					"title": "❌ Invalid input"
 				}
 			}
@@ -293,34 +293,34 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "Osoba, do usunięcia z ticketu",
 					"example": "@someone",
-					"name": "Mitglied"
+					"name": "użytkownik"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "Ticket do usunięcia osoby z",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "Usuń osobę z ticketu",
+			"name": "usuń",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s został usunięty z %s.",
+					"title": "✅ osoba usunięta"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unbekannter User"
+					"description": "Proszę wspomnieć o osobie, którą chcesz usunąć.",
+					"title": "❌ Nieznany użytkownik"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-					"title": "❌ Insufficient permission"
+					"description": "Nie jesteś twórcą tego biletu i nie jesteś administratorem; nie można usunąć osób z tego ticketu.",
+					"title": "❌ Niewystarczające uprawnienia"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel, or mention the channel.",
-					"title": "❌ This isn't a ticket channel"
+					"description": "Użyj tej komendy na kanale ticketu lub wspomnij o kanale.",
+					"title": "❌ To nie jest kanał ticketu"
 				}
 			}
 		},
@@ -401,7 +401,7 @@
 				"missing": "This tag requires the following arguments:\n%s",
 				"not_a_ticket": {
 					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ To nie jest kanał ticketu"
 				}
 			}
 		},
@@ -423,7 +423,7 @@
 				},
 				"not_a_ticket": {
 					"description": "Please use this command in the ticket channel you want to change the topic of.",
-					"title": "❌ This isn't a ticket channel"
+					"title": "❌ To nie jest kanał ticketu"
 				}
 			}
 		}

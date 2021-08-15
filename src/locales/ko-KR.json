@@ -1,50 +1,50 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets erfordert die folgenden Berechtigungen: %s",
+			"description": "디스코드 티켓은 해당 권한이 필요합니다:\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
+		"version": "[디스코드 티켓](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
-			"description": "**Beschreibung:** %s",
-			"example": "**Beispiel:** '%s'"
+			"description": "**설명.**%s",
+			"example": "**예시.**%s"
 		},
-		"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
+		"description": "**사용:**\n`%s`\n\n**예시:**\n`%s`\n\n명령어를 사용하실때, 앞에 `❗`를 붙여주세요.",
 		"invalid_named_args": {
-			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-			"title": "❌ Ungültiger Syntax"
+			"description": "명령어에 `%s`라는 오류가 있습니다.\n`%s` 를 입력해보세요.\n확실하지 않다면, 관리자에게 문의 바랍니다.",
+			"title": "❌ 잘못된 구문"
 		},
-		"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n",
-		"title": "`%s` Benutzung"
+		"named_args": "이 명령어는 지정된 인수를 사용합니다.\n\n",
+		"title": "'%s' 명령어 사용"
 	},
-	"collector_expires_in": "Läuft in %d Sekunden ab",
+	"collector_expires_in": "%d 초 안에 만료됨",
 	"commands": {
 		"add": {
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "Der User, der zum Tickt hinzugefügt werden soll",
+					"description": "티켓에 추가할 멤버",
 					"example": "@someone",
-					"name": "Mitglied"
+					"name": "member"
 				},
 				"ticket": {
-					"description": "Das Ticket, dem der User hinzugefügt werden soll",
+					"description": "The ticket to add the member to",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
-			"description": "Füge einen User zum Ticket hinzu",
-			"name": "hinzufügen",
+			"description": "Add a member to a ticket",
+			"name": "add",
 			"response": {
 				"added": {
-					"description": "%s wurde zu %s hinzugefügt.",
-					"title": "✅ User hinzugefügt"
+					"description": "%s has been added to %s.",
+					"title": "✅ Member added"
 				},
 				"no_member": {
-					"description": "Bitte erwähnen sie den User, den sie hinzufügen möchten.",
-					"title": "❌ Unbekannter User"
+					"description": "Please mention the member you want to add.",
+					"title": "❌ Unknown member"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
@@ -115,7 +115,7 @@
 					"alias": "t",
 					"description": "The ticket to close, either the number or the channel mention/ID",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				},
 				"time": {
 					"alias": "T",
@@ -203,7 +203,7 @@
 			"aliases": {
 				"create": "create",
 				"open": "open",
-				"ticket": "Ticket"
+				"ticket": "ticket"
 			},
 			"args": {
 				"topic": {
@@ -295,12 +295,12 @@
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@someone",
-					"name": "Mitglied"
+					"name": "member"
 				},
 				"ticket": {
 					"description": "The ticket to remove the member from",
 					"example": "217",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
 			"description": "Remove a member from a ticket",
@@ -312,7 +312,7 @@
 				},
 				"no_member": {
 					"description": "Please mention the member you want to remove.",
-					"title": "❌ Unbekannter User"
+					"title": "❌ Unknown member"
 				},
 				"no_permission": {
 					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
