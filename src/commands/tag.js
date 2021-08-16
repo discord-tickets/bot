@@ -53,11 +53,13 @@ module.exports = class TagCommand extends Command {
 
 			if (requires_ticket && !t_row) {
 				return await message.channel.send({
-					embeds: [new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.tag.response.not_a_ticket.title'))
-						.setDescription(i18n('commands.tag.response.not_a_ticket.description'))
-						.setFooter(settings.footer, message.guild.iconURL())]
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.tag.response.not_a_ticket.title'))
+							.setDescription(i18n('commands.tag.response.not_a_ticket.description'))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
 				});
 			}
 
@@ -73,11 +75,13 @@ module.exports = class TagCommand extends Command {
 					args = parseArgs(expected, { argv: argv(args) });
 				} catch (error) {
 					return await message.channel.send({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setTitle(i18n('commands.tag.response.error'))
-							.setDescription(`\`\`\`${error.message}\`\`\``)
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setTitle(i18n('commands.tag.response.error'))
+								.setDescription(`\`\`\`${error.message}\`\`\``)
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 				}
 			} else {
@@ -88,11 +92,13 @@ module.exports = class TagCommand extends Command {
 				if (!args[p.name]) {
 					const list = expected.map(p => `\`${p.name}\``);
 					return await message.channel.send({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setTitle(i18n('commands.tag.response.error'))
-							.setDescription(i18n('commands.tag.response.missing', list.join(', ')))
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setTitle(i18n('commands.tag.response.error'))
+								.setDescription(i18n('commands.tag.response.missing', list.join(', ')))
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 				}
 			}
@@ -105,18 +111,22 @@ module.exports = class TagCommand extends Command {
 			// note that this regex is slightly different to the other
 			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, (_$, $1) => this.client.i18n.resolve(args, $1));
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setDescription(text)]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setDescription(text)
+				]
 			});
 		} else {
 			const list = Object.keys(settings.tags).map(t => `❯ **\`${t}\`**`);
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.tag.response.list.title'))
-					.setDescription(list.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.tag.response.list.title'))
+						.setDescription(list.join('\n'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 

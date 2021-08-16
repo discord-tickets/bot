@@ -86,19 +86,23 @@ module.exports = class CloseCommand extends Command {
 
 			if (tickets.count === 0) {
 				return await message.channel.send({
-					embeds: [new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.close.response.no_tickets.title'))
-						.setDescription(i18n('commands.close.response.no_tickets.description'))
-						.setFooter(settings.footer, message.guild.iconURL())]
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.close.response.no_tickets.title'))
+							.setDescription(i18n('commands.close.response.no_tickets.description'))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
 				});
 			} else {
 				const collector_message = await message.channel.send({
-					embeds: [new MessageEmbed()
-						.setColor(settings.colour)
-						.setTitle(i18n('commands.close.response.confirm_multiple.title'))
-						.setDescription(i18n('commands.close.response.confirm_multiple.description', tickets.count, tickets.count))
-						.setFooter(settings.footer, message.guild.iconURL())]
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setTitle(i18n('commands.close.response.confirm_multiple.title'))
+							.setDescription(i18n('commands.close.response.confirm_multiple.description', tickets.count, tickets.count))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
 				});
 
 				await collector_message.react('✅');
@@ -111,11 +115,13 @@ module.exports = class CloseCommand extends Command {
 					await collector_message.reactions.removeAll();
 
 					await message.channel.send({
-						embeds: [new MessageEmbed()
-							.setColor(settings.success_colour)
-							.setTitle(i18n('commands.close.response.closed_multiple.title', tickets.count, tickets.count))
-							.setDescription(i18n('commands.close.response.closed_multiple.description', tickets.count, tickets.count))
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setTitle(i18n('commands.close.response.closed_multiple.title', tickets.count, tickets.count))
+								.setDescription(i18n('commands.close.response.closed_multiple.description', tickets.count, tickets.count))
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 
 					for (const ticket of tickets.rows) {
@@ -128,12 +134,14 @@ module.exports = class CloseCommand extends Command {
 					if (collected.size === 0) {
 						await collector_message.reactions.removeAll();
 						await collector_message.edit({
-							embeds: [new MessageEmbed()
-								.setColor(settings.error_colour)
-								.setAuthor(message.author.username, message.author.displayAvatarURL())
-								.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
-								.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.error_colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
+									.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
+									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							]
 						});
 						setTimeout(async () => {
 							await collector_message
@@ -155,11 +163,13 @@ module.exports = class CloseCommand extends Command {
 
 				if (!t_row) {
 					return await message.channel.send({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setTitle(i18n('commands.close.response.unresolvable.title'))
-							.setDescription(i18n('commands.close.response.unresolvable.description', args[arg_ticket]))
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setTitle(i18n('commands.close.response.unresolvable.title'))
+								.setDescription(i18n('commands.close.response.unresolvable.description', args[arg_ticket]))
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 				}
 			} else {
@@ -167,21 +177,25 @@ module.exports = class CloseCommand extends Command {
 
 				if (!t_row) {
 					return await message.channel.send({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setTitle(i18n('commands.close.response.not_a_ticket.title'))
-							.setDescription(i18n('commands.close.response.not_a_ticket.description', settings.command_prefix))
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setTitle(i18n('commands.close.response.not_a_ticket.title'))
+								.setDescription(i18n('commands.close.response.not_a_ticket.description', settings.command_prefix))
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 				}
 			}
 
 			const collector_message = await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.close.response.confirm.title'))
-					.setDescription(i18n('commands.close.response.confirm.description', t_row.number))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.close.response.confirm.title'))
+						.setDescription(i18n('commands.close.response.confirm.description', t_row.number))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 
 			await collector_message.react('✅');
@@ -198,11 +212,13 @@ module.exports = class CloseCommand extends Command {
 				} else {
 					await collector_message.reactions.removeAll();
 					await collector_message.edit({
-						embeds: [new MessageEmbed()
-							.setColor(settings.success_colour)
-							.setTitle(i18n('commands.close.response.closed.title'))
-							.setDescription(i18n('commands.close.response.closed.description', t_row.number))
-							.setFooter(settings.footer, message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setTitle(i18n('commands.close.response.closed.title'))
+								.setDescription(i18n('commands.close.response.closed.description', t_row.number))
+								.setFooter(settings.footer, message.guild.iconURL())
+						]
 					});
 				}
 
@@ -213,12 +229,14 @@ module.exports = class CloseCommand extends Command {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
 					await collector_message.edit({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
-							.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
+								.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+						]
 					});
 					setTimeout(async () => {
 						await collector_message

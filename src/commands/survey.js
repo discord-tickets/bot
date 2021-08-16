@@ -91,11 +91,13 @@ module.exports = class SurveyCommand extends Command {
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.survey.response.list.title'))
-					.setDescription(list.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.survey.response.list.title'))
+						.setDescription(list.join('\n'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 	}

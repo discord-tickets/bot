@@ -54,12 +54,14 @@ module.exports = class HelpCommand extends Command {
 				return `**\`${settings.command_prefix}${command.name}\` ·** ${description}`;
 			});
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.help.response.list.title'))
-					.setDescription(i18n('commands.help.response.list.description', { prefix: settings.command_prefix }))
-					.addField(i18n('commands.help.response.list.fields.commands'), list.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.help.response.list.title'))
+						.setDescription(i18n('commands.help.response.list.description', { prefix: settings.command_prefix }))
+						.addField(i18n('commands.help.response.list.fields.commands'), list.join('\n'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 	}

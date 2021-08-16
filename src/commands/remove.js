@@ -44,11 +44,13 @@ module.exports = class RemoveCommand extends Command {
 
 		if (!t_row) {
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.not_a_ticket.title'))
-					.setDescription(i18n('commands.remove.response.not_a_ticket.description'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.not_a_ticket.title'))
+						.setDescription(i18n('commands.remove.response.not_a_ticket.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 
@@ -56,42 +58,50 @@ module.exports = class RemoveCommand extends Command {
 
 		if (!member) {
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.no_member.title'))
-					.setDescription(i18n('commands.remove.response.no_member.description'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.no_member.title'))
+						.setDescription(i18n('commands.remove.response.no_member.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 
 		if (t_row.creator !== message.author.id && !await this.client.utils.isStaff(message.member)) {
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.no_permission.title'))
-					.setDescription(i18n('commands.remove.response.no_permission.description'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.no_permission.title'))
+						.setDescription(i18n('commands.remove.response.no_permission.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 
 		if (message.channel.id !== ticket.id) {
 			await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.success_colour)
-					.setAuthor(member.user.username, member.user.displayAvatarURL())
-					.setTitle(i18n('commands.remove.response.removed.title'))
-					.setDescription(i18n('commands.remove.response.removed.description', member.toString(), ticket.toString()))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.success_colour)
+						.setAuthor(member.user.username, member.user.displayAvatarURL())
+						.setTitle(i18n('commands.remove.response.removed.title'))
+						.setDescription(i18n('commands.remove.response.removed.description', member.toString(), ticket.toString()))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 
 		await ticket.send({
-			embeds: [new MessageEmbed()
-				.setColor(settings.colour)
-				.setAuthor(member.user.username, member.user.displayAvatarURL())
-				.setTitle(i18n('ticket.member_removed.title'))
-				.setDescription(i18n('ticket.member_removed.description', member.toString(), message.author.toString()))
-				.setFooter(settings.footer, message.guild.iconURL())]
+			embeds: [
+				new MessageEmbed()
+					.setColor(settings.colour)
+					.setAuthor(member.user.username, member.user.displayAvatarURL())
+					.setTitle(i18n('ticket.member_removed.title'))
+					.setDescription(i18n('ticket.member_removed.description', member.toString(), message.author.toString()))
+					.setFooter(settings.footer, message.guild.iconURL())
+			]
 		});
 
 		await ticket.permissionOverwrites

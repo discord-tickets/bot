@@ -57,12 +57,14 @@ module.exports = class NewCommand extends Command {
 				if (cat_row.max_per_member === 1) {
 					response = await editOrSend(response,
 						{
-							embeds: [new MessageEmbed()
-								.setColor(settings.error_colour)
-								.setAuthor(message.author.username, message.author.displayAvatarURL())
-								.setTitle(i18n('commands.new.response.has_a_ticket.title'))
-								.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.error_colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(i18n('commands.new.response.has_a_ticket.title'))
+									.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
+									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							]
 						}
 					);
 				} else {
@@ -77,12 +79,14 @@ module.exports = class NewCommand extends Command {
 					});
 					response = await editOrSend(response,
 						{
-							embeds: [new MessageEmbed()
-								.setColor(settings.error_colour)
-								.setAuthor(message.author.username, message.author.displayAvatarURL())
-								.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
-								.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.error_colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
+									.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							]
 						}
 					);
 				}
@@ -91,23 +95,27 @@ module.exports = class NewCommand extends Command {
 					const t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, args);
 					response = await editOrSend(response,
 						{
-							embeds: [new MessageEmbed()
-								.setColor(settings.success_colour)
-								.setAuthor(message.author.username, message.author.displayAvatarURL())
-								.setTitle(i18n('commands.new.response.created.title'))
-								.setDescription(i18n('commands.new.response.created.description', `<#${t_row.id}>`))
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.success_colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(i18n('commands.new.response.created.title'))
+									.setDescription(i18n('commands.new.response.created.description', `<#${t_row.id}>`))
+									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							]
 						}
 					);
 				} catch (error) {
 					response = await editOrSend(response,
 						{
-							embeds: [new MessageEmbed()
-								.setColor(settings.error_colour)
-								.setAuthor(message.author.username, message.author.displayAvatarURL())
-								.setTitle(i18n('commands.new.response.error.title'))
-								.setDescription(error.message)
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.error_colour)
+									.setAuthor(message.author.username, message.author.displayAvatarURL())
+									.setTitle(i18n('commands.new.response.error.title'))
+									.setDescription(error.message)
+									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							]
 						}
 					);
 				}
@@ -127,12 +135,14 @@ module.exports = class NewCommand extends Command {
 
 		if (categories.count === 0) {
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(i18n('commands.new.response.no_categories.title'))
-					.setDescription(i18n('commands.new.response.no_categories.description'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(i18n('commands.new.response.no_categories.title'))
+						.setDescription(i18n('commands.new.response.no_categories.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		} else if (categories.count === 1) {
 			create(categories.rows[0]); // skip the category selection
@@ -140,12 +150,14 @@ module.exports = class NewCommand extends Command {
 			const letters_array = Object.values(letters); // convert the A-Z emoji object to an array
 			const category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`); // list category names with an A-Z emoji
 			const collector_message = await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.colour)
-					.setAuthor(message.author.username, message.author.displayAvatarURL())
-					.setTitle(i18n('commands.new.response.select_category.title'))
-					.setDescription(i18n('commands.new.response.select_category.description', category_list.join('\n')))
-					.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setAuthor(message.author.username, message.author.displayAvatarURL())
+						.setTitle(i18n('commands.new.response.select_category.title'))
+						.setDescription(i18n('commands.new.response.select_category.description', category_list.join('\n')))
+						.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())
+				]
 			});
 
 			for (const i in categories.rows) {
@@ -176,12 +188,14 @@ module.exports = class NewCommand extends Command {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
 					await collector_message.edit({
-						embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.new.response.select_category_timeout.title'))
-							.setDescription(i18n('commands.new.response.select_category_timeout.description'))
-							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.new.response.select_category_timeout.title'))
+								.setDescription(i18n('commands.new.response.select_category_timeout.description'))
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+						]
 					});
 					setTimeout(async () => {
 						await collector_message

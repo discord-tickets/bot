@@ -88,11 +88,13 @@ module.exports = class PanelCommand extends Command {
 
 		if (invalid_category) {
 			return await message.channel.send({
-				embeds: [new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.panel.response.invalid_category.title'))
-					.setDescription(i18n('commands.panel.response.invalid_category.description'))
-					.setFooter(settings.footer, message.guild.iconURL())]
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.panel.response.invalid_category.title'))
+						.setDescription(i18n('commands.panel.response.invalid_category.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
 			});
 		}
 
@@ -135,11 +137,13 @@ module.exports = class PanelCommand extends Command {
 			if (args[arg_categories].length !== args[arg_emoji].length) {
 				// send error
 				return await message.channel.send({
-					embeds: [new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.panel.response.mismatch.title'))
-						.setDescription(i18n('commands.panel.response.mismatch.description'))
-						.setFooter(settings.footer, message.guild.iconURL())]
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.panel.response.mismatch.title'))
+							.setDescription(i18n('commands.panel.response.mismatch.description'))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
 				});
 			} else {
 				panel_channel = await message.guild.channels.create('create-a-ticket', {
@@ -183,7 +187,11 @@ module.exports = class PanelCommand extends Command {
 					}
 
 					embed.setDescription(args[arg_description] + '\n' + description);
-					panel_message = await panel_channel.send({ embeds: [embed] });
+					panel_message = await panel_channel.send({
+						embeds: [
+							embed
+						]
+					});
 
 					for (const emoji of args[arg_emoji]) {
 						await panel_message.react(emoji);
