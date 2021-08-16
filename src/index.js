@@ -114,8 +114,13 @@ class Bot extends Client {
 				'MESSAGE',
 				'REACTION'
 			],
-			presence: selectPresence(),
-			ws: { intents: Intents.NON_PRIVILEGED }
+                        intents: [
+                                Intents.FLAGS.GUILDS,
+                                Intents.FLAGS.GUILD_MEMBERS,
+                                Intents.FLAGS.GUILD_MESSAGES,
+                                Intents.FLAGS.GUILD_MESSAGE_REACTIONS,,
+                        ],
+			presence: selectPresence()
 		});
 
 		(async () => {
