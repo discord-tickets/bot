@@ -12,7 +12,7 @@ specifiers:
   jsonschema: ^1.4.0
   keyv: ^4.0.3
   leeks.js: ^0.2.2
-  leekslazylogger-fastify: ^0.1.1
+  leekslazylogger: ^3.0.2
   mariadb: ^2.5.4
   mustache: ^4.2.0
   mysql2: ^2.3.0
@@ -39,7 +39,7 @@ dependencies:
   jsonschema: 1.4.0
   keyv: 4.0.3
   leeks.js: 0.2.2
-  leekslazylogger-fastify: 0.1.1
+  leekslazylogger: 3.0.2
   mustache: 4.2.0
   node-emoji: 1.11.0
   node-fetch: 2.6.1
@@ -1124,10 +1124,6 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /ee-first/1.1.1:
-    resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
-    dev: false
-
   /emoji-regex/7.0.3:
     resolution: {integrity: sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==}
 
@@ -1325,10 +1321,6 @@ packages:
   /fast-levenshtein/2.0.6:
     resolution: {integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=}
     dev: true
-
-  /fastify-plugin/3.0.0:
-    resolution: {integrity: sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==}
-    dev: false
 
   /figures/3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -2004,14 +1996,6 @@ packages:
     resolution: {integrity: sha512-cXbDc4a0ft0pQwN2ubagjsT1xKBeW0CP6pPmbUo+KvKynFwaqtGaBjdtpwkBO5NdwSw2OcJ89BYe9mjeZEfzQQ==}
     dev: false
 
-  /leekslazylogger-fastify/0.1.1:
-    resolution: {integrity: sha512-O/BFEYpsjCX3/6/GnhwajJ/CA/T9F4AwiRAPyN6y7ET0PgPfv+Q6uLktKiK/ZBcVH0f+VunSPdD0UyTXbzj7wQ==}
-    dependencies:
-      fastify-plugin: 3.0.0
-      leekslazylogger: 3.0.2
-      on-finished: 2.3.0
-    dev: false
-
   /leekslazylogger/3.0.2:
     resolution: {integrity: sha512-eXgQuEgoSIbtwJRQXy/DHFp1255C4br+x6CtOnrBb5j3GwmeARPMutPur1cMB5YonKBZxFXnvZLqQhr69qKg5A==}
     dependencies:
@@ -2437,13 +2421,6 @@ packages:
   /object-inspect/1.11.0:
     resolution: {integrity: sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==}
     dev: true
-
-  /on-finished/2.3.0:
-    resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      ee-first: 1.1.1
-    dev: false
 
   /once/1.4.0:
     resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}

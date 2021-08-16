@@ -2,7 +2,6 @@
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../../utils/discord');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -51,10 +50,10 @@ module.exports = class TicketManager extends EventEmitter {
 			parent: category_id,
 			reason: `${creator.user.tag} requested a new ticket channel`,
 			topic: `${creator}${topic.length > 0 ? ` | ${topic}` : ''}`,
-			type: 'text'
+			type: 'GUILD_TEXT'
 		});
 
-		t_channel.updateOverwrite(creator_id, {
+		t_channel.permissionOverwrites.edit(creator_id, {
 			ATTACH_FILES: true,
 			READ_MESSAGE_HISTORY: true,
 			SEND_MESSAGES: true,
@@ -71,7 +70,7 @@ module.exports = class TicketManager extends EventEmitter {
 		});
 
 		(async () => {
-			const settings = await guild.getSettings();
+			const settings = await this.client.utils.getSettings(guild);
 			const i18n = this.client.i18n.getLocale(settings.locale);
 
 			topic = t_row.topic
@@ -85,11 +84,11 @@ module.exports = class TicketManager extends EventEmitter {
 						? '@here'
 						: `<@&${id}>`);
 
-				await t_channel.send(mentions.join(', '));
+				await t_channel.send({ content: mentions.join(', ') });
 			}
 
 			if (cat_row.image) {
-				await t_channel.send(cat_row.image);
+				await t_channel.send({ content: cat_row.image });
 			}
 
 			const description = cat_row.opening_message
@@ -103,7 +102,10 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
-			const sent = await t_channel.send(creator.user.toString(), embed);
+			const sent = await t_channel.send({
+				content: creator.user.toString(),
+				embeds: [embed]
+			});
 			await sent.pin({ reason: 'Ticket opening message' });
 
 			await t_row.update({ opening_message: sent.id });
@@ -128,17 +130,21 @@ module.exports = class TicketManager extends EventEmitter {
 			}
 
 			if (cat_row.require_topic && topic.length === 0) {
-				const collector_message = await t_channel.send(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
-						.setDescription(i18n('commands.new.request_topic.description'))
-						.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
-				);
+				const collector_message = await t_channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
+							.setDescription(i18n('commands.new.request_topic.description'))
+							.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
+					]
+				});
 
-				const collector_filter = message => message.author.id === t_row.creator;
-
-				const collector = t_channel.createMessageCollector(collector_filter, { time: 120000 });
+				const filter = message => message.author.id === t_row.creator;
+				const collector = t_channel.createMessageCollector({
+					filter,
+					time: 120000
+				});
 
 				collector.on('collect', async message => {
 					topic = message.content;
@@ -161,22 +167,26 @@ module.exports = class TicketManager extends EventEmitter {
 						.delete()
 						.catch(() => this.client.log.warn('Failed to delete topic collector message'));
 					if (cat_row.opening_questions) {
-						await t_channel.send(
-							new MessageEmbed()
-								.setColor(settings.colour)
-								.setDescription(i18n('ticket.questions', questions))
-								.setFooter(settings.footer, guild.iconURL())
-						);
+						await t_channel.send({
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.colour)
+									.setDescription(i18n('ticket.questions', questions))
+									.setFooter(settings.footer, guild.iconURL())
+							]
+						});
 					}
 				});
 			} else {
 				if (cat_row.opening_questions) {
-					await t_channel.send(
-						new MessageEmbed()
-							.setColor(settings.colour)
-							.setDescription(i18n('ticket.questions', questions))
-							.setFooter(settings.footer, guild.iconURL())
-					);
+					await t_channel.send({
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.colour)
+								.setDescription(i18n('ticket.questions', questions))
+								.setFooter(settings.footer, guild.iconURL())
+						]
+					});
 				}
 			}
 		})();
@@ -203,7 +213,7 @@ module.exports = class TicketManager extends EventEmitter {
 		this.emit('beforeClose', ticket_id);
 
 		const guild = this.client.guilds.cache.get(t_row.guild);
-		const settings = await guild.getSettings();
+		const settings = await this.client.utils.getSettings(guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const channel = await this.client.channels.fetch(t_row.id);
 
@@ -224,14 +234,16 @@ module.exports = class TicketManager extends EventEmitter {
 				const description = reason
 					? i18n('ticket.closed_by_member_with_reason.description', closer.user.toString(), reason)
 					: i18n('ticket.closed_by_member.description', closer.user.toString());
-				await channel.send(
-					new MessageEmbed()
-						.setColor(settings.success_colour)
-						.setAuthor(closer.user.username, closer.user.displayAvatarURL())
-						.setTitle(i18n('ticket.closed.title'))
-						.setDescription(description)
-						.setFooter(settings.footer, guild.iconURL())
-				);
+				await channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.success_colour)
+							.setAuthor(closer.user.username, closer.user.displayAvatarURL())
+							.setTitle(i18n('ticket.closed.title'))
+							.setDescription(description)
+							.setFooter(settings.footer, guild.iconURL())
+					]
+				});
 
 				setTimeout(async () => {
 					await channel.delete(`Ticket channel closed by ${closer.user.tag}${reason ? `: "${reason}"` : ''}`);
@@ -242,13 +254,15 @@ module.exports = class TicketManager extends EventEmitter {
 				const description = reason
 					? i18n('ticket.closed_with_reason.description')
 					: i18n('ticket.closed.description');
-				await channel.send(
-					new MessageEmbed()
-						.setColor(settings.success_colour)
-						.setTitle(i18n('ticket.closed.title'))
-						.setDescription(description)
-						.setFooter(settings.footer, guild.iconURL())
-				);
+				await channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.success_colour)
+							.setTitle(i18n('ticket.closed.title'))
+							.setDescription(description)
+							.setFooter(settings.footer, guild.iconURL())
+					]
+				});
 
 				setTimeout(async () => {
 					await channel.delete(`Ticket channel closed${reason ? `: "${reason}"` : ''}`);
@@ -272,20 +286,25 @@ module.exports = class TicketManager extends EventEmitter {
 				});
 
 				if (survey) {
-					const r_collector_message = await channel.send(
-						creator.toString(),
-						new MessageEmbed()
-							.setColor(settings.colour)
-							.setTitle(i18n('ticket.survey.start.title'))
-							.setDescription(i18n('ticket.survey.start.description', creator.toString(), survey.questions.length))
-							.setFooter(i18n('collector_expires_in', 60))
-					);
+					const r_collector_message = await channel.send({
+						content: creator.toString(),
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.colour)
+								.setTitle(i18n('ticket.survey.start.title'))
+								.setDescription(i18n('ticket.survey.start.description', creator.toString(), survey.questions.length))
+								.setFooter(i18n('collector_expires_in', 60))
+						]
+					});
 
 					await r_collector_message.react('✅');
 
-					const collector_filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
+					const filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
 
-					const r_collector = r_collector_message.createReactionCollector(collector_filter, { time: 60000 });
+					const r_collector = r_collector_message.createReactionCollector({
+						filter,
+						time: 60000
+					});
 
 					r_collector.on('collect', async () => {
 						r_collector.stop();
@@ -293,17 +312,20 @@ module.exports = class TicketManager extends EventEmitter {
 						let answers = [];
 						let number = 1;
 						for (const question of survey.questions) {
-							await channel.send(
-								new MessageEmbed()
-									.setColor(settings.colour)
-									.setTitle(`${number++}/${survey.questions.length}`)
-									.setDescription(question)
-									.setFooter(i18n('collector_expires_in', 60))
-							);
+							await channel.send({
+								embeds: [
+									new MessageEmbed()
+										.setColor(settings.colour)
+										.setTitle(`${number++}/${survey.questions.length}`)
+										.setDescription(question)
+										.setFooter(i18n('collector_expires_in', 60))
+								]
+							});
 
 							try {
-								const collected = await channel.awaitMessages(filter, {
+								const collected = await channel.awaitMessages({
 									errors: ['time'],
+									filter,
 									max: 1,
 									time: 60000
 								});
@@ -313,13 +335,15 @@ module.exports = class TicketManager extends EventEmitter {
 							}
 						}
 
-						await channel.send(
-							new MessageEmbed()
-								.setColor(settings.success_colour)
-								.setTitle(i18n('ticket.survey.complete.title'))
-								.setDescription(i18n('ticket.survey.complete.description'))
-								.setFooter(settings.footer, guild.iconURL())
-						);
+						await channel.send({
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.success_colour)
+									.setTitle(i18n('ticket.survey.complete.title'))
+									.setDescription(i18n('ticket.survey.complete.description'))
+									.setFooter(settings.footer, guild.iconURL())
+							]
+						});
 
 						answers = answers.map(a => this.client.cryptr.encrypt(a));
 						await this.client.db.models.SurveyResponse.create({

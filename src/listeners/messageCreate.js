@@ -1,17 +1,16 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../utils/discord');
 
-module.exports = class MessageEventListener extends EventListener {
+module.exports = class MessageCreateEventListener extends EventListener {
 	constructor(client) {
-		super(client, { event: 'message' });
+		super(client, { event: 'messageCreate' });
 	}
 
 	async execute(message) {
 		if (!message.guild) return;
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
@@ -53,11 +52,11 @@ module.exports = class MessageEventListener extends EventListener {
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.has_a_ticket.title'))
 							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					} else {
 						const list = tickets.rows.map(row => {
@@ -74,11 +73,11 @@ module.exports = class MessageEventListener extends EventListener {
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
 							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.author.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.author.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					}
 				} else {
@@ -90,11 +89,11 @@ module.exports = class MessageEventListener extends EventListener {
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.error.title'))
 							.setDescription(error.message)
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					}
 				}

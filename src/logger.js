@@ -1,6 +1,6 @@
 const { path } = require('./utils/fs');
 const config = require('../user/config');
-const Logger = require('leekslazylogger-fastify');
+const Logger = require('leekslazylogger');
 module.exports = new Logger({
 	debug: config.debug,
 	directory: path('./logs/'),

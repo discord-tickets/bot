@@ -36,63 +36,73 @@ module.exports = class RemoveCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const ticket = message.mentions.channels.first() ?? message.channel;
 		const t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);
 
 		if (!t_row) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.not_a_ticket.title'))
-					.setDescription(i18n('commands.remove.response.not_a_ticket.description'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.not_a_ticket.title'))
+						.setDescription(i18n('commands.remove.response.not_a_ticket.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 
 		const member = message.mentions.members.first() ?? message.guild.members.cache.get(args);
 
 		if (!member) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.no_member.title'))
-					.setDescription(i18n('commands.remove.response.no_member.description'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.no_member.title'))
+						.setDescription(i18n('commands.remove.response.no_member.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 
-		if (t_row.creator !== message.author.id && !await message.member.isStaff()) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.remove.response.no_permission.title'))
-					.setDescription(i18n('commands.remove.response.no_permission.description'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+		if (t_row.creator !== message.author.id && !await this.client.utils.isStaff(message.member)) {
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.remove.response.no_permission.title'))
+						.setDescription(i18n('commands.remove.response.no_permission.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 
 		if (message.channel.id !== ticket.id) {
-			await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.success_colour)
-					.setAuthor(member.user.username, member.user.displayAvatarURL())
-					.setTitle(i18n('commands.remove.response.removed.title'))
-					.setDescription(i18n('commands.remove.response.removed.description', member.toString(), ticket.toString()))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.success_colour)
+						.setAuthor(member.user.username, member.user.displayAvatarURL())
+						.setTitle(i18n('commands.remove.response.removed.title'))
+						.setDescription(i18n('commands.remove.response.removed.description', member.toString(), ticket.toString()))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 
-		await ticket.send(
-			new MessageEmbed()
-				.setColor(settings.colour)
-				.setAuthor(member.user.username, member.user.displayAvatarURL())
-				.setTitle(i18n('ticket.member_removed.title'))
-				.setDescription(i18n('ticket.member_removed.description', member.toString(), message.author.toString()))
-				.setFooter(settings.footer, message.guild.iconURL())
-		);
+		await ticket.send({
+			embeds: [
+				new MessageEmbed()
+					.setColor(settings.colour)
+					.setAuthor(member.user.username, member.user.displayAvatarURL())
+					.setTitle(i18n('ticket.member_removed.title'))
+					.setDescription(i18n('ticket.member_removed.description', member.toString(), message.author.toString()))
+					.setFooter(settings.footer, message.guild.iconURL())
+			]
+		});
 
 		await ticket.permissionOverwrites
 			.get(member.user.id)

@@ -1,7 +1,6 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../utils/discord');
 
 module.exports = class MessageReactionAddEventListener extends EventListener {
 	constructor(client) {
@@ -31,7 +30,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 		const guild = reaction.message.guild;
 		if (!guild) return;
 
-		const settings = await guild.getSettings();
+		const settings = await this.client.utils.getSettings(guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const channel = reaction.message.channel;
@@ -50,29 +49,31 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: channel.id } });
 
 		if (t_row && t_row.opening_message === reaction.message.id) {
-			if (reaction.emoji.name === '🙌' && await member.isStaff()) {
+			if (reaction.emoji.name === '🙌' && await this.client.utils.isStaff(member)) {
 				// ticket claiming
 
 				await t_row.update({ claimed_by: member.user.id });
 
-				await channel.updateOverwrite(member.user.id, { VIEW_CHANNEL: true }, `Ticket claimed by ${member.user.tag}`);
+				await channel.permissionOverwrites.edit(member.user.id, { VIEW_CHANNEL: true }, `Ticket claimed by ${member.user.tag}`);
 
 				const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
 				for (const role of cat_row.roles) {
-					await channel.updateOverwrite(role, { VIEW_CHANNEL: false }, `Ticket claimed by ${member.user.tag}`);
+					await channel.permissionOverwrites.edit(role, { VIEW_CHANNEL: false }, `Ticket claimed by ${member.user.tag}`);
 				}
 
 				this.client.log.info(`${member.user.tag} has claimed "${channel.name}" in "${guild.name}"`);
 
-				await channel.send(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('ticket.claimed.title'))
-						.setDescription(i18n('ticket.claimed.description', member.toString()))
-						.setFooter(settings.footer, guild.iconURL())
-				);
+				await channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setAuthor(member.user.username, member.user.displayAvatarURL())
+							.setTitle(i18n('ticket.claimed.title'))
+							.setDescription(i18n('ticket.claimed.description', member.toString()))
+							.setFooter(settings.footer, guild.iconURL())
+					]
+				});
 			} else {
 				await reaction.users.remove(user.id);
 			}
@@ -105,11 +106,11 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.has_a_ticket.title'))
 							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
 						try {
-							response = await user.send(embed);
+							response = await user.send({ embeds: [embed] });
 						} catch {
-							response = await channel.send(embed);
+							response = await channel.send({ embeds: [embed] });
 						}
 					} else {
 						const list = tickets.rows.map(row => {
@@ -126,11 +127,11 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
 							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
 						try {
-							response = await user.send(embed);
+							response = await user.send({ embeds: [embed] });
 						} catch {
-							response = await channel.send(embed);
+							response = await channel.send({ embeds: [embed] });
 						}
 					}
 				} else {
@@ -142,11 +143,11 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.error.title'))
 							.setDescription(error.message)
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
 						try {
-							response = await user.send(embed);
+							response = await user.send({ embeds: [embed] });
 						} catch {
-							response = await channel.send(embed);
+							response = await channel.send({ embeds: [embed] });
 						}
 					}
 				}

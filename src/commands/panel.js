@@ -69,7 +69,7 @@ module.exports = class PanelCommand extends Command {
 		const arg_emoji = this.args[2].name;
 		const arg_categories = this.args[3].name;
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		if (!args[arg_emoji]) args[arg_emoji] = [];
@@ -87,13 +87,15 @@ module.exports = class PanelCommand extends Command {
 		});
 
 		if (invalid_category) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('commands.panel.response.invalid_category.title'))
-					.setDescription(i18n('commands.panel.response.invalid_category.description'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('commands.panel.response.invalid_category.title'))
+						.setDescription(i18n('commands.panel.response.invalid_category.description'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 
 		let panel_channel,
@@ -124,23 +126,25 @@ module.exports = class PanelCommand extends Command {
 				position: 1,
 				rateLimitPerUser: 30,
 				reason: `${message.author.tag} created a new reaction-less panel`,
-				type: 'text'
+				type: 'GUILD_TEXT'
 			});
 
 			embed.setDescription(args[arg_description]);
-			panel_message = await panel_channel.send(embed);
+			panel_message = await panel_channel.send({ embeds: [embed] });
 
 			this.client.log.info(`${message.author.tag} has created a new reaction-less panel`);
 		} else {
 			if (args[arg_categories].length !== args[arg_emoji].length) {
 				// send error
-				return await message.channel.send(
-					new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.panel.response.mismatch.title'))
-						.setDescription(i18n('commands.panel.response.mismatch.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				);
+				return await message.channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.panel.response.mismatch.title'))
+							.setDescription(i18n('commands.panel.response.mismatch.description'))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
+				});
 			} else {
 				panel_channel = await message.guild.channels.create('create-a-ticket', {
 					permissionOverwrites: [
@@ -156,7 +160,7 @@ module.exports = class PanelCommand extends Command {
 					],
 					position: 1,
 					reason: `${message.author.tag} created a new panel`,
-					type: 'text'
+					type: 'GUILD_TEXT'
 				});
 
 				if (args[arg_emoji].length === 1) {
@@ -164,7 +168,7 @@ module.exports = class PanelCommand extends Command {
 					categories_map = {};
 					categories_map[args[arg_emoji][0]] = args[arg_categories][0];
 					embed.setDescription(args[arg_description]);
-					panel_message = await panel_channel.send(embed);
+					panel_message = await panel_channel.send({ embeds: [embed] });
 					await panel_message.react(args[arg_emoji][0]);
 				} else {
 					// multi category
@@ -183,7 +187,11 @@ module.exports = class PanelCommand extends Command {
 					}
 
 					embed.setDescription(args[arg_description] + '\n' + description);
-					panel_message = await panel_channel.send(embed);
+					panel_message = await panel_channel.send({
+						embeds: [
+							embed
+						]
+					});
 
 					for (const emoji of args[arg_emoji]) {
 						await panel_message.react(emoji);
@@ -196,7 +204,7 @@ module.exports = class PanelCommand extends Command {
 			}
 		}
 
-		message.channel.send(`✅ ${panel_channel}`);
+		message.channel.send({ content: `✅ ${panel_channel}` });
 
 		await this.client.db.models.Panel.create({
 			categories: categories_map,

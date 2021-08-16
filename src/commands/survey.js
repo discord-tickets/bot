@@ -38,7 +38,7 @@ module.exports = class SurveyCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const survey = await this.client.db.models.Survey.findOne({
@@ -90,13 +90,15 @@ module.exports = class SurveyCommand extends Command {
 			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.survey.response.list.title'))
-					.setDescription(list.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.survey.response.list.title'))
+						.setDescription(list.join('\n'))
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 	}
 };

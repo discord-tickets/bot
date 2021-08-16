@@ -31,7 +31,7 @@ module.exports = class SettingsCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const attachments = [...message.attachments.values()];
@@ -48,7 +48,7 @@ module.exports = class SettingsCommand extends Command {
 
 			if (!valid) {
 				this.client.log.warn('Settings validation error');
-				return await message.channel.send(i18n('commands.settings.response.invalid', errors.map(error => `\`${error.stack}\``).join(',\n')));
+				return await message.channel.send({ content: i18n('commands.settings.response.invalid', errors.map(error => `\`${error.stack}\``).join(',\n')) });
 			}
 
 			settings.colour = data.colour;
@@ -84,7 +84,7 @@ module.exports = class SettingsCommand extends Command {
 						if (cat_channel.name !== c.name) await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
 
 						for (const r of c.roles) {
-							await cat_channel.updateOverwrite(r, {
+							await cat_channel.permissionOverwrites.edit(r, {
 								ATTACH_FILES: true,
 								READ_MESSAGE_HISTORY: true,
 								SEND_MESSAGES: true,
@@ -114,7 +114,7 @@ module.exports = class SettingsCommand extends Command {
 						],
 						position: 1,
 						reason: `Tickets category created by ${message.author.tag}`,
-						type: 'category'
+						type: 'GUILD_CATEGORY'
 					});
 
 					await this.client.db.models.Category.create({
@@ -149,7 +149,7 @@ module.exports = class SettingsCommand extends Command {
 			}
 
 			this.client.log.success(`Updated guild settings for "${message.guild.name}"`);
-			return await message.channel.send(i18n('commands.settings.response.updated'));
+			return await message.channel.send({ content: i18n('commands.settings.response.updated') });
 		} else {
 			// upload settings as json to be edited
 
