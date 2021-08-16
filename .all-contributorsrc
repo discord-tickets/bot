@@ -132,6 +132,15 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "PuneetGopinath",
+      "name": "Puneet Gopinath",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76863199?v=4",
+      "profile": "https://puneetgopinath.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
