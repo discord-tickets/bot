@@ -7,39 +7,39 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 		super(client, { event: 'messageReactionRemove' });
 	}
 
-	async execute(r, u) {
+	async execute(reaction, user) {
 		// release (unclaim) ticket
-		if (r.partial) {
+		if (reaction.partial) {
 			try {
-				await r.fetch();
+				await reaction.fetch();
 			} catch (err) {
 				return this.client.log.error(err);
 			}
 		}
 
-		if (u.partial) {
+		if (user.partial) {
 			try {
-				await u.fetch();
+				await user.fetch();
 			} catch (err) {
 				return this.client.log.error(err);
 			}
 		}
 
-		if (u.id === this.client.user.id) return;
+		if (user.id === this.client.user.id) return;
 
-		const guild = r.message.guild;
+		const guild = reaction.message.guild;
 		if (!guild) return;
 
 		const settings = await guild.getSettings();
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const channel = r.message.channel;
-		const member = await guild.members.fetch(u.id);
+		const channel = reaction.message.channel;
+		const member = await guild.members.fetch(user.id);
 
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: channel.id } });
 
-		if (t_row && t_row.opening_message === r.message.id) {
-			if (r.emoji.name === '🙌' && await member.isStaff()) {
+		if (t_row && t_row.opening_message === reaction.message.id) {
+			if (reaction.emoji.name === '🙌' && await member.isStaff()) {
 				// ticket claiming
 
 				await t_row.update({ claimed_by: null });
