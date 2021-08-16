@@ -90,13 +90,13 @@ module.exports = class SurveyCommand extends Command {
 			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.survey.response.list.title'))
 					.setDescription(list.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		}
 	}
 };
