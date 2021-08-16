@@ -24,8 +24,9 @@
 
 process.title = 'Discord Tickets';
 
-const node_version = Number(process.versions.node.split('.')[0]);
-if (node_version < 14) return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
+const min_node_version = '16.6.0';
+const semver = require('semver');
+if (semver.lt(process.versions.node, min_node_version)) return console.log(`\x07Error: Discord Tickets does not work on Node v${process.versions.node}; please upgrade to v${min_node_version} or above.`);
 
 const leeks = require('leeks.js');
 const fs = require('fs');
