@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ## Contributors ✨
 
@@ -26,6 +26,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/CanerBaba25"><img src="https://avatars.githubusercontent.com/u/33705518?v=4?s=100" width="100px;" alt=""/><br /><sub><b>CanerBaba25</b></sub></a><br /><a href="#translation-CanerBaba25" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/Felimir"><img src="https://avatars.githubusercontent.com/u/52141188?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fel</b></sub></a><br /><a href="#translation-Felimir" title="Translation">🌍</a></td>
     <td align="center"><a href="https://github.com/donzee529"><img src="https://avatars.githubusercontent.com/u/43678009?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Doniel</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=donzee529" title="Documentation">📖</a> <a href="https://github.com/discord-tickets/bot/commits?author=donzee529" title="Code">💻</a></td>
+    <td align="center"><a href="https://puneetgopinath.github.io/"><img src="https://avatars.githubusercontent.com/u/76863199?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Puneet Gopinath</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=PuneetGopinath" title="Code">💻</a></td>
   </tr>
 </table>
 
