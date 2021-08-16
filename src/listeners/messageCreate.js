@@ -54,9 +54,9 @@ module.exports = class MessageCreateEventListener extends EventListener {
 							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					} else {
 						const list = tickets.rows.map(row => {
@@ -75,9 +75,9 @@ module.exports = class MessageCreateEventListener extends EventListener {
 							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.author.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					}
 				} else {
@@ -91,9 +91,9 @@ module.exports = class MessageCreateEventListener extends EventListener {
 							.setDescription(error.message)
 							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL());
 						try {
-							response = await message.author.send(embed);
+							response = await message.author.send({ embeds: [embed] });
 						} catch {
-							response = await message.channel.send(embed);
+							response = await message.channel.send({ embeds: [embed] });
 						}
 					}
 				}

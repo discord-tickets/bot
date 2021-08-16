@@ -131,7 +131,7 @@ module.exports = class CommandManager {
 					]
 				});
 			} else if (bot_permissions.has('SEND_MESSAGES')) {
-				await message.channel.send('⚠️ ' + i18n('bot.missing_permissions.description', perms));
+				await message.channel.send({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
 			} else if (bot_permissions.has('ADD_REACTIONS')) {
 				await message.react('⚠️');
 			} else {

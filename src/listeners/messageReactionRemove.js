@@ -56,14 +56,16 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 
 				this.client.log.info(`${member.user.tag} has released "${channel.name}" in "${guild.name}"`);
 
-				await channel.send(
-					new MessageEmbed()
-						.setColor(settings.colour)
-						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('ticket.released.title'))
-						.setDescription(i18n('ticket.released.description', member.toString()))
-						.setFooter(settings.footer, guild.iconURL())
-				);
+				await channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.colour)
+							.setAuthor(member.user.username, member.user.displayAvatarURL())
+							.setTitle(i18n('ticket.released.title'))
+							.setDescription(i18n('ticket.released.description', member.toString()))
+							.setFooter(settings.footer, guild.iconURL())
+					]
+				});
 			}
 		}
 	}

@@ -48,7 +48,7 @@ module.exports = class SettingsCommand extends Command {
 
 			if (!valid) {
 				this.client.log.warn('Settings validation error');
-				return await message.channel.send(i18n('commands.settings.response.invalid', errors.map(error => `\`${error.stack}\``).join(',\n')));
+				return await message.channel.send({ content: i18n('commands.settings.response.invalid', errors.map(error => `\`${error.stack}\``).join(',\n')) });
 			}
 
 			settings.colour = data.colour;
@@ -149,7 +149,7 @@ module.exports = class SettingsCommand extends Command {
 			}
 
 			this.client.log.success(`Updated guild settings for "${message.guild.name}"`);
-			return await message.channel.send(i18n('commands.settings.response.updated'));
+			return await message.channel.send({ content: i18n('commands.settings.response.updated') });
 		} else {
 			// upload settings as json to be edited
 

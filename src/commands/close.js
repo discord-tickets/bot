@@ -68,13 +68,15 @@ module.exports = class CloseCommand extends Command {
 			try {
 				period = toTime(args[arg_time]).ms();
 			} catch {
-				return await message.channel.send(
-					new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.close.response.invalid_time.title'))
-						.setDescription(i18n('commands.close.response.invalid_time.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				);
+				return await message.channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.close.response.invalid_time.title'))
+							.setDescription(i18n('commands.close.response.invalid_time.description'))
+							.setFooter(settings.footer, message.guild.iconURL())
+					]
+				});
 			}
 
 			const tickets = await this.client.db.models.Ticket.findAndCountAll({

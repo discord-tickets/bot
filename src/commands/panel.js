@@ -130,7 +130,7 @@ module.exports = class PanelCommand extends Command {
 			});
 
 			embed.setDescription(args[arg_description]);
-			panel_message = await panel_channel.send(embed);
+			panel_message = await panel_channel.send({ embeds: [embed] });
 
 			this.client.log.info(`${message.author.tag} has created a new reaction-less panel`);
 		} else {
@@ -168,7 +168,7 @@ module.exports = class PanelCommand extends Command {
 					categories_map = {};
 					categories_map[args[arg_emoji][0]] = args[arg_categories][0];
 					embed.setDescription(args[arg_description]);
-					panel_message = await panel_channel.send(embed);
+					panel_message = await panel_channel.send({ embeds: [embed] });
 					await panel_message.react(args[arg_emoji][0]);
 				} else {
 					// multi category
@@ -204,7 +204,7 @@ module.exports = class PanelCommand extends Command {
 			}
 		}
 
-		message.channel.send(`✅ ${panel_channel}`);
+		message.channel.send({ content: `✅ ${panel_channel}` });
 
 		await this.client.db.models.Panel.create({
 			categories: categories_map,
