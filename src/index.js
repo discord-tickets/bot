@@ -110,17 +110,18 @@ const FastifyLogger = require('leekslazylogger-fastify');
 class Bot extends Client {
 	constructor() {
 		super({
+			intents: [
+				Intents.FLAGS.DIRECT_MESSAGES,
+				Intents.FLAGS.GUILDS,
+				Intents.FLAGS.GUILD_MEMBERS,
+				Intents.FLAGS.GUILD_MESSAGES,
+				Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+			],
 			partials: [
 				'CHANNEL',
 				'MESSAGE',
 				'REACTION'
 			],
-                        intents: [
-                                Intents.FLAGS.GUILDS,
-                                Intents.FLAGS.GUILD_MEMBERS,
-                                Intents.FLAGS.GUILD_MESSAGES,
-                                Intents.FLAGS.GUILD_MESSAGE_REACTIONS,,
-                        ],
 			presence: selectPresence()
 		});
 
