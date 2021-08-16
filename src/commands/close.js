@@ -86,21 +86,21 @@ module.exports = class CloseCommand extends Command {
 			});
 
 			if (tickets.count === 0) {
-				return await message.channel.send(
-					new MessageEmbed()
+				return await message.channel.send({
+					embeds: [new MessageEmbed()
 						.setColor(settings.error_colour)
 						.setTitle(i18n('commands.close.response.no_tickets.title'))
 						.setDescription(i18n('commands.close.response.no_tickets.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				);
+						.setFooter(settings.footer, message.guild.iconURL())]
+				});
 			} else {
-				const collector_message = await message.channel.send(
-					new MessageEmbed()
+				const collector_message = await message.channel.send({
+					embeds: [new MessageEmbed()
 						.setColor(settings.colour)
 						.setTitle(i18n('commands.close.response.confirm_multiple.title'))
 						.setDescription(i18n('commands.close.response.confirm_multiple.description', tickets.count, tickets.count))
-						.setFooter(settings.footer, message.guild.iconURL())
-				);
+						.setFooter(settings.footer, message.guild.iconURL())]
+				});
 
 				await collector_message.react('✅');
 
@@ -111,13 +111,13 @@ module.exports = class CloseCommand extends Command {
 				collector.on('collect', async () => {
 					await collector_message.reactions.removeAll();
 
-					await message.channel.send(
-						new MessageEmbed()
+					await message.channel.send({
+						embeds: [new MessageEmbed()
 							.setColor(settings.success_colour)
 							.setTitle(i18n('commands.close.response.closed_multiple.title', tickets.count, tickets.count))
 							.setDescription(i18n('commands.close.response.closed_multiple.description', tickets.count, tickets.count))
-							.setFooter(settings.footer, message.guild.iconURL())
-					);
+							.setFooter(settings.footer, message.guild.iconURL())]
+					});
 
 					for (const ticket of tickets.rows) {
 						await this.client.tickets.close(ticket.id, message.author.id, message.guild.id, args[arg_reason]);
@@ -128,14 +128,14 @@ module.exports = class CloseCommand extends Command {
 				collector.on('end', async collected => {
 					if (collected.size === 0) {
 						await collector_message.reactions.removeAll();
-						await collector_message.edit(
-							new MessageEmbed()
+						await collector_message.edit({
+							embeds: [new MessageEmbed()
 								.setColor(settings.error_colour)
 								.setAuthor(message.author.username, message.author.displayAvatarURL())
 								.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 								.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-								.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
-						);
+								.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						});
 						setTimeout(async () => {
 							await collector_message
 								.delete()
@@ -155,35 +155,35 @@ module.exports = class CloseCommand extends Command {
 				t_row = await this.client.tickets.resolve(args[arg_ticket], message.guild.id);
 
 				if (!t_row) {
-					return await message.channel.send(
-						new MessageEmbed()
+					return await message.channel.send({
+						embeds: [new MessageEmbed()
 							.setColor(settings.error_colour)
 							.setTitle(i18n('commands.close.response.unresolvable.title'))
 							.setDescription(i18n('commands.close.response.unresolvable.description', args[arg_ticket]))
-							.setFooter(settings.footer, message.guild.iconURL())
-					);
+							.setFooter(settings.footer, message.guild.iconURL())]
+					});
 				}
 			} else {
 				t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
 				if (!t_row) {
-					return await message.channel.send(
-						new MessageEmbed()
+					return await message.channel.send({
+						embeds: [new MessageEmbed()
 							.setColor(settings.error_colour)
 							.setTitle(i18n('commands.close.response.not_a_ticket.title'))
 							.setDescription(i18n('commands.close.response.not_a_ticket.description', settings.command_prefix))
-							.setFooter(settings.footer, message.guild.iconURL())
-					);
+							.setFooter(settings.footer, message.guild.iconURL())]
+					});
 				}
 			}
 
-			const collector_message = await message.channel.send(
-				new MessageEmbed()
+			const collector_message = await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.close.response.confirm.title'))
 					.setDescription(i18n('commands.close.response.confirm.description', t_row.number))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 
 			await collector_message.react('✅');
 
@@ -198,13 +198,13 @@ module.exports = class CloseCommand extends Command {
 					await collector_message.delete();
 				} else {
 					await collector_message.reactions.removeAll();
-					await collector_message.edit(
-						new MessageEmbed()
+					await collector_message.edit({
+						embeds: [new MessageEmbed()
 							.setColor(settings.success_colour)
 							.setTitle(i18n('commands.close.response.closed.title'))
 							.setDescription(i18n('commands.close.response.closed.description', t_row.number))
-							.setFooter(settings.footer, message.guild.iconURL())
-					);
+							.setFooter(settings.footer, message.guild.iconURL())]
+					});
 				}
 
 				await this.client.tickets.close(t_row.id, message.author.id, message.guild.id, args[arg_reason]);
@@ -213,14 +213,14 @@ module.exports = class CloseCommand extends Command {
 			collector.on('end', async collected => {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
-					await collector_message.edit(
-						new MessageEmbed()
+					await collector_message.edit({
+						embeds: [new MessageEmbed()
 							.setColor(settings.error_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 							.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
-					);
+							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+					});
 					setTimeout(async () => {
 						await collector_message
 							.delete()
