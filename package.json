@@ -40,7 +40,7 @@
 		"jsonschema": "^1.4.0",
 		"keyv": "^4.0.3",
 		"leeks.js": "^0.2.2",
-		"leekslazylogger-fastify": "^0.1.1",
+		"leekslazylogger": "^3.0.2",
 		"mustache": "^4.2.0",
 		"node-emoji": "^1.11.0",
 		"node-fetch": "^2.6.1",

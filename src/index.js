@@ -98,7 +98,7 @@ const {
 	Intents
 } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
-const FastifyLogger = require('leekslazylogger-fastify');
+const Logger = require('leekslazylogger');
 
 /**
  * The Discord client
@@ -128,7 +128,7 @@ class Bot extends Client {
 
 			/**
 			 * A [leekslazylogger](https://logger.eartharoid.me) instance
-			 * @type {FastifyLogger}
+			 * @type {Logger}
 			 */
 			this.log = log;
 
