@@ -62,7 +62,7 @@ module.exports = class StatsCommand extends Command {
 
 		if (stats.messages) guild_embed.addField(i18n('commands.stats.fields.messages'), stats.messages, true);
 
-		await message.channel.send({embeds: [guild_embed]});
+		await message.channel.send({ embeds: [guild_embed] });
 
 		if (this.client.guilds.cache.size > 1) {
 			await message.channel.send({

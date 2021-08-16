@@ -183,7 +183,7 @@ module.exports = class PanelCommand extends Command {
 					}
 
 					embed.setDescription(args[arg_description] + '\n' + description);
-					panel_message = await panel_channel.send({embeds: [embed]});
+					panel_message = await panel_channel.send({ embeds: [embed] });
 
 					for (const emoji of args[arg_emoji]) {
 						await panel_message.react(emoji);
