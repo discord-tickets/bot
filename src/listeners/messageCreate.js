@@ -3,9 +3,9 @@ const EventListener = require('../modules/listeners/listener');
 const { MessageEmbed } = require('discord.js');
 const { footer } = require('../utils/discord');
 
-module.exports = class MessageEventListener extends EventListener {
+module.exports = class MessageCreateEventListener extends EventListener {
 	constructor(client) {
-		super(client, { event: 'message' });
+		super(client, { event: 'messageCreate' });
 	}
 
 	async execute(message) {
