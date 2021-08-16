@@ -72,7 +72,7 @@ module.exports = class CommandManager {
 	async handle(message) {
 		if (message.author.bot) return; //  ignore self and other bots
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const prefix = settings.command_prefix;
 		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
@@ -149,7 +149,7 @@ module.exports = class CommandManager {
 			);
 		}
 
-		if (cmd.staff_only && await message.member.isStaff() === false) {
+		if (cmd.staff_only && await this.client.utils.isStaff(message.member) === false) {
 			return await message.channel.send(
 				new MessageEmbed()
 					.setColor(settings.error_colour)

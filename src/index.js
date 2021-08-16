@@ -83,7 +83,7 @@ process.on('unhandledRejection', error => {
 	log.error(error);
 });
 
-const { selectPresence } = require('./utils/discord');
+const DiscordUtils = require('./utils/discord');
 const Cryptr = require('cryptr');
 const I18n = require('@eartharoid/i18n');
 const ListenerLoader = require('./modules/listeners/loader');
@@ -92,8 +92,6 @@ const PluginManager = require('./modules/plugins/manager');
 const TicketManager = require('./modules/tickets/manager');
 
 const fetch = require('node-fetch');
-
-require('./modules/structures')(); // load extended structures before creating the client
 
 const {
 	Client,
@@ -121,7 +119,7 @@ class Bot extends Client {
 				'MESSAGE',
 				'REACTION'
 			],
-			presence: selectPresence()
+			presence: DiscordUtils.selectPresence()
 		});
 
 		(async () => {
@@ -174,6 +172,9 @@ class Bot extends Client {
 			/** The plugin manager */
 			this.plugins = new PluginManager(this);
 			this.plugins.load(); // load plugins
+
+			/** Some utility methods */
+			this.utils = new DiscordUtils(this);
 
 			this.log.info('Connecting to Discord API...');
 

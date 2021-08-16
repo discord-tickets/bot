@@ -33,7 +33,7 @@ module.exports = class HelpCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const cmd = this.manager.commands.find(command => command.aliases.includes(args.toLowerCase()));
@@ -41,7 +41,7 @@ module.exports = class HelpCommand extends Command {
 		if (cmd) {
 			return await cmd.sendUsage(message.channel, args);
 		} else {
-			const is_staff = await message.member.isStaff();
+			const is_staff = await this.client.utils.isStaff(message.member);
 			const commands = this.manager.commands.filter(command => {
 				if (command.permissions.length >= 1) return message.member.hasPermission(command.permissions);
 				else if (command.staff_only) return is_staff;

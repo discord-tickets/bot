@@ -60,7 +60,7 @@ module.exports = class CloseCommand extends Command {
 		const arg_reason = this.args[1].name;
 		const arg_time = this.args[2].name;
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		if (args[arg_time]) {

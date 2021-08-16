@@ -33,12 +33,12 @@ module.exports = class BlacklistCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const member = message.mentions.members.first();
 
-		if (member && (await member.isStaff() || member.permissions.has(this.permissions))) {
+		if (member && (await this.client.utils.isStaff(member) || member.permissions.has(this.permissions))) {
 			return await message.channel.send({
 				embeds: [new MessageEmbed()
 					.setColor(settings.colour)

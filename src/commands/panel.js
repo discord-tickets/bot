@@ -69,7 +69,7 @@ module.exports = class PanelCommand extends Command {
 		const arg_emoji = this.args[2].name;
 		const arg_categories = this.args[3].name;
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		if (!args[arg_emoji]) args[arg_emoji] = [];

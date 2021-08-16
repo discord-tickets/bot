@@ -36,7 +36,7 @@ module.exports = class AddCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, args) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const ticket = message.mentions.channels.first() ?? message.channel;
@@ -64,7 +64,7 @@ module.exports = class AddCommand extends Command {
 			});
 		}
 
-		if (t_row.creator !== message.author.id && !await message.member.isStaff()) {
+		if (t_row.creator !== message.author.id && !await this.client.utils.isStaff(message.member)) {
 			return await message.channel.send({
 				embeds: [new MessageEmbed()
 					.setColor(settings.error_colour)
