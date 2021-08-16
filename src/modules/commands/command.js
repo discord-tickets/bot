@@ -156,7 +156,7 @@ module.exports = class Command {
 		}
 
 		this.args.forEach(arg => addArgs(embed, arg));
-		return await channel.send(embed);
+		return await channel.send({ embeds: [embed] });
 
 	}
 
