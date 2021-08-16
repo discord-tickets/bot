@@ -165,12 +165,14 @@ module.exports = class NewCommand extends Command {
 				await wait(1000); // 1 reaction per second rate-limit
 			}
 
-			const collector_filter = (reaction, user) => {
+			const filter = (reaction, user) => {
 				const allowed = letters_array.slice(0, categories.count); // get the first x letters of the emoji array
 				return user.id === message.author.id && allowed.includes(reaction.emoji.name);
 			};
-
-			const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
+			const collector = collector_message.createReactionCollector({
+				filter,
+				time: 30000
+			});
 
 			collector.on('collect', async reaction => {
 				collector.stop();

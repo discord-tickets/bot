@@ -140,9 +140,11 @@ module.exports = class TicketManager extends EventEmitter {
 					]
 				});
 
-				const collector_filter = message => message.author.id === t_row.creator;
-
-				const collector = t_channel.createMessageCollector(collector_filter, { time: 120000 });
+				const filter = message => message.author.id === t_row.creator;
+				const collector = t_channel.createMessageCollector({
+					filter,
+					time: 120000
+				});
 
 				collector.on('collect', async message => {
 					topic = message.content;
@@ -297,9 +299,12 @@ module.exports = class TicketManager extends EventEmitter {
 
 					await r_collector_message.react('✅');
 
-					const collector_filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
+					const filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
 
-					const r_collector = r_collector_message.createReactionCollector(collector_filter, { time: 60000 });
+					const r_collector = r_collector_message.createReactionCollector({
+						filter,
+						time: 60000
+					});
 
 					r_collector.on('collect', async () => {
 						r_collector.stop();
@@ -318,8 +323,9 @@ module.exports = class TicketManager extends EventEmitter {
 							});
 
 							try {
-								const collected = await channel.awaitMessages(filter, {
+								const collected = await channel.awaitMessages({
 									errors: ['time'],
+									filter,
 									max: 1,
 									time: 60000
 								});

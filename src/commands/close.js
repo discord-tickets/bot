@@ -109,9 +109,11 @@ module.exports = class CloseCommand extends Command {
 
 				await collector_message.react('✅');
 
-				const collector_filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
-
-				const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
+				const filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
+				const collector = collector_message.createReactionCollector({
+					filter,
+					time: 30000
+				});
 
 				collector.on('collect', async () => {
 					await collector_message.reactions.removeAll();
@@ -202,9 +204,11 @@ module.exports = class CloseCommand extends Command {
 
 			await collector_message.react('✅');
 
-			const collector_filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
-
-			const collector = collector_message.createReactionCollector(collector_filter, { time: 30000 });
+			const filter = (reaction, user) => user.id === message.author.id && reaction.emoji.name === '✅';
+			const collector = collector_message.createReactionCollector({
+				filter,
+				time: 30000
+			});
 
 			collector.on('collect', async () => {
 				collector.stop();
