@@ -24,8 +24,9 @@
 
 process.title = 'Discord Tickets';
 
-const node_version = Number(process.versions.node.split('.')[0]);
-if (node_version < 14) return console.log(`\x07Error: Discord Tickets does not work on Node v${node_version}. Please upgrade to v14 or above.`);
+const min_node_version = '16.6.0';
+const semver = require('semver');
+if (semver.lt(process.versions.node, min_node_version)) return console.log(`\x07Error: Discord Tickets does not work on Node v${process.versions.node}; please upgrade to v${min_node_version} or above.`);
 
 const leeks = require('leeks.js');
 const fs = require('fs');
@@ -82,7 +83,7 @@ process.on('unhandledRejection', error => {
 	log.error(error);
 });
 
-const { selectPresence } = require('./utils/discord');
+const DiscordUtils = require('./utils/discord');
 const Cryptr = require('cryptr');
 const I18n = require('@eartharoid/i18n');
 const ListenerLoader = require('./modules/listeners/loader');
@@ -92,14 +93,12 @@ const TicketManager = require('./modules/tickets/manager');
 
 const fetch = require('node-fetch');
 
-require('./modules/structures')(); // load extended structures before creating the client
-
 const {
 	Client,
 	Intents
 } = require('discord.js');
 // eslint-disable-next-line no-unused-vars
-const FastifyLogger = require('leekslazylogger-fastify');
+const Logger = require('leekslazylogger');
 
 /**
  * The Discord client
@@ -109,13 +108,18 @@ const FastifyLogger = require('leekslazylogger-fastify');
 class Bot extends Client {
 	constructor() {
 		super({
+			intents: [
+				Intents.FLAGS.GUILDS,
+				Intents.FLAGS.GUILD_MEMBERS,
+				Intents.FLAGS.GUILD_MESSAGES,
+				Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+			],
 			partials: [
 				'CHANNEL',
 				'MESSAGE',
 				'REACTION'
 			],
-			presence: selectPresence(),
-			ws: { intents: Intents.NON_PRIVILEGED }
+			presence: DiscordUtils.selectPresence()
 		});
 
 		(async () => {
@@ -124,7 +128,7 @@ class Bot extends Client {
 
 			/**
 			 * A [leekslazylogger](https://logger.eartharoid.me) instance
-			 * @type {FastifyLogger}
+			 * @type {Logger}
 			 */
 			this.log = log;
 
@@ -168,6 +172,9 @@ class Bot extends Client {
 			/** The plugin manager */
 			this.plugins = new PluginManager(this);
 			this.plugins.load(); // load plugins
+
+			/** Some utility methods */
+			this.utils = new DiscordUtils(this);
 
 			this.log.info('Connecting to Discord API...');
 

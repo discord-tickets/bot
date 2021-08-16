@@ -72,7 +72,7 @@ module.exports = class CommandManager {
 	async handle(message) {
 		if (message.author.bot) return; //  ignore self and other bots
 
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const prefix = settings.command_prefix;
 		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
@@ -122,14 +122,16 @@ module.exports = class CommandManager {
 		if (!bot_permissions.has(required_bot_permissions)) {
 			const perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
 			if (bot_permissions.has(['EMBED_LINKS', 'SEND_MESSAGES'])) {
-				await message.channel.send(
-					new MessageEmbed()
-						.setColor('ORANGE')
-						.setTitle(i18n('bot.missing_permissions.title'))
-						.setDescription(i18n('bot.missing_permissions.description', perms))
-				);
+				await message.channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor('ORANGE')
+							.setTitle(i18n('bot.missing_permissions.title'))
+							.setDescription(i18n('bot.missing_permissions.description', perms))
+					]
+				});
 			} else if (bot_permissions.has('SEND_MESSAGES')) {
-				await message.channel.send('⚠️ ' + i18n('bot.missing_permissions.description', perms));
+				await message.channel.send({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
 			} else if (bot_permissions.has('ADD_REACTIONS')) {
 				await message.react('⚠️');
 			} else {
@@ -138,24 +140,28 @@ module.exports = class CommandManager {
 			return;
 		}
 
-		const missing_permissions = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
+		const missing_permissions = cmd.permissions instanceof Array && !message.member.permissions.has(cmd.permissions);
 		if (missing_permissions) {
 			const perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('missing_permissions.title'))
-					.setDescription(i18n('missing_permissions.description', perms))
-			);
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('missing_permissions.title'))
+						.setDescription(i18n('missing_permissions.description', perms))
+				]
+			});
 		}
 
-		if (cmd.staff_only && await message.member.isStaff() === false) {
-			return await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.error_colour)
-					.setTitle(i18n('staff_only.title'))
-					.setDescription(i18n('staff_only.description'))
-			);
+		if (cmd.staff_only && await this.client.utils.isStaff(message.member) === false) {
+			return await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.error_colour)
+						.setTitle(i18n('staff_only.title'))
+						.setDescription(i18n('staff_only.description'))
+				]
+			});
 		}
 
 		let args = raw_args;
@@ -165,12 +171,14 @@ module.exports = class CommandManager {
 				args = parseArgs(cmd.args, { argv: argv(raw_args) });
 			} catch (error) {
 				const help_cmd = `${settings.command_prefix}${i18n('commands.help.name')} ${cmd_name}`;
-				return await message.channel.send(
-					new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('cmd_usage.invalid_named_args.title'))
-						.setDescription(i18n('cmd_usage.invalid_named_args.description', error.message, help_cmd))
-				);
+				return await message.channel.send({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('cmd_usage.invalid_named_args.title'))
+							.setDescription(i18n('cmd_usage.invalid_named_args.description', error.message, help_cmd))
+					]
+				});
 			}
 			for (const arg of cmd.args) {
 				if (arg.required && args[arg.name] === undefined) {
@@ -191,12 +199,14 @@ module.exports = class CommandManager {
 		} catch (e) {
 			this.client.log.warn(`An error occurred whilst executing the ${cmd.name} command`);
 			this.client.log.error(e);
-			await message.channel.send(
-				new MessageEmbed()
-					.setColor('ORANGE')
-					.setTitle(i18n('command_execution_error.title'))
-					.setDescription(i18n('command_execution_error.description'))
-			); // hopefully no user will ever see this message
+			await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor('ORANGE')
+						.setTitle(i18n('command_execution_error.title'))
+						.setDescription(i18n('command_execution_error.description'))
+				]
+			}); // hopefully no user will ever see this message
 		}
 	}
 

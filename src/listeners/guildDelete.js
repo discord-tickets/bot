@@ -7,6 +7,6 @@ module.exports = class GuildDeleteEventListener extends EventListener {
 
 	async execute(guild) {
 		this.client.log.info(`Removed from "${guild.name}"`);
-		// await guild.deleteSettings();
+		await guild.deleteSettings();
 	}
 };

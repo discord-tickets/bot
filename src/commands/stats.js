@@ -27,7 +27,7 @@ module.exports = class StatsCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {
-		const settings = await message.guild.getSettings();
+		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const messages = await this.client.db.models.Message.findAndCountAll();
@@ -62,19 +62,25 @@ module.exports = class StatsCommand extends Command {
 
 		if (stats.messages) guild_embed.addField(i18n('commands.stats.fields.messages'), stats.messages, true);
 
-		await message.channel.send(guild_embed);
+		await message.channel.send({
+			embeds: [
+				guild_embed
+			]
+		});
 
 		if (this.client.guilds.cache.size > 1) {
-			await message.channel.send(
-				new MessageEmbed()
-					.setColor(settings.colour)
-					.setTitle(i18n('commands.stats.response.global.title'))
-					.setDescription(i18n('commands.stats.response.global.description'))
-					.addField(i18n('commands.stats.fields.tickets'), stats.tickets, true)
-					.addField(i18n('commands.stats.fields.response_time.title'), i18n('commands.stats.fields.response_time.minutes', stats.response_time), true)
-					.addField(i18n('commands.stats.fields.messages'), stats.messages, true)
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+			await message.channel.send({
+				embeds: [
+					new MessageEmbed()
+						.setColor(settings.colour)
+						.setTitle(i18n('commands.stats.response.global.title'))
+						.setDescription(i18n('commands.stats.response.global.description'))
+						.addField(i18n('commands.stats.fields.tickets'), stats.tickets, true)
+						.addField(i18n('commands.stats.fields.response_time.title'), i18n('commands.stats.fields.response_time.minutes', stats.response_time), true)
+						.addField(i18n('commands.stats.fields.messages'), stats.messages, true)
+						.setFooter(settings.footer, message.guild.iconURL())
+				]
+			});
 		}
 	}
 };
