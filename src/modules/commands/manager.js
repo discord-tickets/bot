@@ -138,24 +138,24 @@ module.exports = class CommandManager {
 			return;
 		}
 
-		const missing_permissions = cmd.permissions instanceof Array && !message.member.hasPermission(cmd.permissions);
+		const missing_permissions = cmd.permissions instanceof Array && !message.member.permissions.has(cmd.permissions);
 		if (missing_permissions) {
 			const perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.error_colour)
 					.setTitle(i18n('missing_permissions.title'))
-					.setDescription(i18n('missing_permissions.description', perms))
-			);
+					.setDescription(i18n('missing_permissions.description', perms))]
+			});
 		}
 
 		if (cmd.staff_only && await this.client.utils.isStaff(message.member) === false) {
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.error_colour)
 					.setTitle(i18n('staff_only.title'))
-					.setDescription(i18n('staff_only.description'))
-			);
+					.setDescription(i18n('staff_only.description'))]
+			});
 		}
 
 		let args = raw_args;
