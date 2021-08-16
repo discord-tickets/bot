@@ -3,7 +3,6 @@ const {
 	Message, // eslint-disable-line no-unused-vars
 	MessageEmbed
 } = require('discord.js');
-const { footer } = require('../utils/discord');
 const { letters } = require('../utils/emoji');
 const { wait } = require('../utils');
 
@@ -57,12 +56,14 @@ module.exports = class NewCommand extends Command {
 			if (tickets.count >= cat_row.max_per_member) {
 				if (cat_row.max_per_member === 1) {
 					response = await editOrSend(response,
-						{ embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.new.response.has_a_ticket.title'))
-							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]}
+						{
+							embeds: [new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.new.response.has_a_ticket.title'))
+								.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						}
 					);
 				} else {
 					const list = tickets.rows.map(row => {
@@ -75,33 +76,39 @@ module.exports = class NewCommand extends Command {
 						}
 					});
 					response = await editOrSend(response,
-						{embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
-							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]}
+						{
+							embeds: [new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
+								.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						}
 					);
 				}
 			} else {
 				try {
 					const t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, args);
 					response = await editOrSend(response,
-						{embeds: [new MessageEmbed()
-							.setColor(settings.success_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.new.response.created.title'))
-							.setDescription(i18n('commands.new.response.created.description', `<#${t_row.id}>`))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]}
+						{
+							embeds: [new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.new.response.created.title'))
+								.setDescription(i18n('commands.new.response.created.description', `<#${t_row.id}>`))
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						}
 					);
 				} catch (error) {
 					response = await editOrSend(response,
-						{embeds: [new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setAuthor(message.author.username, message.author.displayAvatarURL())
-							.setTitle(i18n('commands.new.response.error.title'))
-							.setDescription(error.message)
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]}
+						{
+							embeds: [new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setAuthor(message.author.username, message.author.displayAvatarURL())
+								.setTitle(i18n('commands.new.response.error.title'))
+								.setDescription(error.message)
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+						}
 					);
 				}
 			}
@@ -138,7 +145,7 @@ module.exports = class NewCommand extends Command {
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(i18n('commands.new.response.select_category.title'))
 					.setDescription(i18n('commands.new.response.select_category.description', category_list.join('\n')))
-					.setFooter(footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())]
+					.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())]
 			});
 
 			for (const i in categories.rows) {
@@ -174,7 +181,7 @@ module.exports = class NewCommand extends Command {
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.select_category_timeout.title'))
 							.setDescription(i18n('commands.new.response.select_category_timeout.description'))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 					);
 					setTimeout(async () => {
 						await collector_message

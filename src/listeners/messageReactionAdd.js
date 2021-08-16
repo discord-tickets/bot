@@ -1,7 +1,6 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../utils/discord');
 
 module.exports = class MessageReactionAddEventListener extends EventListener {
 	constructor(client) {
@@ -105,7 +104,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.has_a_ticket.title'))
 							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
 						try {
 							response = await user.send(embed);
 						} catch {
@@ -126,7 +125,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
 							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
 						try {
 							response = await user.send(embed);
 						} catch {
@@ -142,7 +141,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.error.title'))
 							.setDescription(error.message)
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
 						try {
 							response = await user.send(embed);
 						} catch {

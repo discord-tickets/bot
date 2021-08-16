@@ -2,7 +2,6 @@
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
 const { MessageEmbed } = require('discord.js');
-const { footer } = require('../../utils/discord');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -133,7 +132,7 @@ module.exports = class TicketManager extends EventEmitter {
 						.setColor(settings.colour)
 						.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
 						.setDescription(i18n('commands.new.request_topic.description'))
-						.setFooter(footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
+						.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
 				);
 
 				const collector_filter = message => message.author.id === t_row.creator;

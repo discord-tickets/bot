@@ -7,7 +7,6 @@ const {
 } = require('discord.js');
 const { Op } = require('sequelize');
 const toTime = require('to-time-monthsfork');
-const { footer } = require('../utils/discord');
 
 module.exports = class CloseCommand extends Command {
 	constructor(client) {
@@ -134,7 +133,7 @@ module.exports = class CloseCommand extends Command {
 								.setAuthor(message.author.username, message.author.displayAvatarURL())
 								.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 								.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-								.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
 						});
 						setTimeout(async () => {
 							await collector_message
@@ -219,7 +218,7 @@ module.exports = class CloseCommand extends Command {
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 							.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
 					});
 					setTimeout(async () => {
 						await collector_message
