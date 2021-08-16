@@ -85,11 +85,13 @@ module.exports = class DiscordUtils {
 		} = config.presence.presences[num];
 
 		return {
-			activity: {
-				name,
-				type,
-				url
-			},
+			activities: [
+				{
+					name,
+					type,
+					url
+				}
+			],
 			status
 		};
 	}
