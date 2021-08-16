@@ -38,14 +38,14 @@ module.exports = class BlacklistCommand extends Command {
 
 		const member = message.mentions.members.first();
 
-		if (member && (await member.isStaff() || member.hasPermission(this.permissions))) {
-			return await message.channel.send(
-				new MessageEmbed()
+		if (member && (await member.isStaff() || member.permissions.has(this.permissions))) {
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.blacklist.response.illegal_action.title'))
 					.setDescription(i18n('commands.blacklist.response.illegal_action.description', `<@${member.id}>`))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		}
 
 
@@ -60,13 +60,13 @@ module.exports = class BlacklistCommand extends Command {
 		} else if (/\d{17,19}/.test(input)) {
 			id = input;
 		} else if (settings.blacklist.length === 0) {
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.blacklist.response.empty_list.title'))
 					.setDescription(i18n('commands.blacklist.response.empty_list.description', settings.command_prefix))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		} else {
 			// list blacklisted members
 			const blacklist = settings.blacklist.map(element => {
@@ -74,13 +74,13 @@ module.exports = class BlacklistCommand extends Command {
 				if (is_role) return `» <@&${element}> (\`${element}\`)`;
 				else return `» <@${element}> (\`${element}\`)`;
 			});
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n('commands.blacklist.response.list.title'))
 					.setDescription(blacklist.join('\n'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		}
 
 		const is_role = role !== undefined || message.guild.roles.cache.has(id);
@@ -91,22 +91,22 @@ module.exports = class BlacklistCommand extends Command {
 
 		if (index === -1) {
 			new_blacklist.push(id);
-			await message.channel.send(
-				new MessageEmbed()
+			await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n(`commands.blacklist.response.${member_or_role}_added.title`))
 					.setDescription(i18n(`commands.blacklist.response.${member_or_role}_added.description`, id))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		} else {
 			new_blacklist.splice(index, 1);
-			await message.channel.send(
-				new MessageEmbed()
+			await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setTitle(i18n(`commands.blacklist.response.${member_or_role}_removed.title`))
 					.setDescription(i18n(`commands.blacklist.response.${member_or_role}_removed.description`, id))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		}
 
 		settings.blacklist = new_blacklist;
