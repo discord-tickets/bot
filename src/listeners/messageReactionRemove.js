@@ -51,7 +51,7 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 				const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
 				for (const role of cat_row.roles) {
-					await channel.updateOverwrite(role, { VIEW_CHANNEL: true }, `Ticket released by ${member.user.tag}`);
+					await channel.permissionOverwrites.edit(role, { VIEW_CHANNEL: true }, `Ticket released by ${member.user.tag}`);
 				}
 
 				this.client.log.info(`${member.user.tag} has released "${channel.name}" in "${guild.name}"`);

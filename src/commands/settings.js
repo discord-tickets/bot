@@ -84,7 +84,7 @@ module.exports = class SettingsCommand extends Command {
 						if (cat_channel.name !== c.name) await cat_channel.setName(c.name, `Tickets category updated by ${message.author.tag}`);
 
 						for (const r of c.roles) {
-							await cat_channel.updateOverwrite(r, {
+							await cat_channel.permissionOverwrites.edit(r, {
 								ATTACH_FILES: true,
 								READ_MESSAGE_HISTORY: true,
 								SEND_MESSAGES: true,

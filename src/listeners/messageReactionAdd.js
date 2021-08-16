@@ -55,12 +55,12 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 
 				await t_row.update({ claimed_by: member.user.id });
 
-				await channel.updateOverwrite(member.user.id, { VIEW_CHANNEL: true }, `Ticket claimed by ${member.user.tag}`);
+				await channel.permissionOverwrites.edit(member.user.id, { VIEW_CHANNEL: true }, `Ticket claimed by ${member.user.tag}`);
 
 				const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
 				for (const role of cat_row.roles) {
-					await channel.updateOverwrite(role, { VIEW_CHANNEL: false }, `Ticket claimed by ${member.user.tag}`);
+					await channel.permissionOverwrites.edit(role, { VIEW_CHANNEL: false }, `Ticket claimed by ${member.user.tag}`);
 				}
 
 				this.client.log.info(`${member.user.tag} has claimed "${channel.name}" in "${guild.name}"`);

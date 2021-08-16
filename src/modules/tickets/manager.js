@@ -54,7 +54,7 @@ module.exports = class TicketManager extends EventEmitter {
 			type: 'text'
 		});
 
-		t_channel.updateOverwrite(creator_id, {
+		t_channel.permissionOverwrites.edit(creator_id, {
 			ATTACH_FILES: true,
 			READ_MESSAGE_HISTORY: true,
 			SEND_MESSAGES: true,
