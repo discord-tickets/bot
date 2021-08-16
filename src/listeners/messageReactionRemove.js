@@ -12,16 +12,16 @@ module.exports = class MessageReactionRemoveEventListener extends EventListener 
 		if (reaction.partial) {
 			try {
 				await reaction.fetch();
-			} catch (err) {
-				return this.client.log.error(err);
+			} catch (error) {
+				return this.client.log.error(error);
 			}
 		}
 
 		if (user.partial) {
 			try {
 				await user.fetch();
-			} catch (err) {
-				return this.client.log.error(err);
+			} catch (error) {
+				return this.client.log.error(error);
 			}
 		}
 

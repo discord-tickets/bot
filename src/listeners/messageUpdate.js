@@ -9,8 +9,8 @@ module.exports = class MessageUpdateEventListener extends EventListener {
 		if (newm.partial) {
 			try {
 				await newm.fetch();
-			} catch (err) {
-				return this.client.log.error(err);
+			} catch (error) {
+				return this.client.log.error(error);
 			}
 		}
 
