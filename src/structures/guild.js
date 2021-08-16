@@ -6,9 +6,9 @@ Guild.prototype.deleteSettings = async () => {
 };
 Guild.prototype.getSettings = async () => {
     const data = { id: this.id };
-    const settings = await this.client.db.models.Guild.findOrCreate({
+    const [settings] = await this.client.db.models.Guild.findOrCreate({
         defaults: data,
         where: data
-    }).then(res => res[0]);
+    });
     return settings;
 };
