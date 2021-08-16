@@ -119,27 +119,27 @@ module.exports = class NewCommand extends Command {
 		const categories = await this.client.db.models.Category.findAndCountAll({ where: { guild: message.guild.id } });
 
 		if (categories.count === 0) {
-			return await message.channel.send(
-				new MessageEmbed()
+			return await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.error_colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(i18n('commands.new.response.no_categories.title'))
 					.setDescription(i18n('commands.new.response.no_categories.description'))
-					.setFooter(settings.footer, message.guild.iconURL())
-			);
+					.setFooter(settings.footer, message.guild.iconURL())]
+			});
 		} else if (categories.count === 1) {
 			create(categories.rows[0]); // skip the category selection
 		} else {
 			const letters_array = Object.values(letters); // convert the A-Z emoji object to an array
 			const category_list = categories.rows.map((category, i) => `${letters_array[i]} » ${category.name}`); // list category names with an A-Z emoji
-			const collector_message = await message.channel.send(
-				new MessageEmbed()
+			const collector_message = await message.channel.send({
+				embeds: [new MessageEmbed()
 					.setColor(settings.colour)
 					.setAuthor(message.author.username, message.author.displayAvatarURL())
 					.setTitle(i18n('commands.new.response.select_category.title'))
 					.setDescription(i18n('commands.new.response.select_category.description', category_list.join('\n')))
-					.setFooter(footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())
-			);
+					.setFooter(footer(settings.footer, i18n('collector_expires_in', 30)), message.guild.iconURL())]
+			});
 
 			for (const i in categories.rows) {
 				collector_message.react(letters_array[i]); // add the correct number of letter reactions
