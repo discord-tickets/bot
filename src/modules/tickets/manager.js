@@ -51,7 +51,7 @@ module.exports = class TicketManager extends EventEmitter {
 			parent: category_id,
 			reason: `${creator.user.tag} requested a new ticket channel`,
 			topic: `${creator}${topic.length > 0 ? ` | ${topic}` : ''}`,
-			type: 'text'
+			type: 'GUILD_TEXT'
 		});
 
 		t_channel.permissionOverwrites.edit(creator_id, {

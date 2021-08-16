@@ -114,7 +114,7 @@ module.exports = class SettingsCommand extends Command {
 						],
 						position: 1,
 						reason: `Tickets category created by ${message.author.tag}`,
-						type: 'category'
+						type: 'GUILD_CATEGORY'
 					});
 
 					await this.client.db.models.Category.create({

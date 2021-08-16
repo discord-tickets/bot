@@ -124,7 +124,7 @@ module.exports = class PanelCommand extends Command {
 				position: 1,
 				rateLimitPerUser: 30,
 				reason: `${message.author.tag} created a new reaction-less panel`,
-				type: 'text'
+				type: 'GUILD_TEXT'
 			});
 
 			embed.setDescription(args[arg_description]);
@@ -156,7 +156,7 @@ module.exports = class PanelCommand extends Command {
 					],
 					position: 1,
 					reason: `${message.author.tag} created a new panel`,
-					type: 'text'
+					type: 'GUILD_TEXT'
 				});
 
 				if (args[arg_emoji].length === 1) {
