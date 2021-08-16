@@ -168,14 +168,14 @@ module.exports = class NewCommand extends Command {
 			collector.on('end', async collected => {
 				if (collected.size === 0) {
 					await collector_message.reactions.removeAll();
-					await collector_message.edit(
-						new MessageEmbed()
+					await collector_message.edit({
+						embeds: [new MessageEmbed()
 							.setColor(settings.error_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.select_category_timeout.title'))
 							.setDescription(i18n('commands.new.response.select_category_timeout.description'))
-							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
-					);
+							.setFooter(footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())]
+					});
 					setTimeout(async () => {
 						await collector_message
 							.delete()
