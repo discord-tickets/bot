@@ -48,6 +48,7 @@
 		"sequelize": "^6.6.5",
 		"string-argv": "^0.3.1",
 		"terminal-link": "^2.1.1",
+                "leekslazylogger-fastify": "^0.1.1",
 		"to-time-monthsfork": "^1.1.4"
 	},
 	"devDependencies": {
