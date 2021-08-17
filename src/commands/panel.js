@@ -202,12 +202,81 @@ module.exports = class PanelCommand extends Command {
 						],
                                                  components: [row]
 					});
+                                        this.client.on("interactionCreate", (interaction) => {
+                                            if (!interaction.isButton() || interaction.customId !== `tickets-${key}`) return;
+                                            const p_row = await this.client.db.models.Panel.findOne({ where: { message: interaction.message.id } });
 
-					/*for (const emoji of args[arg_emoji]) {
-						await panel_message.react(emoji);
-						await wait(1000); // 1 reaction per second rate-limit
-					}*/
+			                    if (p_row && typeof p_row.categories !== 'string') {
+				            // panels
 
+				            const category_id = p_row.categories[reaction.emoji.name];
+				            if (!category_id) return;
+
+				            const cat_row = await this.client.db.models.Category.findOne({ where: { id: category_id } });
+
+				            const tickets = await this.client.db.models.Ticket.findAndCountAll({
+					        where: {
+						    category: cat_row.id,
+						    creator: user.id,
+						    open: true
+					        }
+				            });
+
+				            let response;
+
+				            if (tickets.count >= cat_row.max_per_member) {
+					        if (cat_row.max_per_member === 1) {
+						    const embed = new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setAuthor(user.username, user.displayAvatarURL())
+							.setTitle(i18n('commands.new.response.has_a_ticket.title'))
+							.setDescription(i18n('commands.new.response.has_a_ticket.description', tickets.rows[0].id))
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+						    try {
+							 response = await user.send({ embeds: [embed] });
+						    } catch {
+							response = await channel.send({ embeds: [embed] });
+						    }
+					    } else {
+						const list = tickets.rows.map(row => {
+							if (row.topic) {
+								const description = row.topic.substring(0, 30);
+								const ellipses = row.topic.length > 30 ? '...' : '';
+								return `<#${row.id}>: \`${description}${ellipses}\``;
+							} else {
+								return `<#${row.id}>`;
+							}
+						});
+						const embed = new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setAuthor(user.username, user.displayAvatarURL())
+							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
+							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
+						try {
+							response = await user.send({ embeds: [embed] });
+						} catch {
+							response = await channel.send({ embeds: [embed] });
+						}
+					    }
+				        } else {
+					    try {
+						await this.client.tickets.create(guild.id, user.id, cat_row.id);
+					    } catch (error) {
+						const embed = new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setAuthor(user.username, user.displayAvatarURL())
+							.setTitle(i18n('commands.new.response.error.title'))
+							.setDescription(error.message)
+							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), guild.iconURL());
+						try {
+							response = await user.send({ embeds: [embed] });
+						} catch {
+							response = await channel.send({ embeds: [embed] });
+						}
+					     }
+				        }
+			            }
 				}
 
 				this.client.log.info(`${message.author.tag} has created a new panel`);
