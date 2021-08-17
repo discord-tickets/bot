@@ -123,6 +123,8 @@ class Bot extends Client {
 		});
 
 		(async () => {
+			this.version = version;
+
 			/** The global bot configuration */
 			this.config = require('../user/config');
 
@@ -189,18 +191,23 @@ class Bot extends Client {
 		 * You can see the source here: https://github.com/discord-tickets/stats
 		 */
 		if (this.config.super_secret_setting) { // you can disable it if you really want
-			const tickets = await this.db.models.Ticket.count();
-			await fetch(`https://stats.discordtickets.app/client?id=${this.user.id}&tickets=${tickets}`, { method: 'post' }).catch(e => {
-				this.log.warn('Failed to post tickets count to stats server (you can disable sending stats by setting "super_secret_setting" to false)');
-				this.log.debug(e);
-			});
-			this.guilds.cache.forEach(async g => {
-				const members = (await g.fetch()).approximateMemberCount;
-				await fetch(`https://stats.discordtickets.app/guild?id=${g.id}&members=${members}`, { method: 'post' }).catch(e => {
-					// don't spam a warning for each server
-					this.log.debug(e);
+			const data = {
+				client: this.user.id,
+				guilds: this.guilds.cache.size,
+				members: await this.guilds.cache.reduce(async (acc, guild) => await acc + (await guild.fetch()).approximateMemberCount, 0),
+				tickets: await this.db.models.Ticket.count(),
+				version: this.version
+			};
+			this.log.debug('Sending statistics', data);
+			await fetch('https://stats.discordtickets.app/v2', {
+				body: JSON.stringify(data),
+				headers: { 'Content-Type': 'application/json' },
+				method: 'POST'
+			})
+				.catch(error => {
+					this.log.warn('Failed to send statistics');
+					this.log.debug(error);
 				});
-			});
 		}
 	}
 

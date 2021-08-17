@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const boxen = require('boxen');
 const link = require('terminal-link');
 const semver = require('semver');
-const { format } = require('leekslazylogger-fastify');
+const { format } = require('leekslazylogger');
 
 const { version: current } = require('../package.json');
 
