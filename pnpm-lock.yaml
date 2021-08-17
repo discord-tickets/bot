@@ -4,12 +4,10 @@ specifiers:
   '@eartharoid/i18n': ^1.0.0
   all-contributors-cli: ^6.20.0
   boxen: ^5.0.1
-  command-line-args: ^5.2.0
   cryptr: ^6.0.2
   discord.js: ^13.1.0
   dotenv: ^8.6.0
   eslint: ^7.32.0
-  jsonschema: ^1.4.0
   keyv: ^4.0.3
   leeks.js: ^0.2.2
   leekslazylogger: ^3.0.2
@@ -24,7 +22,6 @@ specifiers:
   semver: ^7.3.5
   sequelize: ^6.6.5
   sqlite3: ^5.0.2
-  string-argv: ^0.3.1
   tedious: ^11.4.0
   terminal-link: ^2.1.1
   to-time-monthsfork: ^1.1.4
@@ -32,11 +29,9 @@ specifiers:
 dependencies:
   '@eartharoid/i18n': 1.0.0
   boxen: 5.0.1
-  command-line-args: 5.2.0
   cryptr: 6.0.2
   discord.js: 13.1.0
   dotenv: 8.6.0
-  jsonschema: 1.4.0
   keyv: 4.0.3
   leeks.js: 0.2.2
   leekslazylogger: 3.0.2
@@ -45,7 +40,6 @@ dependencies:
   node-fetch: 2.6.1
   semver: 7.3.5
   sequelize: 6.6.5_aa1b3c7f5b5df187fb1a5c6073dca637
-  string-argv: 0.3.1
   terminal-link: 2.1.1
   to-time-monthsfork: 1.1.4
 
@@ -591,11 +585,6 @@ packages:
       sprintf-js: 1.0.3
     dev: true
 
-  /array-back/3.1.0:
-    resolution: {integrity: sha512-TkuxA4UCOvxuDK6NZYXCalszEzj+TLszyASooky+i742l9TqsOdYCMJJupxRic61hwquNtppB3hgcuq9SVSH1Q==}
-    engines: {node: '>=6'}
-    dev: false
-
   /asn1/0.2.4:
     resolution: {integrity: sha512-jxwzQpLQjSmWXgwaCZE9Nz+glAG01yF1QnWgbhGwHI5A6FRIEY6IVqtHhIepHqI7/kyEyQEagBC5mBEFlIYvdg==}
     dependencies:
@@ -907,16 +896,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: 1.0.0
-
-  /command-line-args/5.2.0:
-    resolution: {integrity: sha512-4zqtU1hYsSJzcJBOcNZIbW5Fbk9BkjCp1pZVhQKoRaWL5J7N4XphDLwo8aWwdQpTugxwu+jf9u2ZhkXiqp5Z6A==}
-    engines: {node: '>=4.0.0'}
-    dependencies:
-      array-back: 3.1.0
-      find-replace: 3.0.0
-      lodash.camelcase: 4.3.0
-      typical: 4.0.0
-    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
@@ -1342,13 +1321,6 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
     dev: true
-
-  /find-replace/3.0.0:
-    resolution: {integrity: sha512-6Tb2myMioCAgv5kfvP5/PkZZ/ntTpVK39fHY7WkWBgvbeE+VHd/tZuZ4mrC+bxh4cfOZeYKVPaJIZtZXV7GNCQ==}
-    engines: {node: '>=4.0.0'}
-    dependencies:
-      array-back: 3.1.0
-    dev: false
 
   /find-up/4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
@@ -1903,10 +1875,6 @@ packages:
     dev: false
     optional: true
 
-  /jsonschema/1.4.0:
-    resolution: {integrity: sha512-/YgW6pRMr6M7C+4o8kS+B/2myEpHCrxO4PEWnqJNBFMjn7EWXqlQ4tGwL6xTHeRplwuZmcAncdvfOad1nT2yMw==}
-    dev: false
-
   /jsonwebtoken/8.5.1:
     resolution: {integrity: sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==}
     engines: {node: '>=4', npm: '>=1.4.28'}
@@ -2018,10 +1986,6 @@ packages:
     dependencies:
       p-locate: 4.1.0
     dev: true
-
-  /lodash.camelcase/4.3.0:
-    resolution: {integrity: sha1-soqmKIorn8ZRA1x3EfZathkDMaY=}
-    dev: false
 
   /lodash.clonedeep/4.5.0:
     resolution: {integrity: sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=}
@@ -3102,11 +3066,6 @@ packages:
     engines: {node: '>=4', npm: '>=6'}
     dev: true
 
-  /string-argv/0.3.1:
-    resolution: {integrity: sha512-a1uQGz7IyVy9YwhqjZIZu1c8JO8dNIe20xBmSS6qu9kv++k3JGzCVmprbNN5Kn+BgzD5E7YYwg1CcjuJMRNsvg==}
-    engines: {node: '>=0.6.19'}
-    dev: false
-
   /string-width/1.0.2:
     resolution: {integrity: sha1-EYvfW4zcUaKn5w0hHgfisLmxB9M=}
     engines: {node: '>=0.10.0'}
@@ -3416,11 +3375,6 @@ packages:
     dependencies:
       is-typedarray: 1.0.0
     dev: true
-
-  /typical/4.0.0:
-    resolution: {integrity: sha512-VAH4IvQ7BDFYglMd7BPRDfLgxZZX4O4TFcRDA6EN5X7erNJJq+McIEp8np9aVtxrCJ6qx4GTYVfOWNjcqwZgRw==}
-    engines: {node: '>=8'}
-    dev: false
 
   /undefsafe/2.0.3:
     resolution: {integrity: sha512-nrXZwwXrD/T/JXeygJqdCO6NZZ1L66HrxM/Z7mIq2oPanoN0F1nLx3lwJMu6AwJY69hdixaFQOuoYsMjE5/C2A==}

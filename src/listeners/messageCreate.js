@@ -72,7 +72,7 @@ module.exports = class MessageCreateEventListener extends EventListener {
 							.setColor(settings.error_colour)
 							.setAuthor(message.author.username, message.author.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
-							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+							.setDescription(i18n('commands.new.response.max_tickets.description', list.join('\n')))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.author.iconURL());
 						try {
 							response = await message.author.send({ embeds: [embed] });
@@ -105,8 +105,6 @@ module.exports = class MessageCreateEventListener extends EventListener {
 				}
 			}
 		}
-
-		this.client.commands.handle(message); // pass the message to the command handler
 	}
 };
 

@@ -7,23 +7,23 @@
 		"version": "[Discord tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Popis:** %s",
 			"example": "**Příklad:** `%s`"
 		},
 		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejste jisti, zeptejte se člena ateamu.",
 			"title": "❌ Neplatná Syntaxe"
 		},
-		"named_args": "Tento příkaz používá jmenné argumenty.\n\n",
+		"named_options": "Tento příkaz používá jmenné argumenty.\n\n",
 		"title": "Použití příkazu `%s`"
 	},
 	"collector_expires_in": "Expiruje za %d sekund",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Člen k přidání do tiketu",
 					"example": "@někdo",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "Člen nebo role j přidání/odebrání",
 					"example": "@NeposlušnýUživatel",
@@ -104,7 +104,7 @@
 				"delete": "odstranit",
 				"lock": "uzamknout"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "d",
 					"description": "Důvod k uzavření tiketu",
@@ -180,7 +180,7 @@
 				"command": "příkaz",
 				"commands": "příkazy"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "Příkaz, o němž zobrazit informace",
 					"example": "new",
@@ -205,7 +205,7 @@
 				"open": "open",
 				"ticket": "tiket"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "Téma ticketu",
 					"example": "Problém s fakturací",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "ID kategorie",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@někdo",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Display ticket statistics",
 			"fields": {
 				"messages": "Messages",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "surveys"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "The name of the survey to view responses of",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "The name of the tag to use",
 					"example": "website",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "The new topic of the ticket",
 					"example": "billing issue",

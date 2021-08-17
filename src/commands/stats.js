@@ -9,12 +9,9 @@ module.exports = class StatsCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [],
-			args: [],
 			description: i18n('commands.stats.description'),
 			internal: true,
 			name: i18n('commands.stats.name'),
-			process_args: false,
 			staff_only: true
 		});
 
@@ -23,7 +20,7 @@ module.exports = class StatsCommand extends Command {
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message) {

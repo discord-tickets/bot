@@ -7,23 +7,23 @@
 		"version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Description:** %s",
 			"example": "**Exemple:** '%s'"
 		},
 		"description": "**Utilisation:**\n'%s'\n\n**Exemple:**\n'%s'\n\nLes arguments requis sont préfixés avec '❗'.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr.",
 			"title": "❌ syntaxe invalide"
 		},
-		"named_args": "Cette commande utilise des arguments nommés.\n\n",
+		"named_options": "Cette commande utilise des arguments nommés.\n\n",
 		"title": "'%s' utilisation de commande"
 	},
 	"collector_expires_in": "Expire en %d secondes",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Le membre à ajouter au billet",
 					"example": "@someone",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist (en)"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "Le membre ou le rôle d’ajouter/supprimer",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "supprimer",
 				"lock": "lock"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "La raison de la fermeture du billet(s)",
@@ -180,7 +180,7 @@
 				"command": "commandes",
 				"commands": "commandes"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "La commande d’afficher des informations sur",
 					"example": "nouveau",
@@ -205,7 +205,7 @@
 				"open": "ouvrir",
 				"ticket": "billet"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "Le sujet du billet",
 					"example": "Problème avec la facturation",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "Un ID de catégorie",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Le membre à ajouter au billet",
 					"example": "@someone",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Afficher les statistiques des billets",
 			"fields": {
 				"messages": "Messages",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "enquêtes"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "Le nom de l’enquête pour afficher les réponses des",
 					"example": "soutien",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "étiquettes"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "Le nom de l’étiquette à utiliser",
 					"example": "site Internet",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "Le sujet du billet",
 					"example": "question de facturation",

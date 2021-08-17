@@ -8,34 +8,32 @@ module.exports = class RemoveCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [],
-			args: [
-				{
-					description: i18n('commands.remove.args.member.description'),
-					example: i18n('commands.remove.args.member.example'),
-					name: i18n('commands.remove.args.member.name'),
-					required: true
-				},
-				{
-					description: i18n('commands.remove.args.ticket.description'),
-					example: i18n('commands.remove.args.ticket.example'),
-					name: i18n('commands.remove.args.ticket.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.remove.options.member.description'),
+			// 		example: i18n('commands.remove.options.member.example'),
+			// 		name: i18n('commands.remove.options.member.name'),
+			// 		required: true
+			// 	},
+			// 	{
+			// 		description: i18n('commands.remove.options.ticket.description'),
+			// 		example: i18n('commands.remove.options.ticket.example'),
+			// 		name: i18n('commands.remove.options.ticket.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.remove.description'),
 			internal: true,
-			name: i18n('commands.remove.name'),
-			process_args: false
+			name: i18n('commands.remove.name')
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -54,7 +52,7 @@ module.exports = class RemoveCommand extends Command {
 			});
 		}
 
-		const member = message.mentions.members.first() ?? message.guild.members.cache.get(args);
+		const member = message.mentions.members.first() ?? message.guild.members.cache.get(options);
 
 		if (!member) {
 			return await message.channel.send({

@@ -10,32 +10,26 @@ module.exports = class NewCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [
-				i18n('commands.new.aliases.create'),
-				i18n('commands.new.aliases.open'),
-				i18n('commands.new.aliases.ticket')
-			],
-			args: [
-				{
-					description: i18n('commands.new.args.topic.description'),
-					example: i18n('commands.new.args.topic.example'),
-					name: i18n('commands.new.args.topic.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.new.options.topic.description'),
+			// 		example: i18n('commands.new.options.topic.example'),
+			// 		name: i18n('commands.new.options.topic.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.new.description'),
 			internal: true,
-			name: i18n('commands.new.name'),
-			process_args: false
+			name: i18n('commands.new.name')
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -84,7 +78,7 @@ module.exports = class NewCommand extends Command {
 									.setColor(settings.error_colour)
 									.setAuthor(message.author.username, message.author.displayAvatarURL())
 									.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
-									.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+									.setDescription(i18n('commands.new.response.max_tickets.description', list.join('\n')))
 									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), message.guild.iconURL())
 							]
 						}
@@ -92,7 +86,7 @@ module.exports = class NewCommand extends Command {
 				}
 			} else {
 				try {
-					const t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, args);
+					const t_row = await this.client.tickets.create(message.guild.id, message.author.id, cat_row.id, options);
 					response = await editOrSend(response,
 						{
 							embeds: [

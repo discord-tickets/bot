@@ -8,28 +8,26 @@ module.exports = class TopicCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [],
-			args: [
-				{
-					description: i18n('commands.topic.args.new_topic.description'),
-					example: i18n('commands.topic.args.new_topic.example'),
-					name: i18n('commands.topic.args.new_topic.name'),
-					required: true
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.topic.options.new_topic.description'),
+			// 		example: i18n('commands.topic.options.new_topic.example'),
+			// 		name: i18n('commands.topic.options.new_topic.name'),
+			// 		required: true
+			// 	}
+			// ],
 			description: i18n('commands.topic.description'),
 			internal: true,
-			name: i18n('commands.topic.name'),
-			process_args: false
+			name: i18n('commands.topic.name')
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -47,10 +45,10 @@ module.exports = class TopicCommand extends Command {
 			});
 		}
 
-		await t_row.update({ topic: this.client.cryptr.encrypt(args) });
+		await t_row.update({ topic: this.client.cryptr.encrypt(options) });
 
 		const member = await message.guild.members.fetch(t_row.creator);
-		/* await  */message.channel.setTopic(`${member} | ${args}`, { reason: 'User updated ticket topic' });
+		/* await  */message.channel.setTopic(`${member} | ${options}`, { reason: 'User updated ticket topic' });
 
 		const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 		const description = cat_row.opening_message
@@ -64,7 +62,7 @@ module.exports = class TopicCommand extends Command {
 					.setColor(settings.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
 					.setDescription(description)
-					.addField(i18n('ticket.opening_message.fields.topic'), args)
+					.addField(i18n('ticket.opening_message.fields.topic'), options)
 					.setFooter(settings.footer, message.guild.iconURL())
 			]
 		});

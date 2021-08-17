@@ -2,15 +2,12 @@
 const {
 	Client, // eslint-disable-line no-unused-vars
 	Collection,
-	Message, // eslint-disable-line no-unused-vars
+	Interaction, // eslint-disable-line no-unused-vars
 	MessageEmbed
 } = require('discord.js');
 
 const fs = require('fs');
 const { path } = require('../../utils/fs');
-
-const { parseArgsStringToArgv: argv } = require('string-argv');
-const parseArgs = require('command-line-args');
 
 /**
  * Manages the loading and execution of commands
@@ -48,67 +45,115 @@ module.exports = class CommandManager {
 	}
 
 	/** Register a command */
-	register(cmd) {
-		const exists = this.commands.has(cmd.name);
-		const is_internal = (exists && cmd.internal) || (exists && this.commands.get(cmd.name).internal);
+	register(command) {
+		const exists = this.commands.has(command.name);
+		const is_internal = (exists && command.internal) || (exists && this.commands.get(command.name).internal);
 
 		if (is_internal) {
-			const plugin = this.client.plugins.plugins.find(p => p.commands.includes(cmd.name));
-			if (plugin) this.client.log.commands(`The "${plugin.name}" plugin has overridden the internal "${cmd.name}" command`);
-			else this.client.log.commands(`An unknown plugin has overridden the internal "${cmd.name}" command`);
-			if(cmd.internal) return;
+			const plugin = this.client.plugins.plugins.find(p => p.commands.includes(command.name));
+			if (plugin) this.client.log.commands(`The "${plugin.name}" plugin has overridden the internal "${command.name}" command`);
+			else this.client.log.commands(`An unknown plugin has overridden the internal "${command.name}" command`);
+			if(command.internal) return;
 		} else if (exists) {
-			throw new Error(`A non-internal command with the name "${cmd.name}" already exists`);
+			throw new Error(`A non-internal command with the name "${command.name}" already exists`);
 		}
 
-		this.commands.set(cmd.name, cmd);
-		this.client.log.commands(`Loaded "${cmd.name}" command`);
+		this.commands.set(command.name, command);
+		this.client.log.commands(`Loaded "${command.name}" command`);
+	}
+
+	async publish(guild) {
+		if (!guild) {
+			return this.client.guilds.cache.forEach(async guild => {
+				this.publish(guild);
+			});
+		}
+
+		try {
+			const commands = this.client.commands.commands.map(command => command.toJSON(guild));
+			await this.client.application.commands.set(commands, guild.id);
+			await this.updatePermissions(guild);
+			this.client.log.success(`Published ${this.client.commands.commands.size} commands to "${guild.name}"`);
+		} catch (error) {
+			this.client.log.warn('An error occurred whilst publishing the commands');
+			this.client.log.error(error);
+		}
+	}
+
+	async updatePermissions(guild) {
+		guild.commands.fetch().then(async commands => {
+			const permissions = [];
+			const settings = await this.client.utils.getSettings(guild);
+			const blacklist = [];
+			settings.blacklist.users?.forEach(userId => {
+				blacklist.push({
+					id: userId,
+					permission: false,
+					type: 'USER'
+				});
+			});
+			settings.blacklist.roles?.forEach(roleId => {
+				blacklist.push({
+					id: roleId,
+					permission: false,
+					type: 'ROLE'
+				});
+			});
+
+			const categories = await this.client.db.models.Category.findAll({ where: { guild: guild.id } });
+			const staff_roles = new Set(categories.map(category => category.roles).flat());
+
+			commands.forEach(async g_cmd => {
+				const cmd_permissions = [...blacklist];
+				const command = this.client.commands.commands.get(g_cmd.name);
+
+				if (command.staff_only) {
+					cmd_permissions.push({
+						id: guild.roles.everyone.id,
+						permission: false,
+						type: 'ROLE'
+					});
+					staff_roles.forEach(roleId => {
+						cmd_permissions.push({
+							id: roleId,
+							permission: true,
+							type: 'ROLE'
+						});
+					});
+				}
+
+				permissions.push({
+					id: g_cmd.id,
+					permissions: cmd_permissions
+				});
+			});
+
+			this.client.log.debug(`Command permissions for "${guild.name}"`, require('util').inspect(permissions, {
+				colors: true,
+				depth: 10
+			}));
+
+			try {
+				await guild.commands.permissions.set({ fullPermissions: permissions });
+			} catch (error) {
+				this.client.log.warn('An error occurred whilst updating command permissions');
+				this.client.log.error(error);
+			}
+		});
 	}
 
 	/**
 	 * Execute a command
-	 * @param {Message} message - Command message
+	 * @param {Interaction} interaction - Command message
 	 */
-	async handle(message) {
-		if (message.author.bot) return; //  ignore self and other bots
-
-		const settings = await this.client.utils.getSettings(message.guild);
+	async handle(interaction) {
+		const settings = await this.client.utils.getSettings(interaction.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
-		const prefix = settings.command_prefix;
-		const escaped_prefix = prefix.toLowerCase().replace(/(?=\W)/g, '\\'); // (lazy) escape every character so it can be used in a RexExp
-		const client_mention = `<@!?${this.client.user.id}>`;
 
-		let cmd_name = message.content.match(new RegExp(`^(${escaped_prefix}|${client_mention}\\s?)(\\S+)`, 'mi')); // capture prefix and command
-		if (!cmd_name) return; // stop here if the message is not a command
+		const command = this.commands.get(interaction.commandName);
+		if (!command) return;
 
-		const raw_args = message.content.replace(cmd_name[0], '').trim(); // remove the prefix and command
-		cmd_name = cmd_name[2].toLowerCase(); // set cmd_name to the actual command alias, effectively removing the prefix
-
-		const cmd = this.commands.find(cmd => cmd.aliases.includes(cmd_name));
-		if (!cmd) return;
-
-		let is_blacklisted = false;
-		if (settings.blacklist.includes(message.author.id)) {
-			is_blacklisted = true;
-			this.client.log.info(`Ignoring blacklisted member ${message.author.tag}`);
-		} else {
-			settings.blacklist.forEach(element => {
-				if (message.guild.roles.cache.has(element) && message.member.roles.cache.has(element)) {
-					is_blacklisted = true;
-					this.client.log.info(`Ignoring member ${message.author.tag} with blacklisted role`);
-				}
-			});
-		}
-
-		if (is_blacklisted) {
-			try {
-				return message.react('❌');
-			} catch (error) {
-				return this.client.log.warn('Failed to react to a message');
-			}
-		}
-
-		const bot_permissions = message.guild.me.permissionsIn(message.channel);
+		const bot_permissions = interaction.guild.me.permissionsIn(interaction.channel);
 		const required_bot_permissions = [
 			'ADD_REACTIONS',
 			'ATTACH_FILES',
@@ -122,7 +167,7 @@ module.exports = class CommandManager {
 		if (!bot_permissions.has(required_bot_permissions)) {
 			const perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
 			if (bot_permissions.has(['EMBED_LINKS', 'SEND_MESSAGES'])) {
-				await message.channel.send({
+				await interaction.reply({
 					embeds: [
 						new MessageEmbed()
 							.setColor('ORANGE')
@@ -131,75 +176,34 @@ module.exports = class CommandManager {
 					]
 				});
 			} else if (bot_permissions.has('SEND_MESSAGES')) {
-				await message.channel.send({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
-			} else if (bot_permissions.has('ADD_REACTIONS')) {
-				await message.react('⚠️');
+				await interaction.reply({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
 			} else {
 				this.client.log.warn('Unable to respond to command due to missing permissions');
 			}
 			return;
 		}
 
-		const missing_permissions = cmd.permissions instanceof Array && !message.member.permissions.has(cmd.permissions);
+		const missing_permissions = command.permissions instanceof Array && !interaction.member.permissions.has(command.permissions);
 		if (missing_permissions) {
-			const perms = cmd.permissions.map(p => `\`${p}\``).join(', ');
-			return await message.channel.send({
+			const perms = command.permissions.map(p => `\`${p}\``).join(', ');
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
 						.setTitle(i18n('missing_permissions.title'))
 						.setDescription(i18n('missing_permissions.description', perms))
-				]
+				],
+				ephemeral: true
 			});
-		}
-
-		if (cmd.staff_only && await this.client.utils.isStaff(message.member) === false) {
-			return await message.channel.send({
-				embeds: [
-					new MessageEmbed()
-						.setColor(settings.error_colour)
-						.setTitle(i18n('staff_only.title'))
-						.setDescription(i18n('staff_only.description'))
-				]
-			});
-		}
-
-		let args = raw_args;
-
-		if (cmd.process_args) {
-			try {
-				args = parseArgs(cmd.args, { argv: argv(raw_args) });
-			} catch (error) {
-				const help_cmd = `${settings.command_prefix}${i18n('commands.help.name')} ${cmd_name}`;
-				return await message.channel.send({
-					embeds: [
-						new MessageEmbed()
-							.setColor(settings.error_colour)
-							.setTitle(i18n('cmd_usage.invalid_named_args.title'))
-							.setDescription(i18n('cmd_usage.invalid_named_args.description', error.message, help_cmd))
-					]
-				});
-			}
-			for (const arg of cmd.args) {
-				if (arg.required && args[arg.name] === undefined) {
-					return await cmd.sendUsage(message.channel, cmd_name); // send usage if any required arg is missing
-				}
-			}
-		} else {
-			const args_num = raw_args.split(/\s/g).filter(arg => arg.length !== 0).length; // count the number of single-word args were given
-			const required_args = cmd.args.reduce((acc, arg) => arg.required ? acc + 1 : acc, 0); // count how many of the args are required
-			if (args_num < required_args) {
-				return await cmd.sendUsage(message.channel, cmd_name);
-			}
 		}
 
 		try {
-			this.client.log.commands(`Executing "${cmd.name}" command (invoked by ${message.author.tag})`);
-			await cmd.execute(message, args); // execute the command
+			this.client.log.commands(`Executing "${command.name}" command (invoked by ${interaction.user.tag})`);
+			await command.execute(interaction); // execute the command
 		} catch (e) {
-			this.client.log.warn(`An error occurred whilst executing the ${cmd.name} command`);
+			this.client.log.warn(`An error occurred whilst executing the ${command.name} command`);
 			this.client.log.error(e);
-			await message.channel.send({
+			await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor('ORANGE')

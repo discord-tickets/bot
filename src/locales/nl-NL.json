@@ -7,23 +7,23 @@
 		"version": "[Discord Tickets] (%s) v%s door [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Beschrijving:** %s",
 			"example": "**Voorbeeld:** '%s'"
 		},
 		"description": "**Gebruik:**\n'%s'\n\n**Voorbeeld:**\n'%s'\n\nVereiste argumenten worden voorafgegaan door '❗'.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "Er is een fout opgetreden in het commando van uw opdracht: '%s'.\ntyp '%s' voor een voorbeeld.\nVraag het een medewerker als u denkt dat dit een fout is.",
 			"title": "❌ Ongeldige commando"
 		},
-		"named_args": "Deze opdracht maakt gebruik van benoemde argumenten.\n\n",
+		"named_options": "Deze opdracht maakt gebruik van benoemde argumenten.\n\n",
 		"title": "'%s' command gebruik"
 	},
 	"collector_expires_in": "Verloopt over %d seconden",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Het lid dat aan de ticket moet worden toegevoegd",
 					"example": "@iemand",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "Het lid of de rol die moet worden toegevoegd/verwijderd",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "verwijderen",
 				"lock": "lock"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "De reden voor het sluiten van de ticket(s)",
@@ -180,7 +180,7 @@
 				"command": "commando",
 				"commands": "commandos"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "De commando om informatie over te krijgen",
 					"example": "new",
@@ -205,7 +205,7 @@
 				"open": "openen",
 				"ticket": "ticket"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "Het onderwerp van de ticket",
 					"example": "Probleem met facturering",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "Een categorie-ID",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Het lid dat van de ticket moet worden verwijderd",
 					"example": "@iemand",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Ticketstatistieken weergeven",
 			"fields": {
 				"messages": "Berichten",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "enquêtes"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "De naam van de enquête waarvan u de antwoorden wilt bekijken",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "De naam van de tag die moet worden gebruikt",
 					"example": "website",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "Het nieuwe onderwerp van het ticket",
 					"example": "factureringsprobleem",

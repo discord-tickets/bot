@@ -13,38 +13,34 @@ module.exports = class SurveyCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [
-				i18n('commands.survey.aliases.surveys')
-			],
-			args: [
-				{
-					description: i18n('commands.survey.args.survey.description'),
-					example: i18n('commands.survey.args.survey.example'),
-					name: i18n('commands.survey.args.survey.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.survey.options.survey.description'),
+			// 		example: i18n('commands.survey.options.survey.example'),
+			// 		name: i18n('commands.survey.options.survey.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.survey.description'),
 			internal: true,
 			name: i18n('commands.survey.name'),
-			process_args: false,
 			staff_only: true
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const survey = await this.client.db.models.Survey.findOne({
 			where: {
 				guild: message.guild.id,
-				name: args
+				name: options
 			}
 		});
 

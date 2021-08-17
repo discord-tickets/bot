@@ -7,23 +7,23 @@
 		"version": "[Discord Tickets](%s) v%s di [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Descrizione:** %s",
 			"example": "**Esempio:** `%s`"
 		},
 		"description": "**Uso:**\n`%s`\n\n**Esempio:**\n`%s`\n\nGli argomenti richiesti hanno il prefisso `❗`.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "C'è un errore nella sintassi del tuo comando: `%s`.\nDigita `%s` per un esempio.\nTi preghiamo di contattare un membro dello staff se non si è sicuri.",
 			"title": "❌ Sintassi invalida"
 		},
-		"named_args": "Questo comando utilizza argomenti denominati.\n\n",
+		"named_options": "Questo comando utilizza argomenti denominati.\n\n",
 		"title": "Utilizzo dei comandi '%s'"
 	},
 	"collector_expires_in": "Scade tra %d secondi",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Il membro da aggiungere al ticket",
 					"example": "@qualcuno",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "Il membro o il ruolo da aggiungere/rimuovere",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "rimosso",
 				"lock": "chiudi"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "La ragione della chiusura del ticket o dei ticket",
@@ -180,7 +180,7 @@
 				"command": "comando",
 				"commands": "comandi"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "Comando di cui visualizzare informazioni",
 					"example": "nuovo",
@@ -205,7 +205,7 @@
 				"open": "apri",
 				"ticket": "ticket"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "L'argomento del ticket",
 					"example": "Problema con la fattura",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "ID Categoria",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Il membro da rimuovere dal ticket",
 					"example": "@qualcuno",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Mostra le statistiche dei ticket",
 			"fields": {
 				"messages": "Messaggi",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "sondaggi"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "Il nome del sondaggio per visualizzare le risposte",
 					"example": "supporto",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tag"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "Il nome del tag da utilizzare",
 					"example": "sito web",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "Il nuovo argomento del ticket",
 					"example": "problema di fatturazione",

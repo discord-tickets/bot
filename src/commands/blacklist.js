@@ -8,31 +8,27 @@ module.exports = class BlacklistCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [
-				i18n('commands.blacklist.aliases.unblacklist')
-			],
-			args: [
-				{
-					description: i18n('commands.blacklist.args.member_or_role.description'),
-					example: i18n('commands.blacklist.args.member_or_role.example'),
-					name: i18n('commands.blacklist.args.member_or_role.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.blacklist.options.member_or_role.description'),
+			// 		example: i18n('commands.blacklist.options.member_or_role.example'),
+			// 		name: i18n('commands.blacklist.options.member_or_role.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.blacklist.description'),
 			internal: true,
 			name: i18n('commands.blacklist.name'),
-			permissions: ['MANAGE_GUILD'],
-			process_args: false
+			staff_only: true
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -53,7 +49,7 @@ module.exports = class BlacklistCommand extends Command {
 
 		const role = message.mentions.roles.first();
 		let id;
-		const input = args.trim().split(/\s/g)[0];
+		const input = options.trim().split(/\s/g)[0];
 
 		if (member) {
 			id = member.id;
@@ -67,7 +63,7 @@ module.exports = class BlacklistCommand extends Command {
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setTitle(i18n('commands.blacklist.response.empty_list.title'))
-						.setDescription(i18n('commands.blacklist.response.empty_list.description', settings.command_prefix))
+						.setDescription(i18n('commands.blacklist.response.empty_list.description'))
 						.setFooter(settings.footer, message.guild.iconURL())
 				]
 			});

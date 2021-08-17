@@ -3,48 +3,40 @@ const {
 	Message, // eslint-disable-line no-unused-vars
 	MessageEmbed
 } = require('discord.js');
-const { parseArgsStringToArgv: argv } = require('string-argv');
-const parseArgs = require('command-line-args');
 
 module.exports = class TagCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [
-				i18n('commands.tag.aliases.faq'),
-				i18n('commands.tag.aliases.t'),
-				i18n('commands.tag.aliases.tags')
-			],
-			args: [
-				{
-					description: i18n('commands.tag.args.command.description'),
-					example: i18n('commands.tag.args.tag.example'),
-					name: i18n('commands.tag.args.tag.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.tag.options.command.description'),
+			// 		example: i18n('commands.tag.options.tag.example'),
+			// 		name: i18n('commands.tag.options.tag.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.tag.description'),
 			internal: true,
 			name: i18n('commands.tag.name'),
-			process_args: false,
 			staff_only: true
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
-		args = args.split(/\s/g); // convert to an array
-		const tag_name = args.shift(); // shift the first element
-		args = args.join(' '); // convert back to a string with the first word removed
+		options = options.split(/\s/g); // convert to an array
+		const tag_name = options.shift(); // shift the first element
+		options = options.join(' '); // convert back to a string with the first word removed
 
 		if (tag_name && settings.tags[tag_name]) {
 			const tag = settings.tags[tag_name];
@@ -72,7 +64,7 @@ module.exports = class TagCommand extends Command {
 
 			if (expected.length >= 1) {
 				try {
-					args = parseArgs(expected, { argv: argv(args) });
+					options = parseoptions(expected, { argv: argv(options) });
 				} catch (error) {
 					return await message.channel.send({
 						embeds: [
@@ -85,11 +77,11 @@ module.exports = class TagCommand extends Command {
 					});
 				}
 			} else {
-				args = {};
+				options = {};
 			}
 
 			for (const p of expected) {
-				if (!args[p.name]) {
+				if (!options[p.name]) {
 					const list = expected.map(p => `\`${p.name}\``);
 					return await message.channel.send({
 						embeds: [
@@ -104,12 +96,12 @@ module.exports = class TagCommand extends Command {
 			}
 
 			if (requires_ticket) {
-				args.ticket = t_row.toJSON();
-				args.ticket.topic = t_row.topic ? this.client.cryptr.decrypt(t_row.topic) : null;
+				options.ticket = t_row.toJSON();
+				options.ticket.topic = t_row.topic ? this.client.cryptr.decrypt(t_row.topic) : null;
 			}
 
 			// note that this regex is slightly different to the other
-			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, (_$, $1) => this.client.i18n.resolve(args, $1));
+			const text = tag.replace(/(?<!\\){{1,2}\s?:?([A-Za-z0-9._]+)\s?(?<!\\)}{1,2}/gi, (_$, $1) => this.client.i18n.resolve(options, $1));
 			return await message.channel.send({
 				embeds: [
 					new MessageEmbed()
@@ -129,6 +121,10 @@ module.exports = class TagCommand extends Command {
 				]
 			});
 		}
+
+
+
+		this.client.commands.publish(message.guild);
 
 	}
 };

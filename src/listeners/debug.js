@@ -6,7 +6,7 @@ module.exports = class DebugEventListener extends EventListener {
 	}
 
 	async execute(data) {
-		if (this.client.config.debug) {
+		if (this.client.config.developer.debug) {
 			this.client.log.debug(data);
 		}
 	}

@@ -7,23 +7,23 @@
 		"version": "[Discord Tickets](%s) v%s สร้างโดย [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**คำอธิบาย:** %s",
 			"example": "**ตัวอย่าง:** `%s`"
 		},
 		"description": "**การใช้งาน:**\n`%s`\n\n**ตัวอย่าง:**\n`%s`\n\nอาร์กิวเมนต์ที่จำเป็นจะต้องขึ้นต้นด้วย `❗`",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "มีข้อผิดพลาดในไวยากรณ์ในคำสั่งของคุณ: `%s`\nพิมพ์ `%s` เพื่อดูตัวอย่าง\nกรุณาถามทีมงานที่เกี่ยวข้องหากคุณไม่แน่ใจ",
 			"title": "❌ไวยากรณ์ไม่ถูกต้อง"
 		},
-		"named_args": "คําสั่งนี้ใช้อาร์กิวเมนต์ที่มีชื่อ\n\n",
+		"named_options": "คําสั่งนี้ใช้อาร์กิวเมนต์ที่มีชื่อ\n\n",
 		"title": "การใช้งานคำสั่ง `%s`"
 	},
 	"collector_expires_in": "หมดอายุในอีก %d วินาที",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "สมาชิกที่จะเพิ่มไปยังตั๋วสนับสนุน",
 					"example": "@someone",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "The member or role to add/remove",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "delete",
 				"lock": "lock"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "The reason for closing the ticket(s)",
@@ -180,7 +180,7 @@
 				"command": "command",
 				"commands": "commands"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "The command to display information about",
 					"example": "new",
@@ -205,7 +205,7 @@
 				"open": "open",
 				"ticket": "ticket"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "The topic of the ticket",
 					"example": "Problem with billing",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "A category ID",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "สมาชิกที่จะลบออกจากตั๋วสนับสนุน",
 					"example": "@someone",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Display ticket statistics",
 			"fields": {
 				"messages": "Messages",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "surveys"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "The name of the survey to view responses of",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "The name of the tag to use",
 					"example": "website",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "The new topic of the ticket",
 					"example": "billing issue",

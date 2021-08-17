@@ -12,61 +12,56 @@ module.exports = class CloseCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [
-				i18n('commands.close.aliases.delete'),
-				i18n('commands.close.aliases.lock')
-			],
-			args: [
-				{
-					alias: i18n('commands.close.args.ticket.alias'),
-					description: i18n('commands.close.args.ticket.description'),
-					example: i18n('commands.close.args.ticket.example'),
-					name: i18n('commands.close.args.ticket.name'),
-					required: false,
-					type: String
-				},
-				{
-					alias: i18n('commands.close.args.reason.alias'),
-					description: i18n('commands.close.args.reason.description'),
-					example: i18n('commands.close.args.reason.example'),
-					name: i18n('commands.close.args.reason.name'),
-					required: false,
-					type: String
-				},
-				{
-					alias: i18n('commands.close.args.time.alias'),
-					description: i18n('commands.close.args.time.description'),
-					example: i18n('commands.close.args.time.example'),
-					name: i18n('commands.close.args.time.name'),
-					required: false,
-					type: String
-				}
-			],
+			// options: [
+			// 	{
+			// 		alias: i18n('commands.close.options.ticket.alias'),
+			// 		description: i18n('commands.close.options.ticket.description'),
+			// 		example: i18n('commands.close.options.ticket.example'),
+			// 		name: i18n('commands.close.options.ticket.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.close.options.reason.alias'),
+			// 		description: i18n('commands.close.options.reason.description'),
+			// 		example: i18n('commands.close.options.reason.example'),
+			// 		name: i18n('commands.close.options.reason.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.close.options.time.alias'),
+			// 		description: i18n('commands.close.options.time.description'),
+			// 		example: i18n('commands.close.options.time.example'),
+			// 		name: i18n('commands.close.options.time.name'),
+			// 		required: false,
+			// 		type: String
+			// 	}
+			// ],
 			description: i18n('commands.close.description'),
 			internal: true,
-			name: i18n('commands.close.name'),
-			process_args: true
+			name: i18n('commands.close.name')
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {*} args
+	 * @param {*} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
-		const arg_ticket = this.args[0].name;
-		const arg_reason = this.args[1].name;
-		const arg_time = this.args[2].name;
+	async execute(message, options) {
+		const arg_ticket = this.options[0].name;
+		const arg_reason = this.options[1].name;
+		const arg_time = this.options[2].name;
 
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		if (args[arg_time]) {
+		if (options[arg_time]) {
 			let period;
 
 			try {
-				period = toTime(args[arg_time]).ms();
+				period = toTime(options[arg_time]).ms();
 			} catch {
 				return await message.channel.send({
 					embeds: [
@@ -129,7 +124,7 @@ module.exports = class CloseCommand extends Command {
 					});
 
 					for (const ticket of tickets.rows) {
-						await this.client.tickets.close(ticket.id, message.author.id, message.guild.id, args[arg_reason]);
+						await this.client.tickets.close(ticket.id, message.author.id, message.guild.id, options[arg_reason]);
 					}
 
 				});
@@ -161,9 +156,9 @@ module.exports = class CloseCommand extends Command {
 
 		} else {
 			let t_row;
-			if (args[arg_ticket]) {
-				args[arg_ticket] = args[arg_ticket].replace(MessageMentions.CHANNELS_PATTERN, '$1');
-				t_row = await this.client.tickets.resolve(args[arg_ticket], message.guild.id);
+			if (options[arg_ticket]) {
+				options[arg_ticket] = options[arg_ticket].replace(MessageMentions.CHANNELS_PATTERN, '$1');
+				t_row = await this.client.tickets.resolve(options[arg_ticket], message.guild.id);
 
 				if (!t_row) {
 					return await message.channel.send({
@@ -171,7 +166,7 @@ module.exports = class CloseCommand extends Command {
 							new MessageEmbed()
 								.setColor(settings.error_colour)
 								.setTitle(i18n('commands.close.response.unresolvable.title'))
-								.setDescription(i18n('commands.close.response.unresolvable.description', args[arg_ticket]))
+								.setDescription(i18n('commands.close.response.unresolvable.description', options[arg_ticket]))
 								.setFooter(settings.footer, message.guild.iconURL())
 						]
 					});
@@ -185,7 +180,7 @@ module.exports = class CloseCommand extends Command {
 							new MessageEmbed()
 								.setColor(settings.error_colour)
 								.setTitle(i18n('commands.close.response.not_a_ticket.title'))
-								.setDescription(i18n('commands.close.response.not_a_ticket.description', settings.command_prefix))
+								.setDescription(i18n('commands.close.response.not_a_ticket.description'))
 								.setFooter(settings.footer, message.guild.iconURL())
 						]
 					});
@@ -228,7 +223,7 @@ module.exports = class CloseCommand extends Command {
 					});
 				}
 
-				await this.client.tickets.close(t_row.id, message.author.id, message.guild.id, args[arg_reason]);
+				await this.client.tickets.close(t_row.id, message.author.id, message.guild.id, options[arg_reason]);
 			});
 
 			collector.on('end', async collected => {

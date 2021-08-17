@@ -126,7 +126,7 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 							.setColor(settings.error_colour)
 							.setAuthor(user.username, user.displayAvatarURL())
 							.setTitle(i18n('commands.new.response.max_tickets.title', tickets.count))
-							.setDescription(i18n('commands.new.response.max_tickets.description', settings.command_prefix, list.join('\n')))
+							.setDescription(i18n('commands.new.response.max_tickets.description', list.join('\n')))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), user.iconURL());
 						try {
 							response = await user.send({ embeds: [embed] });

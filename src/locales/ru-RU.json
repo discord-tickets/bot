@@ -7,23 +7,23 @@
 		"version": "[Discord Tickets](%s) v%s от [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Описание:** %s",
 			"example": "**Пример:** `%s`"
 		},
 		"description": "**Использование:**\n`%s`\n\n**Пример:**\n`%s`\n\nОбязательные аргументы префиксированы с `❗`.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
 			"title": "❌ Неверный синтаксис"
 		},
-		"named_args": "Эта команда использует названные аргументы.\n\n",
+		"named_options": "Эта команда использует названные аргументы.\n\n",
 		"title": "Использование команды `%s`"
 	},
 	"collector_expires_in": "Истекает через %d секунд",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "The member to add to the ticket",
 					"example": "@someone",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "The member or role to add/remove",
 					"example": "@ПлохойПользователь",
@@ -104,7 +104,7 @@
 				"delete": "удалить",
 				"lock": "lock"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "Причина закрытия тикета(ов)",
@@ -180,7 +180,7 @@
 				"command": "command",
 				"commands": "commands"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "The command to display information about",
 					"example": "новый",
@@ -205,7 +205,7 @@
 				"open": "открыть",
 				"ticket": "тикет"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "Тема билета",
 					"example": "Проблема с выставлением счетов",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "ID категории",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@someone",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Display ticket statistics",
 			"fields": {
 				"messages": "Messages",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "surveys"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "The name of the survey to view responses of",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "The name of the tag to use",
 					"example": "website",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "The new topic of the ticket",
 					"example": "billing issue",

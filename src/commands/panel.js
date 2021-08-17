@@ -12,71 +12,69 @@ module.exports = class PanelCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [],
-			args: [
-				{
-					alias: i18n('commands.panel.args.title.alias'),
-					description: i18n('commands.panel.args.title.description'),
-					example: i18n('commands.panel.args.title.example'),
-					name: i18n('commands.panel.args.title.name'),
-					required: false,
-					type: String
-				},
-				{
-					alias: i18n('commands.panel.args.description.alias'),
-					description: i18n('commands.panel.args.description.description'),
-					example: i18n('commands.panel.args.description.example'),
-					name: i18n('commands.panel.args.description.name'),
-					required: true,
-					type: String
-				},
-				{
-					alias: i18n('commands.panel.args.emoji.alias'),
-					description: i18n('commands.panel.args.emoji.description'),
-					example: i18n('commands.panel.args.emoji.example'),
-					multiple: true,
-					name: i18n('commands.panel.args.emoji.name'),
-					required: false,
-					type: String
-				},
-				{
-					alias: i18n('commands.panel.args.categories.alias'),
-					description: i18n('commands.panel.args.categories.description'),
-					example: i18n('commands.panel.args.categories.example'),
-					multiple: true,
-					name: i18n('commands.panel.args.categories.name'),
-					required: true,
-					type: String
-				}
-			],
+			// options: [
+			// 	{
+			// 		alias: i18n('commands.panel.options.title.alias'),
+			// 		description: i18n('commands.panel.options.title.description'),
+			// 		example: i18n('commands.panel.options.title.example'),
+			// 		name: i18n('commands.panel.options.title.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.description.alias'),
+			// 		description: i18n('commands.panel.options.description.description'),
+			// 		example: i18n('commands.panel.options.description.example'),
+			// 		name: i18n('commands.panel.options.description.name'),
+			// 		required: true,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.emoji.alias'),
+			// 		description: i18n('commands.panel.options.emoji.description'),
+			// 		example: i18n('commands.panel.options.emoji.example'),
+			// 		multiple: true,
+			// 		name: i18n('commands.panel.options.emoji.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.categories.alias'),
+			// 		description: i18n('commands.panel.options.categories.description'),
+			// 		example: i18n('commands.panel.options.categories.example'),
+			// 		multiple: true,
+			// 		name: i18n('commands.panel.options.categories.name'),
+			// 		required: true,
+			// 		type: String
+			// 	}
+			// ],
 			description: i18n('commands.panel.description'),
 			internal: true,
 			name: i18n('commands.panel.name'),
-			permissions: ['MANAGE_GUILD'],
-			process_args: true
+			staff_only: true
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {*} args
+	 * @param {*} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		// localised command and arg names are a pain
-		const arg_title = this.args[0].name;
-		const arg_description = this.args[1].name;
-		const arg_emoji = this.args[2].name;
-		const arg_categories = this.args[3].name;
+		const arg_title = this.options[0].name;
+		const arg_description = this.options[1].name;
+		const arg_emoji = this.options[2].name;
+		const arg_categories = this.options[3].name;
 
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		if (!args[arg_emoji]) args[arg_emoji] = [];
+		if (!options[arg_emoji]) options[arg_emoji] = [];
 
-		args[arg_emoji] = args[arg_emoji].map(emoji => emojify(emoji.replace(/\\/g, '')));
+		options[arg_emoji] = options[arg_emoji].map(emoji => emojify(emoji.replace(/\\/g, '')));
 
-		const invalid_category = await some(args[arg_categories], async id => {
+		const invalid_category = await some(options[arg_categories], async id => {
 			const cat_row = await this.client.db.models.Category.findOne({
 				where: {
 					guild: message.guild.id,
@@ -101,15 +99,15 @@ module.exports = class PanelCommand extends Command {
 		let panel_channel,
 			panel_message;
 
-		let categories_map = args[arg_categories][0];
+		let categories_map = options[arg_categories][0];
 
 		const embed = new MessageEmbed()
 			.setColor(settings.colour)
 			.setFooter(settings.footer, message.guild.iconURL());
 
-		if (args[arg_title]) embed.setTitle(args[arg_title]);
+		if (options[arg_title]) embed.setTitle(options[arg_title]);
 
-		if (args[arg_emoji].length === 0) {
+		if (options[arg_emoji].length === 0) {
 			// reaction-less panel
 			panel_channel = await message.guild.channels.create('create-a-ticket', {
 				permissionOverwrites: [
@@ -129,12 +127,12 @@ module.exports = class PanelCommand extends Command {
 				type: 'GUILD_TEXT'
 			});
 
-			embed.setDescription(args[arg_description]);
+			embed.setDescription(options[arg_description]);
 			panel_message = await panel_channel.send({ embeds: [embed] });
 
 			this.client.log.info(`${message.author.tag} has created a new reaction-less panel`);
 		} else {
-			if (args[arg_categories].length !== args[arg_emoji].length) {
+			if (options[arg_categories].length !== options[arg_emoji].length) {
 				// send error
 				return await message.channel.send({
 					embeds: [
@@ -163,37 +161,37 @@ module.exports = class PanelCommand extends Command {
 					type: 'GUILD_TEXT'
 				});
 
-				if (args[arg_emoji].length === 1) {
+				if (options[arg_emoji].length === 1) {
 					// single category
 					categories_map = {};
-					categories_map[args[arg_emoji][0]] = args[arg_categories][0];
-					embed.setDescription(args[arg_description]);
+					categories_map[options[arg_emoji][0]] = options[arg_categories][0];
+					embed.setDescription(options[arg_description]);
 					panel_message = await panel_channel.send({ embeds: [embed] });
-					await panel_message.react(args[arg_emoji][0]);
+					await panel_message.react(options[arg_emoji][0]);
 				} else {
 					// multi category
 					let description = '';
 					categories_map = {};
 
-					for (const i in args[arg_emoji]) {
-						categories_map[args[arg_emoji][i]] = args[arg_categories][i];
+					for (const i in options[arg_emoji]) {
+						categories_map[options[arg_emoji][i]] = options[arg_categories][i];
 						const cat_row = await this.client.db.models.Category.findOne({
 							where: {
 								guild: message.guild.id,
-								id: args[arg_categories][i]
+								id: options[arg_categories][i]
 							}
 						});
-						description += `\n> ${args[arg_emoji][i]} | ${cat_row.name}`;
+						description += `\n> ${options[arg_emoji][i]} | ${cat_row.name}`;
 					}
 
-					embed.setDescription(args[arg_description] + '\n' + description);
+					embed.setDescription(options[arg_description] + '\n' + description);
 					panel_message = await panel_channel.send({
 						embeds: [
 							embed
 						]
 					});
 
-					for (const emoji of args[arg_emoji]) {
+					for (const emoji of options[arg_emoji]) {
 						await panel_message.react(emoji);
 						await wait(1000); // 1 reaction per second rate-limit
 					}

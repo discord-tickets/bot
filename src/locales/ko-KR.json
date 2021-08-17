@@ -7,23 +7,23 @@
 		"version": "[디스코드 티켓](%s) v%s by [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**설명.**%s",
 			"example": "**예시.**%s"
 		},
 		"description": "**사용:**\n`%s`\n\n**예시:**\n`%s`\n\n명령어를 사용하실때, 앞에 `❗`를 붙여주세요.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "명령어에 `%s`라는 오류가 있습니다.\n`%s` 를 입력해보세요.\n확실하지 않다면, 관리자에게 문의 바랍니다.",
 			"title": "❌ 잘못된 구문"
 		},
-		"named_args": "이 명령어는 지정된 인수를 사용합니다.\n\n",
+		"named_options": "이 명령어는 지정된 인수를 사용합니다.\n\n",
 		"title": "'%s' 명령어 사용"
 	},
 	"collector_expires_in": "%d 초 안에 만료됨",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "티켓에 추가할 멤버",
 					"example": "@someone",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "The member or role to add/remove",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "delete",
 				"lock": "lock"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "The reason for closing the ticket(s)",
@@ -180,7 +180,7 @@
 				"command": "command",
 				"commands": "commands"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "The command to display information about",
 					"example": "new",
@@ -205,7 +205,7 @@
 				"open": "open",
 				"ticket": "ticket"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "The topic of the ticket",
 					"example": "Problem with billing",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "A category ID",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "The member to remove from the ticket",
 					"example": "@someone",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Display ticket statistics",
 			"fields": {
 				"messages": "Messages",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "surveys"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "The name of the survey to view responses of",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "The name of the tag to use",
 					"example": "website",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "The new topic of the ticket",
 					"example": "billing issue",

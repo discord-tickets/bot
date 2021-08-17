@@ -7,23 +7,23 @@
 		"version": "[Discord Tickets](%s) v%s af [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"args": {
+		"options": {
 			"description": "**Beskrivelse:** %s",
 			"example": "**Eksempel:** '%s'"
 		},
 		"description": "**Brug:**\n'%s'\n\n**Eksempel:**\n'%s'\n\nObligatoriske argumenter er præfikset med '❗'.",
-		"invalid_named_args": {
+		"invalid_named_options": {
 			"description": "Der er en fejl i kommandosyntaksen: '%s'.\nType '%s' for eksempel.\nSpørg en medarbejder, hvis du er i tvivl.",
 			"title": "❌ Ugyldig syntaks"
 		},
-		"named_args": "Denne kommando bruger navngivne argumenter.\n\n",
+		"named_options": "Denne kommando bruger navngivne argumenter.\n\n",
 		"title": "'%s' brug af kommandoen"
 	},
 	"collector_expires_in": "Udløber om %d sekunder",
 	"commands": {
 		"add": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Det medlem, der skal føjes til billetten",
 					"example": "@someone",
@@ -60,7 +60,7 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"args": {
+			"options": {
 				"member_or_role": {
 					"description": "Det medlem eller den rolle, der skal tilføjes/fjernes",
 					"example": "@NaughtyMember",
@@ -104,7 +104,7 @@
 				"delete": "slet",
 				"lock": "lås"
 			},
-			"args": {
+			"options": {
 				"reason": {
 					"alias": "r",
 					"description": "Årsagen til lukning af billetten eller billetter(ne)",
@@ -180,7 +180,7 @@
 				"command": "kommando",
 				"commands": "kommandoer"
 			},
-			"args": {
+			"options": {
 				"command": {
 					"description": "Kommandoen til at få vist oplysninger om",
 					"example": "ny",
@@ -205,7 +205,7 @@
 				"open": "åben",
 				"ticket": "billet"
 			},
-			"args": {
+			"options": {
 				"topic": {
 					"description": "Emnet for billetten",
 					"example": "Problem med fakturering",
@@ -250,7 +250,7 @@
 		},
 		"panel": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"categories": {
 					"alias": "c",
 					"description": "Et kategori-id",
@@ -291,7 +291,7 @@
 		},
 		"remove": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"member": {
 					"description": "Det medlem, der skal fjernes fra billetten",
 					"example": "@someone",
@@ -337,7 +337,7 @@
 		},
 		"stats": {
 			"aliases": {},
-			"args": {},
+			"options": {},
 			"description": "Vis billetstatistik",
 			"fields": {
 				"messages": "Meddelelser",
@@ -363,7 +363,7 @@
 			"aliases": {
 				"surveys": "undersøgelser"
 			},
-			"args": {
+			"options": {
 				"survey": {
 					"description": "Navnet på den undersøgelse, der skal vises svar fra",
 					"example": "support",
@@ -384,7 +384,7 @@
 				"t": "t",
 				"tags": "tags"
 			},
-			"args": {
+			"options": {
 				"tag": {
 					"description": "Navnet på det tag, der skal bruges",
 					"example": "websted",
@@ -407,7 +407,7 @@
 		},
 		"topic": {
 			"aliases": {},
-			"args": {
+			"options": {
 				"new_topic": {
 					"description": "Det nye emne for billetten",
 					"example": "faktureringsproblem",

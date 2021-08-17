@@ -8,34 +8,32 @@ module.exports = class AddCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			aliases: [],
-			args: [
-				{
-					description: i18n('commands.add.args.member.description'),
-					example: i18n('commands.add.args.member.example'),
-					name: i18n('commands.add.args.member.name'),
-					required: true
-				},
-				{
-					description: i18n('commands.add.args.ticket.description'),
-					example: i18n('commands.add.args.ticket.example'),
-					name: i18n('commands.add.args.ticket.name'),
-					required: false
-				}
-			],
+			// options: [
+			// 	{
+			// 		description: i18n('commands.add.options.member.description'),
+			// 		example: i18n('commands.add.options.member.example'),
+			// 		name: i18n('commands.add.options.member.name'),
+			// 		required: true
+			// 	},
+			// 	{
+			// 		description: i18n('commands.add.options.ticket.description'),
+			// 		example: i18n('commands.add.options.ticket.example'),
+			// 		name: i18n('commands.add.options.ticket.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.add.description'),
 			internal: true,
-			name: i18n('commands.add.name'),
-			process_args: false
+			name: i18n('commands.add.name')
 		});
 	}
 
 	/**
 	 * @param {Message} message
-	 * @param {string} args
+	 * @param {string} options
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, args) {
+	async execute(message, options) {
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -54,7 +52,7 @@ module.exports = class AddCommand extends Command {
 			});
 		}
 
-		const member = message.mentions.members.first() ?? message.guild.members.cache.get(args);
+		const member = message.mentions.members.first() ?? message.guild.members.cache.get(options);
 
 		if (!member) {
 			return await message.channel.send({
