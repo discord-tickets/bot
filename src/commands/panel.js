@@ -203,11 +203,11 @@ module.exports = class PanelCommand extends Command {
                                                  components: [row]
 					});
                                         this.client.on("interactionCreate", (interaction) => {
-                                            if (!interaction.isButton() || interaction.customId !== `tickets-${key}`) return;
+                                            if (!interaction.isButton() || interaction.customId !== `tickets-${key}` || !interaction.inGuild()) return;
                                             const p_row = await this.client.db.models.Panel.findOne({ where: { message: interaction.message.id } });
 
 			                    if (p_row && typeof p_row.categories !== 'string') {
-				            // panels
+				            const { user } = interaction;
 
 				            const category_id = p_row.categories[reaction.emoji.name];
 				            if (!category_id) return;
