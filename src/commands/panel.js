@@ -1,7 +1,8 @@
 const Command = require('../modules/commands/command');
 const {
 	Message, // eslint-disable-line no-unused-vars
-	MessageEmbed
+	MessageEmbed,
+        MessageButton
 } = require('discord.js');
 const {
 	some, wait
@@ -187,16 +188,25 @@ module.exports = class PanelCommand extends Command {
 					}
 
 					embed.setDescription(args[arg_description] + '\n' + description);
+                                        const row = new MessageActionRow();
+                                        const key = this._generateString(5); //I don't know if this is needed but I still do because I think all custom IDs should be unique
+                                        const button = new MessageButton();
+                                        button.setLabel(i18n('commands.panel.button.label'));
+                                        button.setStyle("PRIMARY");
+                                        button.setCustomId(`tickets-${key}`);
+                                        button.setEmoji(args[arg_emoji][0]);
+                                        row.addComponents(button);
 					panel_message = await panel_channel.send({
 						embeds: [
 							embed
-						]
+						],
+                                                 components: [row]
 					});
 
-					for (const emoji of args[arg_emoji]) {
+					/*for (const emoji of args[arg_emoji]) {
 						await panel_message.react(emoji);
 						await wait(1000); // 1 reaction per second rate-limit
-					}
+					}*/
 
 				}
 
@@ -213,4 +223,15 @@ module.exports = class PanelCommand extends Command {
 			message: panel_message.id
 		});
 	}
+
+        _generateString(length) {
+            let result           = "";
+            const characters       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const charactersLength = characters.length;
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+            }
+            return result;
+        }
 };
