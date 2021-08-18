@@ -283,9 +283,9 @@ module.exports = class SettingsCommand extends Command {
 			if (name !== null) category.set('name', name);
 			if (name_format !== null) category.set('name_format', name_format);
 			if (opening_message !== null) category.set('opening_message', opening_message);
-			if (ping !== null) category.set('ping', ping);
+			if (ping !== null) category.set('ping', ping.replace(/\s/g, '').split(','));
 			if (require_topic !== null) category.set('require_topic', require_topic);
-			if (roles !== null) category.set('roles', roles);
+			if (roles !== null) category.set('roles', roles.replace(/\s/g, '').split(','));
 			if (survey !== null) category.set('survey', survey);
 			await category.save();
 			interaction.reply({
