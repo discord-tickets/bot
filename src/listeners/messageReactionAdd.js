@@ -85,6 +85,4 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				}
 			}
 		}
-
-	}
 };
