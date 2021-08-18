@@ -258,7 +258,7 @@ module.exports = class PanelCommand extends Command {
 						} catch {
 							response = await channel.send({ embeds: [embed] });
 						}
-					    }
+					    });
 				        } else {
 					    try {
 						await this.client.tickets.create(guild.id, user.id, cat_row.id);
