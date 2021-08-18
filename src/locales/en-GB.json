@@ -321,9 +321,9 @@
 							"description": "Delete a category",
 							"name": "delete",
 							"options": {
-								"category": {
-									"description": "The category to delete",
-									"name": "category"
+								"id": {
+									"description": "The ID of the category to delete",
+									"name": "id"
 								}
 							}
 						},
@@ -376,6 +376,10 @@
 									"name": "survey"
 								}
 							}
+						},
+						"list": {
+							"description": "List categories",
+							"name": "list"
 						}
 					}
 				},
@@ -411,7 +415,12 @@
 				}
 			},
 			"response": {
-				"category_created": "✅ The `%s` ticket category has been created"
+				"category_created": "✅ The `%s` ticket category has been created",
+				"category_deleted": "✅ The `%s` ticket category has been deleted",
+				"category_does_not_exist": "❌ No category exists with the provided ID",
+				"category_updated": "✅ The `%s` ticket category has been updated",
+				"category_list": "Ticket categories",
+				"settings_updated": "✅ Settings have been updated"
 			}
 		},
 		"stats": {
@@ -548,5 +557,6 @@
 				"title": "❔ Feedback"
 			}
 		}
-	}
+	},
+	"updated_permissions": "✅ Slash command permissions updated"
 }

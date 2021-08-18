@@ -86,5 +86,8 @@ module.exports = ({ config }, sequelize) => {
 			allowNull: true,
 			type: DataTypes.STRING
 		}
-	}, { tableName: DB_TABLE_PREFIX + 'categories' });
+	}, {
+		paranoid: true,
+		tableName: DB_TABLE_PREFIX + 'categories'
+	});
 };
