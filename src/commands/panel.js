@@ -202,7 +202,7 @@ module.exports = class PanelCommand extends Command {
 						],
                                                  components: [row]
 					});
-                                        this.client.on("interactionCreate", (interaction) => {
+                                        this.client.on("interactionCreate", async (interaction) => {
                                             if (!interaction.isButton() || interaction.customId !== `tickets-${key}` || !interaction.inGuild()) return;
                                             const p_row = await this.client.db.models.Panel.findOne({ where: { message: interaction.message.id } });
 
