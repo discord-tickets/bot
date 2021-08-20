@@ -53,13 +53,9 @@
 					"description": "Add a member or role to the blacklist",
 					"name": "add",
 					"options": {
-						"member": {
-							"description": "The member to add to the blacklist",
-							"name": "member"
-						},
-						"role": {
-							"description": "The role to add to the blacklist",
-							"name": "role"
+						"member_or_role": {
+							"description": "The member or role to add to the blacklist",
+							"name": "member_or_role"
 						}
 					}
 				},
@@ -67,15 +63,15 @@
 					"description": "Remove a member or role from the blacklist",
 					"name": "remove",
 					"options": {
-						"member": {
-							"description": "The member to remove from the blacklist",
-							"name": "member"
-						},
-						"role": {
-							"description": "The role to remove from the blacklist",
-							"name": "role"
+						"member_or_role": {
+							"description": "The member or role to remove from the blacklist",
+							"name": "member_or_role"
 						}
 					}
+				},
+				"show": {
+					"description": "Show the members and roles in the blacklist",
+					"name": "show"
 				}
 			},
 			"response": {
@@ -87,7 +83,15 @@
 					"description": "%s is a staff member and cannot be blacklisted.",
 					"title": "❌ You can't blacklist this member"
 				},
+				"invalid": {
+					"description": "This member or role can not be removed from the blacklist as they are not blacklisted.",
+					"title": "❌ Error"
+				},
 				"list": {
+					"fields": {
+						"members": "Members",
+						"roles": "Roles"
+					},
 					"title": "📃 Blacklisted members and roles"
 				},
 				"member_added": {
