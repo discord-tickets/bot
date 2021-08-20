@@ -32,7 +32,7 @@ module.exports = class HelpCommand extends Command {
 			const description = command.description.length > 50
 				? command.description.substring(0, 50) + '...'
 				: command.description;
-			return `**[\`/${command.name}\`](https://discordtickets.app/commands/#${command.name}) ·** ${description}`;
+			return `**\`/${command.name}\` ·** ${description}`;
 		});
 		return await interaction.reply({
 			embeds: [
