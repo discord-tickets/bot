@@ -274,6 +274,18 @@
 					"description": "El título del mensaje del panel",
 					"example": "\"Tickets de soporte\"",
 					"name": "título"
+				},
+				"button": {
+					"alias": "b",
+					"description": "El título del botón",
+					"example": "\"Abrir Ticket\"",
+					"name": "botón"
+				},
+				"style": {
+					"alias": "s",
+					"description": "Estilo del Botón (PRIMARY/SECONDARY/SUCCESS/DANGER)",
+					"example": "\"PRIMARY\"",
+					"name": "estilo"
 				}
 			},
 			"description": "Crear un nuevo panel de tickets",

@@ -274,6 +274,18 @@
 					"description": "The title for the panel message",
 					"example": "\"Support tickets\"",
 					"name": "title"
+				},
+				"button": {
+					"alias": "b",
+					"description": "The title for the button",
+					"example": "\"Open Ticket\"",
+					"name": "button"
+				},
+				"style": {
+					"alias": "s",
+					"description": "Style for button (PRIMARY/SECONDARY/SUCCESS/DANGER)",
+					"example": "\"PRIMARY\"",
+					"name": "style"
 				}
 			},
 			"description": "Create a new ticket panel",

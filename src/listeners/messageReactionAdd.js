@@ -78,11 +78,11 @@ module.exports = class MessageReactionAddEventListener extends EventListener {
 				await reaction.users.remove(user.id);
 			}
 		} else {
-				if (response) {
+				/*if (response) {
 					setTimeout(async () => {
 						await response.delete();
 					}, 15000);
-				}
+				}*/
 			}
 		}
 };

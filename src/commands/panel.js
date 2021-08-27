@@ -1,8 +1,7 @@
 const Command = require('../modules/commands/command');
 const {
 	Message, // eslint-disable-line no-unused-vars
-	MessageEmbed,
-        MessageButton
+	MessageEmbed, MessageActionRow, MessageButton
 } = require('discord.js');
 const {
 	some, wait
@@ -48,6 +47,24 @@ module.exports = class PanelCommand extends Command {
 					name: i18n('commands.panel.args.categories.name'),
 					required: true,
 					type: String
+				},
+				{
+					alias: i18n('commands.panel.args.button.alias'),
+					description: i18n('commands.panel.args.button.description'),
+					example: i18n('commands.panel.args.button.example'),
+					multiple: true,
+					name: i18n('commands.panel.args.button.name'),
+					required: true,
+					type: String
+				},
+				{
+					alias: i18n('commands.panel.args.style.alias'),
+					description: i18n('commands.panel.args.style.description'),
+					example: i18n('commands.panel.args.style.example'),
+					multiple: true,
+					name: i18n('commands.panel.args.style.name'),
+					required: true,
+					type: String
 				}
 			],
 			description: i18n('commands.panel.description'),
@@ -69,6 +86,8 @@ module.exports = class PanelCommand extends Command {
 		const arg_description = this.args[1].name;
 		const arg_emoji = this.args[2].name;
 		const arg_categories = this.args[3].name;
+		const arg_button = this.args[4].name;
+		const arg_style = this.args[5].name;
 
 		const settings = await this.client.utils.getSettings(message.guild);
 		const i18n = this.client.i18n.getLocale(settings.locale);
@@ -191,17 +210,21 @@ module.exports = class PanelCommand extends Command {
                     const row = new MessageActionRow();
                     const key = this._generateString(5); //I don't know if this is needed but I still do because I think all custom IDs should be unique
                     const button = new MessageButton();
-                    button.setLabel(i18n('commands.panel.button.label'));
-                    button.setStyle("PRIMARY");
-                    button.setCustomId(`tickets-${key}`);
-                    button.setEmoji(args[arg_emoji][0]);
-                    row.addComponents(button);
+
+					for (const i in args[arg_button]) {
+						button.setLabel(args[arg_button][i]);
+						button.setStyle(args[arg_style][i]);
+						button.setCustomId(`tickets-${i}-${key}`);
+						button.setEmoji(args[arg_emoji][0]);
+						row.addComponents(button);
+					}
 					panel_message = await panel_channel.send({
 						embeds: [
 							embed
 						],
                         components: [row],
 					});
+					
                     this.client.on("interactionCreate", async (interaction) => {
                         if (!interaction.isButton() || interaction.customId !== `tickets-${key}` || !interaction.inGuild()) return;
                         const p_row = await this.client.db.models.Panel.findOne({ where: { message: interaction.message.id } });
