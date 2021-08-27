@@ -4,7 +4,7 @@
 			"description": "Discord Tickets vyžaduje následující oprávnění:\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord tickety](%s) v%s vytvořeny uživatelem [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
 	},
 	"cmd_usage": {
 		"args": {
@@ -13,13 +13,13 @@
 		},
 		"description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
 		"invalid_named_args": {
-			"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejste jisti, zeptejte se člena ateamu.",
-			"title": "❌ Neplatná Syntaxe"
+			"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejsi jistý/á, zeptej se člena týmu.",
+			"title": "❌ Neplatná syntaxe"
 		},
 		"named_args": "Tento příkaz používá jmenné argumenty.\n\n",
 		"title": "Použití příkazu `%s`"
 	},
-	"collector_expires_in": "Expiruje za %d sekund",
+	"collector_expires_in": "Vyprší za %d sekund",
 	"commands": {
 		"add": {
 			"aliases": {},
@@ -67,15 +67,15 @@
 					"name": "uživatelNeboRole"
 				}
 			},
-			"description": "Zablokuje/povolí uživateli interakci s botem",
+			"description": "Zablokovat/povolit uživateli interakci s botem",
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <memberOrRole>` pro přidání uživatele nebo role na černou listinu.",
+					"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <členNeboRole>` pro přidání uživatele nebo role na černou listinu.",
 					"title": "📃 Zablokovaní uživatelé a role"
 				},
 				"illegal_action": {
-					"description": "%s je člen serveru a nemůže být na černé listině.",
+					"description": "%s je člen týmu a nemůže být na černé listině.",
 					"title": "❌ Tohoto člena nemůžeš přidat na černou listinu"
 				},
 				"list": {
@@ -83,19 +83,19 @@
 				},
 				"member_added": {
 					"description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota.",
-					"title": "✅ Uživatel přidán na blacklist"
+					"title": "✅ Uživatel přidán na černou listinu"
 				},
 				"member_removed": {
 					"description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota.",
-					"title": "✅ Uživatel odstraněn z blacklistu"
+					"title": "✅ Uživatel odebrán z z černé listiny"
 				},
 				"role_added": {
 					"description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota.",
-					"title": "✅ Role přidána na blacklist"
+					"title": "✅ Role přidána na černou listinu"
 				},
 				"role_removed": {
 					"description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota.",
-					"title": "✅ Role odstraněna z blacklistu"
+					"title": "✅ Role odebrána z černé listiny"
 				}
 			}
 		},
@@ -183,37 +183,37 @@
 			"args": {
 				"command": {
 					"description": "Příkaz, o němž zobrazit informace",
-					"example": "new",
+					"example": "novy",
 					"name": "příkaz"
 				}
 			},
-			"description": "List commands you have access to, or find out more about a command",
-			"name": "help",
+			"description": "Seznam příkazů, ke kterým máš přístup, nebo k nalezení dalších informací o příkazu",
+			"name": "napoveda",
 			"response": {
 				"list": {
-					"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+					"description": "Příkazy, ke kterým máš přístup, jsou vypsány níže. Pro více informací o příkazu zadej `{prefix}napoveda [příkaz]`. Pro vytvoření ticketu zadej `{prefix}novy [téma]`.",
 					"fields": {
-						"commands": "Commands"
+						"commands": "Příkazy"
 					},
-					"title": "❔ Help"
+					"title": "❔ Nápověda"
 				}
 			}
 		},
 		"new": {
 			"aliases": {
-				"create": "create",
-				"open": "open",
+				"create": "vytvorit",
+				"open": "otevrit",
 				"ticket": "tiket"
 			},
 			"args": {
 				"topic": {
 					"description": "Téma ticketu",
 					"example": "Problém s fakturací",
-					"name": "topic"
+					"name": "tema"
 				}
 			},
-			"description": "Vytvoří ticket",
-			"name": "new",
+			"description": "Vytvořit ticket",
+			"name": "novy",
 			"response": {
 				"created": {
 					"description": "Tvůj ticket byl vytvořen: %s.",
@@ -224,14 +224,14 @@
 				},
 				"has_a_ticket": {
 					"description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového.",
-					"title": "❌ Již máte otevřený ticket"
+					"title": "❌ Již máš otevřený ticket"
 				},
 				"max_tickets": {
-					"description": "Prosím použij `%sclose` pro uzavření nepotřebných ticketů.\n\n%s",
+					"description": "Prosím použij `%szavrit` pro uzavření nepotřebných ticketů.\n\n%s",
 					"title": "❌ Již máš %d otevřených ticketů"
 				},
 				"no_categories": {
-					"description": "Než budete moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
+					"description": "Než budeš moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
 					"title": "❌ Nelze vytvořit ticket"
 				},
 				"select_category": {
@@ -239,12 +239,12 @@
 					"title": "🔤 Prosím vyber kategorii ticketu"
 				},
 				"select_category_timeout": {
-					"description": "Výběr kategorie ticketu trvala příliš dlouho.",
+					"description": "Výběr kategorie ticketu trval příliš dlouho.",
 					"title": "❌ Doba pro reakci vypršela"
 				}
 			},
 			"request_topic": {
-				"description": "Prosím stručně popiš několika slovy o čem je tento ticket.",
+				"description": "Popiš prosím stručně několika slovy, o čem je tento ticket.",
 				"title": "Téma ticketu"
 			}
 		},
@@ -252,14 +252,14 @@
 			"aliases": {},
 			"args": {
 				"categories": {
-					"alias": "c",
+					"alias": "k",
 					"description": "ID kategorie",
 					"example": "451745464954650634",
 					"name": "kategorie"
 				},
 				"description": {
-					"alias": "d",
-					"description": "Popis panelu",
+					"alias": "p",
+					"description": "Popis zprávy panelu",
 					"example": "\"Zareaguj na tuto zprávu pro otevření ticketu.\"",
 					"name": "popis"
 				},
@@ -272,8 +272,8 @@
 				"title": {
 					"alias": "t",
 					"description": "Nadpis pro zprávu panelu",
-					"example": "\"Support tickets\"",
-					"name": "title"
+					"example": "\"Tickety podpory\"",
+					"name": "nadpis"
 				}
 			},
 			"description": "Vytvořit nový ticket panel",
@@ -293,29 +293,29 @@
 			"aliases": {},
 			"args": {
 				"member": {
-					"description": "The member to remove from the ticket",
+					"description": "Člen k odebrání z ticketu",
 					"example": "@někdo",
 					"name": "člen"
 				},
 				"ticket": {
-					"description": "The ticket to remove the member from",
+					"description": "Ticket, ze kterého odebrat člena",
 					"example": "217",
 					"name": "tiket"
 				}
 			},
-			"description": "Remove a member from a ticket",
-			"name": "remove",
+			"description": "Odebrat člena z ticketu",
+			"name": "odebrat",
 			"response": {
 				"removed": {
-					"description": "%s has been removed from %s.",
-					"title": "✅ Member removed"
+					"description": "%s byl/a odebrán/a z %s.",
+					"title": "✅ Člen odebrán"
 				},
 				"no_member": {
-					"description": "Please mention the member you want to remove.",
+					"description": "Označ prosím člena, kterého chceš přidat.",
 					"title": "❌ Neznámý člen"
 				},
 				"no_permission": {
-					"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+					"description": "Nejsi tvůrcem tohoto ticketu a nejsi ani členem týmu, nemůžeš z tohoto ticketu odebírat členy.",
 					"title": "❌ Nedostatečná oprávnění"
 				},
 				"not_a_ticket": {
@@ -326,55 +326,55 @@
 		},
 		"settings": {
 			"aliases": {
-				"config": "config"
+				"config": "konfigurace"
 			},
-			"description": "Konfigurace Discord ticketů",
-			"name": "settings",
+			"description": "Konfigurace Discord Tickets",
+			"name": "nastaveni",
 			"response": {
-				"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
+				"invalid": "❌ Data nastavení jsou neplatná; přečtěte si prosím dokumentaci.\n%s",
 				"updated": "✅ Nastavení byla aktualizována."
 			}
 		},
 		"stats": {
 			"aliases": {},
 			"args": {},
-			"description": "Display ticket statistics",
+			"description": "Zobrazit statistiky ticketu",
 			"fields": {
-				"messages": "Messages",
+				"messages": "Zprávy",
 				"response_time": {
-					"minutes": "%s minutes",
-					"title": "Avg. response time"
+					"minutes": "%s minut",
+					"title": "Průměrná doba odpovědi"
 				},
-				"tickets": "Tickets"
+				"tickets": "Tickety"
 			},
-			"name": "stats",
+			"name": "statistiky",
 			"response": {
 				"global": {
-					"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-					"title": "📊 Global stats"
+					"description": "Statistiky všech ticketů napříč všemi servery, kde je použita tato instance bota Discord Tickets.",
+					"title": "📊 Globální statistiky"
 				},
 				"guild": {
-					"description": "Statistics about tickets within this guild. This data is cached for an hour.",
-					"title": "📊 This server's stats"
+					"description": "Statistiky o ticketech v tomto serveru. Tato data jsou v mezipaměti jednu hodinu.",
+					"title": "📊 Statistiky tohoto serveru"
 				}
 			}
 		},
 		"survey": {
 			"aliases": {
-				"surveys": "surveys"
+				"surveys": "dotazniky"
 			},
 			"args": {
 				"survey": {
-					"description": "The name of the survey to view responses of",
-					"example": "support",
-					"name": "survey"
+					"description": "Název dotazníku, jehož odpověď zobrazit",
+					"example": "podpora",
+					"name": "dotazník"
 				}
 			},
-			"description": "View survey responses",
-			"name": "survey",
+			"description": "Zobrazit odpovědi dotazníku",
+			"name": "dotazník",
 			"response": {
 				"list": {
-					"title": "📃 Surveys"
+					"title": "📃 Dotazníky"
 				}
 			}
 		},
@@ -382,25 +382,25 @@
 			"aliases": {
 				"faq": "faq",
 				"t": "t",
-				"tags": "tags"
+				"tags": "znacky"
 			},
 			"args": {
 				"tag": {
-					"description": "The name of the tag to use",
-					"example": "website",
-					"name": "tag"
+					"description": "Název značky k použití",
+					"example": "web",
+					"name": "značka"
 				}
 			},
-			"description": "Use a tag response",
-			"name": "tag",
+			"description": "Použít odpověď na značku",
+			"name": "značka",
 			"response": {
 				"error": "❌ Chyba",
 				"list": {
-					"title": "📃 Tag list"
+					"title": "📃 Seznam značek"
 				},
-				"missing": "This tag requires the following arguments:\n%s",
+				"missing": "Tato značka vyžaduje následující argumenty:\n%s",
 				"not_a_ticket": {
-					"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+					"description": "Tato značka může být použita pouze v kanálu ticketu, protože používá reference na tickety.",
 					"title": "❌ Toto není kanál tiketu"
 				}
 			}
@@ -409,85 +409,85 @@
 			"aliases": {},
 			"args": {
 				"new_topic": {
-					"description": "The new topic of the ticket",
-					"example": "billing issue",
-					"name": "new_topic"
+					"description": "Nové téma ticketu",
+					"example": "problém s fakturací",
+					"name": "nove_tema"
 				}
 			},
-			"description": "Change the topic of the ticket",
-			"name": "topic",
+			"description": "Změnit téma ticketu",
+			"name": "tema",
 			"response": {
 				"changed": {
-					"description": "This ticket's topic has been changed.",
-					"title": "✅ Topic changed"
+					"description": "Téma tohoto ticketu bylo změněno.",
+					"title": "✅ Téma změněno"
 				},
 				"not_a_ticket": {
-					"description": "Please use this command in the ticket channel you want to change the topic of.",
+					"description": "Tento příkaz prosím použij kanálu ticketu, jehož téma chceš změnit.",
 					"title": "❌ Toto není kanál tiketu"
 				}
 			}
 		}
 	},
 	"command_execution_error": {
-		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádejte správce serveru, aby zkontroloval výstup konzole / log pro více detailů.",
+		"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádej správce serveru, aby zkontroloval výstup konzole / protokoly pro více detailů.",
 		"title": "⚠️"
 	},
 	"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
 	"missing_permissions": {
-		"description": "Na provedení tohoto příkazu nemáš dostatečné oprávnění:\n%s",
+		"description": "K provedení tohoto příkazu nemáš dostatečná oprávnění:\n%s",
 		"title": "❌"
 	},
 	"staff_only": {
-		"description": "Na provedení tohoto příkazu musíte být členem týmu.",
+		"description": "K provedení tohoto příkazu musíš být členem týmu.",
 		"title": "❌"
 	},
 	"ticket": {
 		"claimed": {
-			"description": "%s has claimed this ticket.",
-			"title": "✅ Ticket claimed"
+			"description": "%s si vzal tento ticket.",
+			"title": "✅ Ticket vzat"
 		},
 		"closed": {
-			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+			"description": "Tento ticket byl uzavřen.\nKanál bude smazán za 5 sekund.",
 			"title": "✅ Ticket uzavřen"
 		},
 		"closed_by_member": {
-			"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+			"description": "Tento ticket byl uzavřen uživatelem %s.\nKanál bude smazán za 5 sekund.",
 			"title": "✅ Ticket uzavřen"
 		},
 		"closed_by_member_with_reason": {
-			"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nKanál bude smazán za 5 sekund.",
 			"title": "✅ Ticket uzavřen"
 		},
 		"closed_with_reason": {
-			"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+			"description": "Tento ticket byl uzavřen: `%s`\nKanál bude smazán za 5 sekund.",
 			"title": "✅ Ticket uzavřen"
 		},
 		"member_added": {
-			"description": "%s has been added by %s",
-			"title": "Member added"
+			"description": "%s byl/a přidán/a uživatelem %s",
+			"title": "Člen přidán"
 		},
 		"member_removed": {
-			"description": "%s has been removed by %s",
-			"title": "Member removed"
+			"description": "%s byl/a odebrán/a uživatelem %s",
+			"title": "Člen odebrán"
 		},
 		"opening_message": {
 			"fields": {
-				"topic": "Topic"
+				"topic": "Téma"
 			}
 		},
-		"questions": "Please answer the following questions:\n\n%s",
+		"questions": "Prosím odpověz na následující otázky:\n\n%s",
 		"released": {
-			"description": "%s has released this ticket.",
-			"title": "✅ Ticket released"
+			"description": "%s uvolnil ticket.",
+			"title": "✅ Ticket uvolněn"
 		},
 		"survey": {
 			"complete": {
-				"description": "Thank you for your feedback.",
-				"title": "✅ Thank you"
+				"description": "Děkujeme za zpětnou vazbu.",
+				"title": "✅ Děkujeme"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
-				"title": "❔ Feedback"
+				"description": "Zdravíme, %s. Než bude tento kanál odstraněn, nevadilo by ti vyplnit rychlý %d-otázkový dotazník? Zareaguj pomocí ✅ pro spuštění, nebo ignoruj tuto zprávu.",
+				"title": "❔ Zpětná vazba"
 			}
 		}
 	}
