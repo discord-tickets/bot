@@ -7,7 +7,7 @@
 
 <br>
 
-![Discord Tickets](https://img.eartharoid.me/insecure/plain/https://static.eartharoid.me/discord-tickets/logo/wordmark/gradient.png@png)
+![Discord Tickets](https://file.coffee/u/01h4-g-T-6YTD0.png)
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
 
