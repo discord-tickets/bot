@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+    mysql:
+        container_name: "mysql"
+        image: mysql:8
+        networks:
+            - bot
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=MYSQL_ROOT_PASSWORD
+        volumes:
+            - mysql:/data/db
+
+    bot:
+        build: .
+        container_name: "bot"
+        command: "node ."
+        restart: always
+        networks:
+            - bot
+        env_file:
+            - ./.env
+        ports:
+            - 3000:3000
+        depends_on:
+            - mysql
+        links:
+            - mysql
+
+volumes:
+    mysql: ~
+
+networks:
+    bot:

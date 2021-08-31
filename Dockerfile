@@ -1,14 +1,9 @@
-FROM node:16.6.1-buster-slim
+FROM node:16
 
 WORKDIR /usr/src/app
-
-ENV NODE_ENV production
-
 COPY package*.json ./
-RUN npm ci --production
 
-COPY ./src ./src
-COPY ./user ./user
+RUN npm i --production
 
-USER node
-CMD ["node", "."]
+COPY . .
+CMD ["npm", "start"]
