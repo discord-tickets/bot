@@ -10,7 +10,7 @@ services:
         environment:
           - MYSQL_ROOT_PASSWORD=MYSQL_ROOT_PASSWORD
         volumes:
-            - mysql:/data/db
+            - mysql:/var/lib/mysql
 
     bot:
         build: .
