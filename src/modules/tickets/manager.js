@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -102,10 +102,33 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
+			const thumb = cat_row.opening_thumb
+			if (thumb) embed.setThumbnail(thumb);
+
+			const row = new MessageActionRow();
+
+			if (cat_row.claiming) {
+				const button = new MessageButton()
+					.setLabel("Reclamar")
+					.setStyle("SECONDARY")
+					.setCustomId(`dst_claimed`)
+					.setEmoji("🙌");
+				row.addComponents(button);
+			}
+
+			const button2 = new MessageButton()
+				.setLabel("Cerrar")
+				.setStyle("SECONDARY")
+				.setCustomId(`dst_close`)
+				.setEmoji("🔒");
+			row.addComponents(button2);
+
 			const sent = await t_channel.send({
 				content: creator.user.toString(),
-				embeds: [embed]
+				embeds: [embed],
+				components: [row],
 			});
+
 			await sent.pin({ reason: 'Ticket opening message' });
 
 			await t_row.update({ opening_message: sent.id });
@@ -116,10 +139,6 @@ module.exports = class TicketManager extends EventEmitter {
 				pinned
 					.delete({ reason: 'Cleaning up system message' })
 					.catch(() => this.client.log.warn('Failed to delete system pin message'));
-			}
-
-			if (cat_row.claiming) {
-				await sent.react('🙌');
 			}
 
 			let questions;

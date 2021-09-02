@@ -30,6 +30,9 @@
 					"opening_message": {
 						"type": "string"
 					},
+					"opening_thumb": {
+						"type": "string"
+					},
 					"opening_questions": {
 						"type": [
 							"array",

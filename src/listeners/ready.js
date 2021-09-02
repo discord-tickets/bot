@@ -30,5 +30,7 @@ module.exports = class ReadyEventListener extends EventListener {
 			}, 3600000);
 			await this.client.postStats();
 		}
+
+		console.log("Todo listo!");
 	}
 };

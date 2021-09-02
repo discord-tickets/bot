@@ -42,6 +42,10 @@ module.exports = ({ config }, sequelize) => {
 			defaultValue: config.defaults.opening_message,
 			type: DataTypes.TEXT
 		},
+		opening_thumb: {
+			defaultValue: config.defaults.opening_thumb,
+			type: DataTypes.STRING
+		},
 		opening_questions: {
 			allowNull: true,
 			get() {

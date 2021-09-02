@@ -257,23 +257,35 @@
 					"example": "451745464954650634",
 					"name": "categories"
 				},
+				"title": {
+					"alias": "t",
+					"description": "The title for the panel message",
+					"example": "\"Support tickets\"",
+					"name": "title"
+				},
 				"description": {
 					"alias": "d",
 					"description": "The description for the panel message",
 					"example": "\"React to this message to open a ticket.\"",
 					"name": "description"
 				},
+				"img_icon": {
+					"alias": "i",
+					"description": "Imagen de Icono",
+					"example": "https://i.imgur.com/oy0QcvK.png",
+					"name": "img_icon"
+				},
+				"img_large": {
+					"alias": "l",
+					"description": "Imagen Larga",
+					"example": "https://i.imgur.com/9ya7bcy.png",
+					"name": "img_large"
+				},
 				"emoji": {
 					"alias": "e",
 					"description": "An emoji",
 					"example": "🎫",
 					"name": "emoji"
-				},
-				"title": {
-					"alias": "t",
-					"description": "The title for the panel message",
-					"example": "\"Support tickets\"",
-					"name": "title"
 				},
 				"button": {
 					"alias": "b",

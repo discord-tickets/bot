@@ -257,23 +257,35 @@
 					"example": "451745464954650634",
 					"name": "categorías"
 				},
+				"title": {
+					"alias": "t",
+					"description": "El título del mensaje del panel",
+					"example": "\"Tickets de soporte\"",
+					"name": "título"
+				},
 				"description": {
 					"alias": "d",
 					"description": "La descripción para el mensaje del panel",
 					"example": "\"Reacciona a este mensaje para abrir un ticket.\"",
 					"name": "descripción"
 				},
+				"img_icon": {
+					"alias": "i",
+					"description": "Imagen de Icono",
+					"example": "https://i.imgur.com/oy0QcvK.png",
+					"name": "img_icon"
+				},
+				"img_large": {
+					"alias": "l",
+					"description": "Imagen Larga",
+					"example": "https://i.imgur.com/9ya7bcy.png",
+					"name": "img_large"
+				},
 				"emoji": {
 					"alias": "e",
 					"description": "Un emoji",
 					"example": "🎫",
 					"name": "emoji"
-				},
-				"title": {
-					"alias": "t",
-					"description": "El título del mensaje del panel",
-					"example": "\"Tickets de soporte\"",
-					"name": "título"
 				},
 				"button": {
 					"alias": "b",
@@ -487,7 +499,7 @@
 				"topic": "Tema"
 			}
 		},
-		"questions": "Por favor, responde las siguientes preguntas:\n\n%s",
+		"questions": "**Por favor, responde las siguientes preguntas:**\n\n%s",
 		"released": {
 			"description": "%s ha lanzado este ticket.",
 			"title": "✅ Ticket lanzado"

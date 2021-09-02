@@ -25,7 +25,8 @@ module.exports = {
 		command_prefix: prefix,
 		log_messages: true,
 		name_format: 'ticket-{number}',
-		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__'
+		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__',
+		opening_thumb: 'https://images-na.ssl-images-amazon.com/images/I/510aAFZFu6L.png'
 	},
 	locale: 'en-GB',
 	logs: {

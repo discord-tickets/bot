@@ -10,3 +10,5 @@ sskey.env
 user/config.js
 user/database.sqlite
 user/plugins/*/
+package.json
+package-lock.json
