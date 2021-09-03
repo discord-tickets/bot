@@ -1,6 +1,7 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Op } = require('sequelize');
 
 module.exports = class InteractionCreateEventListener extends EventListener {
 	constructor(client) {
@@ -74,12 +75,8 @@ module.exports = class InteractionCreateEventListener extends EventListener {
             this.client.log.info(`${member.user.tag} has close yes "${channel.name}" in "${guild.name}"`);
 
             //PROCESS CLOSE TICKET: Save transcript and delete ticket. (close.js)
-            await interaction.message.edit({
-                content: "Comienza el proceso para cerrarse...",
-                components: []
-            });
-
-
+            let t_row = await this.client.db.models.Ticket.findOne({ where: { id: channel.id } });
+            await this.client.tickets.close(t_row.id, member.user.id, guild.id, "");
         }
 
         //CLOSE TICKET NOT
