@@ -1,7 +1,6 @@
 const EventListener = require('../modules/listeners/listener');
 
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const { Op } = require('sequelize');
 
 module.exports = class InteractionCreateEventListener extends EventListener {
 	constructor(client) {
