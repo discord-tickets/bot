@@ -82,6 +82,9 @@
 		"error_colour": {
 			"type": "string"
 		},
+		"autoclose": {
+			"type": "boolean"
+		},
 		"footer": {
 			"type": "string"
 		},
@@ -106,6 +109,7 @@
 		"colour",
 		"command_prefix",
 		"error_colour",
+		"autoclose",
 		"footer",
 		"locale",
 		"log_messages",

@@ -26,6 +26,10 @@ module.exports = ({ config }, sequelize) => {
 			defaultValue: 'RED',
 			type: DataTypes.STRING
 		},
+		autoclose: {
+			defaultValue: 'false',
+			type: DataTypes.BOOLEAN
+		},
 		footer: {
 			defaultValue: 'Discord Tickets by eartharoid',
 			type: DataTypes.STRING

@@ -45,28 +45,38 @@ module.exports = class InteractionCreateEventListener extends EventListener {
         //CLOSE TICKET ?
         if(interaction.customId == "dst_close"){
             this.client.log.info(`${member.user.tag} has close? "${channel.name}" in "${guild.name}"`);
-            const row = new MessageActionRow();
+            
+            if(settings.autoclose){
+                await interaction.reply({
+                    content: "Cerrando Ticket..."
+                });
 
-            const button = new MessageButton()
-                .setLabel("Cerrar")
-                //.setEmoji("✅")
-                .setStyle("DANGER")
-                .setCustomId(`dst_close_yes`);
+                let t_row = await this.client.db.models.Ticket.findOne({ where: { id: channel.id } });
+                await this.client.tickets.close(t_row.id, member.user.id, guild.id, "");
+            } else {
+                const row = new MessageActionRow();
 
-			row.addComponents(button);
+                const button = new MessageButton()
+                    .setLabel("Cerrar")
+                    //.setEmoji("✅")
+                    .setStyle("DANGER")
+                    .setCustomId(`dst_close_yes`);
 
-            const button2 = new MessageButton()
-                .setLabel("Cancelar")
-                //.setEmoji("⛔")
-			    .setStyle("SECONDARY")
-			    .setCustomId(`dst_close_not`);
+                row.addComponents(button);
 
-			row.addComponents(button2);
+                const button2 = new MessageButton()
+                    .setLabel("Cancelar")
+                    //.setEmoji("⛔")
+                    .setStyle("SECONDARY")
+                    .setCustomId(`dst_close_not`);
 
-            await interaction.reply({
-                content: "¿Estás seguro de cerrar este ticket?",
-                components: [row]
-            });
+                row.addComponents(button2);
+
+                await interaction.reply({
+                    content: "¿Estás seguro de cerrar este ticket?",
+                    components: [row]
+                });
+            }
         }
 
         //CLOSE TICKET YES
