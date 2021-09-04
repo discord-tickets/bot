@@ -17,12 +17,10 @@ services:
         container_name: "bot"
         command: "node ."
         restart: always
+        volumes: 
+            - ./logs:/usr/src/app/
         networks:
             - bot
-        env_file:
-            - ./.env
-        ports:
-            - 3000:3000
         depends_on:
             - mysql
         links:
