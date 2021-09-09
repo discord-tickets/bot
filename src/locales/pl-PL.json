@@ -107,6 +107,7 @@
                 "reason": {
                     "alias": "r",
                     "description": "Powód zamknięcia ticketu(-ów)",
+                    "example": "Resolved",
                     "name": "powód"
                 },
                 "ticket": {
