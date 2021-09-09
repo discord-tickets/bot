@@ -90,7 +90,12 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 ## Sponsors
 
-Does your community or company use Discord Tickets? Sponsor the project to get your logo shown here.
+*Does your community or company use Discord Tickets? Sponsor the project to get your logo shown here.*
+
+**These awesome people and communities sponsor Discord Tickets:**
+
+- [reSkybounds](https://reskybounds.com/) ([Discord](https://discord.reskybounds.com/))
+
 
 ### Donate
 
