@@ -107,6 +107,7 @@
                 "reason": {
                     "alias": "r",
                     "description": "Причина закрытия тикета(ов)",
+                    "example": "Resolved",
                     "name": "reason"
                 },
                 "ticket": {
