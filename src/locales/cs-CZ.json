@@ -107,6 +107,7 @@
                 "reason": {
                     "alias": "d",
                     "description": "Důvod k uzavření tiketu",
+                    "example": "Resolved",
                     "name": "duvod"
                 },
                 "ticket": {
