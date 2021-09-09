@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/main/LICENSE)
 [![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&style=flat-square)](https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://go.eartharoid.me/discord)
-[![Crowdin](https://badges.crowdin.net/discord-tickets/localized.svg)](https://i18n.discordtickets.app/project/discord-tickets)
+[![Weblate](https://i18n.capestar.net/widgets/discord-tickets/en_GB/bot/svg-badge.svg)](https://i18n.capestar.net/engage/discord-tickets/en_GB/)
 
 <br>
 
@@ -36,6 +36,8 @@ You can also configure the functionality of the bot to your liking and add comma
 2. **Localisable**  
 If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/.github/blob/main//CONTRIBUTING.md#translating) it yourself.
 Plugin authors are encouraged to support multiple languages as well.
+
+[![Weblate](https://i18n.capestar.net/widgets/discord-tickets/en_GB/bot/multi-auto.svg)](https://i18n.capestar.net/engage/discord-tickets/en_GB/)
 
 3. **Multiple ticket categories**  
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
