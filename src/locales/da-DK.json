@@ -107,6 +107,7 @@
                 "reason": {
                     "alias": "r",
                     "description": "Årsagen til lukning af billetten eller billetter(ne)",
+                    "example": "Resolved",
                     "name": "årsag"
                 },
                 "ticket": {
