@@ -1,487 +1,488 @@
 {
-    "bot": {
-        "missing_permissions": {
-            "description": "Discord Tickets requires the following permissions:\n%s",
-            "title": "⚠️"
-        },
-        "version": "[Discord Tickets](%s) v%s Av [eartharoid](%s)"
-    },
-    "cmd_usage": {
-        "args": {
-            "description": "**Beskrivelse:** %s",
-            "example": "**Eksempel:** `%s`"
-        },
-        "description": "**Bruk:**\n`%s`\n\n**Eksempel:**\n`%s`\n\nObligatoriske felt er prefikset med `❗`.",
-        "invalid_named_args": {
-            "description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-            "title": "❌ Invalid syntax"
-        },
-        "named_args": "Denne kommandoen bruker navngitte argumenter.\n\n",
-        "title": "'%s' kommandobruk"
-    },
-    "collector_expires_in": "Utløper om %d sekunder",
-    "commands": {
-        "add": {
-            "args": {
-                "member": {
-                    "description": "The member to add to the ticket",
-                    "example": "@someone",
-                    "name": "member"
-                },
-                "ticket": {
-                    "description": "The ticket to add the member to",
-                    "example": "217",
-                    "name": "billett"
-                }
-            },
-            "description": "Add a member to a ticket",
-            "name": "add",
-            "response": {
-                "added": {
-                    "description": "%s has been added to %s.",
-                    "title": "✅ Member added"
-                },
-                "no_member": {
-                    "description": "Please mention the member you want to add.",
-                    "title": "❌ Unknown member"
-                },
-                "no_permission": {
-                    "description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-                    "title": "❌ Insufficient permission"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel, or mention the channel.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "blacklist": {
-            "aliases": {
-                "unblacklist": "fjerne fra svarteliste"
-            },
-            "args": {
-                "member_or_role": {
-                    "description": "The member or role to add/remove",
-                    "example": "@NaughtyMember",
-                    "name": "medlemEllerRolle"
-                }
-            },
-            "description": "Svarteliste/fjerne fra svarteliste et medlem fra og bruke denne botten",
-            "name": "svarteliste",
-            "response": {
-                "empty_list": {
-                    "description": "Det er ingen medlemmer eller roller svartelistet. Skriv `%sblacklist <memberOrRole>` for og legge til et medlem eller rolle til svartelisten.",
-                    "title": "📃 Svartelistet medlemmer og roller"
-                },
-                "illegal_action": {
-                    "description": "%s er en moderator og kan ikke bli svartelistet.",
-                    "title": "❌ Du kan ikke svarteliste dette medlemmet"
-                },
-                "list": {
-                    "title": "📃 Svartelistet medlemmer og roller"
-                },
-                "member_added": {
-                    "description": "<@%s> har blitt lagt til i svartelisten. De kan ikke lengre bruke botten.",
-                    "title": "✅ La til medlemmet til svartelisten"
-                },
-                "member_removed": {
-                    "description": "<@%s> har blitt fjernet fra svartelisten. De kan nå bruke botten igjen.",
-                    "title": "✅ Fjernet medlemmet fra svartelisten"
-                },
-                "role_added": {
-                    "description": "<@&%s> er lagt til i svartelisten. Medlemmer med denne rollen vil ikke lenger kunne bruke botten.",
-                    "title": "✅ La til rollen i svartelisten"
-                },
-                "role_removed": {
-                    "description": "<@&%s> er fjernet fra svartelisten. Medlemmer med denne rollen kan nå bruke botten igjen.",
-                    "title": "✅ Fjernet rollen fra svartelisten"
-                }
-            }
-        },
-        "close": {
-            "aliases": {
-                "delete": "slett",
-                "lock": "lock"
-            },
-            "args": {
-                "reason": {
-                    "alias": "r",
-                    "description": "The reason for closing the ticket(s)",
-                    "name": "reason"
-                },
-                "ticket": {
-                    "alias": "t",
-                    "description": "The ticket to close, either the number or the channel mention/ID",
-                    "example": "217",
-                    "name": "billett"
-                },
-                "time": {
-                    "alias": "T",
-                    "description": "Close all tickets that have been inactive for the specified time",
-                    "example": "1w",
-                    "name": "time"
-                }
-            },
-            "description": "Lukke en billettkanal",
-            "name": "lukke",
-            "response": {
-                "closed": {
-                    "description": "Ticket #%s has been closed.",
-                    "title": "✅ Billetten er stengt"
-                },
-                "closed_multiple": {
-                    "description": [
-                        "%d ticket has been closed.",
-                        "%d tickets have been closed."
-                    ],
-                    "title": [
-                        "✅ Billetten er stengt",
-                        "✅ Tickets closed"
-                    ]
-                },
-                "confirm": {
-                    "description": "React with ✅ to close this ticket.",
-                    "description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-                    "title": "❔ Are you sure?"
-                },
-                "confirmation_timeout": {
-                    "description": "You took too long to confirm.",
-                    "title": "❌ Reaksjonstiden har utløpt"
-                },
-                "confirm_multiple": {
-                    "description": [
-                        "React with ✅ to close %d ticket.",
-                        "React with ✅ to close %d tickets."
-                    ],
-                    "title": "❔ Are you sure?"
-                },
-                "invalid_time": {
-                    "description": "The time period provided could not be parsed.",
-                    "title": "❌ Invalid input"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-                    "title": "❌ This isn't a ticket channel"
-                },
-                "no_tickets": {
-                    "description": "There are no tickets which have been inactive for this time period.",
-                    "title": "❌ No tickets to close"
-                },
-                "unresolvable": {
-                    "description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
-                    "title": "❌ Error"
-                }
-            }
-        },
-        "help": {
-            "aliases": {
-                "command": "command",
-                "commands": "commands"
-            },
-            "args": {
-                "command": {
-                    "description": "The command to display information about",
-                    "example": "ny",
-                    "name": "command"
-                }
-            },
-            "description": "List commands you have access to, or find out more about a command",
-            "name": "help",
-            "response": {
-                "list": {
-                    "description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
-                    "fields": {
-                        "commands": "Commands"
-                    },
-                    "title": "❔ Help"
-                }
-            }
-        },
-        "new": {
-            "aliases": {
-                "create": "opprette",
-                "open": "åpne",
-                "ticket": "billett"
-            },
-            "args": {
-                "topic": {
-                    "description": "Temaet for billetten",
-                    "example": "Problem med fakturering",
-                    "name": "emne"
-                }
-            },
-            "description": "Opprett en ny billett",
-            "name": "ny",
-            "response": {
-                "created": {
-                    "description": "Billetten er opprettet: %s.",
-                    "title": "✅ Billetten er opprettet"
-                },
-                "error": {
-                    "title": "❌ Error"
-                },
-                "has_a_ticket": {
-                    "description": "Bruk din eksisterende billett ( <#%s>) eller lukk den før du oppretter en ny.",
-                    "title": "❌ Du har allerede en åpen billett"
-                },
-                "max_tickets": {
-                    "description": "Vennligst bruk '%sclose' for å lukke unødvendige billetter.\n\n%s",
-                    "title": "❌ Du har allerede %d åpne billetter"
-                },
-                "no_categories": {
-                    "description": "En serveradministrator må opprette minst én billettkategori før en ny billett kan åpnes.",
-                    "title": "❌ Kan ikke opprette billett"
-                },
-                "select_category": {
-                    "description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s",
-                    "title": "🔤 Velg billettkategori"
-                },
-                "select_category_timeout": {
-                    "description": "Det tok for lang tid å velge billettkategorien.",
-                    "title": "❌ Reaksjonstiden har utløpt"
-                }
-            },
-            "request_topic": {
-                "description": "Vennligst oppgi kort hva denne billetten handler om med noen få ord.",
-                "title": "Billettemne"
-            }
-        },
-        "panel": {
-            "args": {
-                "categories": {
-                    "alias": "c",
-                    "description": "A category ID",
-                    "example": "451745464954650634",
-                    "name": "categories"
-                },
-                "description": {
-                    "alias": "d",
-                    "description": "The description for the panel message",
-                    "example": "\"React to this message to open a ticket.\"",
-                    "name": "description"
-                },
-                "emoji": {
-                    "alias": "e",
-                    "description": "An emoji",
-                    "example": "🎫",
-                    "name": "emoji"
-                },
-                "title": {
-                    "alias": "t",
-                    "description": "The title for the panel message",
-                    "example": "\"Support tickets\"",
-                    "name": "title"
-                }
-            },
-            "description": "Create a new ticket panel",
-            "name": "panel",
-            "response": {
-                "invalid_category": {
-                    "description": "One or more of the specified category IDs is invalid.",
-                    "title": "❌ Invalid category"
-                },
-                "mismatch": {
-                    "description": "Please provide the name number of emojis and category IDs.",
-                    "title": "❌ Invalid input"
-                }
-            }
-        },
-        "remove": {
-            "args": {
-                "member": {
-                    "description": "The member to remove from the ticket",
-                    "example": "@someone",
-                    "name": "member"
-                },
-                "ticket": {
-                    "description": "The ticket to remove the member from",
-                    "example": "217",
-                    "name": "billett"
-                }
-            },
-            "description": "Remove a member from a ticket",
-            "name": "remove",
-            "response": {
-                "removed": {
-                    "description": "%s has been removed from %s.",
-                    "title": "✅ Member removed"
-                },
-                "no_member": {
-                    "description": "Please mention the member you want to remove.",
-                    "title": "❌ Unknown member"
-                },
-                "no_permission": {
-                    "description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-                    "title": "❌ Insufficient permission"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel, or mention the channel.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "settings": {
-            "aliases": {
-                "config": "konfiguration"
-            },
-            "description": "Konfigurere Discord Tickets",
-            "name": "innstillinger",
-            "response": {
-                "invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
-                "updated": "✅ innstillinger er oppdatert."
-            }
-        },
-        "stats": {
-            "description": "Display ticket statistics",
-            "fields": {
-                "messages": "Messages",
-                "response_time": {
-                    "minutes": "%s minutes",
-                    "title": "Avg. response time"
-                },
-                "tickets": "Tickets"
-            },
-            "name": "stats",
-            "response": {
-                "global": {
-                    "description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-                    "title": "📊 Global stats"
-                },
-                "guild": {
-                    "description": "Statistics about tickets within this guild. This data is cached for an hour.",
-                    "title": "📊 This server's stats"
-                }
-            }
-        },
-        "survey": {
-            "aliases": {
-                "surveys": "surveys"
-            },
-            "args": {
-                "survey": {
-                    "description": "The name of the survey to view responses of",
-                    "example": "support",
-                    "name": "survey"
-                }
-            },
-            "description": "View survey responses",
-            "name": "survey",
-            "response": {
-                "list": {
-                    "title": "📃 Surveys"
-                }
-            }
-        },
-        "tag": {
-            "aliases": {
-                "faq": "faq",
-                "t": "t",
-                "tags": "tags"
-            },
-            "args": {
-                "tag": {
-                    "description": "The name of the tag to use",
-                    "example": "website",
-                    "name": "tag"
-                }
-            },
-            "description": "Use a tag response",
-            "name": "tag",
-            "response": {
-                "error": "❌ Error",
-                "list": {
-                    "title": "📃 Tag list"
-                },
-                "missing": "This tag requires the following arguments:\n%s",
-                "not_a_ticket": {
-                    "description": "This tag can only be used within a ticket channel as it uses ticket references.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "topic": {
-            "args": {
-                "new_topic": {
-                    "description": "The new topic of the ticket",
-                    "example": "billing issue",
-                    "name": "new_topic"
-                }
-            },
-            "description": "Change the topic of the ticket",
-            "name": "emne",
-            "response": {
-                "changed": {
-                    "description": "This ticket's topic has been changed.",
-                    "title": "✅ Topic changed"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel you want to change the topic of.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        }
-    },
-    "command_execution_error": {
-        "description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon.",
-        "title": "⚠️"
-    },
-    "message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
-    "missing_permissions": {
-        "description": "You do not have the permissions required to use this command:\n%s",
-        "title": "❌"
-    },
-    "staff_only": {
-        "description": "Du må være medlem av staben for å bruke denne kommandoen.",
-        "title": "❌"
-    },
-    "ticket": {
-        "claimed": {
-            "description": "%s has claimed this ticket.",
-            "title": "✅ Ticket claimed"
-        },
-        "closed": {
-            "description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Billetten er stengt"
-        },
-        "closed_by_member": {
-            "description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Billetten er stengt"
-        },
-        "closed_by_member_with_reason": {
-            "description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Billetten er stengt"
-        },
-        "closed_with_reason": {
-            "description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Billetten er stengt"
-        },
-        "member_added": {
-            "description": "%s has been added by %s",
-            "title": "Member added"
-        },
-        "member_removed": {
-            "description": "%s has been removed by %s",
-            "title": "Member removed"
-        },
-        "opening_message": {
-            "fields": {
-                "topic": "Topic"
-            }
-        },
-        "questions": "Please answer the following questions:\n\n%s",
-        "released": {
-            "description": "%s has released this ticket.",
-            "title": "✅ Ticket released"
-        },
-        "survey": {
-            "complete": {
-                "description": "Thank you for your feedback.",
-                "title": "✅ Thank you"
-            },
-            "start": {
-                "description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
-                "title": "❔ Feedback"
-            }
-        }
-    }
+				"bot": {
+								"missing_permissions": {
+												"description": "Discord-billetter krever følgende tilganger:\n%s",
+												"title": "⚠️"
+								},
+								"version": "[Discord Tickets](%s) v%s av [eartharoid](%s)"
+				},
+				"cmd_usage": {
+								"args": {
+												"description": "**Beskrivelse:** %s",
+												"example": "**Eksempel:** `%s`"
+								},
+								"description": "**Bruk:**\n`%s`\n\n**Eksempel:**\n`%s`\n\nObligatoriske felt er prefikset med `❗`.",
+								"invalid_named_args": {
+												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
+												"title": "❌ Ugyldig syntaks"
+								},
+								"named_args": "Denne kommandoen bruker navngitte argumenter.\n\n",
+								"title": "'%s' kommandobruk"
+				},
+				"collector_expires_in": "Utløper om %d sekunder",
+				"command_execution_error": {
+								"description": "Det oppstod en uventet feil under kommandoutførelsen.\nBe en administrator kontrollere konsollutdataene/-loggene for mer informasjon.",
+								"title": "⚠️"
+				},
+				"commands": {
+								"add": {
+												"args": {
+																"member": {
+																				"description": "Medlem å legge til i billetten",
+																				"example": "@noen",
+																				"name": "medlem"
+																},
+																"ticket": {
+																				"description": "The ticket to add the member to",
+																				"example": "217",
+																				"name": "billett"
+																}
+												},
+												"description": "Add a member to a ticket",
+												"name": "legg til",
+												"response": {
+																"added": {
+																				"description": "%s har blitt lagt til i %s.",
+																				"title": "✅ Medlem lagt til"
+																},
+																"no_member": {
+																				"description": "Nevn medlemmet du ønsker å legge til.",
+																				"title": "❌ Ukjent medlem"
+																},
+																"no_permission": {
+																				"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
+																				"title": "❌ Utilstrekkelige tilganger"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel, or mention the channel.",
+																				"title": "❌ This isn't a ticket channel"
+																}
+												}
+								},
+								"blacklist": {
+												"aliases": {
+																"unblacklist": "fjern fra svarteliste"
+												},
+												"args": {
+																"member_or_role": {
+																				"description": "Medlemmet eller rollen å legge til/fjerne",
+																				"example": "@NaughtyMember",
+																				"name": "medlemEllerRolle"
+																}
+												},
+												"description": "Svarteliste/fjerne fra svarteliste et medlem fra og bruke denne botten",
+												"name": "svarteliste",
+												"response": {
+																"empty_list": {
+																				"description": "Det er ingen medlemmer eller roller svartelistet. Skriv `%sblacklist <memberOrRole>` for og legge til et medlem eller rolle til svartelisten.",
+																				"title": "📃 Svartelistet medlemmer og roller"
+																},
+																"illegal_action": {
+																				"description": "%s er en moderator og kan ikke bli svartelistet.",
+																				"title": "❌ Du kan ikke svarteliste dette medlemmet"
+																},
+																"list": {
+																				"title": "📃 Svartelistet medlemmer og roller"
+																},
+																"member_added": {
+																				"description": "<@%s> har blitt lagt til i svartelisten. De kan ikke lengre bruke botten.",
+																				"title": "✅ La til medlemmet i svartelisten"
+																},
+																"member_removed": {
+																				"description": "<@%s> har blitt fjernet fra svartelisten. De kan nå bruke botten igjen.",
+																				"title": "✅ Fjernet medlemmet fra svartelisten"
+																},
+																"role_added": {
+																				"description": "<@&%s> er lagt til i svartelisten. Medlemmer med denne rollen vil ikke lenger kunne bruke botten.",
+																				"title": "✅ La til rollen i svartelisten"
+																},
+																"role_removed": {
+																				"description": "<@&%s> er fjernet fra svartelisten. Medlemmer med denne rollen kan nå bruke botten igjen.",
+																				"title": "✅ Fjernet rollen fra svartelisten"
+																}
+												}
+								},
+								"close": {
+												"aliases": {
+																"delete": "slett",
+																"lock": "lock"
+												},
+												"args": {
+																"reason": {
+																				"alias": "r",
+																				"description": "The reason for closing the ticket(s)",
+																				"example": "Løst",
+																				"name": "grunn"
+																},
+																"ticket": {
+																				"alias": "t",
+																				"description": "The ticket to close, either the number or the channel mention/ID",
+																				"example": "217",
+																				"name": "billett"
+																},
+																"time": {
+																				"alias": "T",
+																				"description": "Close all tickets that have been inactive for the specified time",
+																				"example": "1w",
+																				"name": "time"
+																}
+												},
+												"description": "Lukke en billettkanal",
+												"name": "lukk",
+												"response": {
+																"closed": {
+																				"description": "Billett #%s har blitt stengt.",
+																				"title": "✅ Billetten er stengt"
+																},
+																"closed_multiple": {
+																				"description": [
+																								"%d billett har blitt stengt.",
+																								"%d billetter har blitt stengt."
+																				],
+																				"title": [
+																								"✅ Billetten er stengt",
+																								"✅ Billetter lukket"
+																				]
+																},
+																"confirm": {
+																				"description": "Reager med ✅ for å stenge denne billetten.",
+																				"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+																				"title": "❔ Er du sikker?"
+																},
+																"confirm_multiple": {
+																				"description": [
+																								"Reager med ✅ for å stenge %d billett.",
+																								"Reager med ✅ for å stenge %d billetter."
+																				],
+																				"title": "❔ Er du sikker?"
+																},
+																"confirmation_timeout": {
+																				"description": "Du brukte for lang tid på å bekrefte.",
+																				"title": "❌ Reaksjonstiden har utløpt"
+																},
+																"invalid_time": {
+																				"description": "The time period provided could not be parsed.",
+																				"title": "❌ Ugyldig inndata"
+																},
+																"no_tickets": {
+																				"description": "There are no tickets which have been inactive for this time period.",
+																				"title": "❌ Ingen billetter å lukke"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+																				"title": "❌ Dette er ikke en billett-kanal"
+																},
+																"unresolvable": {
+																				"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+																				"title": "❌ Feil"
+																}
+												}
+								},
+								"help": {
+												"aliases": {
+																"command": "kommando",
+																"commands": "kommandoer"
+												},
+												"args": {
+																"command": {
+																				"description": "The command to display information about",
+																				"example": "ny",
+																				"name": "kommando"
+																}
+												},
+												"description": "List commands you have access to, or find out more about a command",
+												"name": "hjelp",
+												"response": {
+																"list": {
+																				"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+																				"fields": {
+																								"commands": "Kommandoer"
+																				},
+																				"title": "❔ Hjelp"
+																}
+												}
+								},
+								"new": {
+												"aliases": {
+																"create": "opprett",
+																"open": "åpne",
+																"ticket": "billett"
+												},
+												"args": {
+																"topic": {
+																				"description": "Billettemnet",
+																				"example": "Problem med fakturering",
+																				"name": "emne"
+																}
+												},
+												"description": "Opprett en ny billett",
+												"name": "ny",
+												"request_topic": {
+																"description": "Vennligst oppgi kort hva denne billetten handler om med noen få ord.",
+																"title": "Billettemne"
+												},
+												"response": {
+																"created": {
+																				"description": "Billetten er opprettet: %s.",
+																				"title": "✅ Billetten er opprettet"
+																},
+																"error": {
+																				"title": "❌ Feil"
+																},
+																"has_a_ticket": {
+																				"description": "Bruk din eksisterende billett ( <#%s>) eller lukk den før du oppretter en ny.",
+																				"title": "❌ Du har allerede en åpen billett"
+																},
+																"max_tickets": {
+																				"description": "Bruk «%sclose» for å lukke unødvendige billetter.\n\n%s",
+																				"title": "❌ Du har allerede %d åpne billetter"
+																},
+																"no_categories": {
+																				"description": "En tjeneradministrator må opprette minst én billettkategori før en ny billett kan åpnes.",
+																				"title": "❌ Kan ikke opprette billett"
+																},
+																"select_category": {
+																				"description": "Velg kategorien som er mest relevant for billettens emne:\n\n%s",
+																				"title": "🔤 Velg billettkategori"
+																},
+																"select_category_timeout": {
+																				"description": "Det tok for lang tid å velge billettkategorien.",
+																				"title": "❌ Reaksjonstiden har utløpt"
+																}
+												}
+								},
+								"panel": {
+												"args": {
+																"categories": {
+																				"alias": "c",
+																				"description": "En kategori-ID",
+																				"example": "451745464954650634",
+																				"name": "kategorier"
+																},
+																"description": {
+																				"alias": "d",
+																				"description": "The description for the panel message",
+																				"example": "\"React to this message to open a ticket.\"",
+																				"name": "description"
+																},
+																"emoji": {
+																				"alias": "e",
+																				"description": "An emoji",
+																				"example": "🎫",
+																				"name": "emoji"
+																},
+																"title": {
+																				"alias": "t",
+																				"description": "The title for the panel message",
+																				"example": "\"Support tickets\"",
+																				"name": "title"
+																}
+												},
+												"description": "Create a new ticket panel",
+												"name": "panel",
+												"response": {
+																"invalid_category": {
+																				"description": "One or more of the specified category IDs is invalid.",
+																				"title": "❌ Ugyldig kategori"
+																},
+																"mismatch": {
+																				"description": "Please provide the name number of emojis and category IDs.",
+																				"title": "❌ Ugyldig inndata"
+																}
+												}
+								},
+								"remove": {
+												"args": {
+																"member": {
+																				"description": "The member to remove from the ticket",
+																				"example": "@noen",
+																				"name": "medlem"
+																},
+																"ticket": {
+																				"description": "Billetten å fjerne medlemmet fra",
+																				"example": "217",
+																				"name": "billett"
+																}
+												},
+												"description": "Fjern et medlem fra en billett",
+												"name": "fjern",
+												"response": {
+																"no_member": {
+																				"description": "Nevn medlemmet du ønsker å fjerne.",
+																				"title": "❌ Ukjent medlem"
+																},
+																"no_permission": {
+																				"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+																				"title": "❌ Utilstrekkelige tilganger"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel, or mention the channel.",
+																				"title": "❌ Dette er ikke en billettkanal"
+																},
+																"removed": {
+																				"description": "%s har blitt fjernet fra %s.",
+																				"title": "✅ Medlem fjernet"
+																}
+												}
+								},
+								"settings": {
+												"aliases": {
+																"config": "oppsett"
+												},
+												"description": "Sett opp Discord-billetter",
+												"name": "innstillinger",
+												"response": {
+																"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
+																"updated": "✅ innstillinger oppdatert."
+												}
+								},
+								"stats": {
+												"description": "Vis billett-statistikk",
+												"fields": {
+																"messages": "Meldinger",
+																"response_time": {
+																				"minutes": "%s minutter",
+																				"title": "Avg. response time"
+																},
+																"tickets": "Billetter"
+												},
+												"name": "statistikk",
+												"response": {
+																"global": {
+																				"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
+																				"title": "📊 Global stats"
+																},
+																"guild": {
+																				"description": "Statistics about tickets within this guild. This data is cached for an hour.",
+																				"title": "📊 This server's stats"
+																}
+												}
+								},
+								"survey": {
+												"aliases": {
+																"surveys": "surveys"
+												},
+												"args": {
+																"survey": {
+																				"description": "The name of the survey to view responses of",
+																				"example": "support",
+																				"name": "survey"
+																}
+												},
+												"description": "View survey responses",
+												"name": "survey",
+												"response": {
+																"list": {
+																				"title": "📃 Surveys"
+																}
+												}
+								},
+								"tag": {
+												"aliases": {
+																"faq": "OSS",
+																"t": "t",
+																"tags": "tags"
+												},
+												"args": {
+																"tag": {
+																				"description": "The name of the tag to use",
+																				"example": "website",
+																				"name": "tag"
+																}
+												},
+												"description": "Use a tag response",
+												"name": "tag",
+												"response": {
+																"error": "❌ Error",
+																"list": {
+																				"title": "📃 Tag list"
+																},
+																"missing": "This tag requires the following arguments:\n%s",
+																"not_a_ticket": {
+																				"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+																				"title": "❌ Dette er ikke en billettkanal"
+																}
+												}
+								},
+								"topic": {
+												"args": {
+																"new_topic": {
+																				"description": "Nytt emne for billetten",
+																				"example": "billing issue",
+																				"name": "nytt_emne"
+																}
+												},
+												"description": "Change the topic of the ticket",
+												"name": "emne",
+												"response": {
+																"changed": {
+																				"description": "This ticket's topic has been changed.",
+																				"title": "✅ Emne endret"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel you want to change the topic of.",
+																				"title": "❌ Dette er ikke en billettkanal"
+																}
+												}
+								}
+				},
+				"message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
+				"missing_permissions": {
+								"description": "You do not have the permissions required to use this command:\n%s",
+								"title": "❌"
+				},
+				"staff_only": {
+								"description": "Du må være medlem av staben for å bruke denne kommandoen.",
+								"title": "❌"
+				},
+				"ticket": {
+								"claimed": {
+												"description": "%s has claimed this ticket.",
+												"title": "✅ Ticket claimed"
+								},
+								"closed": {
+												"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Billetten er stengt"
+								},
+								"closed_by_member": {
+												"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Billetten er stengt"
+								},
+								"closed_by_member_with_reason": {
+												"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Billetten er stengt"
+								},
+								"closed_with_reason": {
+												"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Billetten er stengt"
+								},
+								"member_added": {
+												"description": "%s has been added by %s",
+												"title": "Member added"
+								},
+								"member_removed": {
+												"description": "%s has been removed by %s",
+												"title": "Member removed"
+								},
+								"opening_message": {
+												"fields": {
+																"topic": "Emne"
+												}
+								},
+								"questions": "Please answer the following questions:\n\n%s",
+								"released": {
+												"description": "%s has released this ticket.",
+												"title": "✅ Ticket released"
+								},
+								"survey": {
+												"complete": {
+																"description": "Takk for din tilbakemelding.",
+																"title": "✅ Takk"
+												},
+												"start": {
+																"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+																"title": "❔ Tilbakemelding"
+												}
+								}
+				}
 }
