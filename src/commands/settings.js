@@ -185,7 +185,7 @@ module.exports = class SettingsCommand extends Command {
 	 */
 	async execute(interaction) {
 		const settings = await this.client.utils.getSettings(interaction.guild);
-		const default_i18n = this.client.i18n.getLocale(); // command properties may be in a different locale
+		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		switch (interaction.options.getSubcommand()) {

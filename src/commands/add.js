@@ -34,7 +34,7 @@ module.exports = class AddCommand extends Command {
 	 */
 	async execute(interaction) {
 		const settings = await this.client.utils.getSettings(interaction.guild);
-		const default_i18n = this.client.i18n.getLocale();
+		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const channel = interaction.options.getChannel(default_i18n('commands.add.options.ticket.name')) ?? interaction.channel;

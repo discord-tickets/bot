@@ -55,9 +55,9 @@ module.exports = class BlacklistCommand extends Command {
 	 */
 	async execute(interaction) {
 		const settings = await this.client.utils.getSettings(interaction.guild);
-		const default_i18n = this.client.i18n.getLocale();
+		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
-		const blacklist = JSON.parse(JSON.stringify(settings.blacklist)); 	// not the same as `const blacklist = { ...settings.blacklist };` ..?
+		const blacklist = JSON.parse(JSON.stringify(settings.blacklist)); // not the same as `const blacklist = { ...settings.blacklist };` ..?
 
 		switch (interaction.options.getSubcommand()) {
 		case default_i18n('commands.blacklist.options.add.name'): {
