@@ -16,7 +16,8 @@ module.exports = class MessageCreateEventListener extends EventListener {
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
 
 		if (t_row) {
-			if (settings.log_messages && !message.system) this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
+			const should_log_message = process.env.DB_TYPE.toLowerCase() !== 'sqlite' && settings.log_messages && !message.system;
+			if (should_log_message) this.client.tickets.archives.addMessage(message); // add the message to the archives (if it is in a ticket channel)
 
 			const ignore = [this.client.user.id, t_row.creator];
 			if (!t_row.first_response && !ignore.includes(message.author.id)) t_row.first_response = new Date();
