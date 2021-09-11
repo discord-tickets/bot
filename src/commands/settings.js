@@ -318,12 +318,12 @@ module.exports = class SettingsCommand extends Command {
 			const locale = interaction.options.getString(default_i18n('commands.settings.options.set.options.locale.name'));
 			const log_messages = interaction.options.getBoolean(default_i18n('commands.settings.options.set.options.log_messages.name'));
 			const success_colour = interaction.options.getString(default_i18n('commands.settings.options.set.options.success_colour.name'));
-			if (colour !== null) settings.set('colour', colour);
-			if (error_colour !== null) settings.set('error_colour', error_colour);
+			if (colour !== null) settings.set('colour', colour.toUpperCase());
+			if (error_colour !== null) settings.set('error_colour', error_colour.toUpperCase());
 			if (footer !== null) settings.set('footer', footer);
 			if (locale !== null) settings.set('locale', locale);
 			if (log_messages !== null) settings.set('log_messages', log_messages);
-			if (success_colour !== null) settings.set('success_colour', success_colour);
+			if (success_colour !== null) settings.set('success_colour', success_colour.toUpperCase());
 			await settings.save();
 			interaction.reply({
 				embeds: [
