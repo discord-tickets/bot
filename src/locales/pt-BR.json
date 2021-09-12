@@ -122,13 +122,13 @@
 																},
 																"time": {
 																				"alias": "T",
-																				"description": "Fecha todos os tickets  que estiveram inativos por um tempo específico",
+																				"description": "Fecha todos os tickets que estão inativos pelo tempo fornecido",
 																				"example": "1w",
 																				"name": "tempo"
 																}
 												},
 												"description": "Feche um canal de ticket",
-												"name": "close",
+												"name": "fechar",
 												"response": {
 																"closed": {
 																				"description": "Ticket #%s foi fechado.",
@@ -170,7 +170,7 @@
 																},
 																"not_a_ticket": {
 																				"description": "Use este comando em um canal de ticket ou use o sinalizador de ticket.\nUse `%shelp close` para mais informações",
-																				"title": "❌ Este não é um canal de tickets"
+																				"title": "❌ Este não é um canal de ticket"
 																},
 																"unresolvable": {
 																				"description": "`%s` não pôde ser resolvido para um ticket. Forneça a ID / menção ou número do ticket.",
