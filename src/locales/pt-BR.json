@@ -13,11 +13,11 @@
 								},
 								"description": "**Use:**\n'%s'\n\n**Exemplo:**\n'%s'\n\nOs argumentos necessários são iniciados com '❗'.",
 								"invalid_named_args": {
-												"description": "Existe um erro na sintaxe do comando: `%s`.\nEscreve `%s` para um exemplo.\nPor favor questiona um membro da staff se não tens a certeza.",
+												"description": "Existe um erro na sintaxe do comando: `%s`.\nEscreve `%s` para um exemplo.\nPor favor pergunte a um membro da staff se não tem certeza.",
 												"title": "❌ Sintaxe inválida"
 								},
 								"named_args": "Este comando usa argumentos nomeados.\n\n",
-								"title": "Uso de comando '%s'"
+								"title": "Uso do comando '%s'"
 				},
 				"collector_expires_in": "Expira em %d segundos",
 				"command_execution_error": {
