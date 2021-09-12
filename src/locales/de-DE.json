@@ -116,13 +116,13 @@
 																},
 																"ticket": {
 																				"alias": "t",
-																				"description": "Das zu schließende Ticket, entweder die Nummer oder die Kanal-ID",
+																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets",
 																				"example": "217",
 																				"name": "Ticket"
 																},
 																"time": {
 																				"alias": "T",
-																				"description": "Alle Tickets schließen die für eine bestimmte Zeit inaktiv waren",
+																				"description": "Alle Tickets schließen, die für eine bestimmte Zeit inaktiv waren",
 																				"example": "1w",
 																				"name": "Zeit"
 																}
@@ -131,13 +131,13 @@
 												"name": "schließen",
 												"response": {
 																"closed": {
-																				"description": "Ticket #%s wurde geschlossen.",
+																				"description": "Das Ticket #%s wurde geschlossen.",
 																				"title": "✅ Ticket geschlossen"
 																},
 																"closed_multiple": {
 																				"description": [
-																								"%d Ticket wurde geschlossen.",
-																								"%d Tickets wurden geschlossen."
+																								"Das Ticket %d wurde geschlossen.",
+																								"Die Tickets %d wurden geschlossen."
 																				],
 																				"title": [
 																								"✅ Ticket geschlossen",
@@ -151,8 +151,8 @@
 																},
 																"confirm_multiple": {
 																				"description": [
-																								"Reagieren Sie mit ✅ um %d Ticket zu schließen.",
-																								"Reagieren Sie mit ✅ um %d Tickets zu schließen."
+																								"Reagieren Sie mit ✅ um das Ticket %d zu schließen.",
+																								"Reagieren Sie mit ✅ um die Tickets %d zu schließen."
 																				],
 																				"title": "❔ Sind Sie sicher?"
 																},
@@ -173,7 +173,7 @@
 																				"title": "❌ Das ist kein Ticket-Kanal"
 																},
 																"unresolvable": {
-																				"description": "`%s` konnte keinem Ticket zugeordnet werden. Bitte nutzen Sie die Ticket-ID oder die Nummer.",
+																				"description": "`%s` konnte keinem Ticket zugeordnet werden. Bitte nutzen Sie die Kanal ID / Erwähnung des Kanals, oder die Nummer.",
 																				"title": "❌ Fehler"
 																}
 												}
@@ -185,16 +185,16 @@
 												},
 												"args": {
 																"command": {
-																				"description": "Den Befehl über den Informationen angezeigt werden sollen",
+																				"description": "Den Befehl, über den Informationen angezeigt werden sollen",
 																				"example": "neu",
 																				"name": "Befehl"
 																}
 												},
-												"description": "Zeige alle Befehle die Sie benutzen dürfen oder mehr Informationen zu einem Befehl",
+												"description": "Zeige alle Befehle die Sie benutzen dürfen, oder mehr Informationen zu einem Befehl",
 												"name": "Hilfe",
 												"response": {
 																"list": {
-																				"description": "Die Befehle die Sie benutzen dürfen sind aufgelistet. Für mehr Informationen über einen Befehl, tippen Sie `{prefix}help [command]`. Um ein Ticket zu öffnen, tippen Sie `{prefix}new [topic]`.",
+																				"description": "Die Befehle die Sie benutzen dürfen, sind aufgelistet. Für mehr Informationen über einen Befehl, tippen Sie `{prefix}help [command]`. Um ein Ticket zu öffnen, tippen Sie `{prefix}new [topic]`.",
 																				"fields": {
 																								"commands": "Befehle"
 																				},
