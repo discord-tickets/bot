@@ -51,7 +51,7 @@
 																},
 																"no_permission": {
 																				"description": "Você não é o criador deste ticket e não é um membro da staff; você não pode adicionar membros a este ticket.",
-																				"title": "❌ Você não tem permissões"
+																				"title": "❌ Você não tem permissão"
 																},
 																"not_a_ticket": {
 																				"description": "Use este comando no canal do ticket ou mencione o canal.",
