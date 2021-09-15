@@ -90,7 +90,7 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 ## Sponsors
 
-*Does your community or company use Discord Tickets? Sponsor the project to get your logo shown here.*
+*Does your community or company use Discord Tickets? [Sponsor the project](https://github.com/discord-tickets/bot/?sponsor=1) to get your logo shown here.*
 
 **These awesome people and communities sponsor Discord Tickets:**
 
