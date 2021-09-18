@@ -12,6 +12,7 @@ specifiers:
   leeks.js: ^0.2.2
   leekslazylogger: ^3.0.2
   mariadb: ^2.5.4
+  ms: ^2.1.3
   mustache: ^4.2.0
   mysql2: ^2.3.0
   node-emoji: ^1.11.0
@@ -24,7 +25,6 @@ specifiers:
   sqlite3: ^5.0.2
   tedious: ^11.4.0
   terminal-link: ^2.1.1
-  to-time-monthsfork: ^1.1.4
 
 dependencies:
   '@eartharoid/i18n': 1.0.0
@@ -35,13 +35,13 @@ dependencies:
   keyv: 4.0.3
   leeks.js: 0.2.2
   leekslazylogger: 3.0.2
+  ms: 2.1.3
   mustache: 4.2.0
   node-emoji: 1.11.0
   node-fetch: 2.6.1
   semver: 7.3.5
   sequelize: 6.6.5_aa1b3c7f5b5df187fb1a5c6073dca637
   terminal-link: 2.1.1
-  to-time-monthsfork: 1.1.4
 
 optionalDependencies:
   sqlite3: 5.0.2
@@ -647,10 +647,6 @@ packages:
       tweetnacl: 0.14.5
     dev: false
     optional: true
-
-  /bignumber.js/2.4.0:
-    resolution: {integrity: sha1-g4qZLan51zfg9LLbC+YrsJ3Qxeg=}
-    dev: false
 
   /binary-extensions/2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
@@ -3272,13 +3268,6 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
-
-  /to-time-monthsfork/1.1.4:
-    resolution: {integrity: sha512-3bWuIwm9QeOAq/UClxFp86QMSJ4GVHmAT8X+pkM0mIMVrpJPLfSieY5qvSsfLJugLNWTVpYJ2ayKWXH3jcAdow==}
-    engines: {node: '>=4.6'}
-    dependencies:
-      bignumber.js: 2.4.0
-    dev: false
 
   /toposort-class/1.0.1:
     resolution: {integrity: sha1-f/0feMi+KMO6Rc1OGj9e4ZO9mYg=}

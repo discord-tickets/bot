@@ -70,7 +70,8 @@ module.exports = class CloseCommand extends Command {
 			const tickets = await this.client.db.models.Ticket.findAndCountAll({
 				where: {
 					guild: interaction.guild.id,
-					last_message: { [Op.lte]: new Date(Date.now() - period) }
+					last_message: { [Op.lte]: new Date(Date.now() - period) },
+					open: true
 				}
 			});
 
@@ -92,7 +93,7 @@ module.exports = class CloseCommand extends Command {
 							.addComponents(
 								new MessageButton()
 									.setCustomId(`confirm_close_multiple:${interaction.id}`)
-									.setLabel(i18n('commands.close.response.confirm_multiple.buttons.confirm', tickets.count))
+									.setLabel(i18n('commands.close.response.confirm_multiple.buttons.confirm', tickets.count, tickets.count))
 									.setEmoji('✅')
 									.setStyle('SUCCESS')
 							)
@@ -141,7 +142,7 @@ module.exports = class CloseCommand extends Command {
 							ephemeral: true
 						});
 					} else {
-						await i.deleteReply();
+						await interaction.deleteReply();
 					}
 
 					collector.stop();
@@ -157,7 +158,7 @@ module.exports = class CloseCommand extends Command {
 									.setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
 									.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 									.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-									.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), interaction.guild.iconURL())
+									.setFooter(settings.footer, interaction.guild.iconURL())
 							],
 							ephemeral: true
 						});
@@ -202,14 +203,14 @@ module.exports = class CloseCommand extends Command {
 					new MessageActionRow()
 						.addComponents(
 							new MessageButton()
-								.setCustomId(`confirm_close_multiple:${interaction.id}`)
+								.setCustomId(`confirm_close:${interaction.id}`)
 								.setLabel(i18n('commands.close.response.confirm.buttons.confirm'))
 								.setEmoji('✅')
 								.setStyle('SUCCESS')
 						)
 						.addComponents(
 							new MessageButton()
-								.setCustomId(`cancel_close_multiple:${interaction.id}`)
+								.setCustomId(`cancel_close:${interaction.id}`)
 								.setLabel(i18n('commands.close.response.confirm.buttons.cancel'))
 								.setEmoji('❌')
 								.setStyle('SECONDARY')
@@ -233,7 +234,7 @@ module.exports = class CloseCommand extends Command {
 			});
 
 			collector.on('collect', async i => {
-				if (i.customId === `confirm_close_multiple:${interaction.id}`) {
+				if (i.customId === `confirm_close:${interaction.id}`) {
 					await i.deferUpdate();
 					await this.client.tickets.close(t_row.id, interaction.user.id, interaction.guild.id, reason);
 					await i.editReply({
@@ -264,7 +265,7 @@ module.exports = class CloseCommand extends Command {
 								.setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
 								.setTitle(i18n('commands.close.response.confirmation_timeout.title'))
 								.setDescription(i18n('commands.close.response.confirmation_timeout.description'))
-								.setFooter(this.client.utils.footer(settings.footer, i18n('message_will_be_deleted_in', 15)), interaction.guild.iconURL())
+								.setFooter(settings.footer, interaction.guild.iconURL())
 						],
 						ephemeral: true
 					});

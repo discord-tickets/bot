@@ -1,10 +1,14 @@
 const EventListener = require('../modules/listeners/listener');
+const { Interaction } = require('discord.js'); // eslint-disable-line no-unused-vars
 
 module.exports = class InteractionCreateEventListener extends EventListener {
 	constructor(client) {
 		super(client, { event: 'interactionCreate' });
 	}
 
+	/**
+	 * @param {Interaction} interaction
+	 */
 	async execute(interaction) {
 		this.client.log.debug(interaction);
 

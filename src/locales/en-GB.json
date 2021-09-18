@@ -121,7 +121,7 @@
 					"name": "reason"
 				},
 				"ticket": {
-					"description": "The ticket to close, either the number or the channel mention/ID",
+					"description": "The ticket to close, either the number or the channel ID",
 					"name": "ticket"
 				},
 				"time": {
@@ -145,20 +145,31 @@
 					]
 				},
 				"confirm": {
-					"description": "React with ✅ to close this ticket.",
-					"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+					"buttons": {
+						"cancel": "Cancel",
+						"confirm": "Close"
+					},
+					"description": "Please confirm your decision.",
+					"description_with_archive": "The ticket will be archived for future reference.",
 					"title": "❔ Are you sure?"
 				},
 				"confirm_multiple": {
+					"buttons": {
+						"cancel": "Cancel",
+						"confirm": [
+							"Close %d ticket",
+							"Close %d tickets"
+						]
+					},
 					"description": [
-						"React with ✅ to close %d ticket.",
-						"React with ✅ to close %d tickets."
+						"You are about to close %d ticket.",
+						"You are about to close %d tickets."
 					],
 					"title": "❔ Are you sure?"
 				},
 				"confirmation_timeout": {
 					"description": "You took too long to confirm.",
-					"title": "❌ Reaction time expired"
+					"title": "❌ Interaction time expired"
 				},
 				"invalid_time": {
 					"description": "The time period provided could not be parsed.",
@@ -226,12 +237,12 @@
 					"title": "❌ Can't create ticket"
 				},
 				"select_category": {
-					"description": "Select the category most relevant to your ticket's topic:\n\n%s",
+					"description": "Select the category most relevant to your ticket's topic.",
 					"title": "🔤 Please select the ticket category"
 				},
 				"select_category_timeout": {
 					"description": "You took too long to select the ticket category.",
-					"title": "❌ Reaction time expired"
+					"title": "❌ Interaction time expired"
 				}
 			}
 		},

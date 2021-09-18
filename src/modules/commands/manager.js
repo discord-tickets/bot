@@ -161,13 +161,12 @@ module.exports = class CommandManager {
 			'EMBED_LINKS',
 			'MANAGE_CHANNELS',
 			'MANAGE_MESSAGES',
-			'READ_MESSAGE_HISTORY',
-			'SEND_MESSAGES'
+			'READ_MESSAGE_HISTORY'
 		];
 
 		if (!bot_permissions.has(required_bot_permissions)) {
 			const perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
-			if (bot_permissions.has(['EMBED_LINKS', 'SEND_MESSAGES'])) {
+			if (bot_permissions.has('EMBED_LINKS')) {
 				await interaction.reply({
 					embeds: [
 						new MessageEmbed()
@@ -176,10 +175,8 @@ module.exports = class CommandManager {
 							.setDescription(i18n('bot.missing_permissions.description', perms))
 					]
 				});
-			} else if (bot_permissions.has('SEND_MESSAGES')) {
-				await interaction.reply({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
 			} else {
-				this.client.log.warn('Unable to respond to command due to missing permissions');
+				await interaction.reply({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
 			}
 			return;
 		}
