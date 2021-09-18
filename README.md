@@ -1,6 +1,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
 [![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/main/LICENSE)
+![](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients&url=https%3A%2F%2Fstats.discordtickets.app&logo=discord&logoColor=white&style=flat-square)
+![](https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app&logo=discord&logoColor=white&style=flat-square)
 [![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&style=flat-square)](https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://go.eartharoid.me/discord)
 [![Weblate](https://i18n.capestar.net/widgets/discord-tickets/en_GB/bot/svg-badge.svg)](https://i18n.capestar.net/engage/discord-tickets/en_GB/)
@@ -90,11 +92,12 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 ## Sponsors
 
-*Does your community or company use Discord Tickets? Sponsor the project to get your logo shown here.*
+*Does your community or company use Discord Tickets? [Sponsor the project](https://github.com/discord-tickets/bot/?sponsor=1) to get your logo shown here.*
 
 **These awesome people and communities sponsor Discord Tickets:**
 
 - [reSkybounds](https://reskybounds.com/) ([Discord](https://discord.reskybounds.com/))
+- [Cal#0004](https://discord.com/users/239036926152146944) <!-- @24c4 -->
 
 
 ### Donate
