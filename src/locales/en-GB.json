@@ -2,7 +2,7 @@
 	"blacklisted": "❌ You are blacklisted",
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets requires the following permissions:\n%s",
+			"description": "⚠️ Discord Tickets requires the following permissions:\n%s",
 			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
@@ -130,6 +130,10 @@
 				}
 			},
 			"response": {
+				"canceled": {
+					"description": "You canceled the operation.",
+					"title": "🚫 Canceled"
+				},
 				"closed": {
 					"description": "Ticket #%s has been closed.",
 					"title": "✅ Ticket closed"

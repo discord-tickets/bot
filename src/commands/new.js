@@ -5,7 +5,6 @@ const {
 	MessageEmbed,
 	MessageSelectMenu
 } = require('discord.js');
-const { letters } = require('../utils/emoji');
 
 module.exports = class NewCommand extends Command {
 	constructor(client) {
@@ -47,7 +46,8 @@ module.exports = class NewCommand extends Command {
 
 			if (tickets.count >= cat_row.max_per_member) {
 				if (cat_row.max_per_member === 1) {
-					await i.reply({
+					const response = {
+						components: [],
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -57,7 +57,8 @@ module.exports = class NewCommand extends Command {
 								.setFooter(settings.footer, interaction.guild.iconURL())
 						],
 						ephemeral: true
-					});
+					};
+					await i ? i.editReply(response) : interaction.reply(response);
 				} else {
 					const list = tickets.rows.map(row => {
 						if (row.topic) {
@@ -68,7 +69,8 @@ module.exports = class NewCommand extends Command {
 							return `<#${row.id}>`;
 						}
 					});
-					i.reply({
+					const response = {
+						components: [],
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -78,12 +80,14 @@ module.exports = class NewCommand extends Command {
 								.setFooter(settings.footer, interaction.guild.iconURL())
 						],
 						ephemeral: true
-					});
+					};
+					await i ? i.editReply(response) : interaction.reply(response);
 				}
 			} else {
 				try {
 					const t_row = await this.client.tickets.create(interaction.guild.id, interaction.user.id, cat_row.id, topic);
-					i.reply({
+					const response = {
+						components: [],
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.success_colour)
@@ -93,9 +97,11 @@ module.exports = class NewCommand extends Command {
 								.setFooter(settings.footer, interaction.guild.iconURL())
 						],
 						ephemeral: true
-					});
+					};
+					await i ? i.editReply(response) : interaction.reply(response);
 				} catch (error) {
-					i.reply({
+					const response = {
+						components: [],
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -105,7 +111,8 @@ module.exports = class NewCommand extends Command {
 								.setFooter(settings.footer, interaction.guild.iconURL())
 						],
 						ephemeral: true
-					});
+					};
+					await i ? i.editReply(response) : interaction.reply(response);
 				}
 			}
 		};
@@ -124,9 +131,8 @@ module.exports = class NewCommand extends Command {
 				]
 			});
 		} else if (categories.count === 1) {
-			create(categories.rows[0], interaction); // skip the category selection
+			create(categories.rows[0]); // skip the category selection
 		} else {
-			const letters_array = Object.values(letters); // convert the A-Z emoji object to an array
 			await interaction.reply({
 				components: [
 					new MessageActionRow()
@@ -134,8 +140,8 @@ module.exports = class NewCommand extends Command {
 							new MessageSelectMenu()
 								.setCustomId(`select_category:${interaction.id}`)
 								.setPlaceholder('Select a category')
-								.addOptions(categories.rows.map((row, index) => ({
-									label: `${letters_array[index]} ${row.name}`,
+								.addOptions(categories.rows.map(row => ({
+									label: row.name,
 									value: row.id
 								})))
 						)

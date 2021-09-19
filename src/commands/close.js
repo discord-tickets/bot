@@ -48,7 +48,7 @@ module.exports = class CloseCommand extends Command {
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const reason = interaction.options.getString(default_i18n('commands.close.options.reason.name'));
-		const ticket = interaction.options.getNumber(default_i18n('commands.close.options.ticket.name'));
+		const ticket = interaction.options.getInteger(default_i18n('commands.close.options.ticket.name'));
 		const time = interaction.options.getString(default_i18n('commands.close.options.time.name'));
 
 		if (time) {
@@ -123,9 +123,9 @@ module.exports = class CloseCommand extends Command {
 				});
 
 				collector.on('collect', async i => {
-					if (i.customId === `confirm_close_multiple:${interaction.id}`) {
-						await i.deferUpdate();
+					await i.deferUpdate();
 
+					if (i.customId === `confirm_close_multiple:${interaction.id}`) {
 						for (const ticket of tickets.rows) {
 							await this.client.tickets.close(ticket.id, interaction.user.id, interaction.guild.id, reason);
 						}
@@ -142,7 +142,17 @@ module.exports = class CloseCommand extends Command {
 							ephemeral: true
 						});
 					} else {
-						await interaction.deleteReply();
+						await i.editReply({
+							components: [],
+							embeds: [
+								new MessageEmbed()
+									.setColor(settings.error_colour)
+									.setTitle(i18n('commands.close.response.canceled.title'))
+									.setDescription(i18n('commands.close.response.canceled.description'))
+									.setFooter(settings.footer, interaction.guild.iconURL())
+							],
+							ephemeral: true
+						});
 					}
 
 					collector.stop();
@@ -234,8 +244,9 @@ module.exports = class CloseCommand extends Command {
 			});
 
 			collector.on('collect', async i => {
+				await i.deferUpdate();
+
 				if (i.customId === `confirm_close:${interaction.id}`) {
-					await i.deferUpdate();
 					await this.client.tickets.close(t_row.id, interaction.user.id, interaction.guild.id, reason);
 					await i.editReply({
 						components: [],
@@ -249,7 +260,17 @@ module.exports = class CloseCommand extends Command {
 						ephemeral: true
 					});
 				} else {
-					await i.deleteReply();
+					await i.editReply({
+						components: [],
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.error_colour)
+								.setTitle(i18n('commands.close.response.canceled.title'))
+								.setDescription(i18n('commands.close.response.canceled.description'))
+								.setFooter(settings.footer, interaction.guild.iconURL())
+						],
+						ephemeral: true
+					});
 				}
 
 				collector.stop();

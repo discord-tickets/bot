@@ -176,7 +176,7 @@ module.exports = class CommandManager {
 					]
 				});
 			} else {
-				await interaction.reply({ content: '⚠️ ' + i18n('bot.missing_permissions.description', perms) });
+				await interaction.reply({ content: i18n('bot.missing_permissions.description', perms) });
 			}
 			return;
 		}
