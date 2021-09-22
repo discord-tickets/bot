@@ -4,19 +4,19 @@
 												"description": "Discord Tickets requiere los siguientes permisos:\n%s",
 												"title": "⚠️"
 								},
-								"version": "[Discord Tickets](%s) v%s por [eartharoid](%s)"
+								"version": "[Discord Tickets](%s) v%s creado por [eartharoid](%s)"
 				},
 				"cmd_usage": {
 								"args": {
 												"description": "**Descripción:** %s",
 												"example": "**Ejemplo:** `%s`"
 								},
-								"description": "**Uso:**\n`%s`\n\n**Ejemplo:**\n`%s`\n\nLos argumentos requeridos están prefijados con `❗`.",
+								"description": "**Uso:**\n`%s`\n\n**Ejemplo:**\n`%s`\n\nLos argumentos requeridos llevan el prefijo `❗`.",
 								"invalid_named_args": {
-												"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para un ejemplo.\nPor favor pregunte al staff si no está seguro.",
+												"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para ver un ejemplo.\nPor favor contacta con el staff si no estás seguro.",
 												"title": "❌ Sintaxis inválida"
 								},
-								"named_args": "Este comando utiliza argumentos nombrados.\n\n",
+								"named_args": "Este comando utiliza los argumentos nombrados.\n\n",
 								"title": "`%s` uso del comando"
 				},
 				"collector_expires_in": "Expira en %d segundos",
@@ -38,19 +38,19 @@
 																				"name": "ticket"
 																}
 												},
-												"description": "Agregar a un miembro al ticket",
-												"name": "agregar",
+												"description": "Añadir  un miembro al ticket",
+												"name": "añadir",
 												"response": {
 																"added": {
-																				"description": "%s ha sido agregado a %s.",
-																				"title": "✅ Miembro agregado"
+																				"description": "%s ha sido añadido a %s.",
+																				"title": "✅ Miembro añadido"
 																},
 																"no_member": {
-																				"description": "Por favor, menciona al miembro que desea agregar.",
+																				"description": "Por favor, menciona al miembro que desee añadir.",
 																				"title": "❌ Miembro desconocido"
 																},
 																"no_permission": {
-																				"description": "No eres el creador de este ticket y no eres parte del staff, no puedes agregar miembros a este ticket.",
+																				"description": "No eres el creador de este ticket y no eres parte del staff, no puedes añadir miembros a este ticket.",
 																				"title": "❌ Permisos insuficientes"
 																},
 																"not_a_ticket": {
@@ -65,7 +65,7 @@
 												},
 												"args": {
 																"member_or_role": {
-																				"description": "El miembro o rol que se va a añadir o o remover",
+																				"description": "El miembro o rol que se va a añadir o eliminar",
 																				"example": "@MiembroTravieso",
 																				"name": "miembroORol"
 																}
@@ -74,31 +74,31 @@
 												"name": "blacklist",
 												"response": {
 																"empty_list": {
-																				"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a ésta.",
+																				"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a esta.",
 																				"title": "📃 Miembros y roles en la lista negra"
 																},
 																"illegal_action": {
-																				"description": "%s es un miembro del personal, por lo tanto no puede ser añadido en la lista negra.",
+																				"description": "%s es un miembro del personal, por lo tanto no puede ser añadido a la lista negra.",
 																				"title": "❌ No puedes añadir a la lista negra a este miembro"
 																},
 																"list": {
 																				"title": "📃 Miembros y roles en la lista negra"
 																},
 																"member_added": {
-																				"description": "<@%s> fue añadido a la lista negra. Ya no podrá interactuar con el BOT, a menos de que sea removido.",
+																				"description": "<@%s> fue añadido a la lista negra. Ya no podrá interactuar con el BOT, a menos de que sea eliminado.",
 																				"title": "✅ Miembro añadido a la lista negra"
 																},
 																"member_removed": {
-																				"description": "<@%s> fue eliminado de la lista negra. Ahora puede usar el BOT nuevamente.",
+																				"description": "<@%s> fue eliminado de la lista negra. Ahora puede usar el BOT.",
 																				"title": "✅ Miembro eliminado de la lista negra"
 																},
 																"role_added": {
-																				"description": "<@&%s> fue añadido a la lista negra. Miembros que tengan este rol no podrán interactuar con el BOT hasta que sea removido.",
+																				"description": "<@&%s> fue añadido a la lista negra. Los miembros que tengan este rol no podrán interactuar con el BOT hasta que sea eliminado.",
 																				"title": "✅ Rol añadido a la lista negra"
 																},
 																"role_removed": {
-																				"description": "<@&%s> fue eliminado de la lista negra. Miembros que tengan este rol pueden interactuar con el BOT nuevamente.",
-																				"title": "✅ Rol removido de la lista negra"
+																				"description": "<@&%s> fue eliminado de la lista negra. Los miembros que tengan este rol pueden interactuar con el BOT.",
+																				"title": "✅ Rol eliminado de la lista negra"
 																}
 												}
 								},
@@ -110,7 +110,7 @@
 												"args": {
 																"reason": {
 																				"alias": "r",
-																				"description": "La razón por la cual cerrar el(los) ticket(s)",
+																				"description": "La razón por la cual se cierra el(los) ticket(s)",
 																				"example": "Resuelto",
 																				"name": "razón"
 																},
@@ -157,7 +157,7 @@
 																				"title": "❔ ¿Estás seguro?"
 																},
 																"confirmation_timeout": {
-																				"description": "Has tardado demasiado en confirmarlo.",
+																				"description": "Has tardado demasiado en confirmar.",
 																				"title": "❌ El tiempo de la reacción ha expirado"
 																},
 																"invalid_time": {
@@ -312,7 +312,7 @@
 																				"title": "❌ Miembro desconocido"
 																},
 																"no_permission": {
-																				"description": "Tú no eres el creador de este ticket ni un miembro del personal, por lo que no puedes remover miembros de este ticket.",
+																				"description": "Tú no eres el creador de este ticket ni un miembro del personal, por lo que no puedes eliminar miembros de este ticket.",
 																				"title": "❌ Permisos insuficientes"
 																},
 																"not_a_ticket": {
