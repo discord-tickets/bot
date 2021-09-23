@@ -234,6 +234,8 @@ module.exports = class SettingsCommand extends Command {
 		case default_i18n('commands.settings.options.categories.options.delete.name'): {
 			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')) } });
 			if (category) {
+				const channel = this.client.channels.cache.get(interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')));
+				if (channel) channel.delete();
 				await category.destroy();
 				interaction.reply({
 					embeds: [
