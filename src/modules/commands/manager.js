@@ -156,12 +156,10 @@ module.exports = class CommandManager {
 
 		const bot_permissions = interaction.guild.me.permissionsIn(interaction.channel);
 		const required_bot_permissions = [
-			'ADD_REACTIONS',
 			'ATTACH_FILES',
 			'EMBED_LINKS',
 			'MANAGE_CHANNELS',
-			'MANAGE_MESSAGES',
-			'READ_MESSAGE_HISTORY'
+			'MANAGE_MESSAGES'
 		];
 
 		if (!bot_permissions.has(required_bot_permissions)) {

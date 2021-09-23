@@ -2,7 +2,7 @@
 	"blacklisted": "❌ You are blacklisted",
 	"bot": {
 		"missing_permissions": {
-			"description": "⚠️ Discord Tickets requires the following permissions:\n%s",
+			"description": "Discord Tickets requires the following permissions:\n%s",
 			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) v%s by [eartharoid](%s)"
@@ -255,20 +255,28 @@
 			"name": "panel",
 			"options": {
 				"categories": {
-					"description": "A category ID",
+					"description": "A comma-separated list of category IDs",
 					"name": "categories"
 				},
 				"description": {
 					"description": "The description for the panel message",
 					"name": "description"
 				},
-				"emoji": {
-					"description": "An emoji",
-					"name": "emoji"
+				"image": {
+					"description": "An image URL for the panel message",
+					"name": "image"
+				},
+				"just_type": {
+					"description": "Create a \"just type\" panel?",
+					"name": "just_type"
 				},
 				"title": {
 					"description": "The title for the panel message",
 					"name": "title"
+				},
+				"thumbnail": {
+					"description": "A thumbnail image URL for the panel message",
+					"name": "thumbnail"
 				}
 			},
 			"response": {
@@ -276,9 +284,9 @@
 					"description": "One or more of the specified category IDs is invalid.",
 					"title": "❌ Invalid category"
 				},
-				"mismatch": {
-					"description": "Please provide the name number of emojis and category IDs.",
-					"title": "❌ Invalid input"
+				"too_many_categories": {
+					"description": "The \"just type\" panel can only be used with a single category.",
+					"title": "❌ Too many categories"
 				}
 			}
 		},
@@ -526,6 +534,9 @@
 	"missing_permissions": {
 		"description": "You do not have the permissions required to use this command:\n%s",
 		"title": "❌ Error"
+	},
+	"panel": {
+		"create_ticket": "Create a ticket"
 	},
 	"ticket": {
 		"claimed": {

@@ -29,12 +29,12 @@ module.exports = class MessageCreateEventListener extends EventListener {
 
 			const p_row = await this.client.db.models.Panel.findOne({ where: { channel: message.channel.id } });
 
-			if (p_row && typeof p_row.categories === 'string') {
-				// handle reaction-less panel
+			if (p_row) {
+				// handle message panels
 
 				await message.delete();
 
-				const cat_row = await this.client.db.models.Category.findOne({ where: { id: p_row.categories } });
+				const cat_row = await this.client.db.models.Category.findOne({ where: { id: p_row.category } });
 
 				const tickets = await this.client.db.models.Ticket.findAndCountAll({
 					where: {
