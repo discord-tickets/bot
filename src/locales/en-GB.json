@@ -218,7 +218,7 @@
 			},
 			"request_topic": {
 				"description": "Please briefly state what this ticket is about in a a few words.",
-				"title": "Ticket topic"
+				"title": "⚠️ Ticket topic"
 			},
 			"response": {
 				"created": {
@@ -414,6 +414,10 @@
 					"description": "Set options",
 					"name": "set",
 					"options": {
+						"close_button": {
+							"description": "Enable closing with a button?",
+							"name": "close_button"
+						},
 						"colour": {
 							"description": "The standard colour",
 							"name": "colour"
@@ -539,10 +543,12 @@
 		"create_ticket": "Create a ticket"
 	},
 	"ticket": {
+		"claim": "Claim",
 		"claimed": {
 			"description": "%s has claimed this ticket.",
 			"title": "✅ Ticket claimed"
 		},
+		"close": "Close",
 		"closed": {
 			"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
 			"title": "✅ Ticket closed"
@@ -586,7 +592,8 @@
 				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
 				"title": "❔ Feedback"
 			}
-		}
+		},
+		"unclaim": "Release"
 	},
 	"updated_permissions": "✅ Slash command permissions updated"
 }

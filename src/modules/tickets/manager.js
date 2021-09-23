@@ -1,7 +1,11 @@
 /* eslint-disable max-lines */
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageActionRow,
+	MessageButton,
+	MessageEmbed
+} = require('discord.js');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -102,7 +106,30 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
+			const components = new MessageActionRow();
+
+			if (cat_row.claiming) {
+				components.addComponents(
+					new MessageButton()
+						.setCustomId('ticket.claim')
+						.setLabel(i18n('ticket.claim'))
+						.setEmoji('🙌')
+						.setStyle('SECONDARY')
+				);
+			}
+
+			if (settings.close_button) {
+				components.addComponents(
+					new MessageButton()
+						.setCustomId('ticket.close')
+						.setLabel(i18n('ticket.close'))
+						.setEmoji('✖️')
+						.setStyle('DANGER')
+				);
+			}
+
 			const sent = await t_channel.send({
+				components: [components],
 				content: creator.user.toString(),
 				embeds: [embed]
 			});
@@ -118,10 +145,6 @@ module.exports = class TicketManager extends EventEmitter {
 					.catch(() => this.client.log.warn('Failed to delete system pin message'));
 			}
 
-			if (cat_row.claiming) {
-				await sent.react('🙌');
-			}
-
 			let questions;
 			if (cat_row.opening_questions) {
 				questions = cat_row.opening_questions
@@ -134,7 +157,7 @@ module.exports = class TicketManager extends EventEmitter {
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)
-							.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
+							.setTitle(i18n('commands.new.request_topic.title'))
 							.setDescription(i18n('commands.new.request_topic.description'))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
 					]

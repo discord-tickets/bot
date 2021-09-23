@@ -17,6 +17,10 @@ module.exports = ({ config }, sequelize) => {
 			},
 			type: DataTypes.JSON
 		},
+		close_button: {
+			defaultValue: false,
+			type: DataTypes.BOOLEAN
+		},
 		colour: {
 			defaultValue: config.defaults.colour,
 			type: DataTypes.STRING
