@@ -12,6 +12,11 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 	async execute(interaction) {
 		this.client.log.debug(interaction);
 
+
+		//
+		// CHECK BLACKLIST
+		//
+
 		if (interaction.isCommand()) {
 			// handle slash commands
 			this.client.commands.handle(interaction);

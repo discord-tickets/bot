@@ -273,7 +273,8 @@ module.exports = class TicketManager extends EventEmitter {
 		};
 
 		if (channel) {
-			const creator = await guild.members.fetch(t_row.creator);
+			const creator = await guild.members.fetch(t_row.creator)
+				.catch(() => this.client.log.debug('Skipping survey as member has left'));
 
 			const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
 
