@@ -190,8 +190,8 @@ module.exports = class SettingsCommand extends Command {
 
 		switch (interaction.options.getSubcommand()) {
 		case default_i18n('commands.settings.options.categories.options.create.name'): {
-			const name = interaction.options.getString('name');
-			const roles = interaction.options.getString('roles')?.replace(/\s/g, '').split(',');
+			const name = interaction.options.getString(default_i18n('commands.settings.options.categories.options.create.options.name.name'));
+			const roles = interaction.options.getString(default_i18n('commands.settings.options.categories.options.create.options.roles.name'))?.replace(/\s/g, '').split(',');
 			const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 			const cat_channel = await interaction.guild.channels.create(name, {
 				permissionOverwrites: [
@@ -232,7 +232,7 @@ module.exports = class SettingsCommand extends Command {
 			break;
 		}
 		case default_i18n('commands.settings.options.categories.options.delete.name'): {
-			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString('id') } });
+			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')) } });
 			if (category) {
 				await category.destroy();
 				interaction.reply({
@@ -256,7 +256,7 @@ module.exports = class SettingsCommand extends Command {
 			break;
 		}
 		case default_i18n('commands.settings.options.categories.options.edit.name'): {
-			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString('id') } });
+			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')) } });
 			if (!category) {
 				return interaction.reply({
 					embeds: [
