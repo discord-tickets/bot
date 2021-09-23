@@ -12,44 +12,42 @@ module.exports = class PanelCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			/*
-			 * options: [
-			 * 	{
-			 * 		alias: i18n('commands.panel.options.title.alias'),
-			 * 		description: i18n('commands.panel.options.title.description'),
-			 * 		example: i18n('commands.panel.options.title.example'),
-			 * 		name: i18n('commands.panel.options.title.name'),
-			 * 		required: false,
-			 * 		type: String
-			 * 	},
-			 * 	{
-			 * 		alias: i18n('commands.panel.options.description.alias'),
-			 * 		description: i18n('commands.panel.options.description.description'),
-			 * 		example: i18n('commands.panel.options.description.example'),
-			 * 		name: i18n('commands.panel.options.description.name'),
-			 * 		required: true,
-			 * 		type: String
-			 * 	},
-			 * 	{
-			 * 		alias: i18n('commands.panel.options.emoji.alias'),
-			 * 		description: i18n('commands.panel.options.emoji.description'),
-			 * 		example: i18n('commands.panel.options.emoji.example'),
-			 * 		multiple: true,
-			 * 		name: i18n('commands.panel.options.emoji.name'),
-			 * 		required: false,
-			 * 		type: String
-			 * 	},
-			 * 	{
-			 * 		alias: i18n('commands.panel.options.categories.alias'),
-			 * 		description: i18n('commands.panel.options.categories.description'),
-			 * 		example: i18n('commands.panel.options.categories.example'),
-			 * 		multiple: true,
-			 * 		name: i18n('commands.panel.options.categories.name'),
-			 * 		required: true,
-			 * 		type: String
-			 * 	}
-			 * ],
-			 */
+			// options: [
+			// 	{
+			// 		alias: i18n('commands.panel.options.title.alias'),
+			// 		description: i18n('commands.panel.options.title.description'),
+			// 		example: i18n('commands.panel.options.title.example'),
+			// 		name: i18n('commands.panel.options.title.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.description.alias'),
+			// 		description: i18n('commands.panel.options.description.description'),
+			// 		example: i18n('commands.panel.options.description.example'),
+			// 		name: i18n('commands.panel.options.description.name'),
+			// 		required: true,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.emoji.alias'),
+			// 		description: i18n('commands.panel.options.emoji.description'),
+			// 		example: i18n('commands.panel.options.emoji.example'),
+			// 		multiple: true,
+			// 		name: i18n('commands.panel.options.emoji.name'),
+			// 		required: false,
+			// 		type: String
+			// 	},
+			// 	{
+			// 		alias: i18n('commands.panel.options.categories.alias'),
+			// 		description: i18n('commands.panel.options.categories.description'),
+			// 		example: i18n('commands.panel.options.categories.example'),
+			// 		multiple: true,
+			// 		name: i18n('commands.panel.options.categories.name'),
+			// 		required: true,
+			// 		type: String
+			// 	}
+			// ],
 			description: i18n('commands.panel.description'),
 			internal: true,
 			name: i18n('commands.panel.name'),

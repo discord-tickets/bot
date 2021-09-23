@@ -13,16 +13,14 @@ module.exports = class SurveyCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			/*
-			 * options: [
-			 * 	{
-			 * 		description: i18n('commands.survey.options.survey.description'),
-			 * 		example: i18n('commands.survey.options.survey.example'),
-			 * 		name: i18n('commands.survey.options.survey.name'),
-			 * 		required: false
-			 * 	}
-			 * ],
-			 */
+			// options: [
+			// 	{
+			// 		description: i18n('commands.survey.options.survey.description'),
+			// 		example: i18n('commands.survey.options.survey.example'),
+			// 		name: i18n('commands.survey.options.survey.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.survey.description'),
 			internal: true,
 			name: i18n('commands.survey.name'),

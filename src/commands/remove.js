@@ -8,22 +8,20 @@ module.exports = class RemoveCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			/*
-			 * options: [
-			 * 	{
-			 * 		description: i18n('commands.remove.options.member.description'),
-			 * 		example: i18n('commands.remove.options.member.example'),
-			 * 		name: i18n('commands.remove.options.member.name'),
-			 * 		required: true
-			 * 	},
-			 * 	{
-			 * 		description: i18n('commands.remove.options.ticket.description'),
-			 * 		example: i18n('commands.remove.options.ticket.example'),
-			 * 		name: i18n('commands.remove.options.ticket.name'),
-			 * 		required: false
-			 * 	}
-			 * ],
-			 */
+			// options: [
+			// 	{
+			// 		description: i18n('commands.remove.options.member.description'),
+			// 		example: i18n('commands.remove.options.member.example'),
+			// 		name: i18n('commands.remove.options.member.name'),
+			// 		required: true
+			// 	},
+			// 	{
+			// 		description: i18n('commands.remove.options.ticket.description'),
+			// 		example: i18n('commands.remove.options.ticket.example'),
+			// 		name: i18n('commands.remove.options.ticket.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.remove.description'),
 			internal: true,
 			name: i18n('commands.remove.name')
@@ -104,7 +102,9 @@ module.exports = class RemoveCommand extends Command {
 			]
 		});
 
-		await ticket.permissionOverwrites.delete(member.user.id, `${message.author.tag} removed ${member.user.tag} from the ticket`);
+		await ticket.permissionOverwrites
+			.get(member.user.id)
+			?.delete(`${message.author.tag} removed ${member.user.tag} from the ticket`);
 
 		this.client.log.info(`${message.author.tag} removed ${member.user.tag} from ${ticket.id}`);
 	}

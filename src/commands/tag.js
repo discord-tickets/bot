@@ -8,16 +8,14 @@ module.exports = class TagCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			/*
-			 * options: [
-			 * 	{
-			 * 		description: i18n('commands.tag.options.command.description'),
-			 * 		example: i18n('commands.tag.options.tag.example'),
-			 * 		name: i18n('commands.tag.options.tag.name'),
-			 * 		required: false
-			 * 	}
-			 * ],
-			 */
+			// options: [
+			// 	{
+			// 		description: i18n('commands.tag.options.command.description'),
+			// 		example: i18n('commands.tag.options.tag.example'),
+			// 		name: i18n('commands.tag.options.tag.name'),
+			// 		required: false
+			// 	}
+			// ],
 			description: i18n('commands.tag.description'),
 			internal: true,
 			name: i18n('commands.tag.name'),

@@ -8,16 +8,14 @@ module.exports = class TopicCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			/*
-			 * options: [
-			 * 	{
-			 * 		description: i18n('commands.topic.options.new_topic.description'),
-			 * 		example: i18n('commands.topic.options.new_topic.example'),
-			 * 		name: i18n('commands.topic.options.new_topic.name'),
-			 * 		required: true
-			 * 	}
-			 * ],
-			 */
+			// options: [
+			// 	{
+			// 		description: i18n('commands.topic.options.new_topic.description'),
+			// 		example: i18n('commands.topic.options.new_topic.example'),
+			// 		name: i18n('commands.topic.options.new_topic.name'),
+			// 		required: true
+			// 	}
+			// ],
 			description: i18n('commands.topic.description'),
 			internal: true,
 			name: i18n('commands.topic.name')
