@@ -1,487 +1,437 @@
 {
-    "bot": {
-        "missing_permissions": {
-            "description": "Discord Tickets vyžaduje následující oprávnění:\n%s",
-            "title": "⚠️"
-        },
-        "version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
-    },
-    "cmd_usage": {
-        "args": {
-            "description": "**Popis:** %s",
-            "example": "**Příklad:** `%s`"
-        },
-        "description": "**Použití:**\n`%s`\n\n**Příklad:**\n`%s`\n\nPožadované argumenty jsou označeny `❗`.",
-        "invalid_named_args": {
-            "description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejsi jistý/á, zeptej se člena týmu.",
-            "title": "❌ Neplatná syntaxe"
-        },
-        "named_args": "Tento příkaz používá jmenné argumenty.\n\n",
-        "title": "Použití příkazu `%s`"
-    },
-    "collector_expires_in": "Vyprší za %d sekund",
-    "commands": {
-        "add": {
-            "args": {
-                "member": {
-                    "description": "Člen k přidání do tiketu",
-                    "example": "@někdo",
-                    "name": "člen"
-                },
-                "ticket": {
-                    "description": "Tiket, do kterého přidat člena",
-                    "example": "217",
-                    "name": "tiket"
-                }
-            },
-            "description": "Přidat člena do tiketu",
-            "name": "pridat",
-            "response": {
-                "added": {
-                    "description": "%s byl přidán do %s.",
-                    "title": "✅ Člen přidán"
-                },
-                "no_member": {
-                    "description": "Označte prosím člena, kterého chcete přidat.",
-                    "title": "❌ Neznámý člen"
-                },
-                "no_permission": {
-                    "description": "Nejste tvůrcem tohoto tiketu a nejste ani člen týmu, nemůžete do tohoto tiketu přidávat členy.",
-                    "title": "❌ Nedostatečná oprávnění"
-                },
-                "not_a_ticket": {
-                    "description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
-                    "title": "❌ Toto není kanál tiketu"
-                }
-            }
-        },
-        "blacklist": {
-            "aliases": {
-                "unblacklist": "unblacklist"
-            },
-            "args": {
-                "member_or_role": {
-                    "description": "Člen nebo role j přidání/odebrání",
-                    "example": "@NeposlušnýUživatel",
-                    "name": "uživatelNeboRole"
-                }
-            },
-            "description": "Zablokovat/povolit uživateli interakci s botem",
-            "name": "blacklist",
-            "response": {
-                "empty_list": {
-                    "description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <členNeboRole>` pro přidání uživatele nebo role na černou listinu.",
-                    "title": "📃 Zablokovaní uživatelé a role"
-                },
-                "illegal_action": {
-                    "description": "%s je člen týmu a nemůže být na černé listině.",
-                    "title": "❌ Tohoto člena nemůžeš přidat na černou listinu"
-                },
-                "list": {
-                    "title": "📃 Zablokovaní uživatelé a role"
-                },
-                "member_added": {
-                    "description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota.",
-                    "title": "✅ Uživatel přidán na černou listinu"
-                },
-                "member_removed": {
-                    "description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota.",
-                    "title": "✅ Uživatel odebrán z z černé listiny"
-                },
-                "role_added": {
-                    "description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota.",
-                    "title": "✅ Role přidána na černou listinu"
-                },
-                "role_removed": {
-                    "description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota.",
-                    "title": "✅ Role odebrána z černé listiny"
-                }
-            }
-        },
-        "close": {
-            "aliases": {
-                "delete": "odstranit",
-                "lock": "uzamknout"
-            },
-            "args": {
-                "reason": {
-                    "alias": "d",
-                    "description": "Důvod k uzavření tiketu",
-                    "name": "duvod"
-                },
-                "ticket": {
-                    "alias": "t",
-                    "description": "Tiket k uzavření, buď číslo nebo zmínka/ID kanálu",
-                    "example": "217",
-                    "name": "tiket"
-                },
-                "time": {
-                    "alias": "c",
-                    "description": "Zavřít všechny tikety, které byly neaktivní po určitou dobu",
-                    "example": "1w",
-                    "name": "cas"
-                }
-            },
-            "description": "Uzavře kanál s ticketem",
-            "name": "zavrit",
-            "response": {
-                "closed": {
-                    "description": "Tiket #%s byl uzavřen.",
-                    "title": "✅ Ticket uzavřen"
-                },
-                "closed_multiple": {
-                    "description": [
-                        "%d tiket byl uzavřen.",
-                        "%d tiketů bylo uzavřeno."
-                    ],
-                    "title": [
-                        "✅ Ticket uzavřen",
-                        "✅ Tikety uzavřeny"
-                    ]
-                },
-                "confirm": {
-                    "description": "Zareagujte pomocí ✅ k uzavření tohoto tiketu.",
-                    "description_with_archive": "Později si budete moci zobrazit archivovanou verzi.\nZareagujte pomocí ✅ pro uzavření tohoto tiketu.",
-                    "title": "❔ Jste si jistí?"
-                },
-                "confirmation_timeout": {
-                    "description": "Potvrzení vám trvalo příliš dlouho.",
-                    "title": "❌ Doba pro reakci vypršela"
-                },
-                "confirm_multiple": {
-                    "description": [
-                        "Zareagujte pomocí ✅ pro uzavření %d tiketu.",
-                        "Zareagujte pomocí ✅ pro uzavření %d tiketů."
-                    ],
-                    "title": "❔ Jste si jistí?"
-                },
-                "invalid_time": {
-                    "description": "Zadaný čas nebyl rozpoznán.",
-                    "title": "❌ Neplatný vstup"
-                },
-                "not_a_ticket": {
-                    "description": "Tento příkaz prosím použijte v kanálu tiketu nebo použijte vlajku tiketu.\nZadejte `%shelp close` pro více informací.",
-                    "title": "❌ Toto není kanál tiketu"
-                },
-                "no_tickets": {
-                    "description": "Nejsou zde žádné tikety, které byly aktivní po zadané časově rozmezí.",
-                    "title": "❌ Žádné tikety k uzavření"
-                },
-                "unresolvable": {
-                    "description": "`%s` nebyl rozpoznán jako tiket. Zadejte prosím ID nebo číslo tiketu nebo jej označte.",
-                    "title": "❌ Chyba"
-                }
-            }
-        },
-        "help": {
-            "aliases": {
-                "command": "příkaz",
-                "commands": "příkazy"
-            },
-            "args": {
-                "command": {
-                    "description": "Příkaz, o němž zobrazit informace",
-                    "example": "novy",
-                    "name": "příkaz"
-                }
-            },
-            "description": "Seznam příkazů, ke kterým máš přístup, nebo k nalezení dalších informací o příkazu",
-            "name": "napoveda",
-            "response": {
-                "list": {
-                    "description": "Příkazy, ke kterým máš přístup, jsou vypsány níže. Pro více informací o příkazu zadej `{prefix}napoveda [příkaz]`. Pro vytvoření ticketu zadej `{prefix}novy [téma]`.",
-                    "fields": {
-                        "commands": "Příkazy"
-                    },
-                    "title": "❔ Nápověda"
-                }
-            }
-        },
-        "new": {
-            "aliases": {
-                "create": "vytvorit",
-                "open": "otevrit",
-                "ticket": "tiket"
-            },
-            "args": {
-                "topic": {
-                    "description": "Téma ticketu",
-                    "example": "Problém s fakturací",
-                    "name": "tema"
-                }
-            },
-            "description": "Vytvořit ticket",
-            "name": "novy",
-            "response": {
-                "created": {
-                    "description": "Tvůj ticket byl vytvořen: %s.",
-                    "title": "✅ Ticket vytvořen"
-                },
-                "error": {
-                    "title": "❌ Chyba"
-                },
-                "has_a_ticket": {
-                    "description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového.",
-                    "title": "❌ Již máš otevřený ticket"
-                },
-                "max_tickets": {
-                    "description": "Prosím použij `%szavrit` pro uzavření nepotřebných ticketů.\n\n%s",
-                    "title": "❌ Již máš %d otevřených ticketů"
-                },
-                "no_categories": {
-                    "description": "Než budeš moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
-                    "title": "❌ Nelze vytvořit ticket"
-                },
-                "select_category": {
-                    "description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s",
-                    "title": "🔤 Prosím vyber kategorii ticketu"
-                },
-                "select_category_timeout": {
-                    "description": "Výběr kategorie ticketu trval příliš dlouho.",
-                    "title": "❌ Doba pro reakci vypršela"
-                }
-            },
-            "request_topic": {
-                "description": "Popiš prosím stručně několika slovy, o čem je tento ticket.",
-                "title": "Téma ticketu"
-            }
-        },
-        "panel": {
-            "args": {
-                "categories": {
-                    "alias": "k",
-                    "description": "ID kategorie",
-                    "example": "451745464954650634",
-                    "name": "kategorie"
-                },
-                "description": {
-                    "alias": "p",
-                    "description": "Popis zprávy panelu",
-                    "example": "\"Zareaguj na tuto zprávu pro otevření ticketu.\"",
-                    "name": "popis"
-                },
-                "emoji": {
-                    "alias": "e",
-                    "description": "Emoji",
-                    "example": "🎫",
-                    "name": "emoji"
-                },
-                "title": {
-                    "alias": "t",
-                    "description": "Nadpis pro zprávu panelu",
-                    "example": "\"Tickety podpory\"",
-                    "name": "nadpis"
-                }
-            },
-            "description": "Vytvořit nový ticket panel",
-            "name": "panel",
-            "response": {
-                "invalid_category": {
-                    "description": "Jedno nebo více ID kategorií je vadných.",
-                    "title": "❌ Neplatná kategorie"
-                },
-                "mismatch": {
-                    "description": "Prosím zadej počet emoji a ID kategorií.",
-                    "title": "❌ Neplatný vstup"
-                }
-            }
-        },
-        "remove": {
-            "args": {
-                "member": {
-                    "description": "Člen k odebrání z ticketu",
-                    "example": "@někdo",
-                    "name": "člen"
-                },
-                "ticket": {
-                    "description": "Ticket, ze kterého odebrat člena",
-                    "example": "217",
-                    "name": "tiket"
-                }
-            },
-            "description": "Odebrat člena z ticketu",
-            "name": "odebrat",
-            "response": {
-                "removed": {
-                    "description": "%s byl/a odebrán/a z %s.",
-                    "title": "✅ Člen odebrán"
-                },
-                "no_member": {
-                    "description": "Označ prosím člena, kterého chceš přidat.",
-                    "title": "❌ Neznámý člen"
-                },
-                "no_permission": {
-                    "description": "Nejsi tvůrcem tohoto ticketu a nejsi ani členem týmu, nemůžeš z tohoto ticketu odebírat členy.",
-                    "title": "❌ Nedostatečná oprávnění"
-                },
-                "not_a_ticket": {
-                    "description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
-                    "title": "❌ Toto není kanál tiketu"
-                }
-            }
-        },
-        "settings": {
-            "aliases": {
-                "config": "konfigurace"
-            },
-            "description": "Konfigurace Discord Tickets",
-            "name": "nastaveni",
-            "response": {
-                "invalid": "❌ Data nastavení jsou neplatná; přečtěte si prosím dokumentaci.\n%s",
-                "updated": "✅ Nastavení byla aktualizována."
-            }
-        },
-        "stats": {
-            "description": "Zobrazit statistiky ticketu",
-            "fields": {
-                "messages": "Zprávy",
-                "response_time": {
-                    "minutes": "%s minut",
-                    "title": "Průměrná doba odpovědi"
-                },
-                "tickets": "Tickety"
-            },
-            "name": "statistiky",
-            "response": {
-                "global": {
-                    "description": "Statistiky všech ticketů napříč všemi servery, kde je použita tato instance bota Discord Tickets.",
-                    "title": "📊 Globální statistiky"
-                },
-                "guild": {
-                    "description": "Statistiky o ticketech v tomto serveru. Tato data jsou v mezipaměti jednu hodinu.",
-                    "title": "📊 Statistiky tohoto serveru"
-                }
-            }
-        },
-        "survey": {
-            "aliases": {
-                "surveys": "dotazniky"
-            },
-            "args": {
-                "survey": {
-                    "description": "Název dotazníku, jehož odpověď zobrazit",
-                    "example": "podpora",
-                    "name": "dotazník"
-                }
-            },
-            "description": "Zobrazit odpovědi dotazníku",
-            "name": "dotazník",
-            "response": {
-                "list": {
-                    "title": "📃 Dotazníky"
-                }
-            }
-        },
-        "tag": {
-            "aliases": {
-                "faq": "faq",
-                "t": "t",
-                "tags": "znacky"
-            },
-            "args": {
-                "tag": {
-                    "description": "Název značky k použití",
-                    "example": "web",
-                    "name": "značka"
-                }
-            },
-            "description": "Použít odpověď na značku",
-            "name": "značka",
-            "response": {
-                "error": "❌ Chyba",
-                "list": {
-                    "title": "📃 Seznam značek"
-                },
-                "missing": "Tato značka vyžaduje následující argumenty:\n%s",
-                "not_a_ticket": {
-                    "description": "Tato značka může být použita pouze v kanálu ticketu, protože používá reference na tickety.",
-                    "title": "❌ Toto není kanál tiketu"
-                }
-            }
-        },
-        "topic": {
-            "args": {
-                "new_topic": {
-                    "description": "Nové téma ticketu",
-                    "example": "problém s fakturací",
-                    "name": "nove_tema"
-                }
-            },
-            "description": "Změnit téma ticketu",
-            "name": "tema",
-            "response": {
-                "changed": {
-                    "description": "Téma tohoto ticketu bylo změněno.",
-                    "title": "✅ Téma změněno"
-                },
-                "not_a_ticket": {
-                    "description": "Tento příkaz prosím použij kanálu ticketu, jehož téma chceš změnit.",
-                    "title": "❌ Toto není kanál tiketu"
-                }
-            }
-        }
-    },
-    "command_execution_error": {
-        "description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádej správce serveru, aby zkontroloval výstup konzole / protokoly pro více detailů.",
-        "title": "⚠️"
-    },
-    "message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
-    "missing_permissions": {
-        "description": "K provedení tohoto příkazu nemáš dostatečná oprávnění:\n%s",
-        "title": "❌"
-    },
-    "staff_only": {
-        "description": "K provedení tohoto příkazu musíš být členem týmu.",
-        "title": "❌"
-    },
-    "ticket": {
-        "claimed": {
-            "description": "%s si vzal tento ticket.",
-            "title": "✅ Ticket vzat"
-        },
-        "closed": {
-            "description": "Tento ticket byl uzavřen.\nKanál bude smazán za 5 sekund.",
-            "title": "✅ Ticket uzavřen"
-        },
-        "closed_by_member": {
-            "description": "Tento ticket byl uzavřen uživatelem %s.\nKanál bude smazán za 5 sekund.",
-            "title": "✅ Ticket uzavřen"
-        },
-        "closed_by_member_with_reason": {
-            "description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nKanál bude smazán za 5 sekund.",
-            "title": "✅ Ticket uzavřen"
-        },
-        "closed_with_reason": {
-            "description": "Tento ticket byl uzavřen: `%s`\nKanál bude smazán za 5 sekund.",
-            "title": "✅ Ticket uzavřen"
-        },
-        "member_added": {
-            "description": "%s byl/a přidán/a uživatelem %s",
-            "title": "Člen přidán"
-        },
-        "member_removed": {
-            "description": "%s byl/a odebrán/a uživatelem %s",
-            "title": "Člen odebrán"
-        },
-        "opening_message": {
-            "fields": {
-                "topic": "Téma"
-            }
-        },
-        "questions": "Prosím odpověz na následující otázky:\n\n%s",
-        "released": {
-            "description": "%s uvolnil ticket.",
-            "title": "✅ Ticket uvolněn"
-        },
-        "survey": {
-            "complete": {
-                "description": "Děkujeme za zpětnou vazbu.",
-                "title": "✅ Děkujeme"
-            },
-            "start": {
-                "description": "Zdravíme, %s. Než bude tento kanál odstraněn, nevadilo by ti vyplnit rychlý %d-otázkový dotazník? Zareaguj pomocí ✅ pro spuštění, nebo ignoruj tuto zprávu.",
-                "title": "❔ Zpětná vazba"
-            }
-        }
-    }
+				"bot": {
+								"missing_permissions": {
+												"description": "Discord Tickets vyžaduje následující oprávnění:\n%s",
+												"title": "⚠️"
+								},
+								"version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
+				},
+				"cmd_usage": {
+								"args": {
+												"example": "**Příklad:** `%s`"
+								},
+								"invalid_named_args": {
+												"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejsi jistý/á, zeptej se člena týmu."
+								},
+								"named_args": "Tento příkaz používá jmenné argumenty.\n\n"
+				},
+				"collector_expires_in": "Vyprší za %d sekund",
+				"command_execution_error": {
+								"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádej správce serveru, aby zkontroloval výstup konzole / protokoly pro více detailů.",
+								"title": "⚠️"
+				},
+				"commands": {
+								"add": {
+												"args": {
+																"member": {
+																				"example": "@někdo"
+																},
+																"ticket": {
+																				"description": "Tiket, do kterého přidat člena",
+																				"name": "tiket"
+																}
+												},
+												"description": "Přidat člena do tiketu",
+												"name": "pridat",
+												"response": {
+																"added": {
+																				"description": "%s byl přidán do %s.",
+																				"title": "✅ Člen přidán"
+																},
+																"no_member": {
+																				"description": "Označte prosím člena, kterého chcete přidat.",
+																				"title": "❌ Neznámý člen"
+																},
+																"no_permission": {
+																				"description": "Nejste tvůrcem tohoto tiketu a nejste ani člen týmu, nemůžete do tohoto tiketu přidávat členy.",
+																				"title": "❌ Nedostatečná oprávnění"
+																},
+																"not_a_ticket": {
+																				"description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
+																				"title": "❌ Toto není kanál tiketu"
+																}
+												}
+								},
+								"blacklist": {
+												"args": {
+																"member_or_role": {
+																				"description": "Člen nebo role j přidání/odebrání",
+																				"name": "uživatelNeboRole"
+																}
+												},
+												"description": "Zablokovat/povolit uživateli interakci s botem",
+												"name": "blacklist",
+												"response": {
+																"empty_list": {
+																				"description": "Na černé listině nejsou žádní uživatelé nebo role. Použij `%sblacklist <členNeboRole>` pro přidání uživatele nebo role na černou listinu.",
+																				"title": "📃 Zablokovaní uživatelé a role"
+																},
+																"illegal_action": {
+																				"description": "%s je člen týmu a nemůže být na černé listině.",
+																				"title": "❌ Tohoto člena nemůžeš přidat na černou listinu"
+																},
+																"list": {
+																				"title": "📃 Zablokovaní uživatelé a role"
+																},
+																"member_added": {
+																				"description": "Uživatel <@%s> byl přidán na černou listinu. Už nebude moci využívat bota.",
+																				"title": "✅ Uživatel přidán na černou listinu"
+																},
+																"member_removed": {
+																				"description": "Uživatel <@%s> byl odebrán z černé listiny. Nyní bude moci využívat bota.",
+																				"title": "✅ Uživatel odebrán z z černé listiny"
+																},
+																"role_added": {
+																				"description": "Role <@&%s> byla přidána na černou listinu. Uživatelé s touto rolí nyní nebudou moci využívat bota.",
+																				"title": "✅ Role přidána na černou listinu"
+																},
+																"role_removed": {
+																				"description": "Role <@&%s> byla odebrána z černé listiny. Nyní bude moci využívat bota.",
+																				"title": "✅ Role odebrána z černé listiny"
+																}
+												}
+								},
+								"close": {
+												"aliases": {
+																"lock": "uzamknout"
+												},
+												"args": {
+																"reason": {
+																				"description": "Důvod k uzavření tiketu"
+																},
+																"ticket": {
+																				"alias": "t",
+																				"example": "217"
+																},
+																"time": {
+																				"alias": "c",
+																				"example": "1w"
+																}
+												},
+												"description": "Uzavře kanál s ticketem",
+												"name": "zavrit",
+												"response": {
+																"closed": {
+																				"description": "Tiket #%s byl uzavřen.",
+																				"title": "✅ Ticket uzavřen"
+																},
+																"closed_multiple": {
+																				"description": [
+																								"%d tiket byl uzavřen.",
+																								"%d tiketů bylo uzavřeno."
+																				],
+																				"title": [
+																								"✅ Ticket uzavřen",
+																								"✅ Tikety uzavřeny"
+																				]
+																},
+																"confirm": {
+																				"description": "Zareagujte pomocí ✅ k uzavření tohoto tiketu.",
+																				"description_with_archive": "Později si budete moci zobrazit archivovanou verzi.\nZareagujte pomocí ✅ pro uzavření tohoto tiketu.",
+																				"title": "❔ Jste si jistí?"
+																},
+																"confirm_multiple": {
+																				"description": [
+																								"Zareagujte pomocí ✅ pro uzavření %d tiketu.",
+																								"Zareagujte pomocí ✅ pro uzavření %d tiketů."
+																				],
+																				"title": "❔ Jste si jistí?"
+																},
+																"confirmation_timeout": {
+																				"description": "Potvrzení vám trvalo příliš dlouho.",
+																				"title": "❌ Doba pro reakci vypršela"
+																},
+																"invalid_time": {
+																				"description": "Zadaný čas nebyl rozpoznán.",
+																				"title": "❌ Neplatný vstup"
+																},
+																"no_tickets": {
+																				"description": "Nejsou zde žádné tikety, které byly aktivní po zadané časově rozmezí.",
+																				"title": "❌ Žádné tikety k uzavření"
+																},
+																"not_a_ticket": {
+																				"description": "Tento příkaz prosím použijte v kanálu tiketu nebo použijte vlajku tiketu.\nZadejte `%shelp close` pro více informací.",
+																				"title": "❌ Toto není kanál tiketu"
+																},
+																"unresolvable": {
+																				"description": "`%s` nebyl rozpoznán jako tiket. Zadejte prosím ID nebo číslo tiketu nebo jej označte.",
+																				"title": "❌ Chyba"
+																}
+												}
+								},
+								"help": {
+												"aliases": {
+																"commands": "příkazy"
+												},
+												"args": {
+																"command": {
+																				"example": "novy"
+																}
+												},
+												"description": "Seznam příkazů, ke kterým máš přístup, nebo k nalezení dalších informací o příkazu",
+												"name": "napoveda",
+												"response": {
+																"list": {
+																				"description": "Příkazy, ke kterým máš přístup, jsou vypsány níže. Pro více informací o příkazu zadej `{prefix}napoveda [příkaz]`. Pro vytvoření ticketu zadej `{prefix}novy [téma]`.",
+																				"fields": {
+																								"commands": "Příkazy"
+																				},
+																				"title": "❔ Nápověda"
+																}
+												}
+								},
+								"new": {
+												"aliases": {
+																"open": "otevrit"
+												},
+												"args": {
+																"topic": {
+																				"description": "Téma ticketu",
+																				"name": "tema"
+																}
+												},
+												"description": "Vytvořit ticket",
+												"name": "novy",
+												"request_topic": {
+																"description": "Popiš prosím stručně několika slovy, o čem je tento ticket.",
+																"title": "Téma ticketu"
+												},
+												"response": {
+																"created": {
+																				"description": "Tvůj ticket byl vytvořen: %s.",
+																				"title": "✅ Ticket vytvořen"
+																},
+																"error": {
+																				"title": "❌ Chyba"
+																},
+																"has_a_ticket": {
+																				"description": "Prosím použij již existující ticket (<#%s>) nebo jej uzavři pro vytvoření nového.",
+																				"title": "❌ Již máš otevřený ticket"
+																},
+																"max_tickets": {
+																				"description": "Prosím použij `%szavrit` pro uzavření nepotřebných ticketů.\n\n%s",
+																				"title": "❌ Již máš %d otevřených ticketů"
+																},
+																"no_categories": {
+																				"description": "Než budeš moci vytvořit nový ticket, musí správce serveru vytvořit alespoň jednu kategorii pro tickety.",
+																				"title": "❌ Nelze vytvořit ticket"
+																},
+																"select_category": {
+																				"description": "Vyber kategorii, která je nejrelevantnější pro téma ticketu:\n\n%s",
+																				"title": "🔤 Prosím vyber kategorii ticketu"
+																},
+																"select_category_timeout": {
+																				"description": "Výběr kategorie ticketu trval příliš dlouho.",
+																				"title": "❌ Doba pro reakci vypršela"
+																}
+												}
+								},
+								"panel": {
+												"args": {
+																"categories": {
+																				"description": "ID kategorie",
+																				"name": "kategorie"
+																},
+																"description": {
+																				"description": "Popis zprávy panelu",
+																				"name": "popis"
+																},
+																"emoji": {
+																				"description": "Emoji",
+																				"name": "emoji"
+																},
+																"title": {
+																				"description": "Nadpis pro zprávu panelu",
+																				"name": "nadpis"
+																}
+												},
+												"description": "Vytvořit nový ticket panel",
+												"name": "panel",
+												"response": {
+																"invalid_category": {
+																				"description": "Jedno nebo více ID kategorií je vadných.",
+																				"title": "❌ Neplatná kategorie"
+																},
+																"mismatch": {
+																				"title": "❌ Neplatný vstup"
+																}
+												}
+								},
+								"remove": {
+												"args": {
+																"member": {
+																				"example": "@někdo"
+																},
+																"ticket": {
+																				"description": "Ticket, ze kterého odebrat člena",
+																				"name": "tiket"
+																}
+												},
+												"description": "Odebrat člena z ticketu",
+												"name": "odebrat",
+												"response": {
+																"no_member": {
+																				"description": "Označ prosím člena, kterého chceš přidat.",
+																				"title": "❌ Neznámý člen"
+																},
+																"no_permission": {
+																				"description": "Nejsi tvůrcem tohoto ticketu a nejsi ani členem týmu, nemůžeš z tohoto ticketu odebírat členy.",
+																				"title": "❌ Nedostatečná oprávnění"
+																},
+																"not_a_ticket": {
+																				"description": "Použijte tento příkaz c kanálu tiketu nebo označte kanál.",
+																				"title": "❌ Toto není kanál tiketu"
+																},
+																"removed": {
+																				"description": "%s byl/a odebrán/a z %s.",
+																				"title": "✅ Člen odebrán"
+																}
+												}
+								},
+								"settings": {
+												"description": "Konfigurace Discord Tickets",
+												"name": "nastaveni",
+												"response": {
+																"updated": "✅ Nastavení byla aktualizována."
+												}
+								},
+								"stats": {
+												"description": "Zobrazit statistiky ticketu",
+												"fields": {
+																"messages": "Zprávy",
+																"response_time": {
+																				"minutes": "%s minut",
+																				"title": "Průměrná doba odpovědi"
+																},
+																"tickets": "Tickety"
+												},
+												"name": "statistiky",
+												"response": {
+																"global": {
+																				"description": "Statistiky všech ticketů napříč všemi servery, kde je použita tato instance bota Discord Tickets.",
+																				"title": "📊 Globální statistiky"
+																},
+																"guild": {
+																				"description": "Statistiky o ticketech v tomto serveru. Tato data jsou v mezipaměti jednu hodinu.",
+																				"title": "📊 Statistiky tohoto serveru"
+																}
+												}
+								},
+								"survey": {
+												"args": {
+																"survey": {
+																				"description": "Název dotazníku, jehož odpověď zobrazit",
+																				"name": "dotazník"
+																}
+												},
+												"description": "Zobrazit odpovědi dotazníku",
+												"name": "dotazník",
+												"response": {
+																"list": {
+																				"title": "📃 Dotazníky"
+																}
+												}
+								},
+								"tag": {
+												"aliases": {
+																"t": "t"
+												},
+												"args": {
+																"tag": {
+																				"description": "Název značky k použití",
+																				"name": "značka"
+																}
+												},
+												"description": "Použít odpověď na značku",
+												"name": "značka",
+												"response": {
+																"error": "❌ Chyba",
+																"list": {
+																				"title": "📃 Seznam značek"
+																},
+																"missing": "Tato značka vyžaduje následující argumenty:\n%s",
+																"not_a_ticket": {
+																				"description": "Tato značka může být použita pouze v kanálu ticketu, protože používá reference na tickety.",
+																				"title": "❌ Toto není kanál tiketu"
+																}
+												}
+								},
+								"topic": {
+												"args": {
+																"new_topic": {
+																				"example": "problém s fakturací"
+																}
+												},
+												"description": "Změnit téma ticketu",
+												"name": "tema",
+												"response": {
+																"changed": {
+																				"description": "Téma tohoto ticketu bylo změněno.",
+																				"title": "✅ Téma změněno"
+																},
+																"not_a_ticket": {
+																				"description": "Tento příkaz prosím použij kanálu ticketu, jehož téma chceš změnit.",
+																				"title": "❌ Toto není kanál tiketu"
+																}
+												}
+								}
+				},
+				"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
+				"missing_permissions": {
+								"description": "K provedení tohoto příkazu nemáš dostatečná oprávnění:\n%s",
+								"title": "❌"
+				},
+				"staff_only": {
+								"title": "❌"
+				},
+				"ticket": {
+								"claimed": {
+												"description": "%s si vzal tento ticket.",
+												"title": "✅ Ticket vzat"
+								},
+								"closed": {
+												"description": "Tento ticket byl uzavřen.\nKanál bude smazán za 5 sekund.",
+												"title": "✅ Ticket uzavřen"
+								},
+								"closed_by_member": {
+												"description": "Tento ticket byl uzavřen uživatelem %s.\nKanál bude smazán za 5 sekund.",
+												"title": "✅ Ticket uzavřen"
+								},
+								"closed_by_member_with_reason": {
+												"description": "Tento ticket byl uzavřen uživatelem %s: `%s`\nKanál bude smazán za 5 sekund.",
+												"title": "✅ Ticket uzavřen"
+								},
+								"closed_with_reason": {
+												"description": "Tento ticket byl uzavřen: `%s`\nKanál bude smazán za 5 sekund.",
+												"title": "✅ Ticket uzavřen"
+								},
+								"member_added": {
+												"description": "%s byl/a přidán/a uživatelem %s",
+												"title": "Člen přidán"
+								},
+								"member_removed": {
+												"description": "%s byl/a odebrán/a uživatelem %s",
+												"title": "Člen odebrán"
+								},
+								"opening_message": {
+												"fields": {
+																"topic": "Téma"
+												}
+								},
+								"questions": "Prosím odpověz na následující otázky:\n\n%s",
+								"released": {
+												"description": "%s uvolnil ticket.",
+												"title": "✅ Ticket uvolněn"
+								},
+								"survey": {
+												"complete": {
+																"description": "Děkujeme za zpětnou vazbu.",
+																"title": "✅ Děkujeme"
+												},
+												"start": {
+																"description": "Zdravíme, %s. Než bude tento kanál odstraněn, nevadilo by ti vyplnit rychlý %d-otázkový dotazník? Zareaguj pomocí ✅ pro spuštění, nebo ignoruj tuto zprávu.",
+																"title": "❔ Zpětná vazba"
+												}
+								}
+				}
 }

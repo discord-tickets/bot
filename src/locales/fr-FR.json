@@ -1,487 +1,437 @@
 {
-    "bot": {
-        "missing_permissions": {
-            "description": "Discord Tickets nécessite les autorisations suivantes :\n%s",
-            "title": "⚠️"
-        },
-        "version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
-    },
-    "cmd_usage": {
-        "args": {
-            "description": "**Description:** %s",
-            "example": "**Exemple:** '%s'"
-        },
-        "description": "**Utilisation:**\n'%s'\n\n**Exemple:**\n'%s'\n\nLes arguments requis sont préfixés avec '❗'.",
-        "invalid_named_args": {
-            "description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr.",
-            "title": "❌ syntaxe invalide"
-        },
-        "named_args": "Cette commande utilise des arguments nommés.\n\n",
-        "title": "'%s' utilisation de commande"
-    },
-    "collector_expires_in": "Expire en %d secondes",
-    "commands": {
-        "add": {
-            "args": {
-                "member": {
-                    "description": "Le membre à ajouter au billet",
-                    "example": "@someone",
-                    "name": "membre"
-                },
-                "ticket": {
-                    "description": "Le billet pour ajouter le membre à",
-                    "example": "217",
-                    "name": "billet"
-                }
-            },
-            "description": "Ajouter un membre à un billet",
-            "name": "ajouter",
-            "response": {
-                "added": {
-                    "description": "%s a été ajouté à %s.",
-                    "title": "✅ membre a ajouté"
-                },
-                "no_member": {
-                    "description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
-                    "title": "❌ membre inconnu"
-                },
-                "no_permission": {
-                    "description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
-                    "title": "❌ autorisation insuffisante"
-                },
-                "not_a_ticket": {
-                    "description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
-                    "title": "❌ Ce n’est pas une chaîne de billets"
-                }
-            }
-        },
-        "blacklist": {
-            "aliases": {
-                "unblacklist": "unblacklist (en)"
-            },
-            "args": {
-                "member_or_role": {
-                    "description": "Le membre ou le rôle d’ajouter/supprimer",
-                    "example": "@NaughtyMember",
-                    "name": "membreOrRole"
-                }
-            },
-            "description": "Liste noire/non noire d’un membre d’interagir avec le bot",
-            "name": "liste noire",
-            "response": {
-                "empty_list": {
-                    "description": "Il n’y a pas de membres ou de rôles sur la liste noire. Tapez «%sliste noire <memberOrRole>» pour ajouter un membre ou un rôle à la liste noire.",
-                    "title": "📃 membres et rôles sur la liste noire"
-                },
-                "illegal_action": {
-                    "description": "%s est un membre du personnel et ne peut pas être mis sur la liste noire.",
-                    "title": "❌ Vous ne pouvez pas mettre sur liste noire ce membre"
-                },
-                "list": {
-                    "title": "📃 membres et rôles sur la liste noire"
-                },
-                "member_added": {
-                    "description": "<@%s> a été ajouté à la liste noire. Ils ne seront plus en mesure d’interagir avec le bot.",
-                    "title": "✅ membre ajouté à la liste noire"
-                },
-                "member_removed": {
-                    "description": "<@%s> a été retiré de la liste noire. Ils peuvent maintenant utiliser le bot à nouveau.",
-                    "title": "✅ membre ajouté à la liste noire"
-                },
-                "role_added": {
-                    "description": "<@&%s> a été ajouté à la liste noire. Les membres avec ce rôle ne seront plus en mesure d’interagir avec le bot.",
-                    "title": "✅ membre ajouté à la liste noire"
-                },
-                "role_removed": {
-                    "description": "<@&%s> a été retiré de la liste noire. Les membres avec ce rôle peuvent maintenant utiliser le bot à nouveau.",
-                    "title": "✅ membre ajouté à la liste noire"
-                }
-            }
-        },
-        "close": {
-            "aliases": {
-                "delete": "supprimer",
-                "lock": "lock"
-            },
-            "args": {
-                "reason": {
-                    "alias": "r",
-                    "description": "La raison de la fermeture du billet(s)",
-                    "name": "raison"
-                },
-                "ticket": {
-                    "alias": "t",
-                    "description": "Le billet à fermer, soit le numéro ou la mention de la chaîne / ID",
-                    "example": "217",
-                    "name": "billet"
-                },
-                "time": {
-                    "alias": "T",
-                    "description": "Fermez tous les billets inactifs pour l’heure spécifiée",
-                    "example": "1w",
-                    "name": "heure"
-                }
-            },
-            "description": "Fermer un canal de billets",
-            "name": "fermer",
-            "response": {
-                "closed": {
-                    "description": "Le ticket #%s a été fermé.",
-                    "title": "✅ billet fermé"
-                },
-                "closed_multiple": {
-                    "description": [
-                        "le ticket #%s a été fermé.",
-                        "le ticket #%s a été fermé."
-                    ],
-                    "title": [
-                        "✅ billet fermé",
-                        "✅ billet fermé"
-                    ]
-                },
-                "confirm": {
-                    "description": "Réagissez avec ✅ pour fermer ce billet.",
-                    "description_with_archive": "Vous pourrez voir une version archivée de celui-ci après.\nréagissez avec ✅ pour fermer ce billet.",
-                    "title": "❔ En êtes-vous sûr ?"
-                },
-                "confirmation_timeout": {
-                    "description": "Tu as mis trop de temps à confirmer.",
-                    "title": "❌ temps de réaction expiré"
-                },
-                "confirm_multiple": {
-                    "description": [
-                        "Réagissez avec ✅ pour fermer ce billet.",
-                        "Réagissez avec ✅ pour fermer ce billet."
-                    ],
-                    "title": "❔ En êtes-vous sûr ?"
-                },
-                "invalid_time": {
-                    "description": "La période prévue n’a pas pu être parsed.",
-                    "title": "❌ entrée invalide"
-                },
-                "not_a_ticket": {
-                    "description": "Veuillez utiliser cette commande dans un canal de billetterie ou utiliser le drapeau du billet.\ntype «%sà fermer » pour plus d’informations.",
-                    "title": "❌ Ce n’est pas une chaîne de billets"
-                },
-                "no_tickets": {
-                    "description": "Il n’y a pas de billets inactifs pour cette période.",
-                    "title": "❌ pas de billets à fermer"
-                },
-                "unresolvable": {
-                    "description": "'%s' ne pouvait pas être résolu à un billet. Veuillez fournir l’iD/mention ou le numéro du billet.",
-                    "title": "❌ erreur"
-                }
-            }
-        },
-        "help": {
-            "aliases": {
-                "command": "commandes",
-                "commands": "commandes"
-            },
-            "args": {
-                "command": {
-                    "description": "La commande d’afficher des informations sur",
-                    "example": "nouveau",
-                    "name": "commandes"
-                }
-            },
-            "description": "Listez les commandes à qui vous avez accès ou en savoir plus sur une commande",
-            "name": "aide",
-            "response": {
-                "list": {
-                    "description": "Les commandes auquel vous avez accès sont listées ci-dessous. Pour plus d’informations sur une commande, utilisez «{prefix}help [command]». Pour créer un billet, utilisez «{prefix}new [topic]».",
-                    "fields": {
-                        "commands": "Commandes"
-                    },
-                    "title": "❔ Aide"
-                }
-            }
-        },
-        "new": {
-            "aliases": {
-                "create": "créer",
-                "open": "ouvrir",
-                "ticket": "billet"
-            },
-            "args": {
-                "topic": {
-                    "description": "Le sujet du billet",
-                    "example": "Problème avec la facturation",
-                    "name": "sujet"
-                }
-            },
-            "description": "Créer un nouveau billet",
-            "name": "nouveau",
-            "response": {
-                "created": {
-                    "description": "Votre billet a été créé : %s.",
-                    "title": "✅ billet fermé"
-                },
-                "error": {
-                    "title": "❌ erreur"
-                },
-                "has_a_ticket": {
-                    "description": "S’il vous plaît utiliser votre billet <# existant (%s>) ou le fermer avant de créer un autre.",
-                    "title": "❌ Vous avez déjà un billet ouvert"
-                },
-                "max_tickets": {
-                    "description": "S’il vous%s'utiliser «  à proximité » pour fermer tous les billets non utilisés.\n\n%s",
-                    "title": "❌ Vous avez déjà un billet ouvert"
-                },
-                "no_categories": {
-                    "description": "Un administrateur serveur doit créer au moins une catégorie de billets avant qu’un nouveau billet puisse être ouvert.",
-                    "title": "❌ ne peut pas créer de billet"
-                },
-                "select_category": {
-                    "description": "Sélectionnez la catégorie la plus pertinente pour le sujet de votre billet :\n\n%s",
-                    "title": "🔤 Veuillez sélectionner la catégorie de billets"
-                },
-                "select_category_timeout": {
-                    "description": "Vous avez mis trop de temps à sélectionner la catégorie de billets.",
-                    "title": "❌ temps de réaction expiré"
-                }
-            },
-            "request_topic": {
-                "description": "S’il vous plaît brièvement dire ce que ce billet est d’environ en quelques mots.",
-                "title": "Sujet des billets"
-            }
-        },
-        "panel": {
-            "args": {
-                "categories": {
-                    "alias": "c",
-                    "description": "Un ID de catégorie",
-                    "example": "451745464954650634",
-                    "name": "catégories"
-                },
-                "description": {
-                    "alias": "d",
-                    "description": "La description du message du panneau",
-                    "example": "« Réagissez à ce message pour ouvrir un billet. »",
-                    "name": "description"
-                },
-                "emoji": {
-                    "alias": "e",
-                    "description": "Un emoji",
-                    "example": "🎫",
-                    "name": "emoji"
-                },
-                "title": {
-                    "alias": "t",
-                    "description": "La description du message du panneau",
-                    "example": "« Billets de soutien »",
-                    "name": "titre"
-                }
-            },
-            "description": "Créer un nouveau billet",
-            "name": "panneau",
-            "response": {
-                "invalid_category": {
-                    "description": "Un ou plusieurs des ID de catégorie spécifiés sont invalides.",
-                    "title": "❌ catégorie Invalide"
-                },
-                "mismatch": {
-                    "description": "Veuillez fournir le numéro de nom des emojis et des iD de catégorie.",
-                    "title": "❌ entrée invalide"
-                }
-            }
-        },
-        "remove": {
-            "args": {
-                "member": {
-                    "description": "Le membre à ajouter au billet",
-                    "example": "@someone",
-                    "name": "membre"
-                },
-                "ticket": {
-                    "description": "Le billet pour ajouter le membre à",
-                    "example": "217",
-                    "name": "billet"
-                }
-            },
-            "description": "Retirer un membre d’un billet",
-            "name": "enlever",
-            "response": {
-                "removed": {
-                    "description": "%s a été ajouté à %s.",
-                    "title": "✅ Membre retiré"
-                },
-                "no_member": {
-                    "description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
-                    "title": "❌ membre inconnu"
-                },
-                "no_permission": {
-                    "description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
-                    "title": "❌ autorisation insuffisante"
-                },
-                "not_a_ticket": {
-                    "description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
-                    "title": "❌ Ce n’est pas une chaîne de billets"
-                }
-            }
-        },
-        "settings": {
-            "aliases": {
-                "config": "config (config)"
-            },
-            "description": "Configurer les billets discorde",
-            "name": "paramètres",
-            "response": {
-                "invalid": "❌ paramètres est invalide; veuillez consulter la documentation.\n%s",
-                "updated": "✅ paramètres ont été mis à jour."
-            }
-        },
-        "stats": {
-            "description": "Afficher les statistiques des billets",
-            "fields": {
-                "messages": "Messages",
-                "response_time": {
-                    "minutes": "%s minutes",
-                    "title": "Avg. temps de réponse"
-                },
-                "tickets": "Billet"
-            },
-            "name": "stats",
-            "response": {
-                "global": {
-                    "description": "Statistiques sur les billets dans toutes les guildes où cette instance Discord TIckets est utilisée.",
-                    "title": "📊 statistiques mondiales"
-                },
-                "guild": {
-                    "description": "Statistiques sur les billets au sein de cette guilde. Ces données sont mises en cache pendant une heure.",
-                    "title": "📊 statistiques de ce serveur"
-                }
-            }
-        },
-        "survey": {
-            "aliases": {
-                "surveys": "enquêtes"
-            },
-            "args": {
-                "survey": {
-                    "description": "Le nom de l’enquête pour afficher les réponses des",
-                    "example": "soutien",
-                    "name": "enquêtes"
-                }
-            },
-            "description": "Voir les réponses au sondage",
-            "name": "enquêtes",
-            "response": {
-                "list": {
-                    "title": "📃 enquêtes"
-                }
-            }
-        },
-        "tag": {
-            "aliases": {
-                "faq": "faq",
-                "t": "t",
-                "tags": "étiquettes"
-            },
-            "args": {
-                "tag": {
-                    "description": "Le nom de l’étiquette à utiliser",
-                    "example": "site Internet",
-                    "name": "étiquettes"
-                }
-            },
-            "description": "Utiliser une réponse d’étiquette",
-            "name": "étiquettes",
-            "response": {
-                "error": "❌ erreur",
-                "list": {
-                    "title": "📃 tag"
-                },
-                "missing": "Cette balise nécessite les arguments suivants :\n%s",
-                "not_a_ticket": {
-                    "description": "Cette balise ne peut être utilisée que dans un canal de billetterie car elle utilise des références de billets.",
-                    "title": "❌ Ce n’est pas une chaîne de billets"
-                }
-            }
-        },
-        "topic": {
-            "args": {
-                "new_topic": {
-                    "description": "Le sujet du billet",
-                    "example": "question de facturation",
-                    "name": "new_topic"
-                }
-            },
-            "description": "Le sujet du billet",
-            "name": "sujet",
-            "response": {
-                "changed": {
-                    "description": "Le sujet de ce billet a été changé.",
-                    "title": "✅ sujet a changé"
-                },
-                "not_a_ticket": {
-                    "description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
-                    "title": "❌ Ce n’est pas une chaîne de billets"
-                }
-            }
-        }
-    },
-    "command_execution_error": {
-        "description": "Une erreur inattendue s’est produite lors de l’exécution de commande.\ns’il vous plaît demander à un administrateur de vérifier la sortie de la console / journaux pour plus de détails.",
-        "title": "⚠️"
-    },
-    "message_will_be_deleted_in": "Ce message sera supprimé en quelques %d secondes",
-    "missing_permissions": {
-        "description": "Vous n’avez pas les autorisations requises pour utiliser cette commande :\n%s",
-        "title": "❌"
-    },
-    "staff_only": {
-        "description": "Vous devez être un membre du personnel pour utiliser cette commande.",
-        "title": "❌"
-    },
-    "ticket": {
-        "claimed": {
-            "description": "%s a réclamé ce billet.",
-            "title": "✅ billet fermé"
-        },
-        "closed": {
-            "description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
-            "title": "✅ billet fermé"
-        },
-        "closed_by_member": {
-            "description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
-            "title": "✅ billet fermé"
-        },
-        "closed_by_member_with_reason": {
-            "description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
-            "title": "✅ billet fermé"
-        },
-        "closed_with_reason": {
-            "description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
-            "title": "✅ billet fermé"
-        },
-        "member_added": {
-            "description": "%s a été ajouté à %s",
-            "title": "Membre a ajouté"
-        },
-        "member_removed": {
-            "description": "%s a été ajouté à %s",
-            "title": "Membre retiré"
-        },
-        "opening_message": {
-            "fields": {
-                "topic": "Sujet"
-            }
-        },
-        "questions": "S’il vous plaît répondre aux questions suivantes:\n\n%s",
-        "released": {
-            "description": "%s a réclamé ce billet.",
-            "title": "✅ billet fermé"
-        },
-        "survey": {
-            "complete": {
-                "description": "Merci pour vos commentaires.",
-                "title": "✅ Merci"
-            },
-            "start": {
-                "description": "Hé, %s. Avant que ce canal soit supprimé, pourriez-vous remplir un rapide %d-question? Réagissez avec ✅ pour démarrer ou ignorer ce message.",
-                "title": "❔ commentaires"
-            }
-        }
-    }
+				"bot": {
+								"missing_permissions": {
+												"description": "Discord Tickets nécessite les autorisations suivantes :\n%s",
+												"title": "⚠️"
+								},
+								"version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
+				},
+				"cmd_usage": {
+								"args": {
+												"example": "**Exemple:** '%s'"
+								},
+								"invalid_named_args": {
+												"description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr."
+								},
+								"named_args": "Cette commande utilise des arguments nommés.\n\n"
+				},
+				"collector_expires_in": "Expire en %d secondes",
+				"command_execution_error": {
+								"description": "Une erreur inattendue s’est produite lors de l’exécution de commande.\ns’il vous plaît demander à un administrateur de vérifier la sortie de la console / journaux pour plus de détails.",
+								"title": "⚠️"
+				},
+				"commands": {
+								"add": {
+												"args": {
+																"member": {
+																				"example": "@someone"
+																},
+																"ticket": {
+																				"description": "Le billet pour ajouter le membre à",
+																				"name": "billet"
+																}
+												},
+												"description": "Ajouter un membre à un billet",
+												"name": "ajouter",
+												"response": {
+																"added": {
+																				"description": "%s a été ajouté à %s.",
+																				"title": "✅ membre a ajouté"
+																},
+																"no_member": {
+																				"description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
+																				"title": "❌ membre inconnu"
+																},
+																"no_permission": {
+																				"description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
+																				"title": "❌ autorisation insuffisante"
+																},
+																"not_a_ticket": {
+																				"description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
+																				"title": "❌ Ce n’est pas une chaîne de billets"
+																}
+												}
+								},
+								"blacklist": {
+												"args": {
+																"member_or_role": {
+																				"description": "Le membre ou le rôle d’ajouter/supprimer",
+																				"name": "membreOrRole"
+																}
+												},
+												"description": "Liste noire/non noire d’un membre d’interagir avec le bot",
+												"name": "liste noire",
+												"response": {
+																"empty_list": {
+																				"description": "Il n’y a pas de membres ou de rôles sur la liste noire. Tapez «%sliste noire <memberOrRole>» pour ajouter un membre ou un rôle à la liste noire.",
+																				"title": "📃 membres et rôles sur la liste noire"
+																},
+																"illegal_action": {
+																				"description": "%s est un membre du personnel et ne peut pas être mis sur la liste noire.",
+																				"title": "❌ Vous ne pouvez pas mettre sur liste noire ce membre"
+																},
+																"list": {
+																				"title": "📃 membres et rôles sur la liste noire"
+																},
+																"member_added": {
+																				"description": "<@%s> a été ajouté à la liste noire. Ils ne seront plus en mesure d’interagir avec le bot.",
+																				"title": "✅ membre ajouté à la liste noire"
+																},
+																"member_removed": {
+																				"description": "<@%s> a été retiré de la liste noire. Ils peuvent maintenant utiliser le bot à nouveau.",
+																				"title": "✅ membre ajouté à la liste noire"
+																},
+																"role_added": {
+																				"description": "<@&%s> a été ajouté à la liste noire. Les membres avec ce rôle ne seront plus en mesure d’interagir avec le bot.",
+																				"title": "✅ membre ajouté à la liste noire"
+																},
+																"role_removed": {
+																				"description": "<@&%s> a été retiré de la liste noire. Les membres avec ce rôle peuvent maintenant utiliser le bot à nouveau.",
+																				"title": "✅ membre ajouté à la liste noire"
+																}
+												}
+								},
+								"close": {
+												"aliases": {
+																"lock": "lock"
+												},
+												"args": {
+																"reason": {
+																				"description": "La raison de la fermeture du billet(s)"
+																},
+																"ticket": {
+																				"alias": "t",
+																				"example": "217"
+																},
+																"time": {
+																				"alias": "T",
+																				"example": "1w"
+																}
+												},
+												"description": "Fermer un canal de billets",
+												"name": "fermer",
+												"response": {
+																"closed": {
+																				"description": "Le ticket #%s a été fermé.",
+																				"title": "✅ billet fermé"
+																},
+																"closed_multiple": {
+																				"description": [
+																								"le ticket #%s a été fermé.",
+																								"le ticket #%s a été fermé."
+																				],
+																				"title": [
+																								"✅ billet fermé",
+																								"✅ billet fermé"
+																				]
+																},
+																"confirm": {
+																				"description": "Réagissez avec ✅ pour fermer ce billet.",
+																				"description_with_archive": "Vous pourrez voir une version archivée de celui-ci après.\nréagissez avec ✅ pour fermer ce billet.",
+																				"title": "❔ En êtes-vous sûr ?"
+																},
+																"confirm_multiple": {
+																				"description": [
+																								"Réagissez avec ✅ pour fermer ce billet.",
+																								"Réagissez avec ✅ pour fermer ce billet."
+																				],
+																				"title": "❔ En êtes-vous sûr ?"
+																},
+																"confirmation_timeout": {
+																				"description": "Tu as mis trop de temps à confirmer.",
+																				"title": "❌ temps de réaction expiré"
+																},
+																"invalid_time": {
+																				"description": "La période prévue n’a pas pu être parsed.",
+																				"title": "❌ entrée invalide"
+																},
+																"no_tickets": {
+																				"description": "Il n’y a pas de billets inactifs pour cette période.",
+																				"title": "❌ pas de billets à fermer"
+																},
+																"not_a_ticket": {
+																				"description": "Veuillez utiliser cette commande dans un canal de billetterie ou utiliser le drapeau du billet.\ntype «%sà fermer » pour plus d’informations.",
+																				"title": "❌ Ce n’est pas une chaîne de billets"
+																},
+																"unresolvable": {
+																				"description": "'%s' ne pouvait pas être résolu à un billet. Veuillez fournir l’iD/mention ou le numéro du billet.",
+																				"title": "❌ erreur"
+																}
+												}
+								},
+								"help": {
+												"aliases": {
+																"commands": "commandes"
+												},
+												"args": {
+																"command": {
+																				"example": "nouveau"
+																}
+												},
+												"description": "Listez les commandes à qui vous avez accès ou en savoir plus sur une commande",
+												"name": "aide",
+												"response": {
+																"list": {
+																				"description": "Les commandes auquel vous avez accès sont listées ci-dessous. Pour plus d’informations sur une commande, utilisez «{prefix}help [command]». Pour créer un billet, utilisez «{prefix}new [topic]».",
+																				"fields": {
+																								"commands": "Commandes"
+																				},
+																				"title": "❔ Aide"
+																}
+												}
+								},
+								"new": {
+												"aliases": {
+																"open": "ouvrir"
+												},
+												"args": {
+																"topic": {
+																				"description": "Le sujet du billet",
+																				"name": "sujet"
+																}
+												},
+												"description": "Créer un nouveau billet",
+												"name": "nouveau",
+												"request_topic": {
+																"description": "S’il vous plaît brièvement dire ce que ce billet est d’environ en quelques mots.",
+																"title": "Sujet des billets"
+												},
+												"response": {
+																"created": {
+																				"description": "Votre billet a été créé : %s.",
+																				"title": "✅ billet fermé"
+																},
+																"error": {
+																				"title": "❌ erreur"
+																},
+																"has_a_ticket": {
+																				"description": "S’il vous plaît utiliser votre billet <# existant (%s>) ou le fermer avant de créer un autre.",
+																				"title": "❌ Vous avez déjà un billet ouvert"
+																},
+																"max_tickets": {
+																				"description": "S’il vous%s'utiliser «  à proximité » pour fermer tous les billets non utilisés.\n\n%s",
+																				"title": "❌ Vous avez déjà un billet ouvert"
+																},
+																"no_categories": {
+																				"description": "Un administrateur serveur doit créer au moins une catégorie de billets avant qu’un nouveau billet puisse être ouvert.",
+																				"title": "❌ ne peut pas créer de billet"
+																},
+																"select_category": {
+																				"description": "Sélectionnez la catégorie la plus pertinente pour le sujet de votre billet :\n\n%s",
+																				"title": "🔤 Veuillez sélectionner la catégorie de billets"
+																},
+																"select_category_timeout": {
+																				"description": "Vous avez mis trop de temps à sélectionner la catégorie de billets.",
+																				"title": "❌ temps de réaction expiré"
+																}
+												}
+								},
+								"panel": {
+												"args": {
+																"categories": {
+																				"description": "Un ID de catégorie",
+																				"name": "catégories"
+																},
+																"description": {
+																				"description": "La description du message du panneau",
+																				"name": "description"
+																},
+																"emoji": {
+																				"description": "Un emoji",
+																				"name": "emoji"
+																},
+																"title": {
+																				"description": "La description du message du panneau",
+																				"name": "titre"
+																}
+												},
+												"description": "Créer un nouveau billet",
+												"name": "panneau",
+												"response": {
+																"invalid_category": {
+																				"description": "Un ou plusieurs des ID de catégorie spécifiés sont invalides.",
+																				"title": "❌ catégorie Invalide"
+																},
+																"mismatch": {
+																				"title": "❌ entrée invalide"
+																}
+												}
+								},
+								"remove": {
+												"args": {
+																"member": {
+																				"example": "@someone"
+																},
+																"ticket": {
+																				"description": "Le billet pour ajouter le membre à",
+																				"name": "billet"
+																}
+												},
+												"description": "Retirer un membre d’un billet",
+												"name": "enlever",
+												"response": {
+																"no_member": {
+																				"description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
+																				"title": "❌ membre inconnu"
+																},
+																"no_permission": {
+																				"description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
+																				"title": "❌ autorisation insuffisante"
+																},
+																"not_a_ticket": {
+																				"description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
+																				"title": "❌ Ce n’est pas une chaîne de billets"
+																},
+																"removed": {
+																				"description": "%s a été ajouté à %s.",
+																				"title": "✅ Membre retiré"
+																}
+												}
+								},
+								"settings": {
+												"description": "Configurer les billets discorde",
+												"name": "paramètres",
+												"response": {
+																"updated": "✅ paramètres ont été mis à jour."
+												}
+								},
+								"stats": {
+												"description": "Afficher les statistiques des billets",
+												"fields": {
+																"messages": "Messages",
+																"response_time": {
+																				"minutes": "%s minutes",
+																				"title": "Avg. temps de réponse"
+																},
+																"tickets": "Billet"
+												},
+												"name": "stats",
+												"response": {
+																"global": {
+																				"description": "Statistiques sur les billets dans toutes les guildes où cette instance Discord TIckets est utilisée.",
+																				"title": "📊 statistiques mondiales"
+																},
+																"guild": {
+																				"description": "Statistiques sur les billets au sein de cette guilde. Ces données sont mises en cache pendant une heure.",
+																				"title": "📊 statistiques de ce serveur"
+																}
+												}
+								},
+								"survey": {
+												"args": {
+																"survey": {
+																				"description": "Le nom de l’enquête pour afficher les réponses des",
+																				"name": "enquêtes"
+																}
+												},
+												"description": "Voir les réponses au sondage",
+												"name": "enquêtes",
+												"response": {
+																"list": {
+																				"title": "📃 enquêtes"
+																}
+												}
+								},
+								"tag": {
+												"aliases": {
+																"t": "t"
+												},
+												"args": {
+																"tag": {
+																				"description": "Le nom de l’étiquette à utiliser",
+																				"name": "étiquettes"
+																}
+												},
+												"description": "Utiliser une réponse d’étiquette",
+												"name": "étiquettes",
+												"response": {
+																"error": "❌ erreur",
+																"list": {
+																				"title": "📃 tag"
+																},
+																"missing": "Cette balise nécessite les arguments suivants :\n%s",
+																"not_a_ticket": {
+																				"description": "Cette balise ne peut être utilisée que dans un canal de billetterie car elle utilise des références de billets.",
+																				"title": "❌ Ce n’est pas une chaîne de billets"
+																}
+												}
+								},
+								"topic": {
+												"args": {
+																"new_topic": {
+																				"example": "question de facturation"
+																}
+												},
+												"description": "Le sujet du billet",
+												"name": "sujet",
+												"response": {
+																"changed": {
+																				"description": "Le sujet de ce billet a été changé.",
+																				"title": "✅ sujet a changé"
+																},
+																"not_a_ticket": {
+																				"description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
+																				"title": "❌ Ce n’est pas une chaîne de billets"
+																}
+												}
+								}
+				},
+				"message_will_be_deleted_in": "Ce message sera supprimé en quelques %d secondes",
+				"missing_permissions": {
+								"description": "Vous n’avez pas les autorisations requises pour utiliser cette commande :\n%s",
+								"title": "❌"
+				},
+				"staff_only": {
+								"title": "❌"
+				},
+				"ticket": {
+								"claimed": {
+												"description": "%s a réclamé ce billet.",
+												"title": "✅ billet fermé"
+								},
+								"closed": {
+												"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
+												"title": "✅ billet fermé"
+								},
+								"closed_by_member": {
+												"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
+												"title": "✅ billet fermé"
+								},
+								"closed_by_member_with_reason": {
+												"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
+												"title": "✅ billet fermé"
+								},
+								"closed_with_reason": {
+												"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
+												"title": "✅ billet fermé"
+								},
+								"member_added": {
+												"description": "%s a été ajouté à %s",
+												"title": "Membre a ajouté"
+								},
+								"member_removed": {
+												"description": "%s a été ajouté à %s",
+												"title": "Membre retiré"
+								},
+								"opening_message": {
+												"fields": {
+																"topic": "Sujet"
+												}
+								},
+								"questions": "S’il vous plaît répondre aux questions suivantes:\n\n%s",
+								"released": {
+												"description": "%s a réclamé ce billet.",
+												"title": "✅ billet fermé"
+								},
+								"survey": {
+												"complete": {
+																"description": "Merci pour vos commentaires.",
+																"title": "✅ Merci"
+												},
+												"start": {
+																"description": "Hé, %s. Avant que ce canal soit supprimé, pourriez-vous remplir un rapide %d-question? Réagissez avec ✅ pour démarrer ou ignorer ce message.",
+																"title": "❔ commentaires"
+												}
+								}
+				}
 }

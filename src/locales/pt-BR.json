@@ -8,16 +8,12 @@
 				},
 				"cmd_usage": {
 								"args": {
-												"description": "**Descrição:** %s",
 												"example": "**Exemplo:** '%s'"
 								},
-								"description": "**Use:**\n'%s'\n\n**Exemplo:**\n'%s'\n\nOs argumentos necessários são iniciados com '❗'.",
 								"invalid_named_args": {
-												"description": "Existe um erro na sintaxe do comando: `%s`.\nEscreve `%s` para um exemplo.\nPor favor pergunte a um membro da staff se não tem certeza.",
-												"title": "❌ Sintaxe inválida"
+												"description": "Existe um erro na sintaxe do comando: `%s`.\nEscreve `%s` para um exemplo.\nPor favor pergunte a um membro da staff se não tem certeza."
 								},
-								"named_args": "Este comando usa argumentos nomeados.\n\n",
-								"title": "Uso do comando '%s'"
+								"named_args": "Este comando usa argumentos nomeados.\n\n"
 				},
 				"collector_expires_in": "Expira em %d segundos",
 				"command_execution_error": {
@@ -28,13 +24,10 @@
 								"add": {
 												"args": {
 																"member": {
-																				"description": "O membro para adicionar ao ticket",
-																				"example": "@someone",
-																				"name": "membro"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "O ticket ao qual vai ser adicionado o membro",
-																				"example": "217",
 																				"name": "ticket"
 																}
 												},
@@ -60,13 +53,9 @@
 												}
 								},
 								"blacklist": {
-												"aliases": {
-																"unblacklist": "unblacklist"
-												},
 												"args": {
 																"member_or_role": {
 																				"description": "O membro ou cargo para adicionar/remover",
-																				"example": "@NaughtyMember",
 																				"name": "membroOuCargo"
 																}
 												},
@@ -104,26 +93,19 @@
 								},
 								"close": {
 												"aliases": {
-																"delete": "apagar",
 																"lock": "fechar"
 												},
 												"args": {
 																"reason": {
-																				"alias": "r",
 																				"description": "A razão para fechar o(s) ticket(s)",
-																				"example": "Resolvido",
 																				"name": "motivo"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"description": "O ticket para fechar, ou o número ou mencionar o canal/ID",
-																				"example": "217",
 																				"name": "ticket"
 																},
 																"time": {
-																				"alias": "T",
 																				"description": "Fecha todos os tickets que estão inativos pelo tempo fornecido",
-																				"example": "1w",
 																				"name": "tempo"
 																}
 												},
@@ -180,14 +162,11 @@
 								},
 								"help": {
 												"aliases": {
-																"command": "comando",
 																"commands": "comandos"
 												},
 												"args": {
 																"command": {
-																				"description": "O comando para exibir informações sobre",
-																				"example": "novo",
-																				"name": "comando"
+																				"example": "novo"
 																}
 												},
 												"description": "Lista de comandos que tens acesso, ou encontra mais informações sobre um comando",
@@ -204,14 +183,11 @@
 								},
 								"new": {
 												"aliases": {
-																"create": "criar",
-																"open": "abrir",
-																"ticket": "ticket"
+																"open": "abrir"
 												},
 												"args": {
 																"topic": {
 																				"description": "Motivo da abertura do Ticket",
-																				"example": "Problemas com a faturação",
 																				"name": "motivo"
 																}
 												},
@@ -254,27 +230,19 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"alias": "c",
 																				"description": "ID da categoria",
-																				"example": "451745464954650634",
 																				"name": "categorias"
 																},
 																"description": {
-																				"alias": "d",
 																				"description": "A descrição para a mensagem do painel",
-																				"example": "\"Reage a esta mensagem para abrir um ticket.\"",
 																				"name": "descricao"
 																},
 																"emoji": {
-																				"alias": "e",
 																				"description": "Um emoji",
-																				"example": "🎫",
 																				"name": "emoji"
 																},
 																"title": {
-																				"alias": "t",
 																				"description": "O título para a mensagem do painel",
-																				"example": "\"Tickets de suporte\"",
 																				"name": "titulo"
 																}
 												},
@@ -286,7 +254,6 @@
 																				"title": "❌ Categoria Inválida"
 																},
 																"mismatch": {
-																				"description": "Please provide the name number of emojis and category IDs.",
 																				"title": "❌ Entrada inválida"
 																}
 												}
@@ -294,13 +261,10 @@
 								"remove": {
 												"args": {
 																"member": {
-																				"description": "O membro para remover do ticket",
-																				"example": "@someone",
-																				"name": "membro"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "O ticket para remover o membro",
-																				"example": "217",
 																				"name": "ticket"
 																}
 												},
@@ -326,13 +290,9 @@
 												}
 								},
 								"settings": {
-												"aliases": {
-																"config": "config"
-												},
 												"description": "Configurar o BOT",
 												"name": "settings",
 												"response": {
-																"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 																"updated": "✅ Configurações enviadas com sucesso."
 												}
 								},
@@ -359,13 +319,9 @@
 												}
 								},
 								"survey": {
-												"aliases": {
-																"surveys": "questionarios"
-												},
 												"args": {
 																"survey": {
 																				"description": "O nome do qustionário ao qual queres ver as respostas",
-																				"example": "suporte",
 																				"name": "questionario"
 																}
 												},
@@ -379,14 +335,11 @@
 								},
 								"tag": {
 												"aliases": {
-																"faq": "faq",
-																"t": "t",
-																"tags": "tags"
+																"t": "t"
 												},
 												"args": {
 																"tag": {
 																				"description": "O nome da tag para usar",
-																				"example": "website",
 																				"name": "tag"
 																}
 												},
@@ -407,9 +360,7 @@
 								"topic": {
 												"args": {
 																"new_topic": {
-																				"description": "O novo motivo do ticket",
-																				"example": "Problemas na faturação",
-																				"name": "new_topic"
+																				"example": "Problemas na faturação"
 																}
 												},
 												"description": "Altera o motivo do ticket",
@@ -432,7 +383,6 @@
 								"title": "❌"
 				},
 				"staff_only": {
-								"description": "Você precisa ser um membro da staff para utilizar esse comando.",
 								"title": "❌"
 				},
 				"ticket": {

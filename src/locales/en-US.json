@@ -8,16 +8,12 @@
 				},
 				"cmd_usage": {
 								"args": {
-												"description": "**Description:** %s",
 												"example": "**Example:** `%s`"
 								},
-								"description": "**Usage:**\n`%s`\n\n**Example:**\n`%s`\n\nRequired arguments are prefixed with `❗`.",
 								"invalid_named_args": {
-												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure.",
-												"title": "❌ Invalid syntax"
+												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure."
 								},
-								"named_args": "This command uses named arguments.\n\n",
-								"title": "`%s` command usage"
+								"named_args": "This command uses named arguments.\n\n"
 				},
 				"collector_expires_in": "Expires in %d seconds",
 				"command_execution_error": {
@@ -28,13 +24,10 @@
 								"add": {
 												"args": {
 																"member": {
-																				"description": "The member to add to the ticket",
-																				"example": "@someone",
-																				"name": "member"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "The ticket to add the member to",
-																				"example": "217",
 																				"name": "ticket"
 																}
 												},
@@ -60,13 +53,9 @@
 												}
 								},
 								"blacklist": {
-												"aliases": {
-																"unblacklist": "unblacklist"
-												},
 												"args": {
 																"member_or_role": {
 																				"description": "The member or role to add/remove",
-																				"example": "@NaughtyMember",
 																				"name": "memberOrRole"
 																}
 												},
@@ -104,26 +93,19 @@
 								},
 								"close": {
 												"aliases": {
-																"delete": "delete",
 																"lock": "lock"
 												},
 												"args": {
 																"reason": {
-																				"alias": "r",
 																				"description": "The reason for closing the ticket(s)",
-																				"example": "Resolved",
 																				"name": "reason"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"description": "The ticket to close, either the number or the channel mention/ID",
-																				"example": "217",
 																				"name": "ticket"
 																},
 																"time": {
-																				"alias": "T",
 																				"description": "Close all tickets that have been inactive for the specified time",
-																				"example": "1w",
 																				"name": "time"
 																}
 												},
@@ -180,14 +162,11 @@
 								},
 								"help": {
 												"aliases": {
-																"command": "command",
 																"commands": "commands"
 												},
 												"args": {
 																"command": {
-																				"description": "The command to display information about",
-																				"example": "new",
-																				"name": "command"
+																				"example": "new"
 																}
 												},
 												"description": "List commands you have access to, or find out more about a command",
@@ -204,14 +183,11 @@
 								},
 								"new": {
 												"aliases": {
-																"create": "create",
-																"open": "open",
-																"ticket": "ticket"
+																"open": "open"
 												},
 												"args": {
 																"topic": {
 																				"description": "The topic of the ticket",
-																				"example": "Problem with billing",
 																				"name": "topic"
 																}
 												},
@@ -254,27 +230,19 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"alias": "c",
 																				"description": "A category ID",
-																				"example": "451745464954650634",
 																				"name": "categories"
 																},
 																"description": {
-																				"alias": "d",
 																				"description": "The description for the panel message",
-																				"example": "\"React to this message to open a ticket.\"",
 																				"name": "description"
 																},
 																"emoji": {
-																				"alias": "e",
 																				"description": "An emoji",
-																				"example": "🎫",
 																				"name": "emoji"
 																},
 																"title": {
-																				"alias": "t",
 																				"description": "The title for the panel message",
-																				"example": "\"Support tickets\"",
 																				"name": "title"
 																}
 												},
@@ -286,7 +254,6 @@
 																				"title": "❌ Invalid category"
 																},
 																"mismatch": {
-																				"description": "Please provide the name number of emojis and category IDs.",
 																				"title": "❌ Invalid input"
 																}
 												}
@@ -294,13 +261,10 @@
 								"remove": {
 												"args": {
 																"member": {
-																				"description": "The member to remove from the ticket",
-																				"example": "@someone",
-																				"name": "member"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "The ticket to remove the member from",
-																				"example": "217",
 																				"name": "ticket"
 																}
 												},
@@ -326,13 +290,9 @@
 												}
 								},
 								"settings": {
-												"aliases": {
-																"config": "config"
-												},
 												"description": "Configure Discord Tickets",
 												"name": "settings",
 												"response": {
-																"invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
 																"updated": "✅ Settings have been updated."
 												}
 								},
@@ -359,13 +319,9 @@
 												}
 								},
 								"survey": {
-												"aliases": {
-																"surveys": "surveys"
-												},
 												"args": {
 																"survey": {
 																				"description": "The name of the survey to view responses of",
-																				"example": "support",
 																				"name": "survey"
 																}
 												},
@@ -379,14 +335,11 @@
 								},
 								"tag": {
 												"aliases": {
-																"faq": "faq",
-																"t": "t",
-																"tags": "tags"
+																"t": "t"
 												},
 												"args": {
 																"tag": {
 																				"description": "The name of the tag to use",
-																				"example": "website",
 																				"name": "tag"
 																}
 												},
@@ -407,9 +360,7 @@
 								"topic": {
 												"args": {
 																"new_topic": {
-																				"description": "The new topic of the ticket",
-																				"example": "billing issue",
-																				"name": "new_topic"
+																				"example": "billing issue"
 																}
 												},
 												"description": "Change the topic of the ticket",
@@ -432,7 +383,6 @@
 								"title": "❌"
 				},
 				"staff_only": {
-								"description": "You must be a member of staff to use this command.",
 								"title": "❌"
 				},
 				"ticket": {
