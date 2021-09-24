@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Fermer un canal de billets",
 												"name": "fermer",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "description"
-																},
 																"title": {
 																				"name": "titre"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "billet"
-																}
-												},
 												"description": "Retirer un membre d’un billet",
 												"name": "enlever",
 												"response": {

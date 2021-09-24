@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"description": "El ticket a cerrar, ya sea la mención o la ID del canal"
-																}
-												},
 												"description": "Cerrar un canal de ticket",
 												"name": "cerrar",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "descripción"
-																},
 																"title": {
 																				"name": "título"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "ticket"
-																}
-												},
 												"description": "Eliminar a un miembro de un ticket",
 												"name": "eliminar",
 												"response": {

@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Uzavře kanál s ticketem",
 												"name": "zavrit",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "popis"
-																},
 																"title": {
 																				"name": "nadpis"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "tiket"
-																}
-												},
 												"description": "Odebrat člena z ticketu",
 												"name": "odebrat",
 												"response": {

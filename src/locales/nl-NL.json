@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Een ticketkanaal sluiten",
 												"name": "sluiten",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "beschrijving"
-																},
 																"title": {
 																				"name": "titel"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "ticket"
-																}
-												},
 												"description": "Een lid uit een ticket verwijderen",
 												"name": "verwijderen",
 												"response": {

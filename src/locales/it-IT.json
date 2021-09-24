@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Chiudi un ticket",
 												"name": "chiudi",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "descrizione"
-																},
 																"title": {
 																				"name": "titolo"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "ticket"
-																}
-												},
 												"description": "Rimuovi un membro dal ticket",
 												"name": "rimuovi",
 												"response": {
