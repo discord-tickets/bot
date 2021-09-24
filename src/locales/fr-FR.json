@@ -6,11 +6,6 @@
 								},
 								"version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr."
-								}
-				},
 				"collector_expires_in": "Expire en %d secondes",
 				"command_execution_error": {
 								"description": "Une erreur inattendue s’est produite lors de l’exécution de commande.\ns’il vous plaît demander à un administrateur de vérifier la sortie de la console / journaux pour plus de détails.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "Le billet pour ajouter le membre à"
-																}
-												},
 												"description": "Ajouter un membre à un billet",
 												"name": "ajouter",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "membreOrRole"
-																}
-												},
 												"description": "Liste noire/non noire d’un membre d’interagir avec le bot",
 												"name": "liste noire",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "La raison de la fermeture du billet(s)"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Fermer un canal de billets",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "nouveau"
-																}
-												},
 												"description": "Listez les commandes à qui vous avez accès ou en savoir plus sur une commande",
 												"name": "aide",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Le sujet du billet"
-																}
-												},
 												"description": "Créer un nouveau billet",
 												"name": "nouveau",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "catégories"
-																},
 																"description": {
 																				"name": "description"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "titre"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
 																				"name": "billet"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "enquêtes"
-																}
-												},
 												"description": "Voir les réponses au sondage",
 												"name": "enquêtes",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "Le nom de l’étiquette à utiliser"
-																}
-												},
 												"description": "Utiliser une réponse d’étiquette",
 												"name": "étiquettes",
 												"response": {

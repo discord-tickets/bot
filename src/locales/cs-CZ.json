@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejsi jistý/á, zeptej se člena týmu."
-								}
-				},
 				"collector_expires_in": "Vyprší za %d sekund",
 				"command_execution_error": {
 								"description": "Během provádění příkazu došlo k neočekávané chybě.\nPožádej správce serveru, aby zkontroloval výstup konzole / protokoly pro více detailů.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "Tiket, do kterého přidat člena"
-																}
-												},
 												"description": "Přidat člena do tiketu",
 												"name": "pridat",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "uživatelNeboRole"
-																}
-												},
 												"description": "Zablokovat/povolit uživateli interakci s botem",
 												"name": "blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "Důvod k uzavření tiketu"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Uzavře kanál s ticketem",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "novy"
-																}
-												},
 												"description": "Seznam příkazů, ke kterým máš přístup, nebo k nalezení dalších informací o příkazu",
 												"name": "napoveda",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Téma ticketu"
-																}
-												},
 												"description": "Vytvořit ticket",
 												"name": "novy",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "kategorie"
-																},
 																"description": {
 																				"name": "popis"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "nadpis"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@někdo"
-																},
 																"ticket": {
 																				"name": "tiket"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "dotazník"
-																}
-												},
 												"description": "Zobrazit odpovědi dotazníku",
 												"name": "dotazník",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "Název značky k použití"
-																}
-												},
 												"description": "Použít odpověď na značku",
 												"name": "značka",
 												"response": {

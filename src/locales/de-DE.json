@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "Es gibt einen Fehler in Ihrer Eingabe-Syntax: `%s`.\nTippen Sie `%s` für ein Beispiel.\nBitte fragen Sie ein Support-Mitglied wenn Sie sich unsicher sind."
-								}
-				},
 				"collector_expires_in": "Läuft in %d Sekunden ab",
 				"command_execution_error": {
 								"description": "Ein unerwarteter Fehler ist aufgetreten.\nFragen Sie bitte den Andministrator um Hilfe.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "Das Ticket, dem der Benutzer hinzugefügt werden soll"
-																}
-												},
 												"description": "Füge einen Benutzer zum Ticket hinzu",
 												"name": "hinzufügen",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "MitgliedoderRolle"
-																}
-												},
 												"description": "Erlaube/Blockiere einen Benutzer mit dem Bot zu interagieren",
 												"name": "blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "Der Grund das Ticket / die Tickets zu schließen"
-																},
 																"ticket": {
 																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets"
-																},
-																"time": {
-																				"description": "Alle Tickets schließen, die für eine bestimmte Zeit inaktiv waren"
 																}
 												},
 												"description": "Schließe einen Ticket-Kanal",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "neu"
-																}
-												},
 												"description": "Zeige alle Befehle die Sie benutzen dürfen, oder mehr Informationen zu einem Befehl",
 												"name": "Hilfe",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Das Thema des Tickets"
-																}
-												},
 												"description": "Erstelle ein neues Ticket",
 												"name": "neu",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "Kategorien"
-																},
 																"description": {
 																				"name": "Beschreibung"
-																},
-																"emoji": {
-																				"name": "Emoji"
 																},
 																"title": {
 																				"name": "Titel"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
 																				"name": "Ticket"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "Umfrage"
-																}
-												},
 												"description": "Umfragen-Ergebnisse ansehen",
 												"name": "Umfrage",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "Der Name des Tags"
-																}
-												},
 												"description": "Benutzen Sie einen 'Tag' als Antwort",
 												"name": "Tag",
 												"response": {

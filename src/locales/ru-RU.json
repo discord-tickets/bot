@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets](%s) v%s от [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure."
-								}
-				},
 				"collector_expires_in": "Истекает через %d секунд",
 				"command_execution_error": {
 								"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "The ticket to add the member to"
-																}
-												},
 												"description": "Add a member to a ticket",
 												"name": "add",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "пользовательИлиРоль"
-																}
-												},
 												"description": "Запретить/разрешить участнику использовать бота",
 												"name": "blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "Причина закрытия тикета(ов)"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Закрыть тикет-канал",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "новый"
-																}
-												},
 												"description": "List commands you have access to, or find out more about a command",
 												"name": "help",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Тема билета"
-																}
-												},
 												"description": "Создание нового тикета",
 												"name": "новый",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "categories"
-																},
 																"description": {
 																				"name": "description"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "title"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
 																				"name": "тикет"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "survey"
-																}
-												},
 												"description": "View survey responses",
 												"name": "survey",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "The name of the tag to use"
-																}
-												},
 												"description": "Use a tag response",
 												"name": "tag",
 												"response": {

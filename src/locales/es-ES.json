@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets](%s) v%s creado por [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para ver un ejemplo.\nPor favor contacta con el staff si no estás seguro."
-								}
-				},
 				"collector_expires_in": "Expira en %d segundos",
 				"command_execution_error": {
 								"description": "Un error inesperado ha ocurrido durante la ejecución del comando.\nPor favor, pregúntale a un administrador para revisar la consola o los registros y obtener más información.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "El ticket para agregar al miembro a"
-																}
-												},
 												"description": "Añadir  un miembro al ticket",
 												"name": "añadir",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "miembroORol"
-																}
-												},
 												"description": "Añade o elimina de la lista negra a un miembro, para que no interactúe con el BOT",
 												"name": "blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "La razón por la cual se cierra el(los) ticket(s)"
-																},
 																"ticket": {
 																				"description": "El ticket a cerrar, ya sea la mención o la ID del canal"
-																},
-																"time": {
-																				"description": "Cerrar todos los tickets que estuvieron inactivos por el tiempo especificado o más"
 																}
 												},
 												"description": "Cerrar un canal de ticket",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "nuevo"
-																}
-												},
 												"description": "Listar comandos a los que tienes acceso para ejecutar, u obtiene más información sobre un comando",
 												"name": "ayuda",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "El tema del ticket"
-																}
-												},
 												"description": "Crear un nuevo ticket",
 												"name": "nuevo",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "categorías"
-																},
 																"description": {
 																				"name": "descripción"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "título"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@alguien"
-																},
 																"ticket": {
 																				"name": "ticket"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "encuesta"
-																}
-												},
 												"description": "Ver respuestas de la encuesta",
 												"name": "encuesta",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "El nombre de la etiqueta a usar"
-																}
-												},
 												"description": "Usar una respuesta de etiqueta",
 												"name": "etiqueta",
 												"response": {

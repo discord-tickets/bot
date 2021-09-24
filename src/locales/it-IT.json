@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets](%s) v%s di [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "C'è un errore nella sintassi del tuo comando: `%s`.\nDigita `%s` per un esempio.\nTi preghiamo di contattare un membro dello staff se non si è sicuri."
-								}
-				},
 				"collector_expires_in": "Scade tra %d secondi",
 				"command_execution_error": {
 								"description": "Errore imprevisto durante l'esecuzione del comando.\nChiedere a un amministratore di controllare l'output / i registri della console per i dettagli.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "Il ticket a cui aggiungere il membro"
-																}
-												},
 												"description": "Aggiungi un membro ad un ticket",
 												"name": "aggiungi",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "membrooRuolo"
-																}
-												},
 												"description": "Blacklista o unblacklista un utente dal bot",
 												"name": "lista nera",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "La ragione della chiusura del ticket o dei ticket"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Chiudi un ticket",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "nuovo"
-																}
-												},
 												"description": "Lista dei comandi a cui hai accesso o per saperne di più su un comando",
 												"name": "aiuto",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "L'argomento del ticket"
-																}
-												},
 												"description": "Crea un nuovo ticket",
 												"name": "nuovo",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "categorie"
-																},
 																"description": {
 																				"name": "descrizione"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "titolo"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@qualcuno"
-																},
 																"ticket": {
 																				"name": "ticket"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "sondaggio"
-																}
-												},
 												"description": "Guarda le risposte dei sondaggi",
 												"name": "sondaggio",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "Il nome del tag da utilizzare"
-																}
-												},
 												"description": "Usa un tag per rispondere",
 												"name": "tag",
 												"response": {

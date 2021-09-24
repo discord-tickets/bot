@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets] (%s) v%s door [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "Er is een fout opgetreden in het commando van uw opdracht: '%s'.\ntyp '%s' voor een voorbeeld.\nVraag het een medewerker als u denkt dat dit een fout is."
-								}
-				},
 				"collector_expires_in": "Verloopt over %d seconden",
 				"command_execution_error": {
 								"description": "Er is een onverwachte fout opgetreden tijdens de uitvoering van de opdracht.\nVraag een beheerder om de console-uitvoer / logboeken te controleren voor meer informatie.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "De ticket om het lid aan toe te voegen"
-																}
-												},
 												"description": "Een lid toevoegen aan een ticket",
 												"name": "toevoegen",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "lidOrRole"
-																}
-												},
 												"description": "Blacklist/unblacklist een lid om met de bot te interacteren",
 												"name": "Blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "De reden voor het sluiten van de ticket(s)"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Een ticketkanaal sluiten",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "new"
-																}
-												},
 												"description": "Opdrachten weergeven waar u toegang toe heeft, of meer informatie over een opdracht",
 												"name": "help",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Het onderwerp van de ticket"
-																}
-												},
 												"description": "Een nieuw ticket maken",
 												"name": "new",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "categorieën"
-																},
 																"description": {
 																				"name": "beschrijving"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "titel"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@iemand"
-																},
 																"ticket": {
 																				"name": "ticket"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "enquête"
-																}
-												},
 												"description": "Enquêtereacties weergeven",
 												"name": "enquête",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "De naam van de tag die moet worden gebruikt"
-																}
-												},
 												"description": "Een tagrespons gebruiken",
 												"name": "label",
 												"response": {

@@ -6,11 +6,6 @@
 								},
 								"version": "[Discord Tickets](%s) v%s af [eartharoid](%s)"
 				},
-				"cmd_usage": {
-								"invalid_named_args": {
-												"description": "Der er en fejl i kommandosyntaksen: '%s'.\nType '%s' for eksempel.\nSpørg en medarbejder, hvis du er i tvivl."
-								}
-				},
 				"collector_expires_in": "Udløber om %d sekunder",
 				"command_execution_error": {
 								"description": "Der opstod en uventet fejl under udførelse af kommandoer.\nBed en administrator om at kontrollere konsoloutputtet/-logfilerne for at få flere oplysninger.",
@@ -18,11 +13,6 @@
 				},
 				"commands": {
 								"add": {
-												"args": {
-																"ticket": {
-																				"description": "Billetten, som medlemmet skal føjes til"
-																}
-												},
 												"description": "Føje et medlem til en billet",
 												"name": "tilføj",
 												"response": {
@@ -45,11 +35,6 @@
 												}
 								},
 								"blacklist": {
-												"args": {
-																"member_or_role": {
-																				"name": "medlemEllerRolle"
-																}
-												},
 												"description": "Sortliste/unsortliste et medlem fra at interagere med bot",
 												"name": "blacklist",
 												"response": {
@@ -84,14 +69,8 @@
 								},
 								"close": {
 												"args": {
-																"reason": {
-																				"description": "Årsagen til lukning af billetten eller billetter(ne)"
-																},
 																"ticket": {
 																				"example": "217"
-																},
-																"time": {
-																				"example": "1w"
 																}
 												},
 												"description": "Lukke en billetkanal",
@@ -146,11 +125,6 @@
 												}
 								},
 								"help": {
-												"args": {
-																"command": {
-																				"example": "ny"
-																}
-												},
 												"description": "Listekommandoer, du har adgang til, eller få mere at vide om en kommando",
 												"name": "hjælp",
 												"response": {
@@ -164,11 +138,6 @@
 												}
 								},
 								"new": {
-												"args": {
-																"topic": {
-																				"description": "Emnet for billetten"
-																}
-												},
 												"description": "Opret en ny billet",
 												"name": "ny",
 												"request_topic": {
@@ -207,14 +176,8 @@
 								},
 								"panel": {
 												"args": {
-																"categories": {
-																				"name": "kategorier"
-																},
 																"description": {
 																				"name": "beskrivelse"
-																},
-																"emoji": {
-																				"name": "emoji"
 																},
 																"title": {
 																				"name": "titel"
@@ -231,9 +194,6 @@
 								},
 								"remove": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
 																				"name": "billet"
 																}
@@ -286,11 +246,6 @@
 												}
 								},
 								"survey": {
-												"args": {
-																"survey": {
-																				"name": "undersøgelser"
-																}
-												},
 												"description": "Vis undersøgelsessvar",
 												"name": "undersøgelser",
 												"response": {
@@ -300,11 +255,6 @@
 												}
 								},
 								"tag": {
-												"args": {
-																"tag": {
-																				"description": "Navnet på det tag, der skal bruges"
-																}
-												},
 												"description": "Brug et tagsvar",
 												"name": "tag",
 												"response": {
