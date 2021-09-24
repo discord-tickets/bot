@@ -5,7 +5,7 @@ const link = require('terminal-link');
 const semver = require('semver');
 const { format } = require('leekslazylogger');
 
-const { version: current } = require('../package.json');
+const { version: current } = require('../../package.json');
 
 module.exports = async client => {
 	if (!client.config.update_notice) return;

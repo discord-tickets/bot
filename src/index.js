@@ -160,7 +160,8 @@ class Bot extends Client {
 
 			this.setMaxListeners(this.config.max_listeners); // set the max listeners for each event
 
-			require('./updater')(this); // check for updates
+			require('./update/notifier')(this); // check for updates
+			require('./update/upgrade')(this); // upgrade
 
 			const listeners = new ListenerLoader(this);
 			listeners.load(); // load listeners
