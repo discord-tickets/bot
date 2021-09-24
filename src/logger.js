@@ -2,7 +2,7 @@ const { path } = require('./utils/fs');
 const config = require('../user/config');
 const Logger = require('leekslazylogger');
 module.exports = new Logger({
-	debug: config.debug,
+	debug: config.developer.debug,
 	directory: path('./logs/'),
 	keepFor: config.logs.keep_for,
 	levels: {

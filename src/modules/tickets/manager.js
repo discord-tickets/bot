@@ -1,7 +1,11 @@
 /* eslint-disable max-lines */
 const EventEmitter = require('events');
 const TicketArchives = require('./archives');
-const { MessageEmbed } = require('discord.js');
+const {
+	MessageActionRow,
+	MessageButton,
+	MessageEmbed
+} = require('discord.js');
 
 /** Manages tickets */
 module.exports = class TicketManager extends EventEmitter {
@@ -70,22 +74,12 @@ module.exports = class TicketManager extends EventEmitter {
 		});
 
 		(async () => {
-			const settings = await this.client.utils.getSettings(guild);
+			const settings = await this.client.utils.getSettings(guild.id);
 			const i18n = this.client.i18n.getLocale(settings.locale);
 
 			topic = t_row.topic
 				? this.client.cryptr.decrypt(t_row.topic)
 				: '';
-
-			if (cat_row.ping instanceof Array && cat_row.ping.length > 0) {
-				const mentions = cat_row.ping.map(id => id === 'everyone'
-					? '@everyone'
-					: id === 'here'
-						? '@here'
-						: `<@&${id}>`);
-
-				await t_channel.send({ content: mentions.join(', ') });
-			}
 
 			if (cat_row.image) {
 				await t_channel.send({ content: cat_row.image });
@@ -102,8 +96,39 @@ module.exports = class TicketManager extends EventEmitter {
 
 			if (topic) embed.addField(i18n('ticket.opening_message.fields.topic'), topic);
 
+			const components = new MessageActionRow();
+
+			if (cat_row.claiming) {
+				components.addComponents(
+					new MessageButton()
+						.setCustomId('ticket.claim')
+						.setLabel(i18n('ticket.claim'))
+						.setEmoji('🙌')
+						.setStyle('SECONDARY')
+				);
+			}
+
+			if (settings.close_button) {
+				components.addComponents(
+					new MessageButton()
+						.setCustomId('ticket.close')
+						.setLabel(i18n('ticket.close'))
+						.setEmoji('✖️')
+						.setStyle('DANGER')
+				);
+			}
+
+			const mentions = cat_row.ping instanceof Array && cat_row.ping.length > 0
+				? cat_row.ping.map(id => id === 'everyone'
+					? '@everyone'
+					: id === 'here'
+						? '@here'
+						: `<@&${id}>`)
+					.join(', ')
+				: '';
 			const sent = await t_channel.send({
-				content: creator.user.toString(),
+				components: [components],
+				content: i18n('ticket.opening_message.content', mentions, creator.user.toString()),
 				embeds: [embed]
 			});
 			await sent.pin({ reason: 'Ticket opening message' });
@@ -118,10 +143,6 @@ module.exports = class TicketManager extends EventEmitter {
 					.catch(() => this.client.log.warn('Failed to delete system pin message'));
 			}
 
-			if (cat_row.claiming) {
-				await sent.react('🙌');
-			}
-
 			let questions;
 			if (cat_row.opening_questions) {
 				questions = cat_row.opening_questions
@@ -134,7 +155,7 @@ module.exports = class TicketManager extends EventEmitter {
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)
-							.setTitle('⚠️ ' + i18n('commands.new.request_topic.title'))
+							.setTitle(i18n('commands.new.request_topic.title'))
 							.setDescription(i18n('commands.new.request_topic.description'))
 							.setFooter(this.client.utils.footer(settings.footer, i18n('collector_expires_in', 120)), guild.iconURL())
 					]
@@ -213,7 +234,7 @@ module.exports = class TicketManager extends EventEmitter {
 		this.emit('beforeClose', ticket_id);
 
 		const guild = this.client.guilds.cache.get(t_row.guild);
-		const settings = await this.client.utils.getSettings(guild);
+		const settings = await this.client.utils.getSettings(guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 		const channel = await this.client.channels.fetch(t_row.id);
 
@@ -273,98 +294,102 @@ module.exports = class TicketManager extends EventEmitter {
 		};
 
 		if (channel) {
-			const creator = await guild.members.fetch(t_row.creator);
+			guild.members.fetch(t_row.creator)
+				.then(async creator => {
+					const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
+					if (creator && cat_row.survey) {
+						const survey = await this.client.db.models.Survey.findOne({
+							where: {
+								guild: t_row.guild,
+								name: cat_row.survey
+							}
+						});
 
-			const cat_row = await this.client.db.models.Category.findOne({ where: { id: t_row.category } });
-
-			if (creator && cat_row.survey) {
-				const survey = await this.client.db.models.Survey.findOne({
-					where: {
-						guild: t_row.guild,
-						name: cat_row.survey
-					}
-				});
-
-				if (survey) {
-					const r_collector_message = await channel.send({
-						content: creator.toString(),
-						embeds: [
-							new MessageEmbed()
-								.setColor(settings.colour)
-								.setTitle(i18n('ticket.survey.start.title'))
-								.setDescription(i18n('ticket.survey.start.description', creator.toString(), survey.questions.length))
-								.setFooter(i18n('collector_expires_in', 60))
-						]
-					});
-
-					await r_collector_message.react('✅');
-
-					const filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
-
-					const r_collector = r_collector_message.createReactionCollector({
-						filter,
-						time: 60000
-					});
-
-					r_collector.on('collect', async () => {
-						r_collector.stop();
-						const filter = message => message.author.id === creator.id;
-						let answers = [];
-						let number = 1;
-						for (const question of survey.questions) {
-							await channel.send({
+						if (survey) {
+							const r_collector_message = await channel.send({
+								content: creator.toString(),
 								embeds: [
 									new MessageEmbed()
 										.setColor(settings.colour)
-										.setTitle(`${number++}/${survey.questions.length}`)
-										.setDescription(question)
+										.setTitle(i18n('ticket.survey.start.title'))
+										.setDescription(i18n('ticket.survey.start.description', creator.toString(), survey.questions.length))
 										.setFooter(i18n('collector_expires_in', 60))
 								]
 							});
 
-							try {
-								const collected = await channel.awaitMessages({
-									errors: ['time'],
-									filter,
-									max: 1,
-									time: 60000
+							await r_collector_message.react('✅');
+
+							const filter = (reaction, user) => user.id === creator.user.id && reaction.emoji.name === '✅';
+
+							const r_collector = r_collector_message.createReactionCollector({
+								filter,
+								time: 60000
+							});
+
+							r_collector.on('collect', async () => {
+								r_collector.stop();
+								const filter = message => message.author.id === creator.id;
+								let answers = [];
+								let number = 1;
+								for (const question of survey.questions) {
+									await channel.send({
+										embeds: [
+											new MessageEmbed()
+												.setColor(settings.colour)
+												.setTitle(`${number++}/${survey.questions.length}`)
+												.setDescription(question)
+												.setFooter(i18n('collector_expires_in', 60))
+										]
+									});
+
+									try {
+										const collected = await channel.awaitMessages({
+											errors: ['time'],
+											filter,
+											max: 1,
+											time: 60000
+										});
+										answers.push(collected.first().content);
+									} catch (collected) {
+										return await close();
+									}
+								}
+
+								await channel.send({
+									embeds: [
+										new MessageEmbed()
+											.setColor(settings.success_colour)
+											.setTitle(i18n('ticket.survey.complete.title'))
+											.setDescription(i18n('ticket.survey.complete.description'))
+											.setFooter(settings.footer, guild.iconURL())
+									]
 								});
-								answers.push(collected.first().content);
-							} catch (collected) {
-								return await close();
-							}
+
+								answers = answers.map(a => this.client.cryptr.encrypt(a));
+								await this.client.db.models.SurveyResponse.create({
+									answers,
+									survey: survey.id,
+									ticket: t_row.id
+								});
+
+								await close();
+
+							});
+
+							r_collector.on('end', async collected => {
+								if (collected.size === 0) {
+									await close();
+								}
+							});
 						}
-
-						await channel.send({
-							embeds: [
-								new MessageEmbed()
-									.setColor(settings.success_colour)
-									.setTitle(i18n('ticket.survey.complete.title'))
-									.setDescription(i18n('ticket.survey.complete.description'))
-									.setFooter(settings.footer, guild.iconURL())
-							]
-						});
-
-						answers = answers.map(a => this.client.cryptr.encrypt(a));
-						await this.client.db.models.SurveyResponse.create({
-							answers,
-							survey: survey.id,
-							ticket: t_row.id
-						});
-
+					} else {
 						await close();
-
-					});
-
-					r_collector.on('end', async collected => {
-						if (collected.size === 0) {
-							await close();
-						}
-					});
-				}
-			} else {
-				await close();
-			}
+					}
+				})
+				.catch(async () => {
+					this.client.log.debug('Skipping survey as member has left');
+					await close();
+				});
 		}
 
 		this.emit('close', ticket_id);

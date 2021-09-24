@@ -100,7 +100,8 @@ module.exports = {
 			}
 		],
 		'max-lines': [
-			'warn'
+			'warn',
+			500
 		],
 		'max-statements-per-line': [
 			'error'

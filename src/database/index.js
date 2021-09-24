@@ -39,7 +39,8 @@ module.exports = async client => {
 			logging: text => client.log.debug(text),
 			storage: path('./user/database.sqlite')
 		});
-		client.log.warn('SQLite is not sufficient for a production environment if you want to use ticket archives. You should disable "log_messages" in your servers\' settings or use a different database.');
+		client.config.defaults.log_messages = false;
+		client.log.warn('Message logging is disabled due to insufficient database');
 	} else {
 		client.log.info(`Connecting to ${types[type].name} database...`);
 		sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
@@ -66,7 +67,7 @@ module.exports = async client => {
 		require(`./models/${model}`)(client, sequelize);
 	}
 
-	await sequelize.sync({ alter: { drop: false } });
+	await sequelize.sync({ alter: true });
 
 	return sequelize;
 };

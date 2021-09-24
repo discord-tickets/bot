@@ -3,7 +3,10 @@ module.exports = ({ config }, sequelize) => {
 	const { DB_TABLE_PREFIX } = process.env;
 	sequelize.define('Guild', {
 		blacklist: {
-			defaultValue: [],
+			defaultValue: {
+				members: [],
+				roles: []
+			},
 			get() {
 				const raw_value = this.getDataValue('blacklist');
 				return raw_value
@@ -14,12 +17,12 @@ module.exports = ({ config }, sequelize) => {
 			},
 			type: DataTypes.JSON
 		},
+		close_button: {
+			defaultValue: false,
+			type: DataTypes.BOOLEAN
+		},
 		colour: {
 			defaultValue: config.defaults.colour,
-			type: DataTypes.STRING
-		},
-		command_prefix: {
-			defaultValue: config.defaults.command_prefix,
 			type: DataTypes.STRING
 		},
 		error_colour: {

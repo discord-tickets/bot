@@ -16,17 +16,15 @@
  * ###############################################################################################
  */
 
-const prefix = '-';
 
 module.exports = {
-	debug: false,
 	defaults: {
 		colour: '#009999',
-		command_prefix: prefix,
 		log_messages: true,
 		name_format: 'ticket-{number}',
 		opening_message: 'Hello {name}, thank you for creating a ticket. A member of staff will soon be available to assist you.\n\n__All messages in this channel are stored for future reference.__'
 	},
+	developer: { debug: false },
 	locale: 'en-GB',
 	logs: {
 		enabled: true,
@@ -39,7 +37,7 @@ module.exports = {
 		duration: 60,
 		presences: [
 			{
-				activity: `${prefix}new`,
+				activity: '/new',
 				type: 'PLAYING'
 			},
 			{

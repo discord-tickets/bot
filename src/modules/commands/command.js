@@ -1,6 +1,6 @@
 const {
 	Message, // eslint-disable-line no-unused-vars
-	MessageEmbed
+	Interaction // eslint-disable-line no-unused-vars
 } = require('discord.js');
 
 /**
@@ -9,11 +9,13 @@ const {
 module.exports = class Command {
 	/**
 	 *
-	 * @typedef CommandArgument
-	 * @property {string} name - The argument's name
-	 * @property {string} description - The argument's description
-	 * @property {string} example - An example value
-	 * @property {boolean?} required - Is this arg required? Defaults to `false`
+	 * @typedef CommandOption
+	 * @property {string} name - The option's name
+	 * @property {number} type - The option's type (use `Command.option_types`)
+	 * @property {string} description - The option's description
+	 * @property {CommandOption[]} [options] - The option's options
+	 * @property {(string|number)[]} [choices] - The option's choices
+	 * @property {boolean} [required] - Is this arg required? Defaults to `false`
 	 */
 	/**
 	 * Create a new Command
@@ -23,8 +25,7 @@ module.exports = class Command {
 	 * @param {string} data.description - The description of the command (1-100)
 	 * @param {boolean} [data.staff_only] - Only allow staff to use this command?
 	 * @param {string[]} [data.permissions] - Array of permissions needed for a user to use this command
-	 * @param {boolean} [data.process_args] - Should the command handler process named arguments?
-	 * @param {CommandArgument[]} [data.args] - The command's arguments (see [docs](https://github.com/75lb/command-line-args/blob/master/doc/option-definition.md) if using processed args)
+	 * @param {CommandOption[]} [data.options] - The command's options
 	 */
 	constructor(client, data) {
 
@@ -43,14 +44,6 @@ module.exports = class Command {
 		 * @type {string}
 		 */
 		this.name = data.name;
-
-		/**
-		 * The command's aliases
-		 * @type {string[]}
-		 */
-		this.aliases = data.aliases ?? [];
-
-		if (!this.aliases.includes(this.name)) this.aliases.unshift(this.name);
 
 		/**
 		 * The command description
@@ -72,17 +65,10 @@ module.exports = class Command {
 		this.permissions = data.permissions ?? [];
 
 		/**
-		 * Should the command handler process named arguments?
-		 * @type {boolean}
-		 * @default false
-		 */
-		this.process_args = data.process_args === true;
-
-		/**
 		 * The command options
-		 * @type {CommandArgument[]}
+		 * @type {CommandOption[]}
 		 */
-		this.args = data.args ?? [];
+		this.options = data.options ?? [];
 
 		/**
 		 * True if command is internal, false if it is from a plugin
@@ -100,64 +86,40 @@ module.exports = class Command {
 
 		try {
 			this.manager.register(this); // register the command
-		} catch (e) {
-			return this.client.log.error(e);
+		} catch (error) {
+			return this.client.log.error(error);
 		}
-
-
 	}
 
 	/**
 	 * The code to be executed when a command is invoked
 	 * @abstract
-	 * @param {Message} message - The message that invoked this command
-	 * @param {(object|string)} [args] - Named command arguments, or the message content with the prefix and command removed
+	 * @param {Interaction} interaction - The message that invoked this command
 	 */
-	async execute(message, args) { } // eslint-disable-line no-unused-vars
+	async execute(interaction) { } // eslint-disable-line no-unused-vars
 
-	/**
-	 * Send a message with the command usage
-	 * @param {TextChannel} channel - The channel to send the message to
-	 * @param {string} [alias] - The command alias
-	 * @returns {Promise<Message>}
-	 */
-	async sendUsage(channel, alias) {
-		const settings = await this.client.utils.getSettings(channel.guild);
-		if (!alias) alias = this.name;
-
-		const prefix = settings.command_prefix;
-		const i18n = this.client.i18n.getLocale(settings.locale);
-
-		const addArgs = (embed, arg) => {
-			const required = arg.required ? '`❗` ' : '';
-			let description = `» ${i18n('cmd_usage.args.description', arg.description)}`;
-			if (arg.example) description += `\n» ${i18n('cmd_usage.args.example', arg.example)}`;
-			embed.addField(required + arg.name, description);
+	async build(guild) {
+		return {
+			defaultPermission: !this.staff_only,
+			description: this.description,
+			name: this.name,
+			options: typeof this.options === 'function' ? await this.options(guild) : this.options
 		};
+	}
 
-		let usage,
-			example,
-			embed;
-
-		if (this.process_args) {
-			usage = `${prefix + alias} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + alias} \n${this.args.map(arg => `--${arg.name} ${arg.example || ''}`).join('\n')}`;
-			embed = new MessageEmbed()
-				.setColor(settings.error_colour)
-				.setTitle(i18n('cmd_usage.title', alias))
-				.setDescription(i18n('cmd_usage.named_args') + i18n('cmd_usage.description', usage, example));
-		} else {
-			usage = `${prefix + alias} ${this.args.map(arg => arg.required ? `<${arg.name}>` : `[${arg.name}]`).join(' ')}`;
-			example = `${prefix + alias} ${this.args.map(arg => `${arg.example || ''}`).join(' ')}`;
-			embed = new MessageEmbed()
-				.setColor(settings.error_colour)
-				.setTitle(i18n('cmd_usage.title', alias))
-				.setDescription(i18n('cmd_usage.description', usage, example));
-		}
-
-		this.args.forEach(arg => addArgs(embed, arg));
-		return await channel.send({ embeds: [embed] });
-
+	static get option_types() {
+		return {
+			SUB_COMMAND: 1,
+			SUB_COMMAND_GROUP: 2,
+			STRING: 3, // eslint-disable-line sort-keys
+			INTEGER: 4, // eslint-disable-line sort-keys
+			BOOLEAN: 5, // eslint-disable-line sort-keys
+			USER: 6,
+			CHANNEL: 7, // eslint-disable-line sort-keys
+			ROLE: 8,
+			MENTIONABLE: 9, // eslint-disable-line sort-keys
+			NUMBER: 10
+		};
 	}
 
 };
