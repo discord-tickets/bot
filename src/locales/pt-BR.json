@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s feito por [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Exemplo:** '%s'"
-								},
 								"invalid_named_args": {
 												"description": "Existe um erro na sintaxe do comando: `%s`.\nEscreve `%s` para um exemplo.\nPor favor pergunte a um membro da staff se não tem certeza."
-								},
-								"named_args": "Este comando usa argumentos nomeados.\n\n"
+								}
 				},
 				"collector_expires_in": "Expira em %d segundos",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
-																				"description": "O ticket ao qual vai ser adicionado o membro",
-																				"name": "ticket"
+																				"description": "O ticket ao qual vai ser adicionado o membro"
 																}
 												},
 												"description": "Adicionar um usuário ao ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "O membro ou cargo para adicionar/remover",
 																				"name": "membroOuCargo"
 																}
 												},
@@ -92,21 +83,15 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "fechar"
-												},
 												"args": {
 																"reason": {
-																				"description": "A razão para fechar o(s) ticket(s)",
-																				"name": "motivo"
+																				"description": "A razão para fechar o(s) ticket(s)"
 																},
 																"ticket": {
-																				"description": "O ticket para fechar, ou o número ou mencionar o canal/ID",
-																				"name": "ticket"
+																				"description": "O ticket para fechar, ou o número ou mencionar o canal/ID"
 																},
 																"time": {
-																				"description": "Fecha todos os tickets que estão inativos pelo tempo fornecido",
-																				"name": "tempo"
+																				"description": "Fecha todos os tickets que estão inativos pelo tempo fornecido"
 																}
 												},
 												"description": "Feche um canal de ticket",
@@ -161,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "comandos"
-												},
 												"args": {
 																"command": {
 																				"example": "novo"
@@ -182,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "abrir"
-												},
 												"args": {
 																"topic": {
-																				"description": "Motivo da abertura do Ticket",
-																				"name": "motivo"
+																				"description": "Motivo da abertura do Ticket"
 																}
 												},
 												"description": "Criar um novo Ticket",
@@ -230,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "ID da categoria",
 																				"name": "categorias"
 																},
 																"description": {
-																				"description": "A descrição para a mensagem do painel",
 																				"name": "descricao"
 																},
 																"emoji": {
-																				"description": "Um emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "O título para a mensagem do painel",
 																				"name": "titulo"
 																}
 												},
@@ -252,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Um ou mais IDs de categorias são inválidos.",
 																				"title": "❌ Categoria Inválida"
-																},
-																"mismatch": {
-																				"title": "❌ Entrada inválida"
 																}
 												}
 								},
@@ -264,7 +235,6 @@
 																				"example": "@someone"
 																},
 																"ticket": {
-																				"description": "O ticket para remover o membro",
 																				"name": "ticket"
 																}
 												},
@@ -291,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Configurar o BOT",
-												"name": "settings",
-												"response": {
-																"updated": "✅ Configurações enviadas com sucesso."
-												}
+												"name": "settings"
 								},
 								"stats": {
 												"description": "Mostra as estatísticas dos tickets",
@@ -321,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "O nome do qustionário ao qual queres ver as respostas",
 																				"name": "questionario"
 																}
 												},
@@ -334,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "O nome da tag para usar",
-																				"name": "tag"
+																				"description": "O nome da tag para usar"
 																}
 												},
 												"description": "Usa uma resposta de tag",
@@ -358,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "Problemas na faturação"
-																}
-												},
 												"description": "Altera o motivo do ticket",
 												"name": "motivo",
 												"response": {
@@ -380,9 +337,6 @@
 				"message_will_be_deleted_in": "Essa mensagem será apagada em %d segundos",
 				"missing_permissions": {
 								"description": "Você não tem as permissões necessárias para usar este comando:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

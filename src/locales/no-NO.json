@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s av [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Eksempel:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure."
-								},
-								"named_args": "Denne kommandoen bruker navngitte argumenter.\n\n"
+								}
 				},
 				"collector_expires_in": "Utløper om %d sekunder",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@noen"
-																},
 																"ticket": {
-																				"description": "The ticket to add the member to",
-																				"name": "billett"
+																				"description": "The ticket to add the member to"
 																}
 												},
 												"description": "Add a member to a ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Medlemmet eller rollen å legge til/fjerne",
 																				"name": "medlemEllerRolle"
 																}
 												},
@@ -92,21 +83,15 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lock"
-												},
 												"args": {
 																"reason": {
-																				"description": "The reason for closing the ticket(s)",
-																				"name": "grunn"
+																				"description": "The reason for closing the ticket(s)"
 																},
 																"ticket": {
-																				"description": "The ticket to close, either the number or the channel mention/ID",
-																				"name": "billett"
+																				"description": "The ticket to close, either the number or the channel mention/ID"
 																},
 																"time": {
-																				"description": "Close all tickets that have been inactive for the specified time",
-																				"name": "time"
+																				"description": "Close all tickets that have been inactive for the specified time"
 																}
 												},
 												"description": "Lukke en billettkanal",
@@ -161,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "kommandoer"
-												},
 												"args": {
 																"command": {
 																				"example": "ny"
@@ -182,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "åpne"
-												},
 												"args": {
 																"topic": {
-																				"description": "Billettemnet",
-																				"name": "emne"
+																				"description": "Billettemnet"
 																}
 												},
 												"description": "Opprett en ny billett",
@@ -230,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "En kategori-ID",
 																				"name": "kategorier"
 																},
 																"description": {
-																				"description": "The description for the panel message",
 																				"name": "description"
 																},
 																"emoji": {
-																				"description": "An emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "The title for the panel message",
 																				"name": "title"
 																}
 												},
@@ -252,9 +226,6 @@
 																"invalid_category": {
 																				"description": "One or more of the specified category IDs is invalid.",
 																				"title": "❌ Ugyldig kategori"
-																},
-																"mismatch": {
-																				"title": "❌ Ugyldig inndata"
 																}
 												}
 								},
@@ -264,7 +235,6 @@
 																				"example": "@noen"
 																},
 																"ticket": {
-																				"description": "Billetten å fjerne medlemmet fra",
 																				"name": "billett"
 																}
 												},
@@ -291,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Sett opp Discord-billetter",
-												"name": "innstillinger",
-												"response": {
-																"updated": "✅ innstillinger oppdatert."
-												}
+												"name": "innstillinger"
 								},
 								"stats": {
 												"description": "Vis billett-statistikk",
@@ -321,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "The name of the survey to view responses of",
 																				"name": "survey"
 																}
 												},
@@ -334,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "The name of the tag to use",
-																				"name": "tag"
+																				"description": "The name of the tag to use"
 																}
 												},
 												"description": "Use a tag response",
@@ -358,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "billing issue"
-																}
-												},
 												"description": "Change the topic of the ticket",
 												"name": "emne",
 												"response": {
@@ -380,9 +337,6 @@
 				"message_will_be_deleted_in": "Denne meldingen vil bli slettet om %d sekunder",
 				"missing_permissions": {
 								"description": "You do not have the permissions required to use this command:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

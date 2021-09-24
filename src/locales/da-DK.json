@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s af [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Eksempel:** '%s'"
-								},
 								"invalid_named_args": {
 												"description": "Der er en fejl i kommandosyntaksen: '%s'.\nType '%s' for eksempel.\nSpørg en medarbejder, hvis du er i tvivl."
-								},
-								"named_args": "Denne kommando bruger navngivne argumenter.\n\n"
+								}
 				},
 				"collector_expires_in": "Udløber om %d sekunder",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
-																				"description": "Billetten, som medlemmet skal føjes til",
-																				"name": "billet"
+																				"description": "Billetten, som medlemmet skal føjes til"
 																}
 												},
 												"description": "Føje et medlem til en billet",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Det medlem eller den rolle, der skal tilføjes/fjernes",
 																				"name": "medlemEllerRolle"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lås"
-												},
 												"args": {
 																"reason": {
 																				"description": "Årsagen til lukning af billetten eller billetter(ne)"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "T",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "kommandoer"
-												},
 												"args": {
 																"command": {
 																				"example": "ny"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "åben"
-												},
 												"args": {
 																"topic": {
-																				"description": "Emnet for billetten",
-																				"name": "emne"
+																				"description": "Emnet for billetten"
 																}
 												},
 												"description": "Opret en ny billet",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "Et kategori-id",
 																				"name": "kategorier"
 																},
 																"description": {
-																				"description": "Beskrivelsen af panelmeddelelsen",
 																				"name": "beskrivelse"
 																},
 																"emoji": {
-																				"description": "En emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "Titel på panelmeddelelsen",
 																				"name": "titel"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Et eller flere af de angivne kategori-id'er er ugyldige.",
 																				"title": "❌ Ugyldig kategori"
-																},
-																"mismatch": {
-																				"title": "❌ Ugyldigt input"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@someone"
 																},
 																"ticket": {
-																				"description": "Billetten til at fjerne medlemmet fra",
 																				"name": "billet"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Konfigurer Discord Tickets",
-												"name": "indstillinger",
-												"response": {
-																"updated": "✅ Indstillinger er blevet opdateret."
-												}
+												"name": "indstillinger"
 								},
 								"stats": {
 												"description": "Vis billetstatistik",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "Navnet på den undersøgelse, der skal vises svar fra",
 																				"name": "undersøgelser"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "Navnet på det tag, der skal bruges",
-																				"name": "tag"
+																				"description": "Navnet på det tag, der skal bruges"
 																}
 												},
 												"description": "Brug et tagsvar",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "faktureringsproblem"
-																}
-												},
 												"description": "Skift emnet på billetten",
 												"name": "emne",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Denne meddelelse slettes om %d sekunder",
 				"missing_permissions": {
 								"description": "Du har ikke de nødvendige tilladelser til at bruge denne kommando:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

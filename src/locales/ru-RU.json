@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s от [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Пример:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "There is an error in your command syntax: `%s`.\nType `%s` for an example.\nPlease ask a member of staff if you are unsure."
-								},
-								"named_args": "Эта команда использует названные аргументы.\n\n"
+								}
 				},
 				"collector_expires_in": "Истекает через %d секунд",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
-																				"description": "The ticket to add the member to",
-																				"name": "тикет"
+																				"description": "The ticket to add the member to"
 																}
 												},
 												"description": "Add a member to a ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "The member or role to add/remove",
 																				"name": "пользовательИлиРоль"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lock"
-												},
 												"args": {
 																"reason": {
 																				"description": "Причина закрытия тикета(ов)"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "T",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "commands"
-												},
 												"args": {
 																"command": {
 																				"example": "новый"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "открыть"
-												},
 												"args": {
 																"topic": {
-																				"description": "Тема билета",
-																				"name": "топик"
+																				"description": "Тема билета"
 																}
 												},
 												"description": "Создание нового тикета",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "ID категории",
 																				"name": "categories"
 																},
 																"description": {
-																				"description": "The description for the panel message",
 																				"name": "description"
 																},
 																"emoji": {
-																				"description": "An emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "The title for the panel message",
 																				"name": "title"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "One or more of the specified category IDs is invalid.",
 																				"title": "❌ Недействительная категория"
-																},
-																"mismatch": {
-																				"title": "❌ Недействительный ввод"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@someone"
 																},
 																"ticket": {
-																				"description": "The ticket to remove the member from",
 																				"name": "тикет"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Configure Discord Tickets",
-												"name": "settings",
-												"response": {
-																"updated": "✅ Настройки были обновлены."
-												}
+												"name": "settings"
 								},
 								"stats": {
 												"description": "Display ticket statistics",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "The name of the survey to view responses of",
 																				"name": "survey"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "The name of the tag to use",
-																				"name": "tag"
+																				"description": "The name of the tag to use"
 																}
 												},
 												"description": "Use a tag response",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "billing issue"
-																}
-												},
 												"description": "Change the topic of the ticket",
 												"name": "топик",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Это сообщение будет удалено в течение %d секунд",
 				"missing_permissions": {
 								"description": "You do not have the permissions required to use this command:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

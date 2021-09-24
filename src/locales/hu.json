@@ -7,24 +7,16 @@
 								"version": "[Discord Ticketek](%s) v%s által [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Példa:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "Hiba történt a parancs szintaxisában:`%s`.\nÍrd be `%s` példaként.\nKérdezze meg a személyzet egyik tagját, ha bizonytalan."
-								},
-								"named_args": "Ez a parancs elnevezett argumentumokat használ.\n\n"
+								}
 				},
 				"collector_expires_in": "%d másodperc múlva lejár",
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@valaki123"
-																},
 																"ticket": {
-																				"description": "A Ticket, amelyhez hozzá kell adni a felhasználót",
-																				"name": "ticket"
+																				"description": "A Ticket, amelyhez hozzá kell adni a felhasználót"
 																}
 												},
 												"description": "Felhasználó hozzáadása a Hibajegyhez",
@@ -51,7 +43,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "A hozzáadni/eltávolítani kívánt felhasználó vagy rang",
 																				"name": "felhasznaloVagyRang"
 																}
 												},
@@ -88,21 +79,15 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lezár"
-												},
 												"args": {
 																"reason": {
-																				"description": "A Ticket(ek) lezárásának oka",
-																				"name": "indok"
+																				"description": "A Ticket(ek) lezárásának oka"
 																},
 																"ticket": {
-																				"description": "A záró Ticket, akár a szám, akár a csatorna említése/ID-ja",
-																				"name": "ticket"
+																				"description": "A záró Ticket, akár a szám, akár a csatorna említése/ID-ja"
 																},
 																"time": {
-																				"description": "Zárjon be minden Ticket, amely a megadott ideig inaktív volt",
-																				"name": "idő"
+																				"description": "Zárjon be minden Ticket, amely a megadott ideig inaktív volt"
 																}
 												},
 												"description": "Zárd be a Ticket csatornát",
