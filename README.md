@@ -39,7 +39,7 @@ You can also configure the functionality of the bot to your liking and add comma
 If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/.github/blob/main//CONTRIBUTING.md#translating) it yourself.
 Plugin authors are encouraged to support multiple languages as well.
 
-[![Weblate](https://i18n.capestar.net/widgets/discord-tickets/en_GB/bot/multi-auto.svg)](https://i18n.capestar.net/engage/discord-tickets/en_GB/)
+[![Weblate](https://i18n.capestar.net/widgets/discord-tickets/-/bot/multi-auto.svg)](https://i18n.capestar.net/engage/discord-tickets/)
 
 3. **Multiple ticket categories**  
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
@@ -50,9 +50,6 @@ Each ticket category has its own settings for messages and the support team role
 1. **Open-source and self-hosted**  
 It's yours, you have full control.
 
-6. **Supports multiple databases**  
-Discord Tickets uses [Sequelize](https://github.com/sequelize/sequelize) to allow you to choose from SQLite, MySQL, MariaDB, PostgreSQL, or MSSQL for your database, with very little setup.
-If you choose SQLite, which is the default as it is the easiest, you don't need to do anything! If you choose to use another database (recommended), you only need to install the package(s) with NPM and create the database. All of the database tables are created automatically, regardless of which database type you use.
 
 ## Getting started
 
@@ -98,7 +95,6 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 - [reSkybounds](https://reskybounds.com/) ([Discord](https://discord.reskybounds.com/))
 - [Cal#0004](https://discord.com/users/239036926152146944) <!-- @24c4 -->
-
 
 ### Donate
 
