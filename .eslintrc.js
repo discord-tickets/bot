@@ -81,7 +81,7 @@ module.exports = {
 			'tab'
 		],
 		'linebreak-style': [
-			'warn',
+			'off',
 			'windows'
 		],
 		'max-depth': [
