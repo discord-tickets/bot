@@ -81,19 +81,17 @@ module.exports = class RemoveCommand extends Command {
 			});
 		}
 
-		if (interaction.channel.id !== channel.id) {
-			await interaction.reply({
-				embeds: [
-					new MessageEmbed()
-						.setColor(settings.success_colour)
-						.setAuthor(member.user.username, member.user.displayAvatarURL())
-						.setTitle(i18n('commands.remove.response.removed.title'))
-						.setDescription(i18n('commands.remove.response.removed.description', member.toString(), channel.toString()))
-						.setFooter(settings.footer, interaction.guild.iconURL())
-				],
-				ephemeral: true
-			});
-		}
+		await interaction.reply({
+			embeds: [
+				new MessageEmbed()
+					.setColor(settings.success_colour)
+					.setAuthor(member.user.username, member.user.displayAvatarURL())
+					.setTitle(i18n('commands.remove.response.removed.title'))
+					.setDescription(i18n('commands.remove.response.removed.description', member.toString(), channel.toString()))
+					.setFooter(settings.footer, interaction.guild.iconURL())
+			],
+			ephemeral: true
+		});
 
 		await channel.send({
 			embeds: [
