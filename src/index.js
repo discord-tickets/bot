@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /**
  * Discord Tickets
  * Copyright (C) 2021 Isaac Saunders
@@ -16,11 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * @name @eartharoid/discord-tickets
+ * @name @discord-tickets/bot
  * @description An open-source Discord bot for ticket management
  * @copyright 2021 Isaac Saunders
  * @license GNU-GPLv3
  */
+
+/* eslint-disable no-console */
 
 process.title = 'Discord Tickets';
 

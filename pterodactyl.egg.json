@@ -6,7 +6,7 @@
     },
     "exported_at": "2021-05-26T22:41:44+02:00",
     "name": "Discord Tickets",
-    "author": "contact@eartharoid.me",
+    "author": "contact@discordtickets.app",
     "description": "https:\/\/discordtickets.app",
     "features": null,
     "images": [
@@ -32,7 +32,7 @@
             "name": "Version",
             "description": "The version of the bot to use.",
             "env_variable": "VERSION",
-            "default_value": "v3.0.0",
+            "default_value": "v3.1.0",
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:20"
