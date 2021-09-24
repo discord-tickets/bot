@@ -81,16 +81,6 @@ module.exports = class TicketManager extends EventEmitter {
 				? this.client.cryptr.decrypt(t_row.topic)
 				: '';
 
-			if (cat_row.ping instanceof Array && cat_row.ping.length > 0) {
-				const mentions = cat_row.ping.map(id => id === 'everyone'
-					? '@everyone'
-					: id === 'here'
-						? '@here'
-						: `<@&${id}>`);
-
-				await t_channel.send({ content: mentions.join(', ') });
-			}
-
 			if (cat_row.image) {
 				await t_channel.send({ content: cat_row.image });
 			}
@@ -128,9 +118,17 @@ module.exports = class TicketManager extends EventEmitter {
 				);
 			}
 
+			const mentions = cat_row.ping instanceof Array && cat_row.ping.length > 0
+				? cat_row.ping.map(id => id === 'everyone'
+					? '@everyone'
+					: id === 'here'
+						? '@here'
+						: `<@&${id}>`)
+					.join(', ')
+				: '';
 			const sent = await t_channel.send({
 				components: [components],
-				content: creator.user.toString(),
+				content: i18n('ticket.opening_message.content', mentions, creator.user.toString()),
 				embeds: [embed]
 			});
 			await sent.pin({ reason: 'Ticket opening message' });
