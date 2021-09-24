@@ -24,7 +24,8 @@ module.exports = class PluginManager {
 		/** Array of official plugins to be used to check if a plugin is official */
 		this.official = [
 			'dsctickets.settings-server',
-			'dsctickets.portal'
+			'dsctickets.portal',
+			'dsctickets.text-transcripts'
 		];
 	}
 
