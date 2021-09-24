@@ -1,6 +1,6 @@
 const Command = require('../modules/commands/command');
 const {
-	Message, // eslint-disable-line no-unused-vars
+	Interaction, // eslint-disable-line no-unused-vars
 	MessageEmbed
 } = require('discord.js');
 
@@ -8,104 +8,106 @@ module.exports = class RemoveCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			// options: [
-			// 	{
-			// 		description: i18n('commands.remove.options.member.description'),
-			// 		example: i18n('commands.remove.options.member.example'),
-			// 		name: i18n('commands.remove.options.member.name'),
-			// 		required: true
-			// 	},
-			// 	{
-			// 		description: i18n('commands.remove.options.ticket.description'),
-			// 		example: i18n('commands.remove.options.ticket.example'),
-			// 		name: i18n('commands.remove.options.ticket.name'),
-			// 		required: false
-			// 	}
-			// ],
 			description: i18n('commands.remove.description'),
 			internal: true,
-			name: i18n('commands.remove.name')
+			name: i18n('commands.remove.name'),
+			options: [
+				{
+					description: i18n('commands.remove.options.member.description'),
+					name: i18n('commands.remove.options.member.name'),
+					required: true,
+					type: Command.option_types.USER
+				},
+				{
+					description: i18n('commands.remove.options.ticket.description'),
+					name: i18n('commands.remove.options.ticket.name'),
+					required: false,
+					type: Command.option_types.CHANNEL
+				}
+			]
 		});
 	}
 
 	/**
-	 * @param {Message} message
-	 * @param {string} options
+	 * @param {Interaction} interaction
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, options) {
-		const settings = await this.client.utils.getSettings(message.guild.id);
+	async execute(interaction) {
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
+		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const ticket = message.mentions.channels.first() ?? message.channel;
-		const t_row = await this.client.tickets.resolve(ticket.id, message.guild.id);
+		const channel = interaction.options.getChannel(default_i18n('commands.remove.options.channel.name')) ?? interaction.channel;
+		const t_row = await this.client.tickets.resolve(channel.id, interaction.guild.id);
 
 		if (!t_row) {
-			return await message.channel.send({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
-						.setTitle(i18n('commands.remove.response.not_a_ticket.title'))
-						.setDescription(i18n('commands.remove.response.not_a_ticket.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				]
+						.setTitle(i18n('commands.remove.response.not_a_channel.title'))
+						.setDescription(i18n('commands.remove.response.not_a_channel.description'))
+						.setFooter(settings.footer, interaction.guild.iconURL())
+				],
+				ephemeral: true
 			});
 		}
 
-		const member = message.mentions.members.first() ?? message.guild.members.cache.get(options);
+		const member = interaction.options.getMember(default_i18n('commands.remove.options.member.name'));
 
 		if (!member) {
-			return await message.channel.send({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
 						.setTitle(i18n('commands.remove.response.no_member.title'))
 						.setDescription(i18n('commands.remove.response.no_member.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				]
+						.setFooter(settings.footer, interaction.guild.iconURL())
+				],
+				ephemeral: true
 			});
 		}
 
-		if (t_row.creator !== message.author.id && !await this.client.utils.isStaff(message.member)) {
-			return await message.channel.send({
+		if (t_row.creator !== interaction.user.id && !await this.client.utils.isStaff(interaction.member)) {
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
 						.setTitle(i18n('commands.remove.response.no_permission.title'))
 						.setDescription(i18n('commands.remove.response.no_permission.description'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				]
+						.setFooter(settings.footer, interaction.guild.iconURL())
+				],
+				ephemeral: true
 			});
 		}
 
-		if (message.channel.id !== ticket.id) {
-			await message.channel.send({
+		if (interaction.channel.id !== channel.id) {
+			await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)
 						.setAuthor(member.user.username, member.user.displayAvatarURL())
 						.setTitle(i18n('commands.remove.response.removed.title'))
-						.setDescription(i18n('commands.remove.response.removed.description', member.toString(), ticket.toString()))
-						.setFooter(settings.footer, message.guild.iconURL())
-				]
+						.setDescription(i18n('commands.remove.response.removed.description', member.toString(), channel.toString()))
+						.setFooter(settings.footer, interaction.guild.iconURL())
+				],
+				ephemeral: true
 			});
 		}
 
-		await ticket.send({
+		await channel.send({
 			embeds: [
 				new MessageEmbed()
 					.setColor(settings.colour)
 					.setAuthor(member.user.username, member.user.displayAvatarURL())
 					.setTitle(i18n('ticket.member_removed.title'))
-					.setDescription(i18n('ticket.member_removed.description', member.toString(), message.author.toString()))
-					.setFooter(settings.footer, message.guild.iconURL())
+					.setDescription(i18n('ticket.member_removed.description', member.toString(), interaction.user.toString()))
+					.setFooter(settings.footer, interaction.guild.iconURL())
 			]
 		});
 
-		await ticket.permissionOverwrites
-			.get(member.user.id)
-			?.delete(`${message.author.tag} removed ${member.user.tag} from the ticket`);
+		await channel.permissionOverwrites.delete(member.user.id, `${interaction.user.tag} removed ${member.user.tag} from the ticket`);
 
-		this.client.log.info(`${message.author.tag} removed ${member.user.tag} from ${ticket.id}`);
+		this.client.log.info(`${interaction.user.tag} removed ${member.user.tag} from ${channel.id}`);
 	}
 };

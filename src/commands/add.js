@@ -53,7 +53,7 @@ module.exports = class AddCommand extends Command {
 			});
 		}
 
-		const member = interaction.options.getUser(default_i18n('commands.add.options.member.name'));
+		const member = interaction.options.getMember(default_i18n('commands.add.options.member.name'));
 
 		if (!member) {
 			return await interaction.reply({
@@ -76,7 +76,8 @@ module.exports = class AddCommand extends Command {
 						.setTitle(i18n('commands.add.response.no_permission.title'))
 						.setDescription(i18n('commands.add.response.no_permission.description'))
 						.setFooter(settings.footer, interaction.guild.iconURL())
-				]
+				],
+				ephemeral: true
 			});
 		}
 
