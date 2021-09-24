@@ -7,13 +7,9 @@
 								"version": "[Billets Discord] (%s) v%s par [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Exemple:** '%s'"
-								},
 								"invalid_named_args": {
 												"description": "Il y a une erreur dans votre syntaxe de commande : «%s».\nType '%s' par exemple.\ns’il vous plaît demander à un membre du personnel si vous n’êtes pas sûr."
-								},
-								"named_args": "Cette commande utilise des arguments nommés.\n\n"
+								}
 				},
 				"collector_expires_in": "Expire en %d secondes",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
-																				"description": "Le billet pour ajouter le membre à",
-																				"name": "billet"
+																				"description": "Le billet pour ajouter le membre à"
 																}
 												},
 												"description": "Ajouter un membre à un billet",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Le membre ou le rôle d’ajouter/supprimer",
 																				"name": "membreOrRole"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lock"
-												},
 												"args": {
 																"reason": {
 																				"description": "La raison de la fermeture du billet(s)"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "T",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "commandes"
-												},
 												"args": {
 																"command": {
 																				"example": "nouveau"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "ouvrir"
-												},
 												"args": {
 																"topic": {
-																				"description": "Le sujet du billet",
-																				"name": "sujet"
+																				"description": "Le sujet du billet"
 																}
 												},
 												"description": "Créer un nouveau billet",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "Un ID de catégorie",
 																				"name": "catégories"
 																},
 																"description": {
-																				"description": "La description du message du panneau",
 																				"name": "description"
 																},
 																"emoji": {
-																				"description": "Un emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "La description du message du panneau",
 																				"name": "titre"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Un ou plusieurs des ID de catégorie spécifiés sont invalides.",
 																				"title": "❌ catégorie Invalide"
-																},
-																"mismatch": {
-																				"title": "❌ entrée invalide"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@someone"
 																},
 																"ticket": {
-																				"description": "Le billet pour ajouter le membre à",
 																				"name": "billet"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Configurer les billets discorde",
-												"name": "paramètres",
-												"response": {
-																"updated": "✅ paramètres ont été mis à jour."
-												}
+												"name": "paramètres"
 								},
 								"stats": {
 												"description": "Afficher les statistiques des billets",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "Le nom de l’enquête pour afficher les réponses des",
 																				"name": "enquêtes"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "Le nom de l’étiquette à utiliser",
-																				"name": "étiquettes"
+																				"description": "Le nom de l’étiquette à utiliser"
 																}
 												},
 												"description": "Utiliser une réponse d’étiquette",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "question de facturation"
-																}
-												},
 												"description": "Le sujet du billet",
 												"name": "sujet",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Ce message sera supprimé en quelques %d secondes",
 				"missing_permissions": {
 								"description": "Vous n’avez pas les autorisations requises pour utiliser cette commande :\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

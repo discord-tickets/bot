@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s por [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Exemplo:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "Existe um erro com a sintaxe do comando: `%s`.\nEscreve `%s` para teres um exemplo.\nPor favor questiona um membro da staff se não tens a certeza."
-								},
-								"named_args": "Este comando usa argumentos nomeados.\n\n"
+								}
 				},
 				"collector_expires_in": "Expira daqui a %d segundos",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@alguem"
-																},
 																"ticket": {
-																				"description": "O ticket ao qual vai se adicionar o membro",
-																				"name": "ticket"
+																				"description": "O ticket ao qual vai se adicionar o membro"
 																}
 												},
 												"description": "Adicionar um membro a um ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "O membro ou cargo para adicionar/remover",
 																				"name": "membroOuCargo"
 																}
 												},
@@ -92,21 +83,15 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "trancar"
-												},
 												"args": {
 																"reason": {
-																				"description": "O motivo para fechar o(s) ticket(s)",
-																				"name": "motivo"
+																				"description": "O motivo para fechar o(s) ticket(s)"
 																},
 																"ticket": {
-																				"description": "O ticket para fechar, ou o número ou a menção do canal/ID",
-																				"name": "ticket"
+																				"description": "O ticket para fechar, ou o número ou a menção do canal/ID"
 																},
 																"time": {
-																				"description": "Fecha todos os ticket que estiveram inativos pelo período de tempo espeficicado",
-																				"name": "tempo"
+																				"description": "Fecha todos os ticket que estiveram inativos pelo período de tempo espeficicado"
 																}
 												},
 												"description": "Fecha um ticket",
@@ -161,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "comandos"
-												},
 												"args": {
 																"command": {
 																				"example": "novo"
@@ -182,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "abrir"
-												},
 												"args": {
 																"topic": {
-																				"description": "O motivo da abertura do ticket",
-																				"name": "motivo"
+																				"description": "O motivo da abertura do ticket"
 																}
 												},
 												"description": "Cria um novo ticket",
@@ -230,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "Um ID da categoria",
 																				"name": "categorias"
 																},
 																"description": {
-																				"description": "A descrição para a mensagem do painel",
 																				"name": "descricao"
 																},
 																"emoji": {
-																				"description": "Um emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "O título para a mensagem do painel",
 																				"name": "titulo"
 																}
 												},
@@ -252,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Um ou mais IDs das categorias fornecidas são inválidas.",
 																				"title": "❌ Categoria inválida"
-																},
-																"mismatch": {
-																				"title": "❌ Entrada inválida"
 																}
 												}
 								},
@@ -264,7 +235,6 @@
 																				"example": "@alguem"
 																},
 																"ticket": {
-																				"description": "O ticket para remover o membro",
 																				"name": "ticket"
 																}
 												},
@@ -291,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Configura o Discord Tickets",
-												"name": "definicoes",
-												"response": {
-																"updated": "✅ As definições foram atualizadas."
-												}
+												"name": "definicoes"
 								},
 								"stats": {
 												"description": "Mostra as estatísticas dos tickets",
@@ -321,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "O nome do questionário ao qual queres ver as respostas",
 																				"name": "questionario"
 																}
 												},
@@ -334,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "O nome da tag que queres usar",
-																				"name": "tag"
+																				"description": "O nome da tag que queres usar"
 																}
 												},
 												"description": "Usa uma resposta em tag",
@@ -358,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "Problemas de Faturação"
-																}
-												},
 												"description": "Altera o motivo do ticket",
 												"name": "motivo",
 												"response": {
@@ -380,9 +337,6 @@
 				"message_will_be_deleted_in": "Esta mensagem vai ser apagada daqui a %d segundos",
 				"missing_permissions": {
 								"description": "Não tens permissões suficientes para usar este comando.\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

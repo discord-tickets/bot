@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Beispiel:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "Es gibt einen Fehler in Ihrer Eingabe-Syntax: `%s`.\nTippen Sie `%s` für ein Beispiel.\nBitte fragen Sie ein Support-Mitglied wenn Sie sich unsicher sind."
-								},
-								"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n"
+								}
 				},
 				"collector_expires_in": "Läuft in %d Sekunden ab",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@someone"
-																},
 																"ticket": {
-																				"description": "Das Ticket, dem der Benutzer hinzugefügt werden soll",
-																				"name": "Ticket"
+																				"description": "Das Ticket, dem der Benutzer hinzugefügt werden soll"
 																}
 												},
 												"description": "Füge einen Benutzer zum Ticket hinzu",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Der Benutzer oder die Rolle zum hinzufügen / entfernen",
 																				"name": "MitgliedoderRolle"
 																}
 												},
@@ -92,21 +83,15 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lock"
-												},
 												"args": {
 																"reason": {
-																				"description": "Der Grund das Ticket / die Tickets zu schließen",
-																				"name": "Grund"
+																				"description": "Der Grund das Ticket / die Tickets zu schließen"
 																},
 																"ticket": {
-																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets",
-																				"name": "Ticket"
+																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets"
 																},
 																"time": {
-																				"description": "Alle Tickets schließen, die für eine bestimmte Zeit inaktiv waren",
-																				"name": "Zeit"
+																				"description": "Alle Tickets schließen, die für eine bestimmte Zeit inaktiv waren"
 																}
 												},
 												"description": "Schließe einen Ticket-Kanal",
@@ -161,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "Befehle"
-												},
 												"args": {
 																"command": {
 																				"example": "neu"
@@ -182,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "öffnen"
-												},
 												"args": {
 																"topic": {
-																				"description": "Das Thema des Tickets",
-																				"name": "Thema"
+																				"description": "Das Thema des Tickets"
 																}
 												},
 												"description": "Erstelle ein neues Ticket",
@@ -230,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "Eine Kategorie ID",
 																				"name": "Kategorien"
 																},
 																"description": {
-																				"description": "Die Beschreibung für die Panel-Nachricht",
 																				"name": "Beschreibung"
 																},
 																"emoji": {
-																				"description": "Ein Emoji",
 																				"name": "Emoji"
 																},
 																"title": {
-																				"description": "Der Titel für die Panel-Nachricht",
 																				"name": "Titel"
 																}
 												},
@@ -252,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Eine oder mehrere der angegebenen Kategorie IDs sind nicht gültig.",
 																				"title": "❌ Ungültige Kategorie"
-																},
-																"mismatch": {
-																				"title": "❌ Ungültige Eingabe"
 																}
 												}
 								},
@@ -264,7 +235,6 @@
 																				"example": "@someone"
 																},
 																"ticket": {
-																				"description": "Das Ticket von dem der Benutzer entfernt werden soll",
 																				"name": "Ticket"
 																}
 												},
@@ -291,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Konfiguriere Discord Tickets",
-												"name": "settings",
-												"response": {
-																"updated": "✅ Die Einstellungen wurden aktualisiert."
-												}
+												"name": "settings"
 								},
 								"stats": {
 												"description": "Ticket Statistiken ansehen",
@@ -321,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "Der Name der Umfrage von der die Antworten angezeigt werden sollen",
 																				"name": "Umfrage"
 																}
 												},
@@ -334,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "Der Name des Tags",
-																				"name": "Tag"
+																				"description": "Der Name des Tags"
 																}
 												},
 												"description": "Benutzen Sie einen 'Tag' als Antwort",
@@ -358,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "Abrechnungsproblem"
-																}
-												},
 												"description": "Ändern Sie das Anligen Ihres Tickets",
 												"name": "Thema",
 												"response": {
@@ -380,9 +337,6 @@
 				"message_will_be_deleted_in": "Diese Nachricht wird in %d Sekunden gelöscht.",
 				"missing_permissions": {
 								"description": "Sie haben nicht die benötigten Berechtigungen um diesen Befehl zu benutzen:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

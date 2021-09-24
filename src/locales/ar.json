@@ -3,10 +3,5 @@
 								"missing_permissions": {
 												"description": "احتاج الى الاذونات التالية : \n%s"
 								}
-				},
-				"cmd_usage": {
-								"args": {
-												"example": "**مثال:** `%s`"
-								}
 				}
 }

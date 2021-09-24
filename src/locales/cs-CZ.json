@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Příklad:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "V syntaxi příkazu je chyba: `%s`.\nPro zobrazení ukázky napište `%s`.\nPokud si nejsi jistý/á, zeptej se člena týmu."
-								},
-								"named_args": "Tento příkaz používá jmenné argumenty.\n\n"
+								}
 				},
 				"collector_expires_in": "Vyprší za %d sekund",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@někdo"
-																},
 																"ticket": {
-																				"description": "Tiket, do kterého přidat člena",
-																				"name": "tiket"
+																				"description": "Tiket, do kterého přidat člena"
 																}
 												},
 												"description": "Přidat člena do tiketu",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Člen nebo role j přidání/odebrání",
 																				"name": "uživatelNeboRole"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "uzamknout"
-												},
 												"args": {
 																"reason": {
 																				"description": "Důvod k uzavření tiketu"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "c",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "příkazy"
-												},
 												"args": {
 																"command": {
 																				"example": "novy"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "otevrit"
-												},
 												"args": {
 																"topic": {
-																				"description": "Téma ticketu",
-																				"name": "tema"
+																				"description": "Téma ticketu"
 																}
 												},
 												"description": "Vytvořit ticket",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "ID kategorie",
 																				"name": "kategorie"
 																},
 																"description": {
-																				"description": "Popis zprávy panelu",
 																				"name": "popis"
 																},
 																"emoji": {
-																				"description": "Emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "Nadpis pro zprávu panelu",
 																				"name": "nadpis"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Jedno nebo více ID kategorií je vadných.",
 																				"title": "❌ Neplatná kategorie"
-																},
-																"mismatch": {
-																				"title": "❌ Neplatný vstup"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@někdo"
 																},
 																"ticket": {
-																				"description": "Ticket, ze kterého odebrat člena",
 																				"name": "tiket"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Konfigurace Discord Tickets",
-												"name": "nastaveni",
-												"response": {
-																"updated": "✅ Nastavení byla aktualizována."
-												}
+												"name": "nastaveni"
 								},
 								"stats": {
 												"description": "Zobrazit statistiky ticketu",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "Název dotazníku, jehož odpověď zobrazit",
 																				"name": "dotazník"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "Název značky k použití",
-																				"name": "značka"
+																				"description": "Název značky k použití"
 																}
 												},
 												"description": "Použít odpověď na značku",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "problém s fakturací"
-																}
-												},
 												"description": "Změnit téma ticketu",
 												"name": "tema",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Tato zpráva bude smazána za %d sekund",
 				"missing_permissions": {
 								"description": "K provedení tohoto příkazu nemáš dostatečná oprávnění:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

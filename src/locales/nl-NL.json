@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets] (%s) v%s door [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Voorbeeld:** '%s'"
-								},
 								"invalid_named_args": {
 												"description": "Er is een fout opgetreden in het commando van uw opdracht: '%s'.\ntyp '%s' voor een voorbeeld.\nVraag het een medewerker als u denkt dat dit een fout is."
-								},
-								"named_args": "Deze opdracht maakt gebruik van benoemde argumenten.\n\n"
+								}
 				},
 				"collector_expires_in": "Verloopt over %d seconden",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@iemand"
-																},
 																"ticket": {
-																				"description": "De ticket om het lid aan toe te voegen",
-																				"name": "ticket"
+																				"description": "De ticket om het lid aan toe te voegen"
 																}
 												},
 												"description": "Een lid toevoegen aan een ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Het lid of de rol die moet worden toegevoegd/verwijderd",
 																				"name": "lidOrRole"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "lock"
-												},
 												"args": {
 																"reason": {
 																				"description": "De reden voor het sluiten van de ticket(s)"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "T",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "commandos"
-												},
 												"args": {
 																"command": {
 																				"example": "new"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "openen"
-												},
 												"args": {
 																"topic": {
-																				"description": "Het onderwerp van de ticket",
-																				"name": "onderwerp"
+																				"description": "Het onderwerp van de ticket"
 																}
 												},
 												"description": "Een nieuw ticket maken",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "Een categorie-ID",
 																				"name": "categorieën"
 																},
 																"description": {
-																				"description": "De beschrijving voor het paneelbericht",
 																				"name": "beschrijving"
 																},
 																"emoji": {
-																				"description": "Een emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "De titel voor het paneelbericht",
 																				"name": "titel"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Een of meer van de opgegeven categorie-ID's zijn ongeldig.",
 																				"title": "❌ ongeldige categorie"
-																},
-																"mismatch": {
-																				"title": "❌ ongeldige invoer"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@iemand"
 																},
 																"ticket": {
-																				"description": "De ticket om het lid uit te verwijderen",
 																				"name": "ticket"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Discord-tickets configureren",
-												"name": "instellingen",
-												"response": {
-																"updated": "✅ Instellingen zijn bijgewerkt."
-												}
+												"name": "instellingen"
 								},
 								"stats": {
 												"description": "Ticketstatistieken weergeven",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "De naam van de enquête waarvan u de antwoorden wilt bekijken",
 																				"name": "enquête"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "De naam van de tag die moet worden gebruikt",
-																				"name": "label"
+																				"description": "De naam van de tag die moet worden gebruikt"
 																}
 												},
 												"description": "Een tagrespons gebruiken",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "factureringsprobleem"
-																}
-												},
 												"description": "Het onderwerp van het ticket wijzigen",
 												"name": "onderwerp",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Dit bericht wordt binnen %d seconden verwijderd",
 				"missing_permissions": {
 								"description": "U beschikt niet over de machtigingen die nodig zijn om deze opdracht te gebruiken:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {

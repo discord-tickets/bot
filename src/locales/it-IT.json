@@ -7,13 +7,9 @@
 								"version": "[Discord Tickets](%s) v%s di [eartharoid](%s)"
 				},
 				"cmd_usage": {
-								"args": {
-												"example": "**Esempio:** `%s`"
-								},
 								"invalid_named_args": {
 												"description": "C'è un errore nella sintassi del tuo comando: `%s`.\nDigita `%s` per un esempio.\nTi preghiamo di contattare un membro dello staff se non si è sicuri."
-								},
-								"named_args": "Questo comando utilizza argomenti denominati.\n\n"
+								}
 				},
 				"collector_expires_in": "Scade tra %d secondi",
 				"command_execution_error": {
@@ -23,12 +19,8 @@
 				"commands": {
 								"add": {
 												"args": {
-																"member": {
-																				"example": "@qualcuno"
-																},
 																"ticket": {
-																				"description": "Il ticket a cui aggiungere il membro",
-																				"name": "ticket"
+																				"description": "Il ticket a cui aggiungere il membro"
 																}
 												},
 												"description": "Aggiungi un membro ad un ticket",
@@ -55,7 +47,6 @@
 								"blacklist": {
 												"args": {
 																"member_or_role": {
-																				"description": "Il membro o il ruolo da aggiungere/rimuovere",
 																				"name": "membrooRuolo"
 																}
 												},
@@ -92,19 +83,14 @@
 												}
 								},
 								"close": {
-												"aliases": {
-																"lock": "chiudi"
-												},
 												"args": {
 																"reason": {
 																				"description": "La ragione della chiusura del ticket o dei ticket"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"example": "217"
 																},
 																"time": {
-																				"alias": "T",
 																				"example": "1w"
 																}
 												},
@@ -160,9 +146,6 @@
 												}
 								},
 								"help": {
-												"aliases": {
-																"commands": "comandi"
-												},
 												"args": {
 																"command": {
 																				"example": "nuovo"
@@ -181,13 +164,9 @@
 												}
 								},
 								"new": {
-												"aliases": {
-																"open": "apri"
-												},
 												"args": {
 																"topic": {
-																				"description": "L'argomento del ticket",
-																				"name": "argomento"
+																				"description": "L'argomento del ticket"
 																}
 												},
 												"description": "Crea un nuovo ticket",
@@ -229,19 +208,15 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"description": "ID Categoria",
 																				"name": "categorie"
 																},
 																"description": {
-																				"description": "Descrizione del messaggio del pannello",
 																				"name": "descrizione"
 																},
 																"emoji": {
-																				"description": "Un emoji",
 																				"name": "emoji"
 																},
 																"title": {
-																				"description": "Titolo del messaggio del pannello",
 																				"name": "titolo"
 																}
 												},
@@ -251,9 +226,6 @@
 																"invalid_category": {
 																				"description": "Uno o più ID di categoria specificati non sono validi.",
 																				"title": "❌ Categoria invalida"
-																},
-																"mismatch": {
-																				"title": "❌ Input invalido"
 																}
 												}
 								},
@@ -263,7 +235,6 @@
 																				"example": "@qualcuno"
 																},
 																"ticket": {
-																				"description": "Il ticket da cui rimuovere il membro",
 																				"name": "ticket"
 																}
 												},
@@ -290,10 +261,7 @@
 								},
 								"settings": {
 												"description": "Configura il bot discord dei ticket",
-												"name": "impostazioni",
-												"response": {
-																"updated": "✅ Le impostazioni sono state aggiornate."
-												}
+												"name": "impostazioni"
 								},
 								"stats": {
 												"description": "Mostra le statistiche dei ticket",
@@ -320,7 +288,6 @@
 								"survey": {
 												"args": {
 																"survey": {
-																				"description": "Il nome del sondaggio per visualizzare le risposte",
 																				"name": "sondaggio"
 																}
 												},
@@ -333,13 +300,9 @@
 												}
 								},
 								"tag": {
-												"aliases": {
-																"t": "t"
-												},
 												"args": {
 																"tag": {
-																				"description": "Il nome del tag da utilizzare",
-																				"name": "tag"
+																				"description": "Il nome del tag da utilizzare"
 																}
 												},
 												"description": "Usa un tag per rispondere",
@@ -357,11 +320,6 @@
 												}
 								},
 								"topic": {
-												"args": {
-																"new_topic": {
-																				"example": "problema di fatturazione"
-																}
-												},
 												"description": "Cambia l'argomento di un ticket",
 												"name": "argomento",
 												"response": {
@@ -379,9 +337,6 @@
 				"message_will_be_deleted_in": "Questo messaggio verrà eliminato in %d secondi",
 				"missing_permissions": {
 								"description": "Non hai i permessi richiesti per utilizzare questo comando:\n%s",
-								"title": "❌"
-				},
-				"staff_only": {
 								"title": "❌"
 				},
 				"ticket": {
