@@ -1,487 +1,437 @@
 {
-    "bot": {
-        "missing_permissions": {
-            "description": "디스코드 티켓은 해당 권한이 필요합니다:\n%s",
-            "title": "⚠️"
-        },
-        "version": "[디스코드 티켓](%s) v%s by [eartharoid](%s)"
-    },
-    "cmd_usage": {
-        "args": {
-            "description": "**설명.**%s",
-            "example": "**예시.**%s"
-        },
-        "description": "**사용:**\n`%s`\n\n**예시:**\n`%s`\n\n명령어를 사용하실때, 앞에 `❗`를 붙여주세요.",
-        "invalid_named_args": {
-            "description": "명령어에 `%s`라는 오류가 있습니다.\n`%s` 를 입력해보세요.\n확실하지 않다면, 관리자에게 문의 바랍니다.",
-            "title": "❌ 잘못된 구문"
-        },
-        "named_args": "이 명령어는 지정된 인수를 사용합니다.\n\n",
-        "title": "'%s' 명령어 사용"
-    },
-    "collector_expires_in": "%d 초 안에 만료됨",
-    "commands": {
-        "add": {
-            "args": {
-                "member": {
-                    "description": "티켓에 추가할 멤버",
-                    "example": "@someone",
-                    "name": "member"
-                },
-                "ticket": {
-                    "description": "The ticket to add the member to",
-                    "example": "217",
-                    "name": "ticket"
-                }
-            },
-            "description": "Add a member to a ticket",
-            "name": "add",
-            "response": {
-                "added": {
-                    "description": "%s has been added to %s.",
-                    "title": "✅ Member added"
-                },
-                "no_member": {
-                    "description": "Please mention the member you want to add.",
-                    "title": "❌ Unknown member"
-                },
-                "no_permission": {
-                    "description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-                    "title": "❌ Insufficient permission"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel, or mention the channel.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "blacklist": {
-            "aliases": {
-                "unblacklist": "unblacklist"
-            },
-            "args": {
-                "member_or_role": {
-                    "description": "The member or role to add/remove",
-                    "example": "@NaughtyMember",
-                    "name": "memberOrRole"
-                }
-            },
-            "description": "Blacklist/unblacklist a member from interacting with the bot",
-            "name": "blacklist",
-            "response": {
-                "empty_list": {
-                    "description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
-                    "title": "📃 Blacklisted members and roles"
-                },
-                "illegal_action": {
-                    "description": "%s is a staff member and cannot be blacklisted.",
-                    "title": "❌ You can't blacklist this member"
-                },
-                "list": {
-                    "title": "📃 Blacklisted members and roles"
-                },
-                "member_added": {
-                    "description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot.",
-                    "title": "✅ Added member to blacklist"
-                },
-                "member_removed": {
-                    "description": "<@%s> has been removed from the blacklist. They can now use the bot again.",
-                    "title": "✅ Removed member from blacklist"
-                },
-                "role_added": {
-                    "description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot.",
-                    "title": "✅ Added role to blacklist"
-                },
-                "role_removed": {
-                    "description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again.",
-                    "title": "✅ Removed role from blacklist"
-                }
-            }
-        },
-        "close": {
-            "aliases": {
-                "delete": "delete",
-                "lock": "lock"
-            },
-            "args": {
-                "reason": {
-                    "alias": "r",
-                    "description": "The reason for closing the ticket(s)",
-                    "name": "reason"
-                },
-                "ticket": {
-                    "alias": "t",
-                    "description": "The ticket to close, either the number or the channel mention/ID",
-                    "example": "217",
-                    "name": "ticket"
-                },
-                "time": {
-                    "alias": "T",
-                    "description": "Close all tickets that have been inactive for the specified time",
-                    "example": "1w",
-                    "name": "time"
-                }
-            },
-            "description": "Close a ticket channel",
-            "name": "close",
-            "response": {
-                "closed": {
-                    "description": "Ticket #%s has been closed.",
-                    "title": "✅ Ticket closed"
-                },
-                "closed_multiple": {
-                    "description": [
-                        "%d ticket has been closed.",
-                        "%d tickets have been closed."
-                    ],
-                    "title": [
-                        "✅ Ticket closed",
-                        "✅ Tickets closed"
-                    ]
-                },
-                "confirm": {
-                    "description": "React with ✅ to close this ticket.",
-                    "description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-                    "title": "❔ Are you sure?"
-                },
-                "confirmation_timeout": {
-                    "description": "You took too long to confirm.",
-                    "title": "❌ Reaction time expired"
-                },
-                "confirm_multiple": {
-                    "description": [
-                        "React with ✅ to close %d ticket.",
-                        "React with ✅ to close %d tickets."
-                    ],
-                    "title": "❔ Are you sure?"
-                },
-                "invalid_time": {
-                    "description": "The time period provided could not be parsed.",
-                    "title": "❌ Invalid input"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-                    "title": "❌ This isn't a ticket channel"
-                },
-                "no_tickets": {
-                    "description": "There are no tickets which have been inactive for this time period.",
-                    "title": "❌ No tickets to close"
-                },
-                "unresolvable": {
-                    "description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
-                    "title": "❌ Error"
-                }
-            }
-        },
-        "help": {
-            "aliases": {
-                "command": "command",
-                "commands": "commands"
-            },
-            "args": {
-                "command": {
-                    "description": "The command to display information about",
-                    "example": "new",
-                    "name": "command"
-                }
-            },
-            "description": "List commands you have access to, or find out more about a command",
-            "name": "help",
-            "response": {
-                "list": {
-                    "description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
-                    "fields": {
-                        "commands": "Commands"
-                    },
-                    "title": "❔ Help"
-                }
-            }
-        },
-        "new": {
-            "aliases": {
-                "create": "create",
-                "open": "open",
-                "ticket": "ticket"
-            },
-            "args": {
-                "topic": {
-                    "description": "The topic of the ticket",
-                    "example": "Problem with billing",
-                    "name": "topic"
-                }
-            },
-            "description": "Create a new ticket",
-            "name": "new",
-            "response": {
-                "created": {
-                    "description": "Your ticket has been created: %s.",
-                    "title": "✅ Ticket created"
-                },
-                "error": {
-                    "title": "❌ Error"
-                },
-                "has_a_ticket": {
-                    "description": "Please use your existing ticket (<#%s>) or close it before creating another.",
-                    "title": "❌ You already have an open ticket"
-                },
-                "max_tickets": {
-                    "description": "Please use `%sclose` to close any unneeded tickets.\n\n%s",
-                    "title": "❌ You already have %d open tickets"
-                },
-                "no_categories": {
-                    "description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
-                    "title": "❌ Can't create ticket"
-                },
-                "select_category": {
-                    "description": "Select the category most relevant to your ticket's topic:\n\n%s",
-                    "title": "🔤 Please select the ticket category"
-                },
-                "select_category_timeout": {
-                    "description": "You took too long to select the ticket category.",
-                    "title": "❌ Reaction time expired"
-                }
-            },
-            "request_topic": {
-                "description": "Please briefly state what this ticket is about in a a few words.",
-                "title": "Ticket topic"
-            }
-        },
-        "panel": {
-            "args": {
-                "categories": {
-                    "alias": "c",
-                    "description": "A category ID",
-                    "example": "451745464954650634",
-                    "name": "categories"
-                },
-                "description": {
-                    "alias": "d",
-                    "description": "The description for the panel message",
-                    "example": "\"React to this message to open a ticket.\"",
-                    "name": "description"
-                },
-                "emoji": {
-                    "alias": "e",
-                    "description": "An emoji",
-                    "example": "🎫",
-                    "name": "emoji"
-                },
-                "title": {
-                    "alias": "t",
-                    "description": "The title for the panel message",
-                    "example": "\"Support tickets\"",
-                    "name": "title"
-                }
-            },
-            "description": "Create a new ticket panel",
-            "name": "panel",
-            "response": {
-                "invalid_category": {
-                    "description": "One or more of the specified category IDs is invalid.",
-                    "title": "❌ Invalid category"
-                },
-                "mismatch": {
-                    "description": "Please provide the name number of emojis and category IDs.",
-                    "title": "❌ Invalid input"
-                }
-            }
-        },
-        "remove": {
-            "args": {
-                "member": {
-                    "description": "The member to remove from the ticket",
-                    "example": "@someone",
-                    "name": "member"
-                },
-                "ticket": {
-                    "description": "The ticket to remove the member from",
-                    "example": "217",
-                    "name": "ticket"
-                }
-            },
-            "description": "Remove a member from a ticket",
-            "name": "remove",
-            "response": {
-                "removed": {
-                    "description": "%s has been removed from %s.",
-                    "title": "✅ Member removed"
-                },
-                "no_member": {
-                    "description": "Please mention the member you want to remove.",
-                    "title": "❌ Unknown member"
-                },
-                "no_permission": {
-                    "description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-                    "title": "❌ Insufficient permission"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel, or mention the channel.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "settings": {
-            "aliases": {
-                "config": "config"
-            },
-            "description": "Configure Discord Tickets",
-            "name": "settings",
-            "response": {
-                "invalid": "❌ Settings data is invalid; please refer to the documentation.\n%s",
-                "updated": "✅ Settings have been updated."
-            }
-        },
-        "stats": {
-            "description": "Display ticket statistics",
-            "fields": {
-                "messages": "Messages",
-                "response_time": {
-                    "minutes": "%s minutes",
-                    "title": "Avg. response time"
-                },
-                "tickets": "Tickets"
-            },
-            "name": "stats",
-            "response": {
-                "global": {
-                    "description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
-                    "title": "📊 Global stats"
-                },
-                "guild": {
-                    "description": "Statistics about tickets within this guild. This data is cached for an hour.",
-                    "title": "📊 This server's stats"
-                }
-            }
-        },
-        "survey": {
-            "aliases": {
-                "surveys": "surveys"
-            },
-            "args": {
-                "survey": {
-                    "description": "The name of the survey to view responses of",
-                    "example": "support",
-                    "name": "survey"
-                }
-            },
-            "description": "View survey responses",
-            "name": "survey",
-            "response": {
-                "list": {
-                    "title": "📃 Surveys"
-                }
-            }
-        },
-        "tag": {
-            "aliases": {
-                "faq": "faq",
-                "t": "t",
-                "tags": "tags"
-            },
-            "args": {
-                "tag": {
-                    "description": "The name of the tag to use",
-                    "example": "website",
-                    "name": "tag"
-                }
-            },
-            "description": "Use a tag response",
-            "name": "tag",
-            "response": {
-                "error": "❌ Error",
-                "list": {
-                    "title": "📃 Tag list"
-                },
-                "missing": "This tag requires the following arguments:\n%s",
-                "not_a_ticket": {
-                    "description": "This tag can only be used within a ticket channel as it uses ticket references.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        },
-        "topic": {
-            "args": {
-                "new_topic": {
-                    "description": "The new topic of the ticket",
-                    "example": "billing issue",
-                    "name": "new_topic"
-                }
-            },
-            "description": "Change the topic of the ticket",
-            "name": "topic",
-            "response": {
-                "changed": {
-                    "description": "This ticket's topic has been changed.",
-                    "title": "✅ Topic changed"
-                },
-                "not_a_ticket": {
-                    "description": "Please use this command in the ticket channel you want to change the topic of.",
-                    "title": "❌ This isn't a ticket channel"
-                }
-            }
-        }
-    },
-    "command_execution_error": {
-        "description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details.",
-        "title": "⚠️"
-    },
-    "message_will_be_deleted_in": "This message will be deleted in %d seconds",
-    "missing_permissions": {
-        "description": "You do not have the permissions required to use this command:\n%s",
-        "title": "❌"
-    },
-    "staff_only": {
-        "description": "You must be a member of staff to use this command.",
-        "title": "❌"
-    },
-    "ticket": {
-        "claimed": {
-            "description": "%s has claimed this ticket.",
-            "title": "✅ Ticket claimed"
-        },
-        "closed": {
-            "description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Ticket closed"
-        },
-        "closed_by_member": {
-            "description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Ticket closed"
-        },
-        "closed_by_member_with_reason": {
-            "description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Ticket closed"
-        },
-        "closed_with_reason": {
-            "description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
-            "title": "✅ Ticket closed"
-        },
-        "member_added": {
-            "description": "%s has been added by %s",
-            "title": "Member added"
-        },
-        "member_removed": {
-            "description": "%s has been removed by %s",
-            "title": "Member removed"
-        },
-        "opening_message": {
-            "fields": {
-                "topic": "Topic"
-            }
-        },
-        "questions": "Please answer the following questions:\n\n%s",
-        "released": {
-            "description": "%s has released this ticket.",
-            "title": "✅ Ticket released"
-        },
-        "survey": {
-            "complete": {
-                "description": "Thank you for your feedback.",
-                "title": "✅ Thank you"
-            },
-            "start": {
-                "description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
-                "title": "❔ Feedback"
-            }
-        }
-    }
+				"bot": {
+								"missing_permissions": {
+												"description": "디스코드 티켓은 해당 권한이 필요합니다:\n%s",
+												"title": "⚠️"
+								},
+								"version": "[디스코드 티켓](%s) v%s by [eartharoid](%s)"
+				},
+				"cmd_usage": {
+								"args": {
+												"example": "**예시.**%s"
+								},
+								"invalid_named_args": {
+												"description": "명령어에 `%s`라는 오류가 있습니다.\n`%s` 를 입력해보세요.\n확실하지 않다면, 관리자에게 문의 바랍니다."
+								},
+								"named_args": "이 명령어는 지정된 인수를 사용합니다.\n\n"
+				},
+				"collector_expires_in": "%d 초 안에 만료됨",
+				"command_execution_error": {
+								"description": "An unexpected error occurred during command execution.\nPlease ask an administrator to check the console output / logs for details.",
+								"title": "⚠️"
+				},
+				"commands": {
+								"add": {
+												"args": {
+																"member": {
+																				"example": "@someone"
+																},
+																"ticket": {
+																				"description": "The ticket to add the member to",
+																				"name": "ticket"
+																}
+												},
+												"description": "Add a member to a ticket",
+												"name": "add",
+												"response": {
+																"added": {
+																				"description": "%s has been added to %s.",
+																				"title": "✅ Member added"
+																},
+																"no_member": {
+																				"description": "Please mention the member you want to add.",
+																				"title": "❌ Unknown member"
+																},
+																"no_permission": {
+																				"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
+																				"title": "❌ Insufficient permission"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel, or mention the channel.",
+																				"title": "❌ This isn't a ticket channel"
+																}
+												}
+								},
+								"blacklist": {
+												"args": {
+																"member_or_role": {
+																				"description": "The member or role to add/remove",
+																				"name": "memberOrRole"
+																}
+												},
+												"description": "Blacklist/unblacklist a member from interacting with the bot",
+												"name": "blacklist",
+												"response": {
+																"empty_list": {
+																				"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
+																				"title": "📃 Blacklisted members and roles"
+																},
+																"illegal_action": {
+																				"description": "%s is a staff member and cannot be blacklisted.",
+																				"title": "❌ You can't blacklist this member"
+																},
+																"list": {
+																				"title": "📃 Blacklisted members and roles"
+																},
+																"member_added": {
+																				"description": "<@%s> has been added to the blacklist. They will no longer be able to interact with the bot.",
+																				"title": "✅ Added member to blacklist"
+																},
+																"member_removed": {
+																				"description": "<@%s> has been removed from the blacklist. They can now use the bot again.",
+																				"title": "✅ Removed member from blacklist"
+																},
+																"role_added": {
+																				"description": "<@&%s> has been added to the blacklist. Members with this role will no longer be able to interact with the bot.",
+																				"title": "✅ Added role to blacklist"
+																},
+																"role_removed": {
+																				"description": "<@&%s> has been removed from the blacklist. Members with this role can now use the bot again.",
+																				"title": "✅ Removed role from blacklist"
+																}
+												}
+								},
+								"close": {
+												"aliases": {
+																"lock": "lock"
+												},
+												"args": {
+																"reason": {
+																				"description": "The reason for closing the ticket(s)"
+																},
+																"ticket": {
+																				"alias": "t",
+																				"example": "217"
+																},
+																"time": {
+																				"alias": "T",
+																				"example": "1w"
+																}
+												},
+												"description": "Close a ticket channel",
+												"name": "close",
+												"response": {
+																"closed": {
+																				"description": "Ticket #%s has been closed.",
+																				"title": "✅ Ticket closed"
+																},
+																"closed_multiple": {
+																				"description": [
+																								"%d ticket has been closed.",
+																								"%d tickets have been closed."
+																				],
+																				"title": [
+																								"✅ Ticket closed",
+																								"✅ Tickets closed"
+																				]
+																},
+																"confirm": {
+																				"description": "React with ✅ to close this ticket.",
+																				"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
+																				"title": "❔ Are you sure?"
+																},
+																"confirm_multiple": {
+																				"description": [
+																								"React with ✅ to close %d ticket.",
+																								"React with ✅ to close %d tickets."
+																				],
+																				"title": "❔ Are you sure?"
+																},
+																"confirmation_timeout": {
+																				"description": "You took too long to confirm.",
+																				"title": "❌ Reaction time expired"
+																},
+																"invalid_time": {
+																				"description": "The time period provided could not be parsed.",
+																				"title": "❌ Invalid input"
+																},
+																"no_tickets": {
+																				"description": "There are no tickets which have been inactive for this time period.",
+																				"title": "❌ No tickets to close"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
+																				"title": "❌ This isn't a ticket channel"
+																},
+																"unresolvable": {
+																				"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+																				"title": "❌ Error"
+																}
+												}
+								},
+								"help": {
+												"aliases": {
+																"commands": "commands"
+												},
+												"args": {
+																"command": {
+																				"example": "new"
+																}
+												},
+												"description": "List commands you have access to, or find out more about a command",
+												"name": "help",
+												"response": {
+																"list": {
+																				"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+																				"fields": {
+																								"commands": "Commands"
+																				},
+																				"title": "❔ Help"
+																}
+												}
+								},
+								"new": {
+												"aliases": {
+																"open": "open"
+												},
+												"args": {
+																"topic": {
+																				"description": "The topic of the ticket",
+																				"name": "topic"
+																}
+												},
+												"description": "Create a new ticket",
+												"name": "new",
+												"request_topic": {
+																"description": "Please briefly state what this ticket is about in a a few words.",
+																"title": "Ticket topic"
+												},
+												"response": {
+																"created": {
+																				"description": "Your ticket has been created: %s.",
+																				"title": "✅ Ticket created"
+																},
+																"error": {
+																				"title": "❌ Error"
+																},
+																"has_a_ticket": {
+																				"description": "Please use your existing ticket (<#%s>) or close it before creating another.",
+																				"title": "❌ You already have an open ticket"
+																},
+																"max_tickets": {
+																				"description": "Please use `%sclose` to close any unneeded tickets.\n\n%s",
+																				"title": "❌ You already have %d open tickets"
+																},
+																"no_categories": {
+																				"description": "A server administrator must create at least one ticket category before a new ticket can be opened.",
+																				"title": "❌ Can't create ticket"
+																},
+																"select_category": {
+																				"description": "Select the category most relevant to your ticket's topic:\n\n%s",
+																				"title": "🔤 Please select the ticket category"
+																},
+																"select_category_timeout": {
+																				"description": "You took too long to select the ticket category.",
+																				"title": "❌ Reaction time expired"
+																}
+												}
+								},
+								"panel": {
+												"args": {
+																"categories": {
+																				"description": "A category ID",
+																				"name": "categories"
+																},
+																"description": {
+																				"description": "The description for the panel message",
+																				"name": "description"
+																},
+																"emoji": {
+																				"description": "An emoji",
+																				"name": "emoji"
+																},
+																"title": {
+																				"description": "The title for the panel message",
+																				"name": "title"
+																}
+												},
+												"description": "Create a new ticket panel",
+												"name": "panel",
+												"response": {
+																"invalid_category": {
+																				"description": "One or more of the specified category IDs is invalid.",
+																				"title": "❌ Invalid category"
+																},
+																"mismatch": {
+																				"title": "❌ Invalid input"
+																}
+												}
+								},
+								"remove": {
+												"args": {
+																"member": {
+																				"example": "@someone"
+																},
+																"ticket": {
+																				"description": "The ticket to remove the member from",
+																				"name": "ticket"
+																}
+												},
+												"description": "Remove a member from a ticket",
+												"name": "remove",
+												"response": {
+																"no_member": {
+																				"description": "Please mention the member you want to remove.",
+																				"title": "❌ Unknown member"
+																},
+																"no_permission": {
+																				"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
+																				"title": "❌ Insufficient permission"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel, or mention the channel.",
+																				"title": "❌ This isn't a ticket channel"
+																},
+																"removed": {
+																				"description": "%s has been removed from %s.",
+																				"title": "✅ Member removed"
+																}
+												}
+								},
+								"settings": {
+												"description": "Configure Discord Tickets",
+												"name": "settings",
+												"response": {
+																"updated": "✅ Settings have been updated."
+												}
+								},
+								"stats": {
+												"description": "Display ticket statistics",
+												"fields": {
+																"messages": "Messages",
+																"response_time": {
+																				"minutes": "%s minutes",
+																				"title": "Avg. response time"
+																},
+																"tickets": "Tickets"
+												},
+												"name": "stats",
+												"response": {
+																"global": {
+																				"description": "Statistics about tickets across all guilds where this Discord TIckets instance is used.",
+																				"title": "📊 Global stats"
+																},
+																"guild": {
+																				"description": "Statistics about tickets within this guild. This data is cached for an hour.",
+																				"title": "📊 This server's stats"
+																}
+												}
+								},
+								"survey": {
+												"args": {
+																"survey": {
+																				"description": "The name of the survey to view responses of",
+																				"name": "survey"
+																}
+												},
+												"description": "View survey responses",
+												"name": "survey",
+												"response": {
+																"list": {
+																				"title": "📃 Surveys"
+																}
+												}
+								},
+								"tag": {
+												"aliases": {
+																"t": "t"
+												},
+												"args": {
+																"tag": {
+																				"description": "The name of the tag to use",
+																				"name": "tag"
+																}
+												},
+												"description": "Use a tag response",
+												"name": "tag",
+												"response": {
+																"error": "❌ Error",
+																"list": {
+																				"title": "📃 Tag list"
+																},
+																"missing": "This tag requires the following arguments:\n%s",
+																"not_a_ticket": {
+																				"description": "This tag can only be used within a ticket channel as it uses ticket references.",
+																				"title": "❌ This isn't a ticket channel"
+																}
+												}
+								},
+								"topic": {
+												"args": {
+																"new_topic": {
+																				"example": "billing issue"
+																}
+												},
+												"description": "Change the topic of the ticket",
+												"name": "topic",
+												"response": {
+																"changed": {
+																				"description": "This ticket's topic has been changed.",
+																				"title": "✅ Topic changed"
+																},
+																"not_a_ticket": {
+																				"description": "Please use this command in the ticket channel you want to change the topic of.",
+																				"title": "❌ This isn't a ticket channel"
+																}
+												}
+								}
+				},
+				"message_will_be_deleted_in": "This message will be deleted in %d seconds",
+				"missing_permissions": {
+								"description": "You do not have the permissions required to use this command:\n%s",
+								"title": "❌"
+				},
+				"staff_only": {
+								"title": "❌"
+				},
+				"ticket": {
+								"claimed": {
+												"description": "%s has claimed this ticket.",
+												"title": "✅ Ticket claimed"
+								},
+								"closed": {
+												"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Ticket closed"
+								},
+								"closed_by_member": {
+												"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Ticket closed"
+								},
+								"closed_by_member_with_reason": {
+												"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Ticket closed"
+								},
+								"closed_with_reason": {
+												"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+												"title": "✅ Ticket closed"
+								},
+								"member_added": {
+												"description": "%s has been added by %s",
+												"title": "Member added"
+								},
+								"member_removed": {
+												"description": "%s has been removed by %s",
+												"title": "Member removed"
+								},
+								"opening_message": {
+												"fields": {
+																"topic": "Topic"
+												}
+								},
+								"questions": "Please answer the following questions:\n\n%s",
+								"released": {
+												"description": "%s has released this ticket.",
+												"title": "✅ Ticket released"
+								},
+								"survey": {
+												"complete": {
+																"description": "Thank you for your feedback.",
+																"title": "✅ Thank you"
+												},
+												"start": {
+																"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+																"title": "❔ Feedback"
+												}
+								}
+				}
 }

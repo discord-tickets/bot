@@ -8,16 +8,12 @@
 				},
 				"cmd_usage": {
 								"args": {
-												"description": "**Beschreibung:** %s",
 												"example": "**Beispiel:** `%s`"
 								},
-								"description": "**Benutzung:**\n`%s`\n\n**Beispiel:**\n`%s`\n\nBenötigte Argumente sind makiert mit einem `❗`.",
 								"invalid_named_args": {
-												"description": "Es gibt einen Fehler in Ihrer Eingabe-Syntax: `%s`.\nTippen Sie `%s` für ein Beispiel.\nBitte fragen Sie ein Support-Mitglied wenn Sie sich unsicher sind.",
-												"title": "❌ Ungültige Syntax"
+												"description": "Es gibt einen Fehler in Ihrer Eingabe-Syntax: `%s`.\nTippen Sie `%s` für ein Beispiel.\nBitte fragen Sie ein Support-Mitglied wenn Sie sich unsicher sind."
 								},
-								"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n",
-								"title": "`%s` Benutzung"
+								"named_args": "Dieser Befehl verwendet benannte Argumente.\n\n"
 				},
 				"collector_expires_in": "Läuft in %d Sekunden ab",
 				"command_execution_error": {
@@ -28,13 +24,10 @@
 								"add": {
 												"args": {
 																"member": {
-																				"description": "Der Benutzer, der zum Tickt hinzugefügt werden soll",
-																				"example": "@someone",
-																				"name": "Mitglied"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "Das Ticket, dem der Benutzer hinzugefügt werden soll",
-																				"example": "217",
 																				"name": "Ticket"
 																}
 												},
@@ -60,13 +53,9 @@
 												}
 								},
 								"blacklist": {
-												"aliases": {
-																"unblacklist": "unblacklist"
-												},
 												"args": {
 																"member_or_role": {
 																				"description": "Der Benutzer oder die Rolle zum hinzufügen / entfernen",
-																				"example": "@BösesMitglied",
 																				"name": "MitgliedoderRolle"
 																}
 												},
@@ -104,26 +93,19 @@
 								},
 								"close": {
 												"aliases": {
-																"delete": "löschen",
 																"lock": "lock"
 												},
 												"args": {
 																"reason": {
-																				"alias": "r",
 																				"description": "Der Grund das Ticket / die Tickets zu schließen",
-																				"example": "Gelöst",
 																				"name": "Grund"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets",
-																				"example": "217",
 																				"name": "Ticket"
 																},
 																"time": {
-																				"alias": "T",
 																				"description": "Alle Tickets schließen, die für eine bestimmte Zeit inaktiv waren",
-																				"example": "1w",
 																				"name": "Zeit"
 																}
 												},
@@ -180,14 +162,11 @@
 								},
 								"help": {
 												"aliases": {
-																"command": "Befehl",
 																"commands": "Befehle"
 												},
 												"args": {
 																"command": {
-																				"description": "Den Befehl, über den Informationen angezeigt werden sollen",
-																				"example": "neu",
-																				"name": "Befehl"
+																				"example": "neu"
 																}
 												},
 												"description": "Zeige alle Befehle die Sie benutzen dürfen, oder mehr Informationen zu einem Befehl",
@@ -204,14 +183,11 @@
 								},
 								"new": {
 												"aliases": {
-																"create": "erstellen",
-																"open": "öffnen",
-																"ticket": "Ticket"
+																"open": "öffnen"
 												},
 												"args": {
 																"topic": {
 																				"description": "Das Thema des Tickets",
-																				"example": "Probleme mit der Bezahlung",
 																				"name": "Thema"
 																}
 												},
@@ -254,27 +230,19 @@
 								"panel": {
 												"args": {
 																"categories": {
-																				"alias": "c",
 																				"description": "Eine Kategorie ID",
-																				"example": "451745464954650634",
 																				"name": "Kategorien"
 																},
 																"description": {
-																				"alias": "d",
 																				"description": "Die Beschreibung für die Panel-Nachricht",
-																				"example": "\"Ragieren Sie auf diese Nachricht um ein Ticket zu öffnen.\"",
 																				"name": "Beschreibung"
 																},
 																"emoji": {
-																				"alias": "e",
 																				"description": "Ein Emoji",
-																				"example": "🎫",
 																				"name": "Emoji"
 																},
 																"title": {
-																				"alias": "t",
 																				"description": "Der Titel für die Panel-Nachricht",
-																				"example": "\"Support Tickets\"",
 																				"name": "Titel"
 																}
 												},
@@ -286,7 +254,6 @@
 																				"title": "❌ Ungültige Kategorie"
 																},
 																"mismatch": {
-																				"description": "Geben Sie bitte den Name des Emojis und die Kategorie ID an.",
 																				"title": "❌ Ungültige Eingabe"
 																}
 												}
@@ -294,13 +261,10 @@
 								"remove": {
 												"args": {
 																"member": {
-																				"description": "Den Benutzer der entfernt werden soll",
-																				"example": "@someone",
-																				"name": "Mitglied"
+																				"example": "@someone"
 																},
 																"ticket": {
 																				"description": "Das Ticket von dem der Benutzer entfernt werden soll",
-																				"example": "217",
 																				"name": "Ticket"
 																}
 												},
@@ -326,13 +290,9 @@
 												}
 								},
 								"settings": {
-												"aliases": {
-																"config": "config"
-												},
 												"description": "Konfiguriere Discord Tickets",
 												"name": "settings",
 												"response": {
-																"invalid": "❌ Einstellungen sind ungültig. Sehen Sie sich die Dokumentation (https://discordtickets.app/configuration/categories/) an.\n%s",
 																"updated": "✅ Die Einstellungen wurden aktualisiert."
 												}
 								},
@@ -359,13 +319,9 @@
 												}
 								},
 								"survey": {
-												"aliases": {
-																"surveys": "Umfragen"
-												},
 												"args": {
 																"survey": {
 																				"description": "Der Name der Umfrage von der die Antworten angezeigt werden sollen",
-																				"example": "support",
 																				"name": "Umfrage"
 																}
 												},
@@ -379,14 +335,11 @@
 								},
 								"tag": {
 												"aliases": {
-																"faq": "faq",
-																"t": "t",
-																"tags": "tags"
+																"t": "t"
 												},
 												"args": {
 																"tag": {
 																				"description": "Der Name des Tags",
-																				"example": "Website",
 																				"name": "Tag"
 																}
 												},
@@ -407,9 +360,7 @@
 								"topic": {
 												"args": {
 																"new_topic": {
-																				"description": "Das neue Anliegen des Tickets",
-																				"example": "Abrechnungsproblem",
-																				"name": "Neues_Thema"
+																				"example": "Abrechnungsproblem"
 																}
 												},
 												"description": "Ändern Sie das Anligen Ihres Tickets",
@@ -432,7 +383,6 @@
 								"title": "❌"
 				},
 				"staff_only": {
-								"description": "Sie müssen ein Support-Mitglied sein um diesen Befehl zu benutzen.",
 								"title": "❌"
 				},
 				"ticket": {

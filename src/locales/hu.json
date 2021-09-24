@@ -8,29 +8,22 @@
 				},
 				"cmd_usage": {
 								"args": {
-												"description": "**Leírás:** %s",
 												"example": "**Példa:** `%s`"
 								},
-								"description": "**Használat:**\n`%s`\n\n**Példa:**\n`%s`\n\nA kötelező argumentumok előtaggal vannak ellátva `❗`.",
 								"invalid_named_args": {
-												"description": "Hiba történt a parancs szintaxisában:`%s`.\nÍrd be `%s` példaként.\nKérdezze meg a személyzet egyik tagját, ha bizonytalan.",
-												"title": "❌ Érvénytelen szintaxis"
+												"description": "Hiba történt a parancs szintaxisában:`%s`.\nÍrd be `%s` példaként.\nKérdezze meg a személyzet egyik tagját, ha bizonytalan."
 								},
-								"named_args": "Ez a parancs elnevezett argumentumokat használ.\n\n",
-								"title": "`%s` parancshasználat"
+								"named_args": "Ez a parancs elnevezett argumentumokat használ.\n\n"
 				},
 				"collector_expires_in": "%d másodperc múlva lejár",
 				"commands": {
 								"add": {
 												"args": {
 																"member": {
-																				"description": "A Tickethez hozzáad egy felhasználót",
-																				"example": "@valaki123",
-																				"name": "felhasználó"
+																				"example": "@valaki123"
 																},
 																"ticket": {
 																				"description": "A Ticket, amelyhez hozzá kell adni a felhasználót",
-																				"example": "217",
 																				"name": "ticket"
 																}
 												},
@@ -56,13 +49,9 @@
 												}
 								},
 								"blacklist": {
-												"aliases": {
-																"unblacklist": "feketelista"
-												},
 												"args": {
 																"member_or_role": {
 																				"description": "A hozzáadni/eltávolítani kívánt felhasználó vagy rang",
-																				"example": "@Szemtelen164",
 																				"name": "felhasznaloVagyRang"
 																}
 												},
@@ -100,26 +89,19 @@
 								},
 								"close": {
 												"aliases": {
-																"delete": "törlés",
 																"lock": "lezár"
 												},
 												"args": {
 																"reason": {
-																				"alias": "i",
 																				"description": "A Ticket(ek) lezárásának oka",
-																				"example": "Indok",
 																				"name": "indok"
 																},
 																"ticket": {
-																				"alias": "t",
 																				"description": "A záró Ticket, akár a szám, akár a csatorna említése/ID-ja",
-																				"example": "217",
 																				"name": "ticket"
 																},
 																"time": {
-																				"alias": "T",
 																				"description": "Zárjon be minden Ticket, amely a megadott ideig inaktív volt",
-																				"example": "1w",
 																				"name": "idő"
 																}
 												},
