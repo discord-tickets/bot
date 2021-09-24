@@ -1,29 +1,32 @@
 {
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets requiere los siguientes permisos:\n\n%s",
+			"description": "Discord Tickets requiere los siguientes permisos:\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s por [eartharoid](%s)"
+		"version": "[Discord Tickets](%s) v%s creado por [eartharoid](%s)"
 	},
 	"cmd_usage": {
-		"options": {
-			"description": "**Descripción** %s",
-			"example": "**Ejemplo** `%s`"
+		"args": {
+			"description": "**Descripción:** %s",
+			"example": "**Ejemplo:** `%s`"
 		},
-		"description": "**Uso:**\n`%s`\n\n**Ejemplo:**\n`%s`\n\nLos argumentos requeridos están prefijados con `❗`.",
-		"invalid_named_options": {
-			"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para un ejemplo.\nPor favor pregunte al staff si no está seguro.",
+		"description": "**Uso:**\n`%s`\n\n**Ejemplo:**\n`%s`\n\nLos argumentos requeridos llevan el prefijo `❗`.",
+		"invalid_named_args": {
+			"description": "Hay un error en la sintaxis de tu comando: `%s`.\nEscribe `%s` para ver un ejemplo.\nPor favor contacta con el staff si no estás seguro.",
 			"title": "❌ Sintaxis inválida"
 		},
-		"named_options": "Este comando utiliza argumentos nombrados.\n\n",
+		"named_args": "Este comando utiliza los argumentos nombrados.\n\n",
 		"title": "`%s` uso del comando"
 	},
 	"collector_expires_in": "Expira en %d segundos",
+	"command_execution_error": {
+		"description": "Un error inesperado ha ocurrido durante la ejecución del comando.\nPor favor, pregúntale a un administrador para revisar la consola o los registros y obtener más información.",
+		"title": "⚠️"
+	},
 	"commands": {
 		"add": {
-			"aliases": {},
-			"options": {
+			"args": {
 				"member": {
 					"description": "El miembro a agregar al ticket",
 					"example": "@alguien",
@@ -35,19 +38,19 @@
 					"name": "ticket"
 				}
 			},
-			"description": "Agregar a un miembro al ticket",
-			"name": "agregar",
+			"description": "Añadir  un miembro al ticket",
+			"name": "añadir",
 			"response": {
 				"added": {
-					"description": "%s a sido agregado a %s.",
-					"title": "✅ Miembro agregado"
+					"description": "%s ha sido añadido a %s.",
+					"title": "✅ Miembro añadido"
 				},
 				"no_member": {
-					"description": "Por favor, menciona al miembro que desea agregar.",
+					"description": "Por favor, menciona al miembro que desee añadir.",
 					"title": "❌ Miembro desconocido"
 				},
 				"no_permission": {
-					"description": "No eres el creador de este ticket y no eres parte del staff, no puedes agregar miembros a este ticket.",
+					"description": "No eres el creador de este ticket y no eres parte del staff, no puedes añadir miembros a este ticket.",
 					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
@@ -60,9 +63,9 @@
 			"aliases": {
 				"unblacklist": "unblacklist"
 			},
-			"options": {
+			"args": {
 				"member_or_role": {
-					"description": "El miembro o rol que se va a añadir o o remover",
+					"description": "El miembro o rol que se va a añadir o eliminar",
 					"example": "@MiembroTravieso",
 					"name": "miembroORol"
 				}
@@ -71,31 +74,31 @@
 			"name": "blacklist",
 			"response": {
 				"empty_list": {
-					"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a ésta.",
+					"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a esta.",
 					"title": "📃 Miembros y roles en la lista negra"
 				},
 				"illegal_action": {
-					"description": "%s es un miembro del personal, por lo tanto no puede ser añadido en la lista negra.",
+					"description": "%s es un miembro del personal, por lo tanto no puede ser añadido a la lista negra.",
 					"title": "❌ No puedes añadir a la lista negra a este miembro"
 				},
 				"list": {
 					"title": "📃 Miembros y roles en la lista negra"
 				},
 				"member_added": {
-					"description": "<@%s> fue añadido a la lista negra. Ya no podrá interactuar con el BOT, a menos de que sea removido.",
+					"description": "<@%s> fue añadido a la lista negra. Ya no podrá interactuar con el BOT, a menos de que sea eliminado.",
 					"title": "✅ Miembro añadido a la lista negra"
 				},
 				"member_removed": {
-					"description": "<@%s> fue eliminado de la lista negra. Ahora puede usar el BOT nuevamente.",
+					"description": "<@%s> fue eliminado de la lista negra. Ahora puede usar el BOT.",
 					"title": "✅ Miembro eliminado de la lista negra"
 				},
 				"role_added": {
-					"description": "<@&%s> fue añadido a la lista negra. Miembros que tengan este rol no podrán interactuar con el BOT hasta que sea removido.",
+					"description": "<@&%s> fue añadido a la lista negra. Los miembros que tengan este rol no podrán interactuar con el BOT hasta que sea eliminado.",
 					"title": "✅ Rol añadido a la lista negra"
 				},
 				"role_removed": {
-					"description": "<@&%s> fue eliminado de la lista negra. Miembros que tengan este rol pueden interactuar con el BOT nuevamente.",
-					"title": "✅ Rol removido de la lista negra"
+					"description": "<@&%s> fue eliminado de la lista negra. Los miembros que tengan este rol pueden interactuar con el BOT.",
+					"title": "✅ Rol eliminado de la lista negra"
 				}
 			}
 		},
@@ -104,11 +107,11 @@
 				"delete": "eliminar",
 				"lock": "bloquear"
 			},
-			"options": {
+			"args": {
 				"reason": {
 					"alias": "r",
-					"description": "La razón por la cual cerrar el(los) ticket(s)",
-					"example": "",
+					"description": "La razón por la cual se cierra el(los) ticket(s)",
+					"example": "Resuelto",
 					"name": "razón"
 				},
 				"ticket": {
@@ -146,10 +149,6 @@
 					"description_with_archive": "Reacciona con ✅ para cerrar el ticket.\nSerás capaz de ver una versión archivada del mismo después.",
 					"title": "❔ ¿Estás seguro?"
 				},
-				"confirmation_timeout": {
-					"description": "Has tardado demasiado en confirmarlo.",
-					"title": "❌ El tiempo de la reacción ha expirado"
-				},
 				"confirm_multiple": {
 					"description": [
 						"Reacciona con ✅ para cerrar el ticket %d.",
@@ -157,17 +156,21 @@
 					],
 					"title": "❔ ¿Estás seguro?"
 				},
+				"confirmation_timeout": {
+					"description": "Has tardado demasiado en confirmar.",
+					"title": "❌ El tiempo de la reacción ha expirado"
+				},
 				"invalid_time": {
 					"description": "El período de tiempo ingresado no pudo ser analizado.",
 					"title": "❌ Entrada inválida"
 				},
-				"not_a_ticket": {
-					"description": "Por favor, utiliza este comando en un canal de tickets, o usa la bandera de tickets.\nEjecuta `%shelp close` para más información.",
-					"title": "❌ Este no es un canal de tickets"
-				},
 				"no_tickets": {
 					"description": "No hay tickets que hayan estado inactivos durante este período de tiempo.",
 					"title": "❌ No hay tickets para cerrar"
+				},
+				"not_a_ticket": {
+					"description": "Por favor, utiliza este comando en un canal de tickets, o usa la bandera de tickets.\nEjecuta `%shelp close` para más información.",
+					"title": "❌ Este no es un canal de tickets"
 				},
 				"unresolvable": {
 					"description": "`%s` no pudo ser resuelto como un ticket. Por favor, ingresa la mención, ID o número del ticket.",
@@ -180,7 +183,7 @@
 				"command": "comando",
 				"commands": "comandos"
 			},
-			"options": {
+			"args": {
 				"command": {
 					"description": "El comando sobre el que mostrar información",
 					"example": "nuevo",
@@ -205,7 +208,7 @@
 				"open": "abrir",
 				"ticket": "ticket"
 			},
-			"options": {
+			"args": {
 				"topic": {
 					"description": "El tema del ticket",
 					"example": "Problema con la facturación",
@@ -214,6 +217,10 @@
 			},
 			"description": "Crear un nuevo ticket",
 			"name": "nuevo",
+			"request_topic": {
+				"description": "Por favor, indica de qué se trata este ticket en pocas palabras.",
+				"title": "Tema del ticket"
+			},
 			"response": {
 				"created": {
 					"description": "Tu ticket fue creado: %s.",
@@ -242,15 +249,10 @@
 					"description": "Has tardado demasiado tiempo en seleccionar la categoría de tickets.",
 					"title": "❌ El tiempo de la reacción ha expirado"
 				}
-			},
-			"request_topic": {
-				"description": "Por favor, indica de qué se trata este ticket en pocas palabras.",
-				"title": "Tema del ticket"
 			}
 		},
 		"panel": {
-			"aliases": {},
-			"options": {
+			"args": {
 				"categories": {
 					"alias": "c",
 					"description": "Una ID de categoría",
@@ -290,8 +292,7 @@
 			}
 		},
 		"remove": {
-			"aliases": {},
-			"options": {
+			"args": {
 				"member": {
 					"description": "El miembro a eliminar del ticket",
 					"example": "@alguien",
@@ -306,21 +307,21 @@
 			"description": "Eliminar a un miembro de un ticket",
 			"name": "eliminar",
 			"response": {
-				"removed": {
-					"description": "%s fue eliminado de %s.",
-					"title": "✅ Miembro eliminado"
-				},
 				"no_member": {
 					"description": "Por favor, menciona al miembro que deseas eliminar.",
 					"title": "❌ Miembro desconocido"
 				},
 				"no_permission": {
-					"description": "Tú no eres el creador de este ticket ni un miembro del personal, por lo que no puedes remover miembros de este ticket.",
+					"description": "Tú no eres el creador de este ticket ni un miembro del personal, por lo que no puedes eliminar miembros de este ticket.",
 					"title": "❌ Permisos insuficientes"
 				},
 				"not_a_ticket": {
 					"description": "Por favor utiliza este comando en el canal de tickets, o menciona el canal.",
 					"title": "❌ Este no es un canal de tickets"
+				},
+				"removed": {
+					"description": "%s fue eliminado de %s.",
+					"title": "✅ Miembro eliminado"
 				}
 			}
 		},
@@ -336,8 +337,6 @@
 			}
 		},
 		"stats": {
-			"aliases": {},
-			"options": {},
 			"description": "Mostrar estadísticas del ticket",
 			"fields": {
 				"messages": "Mensajes",
@@ -363,7 +362,7 @@
 			"aliases": {
 				"surveys": "encuestas"
 			},
-			"options": {
+			"args": {
 				"survey": {
 					"description": "El nombre de la encuesta de la que ver las respuestas",
 					"example": "soporte",
@@ -384,7 +383,7 @@
 				"t": "t",
 				"tags": "etiquetas"
 			},
-			"options": {
+			"args": {
 				"tag": {
 					"description": "El nombre de la etiqueta a usar",
 					"example": "sitioweb",
@@ -406,8 +405,7 @@
 			}
 		},
 		"topic": {
-			"aliases": {},
-			"options": {
+			"args": {
 				"new_topic": {
 					"description": "El nuevo tema del ticket",
 					"example": "problema de facturación",
@@ -427,10 +425,6 @@
 				}
 			}
 		}
-	},
-	"command_execution_error": {
-		"description": "Un error inesperado ha ocurrido durante la ejecución del comando.\nPor favor, pregúntale a un administrador para revisar la consola o los registros y obtener más información.",
-		"title": "⚠️"
 	},
 	"message_will_be_deleted_in": "Este mensaje será eliminado en %d segundos",
 	"missing_permissions": {

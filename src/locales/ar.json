@@ -1,0 +1,14 @@
+{
+				"bot": {
+								"missing_permissions": {
+												"description": "احتاج الى الاذونات التالية : \n%s"
+								}
+				},
+				"cmd_usage": {
+								"args": {
+												"description": "**الوصف:** %s",
+												"example": "**مثال:** `%s`"
+								},
+								"description": "**الاستخدام:**\n`%s`\n\n**مثال:**\n`%s`\n\nالتوابع المطلوبه تبدأ  ب `❗`."
+				}
+}

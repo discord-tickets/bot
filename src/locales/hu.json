@@ -1,0 +1,154 @@
+{
+				"bot": {
+								"missing_permissions": {
+												"description": "Discord Ticketek az alábbi engedélyeket igényli:\n%s",
+												"title": "⚠️"
+								},
+								"version": "[Discord Ticketek](%s) v%s által [eartharoid](%s)"
+				},
+				"cmd_usage": {
+								"args": {
+												"description": "**Leírás:** %s",
+												"example": "**Példa:** `%s`"
+								},
+								"description": "**Használat:**\n`%s`\n\n**Példa:**\n`%s`\n\nA kötelező argumentumok előtaggal vannak ellátva `❗`.",
+								"invalid_named_args": {
+												"description": "Hiba történt a parancs szintaxisában:`%s`.\nÍrd be `%s` példaként.\nKérdezze meg a személyzet egyik tagját, ha bizonytalan.",
+												"title": "❌ Érvénytelen szintaxis"
+								},
+								"named_args": "Ez a parancs elnevezett argumentumokat használ.\n\n",
+								"title": "`%s` parancshasználat"
+				},
+				"collector_expires_in": "%d másodperc múlva lejár",
+				"commands": {
+								"add": {
+												"args": {
+																"member": {
+																				"description": "A Tickethez hozzáad egy felhasználót",
+																				"example": "@valaki123",
+																				"name": "felhasználó"
+																},
+																"ticket": {
+																				"description": "A Ticket, amelyhez hozzá kell adni a felhasználót",
+																				"example": "217",
+																				"name": "ticket"
+																}
+												},
+												"description": "Felhasználó hozzáadása a Hibajegyhez",
+												"name": "hozzáad",
+												"response": {
+																"added": {
+																				"description": "%s felhasználó hozzáadva %s.",
+																				"title": "✅ Felhasználó hozzáadva"
+																},
+																"no_member": {
+																				"description": "Kérlek, említsd meg a hozzáadni kívánt felhasználót.",
+																				"title": "❌ Ismeretlen felhasználó"
+																},
+																"no_permission": {
+																				"description": "Nem ennek a Ticket alkotója, és nem munkatársa, így nem adhatsz hozzá felhasználókat ehhez a Hibajegyhez.",
+																				"title": "❌ Nincs engedélyed ehhez"
+																},
+																"not_a_ticket": {
+																				"description": "Kérlek, használd ezt a parancsot a Hibajegy csatornában, vagy említsd meg a csatornát.",
+																				"title": "❌ Ez nem Ticket csatorna"
+																}
+												}
+								},
+								"blacklist": {
+												"aliases": {
+																"unblacklist": "feketelista"
+												},
+												"args": {
+																"member_or_role": {
+																				"description": "A hozzáadni/eltávolítani kívánt felhasználó vagy rang",
+																				"example": "@Szemtelen164",
+																				"name": "felhasznaloVagyRang"
+																}
+												},
+												"description": "Feketelista/tiltás feloldása a felhasználóknak, hogy ne lépj kapcsolatba a bottal",
+												"name": "feketelista",
+												"response": {
+																"empty_list": {
+																				"description": "Nincsenek felhasználók vagy rangok feketelistán. Írd be a `%sblacklist <felhasználóVagyRang>` parancsot, ha fel szeretnél venni egy felhasználót vagy rangot a feketelistára.",
+																				"title": "📃 Feketelistára került felhasználók és rangok"
+																},
+																"illegal_action": {
+																				"description": "%s csapattag, és nem lehet feketelistára tenni.",
+																				"title": "❌ Ezt a felhasználót nem lehet feketelistára tenni"
+																},
+																"list": {
+																				"title": "📃 Feketelistára került felhasználók és rangok"
+																},
+																"member_added": {
+																				"description": "<@%s> felkerült a feketelistára. Többé nem léphet kapcsolatba a bottal.",
+																				"title": "✅ Felhasználó hozzáadva a feketelistára"
+																},
+																"member_removed": {
+																				"description": "<@%s> eltávolítva a feketelistáról. Most újra használhatja a botot.",
+																				"title": "✅ Felhasználó eltávolítva a fektelistáról"
+																},
+																"role_added": {
+																				"description": "<@&%s> felkerült a feketelistára. Az ezzel a rangal rendelkező felhasználók többé nem léphetnek kapcsolatba a bottal.",
+																				"title": "✅ Rang hozzáadva a feketelistára"
+																},
+																"role_removed": {
+																				"description": "<@&%s> eltávolítva a feketelistáról. Az ezzel a rangal rendelkező felhasználók most újra használhatják a botot.",
+																				"title": "✅ Rang eltávolítva a feketelistáról"
+																}
+												}
+								},
+								"close": {
+												"aliases": {
+																"delete": "törlés",
+																"lock": "lezár"
+												},
+												"args": {
+																"reason": {
+																				"alias": "i",
+																				"description": "A Ticket(ek) lezárásának oka",
+																				"example": "Indok",
+																				"name": "indok"
+																},
+																"ticket": {
+																				"alias": "t",
+																				"description": "A záró Ticket, akár a szám, akár a csatorna említése/ID-ja",
+																				"example": "217",
+																				"name": "ticket"
+																},
+																"time": {
+																				"alias": "T",
+																				"description": "Zárjon be minden Ticket, amely a megadott ideig inaktív volt",
+																				"example": "1w",
+																				"name": "idő"
+																}
+												},
+												"description": "Zárd be a Ticket csatornát",
+												"name": "bezárás",
+												"response": {
+																"closed": {
+																				"description": "Ticket #%s lezárva.",
+																				"title": "✅ Ticketek lezárva"
+																},
+																"closed_multiple": {
+																				"description": [
+																								"%d Ticketek lezárták."
+																				],
+																				"title": [
+																								"✅ Ticket lezárva",
+																								"✅ Ticketek lezárva"
+																				]
+																},
+																"confirm": {
+																				"description": "Reagálj ezzel a ✅ gombal, hogy lezárd a csatornát.",
+																				"description_with_archive": "Ezt követően megtekintheted annak archivált változatát.\nReagálj a ✅ gombbal, hogy lezárd ezt a Ticketet.",
+																				"title": "❔ Biztos vagy ebben?"
+																},
+																"confirmation_timeout": {
+																				"description": "Túl sokáig tartott a megerősítés.",
+																				"title": "❌ A reakcióidő lejárt"
+																}
+												}
+								}
+				}
+}
