@@ -1,6 +1,9 @@
 const EventListener = require('../modules/listeners/listener');
-
-const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
+const {
+	MessageAttachment,
+	MessageEmbed
+} = require('discord.js');
 
 module.exports = class MessageCreateEventListener extends EventListener {
 	constructor(client) {
@@ -10,7 +13,7 @@ module.exports = class MessageCreateEventListener extends EventListener {
 	async execute(message) {
 		if (!message.guild) return;
 
-		const settings = await this.client.utils.getSettings(message.guild);
+		const settings = await this.client.utils.getSettings(message.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: message.channel.id } });
@@ -24,6 +27,82 @@ module.exports = class MessageCreateEventListener extends EventListener {
 
 			t_row.last_message = new Date();
 			await t_row.save();
+		} else if (message.content.startsWith('tickets/')) {
+			if (!message.member.permissions.has('MANAGE_GUILD')) return;
+
+			const match = message.content.toLowerCase().match(/tickets\/(\w+)/i);
+
+			if (!match) return;
+
+			switch (match[1]) {
+			case 'surveys': {
+				const attachments = [...message.attachments.values()];
+				if (attachments.length >= 1) {
+					this.client.log.info(`Downloading surveys for "${message.guild.name}"`);
+					const data = await (await fetch(attachments[0].url)).json();
+					for (const survey in data) {
+						const survey_data = {
+							guild: message.guild.id,
+							name: survey
+						};
+						const [s_row] = await this.client.db.models.Survey.findOrCreate({
+							defaults: survey_data,
+							where: survey_data
+						});
+						s_row.questions = data[survey];
+						await s_row.save();
+					}
+					this.client.log.success(`Updated surveys for "${message.guild.name}"`);
+					message.channel.send({ content: i18n('commands.settings.response.settings_updated') });
+				} else {
+					const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
+					const data = {};
+
+					for (const survey in surveys) {
+						const {
+							name, questions
+						} = surveys[survey];
+						data[name] = questions;
+					}
+
+					const attachment = new MessageAttachment(
+						Buffer.from(JSON.stringify(data, null, 2)),
+						'surveys.json'
+					);
+					message.channel.send({ files: [attachment] });
+				}
+				break;
+			}
+			case 'tags': {
+				const attachments = [...message.attachments.values()];
+				if (attachments.length >= 1) {
+					this.client.log.info(`Downloading tags for "${message.guild.name}"`);
+					const data = await (await fetch(attachments[0].url)).json();
+					settings.tags = data;
+					await settings.save();
+					this.client.log.success(`Updated tags for "${message.guild.name}"`);
+					this.client.commands.publish(message.guild);
+					message.channel.send({ content: i18n('commands.settings.response.settings_updated') });
+				} else {
+					const list = Object.keys(settings.tags).map(t => `❯ **\`${t}\`**`);
+					const attachment = new MessageAttachment(
+						Buffer.from(JSON.stringify(settings.tags, null, 2)),
+						'tags.json'
+					);
+					return await message.channel.send({
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.colour)
+								.setTitle(i18n('commands.tag.response.list.title'))
+								.setDescription(list.join('\n'))
+								.setFooter(settings.footer, message.guild.iconURL())
+						],
+						files: [attachment]
+					});
+				}
+				break;
+			}
+			}
 		} else {
 			if (message.author.bot) return;
 

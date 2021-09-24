@@ -17,7 +17,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 	async execute(interaction) {
 		this.client.log.debug(interaction);
 
-		const settings = await this.client.utils.getSettings(interaction.guild);
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const blacklisted = settings.blacklist.members.includes[interaction.user.id] ||

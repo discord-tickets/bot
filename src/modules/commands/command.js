@@ -98,12 +98,12 @@ module.exports = class Command {
 	 */
 	async execute(interaction) { } // eslint-disable-line no-unused-vars
 
-	toJSON() {
+	async build(guild) {
 		return {
 			defaultPermission: !this.staff_only,
 			description: this.description,
 			name: this.name,
-			options: this.options
+			options: typeof this.options === 'function' ? await this.options(guild) : this.options
 		};
 	}
 

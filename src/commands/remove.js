@@ -34,7 +34,7 @@ module.exports = class RemoveCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(message, options) {
-		const settings = await this.client.utils.getSettings(message.guild);
+		const settings = await this.client.utils.getSettings(message.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const ticket = message.mentions.channels.first() ?? message.channel;

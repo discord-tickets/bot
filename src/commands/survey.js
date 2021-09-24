@@ -13,34 +13,44 @@ module.exports = class SurveyCommand extends Command {
 	constructor(client) {
 		const i18n = client.i18n.getLocale(client.config.locale);
 		super(client, {
-			// options: [
-			// 	{
-			// 		description: i18n('commands.survey.options.survey.description'),
-			// 		example: i18n('commands.survey.options.survey.example'),
-			// 		name: i18n('commands.survey.options.survey.name'),
-			// 		required: false
-			// 	}
-			// ],
 			description: i18n('commands.survey.description'),
 			internal: true,
 			name: i18n('commands.survey.name'),
+			options: async guild => {
+				const surveys = await this.client.db.models.Survey.findAll({ where: { guild: guild.id } });
+				return [
+					{
+						choices: surveys.map(survey => ({
+							name: survey.name,
+							value: survey.name
+						})),
+						description: i18n('commands.survey.options.survey.description'),
+						name: i18n('commands.survey.options.survey.name'),
+						required: true,
+						type: Command.option_types.STRING
+					}
+				];
+			},
 			staff_only: true
+
 		});
 	}
 
 	/**
-	 * @param {Message} message
-	 * @param {string} options
+	 * @param {Interaction} interaction
 	 * @returns {Promise<void|any>}
 	 */
-	async execute(message, options) {
-		const settings = await this.client.utils.getSettings(message.guild);
+	async execute(interaction) {
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
+		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
+
+		const name = interaction.options.getString(default_i18n('commands.survey.options.survey.name'));
 
 		const survey = await this.client.db.models.Survey.findOne({
 			where: {
-				guild: message.guild.id,
-				name: options
+				guild: interaction.guild.id,
+				name
 			}
 		});
 
@@ -50,7 +60,6 @@ module.exports = class SurveyCommand extends Command {
 			} = await this.client.db.models.SurveyResponse.findAndCountAll({ where: { survey: survey.id } });
 
 			const users = new Set();
-
 
 			for (const i in responses) {
 				const ticket = await this.client.db.models.Ticket.findOne({ where: { id: responses[i].ticket } });
@@ -81,19 +90,23 @@ module.exports = class SurveyCommand extends Command {
 				`${survey.name}.html`
 			);
 
-			return await message.channel.send({ files: [attachment] });
+			return await interaction.reply({
+				ephemeral: true,
+				files: [attachment]
+			});
 		} else {
-			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: message.guild.id } });
+			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: interaction.guild.id } });
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
-			return await message.channel.send({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.colour)
 						.setTitle(i18n('commands.survey.response.list.title'))
 						.setDescription(list.join('\n'))
-						.setFooter(settings.footer, message.guild.iconURL())
-				]
+						.setFooter(settings.footer, interaction.guild.iconURL())
+				],
+				ephemeral: true
 			});
 		}
 	}

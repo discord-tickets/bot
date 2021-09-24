@@ -1,8 +1,6 @@
 
-const {
-	Guild, // eslint-disable-line no-unused-vars
-	GuildMember // eslint-disable-line no-unused-vars
-} = require('discord.js');
+const { GuildMember } = require('discord.js'); // eslint-disable-line no-unused-vars
+const { Model } = require('sequelize'); // eslint-disable-line no-unused-vars
 const config = require('../../user/config');
 let current_presence = -1;
 
@@ -33,12 +31,12 @@ module.exports = class DiscordUtils {
 	}
 
 	/**
-	 * get a guild's settings
-	 * @param {Guild} guild - The Guild
+	 * Fet a guild's settings
+	 * @param {string} id - The guild's ID
 	 * @returns {Promise<Model>}
 	 */
-	async getSettings(guild) {
-		const data = { id: guild.id };
+	async getSettings(id) {
+		const data = { id };
 		const [settings] = await this.client.db.models.Guild.findOrCreate({
 			defaults: data,
 			where: data
@@ -48,11 +46,11 @@ module.exports = class DiscordUtils {
 
 	/**
 	 * Delete a guild's settings
-	 * @param {Guild} guild - The Guild
+	 * @param {string} id - The guild ID
 	 * @returns {Promise<Number>}
 	 */
-	async deleteSettings(guild) {
-		const row = await this.getSettings(guild);
+	async deleteSettings(id) {
+		const row = await this.getSettings(id);
 		return await row.destroy();
 	}
 

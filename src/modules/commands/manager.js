@@ -64,13 +64,13 @@ module.exports = class CommandManager {
 
 	async publish(guild) {
 		if (!guild) {
-			return this.client.guilds.cache.forEach(async guild => {
+			return this.client.guilds.cache.forEach(guild => {
 				this.publish(guild);
 			});
 		}
 
 		try {
-			const commands = this.client.commands.commands.map(command => command.toJSON(guild));
+			const commands = await Promise.all(this.client.commands.commands.map(async command => await command.build(guild)));
 			await this.client.application.commands.set(commands, guild.id);
 			await this.updatePermissions(guild);
 			this.client.log.success(`Published ${this.client.commands.commands.size} commands to "${guild.name}"`);
@@ -83,7 +83,7 @@ module.exports = class CommandManager {
 	async updatePermissions(guild) {
 		guild.commands.fetch().then(async commands => {
 			const permissions = [];
-			const settings = await this.client.utils.getSettings(guild);
+			const settings = await this.client.utils.getSettings(guild.id);
 			const blacklist = [];
 			settings.blacklist.users?.forEach(userId => {
 				blacklist.push({
@@ -148,7 +148,7 @@ module.exports = class CommandManager {
 	 */
 	async handle(interaction) {
 		if (!interaction.guild) return this.client.log.debug('Ignoring non-guild command interaction');
-		const settings = await this.client.utils.getSettings(interaction.guild);
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const command = this.commands.get(interaction.commandName);

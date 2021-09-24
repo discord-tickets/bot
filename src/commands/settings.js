@@ -135,7 +135,7 @@ module.exports = class SettingsCommand extends Command {
 					name: i18n('commands.settings.options.set.name'),
 					options: [
 						{
-							description: i18n('commands.settings.options.set.options.close_button.description') + ' (false)',
+							description: i18n('commands.settings.options.set.options.close_button.description'),
 							name: i18n('commands.settings.options.set.options.close_button.name'),
 							required: false,
 							type: Command.option_types.BOOLEAN
@@ -190,7 +190,7 @@ module.exports = class SettingsCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(interaction) {
-		const settings = await this.client.utils.getSettings(interaction.guild);
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
 

@@ -19,7 +19,7 @@ module.exports = class HelpCommand extends Command {
 	 * @returns {Promise<void|any>}
 	 */
 	async execute(interaction) {
-		const settings = await this.client.utils.getSettings(interaction.guild);
+		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
 		const is_staff = await this.client.utils.isStaff(interaction.member);
