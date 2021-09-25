@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"description": "Die Ticketnummer oder Kanalerwähnung/Kanal ID des zu schließenden Tickets"
-																}
-												},
 												"description": "Schließe einen Ticket-Kanal",
 												"name": "schließen",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "Beschreibung"
-																},
 																"title": {
 																				"name": "Titel"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "Ticket"
-																}
-												},
 												"description": "Entferne einen Benutzer von einem Ticket",
 												"name": "Entfernen",
 												"response": {

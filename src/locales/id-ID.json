@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Tutup sebuah channel tiket",
 												"name": "tutup",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "description"
-																},
 																"title": {
 																				"name": "title"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "tiket"
-																}
-												},
 												"description": "Remove a member from a ticket",
 												"name": "remove",
 												"response": {

@@ -64,11 +64,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"description": "A záró Ticket, akár a szám, akár a csatorna említése/ID-ja"
-																}
-												},
 												"description": "Zárd be a Ticket csatornát",
 												"name": "bezárás",
 												"response": {

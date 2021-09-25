@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"example": "217"
-																}
-												},
 												"description": "Close a ticket channel",
 												"name": "close",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "opis"
-																},
 																"title": {
 																				"name": "tytuł"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "ticket"
-																}
-												},
 												"description": "Usuń osobę z ticketu",
 												"name": "usuń",
 												"response": {

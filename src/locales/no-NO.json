@@ -68,11 +68,6 @@
 												}
 								},
 								"close": {
-												"args": {
-																"ticket": {
-																				"description": "The ticket to close, either the number or the channel mention/ID"
-																}
-												},
 												"description": "Lukke en billettkanal",
 												"name": "lukk",
 												"response": {
@@ -176,9 +171,6 @@
 								},
 								"panel": {
 												"args": {
-																"description": {
-																				"name": "description"
-																},
 																"title": {
 																				"name": "title"
 																}
@@ -193,11 +185,6 @@
 												}
 								},
 								"remove": {
-												"args": {
-																"ticket": {
-																				"name": "billett"
-																}
-												},
 												"description": "Fjern et medlem fra en billett",
 												"name": "fjern",
 												"response": {
