@@ -13,7 +13,7 @@
         "quay.io\/parkervcp\/pterodactyl-images:debian_nodejs-16"
     ],
     "file_denylist": [],
-    "startup": "if [[ ! -z ${VERSION} ]]; then\r\n    echo -e \\\"Using version ${VERSION}\\\";\r\nelse\r\n    echo -e \\\"Please set the VERSION variable \\(e.g. v3.1.0\\)\\\";\r\n    exit 0;\r\nfi;\r\n\r\nif [[ -d .git ]]; then\r\n    git fetch --all --tags;\r\n    git checkout tags\/${VERSION};\r\nfi;\r\n\r\nif [ -f \/home\/container\/package.json ]; then\r\n \/usr\/local\/bin\/npm install --production;\r\nfi;\r\n\r\nif [[ ! -z ${PLUGINS} ]]; then\r\n    \/usr\/local\/bin\/npm install ${PLUGINS} --no-save;\r\nfi;\r\n\r\n\/usr\/local\/bin\/npm start",
+    "startup": "if [[ ! -z ${VERSION} ]]; then\r\n    echo -e \\\"Using version ${VERSION}\\\";\r\nelse\r\n    echo -e \\\"Please set the VERSION variable \\(e.g. v3.1.1\\)\\\";\r\n    exit 0;\r\nfi;\r\n\r\nif [[ -d .git ]]; then\r\n    git fetch --all --tags;\r\n    git checkout tags\/${VERSION};\r\nfi;\r\n\r\nif [ -f \/home\/container\/package.json ]; then\r\n \/usr\/local\/bin\/npm install --production;\r\nfi;\r\n\r\nif [[ ! -z ${PLUGINS} ]]; then\r\n    \/usr\/local\/bin\/npm install ${PLUGINS} --no-save;\r\nfi;\r\n\r\n\/usr\/local\/bin\/npm start",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"Connected to Discord as \",\r\n    \"userInteraction\": [\r\n        \"Please set your bot's \\\"DISCORD_TOKEN\\\" in \\\".\/.env\\\".\"\r\n    ]\r\n}",
@@ -32,7 +32,7 @@
             "name": "Version",
             "description": "The version of the bot to use.",
             "env_variable": "VERSION",
-            "default_value": "v3.1.0",
+            "default_value": "v3.1.1",
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:20"
