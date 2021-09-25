@@ -1,4 +1,5 @@
 {
+				"blacklisted": "❌ Estás na blacklist",
 				"bot": {
 								"missing_permissions": {
 												"description": "Discord Ticket precisa das seguintes permissões:\n%s",
@@ -15,6 +16,16 @@
 								"add": {
 												"description": "Adicionar um membro a um ticket",
 												"name": "adicionar",
+												"options": {
+																"member": {
+																				"description": "O membro para adicionar ao ticket",
+																				"name": "membro"
+																},
+																"ticket": {
+																				"description": "O ticket para adicionar o membro",
+																				"name": "ticket"
+																}
+												},
 												"response": {
 																"added": {
 																				"description": "%s foi adicionado ao %s.",
@@ -37,6 +48,32 @@
 								"blacklist": {
 												"description": "Permite, ou não, um membro de interagir com o bot",
 												"name": "blacklist",
+												"options": {
+																"add": {
+																				"description": "Adiciona um membro ou cargo á blacklist",
+																				"name": "adicionar",
+																				"options": {
+																								"member_or_role": {
+																												"description": "O membro ou cargo para adicionar á blacklist",
+																												"name": "membro_ou_cargo"
+																								}
+																				}
+																},
+																"remove": {
+																				"description": "Remove um membro ou cargo da blacklist",
+																				"name": "remover",
+																				"options": {
+																								"member_or_role": {
+																												"description": "O membro ou cargo para remover da blacklist",
+																												"name": "membro_ou_cargo"
+																								}
+																				}
+																},
+																"show": {
+																				"description": "Mostra os membros e cargos que estão na blacklist",
+																				"name": "mostrar"
+																}
+												},
 												"response": {
 																"empty_list": {
 																				"description": "Não existem mebros ou cargos na blacklist. Escreve `%sblacklist <membroOuCargo>` para adicionao um membro ou cargo á blacklist.",
@@ -46,7 +83,15 @@
 																				"description": "%s é um membro da staff e não pode estar na blacklist.",
 																				"title": "❌ Não podes adicionar este membro á blacklist"
 																},
+																"invalid": {
+																				"description": "Este membro ou cargo não pode ser removido da blacklist visto que não estão na mesma.",
+																				"title": "❌ Erro"
+																},
 																"list": {
+																				"fields": {
+																								"members": "Membros",
+																								"roles": "Cargos"
+																				},
 																				"title": "📃 Membros e cargos na blacklist"
 																},
 																"member_added": {
@@ -70,7 +115,25 @@
 								"close": {
 												"description": "Fecha um ticket",
 												"name": "fechar",
+												"options": {
+																"reason": {
+																				"description": "O motivo para fechar o(s) ticket(s)",
+																				"name": "motivo"
+																},
+																"ticket": {
+																				"description": "O ticket para fechar, ou o número ou o ID do canal",
+																				"name": "ticket"
+																},
+																"time": {
+																				"description": "Fecha todos os tickets que estão inativos pelo tempo fornecido",
+																				"name": "tempo"
+																}
+												},
 												"response": {
+																"canceled": {
+																				"description": "Cancelas-te a operação.",
+																				"title": "🚫 Cancelado"
+																},
 																"closed": {
 																				"description": "O ticket #%s foi fechado.",
 																				"title": "✅ Ticket fechado"
@@ -86,20 +149,31 @@
 																				]
 																},
 																"confirm": {
-																				"description": "Reage com ✅ para fechar este ticket.",
-																				"description_with_archive": "Mais tarde poderás ver uma versão arquivada deste ticket.\nReage com ✅ para fechares este ticket.",
+																				"buttons": {
+																								"cancel": "Cencelar",
+																								"confirm": "Fechar"
+																				},
+																				"description": "Por favor confirma a tua decisão.",
+																				"description_with_archive": "O ticket vai ser arquivado para referências futuras.",
 																				"title": "❔ Tens a certeza?"
 																},
 																"confirm_multiple": {
+																				"buttons": {
+																								"cancel": "Cancelar",
+																								"confirm": [
+																												"Fechar %d ticket",
+																												"Fechar %d tickets"
+																								]
+																				},
 																				"description": [
-																								"Reage com ✅ para fechares %d ticket.",
-																								"Reage com ✅ para fechares %d tickets."
+																								"Estás prestes a fechar %d ticket.",
+																								"Estás prestes a fechar %d tickets."
 																				],
 																				"title": "❔ Tens a certeza?"
 																},
 																"confirmation_timeout": {
 																				"description": "Demoras-te muito tempo para confirmar.",
-																				"title": "❌ Tempo de reação expirado"
+																				"title": "❌ Tempo de interação expirado"
 																},
 																"invalid_time": {
 																				"description": "O período de tempo fornecido não pôde ser analisado.",
@@ -110,7 +184,7 @@
 																				"title": "❌ Sem tickets para fechar"
 																},
 																"not_a_ticket": {
-																				"description": "Use este comando num ticket ou use um ticket flag\nEscreve `%shelp close` para mais informações.",
+																				"description": "Usa este comando num ticket ou use um ticket flag.\nEscreve `/help close` para mais informações.",
 																				"title": "❌ Este canal não é um ticket"
 																},
 																"unresolvable": {
@@ -120,11 +194,11 @@
 												}
 								},
 								"help": {
-												"description": "Lista dos comandos que tens acesso, ou descobre mais informações acerca de um comando",
+												"description": "Lista dos comandos que tens acesso",
 												"name": "ajuda",
 												"response": {
 																"list": {
-																				"description": "Os comandos que tens acesso estão listados em baixo. Para mais informações acerca de um comando, escreve `{prefix}ajuda [comando]`. Para criar um ticket, escreve `{prefix}novo [motivo]`.",
+																				"description": "Os comandos que tens acesso estão listados em baixo. Para criar um ticket, escreve **`/novo`**.",
 																				"fields": {
 																								"commands": "Comandos"
 																				},
@@ -135,9 +209,15 @@
 								"new": {
 												"description": "Cria um novo ticket",
 												"name": "novo",
+												"options": {
+																"topic": {
+																				"description": "O motivo do ticket",
+																				"name": "motivo"
+																}
+												},
 												"request_topic": {
 																"description": "Por favor escreve em poucas palavras o porquê da abertura deste ticket.",
-																"title": "Motivo do Ticket"
+																"title": "⚠️ Motivo do Ticket"
 												},
 												"response": {
 																"created": {
@@ -152,7 +232,7 @@
 																				"title": "❌ Já tens um ticket aberto"
 																},
 																"max_tickets": {
-																				"description": "Por favor usa `%sfechar` para fechares tickets desnecessários.\n\n%s",
+																				"description": "Por favor usa `/fechar` para fechares tickets desnecessários.\n\n%s",
 																				"title": "❌ Já tens %d tickets abertos"
 																},
 																"no_categories": {
@@ -160,33 +240,68 @@
 																				"title": "❌ Não podes criar tickets"
 																},
 																"select_category": {
-																				"description": "Seleciona a categoria em que o teu motivo mais se enquadra:\n\n%s",
+																				"description": "Seleciona a categoria em que o teu motivo mais se enquadra.",
 																				"title": "🔤 Por favor seleciona a categoria do ticket"
 																},
 																"select_category_timeout": {
 																				"description": "Demoras-te muito tempo a selecionar uma categoria.",
-																				"title": "❌ Tempo de reação expirado"
+																				"title": "❌ Tempo de interação expirado"
 																}
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "titulo"
-																}
-												},
 												"description": "Cria um novo painel de ticket",
 												"name": "painel",
+												"options": {
+																"categories": {
+																				"description": "A vírgula separa a lista dos IDs das categorias",
+																				"name": "categorias"
+																},
+																"description": {
+																				"description": "A descrição para a mensagem do painel",
+																				"name": "descrição"
+																},
+																"image": {
+																				"description": "Um link de imagem para a mensagem do painel",
+																				"name": "imagem"
+																},
+																"just_type": {
+																				"description": "Criar um painel \"só escrever\"?",
+																				"name": "so_escrever"
+																},
+																"thumbnail": {
+																				"description": "Um link para a thumbnail da mensagem do painel",
+																				"name": "thumbnail"
+																},
+																"title": {
+																				"description": "O título da mensagem do painel",
+																				"name": "título"
+																}
+												},
 												"response": {
 																"invalid_category": {
 																				"description": "Um ou mais IDs das categorias fornecidas são inválidas.",
 																				"title": "❌ Categoria inválida"
+																},
+																"too_many_categories": {
+																				"description": "O painel \"só escrever\" só pode ser usado para uma categoria.",
+																				"title": "❌ Demasiadas Categorias"
 																}
 												}
 								},
 								"remove": {
 												"description": "Remove um membro de um ticket",
 												"name": "remover",
+												"options": {
+																"member": {
+																				"description": "O membro para remover do ticket",
+																				"name": "membro"
+																},
+																"ticket": {
+																				"description": "O ticket para remover o membro",
+																				"name": "ticket"
+																}
+												},
 												"response": {
 																"no_member": {
 																				"description": "Por favor menciona o membro que queres remover.",
@@ -208,7 +323,135 @@
 								},
 								"settings": {
 												"description": "Configura o Discord Tickets",
-												"name": "definicoes"
+												"name": "definicoes",
+												"options": {
+																"categories": {
+																				"description": "Gere a categoria dos tickets",
+																				"name": "categorias",
+																				"options": {
+																								"create": {
+																												"description": "Cria uma nova categoria",
+																												"name": "criar",
+																												"options": {
+																																"name": {
+																																				"description": "O nome da categoria",
+																																				"name": "nome"
+																																},
+																																"roles": {
+																																				"description": "Uma vírgula separa a lista dos IDs dos cargos de staff para a categoria",
+																																				"name": "cargos"
+																																}
+																												}
+																								},
+																								"delete": {
+																												"description": "Apaga a categoria",
+																												"name": "apagar",
+																												"options": {
+																																"id": {
+																																				"description": "O ID da categoria para apagar",
+																																				"name": "id"
+																																}
+																												}
+																								},
+																								"edit": {
+																												"description": "Faz alterações na configuração de uma categoria",
+																												"name": "editar",
+																												"options": {
+																																"claiming": {
+																																				"description": "Ativar a reivindicação de tickets?",
+																																				"name": "reivindicação"
+																																},
+																																"id": {
+																																				"description": "O ID da categoria para editar",
+																																				"name": "id"
+																																},
+																																"image": {
+																																				"description": "Um link de imagem",
+																																				"name": "imagem"
+																																},
+																																"max_per_member": {
+																																				"description": "O número máximo de tickets que um membro pode ter abertos nesta categoria",
+																																				"name": "max_por_membro"
+																																},
+																																"name": {
+																																				"description": "O nome da categoria",
+																																				"name": "nome"
+																																},
+																																"name_format": {
+																																				"description": "O formato do nome do ticket",
+																																				"name": "formato_do_nome"
+																																},
+																																"opening_message": {
+																																				"description": "O texto para enviar quando um ticket é aberto",
+																																				"name": "mensagem_de_abertura"
+																																},
+																																"ping": {
+																																				"description": "Uma vírgula separa a lista dos IDs dos cargos para mencionar",
+																																				"name": "mencionar"
+																																},
+																																"require_topic": {
+																																				"description": "É necessário o membro dar um motivo do ticket?",
+																																				"name": "motivo_necessario"
+																																},
+																																"roles": {
+																																				"description": "Uma vírgula separa a lista dos IDs do cargo de staff",
+																																				"name": "cargos"
+																																},
+																																"survey": {
+																																				"description": "O questionário para usar",
+																																				"name": "questionário"
+																																}
+																												}
+																								},
+																								"list": {
+																												"description": "Lista de Categorias",
+																												"name": "lista"
+																								}
+																				}
+																},
+																"set": {
+																				"description": "Definir Opções",
+																				"name": "definir",
+																				"options": {
+																								"close_button": {
+																												"description": "Ativar o botão de fechar o ticket?",
+																												"name": "botao_fechar"
+																								},
+																								"colour": {
+																												"description": "A cor padrão",
+																												"name": "cor"
+																								},
+																								"error_colour": {
+																												"description": "A cor de erro",
+																												"name": "cor_erro"
+																								},
+																								"footer": {
+																												"description": "Texto para a legenda do embed",
+																												"name": "legenda"
+																								},
+																								"locale": {
+																												"description": "O locale (idioma/linguagem)",
+																												"name": "linguagem"
+																								},
+																								"log_messages": {
+																												"description": "Guardar mensagens dos tickets?",
+																												"name": "guardar_msg"
+																								},
+																								"success_colour": {
+																												"description": "A cor de sucesso",
+																												"name": "cor_sucesso"
+																								}
+																				}
+																}
+												},
+												"response": {
+																"category_created": "✅ A categoria de ticket `%s` foi criada",
+																"category_deleted": "✅ A categoria de ticket `%s` foi apagada",
+																"category_does_not_exist": "❌ Nenhuma categoria existente tem este ID",
+																"category_list": "Categorias de Tickets",
+																"category_updated": "✅ A categoria do ticket `%s` foi atualizada",
+																"settings_updated": "✅ Definições foram atualizadas"
+												}
 								},
 								"stats": {
 												"description": "Mostra as estatísticas dos tickets",
@@ -235,6 +478,12 @@
 								"survey": {
 												"description": "Vê as respostas do questionário",
 												"name": "questionario",
+												"options": {
+																"survey": {
+																				"description": "O nome do questionário para ver as respostas",
+																				"name": "questionário"
+																}
+												},
 												"response": {
 																"list": {
 																				"title": "📃 Questionários"
@@ -244,6 +493,12 @@
 								"tag": {
 												"description": "Usa uma resposta em tag",
 												"name": "tag",
+												"options": {
+																"tag": {
+																				"description": "O nome da tag para usar",
+																				"name": "tag"
+																}
+												},
 												"response": {
 																"error": "❌ Erro",
 																"list": {
@@ -259,6 +514,12 @@
 								"topic": {
 												"description": "Altera o motivo do ticket",
 												"name": "motivo",
+												"options": {
+																"new_topic": {
+																				"description": "O novo motivo do ticket",
+																				"name": "novo_motivo"
+																}
+												},
 												"response": {
 																"changed": {
 																				"description": "O motivo do ticket foi alterado.",
@@ -274,13 +535,18 @@
 				"message_will_be_deleted_in": "Esta mensagem vai ser apagada daqui a %d segundos",
 				"missing_permissions": {
 								"description": "Não tens permissões suficientes para usar este comando.\n%s",
-								"title": "❌"
+								"title": "❌ Erro"
+				},
+				"panel": {
+								"create_ticket": "Cria um ticket"
 				},
 				"ticket": {
+								"claim": "Reivindicar",
 								"claimed": {
 												"description": "%s reivindicou o ticket.",
 												"title": "✅ Ticket reivindicado"
 								},
+								"close": "Fechar",
 								"closed": {
 												"description": "Este ticket foi fechado.\nO canal vai ser apagado dentro de 5 segundos.",
 												"title": "✅ Ticket fechado"
@@ -306,6 +572,7 @@
 												"title": "Membro removido"
 								},
 								"opening_message": {
+												"content": "%s\n%s criou um novo ticket",
 												"fields": {
 																"topic": "Motivo"
 												}
@@ -324,6 +591,8 @@
 																"description": "Olha, %s. Antes deste canal ser apagado, importas-te de completar um questionário super rápido de %d-question questões? Reage com ✅ para começar, ou ignora esta mensagem.",
 																"title": "❔ Feedback"
 												}
-								}
-				}
+								},
+								"unclaim": "Libertar"
+				},
+				"updated_permissions": "✅ Atualizado permissões dos Slash commands"
 }
