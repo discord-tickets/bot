@@ -23,7 +23,7 @@ module.exports = class TagCommand extends Command {
 							required: true,
 							type: Command.option_types.STRING
 						})),
-					required: false,
+					required: true,
 					type: Command.option_types.SUB_COMMAND
 				}));
 			},
