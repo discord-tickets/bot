@@ -127,7 +127,7 @@ module.exports = class TicketManager extends EventEmitter {
 					.join(', ')
 				: '';
 			const sent = await t_channel.send({
-				components: [components],
+				components: cat_row.claiming || settings.close_button ? [components] : [],
 				content: i18n('ticket.opening_message.content', mentions, creator.user.toString()),
 				embeds: [embed]
 			});
