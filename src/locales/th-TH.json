@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "หัวข้อ"
-																}
-												},
 												"description": "สร้างแผงตั๋วสนับสนุนใหม่",
 												"name": "แผง",
 												"response": {

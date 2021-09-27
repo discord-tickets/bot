@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "tytuł"
-																}
-												},
 												"description": "Tworzenie nowego panelu ticketów",
 												"name": "panel",
 												"response": {

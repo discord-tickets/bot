@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "titel"
-																}
-												},
 												"description": "Opret et nyt billetpanel",
 												"name": "panelet",
 												"response": {

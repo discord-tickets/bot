@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "titel"
-																}
-												},
 												"description": "Een nieuw ticketpaneel maken",
 												"name": "paneel",
 												"response": {

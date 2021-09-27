@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "nadpis"
-																}
-												},
 												"description": "Vytvořit nový ticket panel",
 												"name": "panel",
 												"response": {

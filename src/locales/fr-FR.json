@@ -170,11 +170,6 @@
 												}
 								},
 								"panel": {
-												"args": {
-																"title": {
-																				"name": "titre"
-																}
-												},
 												"description": "Créer un nouveau billet",
 												"name": "panneau",
 												"response": {
