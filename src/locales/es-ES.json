@@ -15,6 +15,14 @@
 								"add": {
 												"description": "Añadir  un miembro al ticket",
 												"name": "añadir",
+												"options": {
+																"member": {
+																				"name": "miembro"
+																},
+																"ticket": {
+																				"name": "ticket"
+																}
+												},
 												"response": {
 																"added": {
 																				"description": "%s ha sido añadido a %s.",
@@ -37,6 +45,30 @@
 								"blacklist": {
 												"description": "Añade o elimina de la lista negra a un miembro, para que no interactúe con el BOT",
 												"name": "blacklist",
+												"options": {
+																"add": {
+																				"description": "Añadir un miembro o rol a la lista negra",
+																				"name": "añadir",
+																				"options": {
+																								"member_or_role": {
+																												"description": "El miembro o rol a añadir a la lista negra"
+																								}
+																				}
+																},
+																"remove": {
+																				"description": "Quitar un miembro o rol de la lista negra",
+																				"name": "quitar",
+																				"options": {
+																								"member_or_role": {
+																												"description": "El miembro o rol a quitar de la lista negra"
+																								}
+																				}
+																},
+																"show": {
+																				"description": "Muestra los miembros y roles que están en la lista negra",
+																				"name": "mostrar"
+																}
+												},
 												"response": {
 																"empty_list": {
 																				"description": "No hay miembros ni roles en la lista negra. Escribe `%sblacklist <memberOrRole>` para añadir a un miembro o rol a esta.",
@@ -46,7 +78,15 @@
 																				"description": "%s es un miembro del personal, por lo tanto no puede ser añadido a la lista negra.",
 																				"title": "❌ No puedes añadir a la lista negra a este miembro"
 																},
+																"invalid": {
+																				"description": "Este miembro o rol no puede ser quitado de la lista negra porque no está dentro de ella.",
+																				"title": "❌ Error"
+																},
 																"list": {
+																				"fields": {
+																								"members": "Miembros",
+																								"roles": "Roles"
+																				},
 																				"title": "📃 Miembros y roles en la lista negra"
 																},
 																"member_added": {
@@ -70,7 +110,25 @@
 								"close": {
 												"description": "Cerrar un canal de ticket",
 												"name": "cerrar",
+												"options": {
+																"reason": {
+																				"description": "El motivo por cerrar el/los ticket(s)",
+																				"name": "motivo"
+																},
+																"ticket": {
+																				"description": "El ticket a cerrar, sea el numero o la ID del canal",
+																				"name": "ticket"
+																},
+																"time": {
+																				"description": "Cerrar todos los tickets que han estado inactivos durante un tiempo determinado",
+																				"name": "tiempo"
+																}
+												},
 												"response": {
+																"canceled": {
+																				"description": "Has cancelado la operación.",
+																				"title": "🚫 Cancelado"
+																},
 																"closed": {
 																				"description": "El ticket #%s fue cerrado.",
 																				"title": "✅ Ticket cerrado"
@@ -86,11 +144,21 @@
 																				]
 																},
 																"confirm": {
+																				"buttons": {
+																								"cancel": "Cancelar",
+																								"confirm": "Cerrar"
+																				},
 																				"description": "Reacciona con ✅ para cerrar este ticket.",
 																				"description_with_archive": "Reacciona con ✅ para cerrar el ticket.\nSerás capaz de ver una versión archivada del mismo después.",
 																				"title": "❔ ¿Estás seguro?"
 																},
 																"confirm_multiple": {
+																				"buttons": {
+																								"cancel": "Cancelar",
+																								"confirm": [
+																												"Cerrar %d tickets"
+																								]
+																				},
 																				"description": [
 																								"Reacciona con ✅ para cerrar el ticket %d.",
 																								"Reacciona con✅ para cerrar los tickets %d."
@@ -172,6 +240,20 @@
 								"panel": {
 												"description": "Crear un nuevo panel de tickets",
 												"name": "panel",
+												"options": {
+																"categories": {
+																				"description": "Una lista separada por comas de IDs de las categorías",
+																				"name": "categorías"
+																},
+																"description": {
+																				"description": "La descripción para el mensaje del panel",
+																				"name": "descripción"
+																},
+																"image": {
+																				"description": "Una URL de imagen para el mensaje del panel",
+																				"name": "imagen"
+																}
+												},
 												"response": {
 																"invalid_category": {
 																				"description": "Una o más de las ID de categoría ingresadas no son válidas.",
