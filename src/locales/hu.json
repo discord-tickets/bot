@@ -1,4 +1,5 @@
 {
+				"blacklisted": "❌Feketelistázva vagy",
 				"bot": {
 								"missing_permissions": {
 												"description": "Discord Ticketek az alábbi engedélyeket igényli:\n%s",
@@ -7,10 +8,24 @@
 								"version": "[Discord Ticketek](%s) v%s által [eartharoid](%s)"
 				},
 				"collector_expires_in": "%d másodperc múlva lejár",
+				"command_execution_error": {
+								"description": "Egy váratlan hiba lépett fel a parancs futtatása közben\nKérj meg egy adminisztrátort hogy nézze meg a parancssort / hibanaplókat további információkért",
+								"title": "⚠️"
+				},
 				"commands": {
 								"add": {
 												"description": "Felhasználó hozzáadása a Hibajegyhez",
 												"name": "hozzáad",
+												"options": {
+																"member": {
+																				"description": "A felhasználó akit hozzá szeretnél adni a Tickethez",
+																				"name": "tag"
+																},
+																"ticket": {
+																				"description": "A Ticket amihez hozzá szeretnéd adni a felhasználót",
+																				"name": "ticket"
+																}
+												},
 												"response": {
 																"added": {
 																				"description": "%s felhasználó hozzáadva %s.",
