@@ -9,7 +9,7 @@
 				},
 				"collector_expires_in": "%d másodperc múlva lejár",
 				"command_execution_error": {
-								"description": "Egy váratlan hiba lépett fel a parancs futtatása közben\nKérj meg egy adminisztrátort hogy nézze meg a parancssort / hibanaplókat további információkért",
+								"description": "Egy váratlan hiba lépett fel a parancs futtatása közben\nKérj meg egy adminisztrátort hogy nézze meg a parancssort / hibanaplókat további információkért.",
 								"title": "⚠️"
 				},
 				"commands": {
@@ -46,18 +46,52 @@
 												}
 								},
 								"blacklist": {
-												"description": "Feketelista/tiltás feloldása a felhasználóknak, hogy ne lépj kapcsolatba a bottal",
+												"description": "A feketelista megtekintése vagy módosítása",
 												"name": "feketelista",
+												"options": {
+																"add": {
+																				"description": "Rang vagy felhasználó hozzáadása a feketelistához",
+																				"name": "hozzáadás",
+																				"options": {
+																								"member_or_role": {
+																												"description": "A feketelistára felveendő felhasználó vagy rang",
+																												"name": "felhazsnálo_vagy_rang"
+																								}
+																				}
+																},
+																"remove": {
+																				"description": "Rang vagy felhasználó eltávolítása a feketelistáról",
+																				"name": "eltávolítás",
+																				"options": {
+																								"member_or_role": {
+																												"description": "A feketelistáról eltávolítandó felhasználó vagy rang",
+																												"name": "felhasználó_vagy_rang"
+																								}
+																				}
+																},
+																"show": {
+																				"description": "Megmutatja a feketelistán szereplő felhasználóka és rangokat",
+																				"name": "megmutatás"
+																}
+												},
 												"response": {
 																"empty_list": {
-																				"description": "Nincsenek felhasználók vagy rangok feketelistán. Írd be a `%sblacklist <felhasználóVagyRang>` parancsot, ha fel szeretnél venni egy felhasználót vagy rangot a feketelistára.",
+																				"description": "Nincsenek felhasználok vagy rangok feketelistán. Írd be a(z) \"/blacklist add\" parancsot, ha felhasználót vagy rangot szeretnél hozzáadni a feketelistához.",
 																				"title": "📃 Feketelistára került felhasználók és rangok"
 																},
 																"illegal_action": {
 																				"description": "%s csapattag, és nem lehet feketelistára tenni.",
 																				"title": "❌ Ezt a felhasználót nem lehet feketelistára tenni"
 																},
+																"invalid": {
+																				"description": "Ez a felhasználó vagy rang nem távolítható el a feketelistáról, mivel nincsenek feketelistán.",
+																				"title": "❌ Hiba"
+																},
 																"list": {
+																				"fields": {
+																								"members": "Felhasználók",
+																								"roles": "Rangok"
+																				},
 																				"title": "📃 Feketelistára került felhasználók és rangok"
 																},
 																"member_added": {
@@ -81,14 +115,33 @@
 								"close": {
 												"description": "Zárd be a Ticket csatornát",
 												"name": "bezárás",
+												"options": {
+																"reason": {
+																				"description": "A ticket lezárásának indoka",
+																				"name": "indok"
+																},
+																"ticket": {
+																				"description": "A záró ticket, akár a szám, akár a csatorna ID",
+																				"name": "ticket"
+																},
+																"time": {
+																				"description": "Zárj be minden ticketet, amely a megadott ideig inaktív volt",
+																				"name": "idő"
+																}
+												},
 												"response": {
+																"canceled": {
+																				"description": "Töröltél a műveletet.",
+																				"title": "🚫 Törölve"
+																},
 																"closed": {
 																				"description": "Ticket #%s lezárva.",
 																				"title": "✅ Ticketek lezárva"
 																},
 																"closed_multiple": {
 																				"description": [
-																								"%d Ticketek lezárták."
+																								"%d Ticketek lezárták.",
+																								"%d ticketet lezárták."
 																				],
 																				"title": [
 																								"✅ Ticket lezárva",
@@ -96,13 +149,153 @@
 																				]
 																},
 																"confirm": {
-																				"description": "Reagálj ezzel a ✅ gombal, hogy lezárd a csatornát.",
-																				"description_with_archive": "Ezt követően megtekintheted annak archivált változatát.\nReagálj a ✅ gombbal, hogy lezárd ezt a Ticketet.",
+																				"buttons": {
+																								"cancel": "Mégse",
+																								"confirm": "Bezárás"
+																				},
+																				"description": "Kérlek, erősítsd meg döntésed.",
+																				"description_with_archive": "A ticketet archiváljuk a későbbi hivatkozás érdekében.",
 																				"title": "❔ Biztos vagy ebben?"
+																},
+																"confirm_multiple": {
+																				"buttons": {
+																								"cancel": "Mégse",
+																								"confirm": [
+																												"%d ticket bezárása",
+																												"%d ticketek bezárása"
+																								]
+																				},
+																				"description": [
+																								"Arra készülsz, hogy lezárod %d ticketét.",
+																								"Arra készülsz, hogy lezárod %d ticketjüket."
+																				],
+																				"title": "❔ Biztos vagy benne?"
 																},
 																"confirmation_timeout": {
 																				"description": "Túl sokáig tartott a megerősítés.",
-																				"title": "❌ A reakcióidő lejárt"
+																				"title": "❌ Az interakciós idő lejárt"
+																},
+																"invalid_time": {
+																				"description": "A megadott időszakot nem lehetett elemezni.",
+																				"title": "❌ Érvénytelen bemenet"
+																},
+																"no_tickets": {
+																				"description": "Nincs olyan ticket, amely inaktív lenne ebben az időszakban.",
+																				"title": "❌Ticketeknek nincs zárható ticketjük"
+																},
+																"not_a_ticket": {
+																				"description": "Kérlek, használd ezt a parancsot egy ticket csatornában, vagy használd a ticket zászlót.\nTovábbi információért írd be a(z) \"/help close\" parancsot.",
+																				"title": "❌ Ez nem ticket csatorna"
+																},
+																"unresolvable": {
+																				"description": "`%s` nem lehet feloldani ticketjét. Kérlek, add meg a ticket ID-ját/említését vagy számát.",
+																				"title": "❌ Hiba"
+																}
+												}
+								},
+								"help": {
+												"description": "Felsorolja azokat a parancsokat, amelyekhez hozzáférsz",
+												"name": "segítség",
+												"response": {
+																"list": {
+																				"description": "Az alábbiakban felsoroljuk a hozzáférhető parancsokat. Ticket létrehozásához írd be a **`/new`** parancsot.",
+																				"fields": {
+																								"commands": "Parancsok"
+																				},
+																				"title": "❔Segítség"
+																}
+												}
+								},
+								"new": {
+												"description": "Új Ticket létrehozása",
+												"name": "új",
+												"options": {
+																"topic": {
+																				"description": "A ticket témája",
+																				"name": "téma"
+																}
+												},
+												"request_topic": {
+																"description": "Kérlek, néhány szóban röviden írd le, miről szól ez a ticket.",
+																"title": "⚠️ Ticket témája"
+												},
+												"response": {
+																"created": {
+																				"description": "Tickete létrehozva: %s.",
+																				"title": "✅ Ticket létrehozva"
+																},
+																"error": {
+																				"title": "❌ Hiba"
+																},
+																"has_a_ticket": {
+																				"description": "Kérlek, használd meglévő ticketed (<#%s>), vagy zárd be, mielőtt újat hozol létre.",
+																				"title": "❌ Már van nyitott ticketed"
+																},
+																"max_tickets": {
+																				"description": "A \"/close\" parancsal zárd be a szükségtelen ticketeket.\n\n%s",
+																				"title": "❌ Már van %d nyitott ticketed"
+																},
+																"no_categories": {
+																				"description": "A szerver adminisztrátorának legalább egy ticket kategóriát kell létrehoznia, mielőtt új ticketet nyithatnál.",
+																				"title": "❌ Nem lehet ticketet létrehozni"
+																},
+																"select_category": {
+																				"description": "Válaszd ki a ticket témájának leginkább megfelelő kategóriáját.",
+																				"title": "🔤 Kérlek, válaszd ki a ticket kategóriáját"
+																},
+																"select_category_timeout": {
+																				"description": "Túl sokáig tartott a ticket kategória kiválasztása.",
+																				"title": "❌ Az interakciós idő lejárt"
+																}
+												}
+								},
+								"panel": {
+												"description": "Hozz létre új ticket panelt",
+												"name": "panel",
+												"options": {
+																"categories": {
+																				"description": "A ID-kat vesszővel elválasztott listája",
+																				"name": "kategóriák"
+																},
+																"description": {
+																				"description": "A panelüzenet leírása",
+																				"name": "leírás"
+																},
+																"image": {
+																				"description": "A panelüzenet kép URL -je",
+																				"name": "kép"
+																},
+																"just_type": {
+																				"description": "Létrehozol egy \"csak típus\" panelt?",
+																				"name": "csak_gépelj"
+																},
+																"thumbnail": {
+																				"description": "A panelüzenet miniatűr képének URL -je",
+																				"name": "miniatűr kép"
+																},
+																"title": {
+																				"description": "A panelüzenet címe",
+																				"name": "cím"
+																}
+												},
+												"response": {
+																"invalid_category": {
+																				"description": "A megadott ID közül egy vagy több érvénytelen.",
+																				"title": "❌ Érvénytelen kategória"
+																},
+																"too_many_categories": {
+																				"description": "A \"csak típus\" panel csak egyetlen kategóriával használható.",
+																				"title": "❌ Túl sok kategória"
+																}
+												}
+								},
+								"remove": {
+												"description": "Felhasználó eltávolítása a ticketből",
+												"name": "eltávolítás",
+												"options": {
+																"member": {
+																				"description": "A felhasználó, hogy távolítsd el a ticketet",
+																				"name": "felhasználó"
 																}
 												}
 								}
