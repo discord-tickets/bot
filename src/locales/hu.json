@@ -202,7 +202,7 @@
 																				"fields": {
 																								"commands": "Parancsok"
 																				},
-																				"title": "❔Segítség"
+																				"title": "❔ Segítség"
 																}
 												}
 								},
@@ -296,8 +296,303 @@
 																"member": {
 																				"description": "A felhasználó, hogy távolítsd el a ticketet",
 																				"name": "felhasználó"
+																},
+																"ticket": {
+																				"description": "Felhasználó eltávolítása a ticketből",
+																				"name": "ticket"
+																}
+												},
+												"response": {
+																"no_member": {
+																				"description": "Kérlek, említsd meg az eltávolítani kívánt felhasználót.",
+																				"title": "❌ Ismeretlen felhasználó"
+																},
+																"no_permission": {
+																				"description": "Nem vagy ennek a ticketnek az alkotója, és nem munkatársa; nem távolíthatsz el a felhasználókat ebből a ticketől.",
+																				"title": "❌ Nincs elegendő engedélyed"
+																},
+																"not_a_ticket": {
+																				"description": "Kérlek, használd ezt a parancsot a ticket csatornában, vagy említsd meg a csatornát.",
+																				"title": "❌ Ez nem ticket csatorna"
+																},
+																"removed": {
+																				"description": "%s eltávolítva innen: %s.",
+																				"title": "✅ Felhasználó eltávolítva"
+																}
+												}
+								},
+								"settings": {
+												"description": "Állítsd be a Discord Ticketeket",
+												"name": "beállítások",
+												"options": {
+																"categories": {
+																				"description": "Kezeld ticket kategóriákat",
+																				"name": "kategóriák",
+																				"options": {
+																								"create": {
+																												"description": "Új kategória létrehozása",
+																												"name": "létrehozás",
+																												"options": {
+																																"name": {
+																																				"description": "A kategória neve",
+																																				"name": "név"
+																																},
+																																"roles": {
+																																				"description": "A kategória személyi szerepkör-ID-nak vesszővel elválasztott listája",
+																																				"name": "rangok"
+																																}
+																												}
+																								},
+																								"delete": {
+																												"description": "Kategória törlése",
+																												"name": "törlés",
+																												"options": {
+																																"id": {
+																																				"description": "A törölni kívánt kategória ID-ja",
+																																				"name": "id"
+																																}
+																												}
+																								},
+																								"edit": {
+																												"description": "Módosítsd a kategória konfigurációját",
+																												"name": "szerkesztés",
+																												"options": {
+																																"claiming": {
+																																				"description": "Engedélyezed a ticket igénylését?",
+																																				"name": "igénylés"
+																																},
+																																"id": {
+																																				"description": "A szerkeszteni kívánt kategória ID-ja",
+																																				"name": "id"
+																																},
+																																"image": {
+																																				"description": "Kép URL",
+																																				"name": "kép"
+																																},
+																																"max_per_member": {
+																																				"description": "Ebben a kategóriában a ticketek maximális száma, amelyet egy felhasználó kaphat",
+																																				"name": "felhasználónként_maximális"
+																																},
+																																"name": {
+																																				"description": "A kategória neve",
+																																				"name": "név"
+																																},
+																																"name_format": {
+																																				"description": "A ticket nevének a formátuma",
+																																				"name": "név_formátum"
+																																},
+																																"opening_message": {
+																																				"description": "A szöveg, amelyet el kell küldeni a ticket kinyitásakor",
+																																				"name": "nyitó_üzenet"
+																																},
+																																"ping": {
+																																				"description": "A pingelni kívánt rang ID vesszővel elválasztott listája",
+																																				"name": "ping"
+																																},
+																																"require_topic": {
+																																				"description": "Követeld a felhasználótól, hogy adja meg a ticket témáját?",
+																																				"name": "témát_igényel"
+																																},
+																																"roles": {
+																																				"description": "A személyzeti rang ID vesszővel elválasztott listája",
+																																				"name": "rangok"
+																																},
+																																"survey": {
+																																				"description": "A felmérés használható",
+																																				"name": "felmérés"
+																																}
+																												}
+																								},
+																								"list": {
+																												"description": "Kategóriák listája",
+																												"name": "lista"
+																								}
+																				}
+																},
+																"set": {
+																				"description": "Beállítások beállítása",
+																				"name": "beállítás",
+																				"options": {
+																								"close_button": {
+																												"description": "Engedélyezed a gombbal történő zárást?",
+																												"name": "záró_gomb"
+																								},
+																								"colour": {
+																												"description": "A standard szín",
+																												"name": "szín"
+																								},
+																								"error_colour": {
+																												"description": "A hiba színe",
+																												"name": "hiba_színe"
+																								},
+																								"footer": {
+																												"description": "A lábléc beágyazása",
+																												"name": "lábléc"
+																								},
+																								"locale": {
+																												"description": "A területi beállítás (nyelv)",
+																												"name": "nyelv"
+																								},
+																								"log_messages": {
+																												"description": "Tárold a ticketekből származó üzeneteket?",
+																												"name": "napló_üzenetek"
+																								},
+																								"success_colour": {
+																												"description": "A siker színe",
+																												"name": "siker_színe"
+																								}
+																				}
+																}
+												},
+												"response": {
+																"category_created": "✅ Létrehozva a(z) `%s` ticket kategória",
+																"category_deleted": "✅ Törölve a(z) `%s` ticket kategória",
+																"category_does_not_exist": "❌ A megadott ID-val nem létezik kategória",
+																"category_list": "Ticket kategóriák",
+																"category_updated": "✅ A(z) `%s` ticket kategória frissítve",
+																"settings_updated": "✅ A beállítások sikeresen frissítve"
+												}
+								},
+								"stats": {
+												"description": "Ticket statisztikák megjelenítése",
+												"fields": {
+																"messages": "Üzenetek",
+																"response_time": {
+																				"minutes": "%s perc",
+																				"title": "Átl. válaszidő"
+																},
+																"tickets": "Ticketek"
+												},
+												"name": "statisztika",
+												"response": {
+																"global": {
+																				"description": "Statisztikák a ticketekről az összes szerveren, ahol ezt a Discord TIcketek példányt használják.",
+																				"title": "📊 Globális statisztika"
+																},
+																"guild": {
+																				"description": "Statisztikák a szerveren belüli ticketekről. Ezeket az adatokat egy órán keresztül tárolja a gyorsítótárban.",
+																				"title": "📊 Szerver statisztikája"
+																}
+												}
+								},
+								"survey": {
+												"description": "Felmérési válaszok megtekintése",
+												"name": "felmérés",
+												"options": {
+																"survey": {
+																				"description": "A válaszok megtekintéséhez szükséges felmérés neve",
+																				"name": "felmérés"
+																}
+												},
+												"response": {
+																"list": {
+																				"title": "📃 Felmérések"
+																}
+												}
+								},
+								"tag": {
+												"description": "Címke válasz használata",
+												"name": "címke",
+												"options": {
+																"tag": {
+																				"description": "A használni kívánt címke neve",
+																				"name": "címke"
+																}
+												},
+												"response": {
+																"error": "❌ Hiba",
+																"list": {
+																				"title": "📃 Címke lista"
+																},
+																"missing": "Ez a címke a következő érveket igényli:\n%s",
+																"not_a_ticket": {
+																				"description": "Ez a címke csak ticket csatornán belül használható, mivel ticket referenciákat használ.",
+																				"title": "❌ Ez nem ticket csatorna"
+																}
+												}
+								},
+								"topic": {
+												"description": "Változtasd meg a ticket témáját",
+												"name": "téma",
+												"options": {
+																"new_topic": {
+																				"description": "A ticket új témája",
+																				"name": "új_téma"
+																}
+												},
+												"response": {
+																"changed": {
+																				"description": "Ennek a ticketnek a témája megváltozott.",
+																				"title": "✅ Téma változtatva"
+																},
+																"not_a_ticket": {
+																				"description": "Kérlek, használd ezt a parancsot a ticket csatornában, amelynek témáját módosítani szeretnéd.",
+																				"title": "❌ Ez nem ticket csatorna"
 																}
 												}
 								}
-				}
+				},
+				"message_will_be_deleted_in": "Ez az üzenet %d másodperc múlva törlődik",
+				"missing_permissions": {
+								"description": "Nem rendelkezel a parancs használatához szükséges jogosultságokkal:\n%s",
+								"title": "❌ Hiba"
+				},
+				"panel": {
+								"create_ticket": "Ticket létrehozása"
+				},
+				"ticket": {
+								"claim": "Igénylés",
+								"claimed": {
+												"description": "%s igényelt egy ticketet.",
+												"title": "✅ Ticket igényelve"
+								},
+								"close": "Bezárás",
+								"closed": {
+												"description": "Ezt a ticketet lezárták.\nA csatorna 5 másodpercen belül törlődik.",
+												"title": "✅ Ticket lezárva"
+								},
+								"closed_by_member": {
+												"description": "Ezt a ticketet lezárta %s.\nA csatorna 5 másodpercen belül törlődik.",
+												"title": "✅ Ticket lezárva"
+								},
+								"closed_by_member_with_reason": {
+												"description": "Ezt a ticketet %s lezárta: ` %s`\nA csatorna 5 másodpercen belül törlődik.",
+												"title": "✅ Ticket lezárva"
+								},
+								"closed_with_reason": {
+												"description": "Ezt a ticketet lezárta: `%s`\nA csatorna 5 másodpercen belül törlődik.",
+												"title": "✅ Ticket lezárva"
+								},
+								"member_added": {
+												"description": "%s hozzáadva %s által",
+												"title": "Felhasználó hozzáadva"
+								},
+								"member_removed": {
+												"description": "%s eltávolítva %s által",
+												"title": "Felhasználó eltávolítva"
+								},
+								"opening_message": {
+												"content": "%s\n%s létrehozott egy új ticketet",
+												"fields": {
+																"topic": "Téma"
+												}
+								},
+								"questions": "Kérlek, válaszolj az alábbi kérdésekre:\n\n%s",
+								"released": {
+												"description": "%s kiadta ezt a ticketet.",
+												"title": "✅ Ticket kiadva"
+								},
+								"survey": {
+												"complete": {
+																"description": "Köszönjük a visszajelzést.",
+																"title": "✅ Köszönjük"
+												},
+												"start": {
+																"description": "Szia, %s. Mielőtt törölnéd ezt a csatornát, szeretnél kitölteni egy gyors %d-question felmérést? Az üzenet elindításához reagálj a ✅ gombbal, vagy hagyd figyelmen kívül ezt az üzenetet.",
+																"title": "❔Visszajelzés"
+												}
+								},
+								"unclaim": "Kiadás"
+				},
+				"updated_permissions": "✅ A Slash parancs engedélyei frissítve"
 }
