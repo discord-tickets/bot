@@ -95,6 +95,7 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 - [reSkybounds](https://reskybounds.com/) ([Discord](https://discord.reskybounds.com/))
 - [Cal#0004](https://discord.com/users/239036926152146944) <!-- @24c4 -->
+- [thephilluk#0204](https://discord.com/users/166187860968472577) <!-- @thephilluk -->
 
 ### Donate
 
