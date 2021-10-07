@@ -179,6 +179,10 @@
 																				"description": "Den angivne tidsperiode kunne ikke parses.",
 																				"title": "❌ Ugyldigt input"
 																},
+																"no_permission": {
+																				"description": "Du er ikke et staff medlem eller skaberen af denne ticket.",
+																				"title": "❌ Der er ikke tilstrækkelig tilladelse"
+																},
 																"no_tickets": {
 																				"description": "Der er ingen tickets, der har været inaktive i denne periode.",
 																				"title": "❌ Ingen tickets til at lukke"
@@ -385,6 +389,10 @@
 																																				"description": "Tekst der skal sendes når en ticket åbnes",
 																																				"name": "opening_message"
 																																},
+																																"opening_questions": {
+																																				"description": "Spørgsmål at stille når en ticket er åbnet.",
+																																				"name": "opening_questions"
+																																},
 																																"ping": {
 																																				"description": "En komma separeret liste over rolle-id'er, der skal pinges",
 																																				"name": "ping"
@@ -588,7 +596,11 @@
 																"title": "✅ Tak skal du have"
 												},
 												"start": {
-																"description": "Hej, %s. Før denne kanal slettes, har du noget imod at gennemføre en hurtig %d-spørgsmålsundersøgelse? Reager med ✅ for at starte, eller ignorer denne besked.",
+																"buttons": {
+																				"ignore": "Nej",
+																				"start": "Start undersøgelse"
+																},
+																"description": "Hej, %s. Før denne kanal slettes, har du noget imod at gennemføre en hurtig %d-spørgsmålsundersøgelse?",
 																"title": "❔ Feedback"
 												}
 								},
