@@ -598,7 +598,11 @@
 				"title": "✅ Thank you"
 			},
 			"start": {
-				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+				"buttons": {
+					"start": "Start survey",
+					"ignore": "No"
+				},
+				"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey?",
 				"title": "❔ Feedback"
 			}
 		},
