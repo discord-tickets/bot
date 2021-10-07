@@ -96,6 +96,12 @@ module.exports = class SettingsCommand extends Command {
 									type: Command.option_types.STRING
 								},
 								{
+									description: i18n('commands.settings.options.categories.options.edit.options.opening_questions.description'),
+									name: i18n('commands.settings.options.categories.options.edit.options.opening_questions.name'),
+									required: false,
+									type: Command.option_types.STRING
+								},
+								{
 									description: i18n('commands.settings.options.categories.options.edit.options.ping.description'),
 									name: i18n('commands.settings.options.categories.options.edit.options.ping.name'),
 									required: false,
@@ -281,6 +287,7 @@ module.exports = class SettingsCommand extends Command {
 			const name = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.name.name'));
 			const name_format = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.name_format.name'));
 			const opening_message = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.opening_message.name'));
+			const opening_questions = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.opening_questions.name'));
 			const ping = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.ping.name'));
 			const require_topic = interaction.options.getBoolean(default_i18n('commands.settings.options.categories.options.edit.options.require_topic.name'));
 			const roles = interaction.options.getString(default_i18n('commands.settings.options.categories.options.edit.options.roles.name'));
@@ -291,6 +298,7 @@ module.exports = class SettingsCommand extends Command {
 			if (name !== null) category.set('name', name);
 			if (name_format !== null) category.set('name_format', name_format);
 			if (opening_message !== null) category.set('opening_message', opening_message);
+			if (opening_questions !== null) category.set('opening_questions', JSON.parse(opening_questions));
 			if (ping !== null) category.set('ping', ping.replace(/\s/g, '').split(','));
 			if (require_topic !== null) category.set('require_topic', require_topic);
 			if (roles !== null) category.set('roles', roles.replace(/\s/g, '').split(','));

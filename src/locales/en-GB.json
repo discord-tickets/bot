@@ -390,6 +390,10 @@
 									"description": "The text to send when a ticket is opened",
 									"name": "opening_message"
 								},
+								"opening_questions": {
+									"description": "Questions to ask when a ticket is opened.",
+									"name": "opening_questions"
+								},
 								"ping": {
 									"description": "A comma-separated list of role IDs to ping",
 									"name": "ping"
