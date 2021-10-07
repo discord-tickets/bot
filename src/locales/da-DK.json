@@ -113,7 +113,7 @@
 												}
 								},
 								"close": {
-												"description": "Lukke en ticketkanal",
+												"description": "Luk en ticketkanal",
 												"name": "close",
 												"options": {
 																"reason": {
@@ -554,13 +554,13 @@
 												"description": "%s har gjort krav på denne ticket.",
 												"title": "✅ Ticket gjort krav på"
 								},
-								"close": "Close",
+								"close": "Luk",
 								"closed": {
 												"description": "Denne ticket er blevet lukket.\nKanalen slettes om 5 sekunder.",
 												"title": "✅ Ticket lukket"
 								},
 								"closed_by_member": {
-												"description": "Denne Ticket er blevet lukket af %s.\nKanalen slettes om 5 sekunder.",
+												"description": "Denne ticket er blevet lukket af %s.\nKanalen slettes om 5 sekunder.",
 												"title": "✅ Ticket lukket"
 								},
 								"closed_by_member_with_reason": {
@@ -582,7 +582,7 @@
 								"opening_message": {
 												"content": "%s\n%s har oprettet en ny ticket",
 												"fields": {
-																"topic": "Topic"
+																"topic": "Emne"
 												}
 								},
 								"questions": "Besvar venligst følgende spørgsmål:\n\n%s",
