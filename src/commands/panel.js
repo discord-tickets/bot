@@ -70,7 +70,7 @@ module.exports = class PanelCommand extends Command {
 		const categories = interaction.options.getString(default_i18n('commands.panel.options.categories.name'))
 			.replace(/\s/g, '')
 			.split(',');
-		const description = interaction.options.getString(default_i18n('commands.panel.options.description.name'));
+		const description = interaction.options.getString(default_i18n('commands.panel.options.description.name'))?.replace(/\\n/g, '\n');
 		const image = interaction.options.getString(default_i18n('commands.panel.options.image.name'));
 		const just_type = interaction.options.getBoolean(default_i18n('commands.panel.options.just_type.name'));
 		const title = interaction.options.getString(default_i18n('commands.panel.options.title.name'));

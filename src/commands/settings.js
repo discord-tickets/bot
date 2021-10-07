@@ -297,7 +297,7 @@ module.exports = class SettingsCommand extends Command {
 			if (image !== null) category.set('image', image);
 			if (name !== null) category.set('name', name);
 			if (name_format !== null) category.set('name_format', name_format);
-			if (opening_message !== null) category.set('opening_message', opening_message);
+			if (opening_message !== null) category.set('opening_message', opening_message.replace(/\\n/g, '\n'));
 			if (opening_questions !== null) category.set('opening_questions', JSON.parse(opening_questions));
 			if (ping !== null) category.set('ping', ping.replace(/\s/g, '').split(','));
 			if (require_topic !== null) category.set('require_topic', require_topic);
