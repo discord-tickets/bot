@@ -23,7 +23,6 @@ module.exports = class TagCommand extends Command {
 							required: true,
 							type: Command.option_types.STRING
 						})),
-					required: true,
 					type: Command.option_types.SUB_COMMAND
 				}));
 			},
@@ -39,11 +38,10 @@ module.exports = class TagCommand extends Command {
 		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const tag_name = interaction.options.getSubcommand();
-		const tag = settings.tags[tag_name];
-		const args = interaction.options.data[0]?.options;
-
-		if (tag) {
+		try {
+			const tag_name = interaction.options.getSubcommand();
+			const tag = settings.tags[tag_name];
+			const args = interaction.options.data[0]?.options;
 			const text = tag.replace(/(?<!\\){{1,2}\s?([A-Za-z0-9._:]+)\s?(?<!\\)}{1,2}/gi, ($, $1) => {
 				const arg = args.find(arg => arg.name === $1);
 				return arg ? arg.value : $;
@@ -56,7 +54,7 @@ module.exports = class TagCommand extends Command {
 				],
 				ephemeral: false
 			});
-		} else {
+		} catch {
 			const list = Object.keys(settings.tags).map(t => `❯ **\`${t}\`**`);
 			return await interaction.reply({
 				embeds: [
@@ -69,6 +67,5 @@ module.exports = class TagCommand extends Command {
 				ephemeral: true
 			});
 		}
-
 	}
 };
