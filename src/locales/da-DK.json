@@ -15,11 +15,11 @@
 				"commands": {
 								"add": {
 												"description": "Tilføj et medlem til en ticket",
-												"name": "tilføj",
+												"name": "add",
 												"options": {
 																"member": {
 																				"description": "Det medlem der skal tilføjes til ticketen",
-																				"name": "medlem"
+																				"name": "member"
 																},
 																"ticket": {
 																				"description": "Den ticket du vil tilføje medlemmet til",
@@ -51,7 +51,7 @@
 												"options": {
 																"add": {
 																				"description": "Tilføj et medlem eller rolle til blacklisten",
-																				"name": "tilføj",
+																				"name": "add",
 																				"options": {
 																								"member_or_role": {
 																												"description": "Det medlem eller rolle du vil tilføje til blacklisten",
@@ -61,7 +61,7 @@
 																},
 																"remove": {
 																				"description": "Fjern et medlem eller rolle fra blacklisten",
-																				"name": "fjern",
+																				"name": "remove",
 																				"options": {
 																								"member_or_role": {
 																												"description": "Det medlem eller rolle du vil fjerne fra blacklisten",
@@ -71,7 +71,7 @@
 																},
 																"show": {
 																				"description": "Vis medlemmer eller roller i blacklisten",
-																				"name": "vis"
+																				"name": "show"
 																}
 												},
 												"response": {
@@ -89,8 +89,8 @@
 																},
 																"list": {
 																				"fields": {
-																								"members": "Medlemmer",
-																								"roles": "Roller"
+																								"members": "Members",
+																								"roles": "Roles"
 																				},
 																				"title": "📃 Blacklistede medlemmer og roller"
 																},
@@ -114,11 +114,11 @@
 								},
 								"close": {
 												"description": "Lukke en ticketkanal",
-												"name": "luk",
+												"name": "close",
 												"options": {
 																"reason": {
 																				"description": "Begrundelse for at lukke ticketen(e)",
-																				"name": "grund"
+																				"name": "reason"
 																},
 																"ticket": {
 																				"description": "Ticketen der skal lukkes, enten ticket nummeret eller kanal ID",
@@ -126,7 +126,7 @@
 																},
 																"time": {
 																				"description": "Luk alle tickets der har været inaktive i den specificeret tid",
-																				"name": "tid"
+																				"name": "time"
 																}
 												},
 												"response": {
@@ -151,7 +151,7 @@
 																"confirm": {
 																				"buttons": {
 																								"cancel": "Annullér",
-																								"confirm": "Luk"
+																								"confirm": "Bekræft"
 																				},
 																				"description": "Venligst bekræft din beslutning.",
 																				"description_with_archive": "Ticketen vil blive arkiveret for fremtidig reference.",
@@ -195,12 +195,12 @@
 								},
 								"help": {
 												"description": "Vis de kommandoer du har adgang til",
-												"name": "hjælp",
+												"name": "help",
 												"response": {
 																"list": {
 																				"description": "De kommandoer, du har adgang til, er angivet nedenfor. Hvis du vil oprette en ticket, skal du skrive **'/new'**.",
 																				"fields": {
-																								"commands": "Kommandoer"
+																								"commands": "commands"
 																				},
 																				"title": "❔ Hjælp"
 																}
@@ -208,11 +208,11 @@
 								},
 								"new": {
 												"description": "Opret en ny ticket",
-												"name": "ny",
+												"name": "new",
 												"options": {
 																"topic": {
 																				"description": "Emnet på ticketen",
-																				"name": "emne"
+																				"name": "topic"
 																}
 												},
 												"request_topic": {
@@ -255,15 +255,15 @@
 												"options": {
 																"categories": {
 																				"description": "En komma separeret liste af kategori ID'er",
-																				"name": "kategorier"
+																				"name": "categories"
 																},
 																"description": {
 																				"description": "Beskrivelsen for panel beskeden",
-																				"name": "beskrivelse"
+																				"name": "description"
 																},
 																"image": {
 																				"description": "Et billed URL for panel beskeden",
-																				"name": "billed"
+																				"name": "image"
 																},
 																"just_type": {
 																				"description": "Lav et \"bare skriv\" panel?",
@@ -271,11 +271,11 @@
 																},
 																"thumbnail": {
 																				"description": "Et miniaturebilled -URL til panel beskeden",
-																				"name": "miniaturebillede"
+																				"name": "thumbnail"
 																},
 																"title": {
 																				"description": "Titlen for panel beskeden",
-																				"name": "titel"
+																				"name": "title"
 																}
 												},
 												"response": {
@@ -291,11 +291,11 @@
 								},
 								"remove": {
 												"description": "Fjerne et medlem fra en ticket",
-												"name": "fjern",
+												"name": "remove",
 												"options": {
 																"member": {
 																				"description": "medlemmet der skal fjernes fra ticketen",
-																				"name": "medlem"
+																				"name": "member"
 																},
 																"ticket": {
 																				"description": "Den ticket du vil fjerne medlemmet fra",
@@ -323,29 +323,29 @@
 								},
 								"settings": {
 												"description": "Konfigurer Discord Tickets",
-												"name": "indstillinger",
+												"name": "settings",
 												"options": {
 																"categories": {
 																				"description": "Administrer dine ticket kategorier",
-																				"name": "kategorier",
+																				"name": "categories",
 																				"options": {
 																								"create": {
 																												"description": "Opret en ny kategori",
-																												"name": "opret",
+																												"name": "create",
 																												"options": {
 																																"name": {
 																																				"description": "Navnet på kategorien",
-																																				"name": "navn"
+																																				"name": "name"
 																																},
 																																"roles": {
 																																				"description": "En komma separeret liste over staff rolle ID'er for denne kategori",
-																																				"name": "roller"
+																																				"name": "roles"
 																																}
 																												}
 																								},
 																								"delete": {
 																												"description": "Slet en kategori",
-																												"name": "slet",
+																												"name": "delete",
 																												"options": {
 																																"id": {
 																																				"description": "ID for den kategori der skal slettes",
@@ -355,11 +355,11 @@
 																								},
 																								"edit": {
 																												"description": "Foretag ændringer i en kategoris konfiguration",
-																												"name": "rediger",
+																												"name": "edit",
 																												"options": {
 																																"claiming": {
 																																				"description": "Vil du aktivere ticket claim?",
-																																				"name": "gør krav på"
+																																				"name": "claiming"
 																																},
 																																"id": {
 																																				"description": "ID for den kategori der skal redigeres",
@@ -367,7 +367,7 @@
 																																},
 																																"image": {
 																																				"description": "Et billed URL",
-																																				"name": "billede"
+																																				"name": "image"
 																																},
 																																"max_per_member": {
 																																				"description": "Det maksimum antal tickets et medlem kan have i denne kategori",
@@ -375,11 +375,11 @@
 																																},
 																																"name": {
 																																				"description": "Kategori navnet",
-																																				"name": "navn"
+																																				"name": "name"
 																																},
 																																"name_format": {
 																																				"description": "Ticket navne format",
-																																				"name": "navne_format"
+																																				"name": "name_format"
 																																},
 																																"opening_message": {
 																																				"description": "Tekst der skal sendes når en ticket åbnes",
@@ -395,11 +395,11 @@
 																																},
 																																"roles": {
 																																				"description": "En komma separeret liste over staff rolle ID'er",
-																																				"name": "roller"
+																																				"name": "roles"
 																																},
 																																"survey": {
 																																				"description": "Undersøgelse der skal bruges",
-																																				"name": "undersøgelse"
+																																				"name": "survey"
 																																}
 																												}
 																								},
@@ -411,7 +411,7 @@
 																},
 																"set": {
 																				"description": "Indstil muligheder",
-																				"name": "indstil",
+																				"name": "set",
 																				"options": {
 																								"close_button": {
 																												"description": "Vil du aktivere lukning med en knap?",
@@ -419,7 +419,7 @@
 																								},
 																								"colour": {
 																												"description": "Standardfarven",
-																												"name": "farve"
+																												"name": "colour"
 																								},
 																								"error_colour": {
 																												"description": "Fejl farven",
@@ -477,11 +477,11 @@
 								},
 								"survey": {
 												"description": "Vis undersøgelsessvar",
-												"name": "undersøgelser",
+												"name": "survey",
 												"options": {
 																"survey": {
 																				"description": "Navnet på den undersøgelse du vil se svar på",
-																				"name": "undersøgelse"
+																				"name": "survey"
 																}
 												},
 												"response": {
@@ -513,7 +513,7 @@
 								},
 								"topic": {
 												"description": "Skift emnet på ticketen",
-												"name": "emne",
+												"name": "topic",
 												"options": {
 																"new_topic": {
 																				"description": "Det nye emne på ticketen",
@@ -541,12 +541,12 @@
 								"create_ticket": "Opret en ticket"
 				},
 				"ticket": {
-								"claim": "Gør krav på",
+								"claim": "Claim",
 								"claimed": {
 												"description": "%s har gjort krav på denne ticket.",
 												"title": "✅ Ticket gjort krav på"
 								},
-								"close": "Luk",
+								"close": "Close",
 								"closed": {
 												"description": "Denne ticket er blevet lukket.\nKanalen slettes om 5 sekunder.",
 												"title": "✅ Ticket lukket"
@@ -574,7 +574,7 @@
 								"opening_message": {
 												"content": "%s\n%s har oprettet en ny ticket",
 												"fields": {
-																"topic": "Emne"
+																"topic": "Topic"
 												}
 								},
 								"questions": "Besvar venligst følgende spørgsmål:\n\n%s",
@@ -592,7 +592,7 @@
 																"title": "❔ Feedback"
 												}
 								},
-								"unclaim": "Frigiv"
+								"unclaim": "unclaim"
 				},
 				"updated_permissions": "✅ Slash kommando tilladelser opdateret"
 }
