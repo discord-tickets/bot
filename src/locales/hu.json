@@ -179,6 +179,10 @@
 																				"description": "A megadott időszakot nem lehetett elemezni.",
 																				"title": "❌ Érvénytelen bemenet"
 																},
+																"no_permission": {
+																				"description": "Nem vagy személyzeti felhasználó vagy ticket gyártója.",
+																				"title": "❌ Nincs elegendő engedélyed"
+																},
 																"no_tickets": {
 																				"description": "Nincs olyan ticket, amely inaktív lenne ebben az időszakban.",
 																				"title": "❌Ticketeknek nincs zárható ticketjük"
@@ -385,6 +389,10 @@
 																																				"description": "A szöveg, amelyet el kell küldeni a ticket kinyitásakor",
 																																				"name": "nyitó_üzenet"
 																																},
+																																"opening_questions": {
+																																				"description": "Kérdések, amelyeket fel kell tenni a ticket kinyitásakor.",
+																																				"name": "nyitó_kérdések"
+																																},
 																																"ping": {
 																																				"description": "A pingelni kívánt rang ID vesszővel elválasztott listája",
 																																				"name": "ping"
@@ -588,7 +596,11 @@
 																"title": "✅ Köszönjük"
 												},
 												"start": {
-																"description": "Szia, %s. Mielőtt törölnéd ezt a csatornát, szeretnél kitölteni egy gyors %d-question felmérést? Az üzenet elindításához reagálj a ✅ gombbal, vagy hagyd figyelmen kívül ezt az üzenetet.",
+																"buttons": {
+																				"ignore": "Nem",
+																				"start": "Indítsd el a felmérést"
+																},
+																"description": "Szia, %s. Mielőtt törölnéd ezt a csatornát, szeretnél kitölteni egy gyors %d-question felmérést?",
 																"title": "❔Visszajelzés"
 												}
 								},
