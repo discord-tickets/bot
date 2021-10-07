@@ -67,9 +67,7 @@ module.exports = class PanelCommand extends Command {
 		const default_i18n = this.client.i18n.getLocale(this.client.config.defaults.locale);  // command properties could be in a different locale
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
-		const categories = interaction.options.getString(default_i18n('commands.panel.options.categories.name'))
-			.replace(/\s/g, '')
-			.split(',');
+		const categories = interaction.options.getString(default_i18n('commands.panel.options.categories.name')).match(/\d{17,19}/g) ?? [];
 		const description = interaction.options.getString(default_i18n('commands.panel.options.description.name'))?.replace(/\\n/g, '\n');
 		const image = interaction.options.getString(default_i18n('commands.panel.options.image.name'));
 		const just_type = interaction.options.getBoolean(default_i18n('commands.panel.options.just_type.name'));
