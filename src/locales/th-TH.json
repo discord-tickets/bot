@@ -15,6 +15,11 @@
 								"add": {
 												"description": "Add a member to a ticket",
 												"name": "add",
+												"options": {
+																"member": {
+																				"name": "สมาชิก"
+																}
+												},
 												"response": {
 																"added": {
 																				"description": "%s has been added to %s.",
@@ -37,6 +42,27 @@
 								"blacklist": {
 												"description": "Blacklist/unblacklist a member from interacting with the bot",
 												"name": "blacklist",
+												"options": {
+																"add": {
+																				"name": "เพิ่ม",
+																				"options": {
+																								"member_or_role": {
+																												"name": "สมาชิกหรือยศ"
+																								}
+																				}
+																},
+																"remove": {
+																				"name": "ลบ",
+																				"options": {
+																								"member_or_role": {
+																												"name": "สมาชิกหรือยศ"
+																								}
+																				}
+																},
+																"show": {
+																				"name": "แสดง"
+																}
+												},
 												"response": {
 																"empty_list": {
 																				"description": "There are no members or roles blacklisted. Type `%sblacklist <memberOrRole>` to add a member or role to the blacklist.",
@@ -46,7 +72,14 @@
 																				"description": "%s is a staff member and cannot be blacklisted.",
 																				"title": "❌ You can't blacklist this member"
 																},
+																"invalid": {
+																				"title": "❌ ผิดพลาด"
+																},
 																"list": {
+																				"fields": {
+																								"members": "สมาชิก",
+																								"roles": "ยศ"
+																				},
 																				"title": "📃 Blacklisted members and roles"
 																},
 																"member_added": {
@@ -70,7 +103,19 @@
 								"close": {
 												"description": "Close a ticket channel",
 												"name": "close",
+												"options": {
+																"reason": {
+																				"name": "สาเหตุ"
+																},
+																"time": {
+																				"name": "เวลา"
+																}
+												},
 												"response": {
+																"canceled": {
+																				"description": "คุณยกเลิกการดำเนินการ",
+																				"title": "🚫 ยกเลิก"
+																},
 																"closed": {
 																				"description": "Ticket #%s has been closed.",
 																				"title": "✅ Ticket closed"
@@ -86,6 +131,10 @@
 																				]
 																},
 																"confirm": {
+																				"buttons": {
+																								"cancel": "ยกเลิก",
+																								"confirm": "ปิด"
+																				},
 																				"description": "React with ✅ to close this ticket.",
 																				"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
 																				"title": "❔ Are you sure?"
