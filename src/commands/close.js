@@ -52,6 +52,19 @@ module.exports = class CloseCommand extends Command {
 		const time = interaction.options.getString(default_i18n('commands.close.options.time.name'));
 
 		if (time) {
+			if (!await this.client.utils.isStaff(interaction.member)) {
+				return await interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.close.response.no_permission.title'))
+							.setDescription(i18n('commands.close.response.no_permission.description'))
+							.setFooter(settings.footer, interaction.guild.iconURL())
+					],
+					ephemeral: true
+				});
+			}
+
 			let period;
 			try {
 				period = ms(time);
@@ -176,7 +189,6 @@ module.exports = class CloseCommand extends Command {
 				});
 			}
 		} else {
-
 			let t_row;
 			if (ticket) {
 				t_row = await this.client.tickets.resolve(ticket, interaction.guild.id);
@@ -206,6 +218,19 @@ module.exports = class CloseCommand extends Command {
 						ephemeral: true
 					});
 				}
+			}
+
+			if (t_row.creator !== interaction.member.id && !await this.client.utils.isStaff(interaction.member)) {
+				return await interaction.reply({
+					embeds: [
+						new MessageEmbed()
+							.setColor(settings.error_colour)
+							.setTitle(i18n('commands.close.response.no_permission.title'))
+							.setDescription(i18n('commands.close.response.no_permission.description'))
+							.setFooter(settings.footer, interaction.guild.iconURL())
+					],
+					ephemeral: true
+				});
 			}
 
 			await interaction.reply({

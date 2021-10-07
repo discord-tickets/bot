@@ -179,6 +179,10 @@
 					"description": "The time period provided could not be parsed.",
 					"title": "❌ Invalid input"
 				},
+				"no_permission": {
+					"description": "You are not a staff member or the ticket creator.",
+					"title": "❌ Insufficient permission"
+				},
 				"no_tickets": {
 					"description": "There are no tickets which have been inactive for this time period.",
 					"title": "❌ No tickets to close"
