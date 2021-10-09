@@ -57,7 +57,13 @@ module.exports = async client => {
 	} catch (error) {
 		client.log.warn('Failed to connect to database');
 		client.log.error(error);
-		return process.exit();
+		let exit = true;
+		switch(type) {
+			case "mysql":
+				exit = require('./createDb')();
+				break;
+		}
+		if (exit) return process.exit();
 	}
 
 	const models = fs.readdirSync(path('./src/database/models'))
