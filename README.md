@@ -64,7 +64,7 @@ It's yours, you have full control.
 | [**Host it yourself**](https://discordtickets.app/getting-started) | [**Managed bot**](https://discordtickets.app/getting-started#managed-hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 |:-:|:-:|:-:|
 | Recommended if you have some experience. | Recommended if you want a bot without hosting it. | Try out the bot for a few days. |
-| [Go to the docs »](https://discordtickets.app/installation) | [Learn more »](https://discordtickets.app/hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| [Go to the docs »](https://discordtickets.app/getting-started) | [Learn more »](https://discordtickets.app/getting-started#managed-hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 
 Discord Tickets is partnered with [PebbleHost](https://discordtickets.app/getting-started#pebblehost). Click on the logo below if you want to self host but you don't have a server. 
 
