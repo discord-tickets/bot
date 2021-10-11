@@ -39,7 +39,13 @@ You can also configure the functionality of the bot to your liking and add comma
 If the bot hasn't already been translated to your (community's) language, you can [translate](https://github.com/discord-tickets/.github/blob/main//CONTRIBUTING.md#translating) it yourself.
 Plugin authors are encouraged to support multiple languages as well.
 
-[![Weblate](https://i18n.capestar.net/widgets/discord-tickets/-/bot/multi-auto.svg)](https://i18n.capestar.net/engage/discord-tickets/)
+
+<details>
+	<summary>Translation status</summary>
+	<a href="https://i18n.capestar.net/engage/discord-tickets/">
+	<img src="https://i18n.capestar.net/widgets/discord-tickets/-/bot/multi-auto.svg" alt="Weblate" />
+	</a>
+</details>
 
 3. **Multiple ticket categories**  
 Each ticket category has its own settings for messages and the support team roles. There's also multiple methods of creating a ticket.
@@ -47,16 +53,22 @@ Each ticket category has its own settings for messages and the support team role
 4. **A beautiful ticket archives portal**  
 **\[COMING SOON\] :** Add the official [Discord Tickets Portal](https://github.com/discord-tickets/portal) plugin for an instant ticket archives website.
 
-1. **Open-source and self-hosted**  
+You can use [text transcripts](https://discordtickets.app/plugins/official/text-transcripts/) whilst you wait for the portal.
+
+5. **Open-source and self-hosted**  
 It's yours, you have full control.
 
 
 ## Getting started
 
-| [**Host it yourself**](https://discordtickets.app/installation) | [**Fully managed hosting**](https://discordtickets.app/hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+| [**Host it yourself**](https://discordtickets.app/getting-started) | [**Fully managed hosting**](https://discordtickets.app/getting-started#managed-hosting) | [**Public test bot**](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
 |:-:|:-:|:-:|
-| Recommended if you have a host and you've done this before. | Recommended if you have no idea what you're doing. | Try out the bot. Not recommended for production use. |
+| Recommended if you have a host and you've done this before. | Recommended if you have no idea what you're doing. | Try out the bot for a few days. |
 | [Go to the docs »](https://discordtickets.app/installation) | [Learn more »](https://discordtickets.app/hosting) | [Add to Discord »](https://discord.com/oauth2/authorize?permissions=8&scope=applications.commands%20bot&client_id=475371285531066368) |
+
+Discord Tickets is partnered with [PebbleHost](https://discordtickets.app/getting-started#pebblehost). Click on the logo below if you want to self host but you don't have a server. 
+
+[![PebbleHost](https://img.eartharoid.me/insecure/rs:auto:180/plain/s3://eartharoid/sharex/21/10/pebblehost.webp)](https://discordtickets.app/getting-started#pebblehost)
 
 ## Documentation
 
