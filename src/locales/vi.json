@@ -1,1 +1,114 @@
-{}
+{
+				"blacklisted": "❌ Bạn đã bị cấm",
+				"bot": {
+								"missing_permissions": {
+												"description": "Discord Tickets yêu cầu các quyền sau:\n%s",
+												"title": "⚠️"
+								},
+								"version": "[Discord Tickets](%s) v%s bởi [eartharoid](%s)"
+				},
+				"collector_expires_in": "Hết hạn trong %d giây",
+				"command_execution_error": {
+								"description": "Một lỗi không mong muốn đã xảy ra trong quá trình thực hiện lệnh.\nVui lòng hỏi một quản trị viên để kiểm tra output từ console / logs để biết thêm chi tiết.",
+								"title": "⚠️"
+				},
+				"commands": {
+								"add": {
+												"description": "Thêm một thành viên vào ticket",
+												"name": "thêm",
+												"options": {
+																"member": {
+																				"description": "Thành viên để thêm vào ticket",
+																				"name": "thành viên"
+																},
+																"ticket": {
+																				"description": "Ticket để thêm thành viên vào",
+																				"name": "ticket"
+																}
+												},
+												"response": {
+																"added": {
+																				"description": "%s đã được thêm vào %s.",
+																				"title": "✅ Đã thêm thành viên"
+																},
+																"no_member": {
+																				"description": "Vui lòng mention thành viên bạn muốn thêm.",
+																				"title": "❌ Thành viên không xác định"
+																},
+																"no_permission": {
+																				"description": "Bạn không phải người tạo ra ticket và bạn cũng không phải là staff; bạn không thể thêm thành viên vào ticket này.",
+																				"title": "❌ Không đủ quyền"
+																},
+																"not_a_ticket": {
+																				"description": "Vui lòng sử dụng lệnh này trong một kênh ticket, hoặc mention tên kênh.",
+																				"title": "❌ Đây không phải là một kênh ticket"
+																}
+												}
+								},
+								"blacklist": {
+												"description": "Xem hoặc sửa đổi danh sách cấm",
+												"name": "danh sách cấm",
+												"options": {
+																"add": {
+																				"description": "Thêm một thành viên hoặc role vào danh sách cấm",
+																				"name": "thêm",
+																				"options": {
+																								"member_or_role": {
+																												"description": "Thành viên hoặc role để thêm vào danh sách cấm"
+																								}
+																				}
+																},
+																"remove": {
+																				"description": "Xóa thành viên hoặc role khỏi danh sách cấm",
+																				"name": "xóa",
+																				"options": {
+																								"member_or_role": {
+																												"description": "Thành viên hoặc role để xóa khỏi danh sách cấm"
+																								}
+																				}
+																},
+																"show": {
+																				"description": "Hiển thị các thành viên và role trong danh sách cấm",
+																				"name": "hiển thị"
+																}
+												},
+												"response": {
+																"empty_list": {
+																				"description": "Không tìm thấy thành viên hoặc role bị cấm. Sử dụng `/blacklist add` để thêm một thành viên hoặc role vào danh sách cấm.",
+																				"title": "📃 Các thành viên và roles trong danh sách cấm"
+																},
+																"illegal_action": {
+																				"description": "%s là một staff và không thể bị cấm.",
+																				"title": "❌ Bạn không thể cấm thành viên này"
+																},
+																"invalid": {
+																				"description": "Thành viên hoặc role này không thể bị xóa khỏi danh sách cấm bởi họ chưa bị cấm.",
+																				"title": "❌ Lỗi"
+																},
+																"list": {
+																				"fields": {
+																								"members": "Các thành viên",
+																								"roles": "Roles"
+																				},
+																				"title": "📃 Các thành viên và roles trong danh sách cấm"
+																},
+																"member_added": {
+																				"description": "<@%s> đã được thêm vào danh sách cấm. Họ sẽ không thể tương tác với bot nữa.",
+																				"title": "✅ Đã thêm thành viên vào danh sách cấm"
+																},
+																"member_removed": {
+																				"description": "<@%s> đã được xóa khỏi danh sách cấm. Họ có thể sử lại bot.",
+																				"title": "✅ Đã xóa thành viên khỏi danh sách cấm"
+																},
+																"role_added": {
+																				"description": "<@&%s> đã được thêm vào danh sách cấm. Các thành viên với role này sẽ không thể tương tác với bot.",
+																				"title": "✅ Đã thêm role vào danh sách cấm"
+																},
+																"role_removed": {
+																				"description": "<@&%s> đã được xóa khỏi danh sách cấm. Các thành viên với role này có thể sử dụng lại bot.",
+																				"title": "✅ Đã xóa role khỏi danh sách cấm"
+																}
+												}
+								}
+				}
+}
