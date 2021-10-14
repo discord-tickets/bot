@@ -9,6 +9,25 @@
 
 <br>
 
+---
+
+<div align="center">
+	<a href="https://discordtickets.app/getting-started#pebblehost">
+		<img src="https://img.eartharoid.me/insecure/rs:auto:180/plain/s3://eartharoid/sharex/21/10/pebblehost.webp"/>
+	</a>
+	<br />
+	<br />
+	<b><a href="https://discordtickets.app/getting-started#pebblehost">Partnered with PebbleHost</a></b>
+	<br>
+	<sub>
+		for cheap bot hosting
+	</sub>
+</div>
+
+---
+
+<br>
+
 ![Discord Tickets](https://img.eartharoid.me/insecure/plain/https://static.eartharoid.me/discord-tickets/logo/wordmark/gradient.png@png)
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
@@ -53,7 +72,7 @@ Each ticket category has its own settings for messages and the support team role
 4. **A beautiful ticket archives portal**  
 **\[COMING SOON\] :** Add the official [Discord Tickets Portal](https://github.com/discord-tickets/portal) plugin for an instant ticket archives website.
 
-You can use [text transcripts](https://discordtickets.app/plugins/official/text-transcripts/) whilst you wait for the portal.
+    You can use [text transcripts](https://discordtickets.app/plugins/official/text-transcripts/) whilst you wait for the portal.
 
 5. **Open-source and self-hosted**  
 It's yours, you have full control.
