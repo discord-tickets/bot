@@ -203,7 +203,7 @@ module.exports = class SettingsCommand extends Command {
 		switch (interaction.options.getSubcommand()) {
 		case default_i18n('commands.settings.options.categories.options.create.name'): {
 			const name = interaction.options.getString(default_i18n('commands.settings.options.categories.options.create.options.name.name'));
-			const roles = interaction.options.getString(default_i18n('commands.settings.options.categories.options.create.options.roles.name'))?.replace(/\s/g, '').split(',');
+			const roles = interaction.options.getString(default_i18n('commands.settings.options.categories.options.create.options.roles.name'))?.match(/\d{17,19}/g) ?? [];
 			const allowed_permissions = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
 			const cat_channel = await interaction.guild.channels.create(name, {
 				permissionOverwrites: [
@@ -299,9 +299,9 @@ module.exports = class SettingsCommand extends Command {
 			if (name_format !== null) category.set('name_format', name_format);
 			if (opening_message !== null) category.set('opening_message', opening_message.replace(/\\n/g, '\n'));
 			if (opening_questions !== null) category.set('opening_questions', JSON.parse(opening_questions));
-			if (ping !== null) category.set('ping', ping.replace(/\s/g, '').split(','));
+			if (ping !== null) category.set('ping', ping.match(/\d{17,19}/g) ?? []);
 			if (require_topic !== null) category.set('require_topic', require_topic);
-			if (roles !== null) category.set('roles', roles.replace(/\s/g, '').split(','));
+			if (roles !== null) category.set('roles', roles.match(/\d{17,19}/g) ?? []);
 			if (survey !== null) category.set('survey', survey);
 			await category.save();
 			interaction.editReply({
