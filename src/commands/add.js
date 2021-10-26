@@ -41,7 +41,7 @@ module.exports = class AddCommand extends Command {
 		const t_row = await this.client.tickets.resolve(channel.id, interaction.guild.id);
 
 		if (!t_row) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -56,7 +56,7 @@ module.exports = class AddCommand extends Command {
 		const member = interaction.options.getMember(default_i18n('commands.add.options.member.name'));
 
 		if (!member) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -69,7 +69,7 @@ module.exports = class AddCommand extends Command {
 		}
 
 		if (t_row.creator !== interaction.member.id && !await this.client.utils.isStaff(interaction.member)) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -81,7 +81,7 @@ module.exports = class AddCommand extends Command {
 			});
 		}
 
-		await interaction.editReply({
+		await interaction.reply({
 			embeds: [
 				new MessageEmbed()
 					.setColor(settings.success_colour)

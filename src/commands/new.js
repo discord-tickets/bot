@@ -58,7 +58,7 @@ module.exports = class NewCommand extends Command {
 						],
 						ephemeral: true
 					};
-					await i ? i.editReply(response) : interaction.editReply(response);
+					await i ? i.editReply(response) : interaction.reply(response);
 				} else {
 					const list = tickets.rows.map(row => {
 						if (row.topic) {
@@ -81,7 +81,7 @@ module.exports = class NewCommand extends Command {
 						],
 						ephemeral: true
 					};
-					await i ? i.editReply(response) : interaction.editReply(response);
+					await i ? i.editReply(response) : interaction.reply(response);
 				}
 			} else {
 				try {
@@ -98,7 +98,7 @@ module.exports = class NewCommand extends Command {
 						],
 						ephemeral: true
 					};
-					await i ? i.editReply(response) : interaction.editReply(response);
+					await i ? i.editReply(response) : interaction.reply(response);
 				} catch (error) {
 					const response = {
 						components: [],
@@ -112,7 +112,7 @@ module.exports = class NewCommand extends Command {
 						],
 						ephemeral: true
 					};
-					await i ? i.editReply(response) : interaction.editReply(response);
+					await i ? i.editReply(response) : interaction.reply(response);
 				}
 			}
 		};
@@ -120,7 +120,7 @@ module.exports = class NewCommand extends Command {
 		const categories = await this.client.db.models.Category.findAndCountAll({ where: { guild: interaction.guild.id } });
 
 		if (categories.count === 0) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -133,7 +133,7 @@ module.exports = class NewCommand extends Command {
 		} else if (categories.count === 1) {
 			create(categories.rows[0]); // skip the category selection
 		} else {
-			await interaction.editReply({
+			await interaction.reply({
 				components: [
 					new MessageActionRow()
 						.addComponents(

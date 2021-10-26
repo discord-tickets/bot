@@ -90,6 +90,6 @@ module.exports = class StatsCommand extends Command {
 			embeds.push(global_embed);
 		}
 
-		await interaction.editReply({ embeds });
+		await interaction.reply({ embeds });
 	}
 };

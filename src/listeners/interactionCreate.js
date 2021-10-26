@@ -23,7 +23,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 		const blacklisted = settings.blacklist.members.includes[interaction.user.id] ||
 			interaction.member?.roles.cache?.some(role => settings.blacklist.roles.includes(role));
 		if (blacklisted) {
-			return interaction.editReply({
+			return interaction.reply({
 				content: i18n('blacklisted'),
 				ephemeral: true
 			});
@@ -34,7 +34,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 
 			if (!cat_row) {
 				this.client.log.warn('Could not find a category with the ID given by a panel interaction');
-				return interaction.editReply({
+				return interaction.reply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -55,7 +55,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 
 			if (tickets.count >= cat_row.max_per_member) {
 				if (cat_row.max_per_member === 1) {
-					return interaction.editReply({
+					return interaction.reply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -76,7 +76,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 							return `<#${row.id}>`;
 						}
 					});
-					return interaction.editReply({
+					return interaction.reply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -91,7 +91,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 			} else {
 				try {
 					const t_row = await this.client.tickets.create(interaction.guild.id, interaction.user.id, id);
-					return interaction.editReply({
+					return interaction.reply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.success_colour)
@@ -104,7 +104,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 					});
 				} catch (error) {
 					this.client.log.error(error);
-					return interaction.editReply({
+					return interaction.reply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -141,7 +141,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 
 				this.client.log.info(`${interaction.user.tag} has claimed "${interaction.channel.name}" in "${interaction.guild.name}"`);
 
-				await interaction.editReply({
+				await interaction.reply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)
@@ -191,7 +191,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 
 				this.client.log.info(`${interaction.user.tag} has released "${interaction.channel.name}" in "${interaction.guild.name}"`);
 
-				await interaction.editReply({
+				await interaction.reply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)
@@ -228,7 +228,7 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 			} else if (interaction.customId.startsWith('ticket.close')) {
 				// handle ticket close button
 				const t_row = await this.client.db.models.Ticket.findOne({ where: { id: interaction.channel.id } });
-				await interaction.editReply({
+				await interaction.reply({
 					components: [
 						new MessageActionRow()
 							.addComponents(

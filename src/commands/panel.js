@@ -75,7 +75,7 @@ module.exports = class PanelCommand extends Command {
 		const thumbnail = interaction.options.getString(default_i18n('commands.panel.options.thumbnail.name'));
 
 		if (just_type && categories.length > 1) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -98,7 +98,7 @@ module.exports = class PanelCommand extends Command {
 		});
 
 		if (invalid_category) {
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -196,7 +196,7 @@ module.exports = class PanelCommand extends Command {
 			}
 		}
 
-		interaction.editReply({
+		interaction.reply({
 			content: `✅ ${panel_channel}`,
 			ephemeral: true
 		});
