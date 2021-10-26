@@ -65,7 +65,7 @@ module.exports = class BlacklistCommand extends Command {
 			const type = member_or_role instanceof Role ? 'role' : 'member';
 
 			if (type === 'member' && await this.client.utils.isStaff(member_or_role)) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -78,7 +78,7 @@ module.exports = class BlacklistCommand extends Command {
 			}
 
 			blacklist[type + 's'].push(member_or_role.id);
-			await interaction.reply({
+			await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)
@@ -97,7 +97,7 @@ module.exports = class BlacklistCommand extends Command {
 			const index = blacklist[type + 's'].findIndex(element => element === member_or_role.id);
 
 			if (index === -1) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -110,7 +110,7 @@ module.exports = class BlacklistCommand extends Command {
 			}
 
 			blacklist[type + 's'].splice(index, 1);
-			await interaction.reply({
+			await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)
@@ -125,7 +125,7 @@ module.exports = class BlacklistCommand extends Command {
 		}
 		case default_i18n('commands.blacklist.options.show.name'): {
 			if (blacklist.members.length === 0 && blacklist.roles.length === 0) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)
@@ -138,7 +138,7 @@ module.exports = class BlacklistCommand extends Command {
 			} else {
 				const members = blacklist.members.map(id => `**·** <@${id}>`);
 				const roles = blacklist.roles.map(id => `**·** <@&${id}>`);
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.colour)

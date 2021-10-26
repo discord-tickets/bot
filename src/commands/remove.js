@@ -41,7 +41,7 @@ module.exports = class RemoveCommand extends Command {
 		const t_row = await this.client.tickets.resolve(channel.id, interaction.guild.id);
 
 		if (!t_row) {
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -56,7 +56,7 @@ module.exports = class RemoveCommand extends Command {
 		const member = interaction.options.getMember(default_i18n('commands.remove.options.member.name'));
 
 		if (!member) {
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -69,7 +69,7 @@ module.exports = class RemoveCommand extends Command {
 		}
 
 		if (t_row.creator !== interaction.user.id && !await this.client.utils.isStaff(interaction.member)) {
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -81,7 +81,7 @@ module.exports = class RemoveCommand extends Command {
 			});
 		}
 
-		await interaction.reply({
+		await interaction.editReply({
 			embeds: [
 				new MessageEmbed()
 					.setColor(settings.success_colour)

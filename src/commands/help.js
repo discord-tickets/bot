@@ -34,7 +34,7 @@ module.exports = class HelpCommand extends Command {
 				: command.description;
 			return `**\`/${command.name}\` ·** ${description}`;
 		});
-		return await interaction.reply({
+		return await interaction.editReply({
 			embeds: [
 				new MessageEmbed()
 					.setColor(settings.colour)

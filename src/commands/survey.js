@@ -90,7 +90,7 @@ module.exports = class SurveyCommand extends Command {
 				`${survey.name}.html`
 			);
 
-			return await interaction.reply({
+			return await interaction.editReply({
 				ephemeral: true,
 				files: [attachment]
 			});
@@ -98,7 +98,7 @@ module.exports = class SurveyCommand extends Command {
 			const surveys = await this.client.db.models.Survey.findAll({ where: { guild: interaction.guild.id } });
 
 			const list = surveys.map(s => `❯ **\`${s.name}\`**`);
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.colour)
