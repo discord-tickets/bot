@@ -54,9 +54,24 @@
 					"name": "hinzufügen",
 					"options": {
 						"member_or_role": {
-							"description": "Mitglied oder Rolle der Blacklist hinzufügen"
+							"description": "Mitglied oder Rolle der Blacklist hinzufügen",
+							"name": "Nutzer_oder_Rolle"
 						}
 					}
+				},
+				"remove": {
+					"description": "Entferne einen Nutzer oder eine Rolle von der Blacklist",
+					"name": "entfernen",
+					"options": {
+						"member_or_role": {
+							"description": "Der Nutzer oder die Rolle zum Entfernen von der Blacklist",
+							"name": "Nutzer_oder_Rolle"
+						}
+					}
+				},
+				"show": {
+					"description": "Zeige die Nutzer und Rollen in der Blacklist",
+					"name": "zeigen"
 				}
 			},
 			"response": {
@@ -68,7 +83,15 @@
 					"description": "%s ist ein Support-Mitglied und kann nicht blockiert werden.",
 					"title": "❌ Sie können kein Support-Mitglied blockieren"
 				},
+				"invalid": {
+					"description": "Dieser Nutzer oder diese Rolle können nicht von der Blacklist entfernt werden, weil sie nicht geblacklisted sind.",
+					"title": "Fehler"
+				},
 				"list": {
+					"fields": {
+						"members": "Nutzer",
+						"roles": "Rollen"
+					},
 					"title": "📃 Blockierte Benutzer und Rollen"
 				},
 				"member_added": {
