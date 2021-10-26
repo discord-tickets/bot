@@ -233,7 +233,7 @@ module.exports = class SettingsCommand extends Command {
 				roles
 			});
 			await this.client.commands.updatePermissions(interaction.guild);
-			interaction.reply({
+			interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)
@@ -249,7 +249,7 @@ module.exports = class SettingsCommand extends Command {
 				const channel = this.client.channels.cache.get(interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')));
 				if (channel) channel.delete();
 				await category.destroy();
-				interaction.reply({
+				interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.success_colour)
@@ -258,7 +258,7 @@ module.exports = class SettingsCommand extends Command {
 					ephemeral: true
 				});
 			} else {
-				interaction.reply({
+				interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -272,7 +272,7 @@ module.exports = class SettingsCommand extends Command {
 		case default_i18n('commands.settings.options.categories.options.edit.name'): {
 			const category = await this.client.db.models.Category.findOne({ where: { id: interaction.options.getString(default_i18n('commands.settings.options.categories.options.delete.options.id.name')) } });
 			if (!category) {
-				return interaction.reply({
+				return interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -304,7 +304,7 @@ module.exports = class SettingsCommand extends Command {
 			if (roles !== null) category.set('roles', roles.match(/\d{17,19}/g) ?? []);
 			if (survey !== null) category.set('survey', survey);
 			await category.save();
-			interaction.reply({
+			interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)
@@ -316,7 +316,7 @@ module.exports = class SettingsCommand extends Command {
 		}
 		case default_i18n('commands.settings.options.categories.options.list.name'): {
 			const categories = await this.client.db.models.Category.findAll({ where: { guild: interaction.guild.id } });
-			await interaction.reply({
+			await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.colour)
@@ -343,7 +343,7 @@ module.exports = class SettingsCommand extends Command {
 			if (log_messages !== null) settings.set('log_messages', log_messages);
 			if (success_colour !== null) settings.set('success_colour', success_colour.toUpperCase());
 			await settings.save();
-			interaction.reply({
+			interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.success_colour)

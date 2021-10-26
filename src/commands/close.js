@@ -53,7 +53,7 @@ module.exports = class CloseCommand extends Command {
 
 		if (time) {
 			if (!await this.client.utils.isStaff(interaction.member)) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -69,7 +69,7 @@ module.exports = class CloseCommand extends Command {
 			try {
 				period = ms(time);
 			} catch {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -89,7 +89,7 @@ module.exports = class CloseCommand extends Command {
 			});
 
 			if (tickets.count === 0) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -100,7 +100,7 @@ module.exports = class CloseCommand extends Command {
 					ephemeral: true
 				});
 			} else {
-				await interaction.reply({
+				await interaction.editReply({
 					components: [
 						new MessageActionRow()
 							.addComponents(
@@ -193,7 +193,7 @@ module.exports = class CloseCommand extends Command {
 			if (ticket) {
 				t_row = await this.client.tickets.resolve(ticket, interaction.guild.id);
 				if (!t_row) {
-					return await interaction.reply({
+					return await interaction.editReply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -207,7 +207,7 @@ module.exports = class CloseCommand extends Command {
 			} else {
 				t_row = await this.client.db.models.Ticket.findOne({ where: { id: interaction.channel.id } });
 				if (!t_row) {
-					return await interaction.reply({
+					return await interaction.editReply({
 						embeds: [
 							new MessageEmbed()
 								.setColor(settings.error_colour)
@@ -221,7 +221,7 @@ module.exports = class CloseCommand extends Command {
 			}
 
 			if (t_row.creator !== interaction.member.id && !await this.client.utils.isStaff(interaction.member)) {
-				return await interaction.reply({
+				return await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor(settings.error_colour)
@@ -233,7 +233,7 @@ module.exports = class CloseCommand extends Command {
 				});
 			}
 
-			await interaction.reply({
+			await interaction.editReply({
 				components: [
 					new MessageActionRow()
 						.addComponents(

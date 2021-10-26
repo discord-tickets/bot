@@ -46,7 +46,7 @@ module.exports = class TagCommand extends Command {
 				const arg = args.find(arg => arg.name === $1);
 				return arg ? arg.value : $;
 			});
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.colour)
@@ -56,7 +56,7 @@ module.exports = class TagCommand extends Command {
 			});
 		} catch {
 			const list = Object.keys(settings.tags).map(t => `❯ **\`${t}\`**`);
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.colour)

@@ -148,6 +148,7 @@ module.exports = class CommandManager {
 	 */
 	async handle(interaction) {
 		if (!interaction.guild) return this.client.log.debug('Ignoring non-guild command interaction');
+		await interaction.deferReply();
 		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
@@ -165,7 +166,7 @@ module.exports = class CommandManager {
 		if (!bot_permissions.has(required_bot_permissions)) {
 			const perms = required_bot_permissions.map(p => `\`${p}\``).join(', ');
 			if (bot_permissions.has('EMBED_LINKS')) {
-				await interaction.reply({
+				await interaction.editReply({
 					embeds: [
 						new MessageEmbed()
 							.setColor('ORANGE')
@@ -174,7 +175,7 @@ module.exports = class CommandManager {
 					]
 				});
 			} else {
-				await interaction.reply({ content: i18n('bot.missing_permissions.description', perms) });
+				await interaction.editReply({ content: i18n('bot.missing_permissions.description', perms) });
 			}
 			return;
 		}
@@ -182,7 +183,7 @@ module.exports = class CommandManager {
 		const missing_permissions = command.permissions instanceof Array && !interaction.member.permissions.has(command.permissions);
 		if (missing_permissions) {
 			const perms = command.permissions.map(p => `\`${p}\``).join(', ');
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -199,7 +200,7 @@ module.exports = class CommandManager {
 		} catch (e) {
 			this.client.log.warn(`An error occurred whilst executing the ${command.name} command`);
 			this.client.log.error(e);
-			await interaction.reply({
+			await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor('ORANGE')

@@ -36,7 +36,7 @@ module.exports = class TopicCommand extends Command {
 		const t_row = await this.client.db.models.Ticket.findOne({ where: { id: interaction.channel.id } });
 
 		if (!t_row) {
-			return await interaction.reply({
+			return await interaction.editReply({
 				embeds: [
 					new MessageEmbed()
 						.setColor(settings.error_colour)
@@ -70,7 +70,7 @@ module.exports = class TopicCommand extends Command {
 			]
 		});
 
-		await interaction.reply({
+		await interaction.editReply({
 			embeds: [
 				new MessageEmbed()
 					.setColor(settings.success_colour)
