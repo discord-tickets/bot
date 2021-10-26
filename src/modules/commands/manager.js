@@ -148,6 +148,7 @@ module.exports = class CommandManager {
 	 */
 	async handle(interaction) {
 		if (!interaction.guild) return this.client.log.debug('Ignoring non-guild command interaction');
+		await interaction.deferReply();
 		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 

@@ -17,8 +17,6 @@ module.exports = class InteractionCreateEventListener extends EventListener {
 	async execute(interaction) {
 		this.client.log.debug(interaction);
 
-		await interaction.deferReply();
-
 		const settings = await this.client.utils.getSettings(interaction.guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
 
