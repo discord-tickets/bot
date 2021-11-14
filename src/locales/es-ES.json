@@ -54,7 +54,8 @@
 					"name": "añadir",
 					"options": {
 						"member_or_role": {
-							"description": "El miembro o rol a añadir a la lista negra"
+							"description": "El miembro o rol a añadir a la lista negra",
+							"name": "miembro o rol"
 						}
 					}
 				},
