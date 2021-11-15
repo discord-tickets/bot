@@ -1,7 +1,8 @@
 {
+	"blacklisted": "❌ Jsi na černé listině",
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets vyžaduje následující oprávnění:\n%s",
+			"description": "Discord Tickets potřebuje následující oprávnění\n%s",
 			"title": "⚠️"
 		},
 		"version": "[Discord Tickets](%s) v%s od [eartharoid](%s)"
@@ -16,7 +17,12 @@
 			"description": "Přidat člena do tiketu",
 			"name": "pridat",
 			"options": {
+				"member": {
+					"description": "Člen k přidání do tiketu",
+					"name": "člen"
+				},
 				"ticket": {
+					"description": "Tiket, do kterého chcete přidat člena",
 					"name": "ticket"
 				}
 			},
@@ -91,6 +97,9 @@
 					]
 				},
 				"confirm": {
+					"buttons": {
+						"confirm": "zavrit"
+					},
 					"description": "Zareagujte pomocí ✅ k uzavření tohoto tiketu.",
 					"description_with_archive": "Později si budete moci zobrazit archivovanou verzi.",
 					"title": "❔ Jste si jistí?"
@@ -281,6 +290,7 @@
 			"description": "%s si vzal tento ticket.",
 			"title": "✅ Ticket vzat"
 		},
+		"close": "Uzavřít",
 		"closed": {
 			"description": "Tento ticket byl uzavřen.\nKanál bude smazán za 5 sekund.",
 			"title": "✅ Ticket uzavřen"
@@ -306,6 +316,7 @@
 			"title": "Člen odebrán"
 		},
 		"opening_message": {
+			"content": "%s\n%s vytvořil nový ticket",
 			"fields": {
 				"topic": "Téma"
 			}
