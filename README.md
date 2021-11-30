@@ -32,6 +32,8 @@
 
 An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
 
+[![ProductHunt](https://api.producthunt.com/widgets/embed-image/v1/review.svg?post_id=321112&theme=light)](https://www.producthunt.com/posts/discord-tickets?utm_source=badge-review&utm_medium=badge&utm_souce=badge-discord-tickets#discussion-body)
+
 ## What is this?
 
 Discord Tickets is a Discord bot for creating and managing ticket channels. It is a free and open-source alternative to the paid "premium" and "white-label" plans of popular ticketing bots, such as [Ticket Tool](https://tickettool.xyz/), [TicketsBot](https://ticketsbot.net/), [Tickety](https://tickety.net/), [Helper.gg](https://helper.gg/), [Helper](https://helper.wtf), and others.
