@@ -115,7 +115,25 @@
 		"close": {
 			"description": "Fermer un canal de billets",
 			"name": "fermer",
+			"options": {
+				"reason": {
+					"description": "La raison de fermer les tickets",
+					"name": "raison"
+				},
+				"ticket": {
+					"description": "Le ticket à fermer, soit le numéro ou l'ID du salon",
+					"name": "ticket"
+				},
+				"time": {
+					"description": "Fermer tous les tickets qui ont été inactifs dans un temps impartis",
+					"name": "temps"
+				}
+			},
 			"response": {
+				"canceled": {
+					"description": "Vous avez annulé l'opération.",
+					"title": "🚫 Annulé"
+				},
 				"closed": {
 					"description": "Le billet #%s a été fermé.",
 					"title": "✅ billet fermé"
@@ -131,31 +149,46 @@
 					]
 				},
 				"confirm": {
+					"buttons": {
+						"cancel": "Annuler",
+						"confirm": "Fermer"
+					},
 					"description": "Veuillez confirmer votre décision.",
 					"description_with_archive": "Le billet sera archivé pour référence future.",
 					"title": "❔ En êtes-vous sûr ?"
 				},
 				"confirm_multiple": {
+					"buttons": {
+						"cancel": "Annuler",
+						"confirm": [
+							"Fermer %d ticket",
+							"Fermer %d tickets"
+						]
+					},
 					"description": [
 						"Vous êtes sur le point de fermer le billet %d.",
-						"Réagissez avec ✅ pour fermer ce billet."
+						"Vous allez supprimer %d tickets, réagissez avec ✅ pour confirmer."
 					],
 					"title": "❔ En êtes-vous sûr ?"
 				},
 				"confirmation_timeout": {
 					"description": "Tu as mis trop de temps à confirmer.",
-					"title": "❌ temps de réaction expiré"
+					"title": "❌ Le temps de réaction a expiré"
 				},
 				"invalid_time": {
 					"description": "La période prévue n’a pas pu être analysée.",
 					"title": "❌ entrée invalide"
+				},
+				"no_permission": {
+					"description": "Vous n'êtes pas un membre du staff ou le créateur du ticket.",
+					"title": "❌ Permissions insuffisantes"
 				},
 				"no_tickets": {
 					"description": "Il n’y a pas de billets inactifs pour cette période.",
 					"title": "❌ pas de billets à fermer"
 				},
 				"not_a_ticket": {
-					"description": "Veuillez utiliser cette commande dans un canal de billetterie ou utiliser le drapeau du billet.\ntype «%sà fermer » pour plus d’informations.",
+					"description": "Veuillez utiliser cette commande dans un salon de ticket ou utilisez le drapeau ticket.\nTapez «/help close» pour plus d’informations.",
 					"title": "❌ Ce n’est pas une chaîne de billets"
 				},
 				"unresolvable": {
@@ -165,11 +198,11 @@
 			}
 		},
 		"help": {
-			"description": "Listez les commandes à qui vous avez accès ou en savoir plus sur une commande",
+			"description": "Listez les commandes dont vous avez accès",
 			"name": "aide",
 			"response": {
 				"list": {
-					"description": "Les commandes auquel vous avez accès sont listées ci-dessous. Pour plus d’informations sur une commande, utilisez «{prefix}help [command]». Pour créer un billet, utilisez «{prefix}new [topic]».",
+					"description": "Les commandes dont vous avez accès sont listées ci-dessous. Pour créer un ticket, tapez **`/new`**",
 					"fields": {
 						"commands": "Commandes"
 					},
@@ -180,9 +213,15 @@
 		"new": {
 			"description": "Créer un nouveau billet",
 			"name": "nouveau",
+			"options": {
+				"topic": {
+					"description": "La sujet du ticket",
+					"name": "sujet"
+				}
+			},
 			"request_topic": {
 				"description": "Veuillez indiquer brièvement l'objet de ce billet en quelques mots.",
-				"title": "Sujet des billets"
+				"title": "⚠️ Sujet du ticket"
 			},
 			"response": {
 				"created": {
@@ -197,7 +236,7 @@
 					"title": "❌ Vous avez déjà un billet ouvert"
 				},
 				"max_tickets": {
-					"description": "S’il vous%s'utiliser «  à proximité » pour fermer tous les billets non utilisés.\n\n%s",
+					"description": "Utilisez **`/close`** pour fermer tous les tickets inutiles.\n\n%s",
 					"title": "❌ Vous avez déjà un billet ouvert"
 				},
 				"no_categories": {
@@ -210,23 +249,63 @@
 				},
 				"select_category_timeout": {
 					"description": "Vous avez mis trop de temps à sélectionner la catégorie de billets.",
-					"title": "❌ temps de réaction expiré"
+					"title": "❌Le temps de réaction a expiré"
 				}
 			}
 		},
 		"panel": {
 			"description": "Créer un nouveau panneau de billet",
 			"name": "panneau",
+			"options": {
+				"categories": {
+					"description": "La liste d'ID de catégorie séparé par des virgules",
+					"name": "catégories"
+				},
+				"description": {
+					"description": "La description du message du panneau d'affichage",
+					"name": "description"
+				},
+				"image": {
+					"description": "L'URL d'une image pour le panneau d'affichage",
+					"name": "image"
+				},
+				"just_type": {
+					"description": "Créer un panneau d'affichage \"juste écrire\"?",
+					"name": "juste_ecrire"
+				},
+				"thumbnail": {
+					"description": "Une URL d'image de bannière pour le panneau d'affichage",
+					"name": "bannière"
+				},
+				"title": {
+					"description": "Le titre du panneau d'affichage",
+					"name": "titre"
+				}
+			},
 			"response": {
 				"invalid_category": {
 					"description": "Un ou plusieurs des ID de catégorie spécifiés sont invalides.",
 					"title": "❌ Catégorie invalide"
+				},
+				"too_many_categories": {
+					"description": "Le panneau d'affichage \"juste écrire\" ne peut être utilisé que dans une seule catégorie.",
+					"title": "❌ Trop de catégories"
 				}
 			}
 		},
 		"remove": {
 			"description": "Retirer un membre d’un billet",
 			"name": "supprimer",
+			"options": {
+				"member": {
+					"description": "Le membre à retirer du ticket",
+					"name": "membre"
+				},
+				"ticket": {
+					"description": "Le ticket où retirer le membre",
+					"name": "ticket"
+				}
+			},
 			"response": {
 				"no_member": {
 					"description": "Veuillez mentionner le membre que vous souhaitez ajouter.",
@@ -248,7 +327,125 @@
 		},
 		"settings": {
 			"description": "Configurer Discord Tickets",
-			"name": "paramètres"
+			"name": "paramètres",
+			"options": {
+				"categories": {
+					"description": "Gérer les catégories des tickets",
+					"name": "catégories",
+					"options": {
+						"create": {
+							"description": "Créez une nouvelle catégorie",
+							"name": "créer",
+							"options": {
+								"name": {
+									"description": "Le nom de la catégorie",
+									"name": "nom"
+								},
+								"roles": {
+									"name": "rôles"
+								}
+							}
+						},
+						"delete": {
+							"description": "Supprimez une catégorie",
+							"name": "supprimer",
+							"options": {
+								"id": {
+									"description": "L'ID de la catégorie a supprimer",
+									"name": "id"
+								}
+							}
+						},
+						"edit": {
+							"description": "Faire des changement sur la configuration d'une catégorie",
+							"name": "éditer",
+							"options": {
+								"claiming": {
+									"description": "Activer la réception d'un ticket ?",
+									"name": "réception"
+								},
+								"id": {
+									"description": "L'ID de la catégorie à éditer",
+									"name": "id"
+								},
+								"image": {
+									"description": "L'URL d'une image",
+									"name": "image"
+								},
+								"max_per_member": {
+									"description": "Le maximum de tickets qu'un membre peut avoir dans cette catégorie",
+									"name": "max_par_membre"
+								},
+								"name": {
+									"description": "Le nom de la catégorie",
+									"name": "nom"
+								},
+								"name_format": {
+									"description": "Le format du nom des tickets",
+									"name": "format_nom"
+								},
+								"opening_message": {
+									"description": "Le texte à envoyer quand un ticket est ouvert",
+									"name": "ouverture_message"
+								},
+								"opening_questions": {
+									"description": "Questions à demander quand un ticket est ouvert.",
+									"name": "questions_ouverture"
+								},
+								"ping": {
+									"name": "ping"
+								},
+								"require_topic": {
+									"description": "Obliger le membre à donner le sujet du ticket ?",
+									"name": "requiert_sujet"
+								},
+								"roles": {
+									"name": "rôles"
+								}
+							}
+						},
+						"list": {
+							"description": "Lister les catégories",
+							"name": "lister"
+						}
+					}
+				},
+				"set": {
+					"description": "Définir les options",
+					"name": "définir",
+					"options": {
+						"close_button": {
+							"description": "Activer la fermeture avec un bouton ?",
+							"name": "fermer_bouton"
+						},
+						"colour": {
+							"description": "La couleur de base",
+							"name": "couleur"
+						},
+						"error_colour": {
+							"description": "La couleur des eurreurs",
+							"name": "couleur_erreur"
+						},
+						"footer": {
+							"description": "Le texte de fin de l'embed",
+							"name": "texte de fin"
+						},
+						"log_messages": {
+							"description": "Stocker les messages des tickets ?",
+							"name": "stocker_messages"
+						},
+						"success_colour": {
+							"description": "La couleur pour la réussite",
+							"name": "couleur_réussite"
+						}
+					}
+				}
+			},
+			"response": {
+				"category_created": "✅ La catégorie de tickets `%s` à été créée",
+				"category_deleted": "✅ La catégorie de tickets `%s` à bien été supprimée",
+				"category_does_not_exist": "❌ La catégorie avec cet ID n'existe pas"
+			}
 		},
 		"stats": {
 			"description": "Afficher les statistiques des billets",
