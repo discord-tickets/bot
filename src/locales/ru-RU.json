@@ -136,7 +136,7 @@
 												"description": "Создание нового тикета",
 												"name": "новый",
 												"request_topic": {
-																"description": "Please briefly state what this ticket is about in a a few words.",
+																"description": "Please briefly state what this ticket is about in a few words.",
 																"title": "Тема тикета"
 												},
 												"response": {
