@@ -115,7 +115,23 @@
 		"close": {
 			"description": "Schließe einen Ticket-Kanal",
 			"name": "schließen",
+			"options": {
+				"reason": {
+					"description": "Der Grund für die Schließung des Tickets",
+					"name": "Grund"
+				},
+				"ticket": {
+					"name": "Ticket"
+				},
+				"time": {
+					"description": "Schließen Sie alle Tickets, die seit der angegebenen Zeit inaktiv sind",
+					"name": "Zeit"
+				}
+			},
 			"response": {
+				"canceled": {
+					"title": "Abgebrochen"
+				},
 				"closed": {
 					"description": "Das Ticket #%s wurde geschlossen.",
 					"title": "✅ Ticket geschlossen"
@@ -131,6 +147,10 @@
 					]
 				},
 				"confirm": {
+					"buttons": {
+						"cancel": "Abbrechen",
+						"confirm": "Schließen"
+					},
 					"description": "Reagiere mit ✅ um das Ticket zu schließen.",
 					"description_with_archive": "Sie können danach eine archivierte Version dieses Tickets ansehen.\nReagieren Sie mit ✅ um das Ticket zu schließen.",
 					"title": "❔ Sind Sie sicher?"
@@ -149,6 +169,10 @@
 				"invalid_time": {
 					"description": "Die eingegebene Zeit konnte nicht verarbeitet werden.",
 					"title": "❌ Ungültige Eingabe"
+				},
+				"no_permission": {
+					"description": "Sie sind kein Teammitglied oder der Ticketersteller",
+					"title": "Unzureichende Rechte"
 				},
 				"no_tickets": {
 					"description": "Es gibt keine inaktiven Tickets für den ausgewählten Zeitraum.",
