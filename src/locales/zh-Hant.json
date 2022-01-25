@@ -1,57 +1,57 @@
 {
-	"blacklisted": "❌ 您已被黑名單",
+	"blacklisted": "❌ 你被列入黑名單，無法開啟客務單",
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets 需要以下權限:\n%s",
+			"description": "客服單需要以下權限:\n%s",
 			"title": "⚠️"
 		},
-		"version": "[Discord Tickets](%s) v%s ，作者: [eartharoid](%s)"
+		"version": "[客服單](%s) v%s 由 [無風團隊工作室](%s)"
 	},
 	"collector_expires_in": "%d 秒後過期",
 	"command_execution_error": {
-		"description": "執行指令時發生錯誤，\n請讓管理員查看控制台日誌以獲取詳細信息。",
+		"description": "執行指令時發生錯誤，\n請讓管理員查看控制台日誌以獲取詳細信息",
 		"title": "⚠️"
 	},
 	"commands": {
 		"add": {
 			"description": "將用戶加入到客服單",
-			"name": "加入",
+			"name": "add",
 			"options": {
 				"member": {
 					"description": "要加入到客服單的用戶",
-					"name": "用戶"
+					"name": "member"
 				},
 				"ticket": {
 					"description": "將用戶加入到的客服單",
-					"name": "客服單"
+					"name": "ticket"
 				}
 			},
 			"response": {
 				"added": {
-					"description": "%s 已加入到 %s。",
+					"description": "%s 已加入到 %s",
 					"title": "✅ 已加入用戶"
 				},
 				"no_member": {
-					"description": "請標註您要加入的用戶。",
+					"description": "請標註您要加入的用戶",
 					"title": "❌ 未知用戶"
 				},
 				"no_permission": {
-					"description": "您不是管理人員，無法向此客務單加入用戶。",
+					"description": "您不是管理人員，無法向此客務單加入用戶",
 					"title": "❌ 權限不足"
 				},
 				"not_a_ticket": {
-					"description": "請在客服單頻道中使用此指令，或標註該頻道。",
+					"description": "請在客服單頻道中使用此指令，或標註該頻道",
 					"title": "❌ 這不是客服單頻道"
 				}
 			}
 		},
 		"blacklist": {
 			"description": "查看或修改黑名單",
-			"name": "黑名單",
+			"name": "blacklist",
 			"options": {
 				"add": {
 					"description": "將用戶或身分組列入到黑名單",
-					"name": "加入",
+					"name": "add",
 					"options": {
 						"member_or_role": {
 							"description": "要列入到黑名單的用戶或身分組",
@@ -61,7 +61,7 @@
 				},
 				"remove": {
 					"description": "從黑名單中移除用戶或身分組",
-					"name": "移除",
+					"name": "remove",
 					"options": {
 						"member_or_role": {
 							"description": "要從黑名單中移除的用戶或身分組",
@@ -71,7 +71,7 @@
 				},
 				"show": {
 					"description": "顯示黑名單中的用戶和身分組",
-					"name": "查看"
+					"name": "show"
 				}
 			},
 			"response": {
@@ -95,53 +95,53 @@
 					"title": "📃 黑名單用戶和身分組"
 				},
 				"member_added": {
-					"description": "<@%s> 已加入到黑名單，他將不能再開啟客服單。",
+					"description": "<@%s> 已加入到黑名單，他將不能再開啟客服單",
 					"title": "✅ 已將用戶列入到黑名單"
 				},
 				"member_removed": {
-					"description": "<@%s> 已從黑名單中移除，他可以開啟客服單了。",
+					"description": "<@%s> 已從黑名單中移除，他可以開啟客服單了",
 					"title": "✅ 已將用戶從黑名單中移除"
 				},
 				"role_added": {
-					"description": "<@&%s> 已列入黑名單，有此身分組的用戶將無法再開啟客服單。",
+					"description": "<@&%s> 已列入黑名單，有此身分組的用戶將無法再開啟客服單",
 					"title": "✅ 已將身分組列入到黑名單"
 				},
 				"role_removed": {
-					"description": "<@&%s> 已從黑名單中移除。 有此身分組的用戶現在可以開啟客服單了。",
+					"description": "<@&%s> 已從黑名單中移除。 有此身分組的用戶現在可以開啟客服單了",
 					"title": "✅ 已將身分組從黑名單中移除"
 				}
 			}
 		},
 		"close": {
 			"description": "關閉客服單頻道",
-			"name": "關閉",
+			"name": "close",
 			"options": {
 				"reason": {
 					"description": "關閉客服單的原因",
-					"name": "原因"
+					"name": "reason"
 				},
 				"ticket": {
 					"description": "要關閉客服單的頻道 ID",
-					"name": "客服單"
+					"name": "ticket"
 				},
 				"time": {
 					"description": "關閉所有在指定時間內處於非活動狀態的客服單",
-					"name": "時間"
+					"name": "time"
 				}
 			},
 			"response": {
 				"canceled": {
-					"description": "您取消了這個操作。",
+					"description": "您取消了這個操作",
 					"title": "🚫 取消"
 				},
 				"closed": {
-					"description": "客服單 #%s 已關閉。",
+					"description": "客服單 #%s 已關閉",
 					"title": "✅ 關閉客服單"
 				},
 				"closed_multiple": {
 					"description": [
-						"%d 個客服單已關閉。",
-						"%d 個客服單已關閉。"
+						"%d 個客服單已關閉",
+						"%d 個客服單已關閉"
 					],
 					"title": [
 						"✅ 關閉客服單",
@@ -153,8 +153,8 @@
 						"cancel": "取消",
 						"confirm": "關閉"
 					},
-					"description": "請確認您的操作。",
-					"description_with_archive": "此客服單將被保存備份。",
+					"description": "請確認您的操作!",
+					"description_with_archive": "此客服單將被保存備份",
 					"title": "❔ 你確定?"
 				},
 				"confirm_multiple": {
@@ -166,129 +166,129 @@
 						]
 					},
 					"description": [
-						"您即將關閉 %d 個客服單。",
-						"您即將關閉 %d 個客服單。"
+						"您即將關閉 %d 個客服單",
+						"您即將關閉 %d 個客服單"
 					],
 					"title": "❔ 你確定?"
 				},
 				"confirmation_timeout": {
-					"description": "你確認的時間太長了。",
+					"description": "你確認的時間太長了",
 					"title": "❌ 確認時間已過"
 				},
 				"invalid_time": {
-					"description": "無法解析提供的時間段。",
+					"description": "無法解析提供的時間段",
 					"title": "❌ 輸入無效"
 				},
 				"no_permission": {
-					"description": "您不是管理人員。",
+					"description": "您不是管理人員",
 					"title": "❌ 權限不足"
 				},
 				"no_tickets": {
-					"description": "沒有在此時間段內處於非活動狀態的客服單。",
+					"description": "沒有在此時間段內處於非活動狀態的客服單",
 					"title": "❌ 沒有客服單可以關閉"
 				},
 				"not_a_ticket": {
-					"description": "請在客服頻道中使用此指令，\n輸入`/help close`來獲取更多資訊。",
-					"title": "❌這不是客服單頻道"
+					"description": "請在客服頻道中使用此指令，\n輸入`/help close`來獲取更多資訊",
+					"title": "❌ 這不是客服單頻道"
 				},
 				"unresolvable": {
-					"description": "`%s` 無法解析為客服單，請提供客服單 ID或標註。",
+					"description": "`%s` 無法解析為客服單，請提供客服單 ID或標註",
 					"title": "❌ 錯誤"
 				}
 			}
 		},
 		"help": {
 			"description": "列出您有權使用的指令",
-			"name": "幫助",
+			"name": "help",
 			"response": {
 				"list": {
-					"description": "下面列出了您可以使用的指令，要創建客服單，請鍵入 **`/new`**。",
+					"description": "下面列出了您可以使用的指令，要創建客服單，請鍵入 **`/new`**",
 					"fields": {
 						"commands": "指令"
 					},
-					"title": "幫助"
+					"title": "❔ 幫助"
 				}
 			}
 		},
 		"new": {
 			"description": "創建客服單",
-			"name": "新",
+			"name": "new",
 			"options": {
 				"topic": {
 					"description": "想要詢問的問題或需要的幫助",
-					"name": "問題"
+					"name": "topic"
 				}
 			},
 			"request_topic": {
-				"description": "有甚麼問題需要我們的幫助呢還是想詢問服務呢。",
-				"title": "⚠️ ️ 詢問客服"
+				"description": "有甚麼問題需要我們的幫助呢還是想詢問服務呢",
+				"title": "⚠️ 客服詢問"
 			},
 			"response": {
 				"created": {
-					"description": "您的客服單已創建，它在這裡 ➤ %s。",
-					"title": "✅ 客服單已創建"
+					"description": "您的客服單已創建，它在這裡 ➤ %s",
+					"title": "✅ 客服單已創建!"
 				},
 				"error": {
 					"title": "❌ 錯誤"
 				},
 				"has_a_ticket": {
-					"description": "請使用您現有的客服單 (<#%s>) 或在創建另一個客服單之前將其關閉。",
+					"description": "請使用您現有的客服單 (<#%s>) 或在創建另一個客服單之前將其關閉",
 					"title": "❌ 您已經有一張客服單"
 				},
 				"max_tickets": {
-					"description": "請使用`/close`來關閉你不需要使用的客服單\n\n%s",
+					"description": "請通知管理人員來關閉您的客服單",
 					"title": "❌ 您已經有 %d 張尚未結束的客服單"
 				},
 				"no_categories": {
-					"description": "管理人員必須先創建一個客服單分類才能打開新的客服單。",
+					"description": "管理人員必須先創建一個客服單分類才能打開新的客服單",
 					"title": "❌ 無法創建客服單"
 				},
 				"select_category": {
-					"description": "選擇與您的客服單問題最相關的分類。",
+					"description": "選擇與您的客服單問題最相關的分類",
 					"title": "🔤 請選擇客服單分類"
 				},
 				"select_category_timeout": {
-					"description": "您選擇客服單分類的時間過長。",
+					"description": "您選擇客服單分類的時間過長",
 					"title": "❌ 選擇時間已過"
 				}
 			}
 		},
 		"panel": {
-			"description": "創建新的客服單面板",
-			"name": "面板",
+			"description": "創建新的客服單開啟介面",
+			"name": "panel",
 			"options": {
 				"categories": {
 					"description": "使用逗號來增加分類 ID",
-					"name": "分類"
+					"name": "categories"
 				},
 				"description": {
-					"description": "開啟面板資訊",
-					"name": "資訊"
+					"description": "開啟介面資訊",
+					"name": "description"
 				},
 				"image": {
-					"description": "開啟面板的圖片網址",
-					"name": "圖片"
+					"description": "開啟介面的圖片網址",
+					"name": "image"
 				},
 				"just_type": {
-					"description": "創建一個\\\"只需輸入\\\"面板?",
+					"description": "創建一個\"只需輸入\"面板?",
 					"name": "just_type"
 				},
 				"thumbnail": {
-					"description": "開啟面板資訊的縮圖網址",
+					"description": "開啟介面資訊的縮圖網址",
 					"name": "thumbnail"
 				},
 				"title": {
-					"description": "開啟面板的標題",
-					"name": "標題"
+					"description": "開啟介面的標題",
+					"name": "title"
 				}
 			},
 			"response": {
 				"invalid_category": {
-					"description": "一個或多個指定的分類 ID 無效。",
+					"description": "一個或多個指定的分類 ID 無效",
 					"title": "❌ 分類無效"
 				},
 				"too_many_categories": {
-					"description": "\\\"只需鍵入\\\"介面只能用於單個分類。",
+					"description": "\"只需鍵入\"介面只能用於單個分類",
 					"title": "❌ 分類太多"
 				}
 			}
@@ -299,57 +299,57 @@
 			"options": {
 				"member": {
 					"description": "要從客服單中移除的用戶",
-					"name": "用戶"
+					"name": "member"
 				},
 				"ticket": {
 					"description": "刪除用戶的客服單",
-					"name": "客服單"
+					"name": "ticket"
 				}
 			},
 			"response": {
 				"no_member": {
-					"description": "請標註您要移除的用戶。",
+					"description": "請標註您要移除的用戶",
 					"title": "❌ 未知用戶"
 				},
 				"no_permission": {
-					"description": "您不是管理人員，您不能從此客服單中移除用戶。",
+					"description": "您不是管理人員，您不能從此客服單中移除用戶",
 					"title": "❌ 權限不足"
 				},
 				"not_a_ticket": {
-					"description": "請在客服單頻道中使用此指令，或標註該頻道。",
+					"description": "請在客服單頻道中使用此指令，或標註該頻道",
 					"title": "❌ 這不是客服單頻道"
 				},
 				"removed": {
-					"description": "%s 已從 %s 中移除。",
+					"description": "%s 已從 %s 中移除",
 					"title": "✅ 已移除用戶"
 				}
 			}
 		},
 		"settings": {
 			"description": "設定客服單系統",
-			"name": "設定",
+			"name": "settings",
 			"options": {
 				"categories": {
 					"description": "管理您的客服單分類",
-					"name": "分類",
+					"name": "categories",
 					"options": {
 						"create": {
 							"description": "創建一個新分類",
-							"name": "創建",
+							"name": "create",
 							"options": {
 								"name": {
 									"description": "分類名稱",
-									"name": "名稱"
+									"name": "name"
 								},
 								"roles": {
 									"description": "此分類的管理人員身分組 ID ，使用逗號做分隔",
-									"name": "身分組"
+									"name": "roles"
 								}
 							}
 						},
 						"delete": {
 							"description": "刪除分類",
-							"name": "刪除",
+							"name": "delete",
 							"options": {
 								"id": {
 									"description": "要刪除分類的 ID",
@@ -359,7 +359,7 @@
 						},
 						"edit": {
 							"description": "更改分類的設定",
-							"name": "編輯",
+							"name": "edit",
 							"options": {
 								"claiming": {
 									"description": "開啟客服單?",
@@ -371,7 +371,7 @@
 								},
 								"image": {
 									"description": "圖片網址",
-									"name": "圖片"
+									"name": "image"
 								},
 								"max_per_member": {
 									"description": "用戶在此分類中可以開啟的最大客服單數量",
@@ -379,7 +379,7 @@
 								},
 								"name": {
 									"description": "分類名稱",
-									"name": "名稱"
+									"name": "name"
 								},
 								"name_format": {
 									"description": "客服單格式",
@@ -474,11 +474,11 @@
 			"name": "stats",
 			"response": {
 				"global": {
-					"description": "使用此客服單系統的所有群組的客服單統計資訊。",
+					"description": "使用此客服單系統的所有群組的客服單統計資訊",
 					"title": "📊 所有群組客服單統計資訊"
 				},
 				"guild": {
-					"description": "該群組內的客服單統計，此資料將儲存1小時。",
+					"description": "該群組內的客服單統計，此資料將儲存1小時",
 					"title": "📊 此群組的統計資訊"
 				}
 			}
@@ -514,7 +514,7 @@
 				},
 				"missing": "此標註需要以下參數:\n%s",
 				"not_a_ticket": {
-					"description": "此標註只能在客服單頻道中使用，因為它使用客服單參考。",
+					"description": "此標註只能在客服單頻道中使用，因為它使用客服單參考",
 					"title": "❌ 這不是客服單頻道"
 				}
 			}
@@ -534,7 +534,7 @@
 					"title": "✅ 問題已更改"
 				},
 				"not_a_ticket": {
-					"description": "請在您要更改問題的客服單頻道中使用此指令。",
+					"description": "請在您要更改問題的客服單頻道中使用此指令",
 					"title": "❌ 這不是客服單頻道"
 				}
 			}
@@ -556,15 +556,15 @@
 		},
 		"close": "關閉",
 		"closed": {
-			"description": "此客服單已關閉。\n此頻道將在 5 秒後刪除。",
+			"description": "此客服單已關閉，\n此頻道將在 5 秒後刪除",
 			"title": "✅ 客服單已關閉"
 		},
 		"closed_by_member": {
-			"description": "此客服單已被 %s 關閉，\n此頻道將在 5 秒後刪",
+			"description": "此客服單已被 %s 關閉，\n此頻道將在 5 秒後刪除",
 			"title": "✅ 客服單已關閉"
 		},
 		"closed_by_member_with_reason": {
-			"description": "此客服單已被 %s 關閉：`%s`\n此頻道將在 5 秒後被刪",
+			"description": "此客服單已被 %s 關閉：`%s`\n此頻道將在 5 秒後被刪除",
 			"title": "✅ 客服單已關閉"
 		},
 		"closed_with_reason": {
@@ -587,12 +587,12 @@
 		},
 		"questions": "請回答以下問題:\n\n%s",
 		"released": {
-			"description": "%s 已完成此客服單。",
+			"description": "%s 已完成此客服單",
 			"title": "✅ 客服單完成"
 		},
 		"survey": {
 			"complete": {
-				"description": "感謝您的意見調查。",
+				"description": "感謝您的意見調查",
 				"title": "✅ 感謝您"
 			},
 			"start": {
@@ -600,7 +600,7 @@
 					"ignore": "不要",
 					"start": "開始意見調查"
 				},
-				"description": "您好，%s。在刪除此客服單之前，您介意完成一個快速的 %d 意見調查嗎?",
+				"description": "您好，%s\n在刪除此客服單之前，您介意完成一個快速的 %d 意見調查嗎?",
 				"title": "❔ 意見調查"
 			}
 		},
