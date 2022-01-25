@@ -1,1 +1,610 @@
-{}
+{
+	"blacklisted": "❌ 你被列入黑名单，无法开启客务单",
+	"bot": {
+		"missing_permissions": {
+			"description": "客服单需要以下权限:\n%s",
+			"title": "⚠️"
+		},
+		"version": "[客服单](%s) v%s 由 [无风团队工作室](%s)"
+	},
+	"collector_expires_in": "%d 秒后过期",
+	"command_execution_error": {
+		"description": "执行指令时发生错误，\n请让管理员查看控制台日志以获取详细信息",
+		"title": "⚠️"
+	},
+	"commands": {
+		"add": {
+			"description": "将用户加入到客服单",
+			"name": "add",
+			"options": {
+				"member": {
+					"description": "要加入到客服单的用户",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "将用户加入到的客服单",
+					"name": "ticket"
+				}
+			},
+			"response": {
+				"added": {
+					"description": "%s 已加入到 %s",
+					"title": "✅ 已加入用户"
+				},
+				"no_member": {
+					"description": "请标注您要加入的用户",
+					"title": "❌ 未知用户"
+				},
+				"no_permission": {
+					"description": "您不是管理人员，无法向此客务单加入用户",
+					"title": "❌ 权限不足"
+				},
+				"not_a_ticket": {
+					"description": "请在客服单频道中使用此指令，或标注该频道",
+					"title": "❌ 这不是客服单频道"
+				}
+			}
+		},
+		"blacklist": {
+			"description": "查看或修改黑名单",
+			"name": "blacklist",
+			"options": {
+				"add": {
+					"description": "将用户或身分组列入到黑名单",
+					"name": "add",
+					"options": {
+						"member_or_role": {
+							"description": "要列入到黑名单的用户或身分组",
+							"name": "member_or_role"
+						}
+					}
+				},
+				"remove": {
+					"description": "从黑名单中移除用户或身分组",
+					"name": "remove",
+					"options": {
+						"member_or_role": {
+							"description": "要从黑名单中移除的用户或身分组",
+							"name": "member_or_role"
+						}
+					}
+				},
+				"show": {
+					"description": "显示黑名单中的用户和身分组",
+					"name": "show"
+				}
+			},
+			"response": {
+				"empty_list": {
+					"description": "没有用户或身分组被列入黑名单，请输入 `/blacklist add` 将用户或身分组加入到黑名单",
+					"title": "📃 黑名单用户和身分组"
+				},
+				"illegal_action": {
+					"description": "%s 是一位管理人员，不能被列入黑名单",
+					"title": "❌ 您不能将此用户列入黑名单"
+				},
+				"invalid": {
+					"description": "此用户或身分组未列入黑名单，因此无法从黑名单中移除",
+					"title": "❌ 错误"
+				},
+				"list": {
+					"fields": {
+						"members": "用户",
+						"roles": "身分组"
+					},
+					"title": "📃 黑名单用户和身分组"
+				},
+				"member_added": {
+					"description": "<@%s> 已加入到黑名单，他将不能再开启客服单",
+					"title": "✅ 已将用户列入到黑名单"
+				},
+				"member_removed": {
+					"description": "<@%s> 已从黑名单中移除，他可以开启客服单了",
+					"title": "✅ 已将用户从黑名单中移除"
+				},
+				"role_added": {
+					"description": "<@&%s> 已列入黑名单，有此身分组的用户将无法再开启客服单",
+					"title": "✅ 已将身分组列入到黑名单"
+				},
+				"role_removed": {
+					"description": "<@&%s> 已从黑名单中移除。 有此身分组的用户现在可以开启客服单了",
+					"title": "✅ 已将身分组从黑名单中移除"
+				}
+			}
+		},
+		"close": {
+			"description": "关闭客服单频道",
+			"name": "close",
+			"options": {
+				"reason": {
+					"description": "关闭客服单的原因",
+					"name": "reason"
+				},
+				"ticket": {
+					"description": "要关闭客服单的频道 ID",
+					"name": "ticket"
+				},
+				"time": {
+					"description": "关闭所有在指定时间内处于非活动状态的客服单",
+					"name": "time"
+				}
+			},
+			"response": {
+				"canceled": {
+					"description": "您取消了这个操作",
+					"title": "🚫 取消"
+				},
+				"closed": {
+					"description": "客服单 #%s 已关闭",
+					"title": "✅ 关闭客服单"
+				},
+				"closed_multiple": {
+					"description": [
+						"%d 个客服单已关闭",
+						"%d 个客服单已关闭"
+					],
+					"title": [
+						"✅ 关闭客服单",
+						"✅ 关闭客服单"
+					]
+				},
+				"confirm": {
+					"buttons": {
+						"cancel": "取消",
+						"confirm": "关闭"
+					},
+					"description": "请确认您的操作!",
+					"description_with_archive": "此客服单将被保存备份",
+					"title": "❔ 你确定?"
+				},
+				"confirm_multiple": {
+					"buttons": {
+						"cancel": "取消",
+						"confirm": [
+							"关闭 %d 客服单",
+							"关闭 %d 客服单"
+						]
+					},
+					"description": [
+						"您即将关闭 %d 个客服单",
+						"您即将关闭 %d 个客服单"
+					],
+					"title": "❔ 你确定?"
+				},
+				"confirmation_timeout": {
+					"description": "你确认的时间太长了",
+					"title": "❌ 确认时间已过"
+				},
+				"invalid_time": {
+					"description": "无法解析提供的时间段",
+					"title": "❌ 输入无效"
+				},
+				"no_permission": {
+					"description": "您不是管理人员",
+					"title": "❌ 权限不足"
+				},
+				"no_tickets": {
+					"description": "没有在此时间段内处于非活动状态的客服单",
+					"title": "❌ 没有客服单可以关闭"
+				},
+				"not_a_ticket": {
+					"description": "请在客服频道中使用此指令，\n输入`/help close`来获取更多资讯",
+					"title": "❌ 这不是客服单频道"
+				},
+				"unresolvable": {
+					"description": "`%s` 无法解析为客服单，请提供客服单 ID或标注",
+					"title": "❌ 错误"
+				}
+			}
+		},
+		"help": {
+			"description": "列出您有权使用的指令",
+			"name": "help",
+			"response": {
+				"list": {
+					"description": "下面列出了您可以使用的指令，要创建客服单，请键入 **`/new`**",
+					"fields": {
+						"commands": "指令"
+					},
+					"title": "❔ 帮助"
+				}
+			}
+		},
+		"new": {
+			"description": "创建客服单",
+			"name": "new",
+			"options": {
+				"topic": {
+					"description": "想要询问的问题或需要的帮助",
+					"name": "topic"
+				}
+			},
+			"request_topic": {
+				"description": "有什么问题需要我们的帮助呢还是想询问服务呢",
+				"title": "⚠️ 客服询问"
+			},
+			"response": {
+				"created": {
+					"description": "您的客服单已创建，它在这里 ➤ %s",
+					"title": "✅ 客服单已创建!"
+				},
+				"error": {
+					"title": "❌ 错误"
+				},
+				"has_a_ticket": {
+					"description": "请使用您现有的客服单 (<#%s>) 或在创建另一个客服单之前将其关闭",
+					"title": "❌ 您已经有一张客服单"
+				},
+				"max_tickets": {
+					"description": "请通知管理人员来关闭您的客服单",
+					"title": "❌ 您已经有 %d 张尚未结束的客服单"
+				},
+				"no_categories": {
+					"description": "管理人员必须先创建一个客服单分类才能打开新的客服单",
+					"title": "❌ 无法创建客服单"
+				},
+				"select_category": {
+					"description": "选择与您的客服单问题最相关的分类",
+					"title": "🔤 请选择客服单分类"
+				},
+				"select_category_timeout": {
+					"description": "您选择客服单分类的时间过长",
+					"title": "❌ 选择时间已过"
+				}
+			}
+		},
+		"panel": {
+			"description": "创建新的客服单开启介面",
+			"name": "panel",
+			"options": {
+				"categories": {
+					"description": "使用逗号来增加分类 ID",
+					"name": "categories"
+				},
+				"description": {
+					"description": "开启介面资讯",
+					"name": "description"
+				},
+				"image": {
+					"description": "开启介面的图片网址",
+					"name": "image"
+				},
+				"just_type": {
+					"description": "创建一个\"只需输入\"面板?",
+					"name": "just_type"
+				},
+				"thumbnail": {
+					"description": "开启介面资讯的缩图网址",
+					"name": "thumbnail"
+				},
+				"title": {
+					"description": "开启介面的标题",
+					"name": "title"
+				}
+			},
+			"response": {
+				"invalid_category": {
+					"description": "一个或多个指定的分类 ID 无效",
+					"title": "❌ 分类无效"
+				},
+				"too_many_categories": {
+					"description": "\"只需键入\"介面只能用于单个分类",
+					"title": "❌ 分类太多"
+				}
+			}
+		},
+		"remove": {
+			"description": "从客服单中移除用户",
+			"name": "remove",
+			"options": {
+				"member": {
+					"description": "要从客服单中移除的用户",
+					"name": "member"
+				},
+				"ticket": {
+					"description": "删除用户的客服单",
+					"name": "ticket"
+				}
+			},
+			"response": {
+				"no_member": {
+					"description": "请标注您要移除的用户",
+					"title": "❌ 未知用户"
+				},
+				"no_permission": {
+					"description": "您不是管理人员，您不能从此客服单中移除用户",
+					"title": "❌ 权限不足"
+				},
+				"not_a_ticket": {
+					"description": "请在客服单频道中使用此指令，或标注该频道",
+					"title": "❌ 这不是客服单频道"
+				},
+				"removed": {
+					"description": "%s 已从 %s 中移除",
+					"title": "✅ 已移除用户"
+				}
+			}
+		},
+		"settings": {
+			"description": "设定客服单系统",
+			"name": "settings",
+			"options": {
+				"categories": {
+					"description": "管理您的客服单分类",
+					"name": "categories",
+					"options": {
+						"create": {
+							"description": "创建一个新分类",
+							"name": "create",
+							"options": {
+								"name": {
+									"description": "分类名称",
+									"name": "name"
+								},
+								"roles": {
+									"description": "此分类的管理人员身分组 ID ，使用逗号做分隔",
+									"name": "roles"
+								}
+							}
+						},
+						"delete": {
+							"description": "删除分类",
+							"name": "delete",
+							"options": {
+								"id": {
+									"description": "要删除分类的 ID",
+									"name": "id"
+								}
+							}
+						},
+						"edit": {
+							"description": "更改分类的设定",
+							"name": "edit",
+							"options": {
+								"claiming": {
+									"description": "开启客服单?",
+									"name": "claiming"
+								},
+								"id": {
+									"description": "要编辑的分类的 ID",
+									"name": "id"
+								},
+								"image": {
+									"description": "图片网址",
+									"name": "image"
+								},
+								"max_per_member": {
+									"description": "用户在此分类中可以开启的最大客服单数量",
+									"name": "max_per_member"
+								},
+								"name": {
+									"description": "分类名称",
+									"name": "name"
+								},
+								"name_format": {
+									"description": "客服单格式",
+									"name": "name_format"
+								},
+								"opening_message": {
+									"description": "打开客服单时要发送的讯息",
+									"name": "opening_message"
+								},
+								"opening_questions": {
+									"description": "开启客服单时要问的问题",
+									"name": "opening_questions"
+								},
+								"ping": {
+									"description": "要标注的身分组 ID ，使用逗号做分隔",
+									"name": "ping"
+								},
+								"require_topic": {
+									"description": "要求用户在开启客服单时询问问题?",
+									"name": "require_topic"
+								},
+								"roles": {
+									"description": "以逗号做分隔，管理人员身分组 ID 列表",
+									"name": "roles"
+								},
+								"survey": {
+									"description": "开启意见调查",
+									"name": "survey"
+								}
+							}
+						},
+						"list": {
+							"description": "列出分类",
+							"name": "list"
+						}
+					}
+				},
+				"set": {
+					"description": "设定选项",
+					"name": "set",
+					"options": {
+						"close_button": {
+							"description": "使用按钮开启和关闭?",
+							"name": "close_button"
+						},
+						"colour": {
+							"description": "标准颜色",
+							"name": "colour"
+						},
+						"error_colour": {
+							"description": "错误颜色",
+							"name": "error_colour"
+						},
+						"footer": {
+							"description": "嵌入页脚文字",
+							"name": "footer"
+						},
+						"locale": {
+							"description": "系统语言",
+							"name": "locale"
+						},
+						"log_messages": {
+							"description": "储存客服单的讯息?",
+							"name": "log_messages"
+						},
+						"success_colour": {
+							"description": "成功的颜色",
+							"name": "success_colour"
+						}
+					}
+				}
+			},
+			"response": {
+				"category_created": "✅ `%s` 客服单分类已创建",
+				"category_deleted": "✅ `%s` 客服单分类已被删除",
+				"category_does_not_exist": "❌ 提供的 ID 不存在分类",
+				"category_list": "客服单分类",
+				"category_updated": "✅ `%s` 客服单分类已更新",
+				"settings_updated": "✅ 设定已更新"
+			}
+		},
+		"stats": {
+			"description": "显示客服单统计资讯",
+			"fields": {
+				"messages": "讯息",
+				"response_time": {
+					"minutes": "%s 分钟",
+					"title": "平均回应时间"
+				},
+				"tickets": "客服单"
+			},
+			"name": "stats",
+			"response": {
+				"global": {
+					"description": "使用此客服单系统的所有群组的客服单统计资讯",
+					"title": "📊 所有群组客服单统计资讯"
+				},
+				"guild": {
+					"description": "该群组内的客服单统计，此资料将储存1小时",
+					"title": "📊 此群组的统计资讯"
+				}
+			}
+		},
+		"survey": {
+			"description": "查看意见调查回复",
+			"name": "survey",
+			"options": {
+				"survey": {
+					"description": "用于查看回复的意见调查的名称",
+					"name": "survey"
+				}
+			},
+			"response": {
+				"list": {
+					"title": "📃 意见调查"
+				}
+			}
+		},
+		"tag": {
+			"description": "使用标注来回应",
+			"name": "tag",
+			"options": {
+				"tag": {
+					"description": "要使用的标注名称",
+					"name": "tag"
+				}
+			},
+			"response": {
+				"error": "❌ 错误",
+				"list": {
+					"title": "📃 标注列表"
+				},
+				"missing": "此标注需要以下参数:\n%s",
+				"not_a_ticket": {
+					"description": "此标注只能在客服单频道中使用，因为它使用客服单参考",
+					"title": "❌ 这不是客服单频道"
+				}
+			}
+		},
+		"topic": {
+			"description": "更改客服单问题",
+			"name": "topic",
+			"options": {
+				"new_topic": {
+					"description": "客服单新问题",
+					"name": "new_topic"
+				}
+			},
+			"response": {
+				"changed": {
+					"description": "此客服单的问题已更改",
+					"title": "✅ 问题已更改"
+				},
+				"not_a_ticket": {
+					"description": "请在您要更改问题的客服单频道中使用此指令",
+					"title": "❌ 这不是客服单频道"
+				}
+			}
+		}
+	},
+	"message_will_be_deleted_in": "此讯息将在 %d 秒后删除",
+	"missing_permissions": {
+		"description": "您没有使用此指令所需的权限:\n%s",
+		"title": "❌ 错误"
+	},
+	"panel": {
+		"create_ticket": "创建客服单"
+	},
+	"ticket": {
+		"claim": "要求",
+		"claimed": {
+			"description": "%s 已领取这张客服单",
+			"title": "✅ 已领取客服单"
+		},
+		"close": "关闭",
+		"closed": {
+			"description": "此客服单已关闭，\n此频道将在 5 秒后删除",
+			"title": "✅ 客服单已关闭"
+		},
+		"closed_by_member": {
+			"description": "此客服单已被 %s 关闭，\n此频道将在 5 秒后删除",
+			"title": "✅ 客服单已关闭"
+		},
+		"closed_by_member_with_reason": {
+			"description": "此客服单已被 %s 关闭：`%s`\n此频道将在 5 秒后被删除",
+			"title": "✅ 客服单已关闭"
+		},
+		"closed_with_reason": {
+			"description": "此客服单已关闭，`%s`\n此频道将在 5 秒后删除",
+			"title": "✅ 客服单已关闭"
+		},
+		"member_added": {
+			"description": "%s 已被 %s 加入",
+			"title": "已加入用户"
+		},
+		"member_removed": {
+			"description": "%s 已被 %s 移除",
+			"title": "已移除用户"
+		},
+		"opening_message": {
+			"content": "%s\n%s 已创建新客服单",
+			"fields": {
+				"topic": "问题"
+			}
+		},
+		"questions": "请回答以下问题:\n\n%s",
+		"released": {
+			"description": "%s 已完成此客服单",
+			"title": "✅ 客服单完成"
+		},
+		"survey": {
+			"complete": {
+				"description": "感谢您的意见调查",
+				"title": "✅ 感谢您"
+			},
+			"start": {
+				"buttons": {
+					"ignore": "不要",
+					"start": "开始意见调查"
+				},
+				"description": "您好，%s\n在删除此客服单之前，您介意完成一个快速的 %d 意见调查吗?",
+				"title": "❔ 意见调查"
+			}
+		},
+		"unclaim": "传送"
+	},
+	"updated_permissions": "✅ /指令权限已更新"
+}
