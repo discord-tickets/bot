@@ -246,7 +246,19 @@
 					"description": "Eine oder mehrere der angegebenen Kategorie IDs sind nicht gültig.",
 					"title": "❌ Ungültige Kategorie"
 				}
-			}
+			},
+			"create_a_ticket": "Erstelle ein Ticket",
+			"create_ticket": "ticket-erstellen",
+			"reason": {
+				"message_panel": "${interaction.user.tag} hat ein neues Nachrichten Panel erstellt",
+				"panel": "${interaction.user.tag} hat ein neues Panel erstellt"
+			},
+			"log": {
+				"message_panel": "${interaction.user.tag} hat ein neues Nachrichten Panel erstellt",
+				"button_panel": "${interaction.user.tag} hat ein neues Schalterpanel erstellt",
+				"select_panel": "${interaction.user.tag} hat ein neues Wahlpanel erstellt"
+			},
+			"select_a_categorie": "Wähle eine Kategorie"
 		},
 		"remove": {
 			"description": "Entferne einen Benutzer von einem Ticket",
@@ -389,6 +401,7 @@
 				"description": "Hey, %s. Möchten Sie eine kurze %d-question Umfrage ausfüllen bevor dieser Kanal gelöscht wird? Reagieren Sie einfach mit ✅ um zu starten, oder ignorieren Sie diese Nachricht.",
 				"title": "❔ Feedback"
 			}
-		}
+		},
+		"close": "Schließen"
 	}
 }
