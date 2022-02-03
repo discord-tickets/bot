@@ -110,7 +110,7 @@ module.exports = class PanelCommand extends Command {
 			});
 		}
 
-		let panel_channel;
+		let panel_channel = interaction.guild.channels.cache.find(ch => ch.name === i18n('commands.panel.create_ticket'))
 
 		const embed = new MessageEmbed()
 			.setColor(settings.colour)
@@ -122,43 +122,47 @@ module.exports = class PanelCommand extends Command {
 		if (thumbnail) embed.setThumbnail(thumbnail);
 
 		if (just_type) {
-			panel_channel = await interaction.guild.channels.create('create-a-ticket', {
-				permissionOverwrites: [
-					{
-						allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'],
-						deny: ['ATTACH_FILES', 'EMBED_LINKS', 'ADD_REACTIONS'],
-						id: interaction.guild.roles.everyone
-					},
-					{
-						allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
-						id: this.client.user.id
-					}
-				],
-				position: 1,
-				rateLimitPerUser: 30,
-				reason: `${interaction.user.tag} created a new message panel`,
-				type: 'GUILD_TEXT'
-			});
-			await panel_channel.send({ embeds: [embed] });
-			this.client.log.info(`${interaction.user.tag} has created a new message panel`);
+			if (!interaction.guild.channels.cache.find(ch => ch.name === i18n('commands.panel.create_ticket'))) {
+				panel_channel = await interaction.guild.channels.create(i18n('commands.panel.create_ticket'), {
+					permissionOverwrites: [
+						{
+							allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'],
+							deny: ['ATTACH_FILES', 'EMBED_LINKS', 'ADD_REACTIONS'],
+							id: interaction.guild.roles.everyone
+						},
+						{
+							allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
+							id: this.client.user.id
+						}
+					],
+					position: 1,
+					rateLimitPerUser: 30,
+					reason: i18n('commands.panel.reason.message_panel'),
+					type: 'GUILD_TEXT'
+				});
+				await panel_channel.send({ embeds: [embed] });
+				this.client.log.info(``);
+				this.client.log.info(i18n('commands.panel.log.message_panel'));
+			}
 		} else {
-			panel_channel = await interaction.guild.channels.create('create-a-ticket', {
-				permissionOverwrites: [
-					{
-						allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'],
-						deny: ['SEND_MESSAGES', 'ADD_REACTIONS'],
-						id: interaction.guild.roles.everyone
-					},
-					{
-						allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
-						id: this.client.user.id
-					}
-				],
-				position: 1,
-				reason: `${interaction.user.tag} created a new panel`,
-				type: 'GUILD_TEXT'
-			});
-
+			if (!interaction.guild.channels.cache.find(ch => ch.name === i18n('commands.panel.create_ticket'))) {
+				panel_channel = await interaction.guild.channels.create(i18n('commands.panel.create_ticket'), {
+					permissionOverwrites: [
+						{
+							allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'],
+							deny: ['SEND_MESSAGES', 'ADD_REACTIONS'],
+							id: interaction.guild.roles.everyone
+						},
+						{
+							allow: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
+							id: this.client.user.id
+						}
+					],
+					position: 1,
+					reason: i18n('commands.panel.reason.panel'),
+					type: 'GUILD_TEXT'
+				});
+			}
 			if (categories.length === 1) {
 				// single category
 				await panel_channel.send({
@@ -167,13 +171,13 @@ module.exports = class PanelCommand extends Command {
 							.addComponents(
 								new MessageButton()
 									.setCustomId(`panel.single:${categories[0]}`)
-									.setLabel(i18n('panel.create_ticket'))
+									.setLabel(i18n('commands.panel.create_a_ticket'))
 									.setStyle('PRIMARY')
 							)
 					],
 					embeds: [embed]
 				});
-				this.client.log.info(`${interaction.user.tag} has created a new button panel`);
+				this.client.log.info(i18n('commands.panel.log.button_panel'));
 			} else {
 				// multi category
 				const rows = await this.client.db.models.Category.findAll({ where: { guild: interaction.guild.id } });
@@ -183,7 +187,7 @@ module.exports = class PanelCommand extends Command {
 							.addComponents(
 								new MessageSelectMenu()
 									.setCustomId(`panel.multiple:${panel_channel.id}`)
-									.setPlaceholder('Select a category')
+									.setPlaceholder(i18n('commands.panel.select_a_categorie'))
 									.addOptions(rows.map(row => ({
 										label: row.name,
 										value: row.id
@@ -192,7 +196,7 @@ module.exports = class PanelCommand extends Command {
 					],
 					embeds: [embed]
 				});
-				this.client.log.info(`${interaction.user.tag} has created a new select panel`);
+				this.client.log.info(i18n('commands.panel.log.select_panel'));
 			}
 		}
 
