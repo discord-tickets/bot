@@ -370,6 +370,7 @@
 			"title": "Benutzer entfernt"
 		},
 		"opening_message": {
+			"content": "%s\n%s hat ein Ticket erstellt",
 			"fields": {
 				"topic": "Anliegen"
 			}
