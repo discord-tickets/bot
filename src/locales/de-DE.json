@@ -9,7 +9,7 @@
 	},
 	"collector_expires_in": "Läuft in %d Sekunden ab",
 	"command_execution_error": {
-		"description": "Ein unerwarteter Fehler ist aufgetreten.\nFragen Sie bitte den Andministrator um Hilfe.",
+		"description": "Ein unerwarteter Fehler ist aufgetreten.\nFrage bitte den Andministrator um Hilfe.",
 		"title": "⚠️"
 	},
 	"commands": {
@@ -55,7 +55,7 @@
 					"options": {
 						"member_or_role": {
 							"description": "Mitglied oder Rolle der Blacklist hinzufügen",
-							"name": "Nutzer_oder_Rolle"
+							"name": "mitglied_oder_rolle"
 						}
 					}
 				},
@@ -76,7 +76,7 @@
 			},
 			"response": {
 				"empty_list": {
-					"description": "Es sind keine Benutzer oder Rollen blockiert. tippen Sie `%sblacklist <BenutzeroderRolle>` um einen Benutzer oder eine Rolle zu blockieren.",
+					"description": "Es sind keine Benutzer oder Rollen blockiert. Tippe `%sblacklist <BenutzeroderRolle>` um einen Benutzer oder eine Rolle zu blockieren.",
 					"title": "📃 Blockierte Benutzer und Rollen"
 				},
 				"illegal_action": {
@@ -85,11 +85,11 @@
 				},
 				"invalid": {
 					"description": "Dieser Nutzer oder diese Rolle können nicht von der Blacklist entfernt werden, weil sie nicht geblacklisted sind.",
-					"title": "Fehler"
+					"title": "❌ Fehler"
 				},
 				"list": {
 					"fields": {
-						"members": "Nutzer",
+						"members": "Mitglieder",
 						"roles": "Rollen"
 					},
 					"title": "📃 Blockierte Benutzer und Rollen"
@@ -99,15 +99,15 @@
 					"title": "✅ Benutzer zur Blacklist hinzugefügt"
 				},
 				"member_removed": {
-					"description": "<@%s> wurde von der Blacklist entfernt. Er / Sie kann den Bot wieder benutzen.",
-					"title": "✅ Benutzer von der Blacklist entfernt"
+					"description": "<@%s> wurde von der Blacklist entfernt. Er/Sie kann den Bot wieder verwenden.",
+					"title": "✅ Mitglieder von der Blacklist entfernt"
 				},
 				"role_added": {
-					"description": "<@&%s> wurde zur Blacklist hinzugefügt. Benutzer mit dieser Rolle können nicht mehr mit dem Bot interagieren.",
+					"description": "<@&%s> wurde zur Blacklist hinzugefügt. Mitglieder mit dieser Rolle können nicht mehr mit dem Bot interagieren.",
 					"title": "✅ Rolle zur Blacklist hinzugefügt"
 				},
 				"role_removed": {
-					"description": "<@&%s> wurde von der Blacklist entfernt. Benutzer mit dieser Rolle können den Bot wieder benutzen.",
+					"description": "<@&%s> wurde von der Blacklist entfernt. Mitglieder mit dieser Rolle können den Bot wieder benutzen.",
 					"title": "✅ Rolle von der Blacklist entfernt"
 				}
 			}
@@ -118,19 +118,21 @@
 			"options": {
 				"reason": {
 					"description": "Der Grund für die Schließung des Tickets",
-					"name": "Grund"
+					"name": "grund"
 				},
 				"ticket": {
-					"name": "Ticket"
+					"description": "Das zu schließende Ticket, entweder die Nummer oder die Kanal-ID",
+					"name": "ticket"
 				},
 				"time": {
-					"description": "Schließen Sie alle Tickets, die seit der angegebenen Zeit inaktiv sind",
-					"name": "Zeit"
+					"description": "Schließe alle Tickets, die seit der angegebenen Zeit inaktiv sind",
+					"name": "zeit"
 				}
 			},
 			"response": {
 				"canceled": {
-					"title": "Abgebrochen"
+					"description": "Du hast den Vorgang abgebrochen.",
+					"title": "🚫 Abgebrochen"
 				},
 				"closed": {
 					"description": "Das Ticket #%s wurde geschlossen.",
@@ -151,14 +153,20 @@
 						"cancel": "Abbrechen",
 						"confirm": "Schließen"
 					},
-					"description": "Reagiere mit ✅ um das Ticket zu schließen.",
-					"description_with_archive": "Sie können danach eine archivierte Version dieses Tickets ansehen.\nReagieren Sie mit ✅ um das Ticket zu schließen.",
+					"description": "Bitte bestätige Deine Entscheidung.",
+					"description_with_archive": "Das Ticket wird zum späteren Nachschlagen archiviert.",
 					"title": "❔ Sind Sie sicher?"
 				},
 				"confirm_multiple": {
+					"buttons": {
+						"cancel": "Abbruch",
+						"confirm": [
+							"%d Ticket schließen"
+						]
+					},
 					"description": [
-						"Reagieren Sie mit ✅ um das Ticket %d zu schließen.",
-						"Reagieren Sie mit ✅ um die Tickets %d zu schließen."
+						"Du bist dabei, %d Ticket zu schließen.",
+						"Du bist dabei, %d Tickets zu schließen."
 					],
 					"title": "❔ Sind Sie sicher?"
 				},
@@ -171,7 +179,7 @@
 					"title": "❌ Ungültige Eingabe"
 				},
 				"no_permission": {
-					"description": "Sie sind kein Teammitglied oder der Ticketersteller",
+					"description": "Du bist kein Teammitglied oder der Ticketersteller",
 					"title": "Unzureichende Rechte"
 				},
 				"no_tickets": {
@@ -179,21 +187,21 @@
 					"title": "❌ Keine Tickets zum schließen"
 				},
 				"not_a_ticket": {
-					"description": "Bitte nutzen Sie diesen Befehl in einem Ticket-Kanal oder erwähnen Sie diesen.\nTippen Sie `%shelp close` für mehr Informationen.",
+					"description": "Bitte verwende diesen Befehl in einem Ticketkanal oder verwende das Ticket-Flag.\nGebe `/help close` ein, um weitere Informationen zu erhalten.",
 					"title": "❌ Das ist kein Ticket-Kanal"
 				},
 				"unresolvable": {
-					"description": "`%s` konnte keinem Ticket zugeordnet werden. Bitte nutzen Sie die Kanal ID / Erwähnung des Kanals, oder die Nummer.",
+					"description": "`%s` konnte keinem Ticket zugeordnet werden. Bitte verwende die Kanal ID / Erwähnung des Kanals, oder die Nummer.",
 					"title": "❌ Fehler"
 				}
 			}
 		},
 		"help": {
-			"description": "Zeige alle Befehle die Sie benutzen dürfen, oder mehr Informationen zu einem Befehl",
+			"description": "Liste die Befehle, auf die Du Zugriff hast",
 			"name": "Hilfe",
 			"response": {
 				"list": {
-					"description": "Die Befehle die Sie benutzen dürfen, sind aufgelistet. Für mehr Informationen über einen Befehl, tippen Sie `{prefix}help [command]`. Um ein Ticket zu öffnen, tippen Sie `{prefix}new [topic]`.",
+					"description": "Die Befehle, auf die Du Zugriff habst, sind unten aufgeführt. Um ein Ticket zu erstellen, gebe **`/new`** ein.",
 					"fields": {
 						"commands": "Befehle"
 					},
@@ -204,64 +212,110 @@
 		"new": {
 			"description": "Erstelle ein neues Ticket",
 			"name": "neu",
+			"options": {
+				"topic": {
+					"description": "Das Thema des Tickets",
+					"name": "Thema"
+				}
+			},
 			"request_topic": {
-				"description": "Bitte erklären Sie Ihr Anliegen kurz in ein paar Wörtern",
-				"title": "Ticket Anliegen"
+				"description": "Bitte gebe in wenigen Worten kurz an, worum es bei diesem Ticket geht.",
+				"title": "⚠️ Ticketthema"
 			},
 			"response": {
 				"created": {
-					"description": "Ihr Ticket wurde erstellt: %s.",
+					"description": "Dein Ticket wurde erstellt: %s.",
 					"title": "✅ Ticket erstellt"
 				},
 				"error": {
 					"title": "❌ Fehler"
 				},
 				"has_a_ticket": {
-					"description": "Bitte benutzen Sie Ihr schon vorhandenes Ticket (<#%s>) oder schließen Sie es bevor Sie ein neues erstellen.",
-					"title": "❌ Sie haben bereits ein offenes Ticket"
+					"description": "Bitte verwende Dein schon vorhandenes Ticket (<#%s>) oder schließe es, bevor Du ein neues erstellst.",
+					"title": "❌ Du hast bereits ein offenes Ticket"
 				},
 				"max_tickets": {
-					"description": "Bitte benutzen Sie `%sclose` um gelöste Tickets zu schließen.\n\n%s",
-					"title": "❌ Sie haben schon %d offene Tickets"
+					"description": "Bitte verwende `/close`, um nicht benötigte Tickets zu schließen.\n\n%s",
+					"title": "❌ Du hast bereits %d offene Tickets"
 				},
 				"no_categories": {
-					"description": "Ein Server Administrator muss zuerst eine Kategorie erstellen bevor Sie ein Ticket erstellen können. Dies geht über `%ssettings`",
+					"description": "Ein Server Administrator muss zuerst eine Kategorie erstellen, bevor Du ein Ticket erstellen kannst.",
 					"title": "❌ Kann kein neues Ticket erstellen"
 				},
 				"select_category": {
-					"description": "Wähle eine Kategorie für Ihr Ticket:\n\n%s",
-					"title": "🔤 Bitte wählen Sie eine Kategorie"
+					"description": "Wähle die Kategorie aus, die für das Thema Deines Tickets am relevantesten ist.",
+					"title": "🔤 Bitte wähle eine Kategorie"
 				},
 				"select_category_timeout": {
-					"description": "Sie haben zu lange gebraucht um eine Ticket Kategorie zu wählen.",
-					"title": "❌ Zu lange gewartet"
+					"description": "Du hast zu lange gebraucht um eine Ticket Kategorie zu wählen.",
+					"title": "❌ Interaktionszeit abgelaufen"
 				}
 			}
 		},
 		"panel": {
-			"description": "Erstellen Sie ein neues Ticket-Panel",
+			"description": "Erstelle ein neues Ticket-Panel",
 			"name": "panel",
+			"options": {
+				"categories": {
+					"description": "Eine durch Kommas getrennte Liste von Kategorie-IDs",
+					"name": "Kategorien"
+				},
+				"description": {
+					"description": "Die Beschreibung für die Panel-Nachricht",
+					"name": "Beschreibung"
+				},
+				"image": {
+					"description": "Eine Bild-URL für die Panel-Nachricht",
+					"name": "Bild"
+				},
+				"just_type": {
+					"description": "Erstelle ein \"just type\"-Panel?",
+					"name": "just_type"
+				},
+				"thumbnail": {
+					"description": "Eine Miniaturbild-URL für die Panel-Nachricht",
+					"name": "Thumbnail"
+				},
+				"title": {
+					"description": "Der Titel für die Panel-Nachricht",
+					"name": "Titel"
+				}
+			},
 			"response": {
 				"invalid_category": {
 					"description": "Eine oder mehrere der angegebenen Kategorie IDs sind nicht gültig.",
 					"title": "❌ Ungültige Kategorie"
+				},
+				"too_many_categories": {
+					"description": "Das Feld \"just type\" kann nur mit einer einzigen Kategorie verwendet werden.",
+					"title": "❌ Zu viele Kategorien"
 				}
 			}
 		},
 		"remove": {
 			"description": "Entferne einen Benutzer von einem Ticket",
 			"name": "Entfernen",
+			"options": {
+				"member": {
+					"description": "Das Mitglied, das aus dem Ticket entfernt werden soll",
+					"name": "Mitglied"
+				},
+				"ticket": {
+					"description": "Das Ticket, aus dem das Mitglied entfernt werden soll",
+					"name": "Ticket"
+				}
+			},
 			"response": {
 				"no_member": {
-					"description": "Bitte nennen Sie den Benutzer den Sie entfernen möchten.",
+					"description": "Bitte nenne den Benutzer den Du entfernen möchtest.",
 					"title": "❌ Unbekannter Benutzer"
 				},
 				"no_permission": {
-					"description": "Sie sind weder Ersteller dieses Tickets, noch Support-Mitglied; Sie können keine Benutzer von diesem Ticket entfernen.",
+					"description": "Du bist weder Ersteller dieses Tickets, noch Support-Mitglied; Du kannst keine Benutzer von diesem Ticket entfernen.",
 					"title": "❌ Keine Berechtigung"
 				},
 				"not_a_ticket": {
-					"description": "Bitte führen Sie den Befehl im Ticket-Kanal aus, oder erwähnen Sie diesen.",
+					"description": "Bitte führe en Befehl im Ticket-Kanal aus, oder erwähne diesen.",
 					"title": "❌ Das ist kein Ticket-Kanal"
 				},
 				"removed": {
@@ -272,7 +326,139 @@
 		},
 		"settings": {
 			"description": "Konfiguriere Discord Tickets",
-			"name": "settings"
+			"name": "settings",
+			"options": {
+				"categories": {
+					"description": "Verwalte Deine Ticketkategorien",
+					"name": "Kategorien",
+					"options": {
+						"create": {
+							"description": "Erstelle eine neue Kategorie",
+							"name": "Erstellen",
+							"options": {
+								"name": {
+									"description": "Der Name der Kategorie",
+									"name": "Name"
+								},
+								"roles": {
+									"description": "Eine durch Kommas getrennte Liste von Mitarbeiterrollen-IDs für diese Kategorie",
+									"name": "roles"
+								}
+							}
+						},
+						"delete": {
+							"description": "Lösche eine Kategorie",
+							"name": "delete",
+							"options": {
+								"id": {
+									"description": "Die ID der zu löschenden Kategorie",
+									"name": "id"
+								}
+							}
+						},
+						"edit": {
+							"description": "Nehme Änderungen an der Konfiguration einer Kategorie vor",
+							"name": "edit",
+							"options": {
+								"claiming": {
+									"description": "Ticketanspruch aktivieren?",
+									"name": "Beanspruchen"
+								},
+								"id": {
+									"description": "Die ID der zu bearbeitenden Kategorie",
+									"name": "ID"
+								},
+								"image": {
+									"description": "Eine Bild-URL",
+									"name": "Bild"
+								},
+								"max_per_member": {
+									"description": "Die maximale Anzahl an Tickets, die ein Mitglied in dieser Kategorie haben kann",
+									"name": "max_per_member"
+								},
+								"name": {
+									"description": "Der Kategoriename",
+									"name": "Name"
+								},
+								"name_format": {
+									"description": "Das Format des Ticketnamens",
+									"name": "name_format"
+								},
+								"opening_message": {
+									"description": "Der zu sendende Text, wenn ein Ticket geöffnet wird",
+									"name": "opening_message"
+								},
+								"opening_questions": {
+									"description": "Fragen, die gestellt werden müssen, wenn ein Ticket eröffnet wird.",
+									"name": "opening_questions"
+								},
+								"ping": {
+									"description": "Eine durch Kommas getrennte Liste von Rollen-IDs, die gepingt werden sollen",
+									"name": "ping"
+								},
+								"require_topic": {
+									"description": "Den Benutzer auffordern, das Thema des Tickets anzugeben?",
+									"name": "require_topic"
+								},
+								"roles": {
+									"description": "Eine durch Kommas getrennte Liste von Mitarbeiterrollen-IDs",
+									"name": "roles"
+								},
+								"survey": {
+									"description": "Die zu verwendende Umfrage",
+									"name": "survey"
+								}
+							}
+						},
+						"list": {
+							"description": "Kategorien auflisten",
+							"name": "list"
+						}
+					}
+				},
+				"set": {
+					"description": "Optionen festlegen",
+					"name": "set",
+					"options": {
+						"close_button": {
+							"description": "Schließen per Knopfdruck aktivieren?",
+							"name": "close_button"
+						},
+						"colour": {
+							"description": "Die Standardfarbe",
+							"name": "colour"
+						},
+						"error_colour": {
+							"description": "Die Fehlerfarbe",
+							"name": "error_colour"
+						},
+						"footer": {
+							"description": "Der eingebettete Fußzeilentext",
+							"name": "footer"
+						},
+						"locale": {
+							"description": "Das Gebietsschema (Sprache)",
+							"name": "Sprache"
+						},
+						"log_messages": {
+							"description": "Nachrichten von Tickets speichern?",
+							"name": "log_messages"
+						},
+						"success_colour": {
+							"description": "Die Erfolgsfarbe",
+							"name": "success_colour"
+						}
+					}
+				}
+			},
+			"response": {
+				"category_created": "✅ Die Ticketkategorie `%s` wurde erstellt",
+				"category_deleted": "✅ Die Ticketkategorie `%s` wurde gelöscht",
+				"category_does_not_exist": "❌ Keine Kategorie existiert mit der angegebenen ID",
+				"category_list": "Ticketkategorien",
+				"category_updated": "✅ Die Ticketkategorie `%s` wurde aktualisiert",
+				"settings_updated": "✅ Die Einstellungen wurden aktualisiert"
+			}
 		},
 		"stats": {
 			"description": "Ticket Statistiken ansehen",
@@ -299,6 +485,12 @@
 		"survey": {
 			"description": "Umfragen-Ergebnisse ansehen",
 			"name": "Umfrage",
+			"options": {
+				"survey": {
+					"description": "Der Name der Umfrage, deren Antworten angezeigt werden sollen",
+					"name": "Umfrage"
+				}
+			},
 			"response": {
 				"list": {
 					"title": "📃 Umfragen"
@@ -306,8 +498,14 @@
 			}
 		},
 		"tag": {
-			"description": "Benutzen Sie einen 'Tag' als Antwort",
+			"description": "Verwende einen 'Tag' als Antwort",
 			"name": "Tag",
+			"options": {
+				"tag": {
+					"description": "Der Name des zu verwendenden Tags",
+					"name": "Tag"
+				}
+			},
 			"response": {
 				"error": "❌ Fehler",
 				"list": {
@@ -321,15 +519,21 @@
 			}
 		},
 		"topic": {
-			"description": "Ändern Sie das Anligen Ihres Tickets",
+			"description": "Änder das Anligen Deines Tickets",
 			"name": "Thema",
+			"options": {
+				"new_topic": {
+					"description": "Das neue Thema des Tickets",
+					"name": "new_topic"
+				}
+			},
 			"response": {
 				"changed": {
 					"description": "Das Anliegen dieses Tickets wurde erfolgreich geändert.",
 					"title": "✅ Anliegen geändert"
 				},
 				"not_a_ticket": {
-					"description": "Bitte benutzen Sie diesen Befehl nur in einem Ticket-Kanal in dem Sie das Anliegen ändern wollen.",
+					"description": "Bitte verwende diesen Befehl nur in einem Ticket-Kanal in dem Du das Anliegen ändern willst.",
 					"title": "❌ Das ist kein Ticket-Kanal"
 				}
 			}
@@ -337,14 +541,19 @@
 	},
 	"message_will_be_deleted_in": "Diese Nachricht wird in %d Sekunden gelöscht.",
 	"missing_permissions": {
-		"description": "Sie haben nicht die benötigten Berechtigungen um diesen Befehl zu benutzen:\n%s",
-		"title": "❌"
+		"description": "Du hast nicht die benötigten Berechtigungen um diesen Befehl zu verwenden:\n%s",
+		"title": "❌ Fehler"
+	},
+	"panel": {
+		"create_ticket": "Ticket erstellen"
 	},
 	"ticket": {
+		"claim": "Beanspruchen",
 		"claimed": {
 			"description": "Dieses Ticket gehört jetzt %s.",
 			"title": "✅ Ticket in Besitz genommen"
 		},
+		"close": "Schließen",
 		"closed": {
 			"description": "Dieses Ticket wurde geschlossen.\nDieser Kanal wird in 5 Sekunden gelöscht.",
 			"title": "✅ Ticket geschlossen"
@@ -370,24 +579,31 @@
 			"title": "Benutzer entfernt"
 		},
 		"opening_message": {
+			"content": "%s\n%s hat ein neues Ticket erstellt",
 			"fields": {
 				"topic": "Anliegen"
 			}
 		},
-		"questions": "Bitte beantworten Sie die folgenden Fragen:\n\n%s",
+		"questions": "Bitte beantworte die folgenden Fragen:\n\n%s",
 		"released": {
 			"description": "%s hat ein neues Ticket veröffentlicht.",
 			"title": "✅ Ticket veröffentlicht"
 		},
 		"survey": {
 			"complete": {
-				"description": "Vielen Dank für Ihr Feedback!",
+				"description": "Vielen Dank für Dein Feedback!",
 				"title": "✅ Danke"
 			},
 			"start": {
-				"description": "Hey, %s. Möchten Sie eine kurze %d-question Umfrage ausfüllen bevor dieser Kanal gelöscht wird? Reagieren Sie einfach mit ✅ um zu starten, oder ignorieren Sie diese Nachricht.",
+				"buttons": {
+					"ignore": "Nein",
+					"start": "Umfrage starten"
+				},
+				"description": "Hey, %s. Würde es Dir etwas ausmachen, eine kurze %d-Fragenumfrage auszufüllen, bevor dieser Kanal gelöscht wird?",
 				"title": "❔ Feedback"
 			}
-		}
-	}
+		},
+		"unclaim": "Freigeben"
+	},
+	"updated_permissions": "✅ Slash-Befehlsberechtigungen aktualisiert"
 }
