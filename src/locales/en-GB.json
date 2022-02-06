@@ -456,7 +456,7 @@
 			"response": {
 				"category_created": "✅ The `%s` ticket category has been created",
 				"category_deleted": "✅ The `%s` ticket category has been deleted",
-				"category_does_not_exist": "❌ No category exists with the provided ID",
+				"category_does_not_exist": "❌ There is no category with the specified ID",
 				"category_updated": "✅ The `%s` ticket category has been updated",
 				"category_list": "Ticket categories",
 				"settings_updated": "✅ Settings have been updated"
