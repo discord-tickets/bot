@@ -1,8 +1,8 @@
 {
-	"blacklisted": "Du stehst auf der Blacklist",
+	"blacklisted": "❌ Du stehst auf der Blacklist",
 	"bot": {
 		"missing_permissions": {
-			"description": "Discord Tickets erfordert die folgenden Berechtigungen: \n%s",
+			"description": "Discord Tickets erfordert die folgenden Berechtigungen: \n%s ",
 			"title": "⚠️"
 		},
 		"version": "[Discord Tickets] (%s) v%s von [eartharoid](%s)"
@@ -23,7 +23,7 @@
 				},
 				"ticket": {
 					"description": "Das Ticket, zu dem das Mitglied hinzugefügt werden soll",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
 			"response": {
@@ -32,15 +32,15 @@
 					"title": "✅ Benutzer hinzugefügt"
 				},
 				"no_member": {
-					"description": "Bitte erwähnen Sie den Benutzer, den sie hinzufügen möchten.",
-					"title": "❌ Unbekannter Benutzer"
+					"description": "Bitte erwähne den Benutzer, den Du hinzufügen möchtest.",
+					"title": "❌ Unbekanntes Mitglied"
 				},
 				"no_permission": {
-					"description": "Sie sind weder der Ersteller dieses Tickets, noch ein Support-Mitglied; Sie können keine neuen Benutzer zu diesem Ticket hinzufügen.",
-					"title": "❌ Keine Berechtigung"
+					"description": "Du bist weder der Ersteller dieses Tickets, noch ein Support-Mitglied; Du kannst keine neuen Benutzer zu diesem Ticket hinzufügen.",
+					"title": "❌ Unzureichende Berechtigung"
 				},
 				"not_a_ticket": {
-					"description": "Bitte führen Sie den Befehl im Ticket-Kanal aus, oder erwähnen Sie diesen.",
+					"description": "Bitte führe den Befehl im Ticket-Kanal aus, oder erwähne diesen.",
 					"title": "❌ Dies ist kein Ticket-Kanal"
 				}
 			}
@@ -65,7 +65,7 @@
 					"options": {
 						"member_or_role": {
 							"description": "Der Nutzer oder die Rolle zum Entfernen von der Blacklist",
-							"name": "Nutzer_oder_Rolle"
+							"name": "mitglied_oder_rolle"
 						}
 					}
 				},
@@ -76,7 +76,7 @@
 			},
 			"response": {
 				"empty_list": {
-					"description": "Es sind keine Benutzer oder Rollen blockiert. Tippe `%sblacklist <BenutzeroderRolle>` um einen Benutzer oder eine Rolle zu blockieren.",
+					"description": "Es sind keine Mitglieder oder Rollen auf der Blacklist. Gebe `/blacklist add` ein, um ein Mitglied oder eine Rolle zur Blacklist hinzuzufügen.",
 					"title": "📃 Blockierte Benutzer und Rollen"
 				},
 				"illegal_action": {
@@ -84,7 +84,7 @@
 					"title": "❌ Sie können kein Support-Mitglied blockieren"
 				},
 				"invalid": {
-					"description": "Dieser Nutzer oder diese Rolle können nicht von der Blacklist entfernt werden, weil sie nicht geblacklisted sind.",
+					"description": "Dieses Mitglied oder diese Rolle können nicht von der Blacklist entfernt werden, weil sie nicht geblacklisted sind.",
 					"title": "❌ Fehler"
 				},
 				"list": {
@@ -161,7 +161,8 @@
 					"buttons": {
 						"cancel": "Abbruch",
 						"confirm": [
-							"%d Ticket schließen"
+							"%d Ticket schließen",
+							"%d Tickets schließen"
 						]
 					},
 					"description": [
@@ -201,7 +202,7 @@
 			"name": "Hilfe",
 			"response": {
 				"list": {
-					"description": "Die Befehle, auf die Du Zugriff habst, sind unten aufgeführt. Um ein Ticket zu erstellen, gebe **`/new`** ein.",
+					"description": "Die Befehle, auf die Du Zugriff hast, sind unten aufgeführt. Um ein Ticket zu erstellen, gebe **`/new`** ein.",
 					"fields": {
 						"commands": "Befehle"
 					},
@@ -215,7 +216,7 @@
 			"options": {
 				"topic": {
 					"description": "Das Thema des Tickets",
-					"name": "Thema"
+					"name": "thema"
 				}
 			},
 			"request_topic": {
@@ -258,27 +259,27 @@
 			"options": {
 				"categories": {
 					"description": "Eine durch Kommas getrennte Liste von Kategorie-IDs",
-					"name": "Kategorien"
+					"name": "kategorien"
 				},
 				"description": {
 					"description": "Die Beschreibung für die Panel-Nachricht",
-					"name": "Beschreibung"
+					"name": "beschreibung"
 				},
 				"image": {
 					"description": "Eine Bild-URL für die Panel-Nachricht",
-					"name": "Bild"
+					"name": "bild"
 				},
 				"just_type": {
-					"description": "Erstelle ein \"just type\"-Panel?",
+					"description": "Ein \"just type\"-Panel erstellen?",
 					"name": "just_type"
 				},
 				"thumbnail": {
 					"description": "Eine Miniaturbild-URL für die Panel-Nachricht",
-					"name": "Thumbnail"
+					"name": "thumbnail"
 				},
 				"title": {
 					"description": "Der Titel für die Panel-Nachricht",
-					"name": "Titel"
+					"name": "titel"
 				}
 			},
 			"response": {
@@ -294,15 +295,15 @@
 		},
 		"remove": {
 			"description": "Entferne einen Benutzer von einem Ticket",
-			"name": "Entfernen",
+			"name": "entfernen",
 			"options": {
 				"member": {
 					"description": "Das Mitglied, das aus dem Ticket entfernt werden soll",
-					"name": "Mitglied"
+					"name": "mitglied"
 				},
 				"ticket": {
 					"description": "Das Ticket, aus dem das Mitglied entfernt werden soll",
-					"name": "Ticket"
+					"name": "ticket"
 				}
 			},
 			"response": {
@@ -312,7 +313,7 @@
 				},
 				"no_permission": {
 					"description": "Du bist weder Ersteller dieses Tickets, noch Support-Mitglied; Du kannst keine Benutzer von diesem Ticket entfernen.",
-					"title": "❌ Keine Berechtigung"
+					"title": "❌ Unzureichende Berechtigung"
 				},
 				"not_a_ticket": {
 					"description": "Bitte führe en Befehl im Ticket-Kanal aus, oder erwähne diesen.",
@@ -330,15 +331,15 @@
 			"options": {
 				"categories": {
 					"description": "Verwalte Deine Ticketkategorien",
-					"name": "Kategorien",
+					"name": "kategorien",
 					"options": {
 						"create": {
 							"description": "Erstelle eine neue Kategorie",
-							"name": "Erstellen",
+							"name": "erstellen",
 							"options": {
 								"name": {
 									"description": "Der Name der Kategorie",
-									"name": "Name"
+									"name": "name"
 								},
 								"roles": {
 									"description": "Eine durch Kommas getrennte Liste von Mitarbeiterrollen-IDs für diese Kategorie",
@@ -362,15 +363,15 @@
 							"options": {
 								"claiming": {
 									"description": "Ticketanspruch aktivieren?",
-									"name": "Beanspruchen"
+									"name": "beanspruchen"
 								},
 								"id": {
 									"description": "Die ID der zu bearbeitenden Kategorie",
-									"name": "ID"
+									"name": "id"
 								},
 								"image": {
 									"description": "Eine Bild-URL",
-									"name": "Bild"
+									"name": "bild"
 								},
 								"max_per_member": {
 									"description": "Die maximale Anzahl an Tickets, die ein Mitglied in dieser Kategorie haben kann",
@@ -378,7 +379,7 @@
 								},
 								"name": {
 									"description": "Der Kategoriename",
-									"name": "Name"
+									"name": "name"
 								},
 								"name_format": {
 									"description": "Das Format des Ticketnamens",
@@ -438,7 +439,7 @@
 						},
 						"locale": {
 							"description": "Das Gebietsschema (Sprache)",
-							"name": "Sprache"
+							"name": "gebietsschema"
 						},
 						"log_messages": {
 							"description": "Nachrichten von Tickets speichern?",
@@ -454,7 +455,7 @@
 			"response": {
 				"category_created": "✅ Die Ticketkategorie `%s` wurde erstellt",
 				"category_deleted": "✅ Die Ticketkategorie `%s` wurde gelöscht",
-				"category_does_not_exist": "❌ Keine Kategorie existiert mit der angegebenen ID",
+				"category_does_not_exist": "❌ Es existiert keine Kategorie mit der angegebenen ID",
 				"category_list": "Ticketkategorien",
 				"category_updated": "✅ Die Ticketkategorie `%s` wurde aktualisiert",
 				"settings_updated": "✅ Die Einstellungen wurden aktualisiert"
@@ -499,11 +500,11 @@
 		},
 		"tag": {
 			"description": "Verwende einen 'Tag' als Antwort",
-			"name": "Tag",
+			"name": "tag",
 			"options": {
 				"tag": {
 					"description": "Der Name des zu verwendenden Tags",
-					"name": "Tag"
+					"name": "tag"
 				}
 			},
 			"response": {
@@ -513,13 +514,13 @@
 				},
 				"missing": "Dieser Tag benötigt die folgenden Vorraussetzungen:\n%s",
 				"not_a_ticket": {
-					"description": "Dieser Tag kann nur in einem Ticket-Kanal benutzt werden",
+					"description": "Dieses Tag kann nur innerhalb eines Ticketkanals verwendet werden, da es Ticketreferenzen verwendet.",
 					"title": "❌ Das ist kein Ticket-Kanal"
 				}
 			}
 		},
 		"topic": {
-			"description": "Änder das Anligen Deines Tickets",
+			"description": "Änder das Anliegen Deines Tickets",
 			"name": "Thema",
 			"options": {
 				"new_topic": {
@@ -551,7 +552,7 @@
 		"claim": "Beanspruchen",
 		"claimed": {
 			"description": "Dieses Ticket gehört jetzt %s.",
-			"title": "✅ Ticket in Besitz genommen"
+			"title": "✅ Ticket beansprucht"
 		},
 		"close": "Schließen",
 		"closed": {
@@ -572,7 +573,7 @@
 		},
 		"member_added": {
 			"description": "%s wurde von %s hinzugefügt.",
-			"title": "Benutzer hinzugefügt"
+			"title": "Mitglied hinzugefügt"
 		},
 		"member_removed": {
 			"description": "%s wurde von %s entfernt.",
