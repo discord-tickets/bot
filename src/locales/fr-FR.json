@@ -460,7 +460,7 @@
 			"name": "statistiques",
 			"response": {
 				"global": {
-					"description": "Statistiques sur les billets dans toutes les guildes où cette instance Discord TIckets est utilisée.",
+					"description": "Statistiques sur les billets dans toutes les guildes où cette instance Discord Tickets est utilisée.",
 					"title": "📊 statistiques mondiales"
 				},
 				"guild": {

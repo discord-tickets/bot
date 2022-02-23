@@ -474,7 +474,7 @@
 												"name": "statisztika",
 												"response": {
 																"global": {
-																				"description": "Statisztikák a ticketekről az összes szerveren, ahol ezt a Discord TIcketek példányt használják.",
+																				"description": "Statisztikák a ticketekről az összes szerveren, ahol ezt a Discord Ticketek példányt használják.",
 																				"title": "📊 Globális statisztika"
 																},
 																"guild": {

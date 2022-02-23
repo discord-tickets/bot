@@ -218,7 +218,7 @@
 												"name": "statistiche",
 												"response": {
 																"global": {
-																				"description": "Statistiche sui ticket in tutti i server in cui viene utilizzata questa istanza di Discord TIckets.",
+																				"description": "Statistiche sui ticket in tutti i server in cui viene utilizzata questa istanza di Discord Tickets.",
 																				"title": "📊 Statistiche globali"
 																},
 																"guild": {
