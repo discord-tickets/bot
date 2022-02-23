@@ -474,7 +474,7 @@
 			"name": "stats",
 			"response": {
 				"global": {
-					"description": "Statistiken von allen Servern auf denen dieser Bot läuft.",
+					"description": "Statistiken über Tickets in allen Gilden, in denen diese Discord-Tickets-Instanz verwendet wird.",
 					"title": "📊 Globale Statistiken"
 				},
 				"guild": {
