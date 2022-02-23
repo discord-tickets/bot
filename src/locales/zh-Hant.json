@@ -2,7 +2,7 @@
 	"blacklisted": "❌ 你被列入黑名單，無法開啟客務單",
 	"bot": {
 		"missing_permissions": {
-			"description": "客服單需要以下權限:\n%s",
+			"description": "Discord 票證需要以下權限:\n%s ",
 			"title": "⚠️"
 		},
 		"version": "[客服單](%s) v%s 由 [無風團隊工作室](%s)"
