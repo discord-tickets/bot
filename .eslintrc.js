@@ -1,12 +1,16 @@
 module.exports = {
 	'env': {
-		'commonjs': true,
-		'es2021': true,
-		'node': true
+		'browser': false,
+		'commonjs': false,
+		'es6': true,
+		'node': true,
 	},
-	'extends': 'eslint:recommended',
+	'extends': ['eslint:recommended'],
+	'parser': '@typescript-eslint/parser',
 	'parserOptions': { 'ecmaVersion': 12 },
+	'root': true,
 	'rules': {
+		'@typescript-eslint/no-var-requires': ['off'],
 		'array-bracket-newline': [
 			'error',
 			'consistent'
@@ -37,13 +41,19 @@ module.exports = {
 		],
 		'comma-dangle': [
 			'error',
-			'never'
+			{
+				'arrays': 'never',
+				'exports': 'never',
+				'functions': 'never',
+				'imports': 'never',
+				'objects': 'always-multiline',
+			}
 		],
 		'comma-spacing': [
 			'error',
 			{
 				'after': true,
-				'before': false
+				'before': false,
 			}
 		],
 		'comma-style': [
@@ -96,12 +106,11 @@ module.exports = {
 				'ignoreStrings': true,
 				'ignoreTemplateLiterals': true,
 				'ignoreTrailingComments': true,
-				'ignoreUrls': true
+				'ignoreUrls': true,
 			}
 		],
 		'max-lines': [
-			'warn',
-			500
+			'warn'
 		],
 		'max-statements-per-line': [
 			'error'
@@ -110,7 +119,7 @@ module.exports = {
 			'warn'
 		],
 		'no-console': [
-			'warn'
+			'off'
 		],
 		'no-return-assign': [
 			'error'
@@ -122,7 +131,10 @@ module.exports = {
 			'error'
 		],
 		'no-underscore-dangle': [
-			'error'
+			'error', {
+				'allowAfterThis': true,
+				'allowFunctionParams': true,
+			}
 		],
 		'no-unneeded-ternary': [
 			'error'
@@ -137,7 +149,7 @@ module.exports = {
 			'error',
 			{
 				'minProperties': 2,
-				'multiline': true
+				'multiline': true,
 			}
 		],
 		'object-curly-spacing': [
@@ -157,7 +169,7 @@ module.exports = {
 			'error',
 			{
 				'destructuring': 'all',
-				'ignoreReadBeforeAssign': false
+				'ignoreReadBeforeAssign': false,
 			}
 		],
 		'quotes': [
@@ -184,6 +196,6 @@ module.exports = {
 		'spaced-comment': [
 			'error',
 			'always'
-		]
-	}
+		],
+	},
 };

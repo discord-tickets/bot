@@ -1,12 +1,12 @@
 # directories
-.vscode/
 node_modules/
-logs/
-site/
+dist/
 
 # files
-.env
+.env*
 version
-user/config.js
+user/config.yml
 user/database.sqlite
-user/plugins/*/
+*.log
+*.lock
+*-lock.*
