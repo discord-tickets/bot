@@ -16,7 +16,7 @@
 
 logs:
   files:
+    directory: ./logs
     enabled: true
     keepFor: 30 # days
-    split: true # split stdout (info) and stderr (warnings & errors) into separate files? 
   level: info

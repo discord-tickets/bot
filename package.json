@@ -1,0 +1,49 @@
+{
+	"name": "discord-tickets",
+	"version": "4.0.0",
+	"private": "true",
+	"description": "An open-source Discord bot for ticket management",
+	"main": "src/index.mjs",
+	"module": "src/index.mjs",
+	"type": "module",
+	"scripts": {
+		"contributors:add": "all-contributors add",
+		"contributors:generate": "all-contributors generate",
+		"keygen": "node scripts/keygen.mjs",
+		"lint": "eslint src scripts --ext mjs --fix",
+		"test": "echo \"There's nothing to test\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/discord-tickets/bot.git"
+	},
+	"keywords": [
+		"discord",
+		"tickets",
+		"bot"
+	],
+	"author": "eartharoid",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/discord-tickets/bot/issues"
+	},
+	"homepage": "https://discordtickets.app",
+	"engines": {
+		"node": ">=16.6"
+	},
+	"dependencies": {
+		"@eartharoid/dtf": "^2.0.1",
+		"@sapphire/framework": "^2.4.1",
+		"discord.js": "^13.6.0",
+		"dotenv-cra": "^3.0.2",
+		"leeks.js": "^0.2.4",
+		"leekslazylogger": "^4.1.7",
+		"semver": "^7.3.5",
+		"terminal-link": "^3.0.0",
+		"yaml": "^1.10.2"
+	},
+	"devDependencies": {
+		"all-contributors-cli": "^6.20.0",
+		"eslint": "^8.11.0"
+	}
+}
