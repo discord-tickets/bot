@@ -12,6 +12,9 @@
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
+	"plugins": [
+		"unused-imports"
+	],
 	"root": true,
 	"rules": {
 		"array-bracket-newline": [
@@ -145,6 +148,9 @@
 		"no-unneeded-ternary": [
 			"error"
 		],
+		"no-unused-expressions": [
+			"error"
+		],
 		"no-var": [
 			"error"
 		],
@@ -204,6 +210,16 @@
 		"spaced-comment": [
 			"error",
 			"always"
+		],
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"vars": "all",
+				"varsIgnorePattern": "^_",
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
 		]
 	}
 }

@@ -33,9 +33,11 @@
 	},
 	"dependencies": {
 		"@eartharoid/dtf": "^2.0.1",
+		"@prisma/client": "^3.11.0",
 		"@sapphire/framework": "^2.4.1",
 		"discord.js": "^13.6.0",
-		"dotenv-cra": "^3.0.2",
+		"dotenv": "^16.0.0",
+		"figlet": "^1.5.2",
 		"leeks.js": "^0.2.4",
 		"leekslazylogger": "^4.1.7",
 		"semver": "^7.3.5",
@@ -44,6 +46,8 @@
 	},
 	"devDependencies": {
 		"all-contributors-cli": "^6.20.0",
-		"eslint": "^8.11.0"
+		"eslint": "^8.11.0",
+		"eslint-plugin-unused-imports": "^2.0.0",
+		"prisma": "^3.11.0"
 	}
 }

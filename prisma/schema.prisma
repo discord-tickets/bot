@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DB_CONNECTION_URL")
+}
+
+model Category {
+    id      String   @id @unique @db.VarChar(19)
+    tickets Ticket[]
+
+    @@map("categories")
+}
+
+model Guild {
+    id            String   @id @unique @db.VarChar(19)
+    archive       Boolean  @default(true)
+    errorColour   String   @default("RED")
+    primaryColour String   @default("#009999")
+    successColour String   @default("GREEN")
+    tags          Tag[]
+    tickets       Ticket[]
+
+    @@map("guilds")
+}
+
+model Tag {
+    content String @db.Text
+    guild   Guild  @relation(fields: [guildId], references: [id])
+    guildId String @db.VarChar(19)
+    name    String
+
+    @@id([guildId, name])
+    @@unique([guildId, name])
+    @@map("tags")
+}
+
+model Ticket {
+    id             String    @id @unique @db.VarChar(19)
+    category       Category  @relation(fields: [categoryId], references: [id])
+    categoryId     String    @db.VarChar(19)
+    claimedBy      User?     @relation(name: "ClaimedTickets", fields: [claimedById], references: [id])
+    claimedById    String    @db.VarChar(19)
+    closedBy       User?     @relation(name: "ClosedTickets", fields: [closedById], references: [id])
+    closedById     String    @db.VarChar(19)
+    closedReason   String?
+    createdBy      User?     @relation(name: "CreatedTickets", fields: [createdById], references: [id])
+    createdById    String    @db.VarChar(19)
+    firstResponse  DateTime?
+    guild          Guild     @relation(fields: [guildId], references: [id])
+    guildId        String    @db.VarChar(19)
+    lastMessage    DateTime?
+    number         Int
+    open           Boolean   @default(true)
+    openingMessage String    @db.VarChar(19)
+    pinnedMessages Json      @default("[]")
+    topic          String?
+
+    @@unique([guildId, number])
+    @@map("tickets")
+}
+
+model User {
+    id             String   @id @unique @db.VarChar(19)
+    ticketsCreated Ticket[] @relation("CreatedTickets")
+    ticketsClosed  Ticket[] @relation("ClosedTickets")
+    ticketsClaimed Ticket[] @relation("ClaimedTickets")
+
+    @@map("users")
+}

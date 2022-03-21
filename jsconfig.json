@@ -5,7 +5,7 @@
 		"moduleResolution": "Node",
 		"baseUrl": "src",
 		"resolveJsonModule": true,
-		"checkJs": true,
+		"checkJs": false,
 		"paths": {
 			"@/*": ["*.mjs"],
 			"#/*": ["*.json"]

@@ -21,13 +21,15 @@
  * @license GNU-GPLv3
  */
 
-import dotenv from 'dotenv-cra';
+import dotenv from 'dotenv';
 import fs from 'fs';
 import semver from 'semver';
 import { colours } from 'leeks.js';
 import logger from './lib/logger.mjs';
 import banner from './lib/banner.mjs';
 import YAML from 'yaml';
+import { container } from '@sapphire/framework';
+import Client from './client.mjs';
 
 process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
 dotenv.config(); // load env file
@@ -36,7 +38,7 @@ const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 // check node version
 if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
-	console.log('\x07' + colours.redBright(`Error: Discord Tickets requires Node.js version ${pkg.engines.node}; you are currently using ${process.versions.node}`));
+	console.log('\x07' + colours.redBright(`Error: Your current Node.js version, ${process.versions.node}, does not meet the requirement "${pkg.engines.node}".`));
 	process.exit(1);
 }
 
@@ -44,8 +46,6 @@ if (process.env.DB_ENCRYPTION_KEY === undefined) {
 	console.log('\x07' + colours.redBright('Error: The "DB_ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key, or set it to "false" to disable encryption (not recommended).'));
 	process.exit(1);
 }
-
-console.log(banner(pkg.version)); // print big title
 
 process.env.CONFIG_PATH ??= './user/config.yml'; // set default config file path
 
@@ -61,10 +61,11 @@ if (!fs.existsSync(process.env.CONFIG_PATH)) {
 	}
 }
 
+console.log(banner(pkg.version)); // print big title
+
 const config = YAML.parse(fs.readFileSync(process.env.CONFIG_PATH, 'utf8'));
-
 const log = logger(config);
-
+container.log = log;
 
 process.on('unhandledRejection', error => {
 	log.notice(`Discord Tickets v${pkg.version} on Node.js v${process.versions.node} (${process.platform})`);
@@ -73,3 +74,5 @@ process.on('unhandledRejection', error => {
 	log.error(error);
 });
 
+const client = new Client();
+client.login();
