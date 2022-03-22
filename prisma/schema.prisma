@@ -10,7 +10,64 @@ datasource db {
     url      = env("DB_CONNECTION_URL")
 }
 
+model ArchivedChannel {
+    channelId String @db.VarChar(19)
+    name      String
+    ticket    Ticket @relation(fields: [ticketId], references: [id])
+    ticketId  String @db.VarChar(19)
+
+    @@id([ticketId, channelId])
+    @@unique([ticketId, channelId])
+    @@map("archived_channels")
+}
+
+model ArchivedMessage {
+    author   ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
+    authorId String       @db.VarChar(19)
+    data     Json
+    deleted  Boolean      @default(false)
+    edited   Boolean      @default(false)
+    id       String       @id @unique @db.VarChar(19)
+    ticket   Ticket       @relation(fields: [ticketId], references: [id])
+    ticketId String       @db.VarChar(19)
+
+    @@map("archived_messages")
+}
+
+model ArchivedRole {
+    archivedUsers ArchivedUser[]
+    colour        String         @default("7289DA") @db.Char(6)
+    name          String
+    roleId        String         @db.VarChar(19)
+    ticket        Ticket         @relation(fields: [ticketId], references: [id])
+    ticketId      String         @db.VarChar(19)
+
+    @@id([ticketId, roleId])
+    @@unique([ticketId, roleId])
+    @@map("archived_roles")
+}
+
+model ArchivedUser {
+    archivedMessages ArchivedMessage[]
+    avatar           String
+    bot              Boolean           @default(false)
+    discriminator    String            @db.Char(4)
+    displayName      String
+    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
+    roleId           String            @db.VarChar(19)
+    ticket           Ticket            @relation(fields: [ticketId], references: [id])
+    ticketId         String            @db.VarChar(19)
+    userId           String            @db.VarChar(19)
+    username         String
+
+    @@id([ticketId, userId])
+    @@unique([ticketId, userId])
+    @@map("archived_users")
+}
+
 model Category {
+    guild   Guild    @relation(fields: [guildId], references: [id])
+    guildId String   @db.VarChar(19)
     id      String   @id @unique @db.VarChar(19)
     tickets Ticket[]
 
@@ -18,15 +75,58 @@ model Category {
 }
 
 model Guild {
-    id            String   @id @unique @db.VarChar(19)
-    archive       Boolean  @default(true)
-    errorColour   String   @default("RED")
-    primaryColour String   @default("#009999")
-    successColour String   @default("GREEN")
+    archive       Boolean    @default(true)
+    categories    Category[]
+    errorColour   String     @default("RED")
+    id            String     @id @unique @db.VarChar(19)
+    primaryColour String     @default("#009999")
+    successColour String     @default("GREEN")
+    surveys       Survey[]
     tags          Tag[]
     tickets       Ticket[]
 
     @@map("guilds")
+}
+
+model Survey {
+    guild     Guild            @relation(fields: [guildId], references: [id])
+    guildId   String           @db.VarChar(19)
+    name      String
+    questions SurveyQuestion[]
+    responses SurveyResponse[]
+
+    @@id([guildId, name])
+    @@unique([guildId, name])
+    @@map("surveys")
+}
+
+model SurveyResponse {
+    answers       SurveyQuestionAnswer[]
+    id            Int                    @id @default(autoincrement())
+    survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
+    surveyGuildId String                 @db.VarChar(19)
+    surveyName    String
+
+    @@map("survey_responses")
+}
+
+model SurveyQuestion {
+    content       String @db.Text
+    id            Int    @id @default(autoincrement())
+    survey        Survey @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
+    surveyGuildId String @db.VarChar(19)
+    surveyName    String
+
+    @@map("survey_questions")
+}
+
+model SurveyQuestionAnswer {
+    content          String         @db.Text
+    id               Int            @id @default(autoincrement())
+    surveyResponse   SurveyResponse @relation(fields: [surveyResponseId], references: [id])
+    surveyResponseId Int
+
+    @@map("survey_answers")
 }
 
 model Tag {
@@ -41,25 +141,29 @@ model Tag {
 }
 
 model Ticket {
-    id             String    @id @unique @db.VarChar(19)
-    category       Category  @relation(fields: [categoryId], references: [id])
-    categoryId     String    @db.VarChar(19)
-    claimedBy      User?     @relation(name: "ClaimedTickets", fields: [claimedById], references: [id])
-    claimedById    String    @db.VarChar(19)
-    closedBy       User?     @relation(name: "ClosedTickets", fields: [closedById], references: [id])
-    closedById     String    @db.VarChar(19)
-    closedReason   String?
-    createdBy      User?     @relation(name: "CreatedTickets", fields: [createdById], references: [id])
-    createdById    String    @db.VarChar(19)
-    firstResponse  DateTime?
-    guild          Guild     @relation(fields: [guildId], references: [id])
-    guildId        String    @db.VarChar(19)
-    lastMessage    DateTime?
-    number         Int
-    open           Boolean   @default(true)
-    openingMessage String    @db.VarChar(19)
-    pinnedMessages Json      @default("[]")
-    topic          String?
+    archivedChannels ArchivedChannel[]
+    archivedMessages ArchivedMessage[]
+    archivedRoles    ArchivedRole[]
+    archivedUsers    ArchivedUser[]
+    category         Category          @relation(fields: [categoryId], references: [id])
+    categoryId       String            @db.VarChar(19)
+    claimedBy        User              @relation(name: "ClaimedTickets", fields: [claimedById], references: [id])
+    claimedById      String            @db.VarChar(19)
+    closedBy         User              @relation(name: "ClosedTickets", fields: [closedById], references: [id])
+    closedById       String            @db.VarChar(19)
+    closedReason     String?
+    createdBy        User              @relation(name: "CreatedTickets", fields: [createdById], references: [id])
+    createdById      String            @db.VarChar(19)
+    firstResponse    DateTime?
+    guild            Guild             @relation(fields: [guildId], references: [id])
+    guildId          String            @db.VarChar(19)
+    id               String            @id @unique @db.VarChar(19)
+    lastMessage      DateTime?
+    number           Int
+    open             Boolean           @default(true)
+    openingMessage   String            @db.VarChar(19)
+    pinnedMessages   Json              @default("[]")
+    topic            String?
 
     @@unique([guildId, number])
     @@map("tickets")
