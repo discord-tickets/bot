@@ -116,6 +116,8 @@ model SurveyResponse {
     survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
     surveyGuildId String                 @db.VarChar(19)
     surveyName    String
+    user          User                   @relation(fields: [userId], references: [id])
+    userId        String                 @db.VarChar(19)
 
     @@map("survey_responses")
 }
@@ -180,10 +182,11 @@ model Ticket {
 }
 
 model User {
-    id             String   @id @unique @db.VarChar(19)
-    ticketsCreated Ticket[] @relation("CreatedTickets")
-    ticketsClosed  Ticket[] @relation("ClosedTickets")
-    ticketsClaimed Ticket[] @relation("ClaimedTickets")
+    id              String           @id @unique @db.VarChar(19)
+    surveyResponses SurveyResponse[]
+    ticketsCreated  Ticket[]         @relation("CreatedTickets")
+    ticketsClosed   Ticket[]         @relation("ClosedTickets")
+    ticketsClaimed  Ticket[]         @relation("ClaimedTickets")
 
     @@map("users")
 }
