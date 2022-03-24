@@ -1,7 +1,7 @@
 {
 				"bot": {
 								"missing_permissions": {
-												"description": "Discord Tickets requires the following permissions:\n%s",
+												"description": "Discord Tickets memerlukan izin berikut:\n%s",
 												"title": "⚠️"
 								},
 								"version": "[Discord Tickets](%s) versi %s oleh [eartharoid](%s)"
@@ -13,24 +13,24 @@
 				},
 				"commands": {
 								"add": {
-												"description": "Add a member to a ticket",
-												"name": "add",
+												"description": "Tambahkan anggota ke tiket",
+												"name": "tambahkan",
 												"response": {
 																"added": {
-																				"description": "%s has been added to %s.",
-																				"title": "✅ Member added"
+																				"description": "%s telah ditambahkan ke %s.",
+																				"title": "✅ Anggota ditambahkan"
 																},
 																"no_member": {
-																				"description": "Please mention the member you want to add.",
-																				"title": "❌ Unknown member"
+																				"description": "Sebutkan anggota yang ingin Anda tambahkan.",
+																				"title": "❌ Anggota tidak dikenal"
 																},
 																"no_permission": {
-																				"description": "You are not the creator of this ticket and you are not a staff member; you can't add members to this ticket.",
-																				"title": "❌ Insufficient permission"
+																				"description": "Anda bukan pembuat tiket ini dan Anda bukan anggota staf; Anda tidak dapat menambahkan anggota ke tiket ini.",
+																				"title": "❌ Izin tidak memadai"
 																},
 																"not_a_ticket": {
-																				"description": "Please use this command in the ticket channel, or mention the channel.",
-																				"title": "❌ This isn't a ticket channel"
+																				"description": "Silakan gunakan perintah ini di saluran tiket, atau sebutkan salurannya.",
+																				"title": "❌ Ini bukan saluran tiket"
 																}
 												}
 								},
@@ -72,13 +72,13 @@
 												"name": "tutup",
 												"response": {
 																"closed": {
-																				"description": "Ticket #%s has been closed.",
+																				"description": "Ticket #%s sudah di tutup.",
 																				"title": "✅ Tiket ditutup"
 																},
 																"closed_multiple": {
 																				"description": [
-																								"%d ticket has been closed.",
-																								"%d tickets have been closed."
+																								"%d tiket sudah ditutup.",
+																								"%d tiket sudah ditutup."
 																				],
 																				"title": [
 																								"✅ Tiket ditutup",
@@ -86,28 +86,28 @@
 																				]
 																},
 																"confirm": {
-																				"description": "React with ✅ to close this ticket.",
-																				"description_with_archive": "You will be able to view an archived version of it after.\nReact with ✅ to close this ticket.",
-																				"title": "❔ Are you sure?"
+																				"description": "Bereaksi dengan ✅ untuk menutup tiket ini.",
+																				"description_with_archive": "Anda akan dapat melihat versi yang diarsipkan setelahnya.\nBereaksi dengan ✅ untuk menutup tiket.",
+																				"title": "❔ Apa kamu yakin?"
 																},
 																"confirm_multiple": {
 																				"description": [
-																								"React with ✅ to close %d ticket.",
-																								"React with ✅ to close %d tickets."
+																								"Bereaksi dengan ✅ untuk menutup %d tiket.",
+																								"Bereaksi dengan ✅ untuk menutup %d tiket."
 																				],
-																				"title": "❔ Are you sure?"
+																				"title": "❔ Apa kamu yakin?"
 																},
 																"confirmation_timeout": {
-																				"description": "You took too long to confirm.",
+																				"description": "Anda terlalu lama untuk mengonfirmasi.",
 																				"title": "❌ Waktu reaksi habis"
 																},
 																"invalid_time": {
-																				"description": "The time period provided could not be parsed.",
-																				"title": "❌ Invalid input"
+																				"description": "Jangka waktu yang disediakan tidak dapat diuraikan.",
+																				"title": "❌ Masukan tidak valid"
 																},
 																"no_tickets": {
-																				"description": "There are no tickets which have been inactive for this time period.",
-																				"title": "❌ No tickets to close"
+																				"description": "Tidak ada tiket yang tidak aktif selama periode waktu ini.",
+																				"title": "❌ Tidak ada tickets untuk menutup"
 																},
 																"not_a_ticket": {
 																				"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
@@ -316,7 +316,7 @@
 																"title": "✅ Thank you"
 												},
 												"start": {
-																"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? React with ✅ to start, or ignore this message.",
+																"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? Bereaksi dengan ✅ to start, or ignore this message.",
 																"title": "❔ Feedback"
 												}
 								}
