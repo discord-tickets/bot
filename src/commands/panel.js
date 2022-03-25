@@ -110,7 +110,7 @@ module.exports = class PanelCommand extends Command {
 			});
 		}
 
-		let panel_channel = interaction.guild.channels.cache.find(ch => ch.name === i18n('commands.panel.create_ticket'))
+		let panel_channel = interaction.guild.channels.cache.find(ch => ch.name === i18n('commands.panel.create_ticket'));
 
 		const embed = new MessageEmbed()
 			.setColor(settings.colour)
@@ -141,7 +141,6 @@ module.exports = class PanelCommand extends Command {
 					type: 'GUILD_TEXT'
 				});
 				await panel_channel.send({ embeds: [embed] });
-				this.client.log.info(``);
 				this.client.log.info(i18n('commands.panel.log.message_panel'));
 			}
 		} else {
