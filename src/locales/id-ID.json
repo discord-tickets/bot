@@ -110,21 +110,21 @@
 																				"title": "❌ Tidak ada tickets untuk menutup"
 																},
 																"not_a_ticket": {
-																				"description": "Please use this command in a ticket channel or use the ticket flag.\nType `%shelp close` for more information.",
-																				"title": "❌ This isn't a ticket channel"
+																				"description": "Silakan gunakan perintah ini di saluran tiket atau gunakan tanda tiket .\nKetik `%shelp close` untuk informasi lebih lanjut.",
+																				"title": "❌ Ini bukan saluran tiket"
 																},
 																"unresolvable": {
-																				"description": "`%s` could not be resolved to a ticket. Please provide the ticket ID/mention or number.",
+																				"description": "`%s` tidak bisa diselesaikan dengan tiket. Harap berikan ID tiket/sebutan atau nomor.",
 																				"title": "❌ Error"
 																}
 												}
 								},
 								"help": {
-												"description": "List commands you have access to, or find out more about a command",
-												"name": "help",
+												"description": "Buat daftar perintah yang dapat Anda akses, atau cari tahu lebih lanjut tentang sebuah perintah",
+												"name": "bantuan",
 												"response": {
 																"list": {
-																				"description": "The commands you have access to are listed below. For more information about a command, type `{prefix}help [command]`. To create a ticket, type `{prefix}new [topic]`.",
+																				"description": "Perintah yang dapat Anda akses tercantum di bawah ini. Untuk informasi lebih lanjut tentang perintah, ketik `{prefix}help [command]`. Untuk membuat tiket, ketik `{prefix}new [topic]`.",
 																				"fields": {
 																								"commands": "Commands"
 																				},
@@ -174,30 +174,30 @@
 												"name": "panel",
 												"response": {
 																"invalid_category": {
-																				"description": "One or more of the specified category IDs is invalid.",
-																				"title": "❌ Invalid category"
+																				"description": "Satu atau beberapa ID kategori yang ditentukan tidak valid.",
+																				"title": "❌ Kategori tidak valid"
 																}
 												}
 								},
 								"remove": {
-												"description": "Remove a member from a ticket",
+												"description": "Hapus anggota dari tiket",
 												"name": "remove",
 												"response": {
 																"no_member": {
-																				"description": "Please mention the member you want to remove.",
-																				"title": "❌ Unknown member"
+																				"description": "Sebutkan anggota yang ingin Anda hapus.",
+																				"title": "❌ Anggota tidak dikenal"
 																},
 																"no_permission": {
-																				"description": "You are not the creator of this ticket and you are not a staff member; you can't remove members from this ticket.",
-																				"title": "❌ Insufficient permission"
+																				"description": "Anda bukan pembuat tiket ini dan Anda bukan anggota staf; Anda tidak dapat menghapus anggota dari tiket ini.",
+																				"title": "❌ Izin tidak memadai"
 																},
 																"not_a_ticket": {
-																				"description": "Please use this command in the ticket channel, or mention the channel.",
-																				"title": "❌ This isn't a ticket channel"
+																				"description": "Silakan gunakan perintah ini di saluran tiket, atau sebutkan salurannya.",
+																				"title": "❌ Ini bukan saluran tiket"
 																},
 																"removed": {
-																				"description": "%s has been removed from %s.",
-																				"title": "✅ Member removed"
+																				"description": "%s telah dihapus dari %s.",
+																				"title": "✅ Anggota dihapus"
 																}
 												}
 								},
@@ -206,29 +206,29 @@
 												"name": "pengaturan"
 								},
 								"stats": {
-												"description": "Display ticket statistics",
+												"description": "Tampilkan statistik tiket",
 												"fields": {
-																"messages": "Messages",
+																"messages": "Pesan",
 																"response_time": {
 																				"minutes": "%s minutes",
-																				"title": "Avg. response time"
+																				"title": "Avg. waktu respon"
 																},
-																"tickets": "Tickets"
+																"tickets": "Tiket"
 												},
-												"name": "stats",
+												"name": "stistik",
 												"response": {
 																"global": {
-																				"description": "Statistics about tickets across all guilds where this Discord Tickets instance is used.",
-																				"title": "📊 Global stats"
+																				"description": "Statistik tentang tiket di semua guild tempat instance Tiket Discord ini digunakan.",
+																				"title": "📊 Statistik global"
 																},
 																"guild": {
 																				"description": "Statistics about tickets within this guild. This data is cached for an hour.",
-																				"title": "📊 This server's stats"
+																				"title": "📊 statistik server"
 																}
 												}
 								},
 								"survey": {
-												"description": "View survey responses",
+												"description": "Lihat tanggapan survei",
 												"name": "survey",
 												"response": {
 																"list": {
@@ -237,87 +237,87 @@
 												}
 								},
 								"tag": {
-												"description": "Use a tag response",
+												"description": "Gunakan tanggapan tag",
 												"name": "tag",
 												"response": {
 																"error": "❌ Error",
 																"list": {
 																				"title": "📃 Tag list"
 																},
-																"missing": "This tag requires the following arguments:\n%s",
+																"missing": "Tag ini membutuhkan argumen berikut::\n%s",
 																"not_a_ticket": {
-																				"description": "This tag can only be used within a ticket channel as it uses ticket references.",
-																				"title": "❌ This isn't a ticket channel"
+																				"description": "Tag ini hanya dapat digunakan dalam saluran tiket karena menggunakan referensi tiket.",
+																				"title": "❌ Ini bukan saluran tiket"
 																}
 												}
 								},
 								"topic": {
-												"description": "Change the topic of the ticket",
+												"description": "Ubah topik tiket",
 												"name": "topik",
 												"response": {
 																"changed": {
-																				"description": "This ticket's topic has been changed.",
-																				"title": "✅ Topic changed"
+																				"description": "Topik tiket ini telah diubah.",
+																				"title": "✅ Topik di ganti"
 																},
 																"not_a_ticket": {
-																				"description": "Please use this command in the ticket channel you want to change the topic of.",
-																				"title": "❌ This isn't a ticket channel"
+																				"description": "Silakan gunakan perintah ini di saluran tiket yang ingin Anda ubah topiknya.",
+																				"title": "❌ Ini bukan saluran tiket"
 																}
 												}
 								}
 				},
 				"message_will_be_deleted_in": "Pesan ini akan dihapus dalam %d detik",
 				"missing_permissions": {
-								"description": "You do not have the permissions required to use this command:\n%s",
+								"description": "Anda tidak memiliki izin yang diperlukan untuk menggunakan perintah ini:\n%s",
 								"title": "❌"
 				},
 				"ticket": {
 								"claimed": {
-												"description": "%s has claimed this ticket.",
-												"title": "✅ Ticket claimed"
+												"description": "%s telah mengklaim tiket ini.",
+												"title": "✅ Tiket diklaim"
 								},
 								"closed": {
-												"description": "This ticket has been closed.\nThe channel will be deleted in 5 seconds.",
+												"description": "Tiket ini telah ditutup.\nSaluran akan dihapus dalam 5 detik.",
 												"title": "✅ Tiket ditutup"
 								},
 								"closed_by_member": {
-												"description": "This ticket has been closed by %s.\nThe channel will be deleted in 5 seconds.",
+												"description": "Tiket ini telah ditutup by %s.\nSaluran akan dihapus dalam 5 detik.",
 												"title": "✅ Tiket ditutup"
 								},
 								"closed_by_member_with_reason": {
-												"description": "This ticket has been closed by %s: `%s`\nThe channel will be deleted in 5 seconds.",
+												"description": "Tiket ini telah ditutup by %s: `%s`\nSaluran akan dihapus dalam 5 detik.",
 												"title": "✅ Tiket ditutup"
 								},
 								"closed_with_reason": {
-												"description": "This ticket has been closed: `%s`\nThe channel will be deleted in 5 seconds.",
+												"description": "Tiket ini telah ditutup: `%s`\nSaluran akan dihapus dalam 5 detik.",
 												"title": "✅ Tiket ditutup"
 								},
 								"member_added": {
-												"description": "%s has been added by %s",
-												"title": "Member added"
+												"description": "%s telah ditambahkan oleh %s",
+												"title": "Anggota ditambahkan"
 								},
 								"member_removed": {
-												"description": "%s has been removed by %s",
-												"title": "Member removed"
+												"description": "%s telah dihapus oleh %s",
+												"title": "Anggota dihapus"
 								},
 								"opening_message": {
 												"fields": {
-																"topic": "Topic"
+																"topic": "Topik"
 												}
 								},
-								"questions": "Please answer the following questions:\n\n%s",
+								"questions": "Jawablah pertanyaan berikut:\n\n%s",
 								"released": {
-												"description": "%s has released this ticket.",
-												"title": "✅ Ticket released"
+												"description": "%s telah merilis tiket ini.",
+												"title": "✅ Tiket dirilis"
 								},
 								"survey": {
 												"complete": {
-																"description": "Thank you for your feedback.",
-																"title": "✅ Thank you"
+																"description": "Terima kasih atas tanggapan Anda.",
+																"title": "✅ Terima kasih"
 												},
 												"start": {
-																"description": "Hey, %s. Before this channel is deleted, would you mind completing a quick %d-question survey? Bereaksi dengan ✅ to start, or ignore this message.",
-																"title": "❔ Feedback"
+																"description": "Hey, %s. Sebelum saluran ini dihapus, maukah Anda menyelesaikannya dengan cepat %d-survei pertanyaan? Bereaksi dengan ✅ untuk mulai, atau biarkan pesan ini.",
+																"title": "❔ umpan balik"
 												}
 								}
 				}
