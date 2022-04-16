@@ -48,10 +48,10 @@
 		"comma-dangle": [
 			"error",
 			{
-				"arrays": "never",
-				"exports": "never",
-				"functions": "never",
-				"imports": "never",
+				"arrays": "always-multiline",
+				"exports": "always-multiline",
+				"functions": "always-multiline",
+				"imports": "always-multiline",
 				"objects": "always-multiline"
 			}
 		],
@@ -197,7 +197,7 @@
 			"always"
 		],
 		"sort-keys": [
-			"error",
+			"warn",
 			"asc",
 			{
 				"natural": true
