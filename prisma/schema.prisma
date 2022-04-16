@@ -45,12 +45,11 @@ model ArchivedRole {
 }
 
 model ArchivedUser {
-    archivedAvatarId String
     archivedMessages ArchivedMessage[]
+    avatar           String
     bot              Boolean           @default(false)
     discriminator    String            @db.Char(4)
     displayName      String
-    lastAvatarHash   String
     role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
     roleId           String            @db.VarChar(19)
     ticket           Ticket            @relation(fields: [ticketId], references: [id])
@@ -186,11 +185,11 @@ model Ticket {
 }
 
 model User {
-    id             String   @id @unique @db.VarChar(19)
+    id              String           @id @unique @db.VarChar(19)
     // surveyResponses SurveyResponse[]
-    ticketsCreated Ticket[] @relation("CreatedTickets")
-    ticketsClosed  Ticket[] @relation("ClosedTickets")
-    ticketsClaimed Ticket[] @relation("ClaimedTickets")
+    ticketsCreated  Ticket[]         @relation("CreatedTickets")
+    ticketsClosed   Ticket[]         @relation("ClosedTickets")
+    ticketsClaimed  Ticket[]         @relation("ClaimedTickets")
 
     @@map("users")
 }
