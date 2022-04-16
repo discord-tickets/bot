@@ -162,12 +162,12 @@ model Ticket {
     archivedUsers    ArchivedUser[]
     category         Category          @relation(fields: [categoryId], references: [id])
     categoryId       String            @db.VarChar(19)
-    claimedBy        User              @relation(name: "ClaimedTickets", fields: [claimedById], references: [id])
+    claimedBy        User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById      String            @db.VarChar(19)
-    closedBy         User              @relation(name: "ClosedTickets", fields: [closedById], references: [id])
+    closedBy         User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
     closedById       String            @db.VarChar(19)
     closedReason     String?
-    createdBy        User              @relation(name: "CreatedTickets", fields: [createdById], references: [id])
+    createdBy        User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById      String            @db.VarChar(19)
     firstResponse    DateTime?
     guild            Guild             @relation(fields: [guildId], references: [id])
@@ -178,6 +178,9 @@ model Ticket {
     open             Boolean           @default(true)
     openingMessage   String            @db.VarChar(19)
     pinnedMessages   Json              @default("[]")
+    referencedBy     Ticket[]          @relation("TicketsReferencedByTicket")
+    references       Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesId], references: [id])
+    referencesId     String?           @db.VarChar(19)
     topic            String?
 
     @@unique([guildId, number])
@@ -187,9 +190,9 @@ model Ticket {
 model User {
     id              String           @id @unique @db.VarChar(19)
     // surveyResponses SurveyResponse[]
-    ticketsCreated  Ticket[]         @relation("CreatedTickets")
-    ticketsClosed   Ticket[]         @relation("ClosedTickets")
-    ticketsClaimed  Ticket[]         @relation("ClaimedTickets")
+    ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
+    ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
+    ticketsClaimed Ticket[] @relation("TicketsClaimedByUser")
 
     @@map("users")
 }
