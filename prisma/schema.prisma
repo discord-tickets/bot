@@ -77,7 +77,7 @@ model Category {
     roles          Json
     tickets        Ticket[]
     totalLimit     Int      @default(-1)
-    survey         Survey   @relation(fields: [guildId, surveyName], references: [guildId, name])
+    // survey         Survey   @relation(fields: [guildId, surveyName], references: [guildId, name])
     surveyName     String
 
     @@map("categories")
@@ -90,56 +90,59 @@ model Guild {
     id            String     @id @unique @db.VarChar(19)
     primaryColour String     @default("#009999")
     successColour String     @default("GREEN")
-    surveys       Survey[]
+    // surveys       Survey[]
     tags          Tag[]
     tickets       Ticket[]
 
     @@map("guilds")
 }
 
-model Survey {
-    categories Category[]
-    guild      Guild            @relation(fields: [guildId], references: [id])
-    guildId    String           @db.VarChar(19)
-    name       String
-    questions  SurveyQuestion[]
-    responses  SurveyResponse[]
+// model Survey {
+//     categories Category[]
+//     guild      Guild            @relation(fields: [guildId], references: [id])
+//     guildId    String           @db.VarChar(19)
+//     name       String
+//     questions  SurveyQuestion[]
+//     responses  SurveyResponse[]
 
-    @@id([guildId, name])
-    @@unique([guildId, name])
-    @@map("surveys")
-}
+//     @@id([guildId, name])
+//     @@unique([guildId, name])
+//     @@map("surveys")
+// }
 
-model SurveyResponse {
-    answers       SurveyQuestionAnswer[]
-    id            Int                    @id @default(autoincrement())
-    survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
-    surveyGuildId String                 @db.VarChar(19)
-    surveyName    String
-    user          User                   @relation(fields: [userId], references: [id])
-    userId        String                 @db.VarChar(19)
+// model SurveyResponse {
+//     answers       SurveyQuestionAnswer[]
+//     id            Int                    @id @default(autoincrement())
+//     survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
+//     surveyGuildId String                 @db.VarChar(19)
+//     surveyName    String
+//     user          User                   @relation(fields: [userId], references: [id])
+//     userId        String                 @db.VarChar(19)
 
-    @@map("survey_responses")
-}
+//     @@map("survey_responses")
+// }
 
-model SurveyQuestion {
-    content       String @db.Text
-    id            Int    @id @default(autoincrement())
-    survey        Survey @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
-    surveyGuildId String @db.VarChar(19)
-    surveyName    String
+// model SurveyQuestion {
+//     answers       SurveyQuestionAnswer[]
+//     content       String                 @db.Text
+//     id            Int                    @id @default(autoincrement())
+//     survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
+//     surveyGuildId String                 @db.VarChar(19)
+//     surveyName    String
 
-    @@map("survey_questions")
-}
+//     @@map("survey_questions")
+// }
 
-model SurveyQuestionAnswer {
-    content          String         @db.Text
-    id               Int            @id @default(autoincrement())
-    surveyResponse   SurveyResponse @relation(fields: [surveyResponseId], references: [id])
-    surveyResponseId Int
+// model SurveyQuestionAnswer {
+//     content          String         @db.Text
+//     id               Int            @id @default(autoincrement())
+//     surveyResponse   SurveyResponse @relation(fields: [surveyResponseId], references: [id])
+//     surveyResponseId Int
+//     question         SurveyQuestion @relation(fields: [questionId], references: [id])
+//     questionId       Int
 
-    @@map("survey_answers")
-}
+//     @@map("survey_answers")
+// }
 
 model Tag {
     content String @db.Text
@@ -183,7 +186,7 @@ model Ticket {
 
 model User {
     id              String           @id @unique @db.VarChar(19)
-    surveyResponses SurveyResponse[]
+    // surveyResponses SurveyResponse[]
     ticketsCreated  Ticket[]         @relation("CreatedTickets")
     ticketsClosed   Ticket[]         @relation("ClosedTickets")
     ticketsClaimed  Ticket[]         @relation("ClaimedTickets")
