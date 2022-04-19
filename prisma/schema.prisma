@@ -148,9 +148,9 @@ model Tag {
     content String @db.Text
     guild   Guild  @relation(fields: [guildId], references: [id])
     guildId String @db.VarChar(19)
+    id      Int    @id @default(autoincrement())
     name    String
 
-    @@id([guildId, name])
     @@unique([guildId, name])
     @@map("tags")
 }
@@ -188,7 +188,7 @@ model Ticket {
 }
 
 model User {
-    id              String           @id @unique @db.VarChar(19)
+    id             String   @id @unique @db.VarChar(19)
     // surveyResponses SurveyResponse[]
     ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
     ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
