@@ -78,7 +78,7 @@ model Category {
     tickets        Ticket[]
     totalLimit     Int      @default(-1)
     // survey         Survey   @relation(fields: [guildId, surveyName], references: [guildId, name])
-    surveyName     String
+    // surveyName     String
 
     @@map("categories")
 }
