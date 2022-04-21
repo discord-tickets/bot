@@ -15,20 +15,20 @@ model ArchivedChannel {
 
     @@id([ticketId, channelId])
     @@unique([ticketId, channelId])
-    @@map("archived_channels")
+    @@map("archivedChannels")
 }
 
 model ArchivedMessage {
-    author   ArchivedUser? @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: SetNull)
-    authorId String        @db.VarChar(19)
+    author   ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
+    authorId String       @db.VarChar(19)
     content  String
-    deleted  Boolean       @default(false)
-    edited   Boolean       @default(false)
-    id       String        @id @db.VarChar(19)
-    ticket   Ticket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-    ticketId String        @db.VarChar(19)
+    deleted  Boolean      @default(false)
+    edited   Boolean      @default(false)
+    id       String       @id @db.VarChar(19)
+    ticket   Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId String       @db.VarChar(19)
 
-    @@map("archived_messages")
+    @@map("archivedMessages")
 }
 
 model ArchivedRole {
@@ -41,7 +41,7 @@ model ArchivedRole {
 
     @@id([ticketId, roleId])
     @@unique([ticketId, roleId])
-    @@map("archived_roles")
+    @@map("archivedRoles")
 }
 
 model ArchivedUser {
@@ -50,7 +50,7 @@ model ArchivedUser {
     bot              Boolean           @default(false)
     discriminator    String            @db.Char(4)
     displayName      String
-    role             ArchivedRole?     @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: SetNull)
+    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
     roleId           String            @db.VarChar(19)
     ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String            @db.VarChar(19)
@@ -59,7 +59,7 @@ model ArchivedUser {
 
     @@id([ticketId, userId])
     @@unique([ticketId, userId])
-    @@map("archived_users")
+    @@map("archivedUsers")
 }
 
 model Category {
@@ -118,8 +118,8 @@ model Ticket {
     archivedMessages ArchivedMessage[]
     archivedRoles    ArchivedRole[]
     archivedUsers    ArchivedUser[]
-    category         Category          @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-    categoryId       Int
+    category         Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+    categoryId       Int?
     claimedBy        User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById      String            @db.VarChar(19)
     closedBy         User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
