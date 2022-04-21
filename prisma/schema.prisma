@@ -21,7 +21,7 @@ model ArchivedChannel {
 model ArchivedMessage {
     author   ArchivedUser? @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: SetNull)
     authorId String        @db.VarChar(19)
-    data     Json
+    content  String
     deleted  Boolean       @default(false)
     edited   Boolean       @default(false)
     id       String        @id @db.VarChar(19)
@@ -103,7 +103,7 @@ model Guild {
 }
 
 model Tag {
-    content Json
+    content String
     guild   Guild  @relation(fields: [guildId], references: [id])
     guildId String @db.VarChar(19)
     id      Int    @id @default(autoincrement())
