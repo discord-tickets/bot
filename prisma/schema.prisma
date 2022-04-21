@@ -75,7 +75,7 @@ model Category {
     memberLimit       Int      @default(1)
     name              String
     openingMessage    String   @db.Text
-    ping              Json     @default("[]")
+    pingRoles         Json     @default("[]")
     requiredRoles     Json
     requireTopic      Boolean  @default(false)
     staffRoles        Json
