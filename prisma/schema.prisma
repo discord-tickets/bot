@@ -63,22 +63,25 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName    String   @default("ticket-{num}")
-    claiming       Boolean  @default(false)
-    guild          Guild    @relation(fields: [guildId], references: [id])
-    guildId        String   @db.VarChar(19)
-    id             String   @id @unique @db.VarChar(19)
-    image          String?
-    memberLimit    Int      @default(1)
-    name           String
-    openingMessage String   @db.Text
-    ping           Json     @default("[]")
-    requireTopic   Boolean  @default(false)
-    roles          Json
-    tickets        Ticket[]
-    totalLimit     Int      @default(-1)
+    channelName       String   @default("ticket-{num}")
+    claiming          Boolean  @default(false)
+    guild             Guild    @relation(fields: [guildId], references: [id])
+    guildId           String   @db.VarChar(19)
+    id                String   @id @unique @db.VarChar(19)
+    image             String?
+    memberLimit       Int      @default(1)
+    name              String
+    openingMessage    String   @db.Text
+    ping              Json     @default("[]")
+    requireTopic      Boolean  @default(false)
+    roles             Json
+    tickets           Ticket[]
+    totalLimit        Int      @default(-1)
     // survey         Survey   @relation(fields: [guildId, surveyName], references: [guildId, name])
     // surveyName     String
+    surveyDescription String
+    surveyLink        String
+    surveyTitle       String
 
     @@map("categories")
 }
@@ -145,7 +148,7 @@ model Guild {
 // }
 
 model Tag {
-    content String @db.Text
+    content Json
     guild   Guild  @relation(fields: [guildId], references: [id])
     guildId String @db.VarChar(19)
     id      Int    @id @default(autoincrement())
