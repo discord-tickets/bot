@@ -10,7 +10,7 @@ datasource db {
 model ArchivedChannel {
     channelId String @db.VarChar(19)
     name      String
-    ticket    Ticket @relation(fields: [ticketId], references: [id])
+    ticket    Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId  String @db.VarChar(19)
 
     @@id([ticketId, channelId])
@@ -19,14 +19,14 @@ model ArchivedChannel {
 }
 
 model ArchivedMessage {
-    author   ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
-    authorId String       @db.VarChar(19)
+    author   ArchivedUser? @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: SetNull)
+    authorId String        @db.VarChar(19)
     data     Json
-    deleted  Boolean      @default(false)
-    edited   Boolean      @default(false)
-    id       String       @id @db.VarChar(19)
-    ticket   Ticket       @relation(fields: [ticketId], references: [id])
-    ticketId String       @db.VarChar(19)
+    deleted  Boolean       @default(false)
+    edited   Boolean       @default(false)
+    id       String        @id @db.VarChar(19)
+    ticket   Ticket        @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId String        @db.VarChar(19)
 
     @@map("archived_messages")
 }
@@ -36,7 +36,7 @@ model ArchivedRole {
     colour        String         @default("7289DA") @db.Char(6)
     name          String
     roleId        String         @db.VarChar(19)
-    ticket        Ticket         @relation(fields: [ticketId], references: [id])
+    ticket        Ticket         @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId      String         @db.VarChar(19)
 
     @@id([ticketId, roleId])
@@ -50,9 +50,9 @@ model ArchivedUser {
     bot              Boolean           @default(false)
     discriminator    String            @db.Char(4)
     displayName      String
-    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
+    role             ArchivedRole?     @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: SetNull)
     roleId           String            @db.VarChar(19)
-    ticket           Ticket            @relation(fields: [ticketId], references: [id])
+    ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String            @db.VarChar(19)
     userId           String            @db.VarChar(19)
     username         String
@@ -118,7 +118,7 @@ model Ticket {
     archivedMessages ArchivedMessage[]
     archivedRoles    ArchivedRole[]
     archivedUsers    ArchivedUser[]
-    category         Category          @relation(fields: [categoryId], references: [id])
+    category         Category          @relation(fields: [categoryId], references: [id], onDelete: SetNull)
     categoryId       Int
     claimedBy        User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById      String            @db.VarChar(19)
