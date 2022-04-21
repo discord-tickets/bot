@@ -137,7 +137,7 @@ model Ticket {
     openingMessage   String            @db.VarChar(19)
     pinnedMessages   Json              @default("[]")
     referencedBy     Ticket[]          @relation("TicketsReferencedByTicket")
-    references       Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesId], references: [id])
+    references       Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesId], references: [id], onDelete: SetNull)
     referencesId     String?           @db.VarChar(19)
     topic            String?
 
