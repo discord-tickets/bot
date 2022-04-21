@@ -24,7 +24,7 @@ model ArchivedMessage {
     data     Json
     deleted  Boolean      @default(false)
     edited   Boolean      @default(false)
-    id       String       @id @unique @db.VarChar(19)
+    id       String       @id @db.VarChar(19)
     ticket   Ticket       @relation(fields: [ticketId], references: [id])
     ticketId String       @db.VarChar(19)
 
@@ -66,17 +66,19 @@ model Category {
     channelName       String   @default("ticket-{num}")
     claiming          Boolean  @default(false)
     description       String
+    discordCategory   String   @db.VarChar(19)
     emoji             String
     guild             Guild    @relation(fields: [guildId], references: [id])
     guildId           String   @db.VarChar(19)
-    id                String   @id @unique @db.VarChar(19)
+    id                Int      @id @default(autoincrement())
     image             String?
     memberLimit       Int      @default(1)
     name              String
     openingMessage    String   @db.Text
     ping              Json     @default("[]")
+    requiredRoles     Json
     requireTopic      Boolean  @default(false)
-    roles             Json
+    staffRoles        Json
     tickets           Ticket[]
     totalLimit        Int      @default(-1)
     surveyDescription String?
@@ -91,7 +93,7 @@ model Guild {
     blocklist     Json
     categories    Category[]
     errorColour   String     @default("RED")
-    id            String     @id @unique @db.VarChar(19)
+    id            String     @id @db.VarChar(19)
     primaryColour String     @default("#009999")
     successColour String     @default("GREEN")
     tags          Tag[]
@@ -117,7 +119,7 @@ model Ticket {
     archivedRoles    ArchivedRole[]
     archivedUsers    ArchivedUser[]
     category         Category          @relation(fields: [categoryId], references: [id])
-    categoryId       String            @db.VarChar(19)
+    categoryId       Int
     claimedBy        User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById      String            @db.VarChar(19)
     closedBy         User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
@@ -128,7 +130,7 @@ model Ticket {
     firstResponse    DateTime?
     guild            Guild             @relation(fields: [guildId], references: [id])
     guildId          String            @db.VarChar(19)
-    id               String            @id @unique @db.VarChar(19)
+    id               String            @id @db.VarChar(19)
     lastMessage      DateTime?
     number           Int
     open             Boolean           @default(true)
@@ -144,7 +146,7 @@ model Ticket {
 }
 
 model User {
-    id             String   @id @unique @db.VarChar(19)
+    id             String   @id @db.VarChar(19)
     ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
     ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
     ticketsClaimed Ticket[] @relation("TicketsClaimedByUser")
