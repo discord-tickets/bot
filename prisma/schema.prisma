@@ -65,6 +65,8 @@ model ArchivedUser {
 model Category {
     channelName       String   @default("ticket-{num}")
     claiming          Boolean  @default(false)
+    description       String
+    emoji             String
     guild             Guild    @relation(fields: [guildId], references: [id])
     guildId           String   @db.VarChar(19)
     id                String   @id @unique @db.VarChar(19)
@@ -77,75 +79,26 @@ model Category {
     roles             Json
     tickets           Ticket[]
     totalLimit        Int      @default(-1)
-    // survey         Survey   @relation(fields: [guildId, surveyName], references: [guildId, name])
-    // surveyName     String
-    surveyDescription String
-    surveyLink        String
-    surveyTitle       String
+    surveyDescription String?
+    surveyLink        String?
+    surveyTitle       String?
 
     @@map("categories")
 }
 
 model Guild {
     archive       Boolean    @default(true)
+    blocklist     Json
     categories    Category[]
     errorColour   String     @default("RED")
     id            String     @id @unique @db.VarChar(19)
     primaryColour String     @default("#009999")
     successColour String     @default("GREEN")
-    // surveys       Survey[]
     tags          Tag[]
     tickets       Ticket[]
 
     @@map("guilds")
 }
-
-// model Survey {
-//     categories Category[]
-//     guild      Guild            @relation(fields: [guildId], references: [id])
-//     guildId    String           @db.VarChar(19)
-//     name       String
-//     questions  SurveyQuestion[]
-//     responses  SurveyResponse[]
-
-//     @@id([guildId, name])
-//     @@unique([guildId, name])
-//     @@map("surveys")
-// }
-
-// model SurveyResponse {
-//     answers       SurveyQuestionAnswer[]
-//     id            Int                    @id @default(autoincrement())
-//     survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
-//     surveyGuildId String                 @db.VarChar(19)
-//     surveyName    String
-//     user          User                   @relation(fields: [userId], references: [id])
-//     userId        String                 @db.VarChar(19)
-
-//     @@map("survey_responses")
-// }
-
-// model SurveyQuestion {
-//     answers       SurveyQuestionAnswer[]
-//     content       String                 @db.Text
-//     id            Int                    @id @default(autoincrement())
-//     survey        Survey                 @relation(fields: [surveyGuildId, surveyName], references: [guildId, name])
-//     surveyGuildId String                 @db.VarChar(19)
-//     surveyName    String
-
-//     @@map("survey_questions")
-// }
-
-// model SurveyQuestionAnswer {
-//     content          String         @db.Text
-//     id               Int            @id @default(autoincrement())
-//     surveyResponse   SurveyResponse @relation(fields: [surveyResponseId], references: [id])
-//     surveyResponseId Int
-//     question         SurveyQuestion @relation(fields: [questionId], references: [id])
-//     questionId       Int
-
-//     @@map("survey_answers")
-// }
 
 model Tag {
     content Json
@@ -192,7 +145,6 @@ model Ticket {
 
 model User {
     id             String   @id @unique @db.VarChar(19)
-    // surveyResponses SurveyResponse[]
     ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
     ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
     ticketsClaimed Ticket[] @relation("TicketsClaimedByUser")
