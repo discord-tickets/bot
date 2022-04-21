@@ -79,11 +79,11 @@ model Category {
     requiredRoles     Json
     requireTopic      Boolean  @default(false)
     staffRoles        Json
-    tickets           Ticket[]
-    totalLimit        Int      @default(-1)
     surveyDescription String?
     surveyLink        String?
     surveyTitle       String?
+    tickets           Ticket[]
+    totalLimit        Int      @default(-1)
 
     @@map("categories")
 }
