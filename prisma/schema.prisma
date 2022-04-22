@@ -128,6 +128,7 @@ model Ticket {
     createdBy        User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById      String            @db.VarChar(19)
     firstResponse    DateTime?
+    deleted          Boolean           @default(false)
     guild            Guild             @relation(fields: [guildId], references: [id])
     guildId          String            @db.VarChar(19)
     id               String            @id @db.VarChar(19)
