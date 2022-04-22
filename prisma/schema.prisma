@@ -133,6 +133,7 @@ model Ticket {
     guildId          String            @db.VarChar(19)
     id               String            @id @db.VarChar(19)
     lastMessage      DateTime?
+    messageCount     Int?
     number           Int
     open             Boolean           @default(true)
     openingMessage   String            @db.VarChar(19)
