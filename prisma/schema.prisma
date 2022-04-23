@@ -149,6 +149,7 @@ model Ticket {
 
 model User {
     id             String   @id @db.VarChar(19)
+    messageCount   Int      @default(0)
     ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
     ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
     ticketsClaimed Ticket[] @relation("TicketsClaimedByUser")
