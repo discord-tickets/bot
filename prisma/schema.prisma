@@ -8,10 +8,11 @@ datasource db {
 }
 
 model ArchivedChannel {
-    channelId String @db.VarChar(19)
+    channelId String   @db.VarChar(19)
+    createdAt DateTime @default(now())
     name      String
-    ticket    Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-    ticketId  String @db.VarChar(19)
+    ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String   @db.VarChar(19)
 
     @@id([ticketId, channelId])
     @@unique([ticketId, channelId])
@@ -19,14 +20,15 @@ model ArchivedChannel {
 }
 
 model ArchivedMessage {
-    author   ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
-    authorId String       @db.VarChar(19)
-    content  String
-    deleted  Boolean      @default(false)
-    edited   Boolean      @default(false)
-    id       String       @id @db.VarChar(19)
-    ticket   Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-    ticketId String       @db.VarChar(19)
+    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
+    authorId  String       @db.VarChar(19)
+    content   String
+    createdAt DateTime     @default(now())
+    deleted   Boolean      @default(false)
+    edited    Boolean      @default(false)
+    id        String       @id @db.VarChar(19)
+    ticket    Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String       @db.VarChar(19)
 
     @@map("archivedMessages")
 }
@@ -34,6 +36,7 @@ model ArchivedMessage {
 model ArchivedRole {
     archivedUsers ArchivedUser[]
     colour        String         @default("7289DA") @db.Char(6)
+    createdAt     DateTime       @default(now())
     name          String
     roleId        String         @db.VarChar(19)
     ticket        Ticket         @relation(fields: [ticketId], references: [id], onDelete: Cascade)
@@ -48,6 +51,7 @@ model ArchivedUser {
     archivedMessages ArchivedMessage[]
     avatar           String
     bot              Boolean           @default(false)
+    createdAt        DateTime          @default(now())
     discriminator    String            @db.Char(4)
     displayName      String
     role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
@@ -63,27 +67,26 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName       String   @default("ticket-{num}")
-    claiming          Boolean  @default(false)
-    description       String
-    discordCategory   String   @db.VarChar(19)
-    emoji             String
-    guild             Guild    @relation(fields: [guildId], references: [id])
-    guildId           String   @db.VarChar(19)
-    id                Int      @id @default(autoincrement())
-    image             String?
-    memberLimit       Int      @default(1)
-    name              String
-    openingMessage    String   @db.Text
-    pingRoles         Json     @default("[]")
-    requiredRoles     Json
-    requireTopic      Boolean  @default(false)
-    staffRoles        Json
-    surveyDescription String?
-    surveyLink        String?
-    surveyTitle       String?
-    tickets           Ticket[]
-    totalLimit        Int      @default(-1)
+    channelName     String     @default("ticket-{num}")
+    claiming        Boolean    @default(false)
+    createdAt       DateTime   @default(now())
+    description     String
+    discordCategory String     @db.VarChar(19)
+    emoji           String
+    guild           Guild      @relation(fields: [guildId], references: [id])
+    guildId         String     @db.VarChar(19)
+    id              Int        @id @default(autoincrement())
+    image           String?
+    memberLimit     Int        @default(1)
+    name            String
+    openingMessage  String     @db.Text
+    pingRoles       Json       @default("[]")
+    questions       Question[]
+    requiredRoles   Json
+    requireTopic    Boolean    @default(false)
+    staffRoles      Json
+    tickets         Ticket[]
+    totalLimit      Int        @default(-1)
 
     @@map("categories")
 }
@@ -92,8 +95,10 @@ model Guild {
     archive       Boolean    @default(true)
     blocklist     Json
     categories    Category[]
+    createdAt     DateTime   @default(now())
     errorColour   String     @default("RED")
     id            String     @id @db.VarChar(19)
+    logChannel    String?    @db.VarChar(19)
     primaryColour String     @default("#009999")
     successColour String     @default("GREEN")
     tags          Tag[]
@@ -102,57 +107,100 @@ model Guild {
     @@map("guilds")
 }
 
+model Question {
+    answers     QuestionAnswer[]
+    id          Int              @id @default(autoincrement())
+    category    Category?        @relation(fields: [categoryId], references: [id])
+    categoryId  Int?
+    maxLength   Int              @default(4000)
+    minLength   Int              @default(0)
+    order       Int?
+    placeholder String?          @db.VarChar(100)
+    required    Boolean          @default(true)
+    style       Int              @default(2)
+    value       String?          @db.VarChar(4000)
+
+    @@map("questions")
+}
+
+model QuestionAnswer {
+    id         Int      @id @default(autoincrement())
+    ticket     Ticket   @relation(fields: [ticketId], references: [id])
+    ticketId   String   @db.VarChar(19)
+    question   Question @relation(fields: [questionId], references: [id])
+    questionId Int
+    user       User     @relation(fields: [userId], references: [id])
+    userId     String   @db.VarChar(19)
+    value      String?  @db.VarChar(4000)
+
+    @@map("questionAnswers")
+}
+
 model Tag {
-    content String
-    guild   Guild  @relation(fields: [guildId], references: [id])
-    guildId String @db.VarChar(19)
-    id      Int    @id @default(autoincrement())
-    name    String
+    content   String
+    createdAt DateTime @default(now())
+    guild     Guild    @relation(fields: [guildId], references: [id])
+    guildId   String   @db.VarChar(19)
+    id        Int      @id @default(autoincrement())
+    name      String
+    regex     String?
 
     @@unique([guildId, name])
     @@map("tags")
 }
 
 model Ticket {
-    archivedChannels ArchivedChannel[]
-    archivedMessages ArchivedMessage[]
-    archivedRoles    ArchivedRole[]
-    archivedUsers    ArchivedUser[]
-    category         Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-    categoryId       Int?
-    claimedBy        User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
-    claimedById      String            @db.VarChar(19)
-    closedBy         User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
-    closedById       String            @db.VarChar(19)
-    closedReason     String?
-    createdBy        User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
-    createdById      String            @db.VarChar(19)
-    firstResponse    DateTime?
-    deleted          Boolean           @default(false)
-    guild            Guild             @relation(fields: [guildId], references: [id])
-    guildId          String            @db.VarChar(19)
-    id               String            @id @db.VarChar(19)
-    lastMessage      DateTime?
-    messageCount     Int?
-    number           Int
-    open             Boolean           @default(true)
-    openingMessage   String            @db.VarChar(19)
-    pinnedMessages   Json              @default("[]")
-    referencedBy     Ticket[]          @relation("TicketsReferencedByTicket")
-    references       Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesId], references: [id], onDelete: SetNull)
-    referencesId     String?           @db.VarChar(19)
-    topic            String?
+    archivedChannels    ArchivedChannel[]
+    archivedMessages    ArchivedMessage[]
+    archivedRoles       ArchivedRole[]
+    archivedUsers       ArchivedUser[]
+    category            Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+    categoryId          Int?
+    claimedBy           User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
+    claimedById         String            @db.VarChar(19)
+    closedBy            User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
+    closedById          String            @db.VarChar(19)
+    closedReason        String?
+    createdAt           DateTime          @default(now())
+    createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
+    createdById         String            @db.VarChar(19)
+    firstResponseAt     DateTime?
+    deleted             Boolean           @default(false)
+    guild               Guild             @relation(fields: [guildId], references: [id])
+    guildId             String            @db.VarChar(19)
+    id                  String            @id @db.VarChar(19)
+    lastMessageAt       DateTime?
+    messageCount        Int?
+    number              Int
+    open                Boolean           @default(true)
+    openingMessage      String            @db.VarChar(19)
+    pinnedMessages      Json              @default("[]")
+    priority            Priority?
+    referencedBy        Ticket[]          @relation("TicketsReferencedByTicket")
+    referencesMessageId String            @db.VarChar(19)
+    referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
+    referencesTicketId  String?           @db.VarChar(19)
+    topic               String?
+    questionAnswers     QuestionAnswer[]
 
     @@unique([guildId, number])
     @@map("tickets")
 }
 
 model User {
-    id             String   @id @db.VarChar(19)
-    messageCount   Int      @default(0)
-    ticketsCreated Ticket[] @relation("TicketsCreatedByUser")
-    ticketsClosed  Ticket[] @relation("TicketsClosedByUser")
-    ticketsClaimed Ticket[] @relation("TicketsClaimedByUser")
+    createdAt       DateTime         @default(now())
+    id              String           @id @db.VarChar(19)
+    messageCount    Int              @default(0)
+    ticketsCreated  Ticket[]         @relation("TicketsCreatedByUser")
+    ticketsClosed   Ticket[]         @relation("TicketsClosedByUser")
+    ticketsClaimed  Ticket[]         @relation("TicketsClaimedByUser")
+    questionAnswers QuestionAnswer[]
 
     @@map("users")
+}
+
+enum Priority {
+    LOW
+    MEDIUM
+    HIGH
 }
