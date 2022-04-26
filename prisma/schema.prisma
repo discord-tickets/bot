@@ -73,6 +73,8 @@ model Category {
     description     String
     discordCategory String     @db.VarChar(19)
     emoji           String
+    enableFeedback  Boolean    @default(false)
+    feedback        Feedback[]
     guild           Guild      @relation(fields: [guildId], references: [id])
     guildId         String     @db.VarChar(19)
     id              Int        @id @default(autoincrement())
@@ -89,6 +91,19 @@ model Category {
     totalLimit      Int        @default(-1)
 
     @@map("categories")
+}
+
+model Feedback {
+    category   Category? @relation(fields: [categoryId], references: [id])
+    categoryId Int?
+    comment    String?   @db.VarChar(4000)
+    id         Int       @id @default(autoincrement())
+    rating     Int
+    ticket     Ticket    @relation(fields: [ticketId], references: [id])
+    ticketId   String    @unique @db.VarChar(19)
+    user       User?     @relation(fields: [userId], references: [id])
+    userId     String?   @db.VarChar(19)
+
 }
 
 model Guild {
@@ -164,6 +179,8 @@ model Ticket {
     createdAt           DateTime          @default(now())
     createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById         String            @db.VarChar(19)
+    feedback            Feedback?
+    feedbackId          Int?
     firstResponseAt     DateTime?
     deleted             Boolean           @default(false)
     guild               Guild             @relation(fields: [guildId], references: [id])
@@ -189,6 +206,7 @@ model Ticket {
 
 model User {
     createdAt       DateTime         @default(now())
+    feedback        Feedback[]
     id              String           @id @db.VarChar(19)
     messageCount    Int              @default(0)
     ticketsCreated  Ticket[]         @relation("TicketsCreatedByUser")
