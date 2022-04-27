@@ -22,7 +22,7 @@ model ArchivedChannel {
 model ArchivedMessage {
     author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
     authorId  String       @db.VarChar(19)
-    content   String
+    content   String       @db.Text
     createdAt DateTime     @default(now())
     deleted   Boolean      @default(false)
     edited    Boolean      @default(false)
@@ -74,7 +74,6 @@ model Category {
     discordCategory String     @db.VarChar(19)
     emoji           String
     enableFeedback  Boolean    @default(false)
-    feedback        Feedback[]
     guild           Guild      @relation(fields: [guildId], references: [id])
     guildId         String     @db.VarChar(19)
     id              Int        @id @default(autoincrement())
@@ -94,24 +93,28 @@ model Category {
 }
 
 model Feedback {
-    category   Category? @relation(fields: [categoryId], references: [id])
-    categoryId Int?
-    comment    String?   @db.VarChar(4000)
-    id         Int       @id @default(autoincrement())
-    rating     Int
-    ticket     Ticket    @relation(fields: [ticketId], references: [id])
-    ticketId   String    @unique @db.VarChar(19)
-    user       User?     @relation(fields: [userId], references: [id])
-    userId     String?   @db.VarChar(19)
+    comment   String?
+    createdAt DateTime @default(now())
+    guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId   String   @db.VarChar(19)
+    id        Int      @id @default(autoincrement())
+    rating    Int
+    ticket    Ticket   @relation(fields: [ticketId], references: [id])
+    ticketId  String   @unique @db.VarChar(19)
+    user      User?    @relation(fields: [userId], references: [id])
+    userId    String?  @db.VarChar(19)
 
+    @@map("feedback")
 }
 
 model Guild {
+    autoTag       Json?
     archive       Boolean    @default(true)
     blocklist     Json
     categories    Category[]
     createdAt     DateTime   @default(now())
     errorColour   String     @default("RED")
+    feedback      Feedback[]
     id            String     @id @db.VarChar(19)
     logChannel    String?    @db.VarChar(19)
     primaryColour String     @default("#009999")
@@ -124,21 +127,24 @@ model Guild {
 
 model Question {
     answers     QuestionAnswer[]
+    createdAt   DateTime         @default(now())
     id          Int              @id @default(autoincrement())
     category    Category?        @relation(fields: [categoryId], references: [id])
     categoryId  Int?
-    maxLength   Int              @default(4000)
-    minLength   Int              @default(0)
-    order       Int?
+    label       String
+    maxLength   Int?             @default(4000)
+    minLength   Int?             @default(0)
+    order       Int
     placeholder String?          @db.VarChar(100)
     required    Boolean          @default(true)
     style       Int              @default(2)
-    value       String?          @db.VarChar(4000)
+    value       String?          @db.Text
 
     @@map("questions")
 }
 
 model QuestionAnswer {
+    createdAt  DateTime @default(now())
     id         Int      @id @default(autoincrement())
     ticket     Ticket   @relation(fields: [ticketId], references: [id])
     ticketId   String   @db.VarChar(19)
@@ -146,7 +152,7 @@ model QuestionAnswer {
     questionId Int
     user       User     @relation(fields: [userId], references: [id])
     userId     String   @db.VarChar(19)
-    value      String?  @db.VarChar(4000)
+    value      String?  @db.Text
 
     @@map("questionAnswers")
 }
