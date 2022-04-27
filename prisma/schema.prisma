@@ -179,6 +179,7 @@ model Ticket {
     categoryId          Int?
     claimedBy           User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById         String            @db.VarChar(19)
+    closedAt            DateTime?
     closedBy            User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
     closedById          String            @db.VarChar(19)
     closedReason        String?
