@@ -93,7 +93,7 @@ model Category {
 }
 
 model Feedback {
-    comment   String?
+    comment   String?  @db.Text
     createdAt DateTime @default(now())
     guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId   String   @db.VarChar(19)
