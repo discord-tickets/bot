@@ -20,7 +20,7 @@ model ArchivedChannel {
 }
 
 model ArchivedMessage {
-    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId])
+    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
     authorId  String       @db.VarChar(19)
     content   String       @db.Text
     createdAt DateTime     @default(now())
@@ -54,7 +54,7 @@ model ArchivedUser {
     createdAt        DateTime          @default(now())
     discriminator    String            @db.Char(4)
     displayName      String
-    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId])
+    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
     roleId           String            @db.VarChar(19)
     ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String            @db.VarChar(19)
