@@ -81,65 +81,65 @@ module.exports = class CommandManager {
 	}
 
 	async updatePermissions(guild) {
-		guild.commands.fetch().then(async commands => {
-			const permissions = [];
-			const settings = await this.client.utils.getSettings(guild.id);
-			const blacklist = [];
-			settings.blacklist.users?.forEach(userId => {
-				blacklist.push({
-					id: userId,
-					permission: false,
-					type: 'USER'
-				});
-			});
-			settings.blacklist.roles?.forEach(roleId => {
-				blacklist.push({
-					id: roleId,
-					permission: false,
-					type: 'ROLE'
-				});
-			});
+		// guild.commands.fetch().then(async commands => {
+		// 	const permissions = [];
+		// 	const settings = await this.client.utils.getSettings(guild.id);
+		// 	const blacklist = [];
+		// 	settings.blacklist.users?.forEach(userId => {
+		// 		blacklist.push({
+		// 			id: userId,
+		// 			permission: false,
+		// 			type: 'USER'
+		// 		});
+		// 	});
+		// 	settings.blacklist.roles?.forEach(roleId => {
+		// 		blacklist.push({
+		// 			id: roleId,
+		// 			permission: false,
+		// 			type: 'ROLE'
+		// 		});
+		// 	});
 
-			const categories = await this.client.db.models.Category.findAll({ where: { guild: guild.id } });
-			const staff_roles = new Set(categories.map(category => category.roles).flat());
+		// 	const categories = await this.client.db.models.Category.findAll({ where: { guild: guild.id } });
+		// 	const staff_roles = new Set(categories.map(category => category.roles).flat());
 
-			commands.forEach(async g_cmd => {
-				const cmd_permissions = [...blacklist];
-				const command = this.client.commands.commands.get(g_cmd.name);
+		// 	commands.forEach(async g_cmd => {
+		// 		const cmd_permissions = [...blacklist];
+		// 		const command = this.client.commands.commands.get(g_cmd.name);
 
-				if (command.staff_only) {
-					cmd_permissions.push({
-						id: guild.roles.everyone.id,
-						permission: false,
-						type: 'ROLE'
-					});
-					staff_roles.forEach(roleId => {
-						cmd_permissions.push({
-							id: roleId,
-							permission: true,
-							type: 'ROLE'
-						});
-					});
-				}
+		// 		if (command.staff_only) {
+		// 			cmd_permissions.push({
+		// 				id: guild.roles.everyone.id,
+		// 				permission: false,
+		// 				type: 'ROLE'
+		// 			});
+		// 			staff_roles.forEach(roleId => {
+		// 				cmd_permissions.push({
+		// 					id: roleId,
+		// 					permission: true,
+		// 					type: 'ROLE'
+		// 				});
+		// 			});
+		// 		}
 
-				permissions.push({
-					id: g_cmd.id,
-					permissions: cmd_permissions
-				});
-			});
+		// 		permissions.push({
+		// 			id: g_cmd.id,
+		// 			permissions: cmd_permissions
+		// 		});
+		// 	});
 
-			this.client.log.debug(`Command permissions for "${guild.name}"`, require('util').inspect(permissions, {
-				colors: true,
-				depth: 10
-			}));
+		// 	this.client.log.debug(`Command permissions for "${guild.name}"`, require('util').inspect(permissions, {
+		// 		colors: true,
+		// 		depth: 10
+		// 	}));
 
-			try {
-				await guild.commands.permissions.set({ fullPermissions: permissions });
-			} catch (error) {
-				this.client.log.warn('An error occurred whilst updating command permissions');
-				this.client.log.error(error);
-			}
-		});
+		// 	try {
+		// 		await guild.commands.permissions.set({ fullPermissions: permissions });
+		// 	} catch (error) {
+		// 		this.client.log.warn('An error occurred whilst updating command permissions');
+		// 		this.client.log.error(error);
+		// 	}
+		// });
 	}
 
 	/**
