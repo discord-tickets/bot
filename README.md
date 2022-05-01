@@ -1,11 +1,55 @@
-[![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/stargazers)
-[![License](https://img.shields.io/github/license/discord-tickets/bot?style=flat-square)](https://github.com/discord-tickets/bot/blob/main/LICENSE)
-![](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients&url=https%3A%2F%2Fstats.discordtickets.app&logo=discord&logoColor=white&style=flat-square)
-![](https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app&logo=discord&logoColor=white&style=flat-square)
-[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&style=flat-square)](https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade)
-[![Discord](https://img.shields.io/discord/451745464480432129?label=discord&color=7289DA&style=flat-square)](https://go.eartharoid.me/discord)
-[![Weblate](http://i18n.capestar.net/widgets/discord-tickets/-/bot/svg-badge.svg)](https://i18n.capestar.net/engage/discord-tickets/)
+<div align="center">
+	<img
+	     src="https://img.eartharoid.me/insecure/plain/https://static.eartharoid.me/discord-tickets/logo/wordmark/gradient-by-eartharoid.png@png"
+	     alt="Discord Tickets"
+	     />
+	<b>	
+		An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
+	</b>
+	<br>
+	<br>
+	<div>
+		<p>
+	<a href="https://github.com/discord-tickets/bot/stargazers">
+		<img
+			src="https://img.shields.io/github/stars/discord-tickets/bot?style=flat-square"
+			alt="GitHub stars">
+	</a>
+	<img
+		src="https://img.shields.io/badge/dynamic/json?color=5865F2&amp;label=bots&amp;query=clients&amp;url=https%3A%2F%2Fstats.discordtickets.app&amp;logo=discord&amp;logoColor=white&amp;style=flat-square"
+		alt="">
+	<img
+		src="https://img.shields.io/badge/dynamic/json?color=5865F2&amp;label=tickets&amp;query=tickets&amp;url=https%3A%2F%2Fstats.discordtickets.app&amp;logo=discord&amp;logoColor=white&amp;style=flat-square"
+		alt="">
+	<a
+		href="https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade"><img
+		src="https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=flat-square"
+		alt="Codacy">
+	</a>
+	<a
+		href="https://go.eartharoid.me/discord"><img
+		src="https://img.shields.io/discord/451745464480432129?label=discord&amp;color=7289DA&amp;style=flat-square"
+		alt="Discord">
+	</a>
+</p>
+	</div>
+	<br>
+	<div>
+		<a
+	   		href="https://www.producthunt.com/posts/discord-tickets?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-discord&#0045;tickets"
+	  		 target="_blank">
+			<img
+		     		src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=321112&theme=light"
+		     		alt="Discord&#0032;Tickets - A&#0032;free&#0032;ticketing&#0032;solution | Product Hunt"
+		     		style="width: 250px; height: 54px;"
+		     		width="250"
+		     		height="54"
+		     	/>
+		</a>
+	</div>
+</div>
+
+
 
 <br>
 
@@ -20,7 +64,7 @@
 	<b><a href="https://discordtickets.app/getting-started#pebblehost">Partnered with PebbleHost</a></b>
 	<br>
 	<sub>
-		for cheap bot hosting
+		for affordable bot hosting
 	</sub>
 </div>
 
@@ -28,11 +72,6 @@
 
 <br>
 
-![Discord Tickets](https://img.eartharoid.me/insecure/plain/https://static.eartharoid.me/discord-tickets/logo/wordmark/gradient-by-eartharoid.png@png)
-
-An open-source ticket management bot for Discord - a free alternative to the premium and white-label plans of other popular ticketing bots.
-
-[![ProductHunt](https://api.producthunt.com/widgets/embed-image/v1/review.svg?post_id=321112&theme=light)](https://www.producthunt.com/posts/discord-tickets?utm_source=badge-review&utm_medium=badge&utm_souce=badge-discord-tickets#discussion-body)
 
 ## What is this?
 
