@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ## Contributors ✨
 
@@ -30,6 +30,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/thevisuales"><img src="https://avatars.githubusercontent.com/u/6569806?v=4?s=100" width="100px;" alt=""/><br /><sub><b>thevisuales</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=thevisuales" title="Code">💻</a></td>
+    <td align="center"><a href="https://rooray.xyz"><img src="https://avatars.githubusercontent.com/u/86845749?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RooRay</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=RooRay" title="Documentation">📖</a> <a href="https://github.com/discord-tickets/bot/commits?author=RooRay" title="Code">💻</a></td>
   </tr>
 </table>
 
