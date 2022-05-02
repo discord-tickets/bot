@@ -150,6 +150,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "RooRay",
+      "name": "RooRay",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86845749?v=4",
+      "profile": "https://rooray.xyz",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
