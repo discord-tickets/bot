@@ -83,6 +83,7 @@ model Category {
     openingMessage  String     @db.Text
     pingRoles       Json       @default("[]")
     questions       Question[]
+    ratelimit       Int?
     requiredRoles   Json
     requireTopic    Boolean    @default(false)
     staffRoles      Json
