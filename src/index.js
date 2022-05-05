@@ -30,6 +30,7 @@ const logger = require('./lib/logger');
 const banner = require('./lib/banner');
 const YAML = require('yaml');
 const Client = require('./client');
+const http = require('./http');
 
 process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
 require('dotenv').config(); // load env file
@@ -74,4 +75,6 @@ process.on('unhandledRejection', error => {
 const client = new Client();
 client.config = config;
 client.log = log;
-client.login();
+client.login().then(() => {
+	http(client);
+});

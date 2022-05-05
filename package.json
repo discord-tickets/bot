@@ -35,9 +35,11 @@
 		"@prisma/client": "^3.13.0",
 		"discord.js": "^13.6.0",
 		"dotenv": "^16.0.0",
+		"fastify": "^3.29.0",
 		"figlet": "^1.5.2",
 		"leeks.js": "^0.2.4",
 		"leekslazylogger": "^4.1.7",
+		"node-dir": "^0.1.17",
 		"semver": "^7.3.7",
 		"terminal-link": "^2.1.1",
 		"yaml": "^1.10.2"

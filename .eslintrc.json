@@ -124,7 +124,7 @@
 			"error"
 		],
 		"multiline-comment-style": [
-			"warn"
+			"off"
 		],
 		"no-console": [
 			"off"
