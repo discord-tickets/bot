@@ -1,6 +1,6 @@
 const { Client: FrameworkClient }= require('@eartharoid/dbf');
 const { Intents } = require('discord.js');
-const prisma = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
 module.exports = class Client extends FrameworkClient {
 	constructor() {
@@ -12,8 +12,10 @@ module.exports = class Client extends FrameworkClient {
 			],
 		});
 	}
+
 	async login(token) {
-		this.prisma = new prisma.PrismaClient();
+		this.prisma = new PrismaClient();
+		// this.prisma.$use((params, next) => {})
 		return super.login(token);
 	}
 
