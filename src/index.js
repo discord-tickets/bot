@@ -21,18 +21,17 @@
  * @license GNU-GPLv3
  */
 
-import dotenv from 'dotenv';
-import fs from 'fs';
-import semver from 'semver';
-import { colours } from 'leeks.js';
-import logger from './lib/logger.mjs';
-import banner from './lib/banner.mjs';
-import YAML from 'yaml';
-import { container } from '@sapphire/framework';
-import Client from './client.mjs';
+
+const fs = require('fs');
+const semver = require('semver');
+const { colours } = require('leeks.js');
+const logger = require('./lib/logger');
+const banner = require('./lib/banner');
+const YAML = require('yaml');
+const Client = require('./client');
 
 process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
-dotenv.config(); // load env file
+require('dotenv').config(); // load env file
 
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
@@ -65,7 +64,6 @@ console.log(banner(pkg.version)); // print big title
 
 const config = YAML.parse(fs.readFileSync(process.env.CONFIG_PATH, 'utf8'));
 const log = logger(config);
-container.log = log;
 
 process.on('unhandledRejection', error => {
 	log.notice(`Discord Tickets v${pkg.version} on Node.js v${process.versions.node} (${process.platform})`);
@@ -75,4 +73,6 @@ process.on('unhandledRejection', error => {
 });
 
 const client = new Client();
+client.config = config;
+client.log = log;
 client.login();

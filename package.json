@@ -3,13 +3,11 @@
 	"version": "4.0.0",
 	"private": "true",
 	"description": "An open-source Discord bot for ticket management",
-	"main": "src/index.mjs",
-	"module": "src/index.mjs",
-	"type": "module",
+	"main": "src/",
 	"scripts": {
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
-		"keygen": "node scripts/keygen.mjs",
+		"keygen": "node scripts/keygen",
 		"lint": "eslint src scripts --ext mjs --fix",
 		"test": "echo \"There's nothing to test\" && exit 1"
 	},
@@ -32,22 +30,22 @@
 		"node": ">=16.6"
 	},
 	"dependencies": {
+		"@eartharoid/dbf": "^0.0.1",
 		"@eartharoid/dtf": "^2.0.1",
-		"@prisma/client": "^3.11.0",
-		"@sapphire/framework": "^2.4.1",
+		"@prisma/client": "^3.13.0",
 		"discord.js": "^13.6.0",
 		"dotenv": "^16.0.0",
 		"figlet": "^1.5.2",
 		"leeks.js": "^0.2.4",
 		"leekslazylogger": "^4.1.7",
-		"semver": "^7.3.5",
-		"terminal-link": "^3.0.0",
+		"semver": "^7.3.7",
+		"terminal-link": "^2.1.1",
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
 		"all-contributors-cli": "^6.20.0",
-		"eslint": "^8.11.0",
+		"eslint": "^8.14.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"prisma": "^3.11.0"
+		"prisma": "^3.13.0"
 	}
 }

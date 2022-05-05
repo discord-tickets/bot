@@ -1,6 +1,6 @@
-import Logger from 'leekslazylogger';
-import DTF from '@eartharoid/dtf';
-import { short } from 'leeks.js';
+const Logger = require('leekslazylogger');
+const DTF = require('@eartharoid/dtf');
+const { short } = require('leeks.js');
 
 const dtf = new DTF();
 const colours = {
@@ -13,7 +13,7 @@ const colours = {
 	warn: ['&6', '&e'],
 };
 
-export default config => {
+module.exports = config => {
 	const transports = [
 		new Logger.transports.ConsoleTransport({
 			format: log => {
@@ -22,7 +22,7 @@ export default config => {
 				return short(`&f&!7${timestamp}&r ${colour[0]}[${log.level.name.toUpperCase()}]&r ${log.namespace ? `&d(${log.namespace.toUpperCase()})&r ` : ''}${colour[1]}${log.content}`);
 			},
 			level: config.logs.level,
-		})
+		}),
 	];
 
 	if (config.logs.files.enabled) {
@@ -32,7 +32,7 @@ export default config => {
 				directory: config.logs.files.directory,
 				level: config.logs.level,
 				name: 'Discord Tickets by eartharoid',
-			})
+			}),
 		);
 	}
 

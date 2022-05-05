@@ -6,13 +6,8 @@
 		"baseUrl": "src",
 		"resolveJsonModule": true,
 		"checkJs": false,
-		"paths": {
-			"@/*": ["*.mjs"],
-			"#/*": ["*.json"]
-		}
 	},
 	"include": [
-		"src/**/*.mjs",
 		"src/**/*.js"
 	]
 }
