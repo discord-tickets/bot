@@ -22,6 +22,7 @@
  */
 
 
+const pkg = require('../package.json');
 const fs = require('fs');
 const semver = require('semver');
 const { colours } = require('leeks.js');
@@ -32,8 +33,6 @@ const Client = require('./client');
 
 process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
 require('dotenv').config(); // load env file
-
-const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 // check node version
 if (!semver.satisfies(process.versions.node, pkg.engines.node)) {

@@ -1,6 +1,6 @@
-const dbf = require('@eartharoid/dbf');
+const { Listener } = require('@eartharoid/dbf');
 
-module.exports = class extends dbf.Listener {
+module.exports = class extends Listener {
 	constructor(client) {
 		super(client, {
 			emitter: client,
