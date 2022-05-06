@@ -1,9 +1,50 @@
 const fastify = require('fastify')();
+const oauth = require('@fastify/oauth2');
+const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { readFiles }  = require('node-dir');
 
 module.exports = client => {
+
+	// oauth2 plugin
+	fastify.register(oauth, {
+		callbackUri: `${process.env.HTTP_EXTERNAL}/auth/callback`,
+		credentials: {
+			auth: oauth.DISCORD_CONFIGURATION,
+			client: {
+				id: client.user.id,
+				secret: process.env.DISCORD_SECRET,
+			},
+		},
+		name: 'discord',
+		scope: ['identify'],
+		startRedirectPath: '/auth/login',
+	});
+
+	// cookies plugin
+	fastify.register(require('@fastify/cookie'));
+
+	// jwt plugin
+	fastify.register(require('@fastify/jwt'), {
+		cookie: {
+			cookieName: 'token',
+			signed: false,
+		},
+		secret: randomBytes(16).toString('hex'),
+	});
+
+	// auth
+	fastify.decorate('authenticate', async (req, res) => {
+		try {
+			const data = await req.jwtVerify();
+			if (data.payload.expiresAt < Date.now()) res.redirect('/auth/login');
+		} catch (err) {
+			res.send(err);
+		}
+	});
+
+	// logging
 	fastify.addHook('onResponse', (req, res, done) => {
 		done();
 		const status = (res.statusCode >= 500
@@ -22,8 +63,12 @@ module.exports = client => {
 				? '&e'
 				: '&a') + response_time + 'ms';
 		client.log.info.http(short(`${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${response_time}`));
+		done();
 	});
 
+	fastify.addHook('onError', async (req, res, err) => client.log.error.http(err));
+
+	// route loading
 	const dir = join(__dirname, '/routes');
 
 	readFiles(dir,
@@ -43,12 +88,15 @@ module.exports = client => {
 					.replace('/index', '') || '/'; // remove index
 				const route = require(file);
 
-				Object.keys(route).forEach(method => fastify[method](path, {
+				Object.keys(route).forEach(method => fastify.route({
 					config: { client },
-					...route[method],
+					method: method.toUpperCase(),
+					path,
+					...route[method](fastify),
 				})); // register route
 			}
 
+			// start server
 			fastify.listen(process.env.HTTP_BIND, (err, addr) => {
 				if (err) client.log.error.http(err);
 				else client.log.success.http(`Listening at ${addr}`);
