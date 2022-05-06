@@ -2,7 +2,7 @@ const Logger = require('leekslazylogger');
 const DTF = require('@eartharoid/dtf');
 const { short } = require('leeks.js');
 
-const dtf = new DTF();
+const dtf = new DTF('en-GB');
 const colours = {
 	critical: ['&!4&f', '&!4&f'],
 	debug: ['&1', '&9'],
