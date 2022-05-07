@@ -1,6 +1,6 @@
 const fastify = require('fastify')();
 const oauth = require('@fastify/oauth2');
-const { randomBytes } = require('crypto');
+// const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { readFiles }  = require('node-dir');
@@ -31,7 +31,8 @@ module.exports = client => {
 			cookieName: 'token',
 			signed: false,
 		},
-		secret: randomBytes(16).toString('hex'),
+		// secret: randomBytes(16).toString('hex'),
+		secret: process.env.DB_ENCRYPTION_KEY,
 	});
 
 	// auth
@@ -39,6 +40,27 @@ module.exports = client => {
 		try {
 			const data = await req.jwtVerify();
 			if (data.payload.expiresAt < Date.now()) res.redirect('/auth/login');
+		} catch (err) {
+			res.send(err);
+		}
+	});
+
+	fastify.decorate('isAdmin', async (req, res) => {
+		try {
+			const userId = req.user.payload.id;
+			const guildId = req.params.guild;
+			const guild = client.guilds.cache.get(guildId);
+			const guildMember = await guild.members.fetch(userId);
+			const isAdmin = guildMember.permissions.has('MANAGE_GUILD');
+
+			if (!isAdmin) {
+				return res.code(401).send({
+					error: 'Unauthorised',
+					message: 'User is not authorised for this action',
+					statusCode: 401,
+
+				});
+			}
 		} catch (err) {
 			res.send(err);
 		}
