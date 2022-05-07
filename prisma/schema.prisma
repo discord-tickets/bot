@@ -74,7 +74,7 @@ model Category {
     discordCategory String     @db.VarChar(19)
     emoji           String
     enableFeedback  Boolean    @default(false)
-    guild           Guild      @relation(fields: [guildId], references: [id])
+    guild           Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId         String     @db.VarChar(19)
     id              Int        @id @default(autoincrement())
     image           String?
@@ -161,7 +161,7 @@ model QuestionAnswer {
 model Tag {
     content   String
     createdAt DateTime @default(now())
-    guild     Guild    @relation(fields: [guildId], references: [id])
+    guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId   String   @db.VarChar(19)
     id        Int      @id @default(autoincrement())
     name      String
@@ -191,7 +191,7 @@ model Ticket {
     feedbackId          Int?
     firstResponseAt     DateTime?
     deleted             Boolean           @default(false)
-    guild               Guild             @relation(fields: [guildId], references: [id])
+    guild               Guild             @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId             String            @db.VarChar(19)
     id                  String            @id @db.VarChar(19)
     lastMessageAt       DateTime?
