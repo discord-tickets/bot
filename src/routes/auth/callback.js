@@ -8,7 +8,7 @@ module.exports.get = () => ({
 		} = await this.discord.getAccessTokenFromAuthorizationCodeFlow(req);
 		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${access_token}` } })).json();
 		const payload = {
-			avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+			avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp`,
 			discriminator: user.discriminator,
 			expiresAt: Date.now() + (expires_in * 1000),
 			id: user.id,
