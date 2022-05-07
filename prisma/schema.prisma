@@ -84,7 +84,7 @@ model Category {
     pingRoles       Json       @default("[]")
     questions       Question[]
     ratelimit       Int?
-    requiredRoles   Json
+    requiredRoles   Json       @default("[]")
     requireTopic    Boolean    @default(false)
     staffRoles      Json
     tickets         Ticket[]
