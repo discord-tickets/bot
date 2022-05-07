@@ -111,7 +111,7 @@ model Feedback {
 model Guild {
     autoTag       Json?
     archive       Boolean    @default(true)
-    blocklist     Json
+    blocklist     Json       @default("[]")
     categories    Category[]
     createdAt     DateTime   @default(now())
     errorColour   String     @default("RED")
