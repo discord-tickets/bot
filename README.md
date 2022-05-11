@@ -27,7 +27,7 @@
 		alt="Codacy">
 	</a>
 	<a
-		href="https://go.eartharoid.me/discord"><img
+		href="https://lnk.earth/discord"><img
 		src="https://img.shields.io/discord/451745464480432129?label=discord&amp;color=7289DA&amp;style=flat-square"
 		alt="Discord">
 	</a>
@@ -138,7 +138,7 @@ You will find most of information you need at [discordtickets.app](https://disco
 
 If the [documentation](https://discordtickets.app) leaves you with questions, you can ask for help in the [discussions](https://github.com/discord-tickets/bot/discussions/categories/support-q-a) or join the support server on Discord.
 
-[![Join the Discord server](https://img.eartharoid.me/insecure/rs:auto:440:200/plain/s3://eartharoid/images/join-discord.png@png)](https://go.eartharoid.me/discord)
+[![Join the Discord server](https://img.eartharoid.me/insecure/rs:auto:440:200/plain/s3://eartharoid/images/join-discord.png@png)](https://lnk.earth/discord)
 
 ## Contributing
 
