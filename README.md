@@ -16,10 +16,10 @@
 			alt="GitHub stars">
 	</a>
 	<img
-		src="https://img.shields.io/badge/dynamic/json?color=5865F2&amp;label=bots&amp;query=clients&amp;url=https%3A%2F%2Fstats.discordtickets.app&amp;logo=discord&amp;logoColor=white&amp;style=flat-square"
+		src="https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients.total&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=flat-square"
 		alt="">
 	<img
-		src="https://img.shields.io/badge/dynamic/json?color=5865F2&amp;label=tickets&amp;query=tickets&amp;url=https%3A%2F%2Fstats.discordtickets.app&amp;logo=discord&amp;logoColor=white&amp;style=flat-square"
+		src="https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=flat-square"
 		alt="">
 	<a
 		href="https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade"><img
