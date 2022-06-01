@@ -215,6 +215,11 @@ Thank you to everyone to has contributed to Discord Tickets, including everyone 
 
 [![Donate at ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/eartharoid)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=discord-tickets/bot&type=Date)](https://star-history.com/#discord-tickets/bot&Date)
+
+
 ## License
 
 Discord Tickets is licensed under the [GPLv3 license](https://github.com/discord-tickets/bot/blob/main/LICENSE).
