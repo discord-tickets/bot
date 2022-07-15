@@ -3,9 +3,16 @@ const oauth = require('@fastify/oauth2');
 // const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
-const { readFiles }  = require('node-dir');
+const { readFiles } = require('node-dir');
 
 module.exports = client => {
+
+	// cors plugins
+	fastify.register(require('@fastify/cors'), {
+		credentials: true,
+		methods: ['DELETE', 'GET', 'PATCH', 'PUT', 'POST'],
+		origin: true,
+	});
 
 	// oauth2 plugin
 	fastify.register(oauth, {
@@ -32,14 +39,22 @@ module.exports = client => {
 			signed: false,
 		},
 		// secret: randomBytes(16).toString('hex'),
-		secret: process.env.DB_ENCRYPTION_KEY,
+		secret: process.env.ENCRYPTION_KEY,
 	});
 
 	// auth
 	fastify.decorate('authenticate', async (req, res) => {
 		try {
 			const data = await req.jwtVerify();
-			if (data.payload.expiresAt < Date.now()) res.redirect('/auth/login');
+			// if (data.payload.expiresAt < Date.now()) res.redirect('/auth/login');
+			if (data.payload.expiresAt < Date.now()) {
+				return res.code(401).send({
+					error: 'Unauthorised',
+					message: 'You are not authenticated.',
+					statusCode: 401,
+
+				});
+			}
 		} catch (err) {
 			res.send(err);
 		}
@@ -50,14 +65,21 @@ module.exports = client => {
 			const userId = req.user.payload.id;
 			const guildId = req.params.guild;
 			const guild = client.guilds.cache.get(guildId);
-			const guildMember = await guild.members.fetch(userId);
-			const isAdmin = guildMember.permissions.has('MANAGE_GUILD');
+			if (!guild) {
+				return res.code(404).send({
+					error: 'Not Found',
+					message: 'The requested resource could not be found.',
+					statusCode: 404,
 
-			if (!isAdmin) {
-				return res.code(401).send({
-					error: 'Unauthorised',
-					message: 'User is not authorised for this action',
-					statusCode: 401,
+				});
+			}
+			const guildMember = await guild.members.fetch(userId);
+			const isAdmin = guildMember?.permissions.has('MANAGE_GUILD');
+			if (!guildMember || !isAdmin) {
+				return res.code(403).send({
+					error: 'Forbidden',
+					message: 'You are not permitted for this action.',
+					statusCode: 403,
 
 				});
 			}
@@ -119,7 +141,7 @@ module.exports = client => {
 			}
 
 			// start server
-			fastify.listen(process.env.HTTP_BIND, (err, addr) => {
+			fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
 				if (err) client.log.error.http(err);
 				else client.log.success.http(`Listening at ${addr}`);
 			});

@@ -11,6 +11,7 @@ module.exports = class extends Listener {
 	}
 
 	run() {
+		process.title = this.client.user.tag + ' [Discord Tickets]';
 		this.client.log.success('Connected to Discord as "%s"', this.client.user.tag);
 	}
 };

@@ -1,6 +1,6 @@
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
-		/** @type {import('../../../../../../client')} */
+		/** @type {import('client')} */
 		const client = res.context.config.client;
 
 		const categories = await client.prisma.guild.findUnique({ where: { id: req.params.guild } }).categories();
@@ -12,7 +12,7 @@ module.exports.get = fastify => ({
 
 module.exports.post = fastify => ({
 	handler: async (req, res) => {
-		/** @type {import('../../../../../../client')} */
+		/** @type {import('client')} */
 		const client = res.context.config.client;
 
 		const user = await client.users.fetch(req.user.payload.id);

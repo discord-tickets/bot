@@ -41,8 +41,8 @@ if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
 	process.exit(1);
 }
 
-if (process.env.DB_ENCRYPTION_KEY === undefined) {
-	console.log('\x07' + colours.redBright('Error: The "DB_ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key, or set it to "false" to disable encryption (not recommended).'));
+if (process.env.ENCRYPTION_KEY === undefined) {
+	console.log('\x07' + colours.redBright('Error: The "ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key, or set it to "false" to disable encryption (not recommended).'));
 	process.exit(1);
 }
 
