@@ -109,7 +109,8 @@ model Feedback {
 }
 
 model Guild {
-    autoTag       Json?
+    autoClose     Int?
+    autoTag       Json       @default("[]")
     archive       Boolean    @default(true)
     blocklist     Json       @default("[]")
     categories    Category[]
@@ -118,11 +119,14 @@ model Guild {
     feedback      Feedback[]
     footer        String?    @default("Discord Tickets by eartharoid")
     id            String     @id @db.VarChar(19)
+    locale        String     @default("en-GB")
     logChannel    String?    @db.VarChar(19)
     primaryColour String     @default("#009999")
+    staleAfter    Int?
     successColour String     @default("GREEN")
     tags          Tag[]
     tickets       Ticket[]
+    workingHours  Json       @default("[null, null, null, null, null, null, null]")
 
     @@map("guilds")
 }

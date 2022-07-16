@@ -1,3 +1,6 @@
+const { logAdminEvent } = require('../../../../../lib/logging.js');
+const { updatedDiff } = require('deep-object-diff');
+
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
@@ -5,7 +8,15 @@ module.exports.delete = fastify => ({
 		const id = req.params.guild;
 		await client.prisma.guild.delete({ where: { id } });
 		const settings = await client.prisma.guild.create({ data: { id } });
-
+		logAdminEvent(client, {
+			action: 'delete',
+			guildId: id,
+			target: {
+				id,
+				type: 'settings',
+			},
+			userId: req.user.payload.id,
+		});
 		return settings;
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
@@ -29,11 +40,21 @@ module.exports.patch = fastify => ({
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 		const id = req.params.guild;
+		const original = await client.prisma.guild.findUnique({ where: { id } });
 		const settings = await client.prisma.guild.update({
 			data: req.body,
 			where: { id },
 		});
-
+		logAdminEvent(client, {
+			action: 'update',
+			diff: updatedDiff(original, settings),
+			guildId: id,
+			target: {
+				id,
+				type: 'settings',
+			},
+			userId: req.user.payload.id,
+		});
 		return settings;
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],

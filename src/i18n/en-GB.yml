@@ -1,0 +1,19 @@
+command:
+log:
+  admin:
+    description:
+      joined: '{user} {verb} {targetType}'
+      target:
+        category: 'a category'
+        settings: 'the settings'
+    differences: 'Differences'
+    title:
+      joined: '{targetType} {verb}'
+      target:
+        category: 'Category'
+        settings: 'Settings'
+    verb:
+      create: 'created'
+      delete: 'deleted'
+      update: 'updated'
+  ticket:

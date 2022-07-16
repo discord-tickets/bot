@@ -72,9 +72,7 @@ process.on('unhandledRejection', error => {
 	log.error(error);
 });
 
-const client = new Client();
-client.config = config;
-client.log = log;
+const client = new Client(config, log);
 client.login().then(() => {
 	http(client);
 });
