@@ -126,7 +126,7 @@ model Guild {
     successColour String     @default("GREEN")
     tags          Tag[]
     tickets       Ticket[]
-    workingHours  Json       @default("[null, null, null, null, null, null, null]")
+    workingHours  Json       @default("[\"UTC\", null, null, null, null, null, null, null]")
 
     @@map("guilds")
 }
