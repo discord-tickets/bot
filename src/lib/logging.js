@@ -8,9 +8,12 @@ function makeDiff({
 	const fields = [];
 	for (const key in diff) {
 		if (key === 'createdAt') continue; // object-diffy doesn't like dates
+		const from = diff[key].from === null ? '' : `- ${diff[key].from}\n`;
+		const to = diff[key].to === null ? '' : `+ ${diff[key].to}\n`;
 		fields.push({
+			inline: true,
 			name: key,
-			value: `\`\`\`diff\n${diff[key].from && `- ${diff[key].from}\n`}\n${diff[key].to && `+ ${diff[key].to}\n`}\n\`\`\``,
+			value: `\`\`\`diff\n${from + to}\n\`\`\``,
 		});
 	}
 	return fields;
@@ -98,10 +101,10 @@ async function logAdminEvent(client, {
 			// 	text: settings.footer,
 			// }),
 			...[
-				diff &&
+				diff?.original &&
 				new MessageEmbed()
 					.setColor('ORANGE')
-					.setTitle(getMessage('log.admin.differences'))
+					.setTitle(getMessage('log.admin.changes'))
 					.setFields(makeDiff(diff)),
 			],
 		],
