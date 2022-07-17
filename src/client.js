@@ -36,7 +36,7 @@ module.exports = class Client extends FrameworkClient {
 	async login(token) {
 		/** @type {PrismaClient} */
 		this.prisma = new PrismaClient();
-		this.prisma.$use(middleware);
+		this.prisma.$use(middleware(this.log));
 		this.keyv = new Keyv();
 		return super.login(token);
 	}

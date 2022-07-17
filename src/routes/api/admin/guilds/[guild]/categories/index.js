@@ -1,11 +1,35 @@
+const { logAdminEvent } = require('../../../../../../lib/logging');
+
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 
-		const categories = await client.prisma.guild.findUnique({ where: { id: req.params.guild } }).categories();
+		const { categories } = await client.prisma.guild.findUnique({
+			select: {
+				categories: {
+					include: {
+						questions: {
+							select: {
+								createdAt: true,
+								id: true,
+								label: true,
+								maxLength: true,
+								minLength: true,
+								order: true,
+								placeholder: true,
+								required: true,
+								style: true,
+								value: true,
+							},
+						},
+					},
+				},
+			},
+			where: { id: req.params.guild },
+		});
 
-		res.send(categories);
+		return categories;
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
 });
@@ -45,14 +69,28 @@ module.exports.post = fastify => ({
 			data.discordCategory = channel.id;
 		}
 
+		if (data.channelName === null) data.channelName = undefined;
+
 		const category = await client.prisma.category.create({
 			data: {
 				guild: { connect: { id: guild.id } },
 				...data,
+				questions: { createMany: { data: data.questions ?? [] } },
 			},
 		});
 
-		res.send(category);
+		logAdminEvent(client, {
+			action: 'create',
+			guildId: guild.id,
+			target: {
+				id: category.id,
+				name: category.name,
+				type: 'category',
+			},
+			userId: req.user.payload.id,
+		});
+
+		return category;
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
 });

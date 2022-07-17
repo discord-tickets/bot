@@ -12,6 +12,7 @@ module.exports.delete = fastify => ({
 			guildId: id,
 			target: {
 				id,
+				name: client.guilds.cache.get(id),
 				type: 'settings',
 			},
 			userId: req.user.payload.id,
@@ -53,9 +54,9 @@ module.exports.patch = fastify => ({
 				updated: settings,
 			},
 			guildId: id,
-			original,
 			target: {
 				id,
+				name: client.guilds.cache.get(id),
 				type: 'settings',
 			},
 			userId: req.user.payload.id,
