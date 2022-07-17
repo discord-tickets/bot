@@ -17,7 +17,7 @@ const fields = [
 	'regex',
 ];
 const shouldEncrypt = ['create', 'createMany', 'update', 'updateMany', 'upsert'];
-const shouldDecrypt = ['findUnique', 'findFirst', 'findMany'];
+// const shouldDecrypt = ['findUnique', 'findFirst', 'findMany'];
 
 
 
@@ -62,7 +62,8 @@ module.exports = log => {
 	return async (params, next) => {
 		if (params.args.data && shouldEncrypt.includes(params.action)) params.args = encrypt(params.args);
 		let result = await next(params);
-		if (result && shouldDecrypt.includes(params.action)) result = decrypt(result);
+		// if (result && shouldDecrypt.includes(params.action)) result = decrypt(result);
+		if (result) result = decrypt(result);
 		return result;
 	};
 };

@@ -1,10 +1,33 @@
 const { logAdminEvent } = require('../../../../../../lib/logging');
 
+module.exports.delete = fastify => ({
+	handler: async (req, res) => {
+		/** @type {import('client')} */
+		const client = res.context.config.client;
+		const categoryId = Number(req.params.category);
+		const category = await client.prisma.category.delete({ where: { id: categoryId } });
+
+		logAdminEvent(client, {
+			action: 'delete',
+			guildId: req.params.guild,
+			target: {
+				id: category.id,
+				name: category.name,
+				type: 'category',
+			},
+			userId: req.user.payload.id,
+		});
+
+		return category;
+	},
+	onRequest: [fastify.authenticate, fastify.isAdmin],
+});
+
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = res.context.config.client;
-
+		const categoryId = Number(req.params.category);
 		const category = await client.prisma.category.findUnique({
 			include: {
 				questions: {
@@ -22,7 +45,7 @@ module.exports.get = fastify => ({
 					},
 				},
 			},
-			where: { id: Number(req.params.category)  },
+			where: { id: categoryId  },
 		});
 
 		return category;
@@ -34,12 +57,12 @@ module.exports.patch = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = res.context.config.client;
-
+		const categoryId = Number(req.params.category);
 		const user = await client.users.fetch(req.user.payload.id);
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
 		const allow = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
-		const original = req.params.category && await client.prisma.category.findUnique({ where: { id: req.params.category } });
+		const original = req.params.category && await client.prisma.category.findUnique({ where: { id: categoryId } });
 		if (!original) return res.status(404);
 
 		if (!data.discordCategory) {
@@ -69,7 +92,6 @@ module.exports.patch = fastify => ({
 
 		const category = await client.prisma.category.update({
 			data: {
-				guild: { connect: { id: guild.id } },
 				...data,
 				questions: {
 					upsert: data.questions?.map(q => ({
@@ -79,6 +101,7 @@ module.exports.patch = fastify => ({
 					})),
 				},
 			},
+			where: { id: categoryId },
 		});
 
 		logAdminEvent(client, {

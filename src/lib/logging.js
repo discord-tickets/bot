@@ -60,40 +60,36 @@ async function logAdminEvent(client, {
 	};
 	const channel = client.channels.cache.get(settings.logChannel);
 	if (!channel) return;
+	const embeds = [
+		new MessageEmbed()
+			.setColor('ORANGE')
+			.setAuthor({
+				iconURL: user.avatarURL(),
+				name: user.username,
+			})
+			.setTitle(getMessage('log.admin.title.joined', {
+				...i18nOptions,
+				targetType: getMessage(`log.admin.title.target.${target.type}`),
+				verb: getMessage(`log.admin.verb.${action}`),
+			}))
+			.setDescription(getMessage('log.admin.description.joined', {
+				...i18nOptions,
+				targetType: getMessage(`log.admin.description.target.${target.type}`),
+				verb: getMessage(`log.admin.verb.${action}`),
+			}))
+			.addField(getMessage(`log.admin.title.target.${target.type}`), target.name ?? target.id),
+	];
 
-	return await channel.send({
-		embeds: [
+	if (diff && diff.original) {
+		embeds.push(
 			new MessageEmbed()
 				.setColor('ORANGE')
-				.setAuthor({
-					iconURL: user.avatarURL(),
-					name: user.username,
-				})
-				.setTitle(getMessage('log.admin.title.joined', {
-					...i18nOptions,
-					targetType: getMessage(`log.admin.title.target.${target.type}`),
-					verb: getMessage(`log.admin.verb.${action}`),
-				}))
-				.setDescription(getMessage('log.admin.description.joined', {
-					...i18nOptions,
-					targetType: getMessage(`log.admin.description.target.${target.type}`),
-					verb: getMessage(`log.admin.verb.${action}`),
-				}))
-				.addField(getMessage(`log.admin.title.target.${target.type}`), target.name ?? target.id),
-			// .setFooter({
-			// 	iconURL: client.guilds.cache.get(guildId).iconURL(),
-			// 	text: settings.footer,
-			// }),
-			...[
-				diff?.original &&
-				new MessageEmbed()
-					.setColor('ORANGE')
-					.setTitle(getMessage('log.admin.changes.title'))
-					.setDescription(getMessage('log.admin.changes.description'))
-					.setFields(makeDiff(diff)),
-			],
-		],
-	});
+				.setTitle(getMessage('log.admin.changes'))
+				.setFields(makeDiff(diff)),
+		);
+	}
+
+	return await channel.send({ embeds });
 }
 
 module.exports = {

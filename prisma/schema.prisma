@@ -67,7 +67,7 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName     String     @default("ticket-{num}")
+    channelName     String
     claiming        Boolean    @default(false)
     createdAt       DateTime   @default(now())
     description     String     @db.VarChar(512)

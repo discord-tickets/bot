@@ -1,9 +1,7 @@
 command:
 log:
   admin:
-    changes:
-      title: 'Changes'
-      description: 'These were the changes made:'
+    changes: 'Changes'
     description:
       joined: '{user} {verb} {targetType}'
       target:
