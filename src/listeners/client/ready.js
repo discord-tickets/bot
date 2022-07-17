@@ -11,7 +11,8 @@ module.exports = class extends Listener {
 	}
 
 	run() {
-		process.title = this.client.user.tag + ' [Discord Tickets]';
+		// process.title = `"[Discord Tickets] ${this.client.user.tag}"`; // too long and gets cut off
+		process.title = 'tickets';
 		this.client.log.success('Connected to Discord as "%s"', this.client.user.tag);
 	}
 };

@@ -129,6 +129,9 @@
 		"no-console": [
 			"off"
 		],
+		"no-prototype-builtins": [
+			"off"
+		],
 		"no-return-assign": [
 			"error"
 		],

@@ -1,4 +1,20 @@
 const { MessageEmbed } = require('discord.js');
+const { diff: getDiff } = require('object-diffy');
+
+function makeDiff({
+	original, updated,
+}) {
+	const diff = getDiff(original, updated);
+	const fields = [];
+	for (const key in diff) {
+		if (key === 'createdAt') continue; // object-diffy doesn't like dates
+		fields.push({
+			name: key,
+			value: `\`\`\`diff\n${diff[key].from && `- ${diff[key].from}\n`}\n${diff[key].to && `+ ${diff[key].to}\n`}\n\`\`\``,
+		});
+	}
+	return fields;
+}
 
 /**
  * @param {import("client")} client
@@ -57,6 +73,7 @@ async function logAdminEvent(client, {
 	const channel = client.channels.cache.get(settings.logChannel);
 	if (!channel) return;
 	const targetName = await getTargetName(client, target);
+
 	return await channel.send({
 		embeds: [
 			new MessageEmbed()
@@ -81,11 +98,11 @@ async function logAdminEvent(client, {
 			// 	text: settings.footer,
 			// }),
 			...[
-				action === 'update' && diff &&
+				diff &&
 				new MessageEmbed()
 					.setColor('ORANGE')
 					.setTitle(getMessage('log.admin.differences'))
-					.setDescription(`\`\`\`json\n${JSON.stringify(diff)}\n\`\`\``),
+					.setFields(makeDiff(diff)),
 			],
 		],
 	});

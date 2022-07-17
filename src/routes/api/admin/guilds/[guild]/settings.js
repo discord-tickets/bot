@@ -1,5 +1,4 @@
 const { logAdminEvent } = require('../../../../../lib/logging.js');
-const { updatedDiff } = require('deep-object-diff');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
@@ -37,6 +36,8 @@ module.exports.get = fastify => ({
 
 module.exports.patch = fastify => ({
 	handler: async (req, res) => {
+		if (req.body.hasOwnProperty('id')) delete req.body.id;
+		if (req.body.hasOwnProperty('createdAt')) delete req.body.createdAt;
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 		const id = req.params.guild;
@@ -47,8 +48,12 @@ module.exports.patch = fastify => ({
 		});
 		logAdminEvent(client, {
 			action: 'update',
-			diff: updatedDiff(original, settings),
+			diff: {
+				original,
+				updated: settings,
+			},
 			guildId: id,
+			original,
 			target: {
 				id,
 				type: 'settings',

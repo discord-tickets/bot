@@ -39,7 +39,6 @@
 		"@fastify/oauth2": "^5.0.0",
 		"@prisma/client": "^4.0.0",
 		"cryptr": "^6.0.3",
-		"deep-object-diff": "^1.1.7",
 		"discord.js": "^13.8.1",
 		"dotenv": "^16.0.1",
 		"fastify": "^4.2.1",
@@ -50,6 +49,7 @@
 		"ms": "^2.1.3",
 		"node-dir": "^0.1.17",
 		"node-fetch": "^2.6.7",
+		"object-diffy": "^1.0.4",
 		"semver": "^7.3.7",
 		"terminal-link": "^2.1.1",
 		"yaml": "^1.10.2"
