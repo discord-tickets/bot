@@ -22,7 +22,7 @@ const shouldDecrypt = ['findUnique', 'findFirst', 'findMany'];
 module.exports = async (params, next) => {
 	if (params.args.data && shouldEncrypt.includes(params.action)) {
 		for (const field of fields) {
-			if (field in params.args.data) {
+			if (field in params.args.data && params.args.data[field] !== null && params.args.data[field] !== undefined) {
 				params.args.data[field] = cryptr.encrypt(params.args.data[field]);
 			}
 		}
@@ -32,7 +32,7 @@ module.exports = async (params, next) => {
 
 	if (result && shouldDecrypt.includes(params.action)) {
 		for (const field of fields) {
-			if (field in result) {
+			if (field in result && result[field] !== null && result[field] !== undefined) {
 				result[field] = cryptr.decrypt(params.result[field]);
 			}
 		}

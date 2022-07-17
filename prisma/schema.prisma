@@ -53,13 +53,13 @@ model ArchivedUser {
     bot              Boolean           @default(false)
     createdAt        DateTime          @default(now())
     discriminator    String            @db.Char(4)
-    displayName      String
+    displayName      String            @db.VarChar(512)
     role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
     roleId           String            @db.VarChar(19)
     ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String            @db.VarChar(19)
     userId           String            @db.VarChar(19)
-    username         String
+    username         String            @db.VarChar(512)
 
     @@id([ticketId, userId])
     @@unique([ticketId, userId])
@@ -70,7 +70,7 @@ model Category {
     channelName     String     @default("ticket-{num}")
     claiming        Boolean    @default(false)
     createdAt       DateTime   @default(now())
-    description     String
+    description     String     @db.VarChar(512)
     discordCategory String     @db.VarChar(19)
     emoji           String
     enableFeedback  Boolean    @default(false)
@@ -79,7 +79,7 @@ model Category {
     id              Int        @id @default(autoincrement())
     image           String?
     memberLimit     Int        @default(1)
-    name            String
+    name            String     @db.VarChar(512)
     openingMessage  String     @db.Text
     pingRoles       Json       @default("[]")
     questions       Question[]
@@ -137,7 +137,7 @@ model Question {
     id          Int              @id @default(autoincrement())
     category    Category?        @relation(fields: [categoryId], references: [id])
     categoryId  Int?
-    label       String
+    label       String           @db.VarChar(512)
     maxLength   Int?             @default(4000)
     minLength   Int?             @default(0)
     order       Int
@@ -164,13 +164,13 @@ model QuestionAnswer {
 }
 
 model Tag {
-    content   String
+    content   String   @db.Text()
     createdAt DateTime @default(now())
     guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId   String   @db.VarChar(19)
     id        Int      @id @default(autoincrement())
-    name      String
-    regex     String?
+    name      String   @db.VarChar(512)
+    regex     String?  @db.VarChar(512)
 
     @@unique([guildId, name])
     @@map("tags")
@@ -188,7 +188,7 @@ model Ticket {
     closedAt            DateTime?
     closedBy            User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
     closedById          String            @db.VarChar(19)
-    closedReason        String?
+    closedReason        String?           @db.VarChar(512)
     createdAt           DateTime          @default(now())
     createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById         String            @db.VarChar(19)
@@ -210,7 +210,7 @@ model Ticket {
     referencesMessageId String            @db.VarChar(19)
     referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
     referencesTicketId  String?           @db.VarChar(19)
-    topic               String?
+    topic               String?           @db.VarChar(512)
     questionAnswers     QuestionAnswer[]
 
     @@unique([guildId, number])

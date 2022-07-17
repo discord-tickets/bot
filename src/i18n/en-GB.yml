@@ -1,12 +1,12 @@
 command:
 log:
   admin:
+    changes: 'Changes'
     description:
       joined: '{user} {verb} {targetType}'
       target:
         category: 'a category'
         settings: 'the settings'
-    differences: 'Differences'
     title:
       joined: '{targetType} {verb}'
       target:
