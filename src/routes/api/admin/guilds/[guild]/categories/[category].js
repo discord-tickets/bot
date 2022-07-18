@@ -63,6 +63,9 @@ module.exports.patch = fastify => ({
 		const original = req.params.category && await client.prisma.category.findUnique({ where: { id: categoryId } });
 		if (!original) return res.status(404);
 
+		if (data.hasOwnProperty('id')) delete data.id;
+		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
+
 		const category = await client.prisma.category.update({
 			data: {
 				...data,

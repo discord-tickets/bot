@@ -1,4 +1,6 @@
 const { logAdminEvent } = require('../../../../../../lib/logging');
+const emoji = require('node-emoji');
+const { ChannelType: { GuildCategory } } = require('discord.js');
 
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
@@ -42,14 +44,17 @@ module.exports.post = fastify => ({
 		const user = await client.users.fetch(req.user.payload.id);
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
-		const allow = ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'SEND_MESSAGES', 'EMBED_LINKS', 'ATTACH_FILES'];
+		const allow = ['ViewChannel', 'ReadMessageHistory', 'SendMessages', 'EmbedLinks', 'AttachFiles'];
 
 		if (!data.discordCategory) {
-			const channel = await guild.channels.create(data.name, {
+			let name = data.name;
+			if (emoji.hasEmoji(data.emoji)) name = `${emoji.get(data.emoji)} ${name}`;
+			const channel = await guild.channels.create({
+				name,
 				permissionOverwrites: [
 					...[
 						{
-							deny: ['VIEW_CHANNEL'],
+							deny: ['ViewChannel'],
 							id: guild.roles.everyone,
 						},
 						{
@@ -64,12 +69,12 @@ module.exports.post = fastify => ({
 				],
 				position: 1,
 				reason: `Tickets category created by ${user.tag}`,
-				type: 'GUILD_CATEGORY',
+				type: GuildCategory,
 			});
 			data.discordCategory = channel.id;
 		}
 
-		data.channelName ??= 'ticket-{num}';
+		data.channelName ||= 'ticket-{num}'; // not ??=, expect empty string
 
 		const category = await client.prisma.category.create({
 			data: {

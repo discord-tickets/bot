@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
 
 function makeDiff({
@@ -61,8 +61,8 @@ async function logAdminEvent(client, {
 	const channel = client.channels.cache.get(settings.logChannel);
 	if (!channel) return;
 	const embeds = [
-		new MessageEmbed()
-			.setColor('ORANGE')
+		new EmbedBuilder()
+			.setColor('Orange')
 			.setAuthor({
 				iconURL: user.avatarURL(),
 				name: user.username,
@@ -77,13 +77,18 @@ async function logAdminEvent(client, {
 				targetType: getMessage(`log.admin.description.target.${target.type}`),
 				verb: getMessage(`log.admin.verb.${action}`),
 			}))
-			.addField(getMessage(`log.admin.title.target.${target.type}`), target.name ?? target.id),
+			.addFields([
+				{
+					name: getMessage(`log.admin.title.target.${target.type}`),
+					value: target.name ?? target.id,
+				},
+			]),
 	];
 
 	if (diff && diff.original) {
 		embeds.push(
-			new MessageEmbed()
-				.setColor('ORANGE')
+			new EmbedBuilder()
+				.setColor('Orange')
 				.setTitle(getMessage('log.admin.changes'))
 				.setFields(makeDiff(diff)),
 		);

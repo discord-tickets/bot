@@ -31,6 +31,7 @@ module.exports = class Client extends FrameworkClient {
 		this.i18n = new I18n('en-GB', locales);
 		this.config = config;
 		this.log = log;
+		this.supers = (process.env.SUPER ?? '').split(',');
 	}
 
 	async login(token) {

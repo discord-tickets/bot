@@ -74,8 +74,8 @@ module.exports = client => {
 				});
 			}
 			const guildMember = await guild.members.fetch(userId);
-			const isAdmin = guildMember?.permissions.has('MANAGE_GUILD');
-			if (!guildMember || !isAdmin) {
+			const isAdmin = guildMember?.permissions.has('MANAGE_GUILD') || client.supers.includes(userId);
+			if (!isAdmin) {
 				return res.code(403).send({
 					error: 'Forbidden',
 					message: 'You are not permitted for this action.',
@@ -86,6 +86,18 @@ module.exports = client => {
 		} catch (err) {
 			res.send(err);
 		}
+	});
+
+	// body processing
+	fastify.addHook('preHandler', (req, res, done) => {
+		if (req.body && typeof req.body === 'object') {
+			for (const prop in req.body) {
+				if (typeof req.body[prop] === 'string') {
+					req.body[prop] = req.body[prop].trim();
+				}
+			}
+		}
+		done();
 	});
 
 	// logging

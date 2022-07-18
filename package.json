@@ -30,7 +30,7 @@
 		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@eartharoid/dbf": "^0.2.0",
+		"@eartharoid/dbf": "^0.2.2",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.0.4",
 		"@fastify/cookie": "^6.0.0",
@@ -48,6 +48,7 @@
 		"leekslazylogger": "^4.1.7",
 		"ms": "^2.1.3",
 		"node-dir": "^0.1.17",
+		"node-emoji": "^1.11.0",
 		"object-diffy": "^1.0.4",
 		"prisma": "^4.0.0",
 		"semver": "^7.3.7",

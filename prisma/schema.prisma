@@ -115,7 +115,7 @@ model Guild {
     blocklist     Json       @default("[]")
     categories    Category[]
     createdAt     DateTime   @default(now())
-    errorColour   String     @default("RED")
+    errorColour   String     @default("Red")
     feedback      Feedback[]
     footer        String?    @default("Discord Tickets by eartharoid")
     id            String     @id @db.VarChar(19)
@@ -123,7 +123,7 @@ model Guild {
     logChannel    String?    @db.VarChar(19)
     primaryColour String     @default("#009999")
     staleAfter    Int?
-    successColour String     @default("GREEN")
+    successColour String     @default("Green")
     tags          Tag[]
     tickets       Ticket[]
     workingHours  Json       @default("[\"UTC\", [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"]]")
@@ -141,7 +141,7 @@ model Question {
     maxLength   Int?             @default(4000)
     minLength   Int?             @default(0)
     order       Int
-    placeholder String?          @db.VarChar(100)
+    placeholder String?          @db.VarChar(512)
     required    Boolean          @default(true)
     style       Int              @default(2)
     value       String?          @db.Text

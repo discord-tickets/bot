@@ -1,4 +1,5 @@
 const { logAdminEvent } = require('../../../../../lib/logging.js');
+const { Colors } = require('discord.js');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
@@ -37,16 +38,25 @@ module.exports.get = fastify => ({
 
 module.exports.patch = fastify => ({
 	handler: async (req, res) => {
-		if (req.body.hasOwnProperty('id')) delete req.body.id;
-		if (req.body.hasOwnProperty('createdAt')) delete req.body.createdAt;
+		const data = req.body;
+		if (data.hasOwnProperty('id')) delete data.id;
+		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
+		const colours = ['errorColour', 'primaryColour', 'successColour'];
+		for (const c of colours) {
+			if (data[c] && !data[c].startsWith('#') && !(data[c] in Colors)) { // if not null/empty and not hex
+				throw new Error(`${data[c]} is not a valid colour. Valid colours are HEX and: ${Object.keys(Colors).join(', ')}`);
+			}
+		}
+
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 		const id = req.params.guild;
 		const original = await client.prisma.guild.findUnique({ where: { id } });
 		const settings = await client.prisma.guild.update({
-			data: req.body,
+			data: data,
 			where: { id },
 		});
+
 		logAdminEvent(client, {
 			action: 'update',
 			diff: {
@@ -56,7 +66,7 @@ module.exports.patch = fastify => ({
 			guildId: id,
 			target: {
 				id,
-				name: client.guilds.cache.get(id),
+				name: client.guilds.cache.get(id).name,
 				type: 'settings',
 			},
 			userId: req.user.payload.id,
