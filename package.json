@@ -27,10 +27,10 @@
 	},
 	"homepage": "https://discordtickets.app",
 	"engines": {
-		"node": ">=16.6"
+		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@eartharoid/dbf": "^0.0.1",
+		"@eartharoid/dbf": "^0.2.0",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.0.4",
 		"@fastify/cookie": "^6.0.0",
@@ -39,26 +39,25 @@
 		"@fastify/oauth2": "^5.0.0",
 		"@prisma/client": "^4.0.0",
 		"cryptr": "^6.0.3",
-		"discord.js": "^13.9.0",
+		"discord.js": "^14.0.2",
 		"dotenv": "^16.0.1",
 		"fastify": "^4.2.1",
 		"figlet": "^1.5.2",
-		"keyv": "^4.3.2",
+		"keyv": "^4.3.3",
 		"leeks.js": "^0.2.4",
 		"leekslazylogger": "^4.1.7",
 		"ms": "^2.1.3",
 		"node-dir": "^0.1.17",
-		"node-fetch": "^2.6.7",
 		"object-diffy": "^1.0.4",
+		"prisma": "^4.0.0",
 		"semver": "^7.3.7",
 		"terminal-link": "^2.1.1",
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
 		"all-contributors-cli": "^6.20.0",
-		"eslint": "^8.19.0",
+		"eslint": "^8.20.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"nodemon": "^2.0.19",
-		"prisma": "^4.0.0"
+		"nodemon": "^2.0.19"
 	}
 }

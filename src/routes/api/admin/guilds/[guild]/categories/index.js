@@ -69,7 +69,7 @@ module.exports.post = fastify => ({
 			data.discordCategory = channel.id;
 		}
 
-		if (!data.channelName) data.channelName = 'ticket-{num}';
+		data.channelName ??= 'ticket-{num}';
 
 		const category = await client.prisma.category.create({
 			data: {

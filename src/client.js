@@ -1,5 +1,5 @@
-const { Client: FrameworkClient }= require('@eartharoid/dbf');
-const { Intents } = require('discord.js');
+const { Client: FrameworkClient } = require('@eartharoid/dbf');
+const { GatewayIntentBits } = require('discord.js');
 const { PrismaClient } = require('@prisma/client');
 const Keyv = require('keyv');
 const I18n = require('@eartharoid/i18n');
@@ -12,9 +12,9 @@ module.exports = class Client extends FrameworkClient {
 	constructor(config, log) {
 		super({
 			intents: [
-				Intents.FLAGS.GUILDS,
-				Intents.FLAGS.GUILD_MEMBERS,
-				Intents.FLAGS.GUILD_MESSAGES,
+				GatewayIntentBits.Guilds,
+				GatewayIntentBits.GuildMembers,
+				GatewayIntentBits.GuildMessages,
 			],
 		});
 

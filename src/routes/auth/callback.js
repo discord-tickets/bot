@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const { domain } = require('../../lib/http');
 
 module.exports.get = () => ({

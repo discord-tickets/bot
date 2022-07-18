@@ -3,7 +3,7 @@ const oauth = require('@fastify/oauth2');
 // const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
-const { readFiles } = require('node-dir');
+const { files } = require('node-dir');
 
 module.exports = client => {
 
@@ -115,36 +115,29 @@ module.exports = client => {
 	// route loading
 	const dir = join(__dirname, '/routes');
 
-	readFiles(dir,
-		{
-			exclude: /^\./,
-			match: /.js$/,
-		},
-		(err, content, next) => next(),
-		(err, files) => {
-			if (err) throw err;
+	files(dir, {
+		exclude: /^\./,
+		match: /.js$/,
+		sync: true,
+	}).forEach(file => {
+		const path = file
+			.substring(0, file.length - 3) // remove `.js`
+			.substring(dir.length) // remove higher directories
+			.replace(/\[(\w+)\]/gi, ':$1') // convert [] to :
+			.replace('/index', '') || '/'; // remove index
+		const route = require(file);
 
-			for (const file of files) {
-				const path = file
-					.substring(0, file.length - 3) // remove `.js`
-					.substring(dir.length) // remove higher directories
-					.replace(/\[(\w+)\]/gi, ':$1') // convert [] to :
-					.replace('/index', '') || '/'; // remove index
-				const route = require(file);
+		Object.keys(route).forEach(method => fastify.route({
+			config: { client },
+			method: method.toUpperCase(),
+			path,
+			...route[method](fastify),
+		})); // register route
+	});
 
-				Object.keys(route).forEach(method => fastify.route({
-					config: { client },
-					method: method.toUpperCase(),
-					path,
-					...route[method](fastify),
-				})); // register route
-			}
-
-			// start server
-			fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
-				if (err) client.log.error.http(err);
-				else client.log.success.http(`Listening at ${addr}`);
-			});
-		},
-	);
+	// start server
+	fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
+		if (err) client.log.error.http(err);
+		else client.log.success.http(`Listening at ${addr}`);
+	});
 };
