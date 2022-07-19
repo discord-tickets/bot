@@ -6,7 +6,6 @@ const I18n = require('@eartharoid/i18n');
 const fs = require('fs');
 const { join } = require('path');
 const YAML = require('yaml');
-const middleware = require('./lib/prisma');
 
 module.exports = class Client extends FrameworkClient {
 	constructor(config, log) {
@@ -37,7 +36,6 @@ module.exports = class Client extends FrameworkClient {
 	async login(token) {
 		/** @type {PrismaClient} */
 		this.prisma = new PrismaClient();
-		this.prisma.$use(middleware(this.log));
 		this.keyv = new Keyv();
 		return super.login(token);
 	}

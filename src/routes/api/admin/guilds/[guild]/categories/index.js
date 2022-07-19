@@ -8,28 +8,26 @@ module.exports.get = fastify => ({
 		const client = res.context.config.client;
 
 		const { categories } = await client.prisma.guild.findUnique({
-			select: {
-				categories: {
-					include: {
-						questions: {
-							select: {
-								createdAt: true,
-								id: true,
-								label: true,
-								maxLength: true,
-								minLength: true,
-								order: true,
-								placeholder: true,
-								required: true,
-								style: true,
-								value: true,
-							},
-						},
-					},
-				},
-			},
+			select: { categories: true },
 			where: { id: req.params.guild },
 		});
+
+		// include: {
+		// 	questions: {
+		// 		select: {
+		// 			createdAt: true,
+		// 			id: true,
+		// 			label: true,
+		// 			maxLength: true,
+		// 			minLength: true,
+		// 			order: true,
+		// 			placeholder: true,
+		// 			required: true,
+		// 			style: true,
+		// 			value: true,
+		// 		},
+		// 	},
+		// },
 
 		return categories;
 	},

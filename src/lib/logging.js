@@ -1,4 +1,7 @@
-const { EmbedBuilder } = require('discord.js');
+const {
+	cleanCodeBlockContent,
+	EmbedBuilder,
+} = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
 
 function makeDiff({
@@ -8,12 +11,12 @@ function makeDiff({
 	const fields = [];
 	for (const key in diff) {
 		if (key === 'createdAt') continue; // object-diffy doesn't like dates
-		const from = diff[key].from === null ? '' : `- ${diff[key].from}\n`;
-		const to = diff[key].to === null ? '' : `+ ${diff[key].to}\n`;
+		const from = diff[key].from === null ? '' : `- ${diff[key].from.toString().replace(/\n/g, '\\n')}\n`;
+		const to = diff[key].to === null ? '' : `+ ${diff[key].to.toString().replace(/\n/g, '\\n')}\n`;
 		fields.push({
 			inline: true,
 			name: key,
-			value: `\`\`\`diff\n${from + to}\n\`\`\``,
+			value: `\`\`\`diff\n${cleanCodeBlockContent(from + to)}\n\`\`\``,
 		});
 	}
 	return fields;
