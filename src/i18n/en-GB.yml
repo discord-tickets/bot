@@ -6,11 +6,13 @@ log:
       joined: '{user} {verb} {targetType}'
       target:
         category: 'a category'
+        question: 'a question'
         settings: 'the settings'
     title:
       joined: '{targetType} {verb}'
       target:
         category: 'Category'
+        question: 'Question'
         settings: 'Settings'
     verb:
       create: 'created'

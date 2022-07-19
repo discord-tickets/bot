@@ -137,11 +137,11 @@ model Question {
     id          String           @id @default(uuid())
     category    Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId  Int
-    label       String
+    label       String           @db.VarChar(45)
     maxLength   Int?             @default(4000)
     minLength   Int?             @default(0)
     order       Int
-    placeholder String?
+    placeholder String?          @db.VarChar(100)
     required    Boolean          @default(true)
     style       Int              @default(2)
     value       String?          @db.Text

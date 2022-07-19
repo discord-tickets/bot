@@ -4,15 +4,29 @@ const {
 } = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
 
+
+const exists = thing => (typeof thing === 'string' && thing.length > 0) && thing !== null && thing !== undefined;
+
+const arrToObj = obj => {
+	for (const key in obj) {
+		if (obj[key] instanceof Array && obj[key][0]?.id) {
+			const temp = {};
+			obj[key].forEach(v => (temp[v.id] = v));
+			obj[key] = temp;
+		}
+	}
+	return obj;
+};
+
 function makeDiff({
 	original, updated,
 }) {
-	const diff = getDiff(original, updated);
+	const diff = getDiff(arrToObj(original), arrToObj(updated));
 	const fields = [];
 	for (const key in diff) {
 		if (key === 'createdAt') continue; // object-diffy doesn't like dates
-		const from = diff[key].from === null ? '' : `- ${diff[key].from.toString().replace(/\n/g, '\\n')}\n`;
-		const to = diff[key].to === null ? '' : `+ ${diff[key].to.toString().replace(/\n/g, '\\n')}\n`;
+		const from = exists(diff[key].from) ? `- ${String(diff[key].from).replace(/\n/g, '\\n')}\n` : '';
+		const to = exists(diff[key].to) ?  `+ ${String(diff[key].to).replace(/\n/g, '\\n')}\n` : '';
 		fields.push({
 			inline: true,
 			name: key,

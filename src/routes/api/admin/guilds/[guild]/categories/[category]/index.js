@@ -1,4 +1,4 @@
-const { logAdminEvent } = require('../../../../../../lib/logging');
+const { logAdminEvent } = require('../../../../../../../lib/logging');
 const { randomUUID } = require('crypto');
 
 module.exports.delete = fastify => ({
@@ -7,7 +7,7 @@ module.exports.delete = fastify => ({
 		const client = res.context.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
-		const original = req.params.category && await client.prisma.category.findUnique({ where: { id: categoryId } });
+		const original = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
 		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
 		const category = await client.prisma.category.delete({ where: { id: categoryId } });
 
@@ -68,9 +68,49 @@ module.exports.patch = fastify => ({
 		const categoryId = Number(req.params.category);
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
-		const original = req.params.category && await client.prisma.category.findUnique({ where: { id: categoryId } });
-		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
 
+		const select = {
+			channelName: true,
+			claiming: true,
+			// createdAt: true,
+			description: true,
+			discordCategory: true,
+			emoji: true,
+			enableFeedback: true,
+			guildId: true,
+			id: true,
+			image: true,
+			memberLimit: true,
+			name: true,
+			openingMessage: true,
+			pingRoles: true,
+			questions: {
+				select: {
+					// createdAt: true,
+					id: true,
+					label: true,
+					maxLength: true,
+					minLength: true,
+					order: true,
+					placeholder: true,
+					required: true,
+					style: true,
+					value: true,
+				},
+			},
+			ratelimit: true,
+			requireTopic: true,
+			requiredRoles: true,
+			staffRoles: true,
+			totalLimit: true,
+		};
+
+		const original = req.params.category && await client.prisma.category.findUnique({
+			select,
+			where: { id: categoryId },
+		});
+
+		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
 
 		if (data.hasOwnProperty('id')) delete data.id;
 		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
@@ -89,6 +129,7 @@ module.exports.patch = fastify => ({
 					}),
 				},
 			},
+			select,
 			where: { id: categoryId },
 		});
 
