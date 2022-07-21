@@ -4,8 +4,9 @@ const {
 } = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
 
+const uuidRegex = /[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/g;
 
-const exists = thing => (typeof thing === 'string' && thing.length > 0) && (thing !== null && thing !== undefined);
+const exists = thing => typeof thing === 'string' ? thing.length > 0 : thing !== null && thing !== undefined;
 
 const arrToObj = obj => {
 	for (const key in obj) {
@@ -29,7 +30,7 @@ function makeDiff({
 		const to = exists(diff[key].to) ? `+ ${String(diff[key].to).replace(/\n/g, '\\n')}\n` : '';
 		fields.push({
 			inline: true,
-			name: key,
+			name: key.replace(uuidRegex, $1 => $1.split('-')[0]),
 			value: `\`\`\`diff\n${cleanCodeBlockContent(from + to)}\n\`\`\``,
 		});
 	}

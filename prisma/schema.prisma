@@ -70,6 +70,8 @@ model Category {
     channelName     String
     claiming        Boolean    @default(false)
     createdAt       DateTime   @default(now())
+    cooldown        Int?
+    customTopic     String?
     description     String
     discordCategory String     @db.VarChar(19)
     emoji           String
@@ -142,10 +144,12 @@ model Question {
     label       String           @db.VarChar(45)
     maxLength   Int?             @default(4000)
     minLength   Int?             @default(0)
+    options     Json             @default("[]")
     order       Int
     placeholder String?          @db.VarChar(100)
     required    Boolean          @default(true)
     style       Int              @default(2)
+    type        QuestionType     @default(TEXT)
     value       String?          @db.Text
 
     @@map("questions")
@@ -207,7 +211,7 @@ model Ticket {
     open                Boolean           @default(true)
     openingMessage      String            @db.VarChar(19)
     pinnedMessages      Json              @default("[]")
-    priority            Priority?
+    priority            TicketPriority?
     referencedBy        Ticket[]          @relation("TicketsReferencedByTicket")
     referencesMessageId String            @db.VarChar(19)
     referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
@@ -232,8 +236,13 @@ model User {
     @@map("users")
 }
 
-enum Priority {
+enum TicketPriority {
     LOW
     MEDIUM
     HIGH
+}
+
+enum QuestionType {
+    MENU
+    TEXT
 }
