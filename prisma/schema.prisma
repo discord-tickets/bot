@@ -114,6 +114,8 @@ model Guild {
     archive       Boolean    @default(true)
     blocklist     Json       @default("[]")
     categories    Category[]
+    claimButton   Boolean    @default(false)
+    closeButton   Boolean    @default(false)
     createdAt     DateTime   @default(now())
     errorColour   String     @default("Red")
     feedback      Feedback[]

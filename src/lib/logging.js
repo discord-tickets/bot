@@ -5,7 +5,7 @@ const {
 const { diff: getDiff } = require('object-diffy');
 
 
-const exists = thing => (typeof thing === 'string' && thing.length > 0) && thing !== null && thing !== undefined;
+const exists = thing => (typeof thing === 'string' && thing.length > 0) && (thing !== null && thing !== undefined);
 
 const arrToObj = obj => {
 	for (const key in obj) {
@@ -26,7 +26,7 @@ function makeDiff({
 	for (const key in diff) {
 		if (key === 'createdAt') continue; // object-diffy doesn't like dates
 		const from = exists(diff[key].from) ? `- ${String(diff[key].from).replace(/\n/g, '\\n')}\n` : '';
-		const to = exists(diff[key].to) ?  `+ ${String(diff[key].to).replace(/\n/g, '\\n')}\n` : '';
+		const to = exists(diff[key].to) ? `+ ${String(diff[key].to).replace(/\n/g, '\\n')}\n` : '';
 		fields.push({
 			inline: true,
 			name: key,
@@ -70,6 +70,10 @@ async function logAdminEvent(client, {
 		where: { id: guildId },
 	});
 	if (!settings.logChannel) return;
+	const colour = action === 'create'
+		? 'Green' : action === 'update'
+			? 'Orange' : action === 'delete'
+				? 'Red' : 'Default';
 	const getMessage = client.i18n.getLocale(settings.locale);
 	const i18nOptions = {
 		user: `<@${user.id}>`,
@@ -79,7 +83,7 @@ async function logAdminEvent(client, {
 	if (!channel) return;
 	const embeds = [
 		new EmbedBuilder()
-			.setColor('Orange')
+			.setColor(colour)
 			.setAuthor({
 				iconURL: user.avatarURL(),
 				name: user.username,
@@ -105,7 +109,7 @@ async function logAdminEvent(client, {
 	if (diff && diff.original) {
 		embeds.push(
 			new EmbedBuilder()
-				.setColor('Orange')
+				.setColor(colour)
 				.setTitle(getMessage('log.admin.changes'))
 				.setFields(makeDiff(diff)),
 		);
