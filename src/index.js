@@ -46,23 +46,21 @@ if (process.env.ENCRYPTION_KEY === undefined) {
 	process.exit(1);
 }
 
-process.env.CONFIG_PATH ??= './user/config.yml'; // set default config file path
-
-if (!fs.existsSync(process.env.CONFIG_PATH)) {
+if (!fs.existsSync('./user/config.yml')) {
 	const examplePath = './user/example.config.yml';
 	if (!fs.existsSync(examplePath)) {
 		console.log('\x07' + colours.redBright('The config file does not exist, and the example file is missing so cannot be copied from.'));
 		process.exit(1);
 	} else {
 		console.log('Creating config file...');
-		fs.copyFileSync(examplePath, process.env.CONFIG_PATH);
-		console.log(`Copied config to ${process.env.CONFIG_PATH}`);
+		fs.copyFileSync(examplePath, './user/config.yml');
+		console.log(`Copied config to ${'./user/config.yml'}`);
 	}
 }
 
 console.log(banner(pkg.version)); // print big title
 
-const config = YAML.parse(fs.readFileSync(process.env.CONFIG_PATH, 'utf8'));
+const config = YAML.parse(fs.readFileSync('./user/config.yml', 'utf8'));
 const log = logger(config);
 
 process.on('unhandledRejection', error => {
