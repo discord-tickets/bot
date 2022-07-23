@@ -9,7 +9,8 @@
 		"contributors:generate": "all-contributors generate",
 		"keygen": "node scripts/keygen",
 		"lint": "eslint src scripts --ext mjs --fix",
-		"start": "node .",
+		"prisma": "node scripts/prisma",
+		"start": "npm run prisma && node .",
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"
 	},
@@ -45,6 +46,7 @@
 		"dotenv": "^16.0.1",
 		"fastify": "^4.2.1",
 		"figlet": "^1.5.2",
+		"fs-extra": "^10.1.0",
 		"keyv": "^4.3.3",
 		"leeks.js": "^0.2.4",
 		"leekslazylogger": "^4.1.7",

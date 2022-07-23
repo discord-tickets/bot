@@ -1,12 +1,12 @@
 # directories
-node_modules/
 dist/
+node_modules/
+prisma/
 
 # files
-.env*
-version
-user/config.yml
-user/database.sqlite
+.env
+*.db
 *.log
 *.lock
 *-lock.*
+user/config.yml

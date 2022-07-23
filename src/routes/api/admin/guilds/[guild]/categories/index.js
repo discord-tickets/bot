@@ -78,7 +78,8 @@ module.exports.post = fastify => ({
 			data: {
 				guild: { connect: { id: guild.id } },
 				...data,
-				questions: { createMany: { data: data.questions ?? [] } },
+				// questions: { createMany: { data: data.questions ?? [] } },
+				questions: { create: { data: data.questions ?? [] } }, // sqlite doesn't support createMany?
 			},
 		});
 
