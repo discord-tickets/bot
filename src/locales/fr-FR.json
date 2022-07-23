@@ -9,7 +9,7 @@
 	},
 	"collector_expires_in": "Expire dans %d secondes",
 	"command_execution_error": {
-		"description": "Une erreur inattendue s’est produite lors de l’exécution de commande.\nVeuillez demander à un administrateur de vérifier la console / les journaux pour plus de détails.",
+		"description": "Une erreur inattendue s'est produite lors de l'exécution de commande.\nVeuillez demander à un administrateur de vérifier la console / les journaux pour plus de détails.",
 		"title": "⚠️"
 	},
 	"commands": {
@@ -19,11 +19,11 @@
 			"options": {
 				"member": {
 					"description": "Le membre à ajouter au billet",
-					"name": "membre"
+					"name": "member"
 				},
 				"ticket": {
 					"description": "Le billet auquel ajouter le membre",
-					"name": "billet"
+					"name": "ticket"
 				}
 			},
 			"response": {
@@ -36,18 +36,18 @@
 					"title": "❌ Membre inconnu"
 				},
 				"no_permission": {
-					"description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel; vous ne pouvez pas ajouter de membre à ce billet .",
+					"description": "Vous n'êtes pas le créateur de ce billet et vous n'êtes pas un membre du personnel; vous ne pouvez pas ajouter de membre à ce billet .",
 					"title": "❌ Permissions insuffisantes"
 				},
 				"not_a_ticket": {
 					"description": "Veuillez utiliser cette commande dans le canal des billets, ou mentionner le salon.",
-					"title": "❌ Ce n’est pas un salon de billet"
+					"title": "❌ Ce n'est pas un salon de billet"
 				}
 			}
 		},
 		"blacklist": {
 			"description": "Voir ou modifier la liste noire",
-			"name": "liste noire",
+			"name": "blacklist",
 			"options": {
 				"add": {
 					"description": "Ajouter un membre ou un rôle à la liste noire",
@@ -95,7 +95,7 @@
 					"title": "📃 Membres et rôles sur la liste noire"
 				},
 				"member_added": {
-					"description": "<@%s> a été ajouté à la liste noire. Ils ne seront plus en mesure d’interagir avec le bot.",
+					"description": "<@%s> a été ajouté à la liste noire. Ils ne seront plus en mesure d'interagir avec le bot.",
 					"title": "✅ Membre ajouté à la liste noire"
 				},
 				"member_removed": {
@@ -103,7 +103,7 @@
 					"title": "✅ Membre retiré de la liste noire"
 				},
 				"role_added": {
-					"description": "<@&%s> a été ajouté à la liste noire. Les membres avec ce rôle ne seront plus en mesure d’interagir avec le bot.",
+					"description": "<@&%s> a été ajouté à la liste noire. Les membres avec ce rôle ne seront plus en mesure d'interagir avec le bot.",
 					"title": "✅ Rôle ajouté à la liste noire"
 				},
 				"role_removed": {
@@ -118,7 +118,7 @@
 			"options": {
 				"reason": {
 					"description": "La raison de fermer les tickets",
-					"name": "raison"
+					"name": "reason"
 				},
 				"ticket": {
 					"description": "Le ticket à fermer, soit le numéro ou l'ID du salon",
@@ -126,7 +126,7 @@
 				},
 				"time": {
 					"description": "Fermer tous les tickets qui ont été inactifs dans un temps impartis",
-					"name": "temps"
+					"name": "time"
 				}
 			},
 			"response": {
@@ -176,7 +176,7 @@
 					"title": "❌ Le temps de réaction a expiré"
 				},
 				"invalid_time": {
-					"description": "La période prévue n’a pas pu être analysée.",
+					"description": "La période prévue n'a pas pu être analysée.",
 					"title": "❌ entrée invalide"
 				},
 				"no_permission": {
@@ -184,22 +184,22 @@
 					"title": "❌ Permissions insuffisantes"
 				},
 				"no_tickets": {
-					"description": "Il n’y a pas de billets inactifs pour cette période.",
+					"description": "Il n'y a pas de billets inactifs pour cette période.",
 					"title": "❌ pas de billets à fermer"
 				},
 				"not_a_ticket": {
-					"description": "Veuillez utiliser cette commande dans un salon de ticket ou utilisez le drapeau ticket.\nTapez «/help close» pour plus d’informations.",
-					"title": "❌ Ce n’est pas une chaîne de billets"
+					"description": "Veuillez utiliser cette commande dans un salon de ticket ou utilisez le drapeau ticket.\nTapez «/help close» pour plus d'informations.",
+					"title": "❌ Ce n'est pas une chaîne de billets"
 				},
 				"unresolvable": {
-					"description": "'%s' ne pouvait pas être résolu à un billet. Veuillez fournir l’iD/mention ou le numéro du billet.",
+					"description": "'%s' ne pouvait pas être résolu à un billet. Veuillez fournir l'iD/mention ou le numéro du billet.",
 					"title": "❌ erreur"
 				}
 			}
 		},
 		"help": {
 			"description": "Listez les commandes dont vous avez accès",
-			"name": "aide",
+			"name": "help",
 			"response": {
 				"list": {
 					"description": "Les commandes dont vous avez accès sont listées ci-dessous. Pour créer un ticket, tapez **`/new`**",
@@ -212,10 +212,10 @@
 		},
 		"new": {
 			"description": "Créer un nouveau billet",
-			"name": "nouveau",
+			"name": "new",
 			"options": {
 				"topic": {
-					"description": "La sujet du ticket",
+					"description": "Le sujet du ticket",
 					"name": "sujet"
 				}
 			},
@@ -232,7 +232,7 @@
 					"title": "❌ erreur"
 				},
 				"has_a_ticket": {
-					"description": "S’il vous plaît utiliser votre billet <# existant (%s>) ou le fermer avant de créer un autre.",
+					"description": "S'il vous plaît utiliser votre billet <# existant (%s>) ou le fermer avant de créer un autre.",
 					"title": "❌ Vous avez déjà un billet ouvert"
 				},
 				"max_tickets": {
@@ -240,7 +240,7 @@
 					"title": "❌ Vous avez déjà un billet ouvert"
 				},
 				"no_categories": {
-					"description": "Un administrateur serveur doit créer au moins une catégorie de billets avant qu’un nouveau billet puisse être ouvert.",
+					"description": "Un administrateur serveur doit créer au moins une catégorie de billets avant qu'un nouveau billet puisse être ouvert.",
 					"title": "❌ Impossible de créer un ticket"
 				},
 				"select_category": {
@@ -255,11 +255,11 @@
 		},
 		"panel": {
 			"description": "Créer un nouveau panneau de billet",
-			"name": "panneau",
+			"name": "panel",
 			"options": {
 				"categories": {
 					"description": "La liste d'ID de catégorie séparé par des virgules",
-					"name": "catégories"
+					"name": "categories"
 				},
 				"description": {
 					"description": "La description du message du panneau d'affichage",
@@ -271,15 +271,15 @@
 				},
 				"just_type": {
 					"description": "Créer un panneau d'affichage \"juste écrire\"?",
-					"name": "juste_ecrire"
+					"name": "just_type"
 				},
 				"thumbnail": {
 					"description": "Une URL d'image de bannière pour le panneau d'affichage",
-					"name": "bannière"
+					"name": "thumbnail"
 				},
 				"title": {
 					"description": "Le titre du panneau d'affichage",
-					"name": "titre"
+					"name": "title"
 				}
 			},
 			"response": {
@@ -294,12 +294,12 @@
 			}
 		},
 		"remove": {
-			"description": "Retirer un membre d’un billet",
-			"name": "supprimer",
+			"description": "Retirer un membre d'un billet",
+			"name": "remove",
 			"options": {
 				"member": {
 					"description": "Le membre à retirer du ticket",
-					"name": "membre"
+					"name": "member"
 				},
 				"ticket": {
 					"description": "Le ticket où retirer le membre",
@@ -312,12 +312,12 @@
 					"title": "❌ membre inconnu"
 				},
 				"no_permission": {
-					"description": "Vous n’êtes pas le créateur de ce billet et vous n’êtes pas un membre du personnel ; vous ne pouvez pas ajouter de membres à ce billet.",
+					"description": "Vous n'êtes pas le créateur de ce billet et vous n'êtes pas un membre du personnel; vous ne pouvez pas ajouter de membres à ce billet.",
 					"title": "❌ autorisation insuffisante"
 				},
 				"not_a_ticket": {
-					"description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
-					"title": "❌ Ce n’est pas une chaîne de billets"
+					"description": "S'il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
+					"title": "❌ Ce n'est pas une chaîne de billets"
 				},
 				"removed": {
 					"description": "%s a été ajouté à %s.",
@@ -342,6 +342,7 @@
 									"name": "nom"
 								},
 								"roles": {
+									"description": "Une liste d'ID de rôle du personnel séparés par des virgules pour cette catégorie",
 									"name": "rôles"
 								}
 							}
@@ -362,7 +363,7 @@
 							"options": {
 								"claiming": {
 									"description": "Activer la réception d'un ticket ?",
-									"name": "réception"
+									"name": "claiming"
 								},
 								"id": {
 									"description": "L'ID de la catégorie à éditer",
@@ -374,33 +375,39 @@
 								},
 								"max_per_member": {
 									"description": "Le maximum de tickets qu'un membre peut avoir dans cette catégorie",
-									"name": "max_par_membre"
+									"name": "max_per_member"
 								},
 								"name": {
 									"description": "Le nom de la catégorie",
-									"name": "nom"
+									"name": "name"
 								},
 								"name_format": {
 									"description": "Le format du nom des tickets",
-									"name": "format_nom"
+									"name": "name_format"
 								},
 								"opening_message": {
 									"description": "Le texte à envoyer quand un ticket est ouvert",
-									"name": "ouverture_message"
+									"name": "opening_message"
 								},
 								"opening_questions": {
 									"description": "Questions à demander quand un ticket est ouvert.",
-									"name": "questions_ouverture"
+									"name": "opening_questions"
 								},
 								"ping": {
+									"description": "Une liste d'ID de rôle à ping séparés par des virgules",
 									"name": "ping"
 								},
 								"require_topic": {
 									"description": "Obliger le membre à donner le sujet du ticket ?",
-									"name": "requiert_sujet"
+									"name": "require_topic"
 								},
 								"roles": {
-									"name": "rôles"
+									"description": "Une liste d'ID de rôle du personnel séparés par des virgules",
+									"name": "roles"
+								},
+								"survey": {
+									"description": "L'enquête à utiliser",
+									"name": "survey"
 								}
 							}
 						},
@@ -416,27 +423,31 @@
 					"options": {
 						"close_button": {
 							"description": "Activer la fermeture avec un bouton ?",
-							"name": "fermer_bouton"
+							"name": "close_button"
 						},
 						"colour": {
 							"description": "La couleur de base",
-							"name": "couleur"
+							"name": "colour"
 						},
 						"error_colour": {
 							"description": "La couleur des eurreurs",
-							"name": "couleur_erreur"
+							"name": "error_colour"
 						},
 						"footer": {
 							"description": "Le texte de fin de l'embed",
-							"name": "texte de fin"
+							"name": "footer"
+						},
+						"locale": {
+							"description": "La langue (language)",
+							"name": "locale"
 						},
 						"log_messages": {
 							"description": "Stocker les messages des tickets ?",
-							"name": "stocker_messages"
+							"name": "log_messages"
 						},
 						"success_colour": {
 							"description": "La couleur pour la réussite",
-							"name": "couleur_réussite"
+							"name": "success_colour"
 						}
 					}
 				}
@@ -444,7 +455,10 @@
 			"response": {
 				"category_created": "✅ La catégorie de tickets `%s` à été créée",
 				"category_deleted": "✅ La catégorie de tickets `%s` à bien été supprimée",
-				"category_does_not_exist": "❌ La catégorie avec cet ID n'existe pas"
+				"category_does_not_exist": "❌ La catégorie avec cet ID n'existe pas",
+				"category_list": "La catégories de tickets",
+				"category_updated": "✅ La catégorie de ticket « %s» a été mise à jour",
+				"settings_updated": "✅ Les paramètres ont été mis à jour"
 			}
 		},
 		"stats": {
@@ -470,8 +484,14 @@
 			}
 		},
 		"survey": {
-			"description": "Voir les réponses au sondage",
+			"description": "Voir les enquêtes",
 			"name": "enquêtes",
+			"options": {
+				"survey": {
+					"description": "Voir les réponses au sondage",
+					"name": "enquêtes"
+				}
+			},
 			"response": {
 				"list": {
 					"title": "📃 enquêtes"
@@ -479,8 +499,14 @@
 			}
 		},
 		"tag": {
-			"description": "Utiliser une réponse d’étiquette",
+			"description": "Utiliser une réponse d'étiquette",
 			"name": "étiquettes",
+			"options": {
+				"tag": {
+					"description": "Le nom du tag à utiliser",
+					"name": "tag"
+				}
+			},
 			"response": {
 				"error": "❌ erreur",
 				"list": {
@@ -489,35 +515,46 @@
 				"missing": "Cette balise nécessite les arguments suivants :\n%s",
 				"not_a_ticket": {
 					"description": "Cette balise ne peut être utilisée que dans un canal de billets car elle utilise des références de billets.",
-					"title": "❌ Ce n’est pas un canal de billet"
+					"title": "❌ Ce n'est pas un canal de billet"
 				}
 			}
 		},
 		"topic": {
 			"description": "Le sujet du billet",
 			"name": "sujet",
+			"options": {
+				"new_topic": {
+					"description": "Le nouveau sujet du ticket",
+					"name": "new_topic"
+				}
+			},
 			"response": {
 				"changed": {
 					"description": "Le sujet de ce billet a été changé.",
 					"title": "✅ sujet changé"
 				},
 				"not_a_ticket": {
-					"description": "S’il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
-					"title": "❌ Ce n’est pas un canal de billet"
+					"description": "S'il vous plaît utiliser cette commande dans le canal de billet, ou mentionner le canal.",
+					"title": "❌ Ce n'est pas un canal de billet"
 				}
 			}
 		}
 	},
 	"message_will_be_deleted_in": "Ce message sera supprimé dans %d secondes",
 	"missing_permissions": {
-		"description": "Vous n’avez pas les autorisations requises pour utiliser cette commande :\n%s",
+		"description": "Vous n'avez pas les autorisations requises pour utiliser cette commande :\n%s",
 		"title": "❌"
 	},
+	"panel": {
+		"create_ticket": "Crée un Ticket"
+	},
 	"ticket": {
+		"claim": "Réclamée",
 		"claimed": {
 			"description": "%s a réclamé ce billet.",
 			"title": "✅ billet fermé"
 		},
+		"close": "Fermé",
 		"closed": {
 			"description": "Ce billet a été fermé.\nLe canal sera supprimé en 5 secondes.",
 			"title": "✅ billet fermé"
@@ -539,15 +576,16 @@
 			"title": "Membre ajouté"
 		},
 		"member_removed": {
-			"description": "%s a été ajouté à %s",
+			"description": "%s a été retirée %s",
 			"title": "Membre retiré"
 		},
 		"opening_message": {
+			"content": "%s\n%s as crée un nouveau Ticket",
 			"fields": {
 				"topic": "Sujet"
 			}
 		},
-		"questions": "S’il vous plaît répondre aux questions suivantes :\n\n%s",
+		"questions": "S'il vous plaît répondre aux questions suivantes:\n\n%s",
 		"released": {
 			"description": "%s a abandonné ce billet.",
 			"title": "✅ billet abandonné"
@@ -558,9 +596,15 @@
 				"title": "✅ Merci"
 			},
 			"start": {
+				"buttons": {
+					"ignore": "Non",
+					"start": "Commencer l'enquête"
+				},
 				"description": "Hé, %s. Avant que ce canal soit supprimé, pourriez-vous répondre à %d question(s) ?",
 				"title": "❔ commentaires"
 			}
-		}
-	}
+		},
+		"unclaim": "Relachée"
+	},
+	"updated_permissions": "✅ Mise à jour des permissions des commandes slash"
 }
