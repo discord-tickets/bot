@@ -13,6 +13,7 @@ log:
         panel: 'a panel'
         question: 'a question'
         settings: 'the settings'
+        tag: 'a tag'
     title:
       joined: '{targetType} {verb}'
       target:
@@ -20,6 +21,7 @@ log:
         panel: 'Panel'
         question: 'Question'
         settings: 'Settings'
+        tag: 'Tag'
     verb:
       create: 'created'
       delete: 'deleted'

@@ -20,3 +20,5 @@ logs:
     enabled: true
     keepFor: 30 # days
   level: info
+overrides:
+  disableArchives: false
