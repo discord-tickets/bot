@@ -194,7 +194,7 @@ model Ticket {
     closedAt            DateTime?
     closedBy            User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
     closedById          String            @db.VarChar(19)
-    closedReason        String?
+    closedReason        String?           @db.Text
     createdAt           DateTime          @default(now())
     createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById         String            @db.VarChar(19)
@@ -216,7 +216,7 @@ model Ticket {
     referencesMessageId String            @db.VarChar(19)
     referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
     referencesTicketId  String?           @db.VarChar(19)
-    topic               String?
+    topic               String?           @db.Text
     questionAnswers     QuestionAnswer[]
 
     @@unique([guildId, number])

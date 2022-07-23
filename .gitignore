@@ -6,7 +6,7 @@ prisma/
 # files
 .env
 *.db
+*.db-journal
 *.log
-*.lock
 *-lock.*
 user/config.yml

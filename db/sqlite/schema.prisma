@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
     provider = "sqlite"
-    url      = env("DB_CONNECTION_URL")
+    url      = "file:../user/database.db"
 }
 
 model ArchivedChannel {

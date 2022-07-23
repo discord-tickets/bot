@@ -17,33 +17,29 @@ const encryptedFields = [
 	// 'regex',
 ];
 
-const encrypt = obj => {
+const traverse = (obj, action) => {
 	for (const prop in obj) {
-		if (typeof obj[prop] === 'string' && obj[prop].length !== 0 && encryptedFields.includes(prop)) {
-			obj[prop] = cryptr.encrypt(obj[prop]);
+		if (encryptedFields.includes(prop) && typeof obj[prop] === 'string' && obj[prop].length !== 0) {
+			try {
+				// prevent double encryption bug (from nested writes - notably upserting questions in category update).
+				// not sure why it happens
+				if (action === 'ENCRYPT' && cryptr.decrypt(obj[prop])) continue; // don't encrypt if it already encrypted
+				else obj[prop] = cryptr[action.toLowerCase()](obj[prop]);
+			} catch {
+				// do nothing
+			}
 		} else if (typeof obj[prop] === 'object') {
-			obj[prop] = encrypt(obj[prop]);
-		}
-	}
-	return obj;
-};
-
-const decrypt = obj => {
-	for (const prop in obj) {
-		if (typeof obj[prop] === 'string' && obj[prop].length !== 0 && encryptedFields.includes(prop)) {
-			obj[prop] = cryptr.decrypt(obj[prop]);
-		} else if (typeof obj[prop] === 'object') {
-			obj[prop] = decrypt(obj[prop]);
+			obj[prop] = traverse(obj[prop], action);
 		}
 	}
 	return obj;
 };
 
 module.exports = async (params, next) => {
-	if (params.args.create) params.args.create = encrypt(params.args.create);
-	if (params.args.data) params.args.data = encrypt(params.args.data);
-	if (params.args.update) params.args.update = encrypt(params.args.update);
+	if (params.args.create) params.args.create = traverse(params.args.create, 'ENCRYPT');
+	if (params.args.data) params.args.data = traverse(params.args.data, 'ENCRYPT');
+	if (params.args.update) params.args.update = traverse(params.args.update, 'ENCRYPT');
 	let result = await next(params);
-	if (result) result = decrypt(result);
+	if (result) result = traverse(result, 'DECRYPT');
 	return result;
 };
