@@ -9,7 +9,8 @@
 		"contributors:generate": "all-contributors generate",
 		"keygen": "node scripts/keygen",
 		"lint": "eslint src scripts --ext mjs --fix",
-		"prisma": "node scripts/prisma",
+		"preinstall": "node scripts/preinstall",
+		"postinstall": "node scripts/postinstall",
 		"start": "npm run prisma && node .",
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"

@@ -90,7 +90,7 @@ model Category {
     requireTopic    Boolean    @default(false)
     staffRoles      Json
     tickets         Ticket[]
-    totalLimit      Int        @default(-1)
+    totalLimit      Int        @default(50)
 
     @@map("categories")
 }
