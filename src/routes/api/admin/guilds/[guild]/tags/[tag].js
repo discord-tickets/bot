@@ -5,7 +5,7 @@ module.exports.delete = fastify => ({
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 		const guildId = req.params.guild;
-		const tagId = req.params.tag;
+		const tagId = Number(req.params.tag);
 		const original = tagId && await client.prisma.tag.findUnique({ where: { id: tagId } });
 		if (original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
 		const tag = await client.prisma.tag.delete({ where: { id: tagId } });
@@ -35,6 +35,47 @@ module.exports.get = fastify => ({
 		const tag = await client.prisma.tag.findUnique({ where: { id: tagId } });
 
 		if (!tag || tag.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+
+		return tag;
+	},
+	onRequest: [fastify.authenticate, fastify.isAdmin],
+});
+
+module.exports.patch = fastify => ({
+	handler: async (req, res) => {
+		/** @type {import('client')} */
+		const client = res.context.config.client;
+		const guildId = req.params.guild;
+		const tagId = Number(req.params.tag);
+		const guild = client.guilds.cache.get(req.params.guild);
+		const data = req.body;
+
+		const original = req.params.tag && await client.prisma.tag.findUnique({ where: { id: tagId } });
+
+		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+
+		if (data.hasOwnProperty('id')) delete data.id;
+		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
+
+		const tag = await client.prisma.tag.update({
+			data,
+			where: { id: tagId },
+		});
+
+		logAdminEvent(client, {
+			action: 'update',
+			diff: {
+				original,
+				updated: tag,
+			},
+			guildId: guild.id,
+			target: {
+				id: tag.id,
+				name: tag.name,
+				type: 'tag',
+			},
+			userId: req.user.payload.id,
+		});
 
 		return tag;
 	},
