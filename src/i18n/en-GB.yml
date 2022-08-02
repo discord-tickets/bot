@@ -1,32 +1,142 @@
+test: |
+  line 1
+  line 2
 buttons:
   create:
-    emoji: '🎫'
-    text: 'Create a ticket'
+    emoji: 🎫
+    text: Create a ticket
 commands:
+  message:
+    create:
+      name: Create a ticket from message
+    pin:
+      name: Pin message
+  slash:
+    add:
+      description: Add a member to a ticket
+      name: add
+      options:
+        member:
+          description: The member to add to the ticket
+          name: member
+        ticket:
+          description: The ticket to add the member to
+          name: ticket
+    close:
+      description: Close a ticket
+      name: close
+      options:
+        channel:
+          description: The ticket channel to close
+          name: channel
+        number:
+          description: The number of the ticket to close
+          name: number
+        reason:
+          description: The reason for closing the ticket(s)
+          name: reason
+        time:
+          description: Close all tickets that have been inactive for the specific time
+          name: time
+    force-close:
+      description: Forcibly close a ticket
+      name: force-close
+      options:
+        channel:
+          description: The ticket channel to close
+          name: channel
+        number:
+          description: The number of the ticket to close
+          name: number
+        reason:
+          description: The reason for closing the ticket(s)
+          name: reason
+        time:
+          description: Close all tickets that have been inactive for the specific time
+          name: time
+    new:
+      description: Create a new ticket
+      name: new
+      options:
+        references:
+          description: The number of a related ticket
+          name: references
+    priority:
+      description: Set the priority of a ticket
+      name: priority
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 High
+            MEDIUM: 🟠 Medium
+            LOW: 🟢 Low
+          description: The priority of the ticket
+          name: priority
+    remove:
+      description: Remove a member from a ticket
+      name: remove
+      options:
+        member:
+          description: The member to remove from the ticket
+          name: member
+        ticket:
+          description: The ticket to remove the member from
+          name: ticket
+    tag:
+      description: Use a tag
+      name: tag
+      options:
+        tag:
+          description: The name of the tag to use
+          name: tag
+    topic:
+      description: Change the topic of a ticket
+      name: topic
+      options:
+        new-topic:
+          description: The new topic of the ticket
+          name: new-topic
+    tickets:
+      description: List your own or someone else's tickets
+      name: tickets
+      options:
+        member:
+          description: The member to list the tickets of
+          name: member
+    transcript:
+      description: Get the transcript of a ticket 
+      name: transcript
+      options:
+        ticket:
+          description: The number of the ticket to get the transcript of
+          name: ticket
+  user:
+    create:
+      name: Create a ticket for user
 log:
   admin:
-    changes: 'Changes'
+    changes: Changes
     description:
       joined: '{user} {verb} {targetType}'
       target:
-        category: 'a category'
-        panel: 'a panel'
-        question: 'a question'
-        settings: 'the settings'
-        tag: 'a tag'
+        category: a category
+        panel: a panel
+        question: a question
+        settings: the settings
+        tag: a tag
     title:
       joined: '{targetType} {verb}'
       target:
-        category: 'Category'
-        panel: 'Panel'
-        question: 'Question'
-        settings: 'Settings'
-        tag: 'Tag'
+        category: Category
+        panel: Panel
+        question: Question
+        settings: Settings
+        tag: Tag
     verb:
-      create: 'created'
-      delete: 'deleted'
-      update: 'updated'
+      create: created
+      delete: deleted
+      update: updated
   tickets:
 menus:
   create:
-    placeholder: 'Select a ticket category'
+    placeholder: Select a ticket category

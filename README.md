@@ -10,3 +10,5 @@ SUPER=
 
 
 https://www.prisma.io/docs/reference/database-reference/supported-databases
+
+![](https://static.eartharoid.me/k/22/08/02185801.png) - for user/create and slash/force-close
