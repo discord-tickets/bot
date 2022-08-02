@@ -13,8 +13,10 @@ module.exports = class extends StdinCommand {
 		try {
 			const res = await eval(toEval);
 			console.log(res);
+			return true;
 		} catch (error) {
 			this.client.log.error(error);
+			return false;
 		}
 	}
 };
