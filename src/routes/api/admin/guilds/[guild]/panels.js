@@ -77,7 +77,7 @@ module.exports.post = fastify => ({
 				components.push(
 					new ButtonBuilder()
 						.setCustomId(JSON.stringify({
-							action: 'createTicket',
+							action: 'create',
 							target: categories[0].id,
 						}))
 						.setStyle(Primary)
@@ -90,7 +90,7 @@ module.exports.post = fastify => ({
 						...categories.map(category =>
 							new ButtonBuilder()
 								.setCustomId(JSON.stringify({
-									action: 'createTicket',
+									action: 'create',
 									target: category.id,
 								}))
 								.setStyle(Secondary)
@@ -101,8 +101,8 @@ module.exports.post = fastify => ({
 				} else {
 					components.push(
 						new SelectMenuBuilder()
-							.setCustomId('createTicket')
-							.setPlaceholder(getMessage('menus.panel.placeholder'))
+							.setCustomId('create')
+							.setPlaceholder(getMessage('menus.create.placeholder'))
 							.setOptions(
 								categories.map(category =>
 									new SelectMenuOptionBuilder()

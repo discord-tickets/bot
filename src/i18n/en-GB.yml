@@ -28,5 +28,5 @@ log:
       update: 'updated'
   tickets:
 menus:
-  panel:
+  create:
     placeholder: 'Select a ticket category'
