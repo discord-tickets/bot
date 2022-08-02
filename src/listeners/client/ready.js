@@ -1,11 +1,11 @@
 const { Listener } = require('@eartharoid/dbf');
 
 module.exports = class extends Listener {
-	constructor(client) {
+	constructor(client, options) {
 		super(client, {
+			...options,
 			emitter: client,
 			event: 'ready',
-			id: 'clientReady',
 			once: true,
 		});
 	}

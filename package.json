@@ -34,7 +34,7 @@
 		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@eartharoid/dbf": "^0.2.2",
+		"@eartharoid/dbf": "^0.3.0",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.0.4",
 		"@fastify/cookie": "^6.0.0",

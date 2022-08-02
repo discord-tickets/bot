@@ -1,10 +1,10 @@
 const { StdinCommand } = require('@eartharoid/dbf');
 
 module.exports = class extends StdinCommand {
-	constructor(client) {
+	constructor(client, options) {
 		super(client, {
-			id: 'stdinEval',
-			name: 'eval',
+			...options,
+			id: 'eval',
 		});
 	}
 

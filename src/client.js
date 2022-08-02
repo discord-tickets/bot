@@ -1,4 +1,4 @@
-const { Client: FrameworkClient } = require('@eartharoid/dbf');
+const { FrameworkClient } = require('@eartharoid/dbf');
 const { GatewayIntentBits } = require('discord.js');
 const { PrismaClient } = require('@prisma/client');
 const Keyv = require('keyv');
