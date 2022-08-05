@@ -84,36 +84,35 @@ module.exports.post = fastify => ({
 						.setLabel(getMessage('buttons.create.text'))
 						.setEmoji(getMessage('buttons.create.emoji')),
 				);
+			} else if (data.type === 'BUTTON') {
+				components.push(
+					...categories.map(category =>
+						new ButtonBuilder()
+							.setCustomId(JSON.stringify({
+								action: 'create',
+								target: category.id,
+							}))
+							.setStyle(Secondary)
+							.setLabel(category.name)
+							.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
+					),
+				);
 			} else {
-				if (data.type === 'BUTTON') {
-					components.push(
-						...categories.map(category =>
-							new ButtonBuilder()
-								.setCustomId(JSON.stringify({
-									action: 'create',
-									target: category.id,
-								}))
-								.setStyle(Secondary)
-								.setLabel(category.name)
-								.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
-						),
-					);
-				} else {
-					components.push(
-						new SelectMenuBuilder()
-							.setCustomId('create')
-							.setPlaceholder(getMessage('menus.create.placeholder'))
-							.setOptions(
-								categories.map(category =>
-									new SelectMenuOptionBuilder()
-										.setValue(String(category.id))
-										.setLabel(category.name)
-										.setDescription(category.description)
-										.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
-								),
+				components.push(
+					new SelectMenuBuilder()
+						.setCustomId(JSON.stringify({ action: 'create' }))
+						.setPlaceholder(getMessage('menus.category.placeholder'))
+						.setOptions(
+							categories.map(category =>
+								new SelectMenuOptionBuilder()
+									.setValue(String(category.id))
+									.setLabel(category.name)
+									.setDescription(category.description)
+									.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
 							),
-					);
-				}
+						),
+				);
+
 			}
 
 			await channel.send({

@@ -2,6 +2,9 @@ test: |
   line 1
   line 2
 buttons:
+  confirm_open:
+    emoji: ✅
+    text: Create ticket
   create:
     emoji: 🎫
     text: Create a ticket
@@ -120,6 +123,9 @@ commands:
   user:
     create:
       name: Create a ticket for user
+dm:
+  confirm_open:
+    title: 'Do you want to open a ticket with the following topic?'
 log:
   admin:
     changes: Changes
@@ -145,5 +151,15 @@ log:
       update: updated
   tickets:
 menus:
-  create:
+  category:
     placeholder: Select a ticket category
+  guild:
+    placeholder: Select a server
+modals:
+  feedback:
+    title: 'Feedback'
+  topic: 'Topic'
+misc:
+  no_categories:
+    description: No ticket categories have been configured.
+    title: ❌ There are no ticket categories

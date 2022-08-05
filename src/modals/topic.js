@@ -1,10 +1,10 @@
 const { Modal } = require('@eartharoid/dbf');
 
-module.exports = class QuestionsModal extends Modal {
+module.exports = class TopicModal extends Modal {
 	constructor(client, options) {
 		super(client, {
 			...options,
-			id: 'questions',
+			id: 'topic',
 		});
 	}
 
@@ -14,7 +14,5 @@ module.exports = class QuestionsModal extends Modal {
 			colors: true,
 			depth: 10,
 		}));
-
-		// TODO: custom topic
 	}
 };
