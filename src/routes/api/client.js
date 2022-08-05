@@ -23,6 +23,7 @@ module.exports.get = () => ({
 				stats: {
 					activatedUsers: users.length,
 					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they get deleted
+					avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
 					avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length),
 					categories: await client.prisma.category.count(),
 					guilds: client.guilds.cache.size,
@@ -32,7 +33,7 @@ module.exports.get = () => ({
 				},
 				username: client.user.username,
 			};
-			await client.keyv.set(cacheKey, cached, ms('5m'));
+			await client.keyv.set(cacheKey, cached, ms('15m'));
 		}
 
 		return cached;

@@ -1,33 +1,44 @@
 const { logAdminEvent } = require('../../../../../../lib/logging');
 const emoji = require('node-emoji');
 const { ChannelType: { GuildCategory } } = require('discord.js');
+const ms = require('ms');
 
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 
-		const { categories } = await client.prisma.guild.findUnique({
-			select: { categories: true },
+		let { categories } = await client.prisma.guild.findUnique({
+			select: {
+				categories: {
+					select: {
+						createdAt: true,
+						description: true,
+						discordCategory: true,
+						emoji: true,
+						id: true,
+						image: true,
+						name: true,
+						requiredRoles: true,
+						staffRoles: true,
+						tickets: true,
+					},
+				},
+			},
 			where: { id: req.params.guild },
 		});
 
-		// include: {
-		// 	questions: {
-		// 		select: {
-		// 			createdAt: true,
-		// 			id: true,
-		// 			label: true,
-		// 			maxLength: true,
-		// 			minLength: true,
-		// 			order: true,
-		// 			placeholder: true,
-		// 			required: true,
-		// 			style: true,
-		// 			value: true,
-		// 		},
-		// 	},
-		// },
+		categories = categories.map(c => {
+			c = {
+				...c,
+				stats: {
+					avgResolutionTime: ms(c.tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / c.tickets.length),
+					avgResponseTime: ms(c.tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / c.tickets.length),
+				},
+			};
+			delete c.tickets;
+			return c;
+		});
 
 		return categories;
 	},
