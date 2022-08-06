@@ -26,6 +26,7 @@ module.exports = class TicketManager {
 		categoryId, interaction, topic, reference,
 	}) {
 		const cacheKey = `cache/category+guild+questions:${categoryId}`;
+		/** @type {import('@prisma/client').Category} */
 		let category = await this.client.keyv.get(cacheKey);
 		if (!category) {
 			category = await this.client.prisma.category.findUnique({
@@ -66,7 +67,7 @@ module.exports = class TicketManager {
 
 		const getMessage = this.client.i18n.getLocale(category.guild.locale);
 
-		const rlKey = `ratelimits/guild-user:${interaction.guild.id}-${interaction.user.id}`;
+		const rlKey = `ratelimits/guild-user:${category.guildId}-${interaction.user.id}`;
 		const rl = await this.client.keyv.get(rlKey);
 		if (rl) {
 			const embed = new EmbedBuilder()
