@@ -19,6 +19,16 @@ logs:
     directory: ./logs
     enabled: true
     keepFor: 30 # days
-  level: info
+  level: info # debug|verbose|info|success|warn|notice|error|critical
+presence:
+  activities:
+    - name: /new
+    - name: with {totalTickets} tickets
+    - name: '{openTickets} tickets'
+      type: 3 # https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType
+    - name: '{avgResponseTime} response time'
+      type: 3
+  interval: 60 # seconds, only used if activities.length > 1
+  status: online # online|idle|invisible|dnd
 overrides:
   disableArchives: false
