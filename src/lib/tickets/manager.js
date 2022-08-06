@@ -7,6 +7,7 @@ const {
 	TextInputStyle,
 } = require('discord.js');
 const emoji = require('node-emoji');
+const ms = require('ms');
 
 module.exports = class TicketManager {
 	constructor(client) {
@@ -23,13 +24,20 @@ module.exports = class TicketManager {
 	async create({
 		categoryId, interaction, topic, reference,
 	}) {
-		const category = await this.client.prisma.category.findUnique({
-			include: {
-				guild: true,
-				questions: true,
-			},
-			where: { id: Number(categoryId) },
-		});
+		const cacheKey = `cache/category+guild+questions:${categoryId}`;
+		let category = await this.client.keyv.get(cacheKey);
+
+		if (!category) {
+			category = await this.client.prisma.category.findUnique({
+				include: {
+					guild: true,
+					questions: true,
+				},
+				where: { id: Number(categoryId) },
+			});
+			this.client.keyv.set(cacheKey, category, ms('5m'));
+		}
+
 
 		// TODO: if member !required roles -> stop
 
@@ -40,6 +48,8 @@ module.exports = class TicketManager {
 		// TODO: if member has max -> stop
 
 		// TODO: if cooldown -> stop
+
+		// TODO: if 10s ratelimit -> stop
 
 		const getMessage =  this.client.i18n.getLocale(category.guild.locale);
 
