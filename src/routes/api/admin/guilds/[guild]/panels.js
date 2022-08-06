@@ -58,11 +58,14 @@ module.exports.post = fastify => ({
 
 		const embed = new EmbedBuilder()
 			.setColor(settings.primaryColour)
-			.setTitle(data.title)
-			.setFooter({
+			.setTitle(data.title);
+
+		if (settings.footer) {
+			embed.setFooter({
 				iconURL: guild.iconURL(),
 				text: settings.footer,
 			});
+		}
 
 		if (data.description) embed.setDescription(data.description);
 		if (data.image) embed.setImage(data.image);

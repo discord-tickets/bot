@@ -27,7 +27,6 @@ module.exports = class TicketManager {
 	}) {
 		const cacheKey = `cache/category+guild+questions:${categoryId}`;
 		let category = await this.client.keyv.get(cacheKey);
-
 		if (!category) {
 			category = await this.client.prisma.category.findUnique({
 				include: {
@@ -47,17 +46,45 @@ module.exports = class TicketManager {
 					};
 				}
 				const getMessage = this.client.i18n.getLocale(settings.locale);
+				const embed = new EmbedBuilder()
+					.setColor(settings.errorColour)
+					.setTitle(getMessage('misc.unknown_category.title'))
+					.setDescription(getMessage('misc.unknown_category.description'));
+				if (settings.footer) {
+					embed.setFooter({
+						iconURL: interaction.guild?.iconURL(),
+						text: settings.footer,
+					});
+				}
 				return await interaction.reply({
-					embeds: [
-						new EmbedBuilder()
-							.setColor(settings.errorColour)
-							.setTitle(getMessage('misc.unknown_category.title'))
-							.setDescription(getMessage('misc.unknown_category.description'))
-							.setFooter(settings.footer),
-					],
+					embeds: [embed],
+					ephemeral: true,
 				});
 			}
 			this.client.keyv.set(cacheKey, category, ms('5m'));
+		}
+
+		const getMessage = this.client.i18n.getLocale(category.guild.locale);
+
+		const rlKey = `ratelimits/guild-user:${interaction.guild.id}-${interaction.user.id}`;
+		const rl = await this.client.keyv.get(rlKey);
+		if (rl) {
+			const embed = new EmbedBuilder()
+				.setColor(category.guild.errorColour)
+				.setTitle(getMessage('misc.ratelimited.title'))
+				.setDescription(getMessage('misc.ratelimited.description'));
+			if (category.guild.footer) {
+				embed.setFooter({
+					iconURL: interaction.guild.iconURL(),
+					text: category.guild.footer,
+				});
+			}
+			return await interaction.reply({
+				embeds: [embed],
+				ephemeral: true,
+			});
+		} else {
+			this.client.keyv.set(rlKey, true, ms('10s'));
 		}
 
 		// TODO: if member !required roles -> stop
@@ -70,11 +97,6 @@ module.exports = class TicketManager {
 
 		// TODO: if cooldown -> stop
 
-		// TODO: if 10s ratelimit -> stop
-
-
-		const getMessage = this.client.i18n.getLocale(category.guild.locale);
-
 		if (category.questions.length >= 1) {
 			await interaction.showModal(
 				new ModalBuilder()
@@ -86,6 +108,7 @@ module.exports = class TicketManager {
 					.setTitle(category.name)
 					.setComponents(
 						category.questions
+							.filter(q => q.type === 'TEXT') // TODO: remove this when modals support select menus
 							.sort((a, b) => a.order - b.order)
 							.map(q => {
 								if (q.type === 'TEXT') {
