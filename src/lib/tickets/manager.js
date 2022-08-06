@@ -8,6 +8,7 @@ const {
 } = require('discord.js');
 const emoji = require('node-emoji');
 const ms = require('ms');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = class TicketManager {
 	constructor(client) {
@@ -35,9 +36,29 @@ module.exports = class TicketManager {
 				},
 				where: { id: Number(categoryId) },
 			});
+			if (!category) {
+				let settings;
+				if (interaction.guild) {
+					settings = await this.client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+				} else {
+					settings = {
+						errorColour: 'Red',
+						locale: 'en-GB',
+					};
+				}
+				const getMessage = this.client.i18n.getLocale(settings.locale);
+				return await interaction.reply({
+					embeds: [
+						new EmbedBuilder()
+							.setColor(settings.errorColour)
+							.setTitle(getMessage('misc.unknown_category.title'))
+							.setDescription(getMessage('misc.unknown_category.description'))
+							.setFooter(settings.footer),
+					],
+				});
+			}
 			this.client.keyv.set(cacheKey, category, ms('5m'));
 		}
-
 
 		// TODO: if member !required roles -> stop
 
@@ -51,7 +72,8 @@ module.exports = class TicketManager {
 
 		// TODO: if 10s ratelimit -> stop
 
-		const getMessage =  this.client.i18n.getLocale(category.guild.locale);
+
+		const getMessage = this.client.i18n.getLocale(category.guild.locale);
 
 		if (category.questions.length >= 1) {
 			await interaction.showModal(

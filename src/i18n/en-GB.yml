@@ -163,3 +163,6 @@ misc:
   no_categories:
     description: No ticket categories have been configured.
     title: ❌ There are no ticket categories
+  unknown_category:
+    description: Please try a different category.
+    title: ❌ That ticket category doesn't exist
