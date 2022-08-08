@@ -112,10 +112,25 @@ module.exports = class TicketManager {
 					ephemeral: true,
 				});
 			}
-
 		}
 
-		// TODO: if member !required roles -> stop
+		if (category.requiredRoles.length !== 0) {
+			const missing = category.requiredRoles.some(r => !member.roles.cache.has(r));
+			if (missing) {
+				return await interaction.reply({
+					embeds: [
+						new ExtendedEmbedBuilder({
+							iconURL: interaction.guild.iconURL(),
+							text: category.guild.footer,
+						})
+							.setColor(category.guild.errorColour)
+							.setTitle(getMessage('misc.missing_roles.title'))
+							.setDescription(getMessage('misc.missing_roles.description')),
+					],
+					ephemeral: true,
+				});
+			}
+		}
 
 		// TODO: if discordCategory has 50 channels -> stop
 
