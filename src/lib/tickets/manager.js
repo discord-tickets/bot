@@ -383,7 +383,7 @@ module.exports = class TicketManager {
 		if (message) data.referencesMessage = { connect: { id: referencesMessage } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
 		const ticket = await this.client.prisma.ticket.create({ data });
-		interaction.editReply({
+		await interaction.editReply({
 			components: [],
 			embeds: [
 				new ExtendedEmbedBuilder({
@@ -395,7 +395,7 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
 			],
 		});
-		await logTicketEvent(this.client, { // FIXME: remove await
+		await logTicketEvent(this.client, {
 			action: 'create',
 			target: {
 				id: ticket.id,

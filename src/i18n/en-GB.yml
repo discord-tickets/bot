@@ -166,7 +166,9 @@ log:
     title: Ticket {verb}
     verb:
       create: created
+      claim: claimed
       close: closed
+      unclaim: released
 menus:
   category:
     placeholder: Select a ticket category

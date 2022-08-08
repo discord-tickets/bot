@@ -139,7 +139,7 @@ async function logTicketEvent(client, {
 	/** @type {import("discord.js").Guild} */
 	const guild = client.guilds.cache.get(ticket.guild.id);
 	const member = await guild.members.fetch(userId);
-	client.log.info.tickets(`${member.user.tag} ${action}d ticket ${target.id}`);
+	client.log.info.tickets(`${member.user.tag} ${client.i18n.getMessage('en-GB', `log.ticket.verb.${action}`)} ticket ${target.id}`);
 	if (!ticket.guild.logChannel) return;
 	const colour = action === 'create'
 		? 'Aqua' : action === 'close'
