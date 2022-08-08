@@ -160,7 +160,13 @@ log:
       create: created
       delete: deleted
       update: updated
-  tickets:
+  ticket:
+    description: '{user} {verb} ticket'
+    ticket: Ticket
+    title: Ticket {verb}
+    verb:
+      create: created
+      close: closed
 menus:
   category:
     placeholder: Select a ticket category

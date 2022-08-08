@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 const {
 	ActionRowBuilder,
+	ButtonBuilder,
 	ButtonStyle,
 	ModalBuilder,
 	SelectMenuBuilder,
@@ -11,7 +12,7 @@ const {
 const emoji = require('node-emoji');
 const ms = require('ms');
 const ExtendedEmbedBuilder = require('../embed');
-const { ButtonBuilder } = require('discord.js');
+const { logTicketEvent } = require('../logging');
 
 /**
  * @typedef {import('@prisma/client').Category & {guild: import('@prisma/client').Guild} & {questions: import('@prisma/client').Question[]}} CategoryGuildQuestions
@@ -274,10 +275,12 @@ module.exports = class TicketManager {
 				new ExtendedEmbedBuilder()
 					.setColor(category.guild.primaryColour)
 					.setFields(
-						category.questions.map(q => ({
-							name: q.label,
-							value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
-						})),
+						category.questions
+							.sort((a, b) => a.order - b.order)
+							.map(q => ({
+								name: q.label,
+								value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
+							})),
 					),
 			);
 			// embeds[0].setFields(
@@ -342,7 +345,7 @@ module.exports = class TicketManager {
 
 		const pings = category.pingRoles.map(r => `<@&${r}>`).join(' ');
 		const sent = await channel.send({
-			components: components.components.length >=1 ? [components] : [],
+			components: components.components.length >= 1 ? [components] : [],
 			content: getMessage('ticket.opening_message.content', {
 				creator: interaction.user.toString(),
 				staff: pings ? pings + ',' : '',
@@ -392,6 +395,13 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
 			],
 		});
-		// TODO: log channel
+		await logTicketEvent(this.client, { // FIXME: remove await
+			action: 'create',
+			target: {
+				id: ticket.id,
+				name: channel.toString(),
+			},
+			userId: interaction.user.id,
+		});
 	}
 };

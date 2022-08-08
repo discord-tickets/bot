@@ -60,8 +60,6 @@ async function getLogChannel(client, guildId) {
 async function logAdminEvent(client, {
 	guildId, userId, action, target, diff,
 }) {
-	const user = await client.users.fetch(userId);
-	client.log.info.settings(`${user.tag} ${action}d ${target.type} ${target.id}`);
 	const settings = await client.prisma.guild.findUnique({
 		select: {
 			footer: true,
@@ -70,6 +68,10 @@ async function logAdminEvent(client, {
 		},
 		where: { id: guildId },
 	});
+	/** @type {import("discord.js").Guild} */
+	const guild = client.guilds.cache.get(guildId);
+	const member = await guild.members.fetch(userId);
+	client.log.info.settings(`${member.user.tag} ${action}d ${target.type} ${target.id}`);
 	if (!settings.logChannel) return;
 	const colour = action === 'create'
 		? 'Green' : action === 'update'
@@ -77,7 +79,7 @@ async function logAdminEvent(client, {
 				? 'Red' : 'Default';
 	const getMessage = client.i18n.getLocale(settings.locale);
 	const i18nOptions = {
-		user: `<@${user.id}>`,
+		user: `<@${member.user.id}>`,
 		verb: getMessage(`log.admin.verb.${action}`),
 	};
 	const channel = client.channels.cache.get(settings.logChannel);
@@ -86,8 +88,8 @@ async function logAdminEvent(client, {
 		new EmbedBuilder()
 			.setColor(colour)
 			.setAuthor({
-				iconURL: user.avatarURL(),
-				name: user.username,
+				iconURL: member.displayAvatarURL(),
+				name: member.displayName,
 			})
 			.setTitle(getMessage('log.admin.title.joined', {
 				...i18nOptions,
@@ -119,7 +121,66 @@ async function logAdminEvent(client, {
 	return await channel.send({ embeds });
 }
 
+/**
+ * @param {import("client")} client
+ * @param {object} details
+ * @param {string} details.guildId
+ * @param {string} details.userId
+ * @param {string} details.action
+*/
+async function logTicketEvent(client, {
+	userId, action, target,
+}) {
+	const ticket = await client.prisma.ticket.findUnique({
+		include: { guild: true },
+		where: { id: target.id },
+	});
+	if (!ticket) return;
+	/** @type {import("discord.js").Guild} */
+	const guild = client.guilds.cache.get(ticket.guild.id);
+	const member = await guild.members.fetch(userId);
+	client.log.info.tickets(`${member.user.tag} ${action}d ticket ${target.id}`);
+	if (!ticket.guild.logChannel) return;
+	const colour = action === 'create'
+		? 'Aqua' : action === 'close'
+			? 'DarkAqua' : action === 'claim'
+				? 'LuminousVividPink' : action === 'unclaim'
+					? 'DarkVividPink' : 'Default';
+	const getMessage = client.i18n.getLocale(ticket.guild.locale);
+	const i18nOptions = {
+		user: `<@${member.user.id}>`,
+		verb: getMessage(`log.ticket.verb.${action}`),
+	};
+	const channel = client.channels.cache.get(ticket.guild.logChannel);
+	if (!channel) return;
+	const embeds = [
+		new EmbedBuilder()
+			.setColor(colour)
+			.setAuthor({
+				iconURL: member.displayAvatarURL(),
+				name: member.displayName,
+			})
+			.setTitle(getMessage('log.ticket.title', {
+				...i18nOptions,
+				verb: getMessage(`log.ticket.verb.${action}`),
+			}))
+			.setDescription(getMessage('log.ticket.description', {
+				...i18nOptions,
+				verb: getMessage(`log.ticket.verb.${action}`),
+			}))
+			.addFields([
+				{
+					name: getMessage('log.ticket.ticket'),
+					value: target.name ?? target.id,
+				},
+			]),
+	];
+
+	return await channel.send({ embeds });
+}
+
 module.exports = {
 	getLogChannel,
 	logAdminEvent,
+	logTicketEvent,
 };
