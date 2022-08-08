@@ -20,16 +20,16 @@ model ArchivedChannel {
 }
 
 model ArchivedMessage {
-    author       ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
-    authorId     String
-    content      String
-    createdAt    DateTime     @default(now())
-    deleted      Boolean      @default(false)
-    edited       Boolean      @default(false)
-    id           String       @id
-    referencedBy Ticket[]     @relation("MessageReferencedByTicket")
-    ticket       Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-    ticketId     String
+    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
+    authorId  String
+    content   String
+    createdAt DateTime     @default(now())
+    deleted   Boolean      @default(false)
+    edited    Boolean      @default(false)
+    id        String       @id
+    external  Boolean      @default(false)
+    ticket    Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String
 
     @@map("archivedMessages")
 }
@@ -68,30 +68,30 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName     String
-    claiming        Boolean    @default(false)
-    createdAt       DateTime   @default(now())
-    cooldown        Int?
-    customTopic     String?
-    description     String
-    discordCategory String
-    emoji           String
-    enableFeedback  Boolean    @default(false)
-    guild           Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
-    guildId         String
-    id              Int        @id @default(autoincrement())
-    image           String?
-    memberLimit     Int        @default(1)
-    name            String
-    openingMessage  String
-    pingRoles       String     @default("[]")
-    questions       Question[]
-    ratelimit       Int?
-    requiredRoles   String     @default("[]")
-    requireTopic    Boolean    @default(false)
-    staffRoles      String
-    tickets         Ticket[]
-    totalLimit      Int        @default(50)
+    channelName      String
+    claiming         Boolean    @default(false)
+    createdAt        DateTime   @default(now())
+    cooldown         Int?
+    customTopic      String?
+    description      String
+    discordCategory  String
+    emoji            String
+    enableFeedback   Boolean    @default(false)
+    guild            Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId          String
+    id               Int        @id @default(autoincrement())
+    image            String?
+    memberLimit      Int        @default(1)
+    name             String
+    openingMessage String
+    pingRoles        String     @default("[]")
+    questions        Question[]
+    ratelimit        Int?
+    requiredRoles    String     @default("[]")
+    requireTopic     Boolean    @default(false)
+    staffRoles       String
+    tickets          Ticket[]
+    totalLimit       Int        @default(50)
 
     @@map("categories")
 }
@@ -210,11 +210,10 @@ model Ticket {
     messageCount        Int?
     number              Int
     open                Boolean           @default(true)
-    openingMessage      String
-    pinnedMessages      String            @default("[]")
+    openingMessageId    String
+    pinnedMessageIds    String            @default("[]")
     priority            String?
     referencedBy        Ticket[]          @relation("TicketsReferencedByTicket")
-    referencesMessage   ArchivedMessage?  @relation(name: "MessageReferencedByTicket", fields: [referencesMessageId], references: [id], onDelete: SetNull)
     referencesMessageId String?
     referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
     referencesTicketId  String?

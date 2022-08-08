@@ -371,7 +371,7 @@ module.exports = class TicketManager {
 			guild: { connect: { id: category.guild.id } },
 			id: channel.id,
 			number,
-			openingMessage: sent.id,
+			openingMessageId: sent.id,
 			topic,
 		};
 		if (referencesTicket) data.referencesTicket = { connect: { id: referencesTicket } };

@@ -11,10 +11,11 @@ SUPER=
 
 https://www.prisma.io/docs/reference/database-reference/supported-databases
 
-![](https://static.eartharoid.me/k/22/08/02185801.png) - for user/create, slash/force-close and slash/move
+![](https://static.eartharoid.me/k/22/08/02185801.png) - for user/create, slash/force-close, slash/claim, slash/release, and slash/move
 
 menu question max length cannot be higher than question options 
 
+- TODO: topic and question answer values not encrypted?
 - TODO: post stats
 - TODO: settings bundle download
 - TODO: update notifications
@@ -29,4 +30,4 @@ creation requires an interaction:
 - message:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
 - DM -> guild? -> category? -> topic or questions -> create
 - panel(interaction) -> topic or questions -> create
-- panel(message) -> DM (channel fallback) button -> topic or questions -> create
+- ~~panel(message) -> DM (channel fallback) button -> topic or questions -> create~~

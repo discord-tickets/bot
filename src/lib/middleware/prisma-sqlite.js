@@ -6,7 +6,7 @@ const jsonFields = [
 	'blocklist',
 	'workingHours',
 	'options',
-	'pinnedMessages',
+	'pinnedMessageIds',
 ];
 
 const traverse = (obj, action) => {

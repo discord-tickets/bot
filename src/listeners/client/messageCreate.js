@@ -179,7 +179,9 @@ module.exports = class extends Listener {
 		} else {
 			// TODO: archive messages in tickets
 			// TODO: first response
+			// TODO: lastMessageAt
 			// TODO: auto tag
+			// TODO: staff status alert, working hours alerts
 		}
 	}
 };
