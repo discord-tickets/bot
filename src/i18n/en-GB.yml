@@ -175,6 +175,9 @@ menus:
   guild:
     placeholder: Select a server
 misc:
+  blocked:
+    description: You are not allowed to create tickets.
+    title: ❌ Blocked
   no_categories:
     description: No ticket categories have been configured.
     title: ❌ There are no ticket categories

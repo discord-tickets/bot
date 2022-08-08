@@ -92,7 +92,28 @@ module.exports = class TicketManager {
 			this.client.keyv.set(rlKey, true, ms('10s'));
 		}
 
-		// TODO: if blacklisted role -> stop
+		/** @type {import("discord.js").Guild} */
+		const guild = this.client.guilds.cache.get(category.guild.id);
+		const member = interaction.member ?? await guild.members.fetch(interaction.user.id);
+
+		if (category.guild.blocklist.length !== 0) {
+			const blocked = category.guild.blocklist.some(r => member.roles.cache.has(r));
+			if (blocked) {
+				return await interaction.reply({
+					embeds: [
+						new ExtendedEmbedBuilder({
+							iconURL: interaction.guild.iconURL(),
+							text: category.guild.footer,
+						})
+							.setColor(category.guild.errorColour)
+							.setTitle(getMessage('misc.blocked.title'))
+							.setDescription(getMessage('misc.blocked.description')),
+					],
+					ephemeral: true,
+				});
+			}
+
+		}
 
 		// TODO: if member !required roles -> stop
 
@@ -382,8 +403,7 @@ module.exports = class TicketManager {
 		if (referencesMessage) message = this.client.prisma.archivedMessage.findUnique({ where: { id: referencesMessage } });
 		if (message) data.referencesMessage = { connect: { id: referencesMessage } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
-		const ticket = await this.client.prisma.ticket.create({ data });
-		await interaction.editReply({
+		interaction.editReply({
 			components: [],
 			embeds: [
 				new ExtendedEmbedBuilder({
@@ -395,7 +415,8 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
 			],
 		});
-		await logTicketEvent(this.client, {
+		const ticket = await this.client.prisma.ticket.create({ data });
+		logTicketEvent(this.client, {
 			action: 'create',
 			target: {
 				id: ticket.id,
