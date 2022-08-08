@@ -1,6 +1,3 @@
-test: |
-  line 1
-  line 2
 buttons:
   confirm_open:
     emoji: ✅
@@ -165,7 +162,16 @@ misc:
     title: ❌ There are no ticket categories
   ratelimited:
     description: Try again in a few seconds.
-    title: 🐢 Slow down
+    title: 🐢 Please slow down
   unknown_category:
     description: Please try a different category.
     title: ❌ That ticket category doesn't exist
+ticket:
+  answers:
+    no_value: '*No response*'
+  opening_message:
+    content: |
+      {staff}
+      {creator} has created a new ticket
+    fields:
+      topic: Topic

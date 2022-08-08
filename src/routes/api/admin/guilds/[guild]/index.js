@@ -28,14 +28,15 @@ module.exports.get = fastify => ({
 				},
 				where: { guildId: id },
 			});
+			const closedTickets = tickets.filter(t => t.closedAt);
 			cached = {
 				createdAt: settings.createdAt,
 				id: guild.id,
 				logo: guild.iconURL(),
 				name: guild.name,
 				stats: {
-					avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
-					avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length),
+					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					categories: categories.map(c => ({
 						id: c.id,
 						name: c.name,

@@ -28,9 +28,10 @@ module.exports = class extends Listener {
 						firstResponseAt: true,
 					},
 				});
+				const closedTickets = tickets.filter(t => t.closedAt);
 				cached = {
-					avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
-					avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length),
+					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					openTickets: tickets.filter(t => t.open).length,
 					totalTickets: tickets.length,
 				};

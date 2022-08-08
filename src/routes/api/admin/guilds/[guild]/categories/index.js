@@ -27,13 +27,13 @@ module.exports.get = fastify => ({
 			},
 			where: { id: req.params.guild },
 		});
-
 		categories = categories.map(c => {
+			const closedTickets = c.tickets.filter(t => t.closedAt);
 			c = {
 				...c,
 				stats: {
-					avgResolutionTime: ms(c.tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / c.tickets.length),
-					avgResponseTime: ms(c.tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / c.tickets.length),
+					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 				},
 			};
 			delete c.tickets;

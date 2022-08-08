@@ -13,5 +13,7 @@ module.exports = class CreateMessageCommand extends MessageCommand {
 		});
 	}
 
-	async run(interaction) { }
+	async run(interaction) {
+		// TODO: archive message
+	}
 };

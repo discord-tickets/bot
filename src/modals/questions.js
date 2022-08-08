@@ -8,13 +8,15 @@ module.exports = class QuestionsModal extends Modal {
 		});
 	}
 
+	/**
+	 *
+	 * @param {*} id
+	 * @param {import("discord.js").ModalSubmitInteraction} interaction
+	 */
 	async run(id, interaction) {
-		console.log(id);
-		console.log(require('util').inspect(interaction, {
-			colors: true,
-			depth: 10,
-		}));
-
-		// TODO: custom topic
+		await this.client.tickets.postQuestions({
+			...id,
+			interaction,
+		});
 	}
 };

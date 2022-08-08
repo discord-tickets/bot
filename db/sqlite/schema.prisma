@@ -20,15 +20,16 @@ model ArchivedChannel {
 }
 
 model ArchivedMessage {
-    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
-    authorId  String
-    content   String
-    createdAt DateTime     @default(now())
-    deleted   Boolean      @default(false)
-    edited    Boolean      @default(false)
-    id        String       @id
-    ticket    Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
-    ticketId  String
+    author       ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
+    authorId     String
+    content      String
+    createdAt    DateTime     @default(now())
+    deleted      Boolean      @default(false)
+    edited       Boolean      @default(false)
+    id           String       @id
+    referencedBy Ticket[]     @relation("MessageReferencedByTicket")
+    ticket       Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId     String
 
     @@map("archivedMessages")
 }
@@ -189,11 +190,11 @@ model Ticket {
     archivedUsers       ArchivedUser[]
     category            Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
     categoryId          Int?
-    claimedBy           User              @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
-    claimedById         String
+    claimedBy           User?             @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
+    claimedById         String?
     closedAt            DateTime?
-    closedBy            User              @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
-    closedById          String
+    closedBy            User?             @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
+    closedById          String?
     closedReason        String?
     createdAt           DateTime          @default(now())
     createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
@@ -213,7 +214,8 @@ model Ticket {
     pinnedMessages      String            @default("[]")
     priority            String?
     referencedBy        Ticket[]          @relation("TicketsReferencedByTicket")
-    referencesMessageId String
+    referencesMessage   ArchivedMessage?  @relation(name: "MessageReferencedByTicket", fields: [referencesMessageId], references: [id], onDelete: SetNull)
+    referencesMessageId String?
     referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
     referencesTicketId  String?
     topic               String?
