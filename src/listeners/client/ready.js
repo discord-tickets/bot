@@ -32,7 +32,7 @@ module.exports = class extends Listener {
 				cached = {
 					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					openTickets: tickets.filter(t => t.open).length,
+					openTickets: tickets.length - closedTickets.length,
 					totalTickets: tickets.length,
 				};
 				await this.client.keyv.set(cacheKey, cached, ms('15m'));

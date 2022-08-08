@@ -1,10 +1,22 @@
 buttons:
+  claim:
+    emoji: 🙌
+    text: Claim
+  close:
+    emoji: ✖️
+    text: Close
   confirm_open:
     emoji: ✅
     text: Create ticket
   create:
     emoji: 🎫
     text: Create a ticket
+  edit:
+    emoji: ✏️
+    text: Edit
+  unclaim:
+    emoji: ♻️
+    text: Release
 commands:
   message:
     create:
@@ -22,6 +34,9 @@ commands:
         ticket:
           description: The ticket to add the member to
           name: ticket
+    claim:
+      description: Claim a ticket
+      name: claim
     close:
       description: Close a ticket
       name: close
@@ -79,6 +94,9 @@ commands:
             LOW: 🟢 Low
           description: The priority of the ticket
           name: priority
+    release:
+      description: Release (unclaim) a ticket
+      name: release
     remove:
       description: Remove a member from a ticket
       name: remove
@@ -99,10 +117,6 @@ commands:
     topic:
       description: Change the topic of a ticket
       name: topic
-      options:
-        new-topic:
-          description: The new topic of the ticket
-          name: new-topic
     tickets:
       description: List your own or someone else's tickets
       name: tickets
@@ -152,10 +166,6 @@ menus:
     placeholder: Select a ticket category
   guild:
     placeholder: Select a server
-modals:
-  feedback:
-    title: 'Feedback'
-  topic: 'Topic'
 misc:
   no_categories:
     description: No ticket categories have been configured.
@@ -166,7 +176,16 @@ misc:
   unknown_category:
     description: Please try a different category.
     title: ❌ That ticket category doesn't exist
+modals:
+  feedback:
+    title: Feedback
+  topic:
+    label: Topic
+    placeholder: What is this ticket about?
 ticket:
+  created:
+    description: 'Your ticket channel has been created: {channel}.'
+    title: ✅ Ticket created
   answers:
     no_value: '*No response*'
   opening_message:

@@ -9,10 +9,9 @@ module.exports = class TopicModal extends Modal {
 	}
 
 	async run(id, interaction) {
-		console.log(id);
-		console.log(require('util').inspect(interaction, {
-			colors: true,
-			depth: 10,
-		}));
+		await this.client.tickets.postQuestions({
+			...id,
+			interaction,
+		});
 	}
 };

@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 const {
 	ActionRowBuilder,
+	ButtonStyle,
 	ModalBuilder,
 	SelectMenuBuilder,
 	SelectMenuOptionBuilder,
@@ -9,7 +10,8 @@ const {
 } = require('discord.js');
 const emoji = require('node-emoji');
 const ms = require('ms');
-const { EmbedBuilder } = require('discord.js');
+const ExtendedEmbedBuilder = require('../embed');
+const { ButtonBuilder } = require('discord.js');
 
 /**
  * @typedef {import('@prisma/client').Category & {guild: import('@prisma/client').Guild} & {questions: import('@prisma/client').Question[]}} CategoryGuildQuestions
@@ -29,6 +31,7 @@ module.exports = class TicketManager {
 	async create({
 		categoryId, interaction, topic, referencesMessage, referencesTicket,
 	}) {
+		categoryId = Number(categoryId);
 		const cacheKey = `cache/category+guild+questions:${categoryId}`;
 		/** @type {CategoryGuildQuestions} */
 		let category = await this.client.keyv.get(cacheKey);
@@ -51,18 +54,16 @@ module.exports = class TicketManager {
 					};
 				}
 				const getMessage = this.client.i18n.getLocale(settings.locale);
-				const embed = new EmbedBuilder()
-					.setColor(settings.errorColour)
-					.setTitle(getMessage('misc.unknown_category.title'))
-					.setDescription(getMessage('misc.unknown_category.description'));
-				if (settings.footer) {
-					embed.setFooter({
-						iconURL: interaction.guild?.iconURL(),
-						text: settings.footer,
-					});
-				}
 				return await interaction.reply({
-					embeds: [embed],
+					embeds: [
+						new ExtendedEmbedBuilder({
+							iconURL: interaction.guild?.iconURL(),
+							text: settings.footer,
+						})
+							.setColor(settings.errorColour)
+							.setTitle(getMessage('misc.unknown_category.title'))
+							.setDescription(getMessage('misc.unknown_category.description')),
+					],
 					ephemeral: true,
 				});
 			}
@@ -74,23 +75,23 @@ module.exports = class TicketManager {
 		const rlKey = `ratelimits/guild-user:${category.guildId}-${interaction.user.id}`;
 		const rl = await this.client.keyv.get(rlKey);
 		if (rl) {
-			const embed = new EmbedBuilder()
-				.setColor(category.guild.errorColour)
-				.setTitle(getMessage('misc.ratelimited.title'))
-				.setDescription(getMessage('misc.ratelimited.description'));
-			if (category.guild.footer) {
-				embed.setFooter({
-					iconURL: interaction.guild.iconURL(),
-					text: category.guild.footer,
-				});
-			}
 			return await interaction.reply({
-				embeds: [embed],
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: category.guild.footer,
+					})
+						.setColor(category.guild.errorColour)
+						.setTitle(getMessage('misc.ratelimited.title'))
+						.setDescription(getMessage('misc.ratelimited.description')),
+				],
 				ephemeral: true,
 			});
 		} else {
 			this.client.keyv.set(rlKey, true, ms('10s'));
 		}
+
+		// TODO: if blacklisted role -> stop
 
 		// TODO: if member !required roles -> stop
 
@@ -124,7 +125,7 @@ module.exports = class TicketManager {
 												.setCustomId(q.id)
 												.setLabel(q.label)
 												.setStyle(q.style)
-												.setMaxLength(q.maxLength)
+												.setMaxLength(Math.min(q.maxLength, 1000))
 												.setMinLength(q.minLength)
 												.setPlaceholder(q.placeholder)
 												.setRequired(q.required)
@@ -168,8 +169,12 @@ module.exports = class TicketManager {
 							.setComponents(
 								new TextInputBuilder()
 									.setCustomId('topic')
-									.setLabel(getMessage('modals.topic'))
-									.setStyle(TextInputStyle.Long),
+									.setLabel(getMessage('modals.topic.label'))
+									.setStyle(TextInputStyle.Paragraph)
+									.setMaxLength(1000)
+									.setMinLength(5)
+									.setPlaceholder(getMessage('modals.topic.placeholder'))
+									.setRequired(true),
 							),
 					),
 			);
@@ -189,7 +194,7 @@ module.exports = class TicketManager {
 	 * @param {string?} [data.topic]
 	 */
 	async postQuestions({
-		categoryId, interaction, topic, referencesMessage, referencesTicket,
+		action, categoryId, interaction, topic, referencesMessage, referencesTicket,
 	}) {
 		await interaction.deferReply({ ephemeral: true });
 
@@ -199,12 +204,16 @@ module.exports = class TicketManager {
 
 		let answers;
 		if (interaction.isModalSubmit()) {
-			answers = category.questions.map(q => ({
-				questionId: q.id,
-				userId: interaction.user.id,
-				value: interaction.fields.getTextInputValue(q.id),
-			}));
-			if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
+			if (action === 'questions') {
+				answers = category.questions.map(q => ({
+					questionId: q.id,
+					userId: interaction.user.id,
+					value: interaction.fields.getTextInputValue(q.id),
+				}));
+				if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
+			} else if (action === 'topic') {
+				topic = interaction.fields.getTextInputValue('topic');
+			}
 		}
 
 		/** @type {import("discord.js").Guild} */
@@ -244,48 +253,101 @@ module.exports = class TicketManager {
 			topic: `${creator}${topic?.length > 0 ? ` | ${topic}` : ''}`,
 		});
 
-		const embed = new EmbedBuilder()
-			.setColor(category.guild.primaryColour)
-			.setAuthor({
-				iconURL: creator.displayAvatarURL(),
-				name: creator.displayName,
-			})
-			.setDescription(
-				category.openingMessage
-					.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString()),
+		if (category.image) await channel.send(category.image);
 
-			);
+		const embeds = [
+			new ExtendedEmbedBuilder()
+				.setColor(category.guild.primaryColour)
+				.setAuthor({
+					iconURL: creator.displayAvatarURL(),
+					name: creator.displayName,
+				})
+				.setDescription(
+					category.openingMessage
+						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString()),
+
+				),
+		];
 
 		if (answers) {
-			embed.setFields(
-				category.questions.map(q => ({
-					name: q.label,
-					value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
-				})),
+			embeds.push(
+				new ExtendedEmbedBuilder()
+					.setColor(category.guild.primaryColour)
+					.setFields(
+						category.questions.map(q => ({
+							name: q.label,
+							value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
+						})),
+					),
 			);
+			// embeds[0].setFields(
+			// 	category.questions.map(q => ({
+			// 		name: q.label,
+			// 		value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
+			// 	})),
+			// );
 		} else if (topic) {
-			embed.setFields({
-				name: getMessage('ticket.opening_message.fields.topic'),
-				value: topic,
-			});
+			embeds.push(
+				new ExtendedEmbedBuilder()
+					.setColor(category.guild.primaryColour)
+					.setFields({
+						name: getMessage('ticket.opening_message.fields.topic'),
+						value: topic,
+					}),
+			);
+			// embeds[0].setFields({
+			// 	name: getMessage('ticket.opening_message.fields.topic'),
+			// 	value: topic,
+			// });
 		}
 
 		if (category.guild.footer) {
-			embed.setFooter({
+			embeds[embeds.length - 1].setFooter({
 				iconURL: guild.iconURL(),
 				text: category.guild.footer,
 			});
 		}
 
-		// TODO: add edit button (if topic or questions)
-		// TODO: add close and claim buttons if enabled
+		const components = new ActionRowBuilder();
+
+		if (topic || answers) {
+			components.addComponents(
+				new ButtonBuilder()
+					.setCustomId(JSON.stringify({ action: 'edit' }))
+					.setStyle(ButtonStyle.Secondary)
+					.setEmoji(getMessage('buttons.edit.emoji'))
+					.setLabel(getMessage('buttons.edit.text')),
+			);
+		}
+
+		if (category.guild.claimButton && category.claiming) {
+			components.addComponents(
+				new ButtonBuilder()
+					.setCustomId(JSON.stringify({ action: 'claim' }))
+					.setStyle(ButtonStyle.Secondary)
+					.setEmoji(getMessage('buttons.claim.emoji'))
+					.setLabel(getMessage('buttons.claim.text')),
+			);
+		}
+
+		if (category.guild.closeButton) {
+			components.addComponents(
+				new ButtonBuilder()
+					.setCustomId(JSON.stringify({ action: 'close' }))
+					.setStyle(ButtonStyle.Danger)
+					.setEmoji(getMessage('buttons.close.emoji'))
+					.setLabel(getMessage('buttons.close.text')),
+			);
+		}
+
 		const pings = category.pingRoles.map(r => `<@&${r}>`).join(' ');
 		const sent = await channel.send({
+			components: components.components.length >=1 ? [components] : [],
 			content: getMessage('ticket.opening_message.content', {
 				creator: interaction.user.toString(),
 				staff: pings ? pings + ',' : '',
 			}),
-			embeds: [embed],
+			embeds,
 		});
 		await sent.pin({ reason: 'Ticket opening message' });
 		const pinned = channel.messages.cache.last();
@@ -318,10 +380,17 @@ module.exports = class TicketManager {
 		if (message) data.referencesMessage = { connect: { id: referencesMessage } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
 		const ticket = await this.client.prisma.ticket.create({ data });
-		console.log(ticket);
 		interaction.editReply({
 			components: [],
-			embeds: [],
+			embeds: [
+				new ExtendedEmbedBuilder({
+					iconURL: guild.iconURL(),
+					text: category.guild.footer,
+				})
+					.setColor(category.guild.successColour)
+					.setTitle(getMessage('ticket.created.title'))
+					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
+			],
 		});
 		// TODO: log channel
 	}

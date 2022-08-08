@@ -1,13 +1,13 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 
-module.exports = class TopicSlashCommand extends SlashCommand {
+module.exports = class ReleaseSlashCommand extends SlashCommand {
 	constructor(client, options) {
 		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.topic.description')));
+		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.release.description')));
 
 		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.topic.name')));
+		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.release.name')));
 
 		super(client, {
 			...options,
