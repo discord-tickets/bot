@@ -28,7 +28,7 @@ presence:
       type: 3 # https://discord-api-types.dev/api/discord-api-types-v10/enum/ActivityType
     - name: '{avgResponseTime} response time'
       type: 3
-  interval: 60 # seconds, only used if activities.length > 1
+  interval: 20 # seconds, only used if activities.length > 1
   status: online # online|idle|invisible|dnd
 overrides:
   disableArchives: false
