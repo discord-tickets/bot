@@ -40,7 +40,7 @@ module.exports = class TicketManager {
 			category = await this.client.prisma.category.findUnique({
 				include: {
 					guild: true,
-					questions: true,
+					questions: { orderBy: { order: 'asc' } },
 				},
 				where: { id: Number(categoryId) },
 			});
@@ -192,7 +192,6 @@ module.exports = class TicketManager {
 					.setComponents(
 						category.questions
 							.filter(q => q.type === 'TEXT') // TODO: remove this when modals support select menus
-							.sort((a, b) => a.order - b.order)
 							.map(q => {
 								if (q.type === 'TEXT') {
 									return new ActionRowBuilder()
@@ -351,7 +350,6 @@ module.exports = class TicketManager {
 					.setColor(category.guild.primaryColour)
 					.setFields(
 						category.questions
-							.sort((a, b) => a.order - b.order)
 							.map(q => ({
 								name: q.label,
 								value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
