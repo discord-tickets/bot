@@ -89,8 +89,21 @@ module.exports = class TicketManager {
 				ephemeral: true,
 			});
 		} else {
-			this.client.keyv.set(rlKey, true, ms('10s'));
+			this.client.keyv.set(rlKey, true, ms('5s'));
 		}
+
+		const sendError = name => interaction.reply({
+			embeds: [
+				new ExtendedEmbedBuilder({
+					iconURL: interaction.guild.iconURL(),
+					text: category.guild.footer,
+				})
+					.setColor(category.guild.errorColour)
+					.setTitle(getMessage(`misc.${name}.title`))
+					.setDescription(getMessage(`misc.${name}.description`)),
+			],
+			ephemeral: true,
+		});
 
 		/** @type {import("discord.js").Guild} */
 		const guild = this.client.guilds.cache.get(category.guild.id);
@@ -98,47 +111,73 @@ module.exports = class TicketManager {
 
 		if (category.guild.blocklist.length !== 0) {
 			const blocked = category.guild.blocklist.some(r => member.roles.cache.has(r));
-			if (blocked) {
-				return await interaction.reply({
-					embeds: [
-						new ExtendedEmbedBuilder({
-							iconURL: interaction.guild.iconURL(),
-							text: category.guild.footer,
-						})
-							.setColor(category.guild.errorColour)
-							.setTitle(getMessage('misc.blocked.title'))
-							.setDescription(getMessage('misc.blocked.description')),
-					],
-					ephemeral: true,
-				});
-			}
+			if (blocked) return await sendError('blocked');
 		}
 
 		if (category.requiredRoles.length !== 0) {
 			const missing = category.requiredRoles.some(r => !member.roles.cache.has(r));
-			if (missing) {
-				return await interaction.reply({
-					embeds: [
-						new ExtendedEmbedBuilder({
-							iconURL: interaction.guild.iconURL(),
-							text: category.guild.footer,
-						})
-							.setColor(category.guild.errorColour)
-							.setTitle(getMessage('misc.missing_roles.title'))
-							.setDescription(getMessage('misc.missing_roles.description')),
-					],
-					ephemeral: true,
-				});
-			}
+			if (missing) return await sendError('missing_roles');
 		}
 
-		// TODO: if discordCategory has 50 channels -> stop
+		const discordCategory = guild.channels.cache.get(category.discordCategory);
+		if (discordCategory.children.cache.size === 50) return await sendError('category_full');
 
-		// TODO: if category has max channels -> stop
+		// TODO: store locally and sync regularly so this isn't done during an interaction?
+		const totalCount = await this.client.prisma.ticket.count({
+			where: {
+				categoryId: category.id,
+				open: true,
+			},
+		});
+		if (totalCount >= category.totalLimit) return await sendError('category_full');
 
-		// TODO: if member has max -> stop
+		const memberCount = await this.client.prisma.ticket.count({
+			where: {
+				categoryId: category.id,
+				createdById: interaction.user.id,
+				open: true,
+			},
+		});
 
-		// TODO: if cooldown -> stop
+		if (memberCount >= category.memberLimit) {
+			return await interaction.reply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: category.guild.footer,
+					})
+						.setColor(category.guild.errorColour)
+						.setTitle(getMessage('misc.member_limit.title', memberCount, memberCount))
+						.setDescription(getMessage('misc.member_limit.description', memberCount)),
+				],
+				ephemeral: true,
+			});
+		}
+
+		const lastTicket = await this.client.prisma.ticket.findFirst({
+			orderBy: [{ closedAt: 'desc' }],
+			select: { closedAt: true },
+			where: {
+				categoryId: category.id,
+				createdById: interaction.user.id,
+				open: false,
+			},
+		});
+
+		if (Date.now() - lastTicket.closedAt < category.cooldown) {
+			return await interaction.reply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: category.guild.footer,
+					})
+						.setColor(category.guild.errorColour)
+						.setTitle(getMessage('misc.cooldown.title'))
+						.setDescription(getMessage('misc.cooldown.description', { time: ms(category.cooldown - (Date.now() - lastTicket.closedAt)) })),
+				],
+				ephemeral: true,
+			});
+		}
 
 		if (category.questions.length >= 1) {
 			await interaction.showModal(

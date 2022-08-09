@@ -178,6 +178,21 @@ misc:
   blocked:
     description: You are not allowed to create tickets.
     title: ❌ Blocked
+  category_full:
+    description: |
+      The category has reached its maximum capacity.
+      Please try again later.
+    title: ❌ Category full
+  cooldown:
+    description: Please wait {time} before creating another ticket in this category.
+    title: ❌ Please wait
+  member_limit:
+    description:
+      - Please use your existing ticket or close it before creating another.
+      - Please close a ticket before creating another.
+    title:
+      - ❌ You already have a ticket
+      - ❌ You already have %d open tickets
   missing_roles:
     description: You do not have the roles required to be able to create a ticket in this category.
     title: ❌ Insufficient roles
