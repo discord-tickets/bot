@@ -69,13 +69,6 @@ commands:
         time:
           description: Close all tickets that have been inactive for the specific time
           name: time
-    move:
-      description: Move a ticket to another category
-      name: move
-      options:
-        category:
-          description: The category to move the ticket to
-          name: category
     new:
       description: Create a new ticket
       name: new
@@ -131,6 +124,13 @@ commands:
         ticket:
           description: The number of the ticket to get the transcript of
           name: ticket
+    transfer:
+      description: Transfer a ticket to another category
+      name: transfer
+      options:
+        category:
+          description: The category to transfer the ticket to
+          name: category
   user:
     create:
       name: Create a ticket for user
