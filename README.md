@@ -31,3 +31,17 @@ creation requires an interaction:
 - DM -> guild? -> category? -> topic or questions -> create
 - panel(interaction) -> topic or questions -> create
 - ~~panel(message) -> DM (channel fallback) button -> topic or questions -> create~~
+
+> **Note**
+>
+> test
+
+> **Warning**
+>
+> test
+
+<!-- <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="...>
+  <source media="(prefers-color-scheme: light)" srcset="...">
+  <img alt="..." src="...">
+</picture> -->

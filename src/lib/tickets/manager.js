@@ -3,6 +3,7 @@ const {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
+	inlineCode,
 	ModalBuilder,
 	SelectMenuBuilder,
 	SelectMenuOptionBuilder,
@@ -15,12 +16,73 @@ const ExtendedEmbedBuilder = require('../embed');
 const { logTicketEvent } = require('../logging');
 
 /**
- * @typedef {import('@prisma/client').Category & {guild: import('@prisma/client').Guild} & {questions: import('@prisma/client').Question[]}} CategoryGuildQuestions
+ * @typedef {import('@prisma/client').Category &
+ * 	{guild: import('@prisma/client').Guild} &
+ * 	{questions: import('@prisma/client').Question[]}} CategoryGuildQuestions
  */
 module.exports = class TicketManager {
 	constructor(client) {
 		/** @type {import("client")} */
 		this.client = client;
+
+		this.$ = { categories: {} };
+	}
+
+	async getCategory(categoryId) {
+		const cacheKey = `cache/category+guild+questions:${categoryId}`;
+		/** @type {CategoryGuildQuestions} */
+		let category = await this.client.keyv.get(cacheKey);
+		if (!category) {
+			category = await this.client.prisma.category.findUnique({
+				include: {
+					guild: true,
+					questions: { orderBy: { order: 'asc' } },
+				},
+				where: { id: categoryId },
+			});
+			this.client.keyv.set(cacheKey, category, ms('5m'));
+		}
+		return category;
+	}
+
+	// TODO: update when a ticket is closed or moved
+	async getTotalCount(categoryId) {
+		const category = this.$.categories[categoryId];
+		if (!category) this.$.categories[categoryId] = {};
+		let count = this.$.categories[categoryId].total;
+		if (!count) {
+			count = await this.client.prisma.ticket.count({
+				where: {
+					categoryId,
+					open: true,
+				},
+			});
+			this.$.categories[categoryId].total = count;
+		}
+		return count;
+	}
+
+	// TODO: update when a ticket is closed or moved
+	async getMemberCount(categoryId, memberId) {
+		const category = this.$.categories[categoryId];
+		if (!category) this.$.categories[categoryId] = {};
+		let count = this.$.categories[categoryId][memberId];
+		if (!count) {
+			count = await this.client.prisma.ticket.count({
+				where: {
+					categoryId: categoryId,
+					createdById: memberId,
+					open: true,
+				},
+			});
+			this.$.categories[categoryId][memberId] = count;
+		}
+		return count;
+	}
+
+	async getCooldown(categoryId, memberId) {
+		const cacheKey = `cooldowns/category-member:${categoryId}-${memberId}`;
+		return await this.client.keyv.get(cacheKey);
 	}
 
 	/**
@@ -33,42 +95,31 @@ module.exports = class TicketManager {
 		categoryId, interaction, topic, referencesMessage, referencesTicket,
 	}) {
 		categoryId = Number(categoryId);
-		const cacheKey = `cache/category+guild+questions:${categoryId}`;
-		/** @type {CategoryGuildQuestions} */
-		let category = await this.client.keyv.get(cacheKey);
+		const category = await this.getCategory(categoryId);
+
 		if (!category) {
-			category = await this.client.prisma.category.findUnique({
-				include: {
-					guild: true,
-					questions: { orderBy: { order: 'asc' } },
-				},
-				where: { id: Number(categoryId) },
-			});
-			if (!category) {
-				let settings;
-				if (interaction.guild) {
-					settings = await this.client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
-				} else {
-					settings = {
-						errorColour: 'Red',
-						locale: 'en-GB',
-					};
-				}
-				const getMessage = this.client.i18n.getLocale(settings.locale);
-				return await interaction.reply({
-					embeds: [
-						new ExtendedEmbedBuilder({
-							iconURL: interaction.guild?.iconURL(),
-							text: settings.footer,
-						})
-							.setColor(settings.errorColour)
-							.setTitle(getMessage('misc.unknown_category.title'))
-							.setDescription(getMessage('misc.unknown_category.description')),
-					],
-					ephemeral: true,
-				});
+			let settings;
+			if (interaction.guild) {
+				settings = await this.client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+			} else {
+				settings = {
+					errorColour: 'Red',
+					locale: 'en-GB',
+				};
 			}
-			this.client.keyv.set(cacheKey, category, ms('5m'));
+			const getMessage = this.client.i18n.getLocale(settings.locale);
+			return await interaction.reply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild?.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.errorColour)
+						.setTitle(getMessage('misc.unknown_category.title'))
+						.setDescription(getMessage('misc.unknown_category.description')),
+				],
+				ephemeral: true,
+			});
 		}
 
 		const getMessage = this.client.i18n.getLocale(category.guild.locale);
@@ -122,23 +173,10 @@ module.exports = class TicketManager {
 		const discordCategory = guild.channels.cache.get(category.discordCategory);
 		if (discordCategory.children.cache.size === 50) return await sendError('category_full');
 
-		// TODO: store locally and sync regularly so this isn't done during an interaction?
-		const totalCount = await this.client.prisma.ticket.count({
-			where: {
-				categoryId: category.id,
-				open: true,
-			},
-		});
+		const totalCount = await this.getTotalCount(category.id);
 		if (totalCount >= category.totalLimit) return await sendError('category_full');
 
-		const memberCount = await this.client.prisma.ticket.count({
-			where: {
-				categoryId: category.id,
-				createdById: interaction.user.id,
-				open: true,
-			},
-		});
-
+		const memberCount = await this.getMemberCount(category.id, interaction.user.id);
 		if (memberCount >= category.memberLimit) {
 			return await interaction.reply({
 				embeds: [
@@ -154,17 +192,33 @@ module.exports = class TicketManager {
 			});
 		}
 
-		const lastTicket = await this.client.prisma.ticket.findFirst({
-			orderBy: [{ closedAt: 'desc' }],
-			select: { closedAt: true },
-			where: {
-				categoryId: category.id,
-				createdById: interaction.user.id,
-				open: false,
-			},
-		});
+		// const lastTicket = await this.client.prisma.ticket.findFirst({
+		// 	orderBy: [{ closedAt: 'desc' }],
+		// 	select: { closedAt: true },
+		// 	where: {
+		// 		categoryId: category.id,
+		// 		createdById: interaction.user.id,
+		// 		open: false,
+		// 	},
+		// });
 
-		if (Date.now() - lastTicket.closedAt < category.cooldown) {
+		// if (Date.now() - lastTicket.closedAt < category.cooldown) {
+		// 	return await interaction.reply({
+		// 		embeds: [
+		// 			new ExtendedEmbedBuilder({
+		// 				iconURL: interaction.guild.iconURL(),
+		// 				text: category.guild.footer,
+		// 			})
+		// 				.setColor(category.guild.errorColour)
+		// 				.setTitle(getMessage('misc.cooldown.title'))
+		// 				.setDescription(getMessage('misc.cooldown.description', { time: ms(category.cooldown - (Date.now() - lastTicket.closedAt)) })),
+		// 		],
+		// 		ephemeral: true,
+		// 	});
+		// }
+
+		const cooldown = await this.getCooldown(category.id, interaction.member.id);
+		if (cooldown) {
 			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
@@ -173,7 +227,7 @@ module.exports = class TicketManager {
 					})
 						.setColor(category.guild.errorColour)
 						.setTitle(getMessage('misc.cooldown.title'))
-						.setDescription(getMessage('misc.cooldown.description', { time: ms(category.cooldown - (Date.now() - lastTicket.closedAt)) })),
+						.setDescription(getMessage('misc.cooldown.description', { time: ms(cooldown - Date.now()) })),
 				],
 				ephemeral: true,
 			});
@@ -356,12 +410,6 @@ module.exports = class TicketManager {
 							})),
 					),
 			);
-			// embeds[0].setFields(
-			// 	category.questions.map(q => ({
-			// 		name: q.label,
-			// 		value: interaction.fields.getTextInputValue(q.id) || getMessage('ticket.answers.no_value'),
-			// 	})),
-			// );
 		} else if (topic) {
 			embeds.push(
 				new ExtendedEmbedBuilder()
@@ -371,10 +419,6 @@ module.exports = class TicketManager {
 						value: topic,
 					}),
 			);
-			// embeds[0].setFields({
-			// 	name: getMessage('ticket.opening_message.fields.topic'),
-			// 	value: topic,
-			// });
 		}
 
 		if (category.guild.footer) {
@@ -455,7 +499,7 @@ module.exports = class TicketManager {
 		if (referencesMessage) message = this.client.prisma.archivedMessage.findUnique({ where: { id: referencesMessage } });
 		if (message) data.referencesMessage = { connect: { id: referencesMessage } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
-		interaction.editReply({
+		await interaction.editReply({
 			components: [],
 			embeds: [
 				new ExtendedEmbedBuilder({
@@ -467,14 +511,45 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
 			],
 		});
-		const ticket = await this.client.prisma.ticket.create({ data });
-		logTicketEvent(this.client, {
-			action: 'create',
-			target: {
-				id: ticket.id,
-				name: channel.toString(),
-			},
-			userId: interaction.user.id,
-		});
+
+		try {
+			const ticket = await this.client.prisma.ticket.create({ data });
+			this.$.categories[categoryId].total++;
+			this.$.categories[categoryId][creator.id]++;
+
+			if (category.cooldown) {
+				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
+				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
+				const TTL = category.cooldown;
+				await this.client.keyv.set(cacheKey, expiresAt, TTL);
+			}
+
+			logTicketEvent(this.client, {
+				action: 'create',
+				target: {
+					id: ticket.id,
+					name: channel.toString(),
+				},
+				userId: interaction.user.id,
+			});
+		} catch (error) {
+			const ref = require('crypto').randomUUID();
+			this.client.log.warn.tickets('An error occurred whilst creating ticket', channel.id);
+			this.client.log.error.tickets(ref);
+			this.client.log.error.tickets(error);
+			await interaction.editReply({
+				components: [],
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor('Orange')
+						.setTitle(getMessage('misc.error.title'))
+						.setDescription(getMessage('misc.error.description'))
+						.addFields({
+							name: getMessage('misc.error.fields.identifier'),
+							value: inlineCode(ref),
+						}),
+				],
+			});
+		}
 	}
 };

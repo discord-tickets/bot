@@ -186,6 +186,11 @@ misc:
   cooldown:
     description: Please wait {time} before creating another ticket in this category.
     title: ❌ Please wait
+  error:
+    description: Sorry, an unexpected error occurred.
+    fields:
+      identifier: Identifier 
+    title: ⚠️ Something's wrong
   member_limit:
     description:
       - Please use your existing ticket or close it before creating another.
