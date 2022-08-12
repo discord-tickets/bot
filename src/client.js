@@ -9,7 +9,6 @@ const fs = require('fs');
 const { join } = require('path');
 const YAML = require('yaml');
 const TicketManager = require('./lib/tickets/manager');
-const encryptionMiddleware = require('./lib/middleware/prisma-encryption');
 const sqliteMiddleware = require('./lib/middleware/prisma-sqlite');
 
 module.exports = class Client extends FrameworkClient {
@@ -52,7 +51,6 @@ module.exports = class Client extends FrameworkClient {
 	async login(token) {
 		/** @type {PrismaClient} */
 		this.prisma = new PrismaClient();
-		this.prisma.$use(encryptionMiddleware);
 		if (process.env.DB_PROVIDER === 'sqlite') this.prisma.$use(sqliteMiddleware);
 		this.keyv = new Keyv();
 		return super.login(token);
