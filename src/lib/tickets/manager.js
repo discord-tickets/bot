@@ -217,7 +217,7 @@ module.exports = class TicketManager {
 		// 	});
 		// }
 
-		const cooldown = await this.getCooldown(category.id, interaction.member.id);
+		const cooldown = await this.getCooldown(category.id, interaction.user.id);
 		if (cooldown) {
 			return await interaction.reply({
 				embeds: [
