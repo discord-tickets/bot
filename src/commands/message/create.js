@@ -1,4 +1,5 @@
 const { MessageCommand } = require('@eartharoid/dbf');
+const { useGuild } = require('../../lib/tickets/utils');
 
 module.exports = class CreateMessageCommand extends MessageCommand {
 	constructor(client, options) {
@@ -13,7 +14,11 @@ module.exports = class CreateMessageCommand extends MessageCommand {
 		});
 	}
 
+	/**
+	 * @param {import("discord.js").MessageContextMenuCommandInteraction} interaction
+	 */
 	async run(interaction) {
 		// TODO: archive message
+		await useGuild(this.client, interaction, { referencesMessage: interaction.targetMessage.channelId + '/' + interaction.targetId });
 	}
 };

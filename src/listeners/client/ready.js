@@ -25,11 +25,16 @@ module.exports = class extends Listener {
 				cooldown: true,
 				id: true,
 				tickets: {
-					select: { createdById: true },
+					select: {
+						createdById: true,
+						guildId: true,
+						id: true,
+					},
 					where: { open: true },
 				},
 			},
 		});
+		let deleted = 0;
 		let ticketCount = 0;
 		let cooldowns = 0;
 		for (const category of categories) {
@@ -38,6 +43,13 @@ module.exports = class extends Listener {
 			for (const ticket of category.tickets) {
 				if (client.tickets.$.categories[category.id][ticket.createdById]) client.tickets.$.categories[category.id][ticket.createdById]++;
 				else client.tickets.$.categories[category.id][ticket.createdById] = 1;
+				/** @type {import("discord.js").Guild} */
+				const guild = client.guilds.cache.get(ticket.guildId);
+				if (guild && guild.available && !client.channels.cache.has(ticket.id)) {
+					deleted += 0;
+					await client.tickets.close(ticket.id);
+				}
+
 			}
 			if (category.cooldown) {
 				const recent = await client.prisma.ticket.findMany({
@@ -63,6 +75,7 @@ module.exports = class extends Listener {
 		// const ticketCount = categories.reduce((total, category) => total + category.tickets.length, 0);
 		client.log.info(`Cached ticket count of ${categories.length} categories (${ticketCount} open tickets)`);
 		client.log.info(`Loaded ${cooldowns} active cooldowns`);
+		client.log.info(`Closed ${deleted} deleted tickets`);
 
 		// presence/activity
 		let next = 0;

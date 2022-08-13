@@ -23,13 +23,13 @@ module.exports = class extends Listener {
 	}
 
 	/**
- 	 * @param {string} guildId
+ 	 * @param {import('@prisma/client').Guild} settings
 	 * @param {import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} interaction
 	 */
 	async useGuild(settings, interaction, topic) {
 		const getMessage = this.client.i18n.getLocale(settings.locale);
 		if (settings.categories.length === 0) {
-			interaction.editReply({
+			interaction.update({
 				components: [],
 				embeds: [
 					new EmbedBuilder()
@@ -45,7 +45,7 @@ module.exports = class extends Listener {
 				topic,
 			});
 		} else {
-			const sent = await interaction.editReply({
+			await interaction.update({
 				components: [
 					new ActionRowBuilder()
 						.setComponents(
@@ -67,17 +67,17 @@ module.exports = class extends Listener {
 						),
 				],
 			});
-			sent.awaitMessageComponent({
+			interaction.message.awaitMessageComponent({
 				componentType: ComponentType.SelectMenu,
 				filter: () => true,
 				time: ms('30s'),
 			})
 				.then(async () => {
-					await sent.delete();
+					interaction.message.delete();
 				})
 				.catch(error => {
 					if (error) this.client.log.error(error);
-					sent.delete();
+					interaction.message.delete();
 				});
 		}
 
@@ -92,7 +92,7 @@ module.exports = class extends Listener {
 
 		if (message.channel.type === ChannelType.DM) {
 			if (message.author.bot) return false;
-			const commonGuilds = await getCommonGuilds(this.client, message.author.id);
+			const commonGuilds = await getCommonGuilds(client, message.author.id);
 			if (commonGuilds.size === 0) {
 				return false;
 			} else if (commonGuilds.size === 1) {
@@ -105,7 +105,7 @@ module.exports = class extends Listener {
 					},
 					where: { id: commonGuilds.at(0).id },
 				});
-				const getMessage = this.client.i18n.getLocale(settings.locale);
+				const getMessage = client.i18n.getLocale(settings.locale);
 				const sent = await message.reply({
 					components: [
 						new ActionRowBuilder()
@@ -126,16 +126,16 @@ module.exports = class extends Listener {
 				});
 				sent.awaitMessageComponent({
 					componentType: ComponentType.Button,
-					filter: interaction => interaction.deferUpdate(),
+					filter: () => true,
 					time: ms('30s'),
 				})
 					.then(async interaction => await this.useGuild(settings, interaction, message.content))
 					.catch(error => {
-						if (error) this.client.log.error(error);
+						if (error) client.log.error(error);
 						sent.delete();
 					});
 			} else {
-				const getMessage = this.client.i18n.getLocale();
+				const getMessage = client.i18n.getLocale();
 				const sent = await message.reply({
 					components: [
 						new ActionRowBuilder()
@@ -156,7 +156,7 @@ module.exports = class extends Listener {
 				});
 				sent.awaitMessageComponent({
 					componentType: ComponentType.SelectMenu,
-					filter: interaction => interaction.deferUpdate(),
+					filter: () => true,
 					time: ms('30s'),
 				})
 					.then(async interaction => {
@@ -172,7 +172,7 @@ module.exports = class extends Listener {
 						await this.useGuild(settings, interaction, message.content);
 					})
 					.catch(error => {
-						if (error) this.client.log.error(error);
+						if (error) client.log.error(error);
 						sent.delete();
 					});
 			}

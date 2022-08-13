@@ -1,5 +1,6 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
+const { useGuild } = require('../../lib/tickets/utils');
 
 module.exports = class NewSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -14,7 +15,7 @@ module.exports = class NewSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'references',
 				required: false,
-				type: ApplicationCommandOptionType.Integer,
+				type: ApplicationCommandOptionType.String,
 			},
 		];
 		opts = opts.map(o => {
@@ -43,5 +44,12 @@ module.exports = class NewSlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	/**
+	 *
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(interaction) {
+		await useGuild(this.client, interaction, { referencesTicketId: interaction.options.getString('references', false) });
+
+	}
 };

@@ -1,4 +1,5 @@
 /* eslint-disable max-lines */
+const TicketArchiver = require('./archiver');
 const {
 	ActionRowBuilder,
 	ButtonBuilder,
@@ -24,7 +25,7 @@ module.exports = class TicketManager {
 	constructor(client) {
 		/** @type {import("client")} */
 		this.client = client;
-
+		this.archiver = new TicketArchiver(client);
 		this.$ = { categories: {} };
 	}
 
@@ -92,7 +93,7 @@ module.exports = class TicketManager {
 	 * @param {string?} [data.topic]
 	 */
 	async create({
-		categoryId, interaction, topic, referencesMessage, referencesTicket,
+		categoryId, interaction, topic, referencesMessage, referencesTicketId,
 	}) {
 		categoryId = Number(categoryId);
 		const category = await this.getCategory(categoryId);
@@ -122,6 +123,9 @@ module.exports = class TicketManager {
 			});
 		}
 
+		/** @type {import("discord.js").Guild} */
+		const guild = this.client.guilds.cache.get(category.guild.id);
+		const member = interaction.member ?? await guild.members.fetch(interaction.user.id);
 		const getMessage = this.client.i18n.getLocale(category.guild.locale);
 
 		const rlKey = `ratelimits/guild-user:${category.guildId}-${interaction.user.id}`;
@@ -130,7 +134,7 @@ module.exports = class TicketManager {
 			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
-						iconURL: interaction.guild.iconURL(),
+						iconURL: guild.iconURL(),
 						text: category.guild.footer,
 					})
 						.setColor(category.guild.errorColour)
@@ -146,7 +150,7 @@ module.exports = class TicketManager {
 		const sendError = name => interaction.reply({
 			embeds: [
 				new ExtendedEmbedBuilder({
-					iconURL: interaction.guild.iconURL(),
+					iconURL: guild.iconURL(),
 					text: category.guild.footer,
 				})
 					.setColor(category.guild.errorColour)
@@ -155,10 +159,6 @@ module.exports = class TicketManager {
 			],
 			ephemeral: true,
 		});
-
-		/** @type {import("discord.js").Guild} */
-		const guild = this.client.guilds.cache.get(category.guild.id);
-		const member = interaction.member ?? await guild.members.fetch(interaction.user.id);
 
 		if (category.guild.blocklist.length !== 0) {
 			const blocked = category.guild.blocklist.some(r => member.roles.cache.has(r));
@@ -181,7 +181,7 @@ module.exports = class TicketManager {
 			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
-						iconURL: interaction.guild.iconURL(),
+						iconURL: guild.iconURL(),
 						text: category.guild.footer,
 					})
 						.setColor(category.guild.errorColour)
@@ -206,7 +206,7 @@ module.exports = class TicketManager {
 		// 	return await interaction.reply({
 		// 		embeds: [
 		// 			new ExtendedEmbedBuilder({
-		// 				iconURL: interaction.guild.iconURL(),
+		// 				iconURL: guild.iconURL(),
 		// 				text: category.guild.footer,
 		// 			})
 		// 				.setColor(category.guild.errorColour)
@@ -222,7 +222,7 @@ module.exports = class TicketManager {
 			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
-						iconURL: interaction.guild.iconURL(),
+						iconURL: guild.iconURL(),
 						text: category.guild.footer,
 					})
 						.setColor(category.guild.errorColour)
@@ -240,7 +240,7 @@ module.exports = class TicketManager {
 						action: 'questions',
 						categoryId,
 						referencesMessage,
-						referencesTicket,
+						referencesTicketId,
 					}))
 					.setTitle(category.name)
 					.setComponents(
@@ -290,7 +290,7 @@ module.exports = class TicketManager {
 						action: 'topic',
 						categoryId,
 						referencesMessage,
-						referencesTicket,
+						referencesTicketId,
 					}))
 					.setTitle(category.name)
 					.setComponents(
@@ -311,6 +311,8 @@ module.exports = class TicketManager {
 			await this.postQuestions({
 				categoryId,
 				interaction,
+				referencesMessage,
+				referencesTicketId,
 				topic,
 			});
 		}
@@ -323,7 +325,7 @@ module.exports = class TicketManager {
 	 * @param {string?} [data.topic]
 	 */
 	async postQuestions({
-		action, categoryId, interaction, topic, referencesMessage, referencesTicket,
+		action, categoryId, interaction, topic, referencesMessage, referencesTicketId,
 	}) {
 		await interaction.deferReply({ ephemeral: true });
 
@@ -480,6 +482,69 @@ module.exports = class TicketManager {
 
 		// TODO: referenced msg or ticket
 
+		if (referencesMessage) {
+			referencesMessage = referencesMessage.split('/');
+			/** @type {import("discord.js").Message} */
+			const message = await (await this.client.channels.fetch(referencesMessage[0]))?.messages.fetch(referencesMessage[1]);
+			if (message) {
+				await channel.send({
+					embeds: [
+						new ExtendedEmbedBuilder()
+							.setColor(category.guild.primaryColour)
+							.setTitle(getMessage('ticket.references_message.title'))
+							.setDescription(
+								getMessage('ticket.references_message.description', {
+									author: message.author.toString(),
+									timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
+									url: message.url,
+								})),
+						new ExtendedEmbedBuilder({
+							iconURL: guild.iconURL(),
+							text: category.guild.footer,
+						})
+							.setColor(category.guild.primaryColour)
+							.setAuthor({
+								iconURL: message.member?.displayAvatarURL(),
+								name: message.member?.displayName || 'Unknown',
+							})
+							.setDescription(message.content.substring(0, 1000) + message.content.length > 1000 ? '...' : ''),
+					],
+				});
+			}
+		} else if (referencesTicketId) {
+			// TODO: add portal url
+			const ticket = await this.client.prisma.ticket.findUnique({ where: { id: referencesTicketId } });
+			if (ticket) {
+				const embed = new ExtendedEmbedBuilder({
+					iconURL: guild.iconURL(),
+					text: category.guild.footer,
+				})
+					.setColor(category.guild.primaryColour)
+					.setTitle(getMessage('ticket.references_ticket.title'))
+					.setDescription(getMessage('ticket.references_ticket.description'))
+					.setFields([
+						{
+							inline: true,
+							name: getMessage('ticket.references_ticket.fields.number'),
+							value: inlineCode(ticket.number),
+						},
+						{
+							inline: true,
+							name: getMessage('ticket.references_ticket.fields.date'),
+							value: `<t:${Math.ceil(ticket.createdAt / 1000)}:f>`,
+						},
+					]);
+				if (ticket.topic) {
+					embed.addFields({
+						inline: false,
+						name: getMessage('ticket.references_ticket.fields.topic'),
+						value: ticket.topic,
+					});
+				}
+				await channel.send({ embeds: [embed] });
+			}
+		}
+
 		const data = {
 			category: { connect: { id: categoryId } },
 			createdBy: {
@@ -494,10 +559,10 @@ module.exports = class TicketManager {
 			openingMessageId: sent.id,
 			topic,
 		};
-		if (referencesTicket) data.referencesTicket = { connect: { id: referencesTicket } };
+		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		let message;
-		if (referencesMessage) message = this.client.prisma.archivedMessage.findUnique({ where: { id: referencesMessage } });
-		if (message) data.referencesMessage = { connect: { id: referencesMessage } }; // only add if the message has been archived ^^
+		if (referencesMessage) message = await this.client.prisma.archivedMessage.findUnique({ where: { id: referencesMessage[1] } });
+		if (message) data.referencesMessage = { connect: { id: referencesMessage[0] } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
 		await interaction.editReply({
 			components: [],

@@ -194,7 +194,9 @@ misc:
   member_limit:
     description:
       - Please use your existing ticket or close it before creating another.
-      - Please close a ticket before creating another.
+      - |
+        Please close a ticket before creating another.
+        Use `/tickets` to view your existing tickets.
     title:
       - ❌ You already have a ticket
       - ❌ You already have %d open tickets
@@ -228,3 +230,13 @@ ticket:
       {creator} has created a new ticket
     fields:
       topic: Topic
+  references_message:
+    description: 'References [a message]({url}) sent {timestamp} by {author}.'
+    title: ℹ️ Reference
+  references_ticket:
+    description: 'This ticket is related to a previous ticket:'
+    fields:
+      date: Created at
+      number: Number
+      topic: Topic
+    title: ℹ️ Reference
