@@ -386,6 +386,20 @@ module.exports = class TicketManager {
 
 		if (category.image) await channel.send(category.image);
 
+		const statsCacheKey = `cache/category-stats/${categoryId}`;
+		let stats = await this.client.keyv.get(statsCacheKey);
+		if (!stats) {
+			const { tickets } = await this.client.prisma.category.findUnique({
+				select: { tickets: { where: { open: false } } },
+				where: { id: categoryId },
+			});
+			stats = {
+				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
+				avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length),
+			};
+			this.client.keyv.set(statsCacheKey, stats, ms('1h'));
+		}
+
 		const embeds = [
 			new ExtendedEmbedBuilder()
 				.setColor(category.guild.primaryColour)
@@ -395,10 +409,13 @@ module.exports = class TicketManager {
 				})
 				.setDescription(
 					category.openingMessage
-						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString()),
-
+						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString())
+						.replace(/{+\s?avgResponseTime\s?}+/gi, stats.avgResponseTime)
+						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats.avgResolutionTime),
 				),
 		];
+
+		// TODO: !staff || workingHours
 
 		if (answers) {
 			embeds.push(

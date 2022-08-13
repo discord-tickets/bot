@@ -11,17 +11,13 @@ module.exports = class CloseSlashCommand extends SlashCommand {
 
 		let opts = [
 			{
-				name: 'channel',
-				required: false,
-				type: ApplicationCommandOptionType.Channel,
-			},
-			{
-				name: 'number',
-				required: false,
-				type: ApplicationCommandOptionType.Integer,
-			},
-			{
 				name: 'reason',
+				required: false,
+				type: ApplicationCommandOptionType.String,
+			},
+			{
+				autocomplete: true,
+				name: 'ticket',
 				required: false,
 				type: ApplicationCommandOptionType.String,
 			},

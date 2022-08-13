@@ -21,7 +21,7 @@ module.exports.get = fastify => ({
 						name: true,
 						requiredRoles: true,
 						staffRoles: true,
-						tickets: true,
+						tickets: { where: { open: false } },
 					},
 				},
 			},

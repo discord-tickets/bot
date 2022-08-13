@@ -13,5 +13,8 @@ module.exports = class CreateUserCommand extends UserCommand {
 		});
 	}
 
-	async run(interaction) { }
+	async run(interaction) {
+		// select category
+		// send button
+	}
 };

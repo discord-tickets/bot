@@ -11,5 +11,6 @@ module.exports = class extends Listener {
 
 	run(oldMessage, newMessage) {
 		// TODO: archive messages in tickets
+		// TODO: log channel
 	}
 };

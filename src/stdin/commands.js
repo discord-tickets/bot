@@ -12,11 +12,8 @@ module.exports = class Commands extends StdinCommand {
 		switch (args[0]) {
 		case 'publish': {
 			this.client.commands.publish()
-				.then(commands => {
-					if (!commands) return console.log('None published');
-					console.log('Published %d commands', commands.size);
-				})
-				.catch(console.error);
+				.then(commands => this.client.log.success('Published %d commands', commands?.size))
+				.catch(this.client.log.error);
 			break;
 		}
 		}
