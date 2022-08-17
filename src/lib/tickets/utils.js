@@ -72,6 +72,5 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
-
 	},
 };

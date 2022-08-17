@@ -1,4 +1,5 @@
 const { Autocompleter } = require('@eartharoid/dbf');
+const emoji = require('node-emoji');
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -18,6 +19,14 @@ module.exports = class TicketCompleter extends Autocompleter {
 		const client = this.client;
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const tickets = await client.prisma.ticket.findMany({
+			include: {
+				category: {
+					select: {
+						emoji: true,
+						name: true,
+					},
+				},
+			},
 			where: {
 				createdById: interaction.user.id,
 				guildId: interaction.guild.id,
@@ -34,8 +43,10 @@ module.exports = class TicketCompleter extends Autocompleter {
 				.slice(0, 25)
 				.map(t => {
 					const date = new Date(t.createdAt).toLocaleString(settings.locale, { dateStyle: 'short' });
+					const topic = t.topic ? '| ' + t.topic.substring(0, 50) : '';
+					const category = emoji.hasEmoji(t.category.emoji) ? emoji.get(t.category.emoji) + ' ' + t.category.name : t.category.name;
 					return {
-						name: `#${t.number} - ${date} ${t.topic ? '| ' + t.topic.substring(0, 50) : ''}`,
+						name: `${category} #${t.number} - ${date} ${topic}`,
 						value: t.id,
 					};
 				}),

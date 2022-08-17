@@ -192,31 +192,6 @@ module.exports = class TicketManager {
 			});
 		}
 
-		// const lastTicket = await this.client.prisma.ticket.findFirst({
-		// 	orderBy: [{ closedAt: 'desc' }],
-		// 	select: { closedAt: true },
-		// 	where: {
-		// 		categoryId: category.id,
-		// 		createdById: interaction.user.id,
-		// 		open: false,
-		// 	},
-		// });
-
-		// if (Date.now() - lastTicket.closedAt < category.cooldown) {
-		// 	return await interaction.reply({
-		// 		embeds: [
-		// 			new ExtendedEmbedBuilder({
-		// 				iconURL: guild.iconURL(),
-		// 				text: category.guild.footer,
-		// 			})
-		// 				.setColor(category.guild.errorColour)
-		// 				.setTitle(getMessage('misc.cooldown.title'))
-		// 				.setDescription(getMessage('misc.cooldown.description', { time: ms(category.cooldown - (Date.now() - lastTicket.closedAt)) })),
-		// 		],
-		// 		ephemeral: true,
-		// 	});
-		// }
-
 		const cooldown = await this.getCooldown(category.id, interaction.user.id);
 		if (cooldown) {
 			return await interaction.reply({
