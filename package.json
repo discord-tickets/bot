@@ -11,7 +11,7 @@
 		"lint": "eslint src scripts --ext mjs --fix",
 		"preinstall": "node scripts/preinstall",
 		"postinstall": "node scripts/postinstall",
-		"start": "npm run prisma && node .",
+		"start": "node .",
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"
 	},
