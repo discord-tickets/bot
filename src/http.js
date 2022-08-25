@@ -135,6 +135,7 @@ module.exports = client => {
 		const path = file
 			.substring(0, file.length - 3) // remove `.js`
 			.substring(dir.length) // remove higher directories
+			.replace(/\\/g, '/') // replace `\` with `/` because Windows is stupid
 			.replace(/\[(\w+)\]/gi, ':$1') // convert [] to :
 			.replace('/index', '') || '/'; // remove index
 		const route = require(file);
