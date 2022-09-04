@@ -16,6 +16,11 @@ module.exports = class TagSlashCommand extends SlashCommand {
 				required: true,
 				type: ApplicationCommandOptionType.String,
 			},
+			{
+				name: 'for',
+				required: false,
+				type: ApplicationCommandOptionType.User,
+			},
 		];
 		opts = opts.map(o => {
 			const descriptionLocalizations = {};

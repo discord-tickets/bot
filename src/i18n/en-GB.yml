@@ -101,6 +101,9 @@ commands:
       description: Use a tag
       name: tag
       options:
+        for:
+          description: The user to target the tag to
+          name: for
         tag:
           description: The name of the tag to use
           name: tag
