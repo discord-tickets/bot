@@ -19,7 +19,7 @@ module.exports = class CloseSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'ticket',
 				required: false,
-				type: ApplicationCommandOptionType.String,
+				type: ApplicationCommandOptionType.Integer,
 			},
 			{
 				name: 'time',

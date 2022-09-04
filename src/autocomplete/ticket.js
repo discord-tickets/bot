@@ -11,10 +11,10 @@ module.exports = class TicketCompleter extends Autocompleter {
 
 	/**
 	 * @param {string} value
-	 * @param {*} comamnd
+	 * @param {*} command
 	 * @param {import("discord.js").AutocompleteInteraction} interaction
 	 */
-	async run(value, comamnd, interaction) {
+	async run(value, command, interaction) {
 		/** @type {import("client")} */
 		const client = this.client;
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
@@ -30,7 +30,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 			where: {
 				createdById: interaction.user.id,
 				guildId: interaction.guild.id,
-				open: false,
+				open: ['add', 'close', 'force-close', 'remove'].includes(command.name), // false for `new`, `transcript` etc
 			},
 		});
 		const options = value ? tickets.filter(t =>
