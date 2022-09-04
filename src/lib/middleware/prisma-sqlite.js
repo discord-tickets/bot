@@ -17,8 +17,16 @@ const traverse = (obj, action) => {
 			prop = 'create';
 			traverse(obj[prop], action);
 		} else if (jsonFields.includes(prop) && obj[prop] !== null && obj[prop] !== undefined) {
-			if (action === 'SERIALISE' && typeof obj[prop] !== 'string') {
-				obj[prop] = JSON.stringify(obj[prop]);
+			if (action === 'SERIALISE') {
+				if (typeof obj[prop] === 'string') {
+					try {
+						JSON.parse(obj[prop]);
+					} catch {
+						obj[prop] = JSON.stringify(obj[prop]);
+					}
+				} else {
+					obj[prop] = JSON.stringify(obj[prop]);
+				}
 			} else if (action === 'PARSE' && typeof obj[prop] === 'string') {
 				obj[prop] = JSON.parse(obj[prop]);
 			}

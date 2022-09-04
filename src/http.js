@@ -6,8 +6,7 @@ const { join } = require('path');
 const { files } = require('node-dir');
 
 module.exports = client => {
-
-	// cors plugins
+	// cors plugin
 	fastify.register(require('@fastify/cors'), {
 		credentials: true,
 		methods: ['DELETE', 'GET', 'PATCH', 'PUT', 'POST'],
@@ -112,13 +111,13 @@ module.exports = client => {
 					: res.statusCode >= 200
 						? '&2'
 						: '&f') + res.statusCode;
-		let response_time = res.getResponseTime().toFixed(2);
-		response_time = (response_time >= 20
+		let responseTime = res.getResponseTime().toFixed(2);
+		responseTime = (responseTime >= 20
 			? '&c'
-			: response_time >= 5
+			: responseTime >= 5
 				? '&e'
-				: '&a') + response_time + 'ms';
-		client.log.info.http(short(`${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${response_time}`));
+				: '&a') + responseTime + 'ms';
+		client.log.info.http(short(`${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
 		done();
 	});
 

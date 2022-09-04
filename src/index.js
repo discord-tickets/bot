@@ -21,7 +21,6 @@
  * @license GNU-GPLv3
  */
 
-
 const pkg = require('../package.json');
 const fs = require('fs');
 const semver = require('semver');
@@ -42,7 +41,7 @@ if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
 }
 
 if (process.env.ENCRYPTION_KEY === undefined) {
-	console.log('\x07' + colours.redBright('Error: The "ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key, or set it to "false" to disable encryption (not recommended).'));
+	console.log('\x07' + colours.redBright('Error: The "ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key.'));
 	process.exit(1);
 }
 
