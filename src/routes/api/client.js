@@ -21,9 +21,10 @@ module.exports.get = () => ({
 				discriminator: client.user.discriminator,
 				id: client.user.id,
 				portal: process.env.PORTAL || null,
+				public: !!process.env.PUBLIC,
 				stats: {
 					activatedUsers: users.length,
-					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they get deleted
+					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted
 					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					categories: await client.prisma.category.count(),

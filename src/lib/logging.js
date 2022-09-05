@@ -129,7 +129,7 @@ async function logAdminEvent(client, {
  * @param {string} details.action
 */
 async function logTicketEvent(client, {
-	userId, action, target,
+	userId, action, target, diff,
 }) {
 	const ticket = await client.prisma.ticket.findUnique({
 		include: { guild: true },
@@ -143,9 +143,10 @@ async function logTicketEvent(client, {
 	if (!ticket.guild.logChannel) return;
 	const colour = action === 'create'
 		? 'Aqua' : action === 'close'
-			? 'DarkAqua' : action === 'claim'
-				? 'LuminousVividPink' : action === 'unclaim'
-					? 'DarkVividPink' : 'Default';
+			? 'DarkAqua' : action === 'update'
+				? 'Purple' : action === 'claim'
+					? 'LuminousVividPink' : action === 'unclaim'
+						? 'DarkVividPink' : 'Default';
 	const getMessage = client.i18n.getLocale(ticket.guild.locale);
 	const i18nOptions = {
 		user: `<@${member.user.id}>`,
@@ -160,14 +161,8 @@ async function logTicketEvent(client, {
 				iconURL: member.displayAvatarURL(),
 				name: member.displayName,
 			})
-			.setTitle(getMessage('log.ticket.title', {
-				...i18nOptions,
-				verb: getMessage(`log.ticket.verb.${action}`),
-			}))
-			.setDescription(getMessage('log.ticket.description', {
-				...i18nOptions,
-				verb: getMessage(`log.ticket.verb.${action}`),
-			}))
+			.setTitle(getMessage('log.ticket.title', i18nOptions))
+			.setDescription(getMessage('log.ticket.description', i18nOptions))
 			.addFields([
 				{
 					name: getMessage('log.ticket.ticket'),
@@ -175,6 +170,15 @@ async function logTicketEvent(client, {
 				},
 			]),
 	];
+
+	if (diff && diff.original) {
+		embeds.push(
+			new EmbedBuilder()
+				.setColor(colour)
+				.setTitle(getMessage('log.admin.changes'))
+				.setFields(makeDiff(diff)),
+		);
+	}
 
 	return await channel.send({ embeds });
 }

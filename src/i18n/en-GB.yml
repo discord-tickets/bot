@@ -169,6 +169,7 @@ log:
       claim: claimed
       close: closed
       unclaim: released
+      update: updated
 menus:
   category:
     placeholder: Select a ticket category
@@ -224,6 +225,9 @@ ticket:
     title: ✅ Ticket created
   answers:
     no_value: '*No response*'
+  edited:
+    description: Your changes have been saved.
+    title: ✅ Ticket updated
   opening_message:
     content: |
       {staff}

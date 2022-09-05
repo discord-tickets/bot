@@ -1,4 +1,13 @@
 const { Button } = require('@eartharoid/dbf');
+const {
+	ActionRowBuilder,
+	ModalBuilder,
+	SelectMenuBuilder,
+	SelectMenuOptionBuilder,
+	TextInputBuilder,
+	TextInputStyle,
+} = require('discord.js');
+const emoji = require('node-emoji');
 
 module.exports = class EditButton extends Button {
 	constructor(client, options) {
@@ -8,5 +17,93 @@ module.exports = class EditButton extends Button {
 		});
 	}
 
-	async run(id, interaction) { }
+	async run(id, interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		const ticket = await client.prisma.ticket.findUnique({
+			select: {
+				category: { select: { name: true } },
+				guild: { select: { locale: true } },
+				questionAnswers: { include: { question: true } },
+				topic: true,
+			},
+			where: { id: interaction.channel.id },
+		});
+
+		const getMessage = client.i18n.getLocale(ticket.guild.locale);
+
+		if (ticket.questionAnswers.length === 0) {
+			await interaction.showModal(
+				new ModalBuilder()
+					.setCustomId(JSON.stringify({
+						action: 'topic',
+						edit: true,
+					}))
+					.setTitle(ticket.category.name)
+					.setComponents(
+						new ActionRowBuilder()
+							.setComponents(
+								new TextInputBuilder()
+									.setCustomId('topic')
+									.setLabel(getMessage('modals.topic.label'))
+									.setStyle(TextInputStyle.Paragraph)
+									.setMaxLength(1000)
+									.setMinLength(5)
+									.setPlaceholder(getMessage('modals.topic.placeholder'))
+									.setRequired(true)
+									.setValue(ticket.topic || ''),
+							),
+					),
+			);
+		} else {
+			await interaction.showModal(
+				new ModalBuilder()
+					.setCustomId(JSON.stringify({
+						action: 'questions',
+						edit: true,
+					}))
+					.setTitle(ticket.category.name)
+					.setComponents(
+						ticket.questionAnswers
+							.filter(a => a.question.type === 'TEXT') // TODO: remove this when modals support select menus
+							.map(a => {
+								if (a.question.type === 'TEXT') {
+									return new ActionRowBuilder()
+										.setComponents(
+											new TextInputBuilder()
+												.setCustomId(String(a.id))
+												.setLabel(a.question.label)
+												.setStyle(a.question.style)
+												.setMaxLength(Math.min(a.question.maxLength, 1000))
+												.setMinLength(a.question.minLength)
+												.setPlaceholder(a.question.placeholder)
+												.setRequired(a.question.required)
+												.setValue(a.value || a.question.value),
+										);
+								} else if (a.question.type === 'MENU') {
+									return new ActionRowBuilder()
+										.setComponents(
+											new SelectMenuBuilder()
+												.setCustomId(a.question.id)
+												.setPlaceholder(a.question.placeholder || a.question.label)
+												.setMaxValues(a.question.maxLength)
+												.setMinValues(a.question.minLength)
+												.setOptions(
+													a.question.options.map((o, i) => {
+														const builder = new SelectMenuOptionBuilder()
+															.setValue(String(i))
+															.setLabel(o.label);
+														if (o.description) builder.setDescription(o.description);
+														if (o.emoji) builder.setEmoji(emoji.hasEmoji(o.emoji) ? emoji.get(o.emoji) : { id: o.emoji });
+														return builder;
+													}),
+												),
+										);
+								}
+							}),
+					),
+			);
+		}
+	}
 };
