@@ -29,6 +29,7 @@ module.exports = class TopicModal extends Modal {
 				},
 				id: true,
 				openingMessageId: true,
+				topic: true,
 			};
 			const original = await client.prisma.ticket.findUnique({
 				select,
@@ -41,7 +42,7 @@ module.exports = class TopicModal extends Modal {
 			});
 			const getMessage = client.i18n.getLocale(ticket.guild.locale);
 
-			if (topic) await interaction.channel.setTopic(`<@${ticket.createdById}> | ${topic}`);
+			if (topic) interaction.channel.setTopic(`<@${ticket.createdById}> | ${topic}`);
 
 			const opening = await interaction.channel.messages.fetch(ticket.openingMessageId);
 			if (opening && opening.embeds.length >= 2) {
