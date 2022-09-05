@@ -1,5 +1,5 @@
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+// const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class TicketArchiver {
 	constructor(client) {
