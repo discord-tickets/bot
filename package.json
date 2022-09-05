@@ -42,6 +42,7 @@
 		"@fastify/jwt": "^5.0.1",
 		"@fastify/oauth2": "^5.1.0",
 		"@prisma/client": "^4.1.1",
+		"boolean": "^3.2.0",
 		"cryptr": "^6.0.3",
 		"discord.js": "^14.1.2",
 		"dotenv": "^16.0.1",

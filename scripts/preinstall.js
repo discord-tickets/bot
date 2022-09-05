@@ -10,7 +10,7 @@ const env = {
 	HTTP_BIND: 8080,
 	HTTP_EXTERNAL: 'http://localhost:8080',
 	PORTAL: '',
-	PUBLIC: false,
+	PUBLIC_BOT: false,
 	SUPER: '319467558166069248',
 };
 
