@@ -5,7 +5,11 @@ const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
 
-module.exports = client => {
+process.env.PUBLIC_HOST = process.env.HTTP_EXTERNAL;
+
+async function build(client) {
+	// await fastify.register(require('@fastify/express'));
+
 	// cors plugin
 	fastify.register(require('@fastify/cors'), {
 		credentials: true,
@@ -125,7 +129,6 @@ module.exports = client => {
 
 	// route loading
 	const dir = join(__dirname, '/routes');
-
 	files(dir, {
 		exclude: /^\./,
 		match: /.js$/,
@@ -138,7 +141,6 @@ module.exports = client => {
 			.replace(/\[(\w+)\]/gi, ':$1') // convert [] to :
 			.replace('/index', '') || '/'; // remove index
 		const route = require(file);
-
 		Object.keys(route).forEach(method => fastify.route({
 			config: { client },
 			method: method.toUpperCase(),
@@ -147,9 +149,31 @@ module.exports = client => {
 		})); // register route
 	});
 
-	// start server
-	fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
-		if (err) client.log.error.http(err);
-		else client.log.success.http(`Listening at ${addr}`);
+	// const { handler: app } = await import('@discord-tickets/settings/build/handler.js');
+	// fastify.use('/*', app);
+	// fastify.use(app);
+
+	return fastify;
+}
+
+module.exports = async client => {
+	build(client)
+		.then(fastify => {
+			// start server
+			fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
+				if (err) client.log.error.http(err);
+				else client.log.success.http(`Listening at ${addr}`);
+			});
+		})
+		.catch(client.log.error.http);
+
+	const express = require('express')();
+	const { handler } = await import('@discord-tickets/settings/build/handler.js');
+	express.get('/api/client', (req, res) => {
+		res.end('ok');
+	});
+	express.use(handler);
+	express.listen(3000, () => {
+		console.log('listening on port 3000');
 	});
 };
