@@ -2,15 +2,16 @@ const { randomBytes } = require('crypto');
 const fs = require('fs');
 
 const env = {
+	API_BIND: 8080,
+	API_EXTERNAL: 'http://localhost:8080',
 	DB_CONNECTION_URL: '',
 	DB_PROVIDER: '', // don't default to sqlite, postinstall checks if empty
 	DISCORD_SECRET: '',
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
-	HTTP_BIND: 8080,
-	HTTP_EXTERNAL: 'http://localhost:8080',
 	PORTAL: '',
 	PUBLIC_BOT: false,
+	SETTINGS_BIND: 80,
 	SUPER: '319467558166069248',
 };
 
