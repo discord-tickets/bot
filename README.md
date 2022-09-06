@@ -1,14 +1,3 @@
-DISCORD_SECRET=
-DISCORD_TOKEN=
-DB_CONNECTION_URL="mysql://test:password@localhost/tickets0"
-DB_PROVIDER=mysql
-ENCRYPTION_KEY=
-API_BIND=8080
-API_EXTERNAL=http://localhost:8080
-PORTAL=http://localhost:3000
-SUPER=
-
-
 https://www.prisma.io/docs/reference/database-reference/supported-databases
 
 ![](https://static.eartharoid.me/k/22/08/02185801.png) - for user/create, slash/force-close, slash/claim, slash/release, and slash/move
@@ -23,14 +12,14 @@ menu question max length cannot be higher than question options
 
 
 creation requires an interaction:
-- /new -> category? -> topic or questions -> create
-- user:create(self) -> category? -> topic or questions -> create
-- user:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
-- message:create(self) -> category? -> topic or questions -> create
-- message:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
-- DM -> guild? -> category? -> topic or questions -> create
-- panel(interaction) -> topic or questions -> create
-- ~~panel(message) -> DM (channel fallback) button -> topic or questions -> create~~
+- [x] /new -> category? -> topic or questions -> create
+- [ ] user:create(self) -> category? -> topic or questions -> create
+- [ ] user:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
+- [x] message:create(self) -> category? -> topic or questions -> create
+- [x] message:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
+- [x] DM -> guild? -> category? -> topic or questions -> create
+- [x] panel(interaction) -> topic or questions -> create
+- [ ] ~~panel(message) -> DM (channel fallback) button -> topic or questions -> create~~
 
 > **Note**
 >
