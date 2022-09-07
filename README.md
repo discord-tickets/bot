@@ -18,7 +18,7 @@ creation requires an interaction:
 - [ ] user:create(self) -> category? -> topic or questions -> create
 - [ ] user:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
 - [x] message:create(self) -> category? -> topic or questions -> create
-- [x] message:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create
+- [ ] ~~message:create(staff) -> category? -> DM (channel fallback) button -> topic or questions -> create~~
 - [x] DM -> guild? -> category? -> topic or questions -> create
 - [x] panel(interaction) -> topic or questions -> create
 - [ ] ~~panel(message) -> DM (channel fallback) button -> topic or questions -> create~~
