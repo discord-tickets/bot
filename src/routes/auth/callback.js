@@ -23,6 +23,6 @@ module.exports.get = () => ({
 				sameSite: true,
 				secure: false,
 			})
-			.redirect('/');
+			.redirect('/settings');
 	},
 });

@@ -10,6 +10,7 @@ const colours = {
 	info: ['&3', '&b'],
 	notice: ['&!6&0', '&!6&0'],
 	success: ['&2', '&a'],
+	verbose: ['&7', '&f'],
 	warn: ['&6', '&e'],
 };
 

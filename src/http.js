@@ -4,7 +4,7 @@ const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
 
-process.env.PUBLIC_HOST = process.env.API_EXTERNAL; // the SvelteKit app expects `PUBLIC_HOST`
+process.env.PUBLIC_HOST = process.env.HTTP_EXTERNAL; // the SvelteKit app expects `PUBLIC_HOST`
 
 module.exports = async client => {
 	// cors plugin
@@ -16,7 +16,7 @@ module.exports = async client => {
 
 	// oauth2 plugin
 	fastify.register(oauth, {
-		callbackUri: `${process.env.API_EXTERNAL}/auth/callback`,
+		callbackUri: `${process.env.HTTP_EXTERNAL}/auth/callback`,
 		credentials: {
 			auth: oauth.DISCORD_CONFIGURATION,
 			client: {
@@ -41,6 +41,14 @@ module.exports = async client => {
 		secret: process.env.ENCRYPTION_KEY,
 	});
 
+	// proxy /settings to express
+	fastify.register(require('@fastify/http-proxy'), {
+		http2: false,
+		prefix: '/settings',
+		rewritePrefix: '/settings',
+		upstream: `http://127.0.0.1:${process.env.SETTINGS_BIND}`,
+	});
+
 	// auth
 	fastify.decorate('authenticate', async (req, res) => {
 		try {
@@ -54,6 +62,8 @@ module.exports = async client => {
 				});
 			}
 		} catch (err) {
+			console.log(req);
+			console.log(req.cookies);
 			res.send(err);
 		}
 	});
@@ -116,15 +126,15 @@ module.exports = async client => {
 			: responseTime >= 5
 				? '&e'
 				: '&a') + responseTime + 'ms';
-		client.log.info.http(short(`API ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
+		client.log.info.http(short(`${req.id} ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
+		if (!req.routerPath) client.log.verbose.http(`${req.id} ${req.method} ${req.url}`);
 		done();
 	});
 
-	fastify.addHook('onError', async (req, res, err) => client.log.error.http(err));
+	fastify.addHook('onError', async (req, res, err) => client.log.error.http(req.id, err));
 
 	// route loading
 	const dir = join(__dirname, '/routes');
-
 	files(dir, {
 		exclude: /^\./,
 		match: /.js$/,
@@ -146,24 +156,21 @@ module.exports = async client => {
 		})); // register route
 	});
 
-	// start server
-	fastify.listen({ port: process.env.API_BIND }, (err, addr) => {
-		if (err) client.log.error.http(err);
-		else client.log.success.http(`API Listening at ${addr}`);
-	});
-
+	// express server for settings
 	const express = require('express')();
 	const { handler } = await import('@discord-tickets/settings/build/handler.js');
-	express.get('/api/client', (req, res) => {
-		res.end('ok');
-	});
 	express.use((req, res, next) => {
 		next();
-		// req.route?.path  ?? '*'
-		client.log.verbose.http(short(`SETTINGS ${req.ip} ${req.method} ${req.path}`)); // verbose because little information & SvelteKit is very spammy (lots of routes)
+		client.log.verbose.http(short(`Express ${req.ip} ${req.method} ${req.route?.path ?? req.path}`));
 	});
-	express.use(handler);
-	express.listen(process.env.SETTINGS_BIND, () => {
-		client.log.success.http(`SETTINGS Listening at ${process.env.SETTINGS_BIND}`);
+	express.use(handler); // let SvelteKit handle everything
+	express.listen(process.env.SETTINGS_BIND, () => { // start the express server
+		client.log.verbose.http(`Express listening on port ${process.env.SETTINGS_BIND}`);
+	});
+
+	// start the fastify server
+	fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
+		if (err) client.log.error.http(err);
+		else client.log.success.http(`Listening at ${addr}`);
 	});
 };

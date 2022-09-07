@@ -34,12 +34,12 @@
 		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^1.0.0",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.0.4",
 		"@fastify/cookie": "^6.0.0",
 		"@fastify/cors": "^8.1.0",
+		"@fastify/http-proxy": "^8.2.2",
 		"@fastify/jwt": "^5.0.1",
 		"@fastify/oauth2": "^5.1.0",
 		"@prisma/client": "^4.3.1",

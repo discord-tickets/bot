@@ -2,7 +2,6 @@ require('dotenv').config();
 const fs = require('fs-extra');
 const { spawnSync } = require('child_process');
 
-
 const providers = ['mysql', 'postgresql', 'sqlite'];
 const provider = process.env.DB_PROVIDER;
 
