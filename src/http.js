@@ -1,5 +1,6 @@
 const fastify = require('fastify')();
 const oauth = require('@fastify/oauth2');
+const { domain } = require('./lib/http');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
@@ -45,6 +46,12 @@ module.exports = async client => {
 	fastify.register(require('@fastify/http-proxy'), {
 		http2: false,
 		prefix: '/settings',
+		replyOptions: {
+			rewriteRequestHeaders: (req, headers) => ({
+				...headers,
+				'host': domain,
+			}),
+		},
 		rewritePrefix: '/settings',
 		upstream: `http://127.0.0.1:${process.env.SETTINGS_BIND}`,
 	});
@@ -62,8 +69,6 @@ module.exports = async client => {
 				});
 			}
 		} catch (err) {
-			console.log(req);
-			console.log(req.cookies);
 			res.send(err);
 		}
 	});
@@ -126,7 +131,8 @@ module.exports = async client => {
 			: responseTime >= 5
 				? '&e'
 				: '&a') + responseTime + 'ms';
-		client.log.info.http(short(`${req.id} ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
+		const level = req.routerPath.startsWith('/settings') ? 'verbose' : 'info';
+		client.log[level].http(short(`${req.id} ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
 		if (!req.routerPath) client.log.verbose.http(`${req.id} ${req.method} ${req.url}`);
 		done();
 	});

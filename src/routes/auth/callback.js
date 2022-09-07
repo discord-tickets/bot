@@ -23,6 +23,8 @@ module.exports.get = () => ({
 				sameSite: true,
 				secure: false,
 			})
-			.redirect('/settings');
+			// .redirect('/settings')
+			.type('text/html')
+			.send('<a href="/settings">/settings</a>'); // temp fix: redirecting causes weird discord<->callback loop, probably caching?
 	},
 });
