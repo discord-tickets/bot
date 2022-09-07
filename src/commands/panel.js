@@ -176,7 +176,7 @@ module.exports = class PanelCommand extends Command {
 				this.client.log.info(`${interaction.user.tag} has created a new button panel`);
 			} else {
 				// multi category
-				const rows = await this.client.db.models.Category.findAll({ where: { guild: interaction.guild.id } });
+				const rows = (await this.client.db.models.Category.findAll({ where: { guild: interaction.guild.id } })).filter(row => categories.includes(row.id));
 				await panel_channel.send({
 					components: [
 						new MessageActionRow()
