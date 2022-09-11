@@ -1,0 +1,1 @@
+module.exports.msToMins = ms => Number((ms / 1000 / 60).toFixed(1));

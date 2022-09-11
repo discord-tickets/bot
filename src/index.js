@@ -63,7 +63,7 @@ const config = YAML.parse(fs.readFileSync('./user/config.yml', 'utf8'));
 const log = logger(config);
 
 process.on('unhandledRejection', error => {
-	log.notice(`Discord Tickets v${pkg.version} on Node.js v${process.versions.node} (${process.platform})`);
+	log.notice(`Discord Tickets v${pkg.version} on Node.js ${process.version} (${process.platform})`);
 	log.notice('An error was not caught');
 	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
 	log.error(error);

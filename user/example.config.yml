@@ -32,3 +32,4 @@ presence:
   status: online # online|idle|invisible|dnd
 overrides:
   disableArchives: false
+stats: true

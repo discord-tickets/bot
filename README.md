@@ -6,11 +6,7 @@ menu question max length cannot be higher than question options
 
 ports <1024 require root
 
-- TODO: topic and question answer values not encrypted?
-- TODO: post stats
-- TODO: settings bundle download
 - TODO: update notifications
-- TODO: check inline to-dos
 
 
 creation requires an interaction:
