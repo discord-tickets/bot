@@ -2,6 +2,8 @@ const { Modal } = require('@eartharoid/dbf');
 const { EmbedBuilder } = require('discord.js');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { logTicketEvent } = require('../lib/logging');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class QuestionsModal extends Modal {
 	constructor(client, options) {
@@ -49,7 +51,7 @@ module.exports = class QuestionsModal extends Modal {
 				data: {
 					questionAnswers: {
 						update: interaction.fields.fields.map(f => ({
-							data: { value: f.value },
+							data: { value: f.value ? cryptr.encrypt(f.value) : '' },
 							where: { id: Number(f.customId) },
 						})),
 					},
@@ -70,7 +72,7 @@ module.exports = class QuestionsModal extends Modal {
 						ticket.questionAnswers
 							.map(a => ({
 								name: a.question.label,
-								value: a.value || getMessage('ticket.answers.no_value'),
+								value: a.value ? cryptr.decrypt(a.value) : getMessage('ticket.answers.no_value'),
 							})),
 					);
 				await opening.edit({ embeds });
@@ -92,7 +94,7 @@ module.exports = class QuestionsModal extends Modal {
 			const makeDiff = ticket => {
 				const diff = {};
 				ticket.questionAnswers.forEach(a => {
-					diff[a.question.label] = a.value || getMessage('ticket.answers.no_value');
+					diff[a.question.label] = a.value ? cryptr.decrypt(a.value) : getMessage('ticket.answers.no_value');
 				});
 				return diff;
 			};

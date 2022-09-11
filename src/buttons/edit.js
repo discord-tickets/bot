@@ -8,6 +8,8 @@ const {
 	TextInputStyle,
 } = require('discord.js');
 const emoji = require('node-emoji');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class EditButton extends Button {
 	constructor(client, options) {
@@ -52,7 +54,7 @@ module.exports = class EditButton extends Button {
 									.setMinLength(5)
 									.setPlaceholder(getMessage('modals.topic.placeholder'))
 									.setRequired(true)
-									.setValue(ticket.topic || ''),
+									.setValue(ticket.topic ? cryptr.decrypt(ticket.topic) : ''),
 							),
 					),
 			);
@@ -79,7 +81,7 @@ module.exports = class EditButton extends Button {
 												.setMinLength(a.question.minLength)
 												.setPlaceholder(a.question.placeholder)
 												.setRequired(a.question.required)
-												.setValue(a.value || a.question.value),
+												.setValue(a.value ? cryptr.decrypt(a.value) : a.question.value),
 										);
 								} else if (a.question.type === 'MENU') {
 									return new ActionRowBuilder()

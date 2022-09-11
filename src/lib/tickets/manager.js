@@ -15,6 +15,8 @@ const emoji = require('node-emoji');
 const ms = require('ms');
 const ExtendedEmbedBuilder = require('../embed');
 const { logTicketEvent } = require('../logging');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -314,7 +316,7 @@ module.exports = class TicketManager {
 				answers = category.questions.map(q => ({
 					questionId: q.id,
 					userId: interaction.user.id,
-					value: interaction.fields.getTextInputValue(q.id),
+					value: interaction.fields.getTextInputValue(q.id) ? cryptr.encrypt(interaction.fields.getTextInputValue(q.id)) : '',
 				}));
 				if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
 			} else if (action === 'topic') {
@@ -549,7 +551,7 @@ module.exports = class TicketManager {
 			id: channel.id,
 			number,
 			openingMessageId: sent.id,
-			topic,
+			topic: topic ? cryptr.encrypt(topic) : null,
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		let message;
