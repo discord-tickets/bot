@@ -10,3 +10,5 @@ prisma/
 *.log
 *-lock.*
 user/config.yml
+user/**/*.*
+!user/**/.gitkeep
