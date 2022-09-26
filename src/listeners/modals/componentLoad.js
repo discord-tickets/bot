@@ -10,7 +10,7 @@ module.exports = class extends Listener {
 	}
 
 	run(modal) {
-		this.client.log.info(`Loaded "${modal.id}" modal`);
+		this.client.log.info.modals(`Loaded "${modal.id}" modal`);
 		return true;
 	}
 };

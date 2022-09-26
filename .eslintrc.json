@@ -127,7 +127,7 @@
 			"off"
 		],
 		"no-console": [
-			"off"
+			"warn"
 		],
 		"no-prototype-builtins": [
 			"off"

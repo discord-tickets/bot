@@ -38,7 +38,7 @@ module.exports = config => {
 	}
 
 	return new Logger({
-		namespaces: ['commands', 'http', 'listeners', 'settings', 'tickets'],
+		namespaces: ['autocomplete', 'buttons', 'commands', 'http', 'listeners', 'menus', 'modals', 'settings', 'tickets'],
 		transports,
 	});
 };

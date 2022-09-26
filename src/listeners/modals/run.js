@@ -4,13 +4,16 @@ module.exports = class extends Listener {
 	constructor(client, options) {
 		super(client, {
 			...options,
-			emitter: client.autocomplete,
-			event: 'componentLoad',
+			emitter: client.modals,
+			event: 'run',
 		});
 	}
 
-	run(autocompleter) {
-		this.client.log.info.autocomplete(`Loaded "${autocompleter.id}" autocompleter`);
+	run({
+		modal,
+		interaction,
+	}) {
+		this.client.log.info.modals(`${interaction.user.tag} used the "${modal.id}" modal`);
 		return true;
 	}
 };

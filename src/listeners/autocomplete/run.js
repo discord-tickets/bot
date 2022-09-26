@@ -5,12 +5,15 @@ module.exports = class extends Listener {
 		super(client, {
 			...options,
 			emitter: client.autocomplete,
-			event: 'componentLoad',
+			event: 'run',
 		});
 	}
 
-	run(autocompleter) {
-		this.client.log.info.autocomplete(`Loaded "${autocompleter.id}" autocompleter`);
+	run({
+		autocompleter,
+		interaction,
+	}) {
+		this.client.log.verbose.autocomplete(`${interaction.user.tag} used the "${autocompleter.id}" autocompleter`);
 		return true;
 	}
 };

@@ -4,13 +4,16 @@ module.exports = class extends Listener {
 	constructor(client, options) {
 		super(client, {
 			...options,
-			emitter: client.autocomplete,
-			event: 'componentLoad',
+			emitter: client.menus,
+			event: 'run',
 		});
 	}
 
-	run(autocompleter) {
-		this.client.log.info.autocomplete(`Loaded "${autocompleter.id}" autocompleter`);
+	run({
+		menu,
+		interaction,
+	}) {
+		this.client.log.info.menus(`${interaction.user.tag} used the "${menu.id}" menu`);
 		return true;
 	}
 };

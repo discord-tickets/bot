@@ -10,7 +10,7 @@ module.exports = class extends Listener {
 	}
 
 	run(button) {
-		this.client.log.info(`Loaded "${button.id}" button`);
+		this.client.log.info.buttons(`Loaded "${button.id}" button`);
 		return true;
 	}
 };

@@ -10,7 +10,7 @@ module.exports = class extends Listener {
 	}
 
 	run(menu) {
-		this.client.log.info(`Loaded "${menu.id}" menu`);
+		this.client.log.info.menus(`Loaded "${menu.id}" menu`);
 		return true;
 	}
 };
