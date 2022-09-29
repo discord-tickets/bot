@@ -23,6 +23,17 @@ commands:
       name: Create a ticket from message
     pin:
       name: Pin message
+      not_pinnable:
+        description: |
+          This message can't be pinned.
+          Please ask an administrator to check the bot's permissions.
+        title: ❌ Error
+      not_ticket:
+        description: You can only pin messages in tickets.
+        title: ❌ This isn't a ticket channel
+      pinned:
+         description: The message has been pinned.
+         title: ✅ Pinned message
   slash:
     add:
       description: Add a member to a ticket
