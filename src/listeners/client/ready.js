@@ -1,5 +1,5 @@
 const { Listener } = require('@eartharoid/dbf');
-const md5 = require('md5');
+const crypto = require('crypto');
 const ms = require('ms');
 const { version } = require('../../../package.json');
 const { msToMins } = require('../../lib/misc');
@@ -81,7 +81,7 @@ module.exports = class extends Listener {
 					categories: await client.prisma.category.count(),
 					database: process.env.DB_PROVIDER,
 					guilds: client.guilds.cache.size,
-					id: md5(client.user.id),
+					id: crypto.createHash('md5').update(client.user.id).digest('hex'),
 					members: client.guilds.cache.reduce((t, g) => t + g.memberCount, 0),
 					messages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted,
 					node: process.version,

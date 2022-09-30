@@ -1,5 +1,4 @@
 const ms = require('ms');
-const { boolean } = require('boolean');
 
 module.exports.get = () => ({
 	handler: async (req, res) => {
@@ -22,7 +21,7 @@ module.exports.get = () => ({
 				discriminator: client.user.discriminator,
 				id: client.user.id,
 				portal: process.env.PORTAL || null,
-				public: boolean(process.env.PUBLIC_BOT),
+				public: (process.env.PUBLIC_BOT === 'true'),
 				stats: {
 					activatedUsers: users.length,
 					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted
