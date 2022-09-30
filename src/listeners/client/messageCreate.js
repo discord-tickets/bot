@@ -9,7 +9,9 @@ const {
 	SelectMenuBuilder,
 	SelectMenuOptionBuilder,
 } = require('discord.js');
-const { getCommonGuilds } = require('../../lib/users');
+const {
+	getCommonGuilds, isStaff,
+} = require('../../lib/users');
 const ms = require('ms');
 const emoji = require('node-emoji');
 
@@ -192,14 +194,16 @@ module.exports = class extends Listener {
 					}
 				}
 
-				if (ticket.firstResponseAt === null)  {
-					ticket = await client.prisma.ticket.update({
-						data: { firstResponseAt: new Date() },
-						where: { id: ticket.id },
-					});
-				}
+				const data = { lastMessageAt: new Date() };
+				if (
+					ticket.firstResponseAt === null &&
+					await isStaff(message.guild, message.author.id)
+				) data.firstResponseAt = new Date();
+				ticket = await client.prisma.ticket.update({
+					data,
+					where: { id: ticket.id },
+				});
 
-				// TODO: lastMessageAt
 				// TODO: staff status alert, working hours alerts
 			} else {
 				// TODO: auto tag
