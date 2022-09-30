@@ -22,7 +22,7 @@ model ArchivedChannel {
 model ArchivedMessage {
     author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
     authorId  String       @db.VarChar(19)
-    content   Json
+    content   String       @db.Text
     createdAt DateTime     @default(now())
     deleted   Boolean      @default(false)
     edited    Boolean      @default(false)
@@ -50,17 +50,17 @@ model ArchivedRole {
 
 model ArchivedUser {
     archivedMessages ArchivedMessage[]
-    avatar           String
+    avatar           String?
     bot              Boolean           @default(false)
     createdAt        DateTime          @default(now())
-    discriminator    String            @db.Char(4)
-    displayName      String            @db.Text
-    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
-    roleId           String            @db.VarChar(19)
+    discriminator    String?           @db.Char(4)
+    displayName      String?           @db.Text
+    role             ArchivedRole?     @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
+    roleId           String?           @db.VarChar(19)
     ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String            @db.VarChar(19)
     userId           String            @db.VarChar(19)
-    username         String            @db.Text
+    username         String?           @db.Text
 
     @@id([ticketId, userId])
     @@unique([ticketId, userId])
@@ -68,30 +68,30 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName      String
-    claiming         Boolean    @default(false)
-    createdAt        DateTime   @default(now())
-    cooldown         Int?
-    customTopic      String?
-    description      String
-    discordCategory  String     @db.VarChar(19)
-    emoji            String
-    enableFeedback   Boolean    @default(false)
-    guild            Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
-    guildId          String     @db.VarChar(19)
-    id               Int        @id @default(autoincrement())
-    image            String?
-    memberLimit      Int        @default(1)
-    name             String
-    openingMessage String     @db.Text
-    pingRoles        Json       @default("[]")
-    questions        Question[]
-    ratelimit        Int?
-    requiredRoles    Json       @default("[]")
-    requireTopic     Boolean    @default(false)
-    staffRoles       Json
-    tickets          Ticket[]
-    totalLimit       Int        @default(50)
+    channelName     String
+    claiming        Boolean    @default(false)
+    createdAt       DateTime   @default(now())
+    cooldown        Int?
+    customTopic     String?
+    description     String
+    discordCategory String     @db.VarChar(19)
+    emoji           String
+    enableFeedback  Boolean    @default(false)
+    guild           Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId         String     @db.VarChar(19)
+    id              Int        @id @default(autoincrement())
+    image           String?
+    memberLimit     Int        @default(1)
+    name            String
+    openingMessage  String     @db.Text
+    pingRoles       Json       @default("[]")
+    questions       Question[]
+    ratelimit       Int?
+    requiredRoles   Json       @default("[]")
+    requireTopic    Boolean    @default(false)
+    staffRoles      Json
+    tickets         Ticket[]
+    totalLimit      Int        @default(50)
 
     @@map("categories")
 }

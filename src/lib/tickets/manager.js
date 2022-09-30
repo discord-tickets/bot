@@ -474,36 +474,50 @@ module.exports = class TicketManager {
 				.catch(() => this.client.log.warn('Failed to delete system pin message'));
 		}
 
-		// TODO: referenced msg or ticket
-
+		/** @type {import("discord.js").Message|undefined} */
+		let message;
 		if (referencesMessage) {
 			referencesMessage = referencesMessage.split('/');
 			/** @type {import("discord.js").Message} */
-			const message = await (await this.client.channels.fetch(referencesMessage[0]))?.messages.fetch(referencesMessage[1]);
+			message = await (await this.client.channels.fetch(referencesMessage[0]))?.messages.fetch(referencesMessage[1]);
 			if (message) {
-				await channel.send({
-					embeds: [
-						new ExtendedEmbedBuilder()
-							.setColor(category.guild.primaryColour)
-							.setTitle(getMessage('ticket.references_message.title'))
-							.setDescription(
-								getMessage('ticket.references_message.description', {
-									author: message.author.toString(),
-									timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
-									url: message.url,
-								})),
-						new ExtendedEmbedBuilder({
-							iconURL: guild.iconURL(),
-							text: category.guild.footer,
-						})
-							.setColor(category.guild.primaryColour)
-							.setAuthor({
-								iconURL: message.member?.displayAvatarURL(),
-								name: message.member?.displayName || 'Unknown',
-							})
-							.setDescription(message.content.substring(0, 1000) + message.content.length > 1000 ? '...' : ''),
-					],
-				});
+				// not worth the effort of making system messages work atm
+				if (message.system) {
+					referencesMessage = null;
+					message = null;
+				} else {
+					if (!message.member) {
+						try {
+							message.member = await message.guild.members.fetch(message.author.id);
+						} catch {
+							this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
+						}
+						await channel.send({
+							embeds: [
+								new ExtendedEmbedBuilder()
+									.setColor(category.guild.primaryColour)
+									.setTitle(getMessage('ticket.references_message.title'))
+									.setDescription(
+										getMessage('ticket.references_message.description', {
+											author: message.author.toString(),
+											timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
+											url: message.url,
+										})),
+								new ExtendedEmbedBuilder({
+									iconURL: guild.iconURL(),
+									text: category.guild.footer,
+								})
+									.setColor(category.guild.primaryColour)
+									.setAuthor({
+										iconURL: message.member?.displayAvatarURL(),
+										name: message.member?.displayName || 'Unknown',
+									})
+									.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
+							],
+						});
+					}
+				}
+
 			}
 		} else if (referencesTicketId) {
 			// TODO: add portal url
@@ -554,9 +568,6 @@ module.exports = class TicketManager {
 			topic: topic ? cryptr.encrypt(topic) : null,
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
-		let message;
-		if (referencesMessage) message = await this.client.prisma.archivedMessage.findUnique({ where: { id: referencesMessage[1] } });
-		if (message) data.referencesMessage = { connect: { id: referencesMessage[0] } }; // only add if the message has been archived ^^
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
 		await interaction.editReply({
 			components: [],
@@ -581,6 +592,16 @@ module.exports = class TicketManager {
 				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
 				const TTL = category.cooldown;
 				await this.client.keyv.set(cacheKey, expiresAt, TTL);
+			}
+
+			if (category.guild.archive && message) {
+				const row = await this.archiver.saveMessage(ticket.id, message, true);
+				if (row) {
+					await this.client.prisma.ticket.update({
+						data: { referencesMessageId: row.id },
+						where: { id: ticket.id },
+					});
+				}
 			}
 
 			logTicketEvent(this.client, {

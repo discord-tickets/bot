@@ -1,11 +1,255 @@
 const Cryptr = require('cryptr');
-// const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+
+/**
+ * Returns highest (roles.highest) hoisted role , or everyone
+ * @param {import("discord.js").GuildMember} member
+ * @returns {import("discord.js").Role}
+ */
+const hoistedRole = member => member.roles.hoist || member.guild.roles.everyone;
 
 module.exports = class TicketArchiver {
 	constructor(client) {
 		/** @type {import("client")} */
 		this.client = client;
+		this.encrypt = cryptr.encrypt;
+		this.decrypt = cryptr.decrypt;
 	}
 
-	async addMessage() {}
+	/** Add or update a message
+	 * @param {string} ticketId
+	 * @param {import("discord.js").Message} message
+	 * @param {boolean?} external
+	 * @returns {import("@prisma/client").ArchivedMessage|boolean}
+	 */
+	async saveMessage(ticketId, message, external = false) {
+		if (this.client.config.overrides.disableArchives) return false;
+
+		if (!message.member) {
+			try {
+				message.member = await message.guild.members.fetch(message.author.id);
+			} catch {
+				this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
+			}
+		}
+
+		const channels = message.mentions.channels;
+		const members = [...message.mentions.members];
+		const roles = [...message.mentions.roles];
+
+		if (message.member) {
+			members.push(message.member);
+			roles.push(hoistedRole(message.member));
+		} else {
+			this.client.log.warn('Message member does not exist');
+			await this.client.prisma.archivedUser.upsert({
+				create: {},
+				update: {},
+				where: {
+					ticketId_userId: {
+						ticketId,
+						userId: 'default',
+					},
+				},
+			});
+		}
+
+		for (const role of roles) {
+			const data = {
+				colour: role.hexColor.slice(1),
+				name: role.name,
+				roleId: role.id,
+				ticket: { connect: { id: ticketId } },
+			};
+			await this.client.prisma.archivedRole.upsert({
+				create: data,
+				update: data,
+				where: {
+					ticketId_roleId: {
+						roleId: role.id,
+						ticketId,
+					},
+				},
+			});
+		}
+
+		for (const member of members) {
+			const data = {
+				avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
+				bot: member.user.bot,
+				discriminator: member.user.discriminator,
+				displayName: member.displayName ? this.encrypt(member.displayName) : null,
+				roleId: !!member && hoistedRole(member).id,
+				ticketId,
+				userId: member.user.id,
+				username: this.encrypt(member.user.username),
+			};
+			await this.client.prisma.archivedUser.upsert({
+				create: data,
+				update: data,
+				where: {
+					ticketId_userId: {
+						ticketId,
+						userId: member.user.id,
+					},
+				},
+			});
+		}
+
+		const messageD = {
+			author: {
+				connect: {
+					ticketId_userId: {
+						ticketId,
+						userId: message.author?.id || 'default',
+					},
+				},
+			},
+			content: cryptr.encrypt(
+				JSON.stringify({
+					attachments: [...message.attachments.values()],
+					components: [...message.components.values()],
+					content: message.content,
+					embeds: message.embeds.map(embed => ({ embed })),
+				}),
+			),
+			createdAt: message.createdAt,
+			edited: !!message.editedAt,
+			external,
+			id: message.id,
+		};
+
+		await this.client.prisma.ticket.update({
+			data: {
+				archivedChannels: {
+					upsert: channels.map(channel => {
+						const data = {
+							channelId: channel.id,
+							name: channel.name,
+						};
+						return {
+							create: data,
+							update: data,
+							where: {
+								ticketId_channelId: {
+									channelId: channel.id,
+									ticketId,
+								},
+							},
+						};
+					}),
+				},
+				archivedMessages: {
+					upsert: {
+						create: messageD,
+						update: messageD,
+						where: { id: message.id },
+					},
+				},
+			},
+			where: { id: ticketId },
+		});
+
+		// await this.client.prisma.ticket.update({
+		// 	data: {
+		// 		archivedChannels: {
+		// 			upsert: channels.map(channel => {
+		// 				const data = {
+		// 					channelId: channel.id,
+		// 					name: channel.name,
+		// 				};
+		// 				return {
+		// 					create: data,
+		// 					update: data,
+		// 					where: {
+		// 						ticketId_channelId: {
+		// 							channelId: channel.id,
+		// 							ticketId,
+		// 						},
+		// 					},
+		// 				};
+		// 			}),
+		// 		},
+		// 		archivedRoles: {
+		// 			upsert: roles.map(role => {
+		// 				const data = {
+		// 					colour: role.hexColor.slice(1),
+		// 					name: role.name,
+		// 					roleId: role.id,
+		// 				};
+		// 				return {
+		// 					create: data,
+		// 					update: data,
+		// 					where: {
+		// 						ticketId_roleId: {
+		// 							roleId: role.id,
+		// 							ticketId,
+		// 						},
+		// 					},
+		// 				};
+		// 			}),
+		// 		},
+		// 		archivedUsers: {
+		// 			upsert: members.map(member => {
+		// 				// message author might have left the server (this message could be external/referenced)
+		// 				const data = {
+		// 					avatar: member?.avatar || member.user?.avatar, // TODO: save avatar in user/avatars/
+		// 					bot: member.user?.bot,
+		// 					discriminator: member.user?.discriminator,
+		// 					displayName: member?.displayName ? this.encrypt(member?.displayName) : null,
+		// 					// role: !!member && {
+		// 					// 	connectOrCreate: {
+		// 					// 		create: {
+		// 					// 			colour: hoistedRole(member).hexColor.slice(1),
+		// 					// 			name: hoistedRole(member).name,
+		// 					// 			roleId: hoistedRole(member).id,
+		// 					// 			ticket: { connect: { id: ticketId } },
+		// 					// 		},
+		// 					// 		where: {
+		// 					// 			roleId: hoistedRole(member).id,
+		// 					// 			ticketId,
+		// 					// 		},
+		// 					// 	},
+		// 					// },
+		// 					roleId: !!member && hoistedRole(member).id,
+		// 					userId: member.user?.id || 'default',
+		// 					username: member.user?.username ? this.encrypt(member.user.username) : null,
+		// 				};
+		// 				return {
+		// 					create: data,
+		// 					update: data,
+		// 					where: {
+		// 						ticketId_userId: {
+		// 							ticketId,
+		// 							userId: member.user.id,
+		// 						},
+		// 					},
+		// 				};
+		// 			}),
+		// 		},
+		// 	},
+		// 	where: { id: ticketId },
+		// });
+
+		// const messageD = {
+		// 	author: { connect: { id: message.author?.id || 'default' } },
+		// 	content: cryptr.encrypt(
+		// 		JSON.stringify({
+		// 			attachments: [...message.attachments.values()],
+		// 			components: [...message.components.values()],
+		// 			content: message.content,
+		// 			embeds: message.embeds.map(embed => ({ embed })),
+		// 		}),
+		// 	),
+		// 	createdAt: message.createdAt,
+		// 	edited: !!message.editedAt,
+		// 	external,
+		// };
+
+		// return await this.client.prisma.archivedMessage.upsert({
+		// 	create: messageD,
+		// 	update: messageD,
+		// 	where: { id: message.id },
+		// });
+	}
 };

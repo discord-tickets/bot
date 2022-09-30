@@ -177,11 +177,34 @@ module.exports = class extends Listener {
 					});
 			}
 		} else {
-			// TODO: archive messages in tickets
-			// TODO: first response
-			// TODO: lastMessageAt
-			// TODO: auto tag
-			// TODO: staff status alert, working hours alerts
+			let ticket = await client.prisma.ticket.findUnique({
+				include: { guild: true },
+				where: { id: message.channel.id },
+			});
+
+			if (ticket) {
+				if (ticket.guild.archive) {
+					try {
+						await client.tickets.archiver.saveMessage(ticket.id, message);
+					} catch (error) {
+						client.log.warn('Failed to archive message', message.id);
+						client.log.error(error);
+					}
+				}
+
+				if (ticket.firstResponseAt === null)  {
+					ticket = await client.prisma.ticket.update({
+						data: { firstResponseAt: new Date() },
+						where: { id: ticket.id },
+					});
+				}
+
+				// TODO: lastMessageAt
+				// TODO: staff status alert, working hours alerts
+			} else {
+				// TODO: auto tag
+			}
+
 		}
 	}
 };

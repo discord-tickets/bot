@@ -50,17 +50,17 @@ model ArchivedRole {
 
 model ArchivedUser {
     archivedMessages ArchivedMessage[]
-    avatar           String
+    avatar           String?
     bot              Boolean           @default(false)
     createdAt        DateTime          @default(now())
-    discriminator    String
-    displayName      String
-    role             ArchivedRole      @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
-    roleId           String
+    discriminator    String?
+    displayName      String?
+    role             ArchivedRole?     @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
+    roleId           String?
     ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId         String
     userId           String
-    username         String
+    username         String?
 
     @@id([ticketId, userId])
     @@unique([ticketId, userId])
@@ -68,30 +68,30 @@ model ArchivedUser {
 }
 
 model Category {
-    channelName      String
-    claiming         Boolean    @default(false)
-    createdAt        DateTime   @default(now())
-    cooldown         Int?
-    customTopic      String?
-    description      String
-    discordCategory  String
-    emoji            String
-    enableFeedback   Boolean    @default(false)
-    guild            Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
-    guildId          String
-    id               Int        @id @default(autoincrement())
-    image            String?
-    memberLimit      Int        @default(1)
-    name             String
-    openingMessage String
-    pingRoles        String     @default("[]")
-    questions        Question[]
-    ratelimit        Int?
-    requiredRoles    String     @default("[]")
-    requireTopic     Boolean    @default(false)
-    staffRoles       String
-    tickets          Ticket[]
-    totalLimit       Int        @default(50)
+    channelName     String
+    claiming        Boolean    @default(false)
+    createdAt       DateTime   @default(now())
+    cooldown        Int?
+    customTopic     String?
+    description     String
+    discordCategory String
+    emoji           String
+    enableFeedback  Boolean    @default(false)
+    guild           Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId         String
+    id              Int        @id @default(autoincrement())
+    image           String?
+    memberLimit     Int        @default(1)
+    name            String
+    openingMessage  String
+    pingRoles       String     @default("[]")
+    questions       Question[]
+    ratelimit       Int?
+    requiredRoles   String     @default("[]")
+    requireTopic    Boolean    @default(false)
+    staffRoles      String
+    tickets         Ticket[]
+    totalLimit      Int        @default(50)
 
     @@map("categories")
 }
