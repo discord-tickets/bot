@@ -1,4 +1,4 @@
-const fastify = require('fastify')();
+const fastify = require('fastify')({ trustProxy: true });
 const oauth = require('@fastify/oauth2');
 const { domain } = require('./lib/http');
 const { short } = require('leeks.js');
@@ -165,6 +165,7 @@ module.exports = async client => {
 	// express server for settings
 	const express = require('express')();
 	const { handler } = await import('@discord-tickets/settings/build/handler.js');
+	express.set('trust proxy', true);
 	express.use((req, res, next) => {
 		next();
 		client.log.verbose.http(short(`Express ${req.ip} ${req.method} ${req.route?.path ?? req.path}`));
