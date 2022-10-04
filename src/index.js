@@ -21,6 +21,9 @@
  * @license GNU-GPLv3
  */
 
+process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
+require('dotenv').config(); // load env file
+
 const pkg = require('../package.json');
 const fs = require('fs');
 const semver = require('semver');
@@ -30,9 +33,6 @@ const banner = require('./lib/banner');
 const YAML = require('yaml');
 const Client = require('./client');
 const http = require('./http');
-
-process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
-require('dotenv').config(); // load env file
 
 // check node version
 if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
