@@ -10,10 +10,10 @@ module.exports = class extends Listener {
 	}
 
 	run({
-		autocompleter,
+		completer,
 		interaction,
 	}) {
-		this.client.log.verbose.autocomplete(`${interaction.user.tag} used the "${autocompleter.id}" autocompleter`);
+		this.client.log.verbose.autocomplete(`${interaction.user.tag} used the "${completer.id}" autocompleter`);
 		return true;
 	}
 };

@@ -205,9 +205,9 @@ module.exports = class extends Listener {
 				});
 
 				// TODO: staff status alert, working hours alerts
-			} else {
-				// TODO: auto tag
 			}
+
+			// TODO: auto tag
 
 		}
 	}
