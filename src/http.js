@@ -4,6 +4,7 @@ const { domain } = require('./lib/http');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
+const { PermissionsBitField } = require('discord.js');
 
 process.env.PUBLIC_HOST = process.env.HTTP_EXTERNAL; // the SvelteKit app expects `PUBLIC_HOST`
 
@@ -87,7 +88,7 @@ module.exports = async client => {
 				});
 			}
 			const guildMember = await guild.members.fetch(userId);
-			const isAdmin = guildMember?.permissions.has('MANAGE_GUILD') || client.supers.includes(userId);
+			const isAdmin = guildMember?.permissions.has(PermissionsBitField.Flags.ManageGuild) || client.supers.includes(userId);
 			if (!isAdmin) {
 				return res.code(403).send({
 					error: 'Forbidden',

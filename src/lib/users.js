@@ -1,3 +1,5 @@
+const { PermissionsBitField } = require('discord.js');
+
 /**
  *
  * @param {import("client")} client
@@ -20,7 +22,7 @@ module.exports.isStaff = async (guild, userId) => {
 	const client = guild.client;
 	if (guild.client.supers.includes(userId)) return true;
 	const guildMember = await guild.members.fetch(userId);
-	if (guildMember?.permissions.has('MANAGE_GUILD')) return true;
+	if (guildMember?.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
 	const { categories } = await client.prisma.guild.findUnique({
 		select: { categories: true },
 		where: { id: guild.id },

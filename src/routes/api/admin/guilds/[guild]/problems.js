@@ -1,3 +1,5 @@
+const { PermissionsBitField } = require('discord.js');
+
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
@@ -11,14 +13,14 @@ module.exports.get = fastify => ({
 		if (settings.logChannel) {
 			const permissions = guild.members.me.permissionsIn(settings.logChannel);
 
-			if (!permissions.has('SendMessages')) {
+			if (!permissions.has(PermissionsBitField.Flags.SendMessages)) {
 				problems.push({
 					id: 'logChannelMissingPermission',
 					permission: 'SendMessages',
 				});
 			}
 
-			if (!permissions.has('EmbedLinks')) {
+			if (!permissions.has(PermissionsBitField.Flags.EmbedLinks)) {
 				problems.push({
 					id: 'logChannelMissingPermission',
 					permission: 'EmbedLinks',
