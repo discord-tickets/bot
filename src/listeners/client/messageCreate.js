@@ -194,6 +194,11 @@ module.exports = class extends Listener {
 					}
 				}
 
+				await client.prisma.user.update({
+					data: { messageCount: { increment: 1 } },
+					where: { id: message.author.id },
+				});
+
 				const data = { lastMessageAt: new Date() };
 				if (
 					ticket.firstResponseAt === null &&
