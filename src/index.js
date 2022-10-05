@@ -21,6 +21,8 @@
  * @license GNU-GPLv3
  */
 
+/* eslint-disable no-console */
+
 process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
 require('dotenv').config(); // load env file
 
