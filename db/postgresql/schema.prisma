@@ -112,7 +112,7 @@ model Feedback {
 }
 
 model Guild {
-    autoClose     Int?
+    autoClose     Int        @default(43200000)
     autoTag       Json       @default("[]")
     archive       Boolean    @default(true)
     blocklist     Json       @default("[]")
