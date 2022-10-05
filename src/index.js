@@ -25,11 +25,13 @@ process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
 require('dotenv').config(); // load env file
 
 const pkg = require('../package.json');
+const banner = require('./lib/banner');
+console.log(banner(pkg.version)); // print big title
+
 const fs = require('fs');
 const semver = require('semver');
 const { colours } = require('leeks.js');
 const logger = require('./lib/logger');
-const banner = require('./lib/banner');
 const YAML = require('yaml');
 const Client = require('./client');
 const http = require('./http');
@@ -56,8 +58,6 @@ if (!fs.existsSync('./user/config.yml')) {
 		console.log(`Copied config to ${'./user/config.yml'}`);
 	}
 }
-
-console.log(banner(pkg.version)); // print big title
 
 const config = YAML.parse(fs.readFileSync('./user/config.yml', 'utf8'));
 const log = logger(config);
