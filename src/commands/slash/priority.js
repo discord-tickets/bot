@@ -1,6 +1,7 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
+const { logTicketEvent } = require('../../lib/logging');
 
 module.exports = class PrioritySlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -112,9 +113,23 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 		else name = this.getEmoji(priority) + name;
 		await interaction.channel.setName(name);
 
+		// don't reassign ticket because the original is used below
 		await client.prisma.ticket.update({
 			data: { priority },
 			where: { id: interaction.channel.id },
+		});
+
+		logTicketEvent(this.client, {
+			action: 'update',
+			diff: {
+				original: { priority: ticket.priority },
+				updated: { priority: priority },
+			},
+			target: {
+				id: ticket.id,
+				name: `<#${ticket.id}>`,
+			},
+			userId: interaction.user.id,
 		});
 
 		return await interaction.editReply({
