@@ -95,6 +95,9 @@ commands:
             LOW: 🟢 Low
           description: The priority of the ticket
           name: priority
+      success:
+        description: This ticket's priority has been set to `{priority}`.
+        title: ✅ Priority set
     release:
       description: Release (unclaim) a ticket
       name: release
@@ -218,6 +221,9 @@ misc:
   no_categories:
     description: No ticket categories have been configured.
     title: ❌ There are no ticket categories
+  not_ticket:
+        description: You can only use this command in tickets.
+        title: ❌ This isn't a ticket channel
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down

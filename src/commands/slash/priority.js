@@ -1,5 +1,6 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
+const ExtendedEmbedBuilder = require('../../lib/embed');
 
 module.exports = class PrioritySlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -55,5 +56,78 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	getEmoji(priority) {
+		let emoji;
+		switch (priority) {
+		case 'HIGH': {
+			emoji = '🔴';
+			break;
+		}
+		case 'MEDIUM': {
+			emoji = '🟠';
+			break;
+		}
+		case 'LOW': {
+			emoji = '🟢';
+			break;
+		}
+		}
+		return emoji;
+	}
+
+	/**
+	 *
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply();
+
+		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+		const getMessage = client.i18n.getLocale(settings.locale);
+		const ticket = await client.prisma.ticket.findUnique({
+			include: { category: { select: { channelName: true } } },
+			where: { id: interaction.channel.id },
+		});
+
+		if (!ticket) {
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.errorColour)
+						.setTitle(getMessage('misc.not_ticket.title'))
+						.setDescription(getMessage('misc.not_ticket.description')),
+				],
+			});
+		}
+
+		const priority = interaction.options.getString('priority', true);
+		let name = interaction.channel.name;
+		if (ticket.priority) name = name.replace(this.getEmoji(ticket.priority), this.getEmoji(priority));
+		else name = this.getEmoji(priority) + name;
+		await interaction.channel.setName(name);
+
+		await client.prisma.ticket.update({
+			data: { priority },
+			where: { id: interaction.channel.id },
+		});
+
+		return await interaction.editReply({
+			embeds: [
+				new ExtendedEmbedBuilder({
+					iconURL: interaction.guild.iconURL(),
+					text: settings.footer,
+				})
+					.setColor(settings.successColour)
+					.setTitle(getMessage('commands.slash.priority.success.title'))
+					.setDescription(getMessage('commands.slash.priority.success.description', { priority: getMessage(`commands.slash.priority.options.priority.choices.${priority}`) })),
+			],
+		});
+
+	}
 };
