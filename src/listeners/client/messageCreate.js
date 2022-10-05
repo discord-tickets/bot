@@ -194,25 +194,31 @@ module.exports = class extends Listener {
 					}
 				}
 
-				await client.prisma.user.update({
-					data: { messageCount: { increment: 1 } },
-					where: { id: message.author.id },
-				});
+				if (!message.author.bot) {
+					await client.prisma.user.upsert({
+						create: {
+							id: message.author.id,
+							messageCount: 1,
+						},
+						update: { messageCount: { increment: 1 } },
+						where: { id: message.author.id },
+					});
 
-				const data = { lastMessageAt: new Date() };
-				if (
-					ticket.firstResponseAt === null &&
-					await isStaff(message.guild, message.author.id)
-				) data.firstResponseAt = new Date();
-				ticket = await client.prisma.ticket.update({
-					data,
-					where: { id: ticket.id },
-				});
+					const data = { lastMessageAt: new Date() };
+					if (
+						ticket.firstResponseAt === null &&
+						await isStaff(message.guild, message.author.id)
+					) data.firstResponseAt = new Date();
+					ticket = await client.prisma.ticket.update({
+						data,
+						where: { id: ticket.id },
+					});
+				}
 
-				// TODO: staff status alert, working hours alerts
+				// TODO: if (!message.author.bot) staff status alert, working hours alerts
 			}
 
-			// TODO: auto tag
+			// TODO: if (!message.author.bot) auto tag
 
 		}
 	}
