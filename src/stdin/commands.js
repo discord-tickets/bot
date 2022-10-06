@@ -16,6 +16,11 @@ module.exports = class Commands extends StdinCommand {
 				.catch(this.client.log.error);
 			break;
 		}
+		default: {
+			this.client.log.info('subcommands: \n' + [
+				'> commands publish',
+			].join('\n'));
+		}
 		}
 	}
 };
