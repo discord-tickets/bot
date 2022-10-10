@@ -100,8 +100,9 @@ module.exports = class extends Listener {
 					client.log.success('Posted client stats');
 					client.log.verbose(stats);
 					client.log.debug(res);
-				} catch (error) {
-					client.log.error('An error occurred whilst posting stats', stats, error);
+				} catch (res) {
+					client.log.error('An error occurred whilst posting stats', (await res.json())?.error);
+					client.log.debug(res);
 				}
 			};
 			send();
