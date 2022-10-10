@@ -28,10 +28,10 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
+		await interaction.deferReply({ ephemeral: true });
 		const staff = await isStaff(interaction.guild, interaction.member.id);
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const getMessage = client.i18n.getLocale(settings.locale);
-		await interaction.deferReply({ ephemeral: true });
 		const commands = (await client.application.commands.fetch())
 			.filter(c => c.type === 1)
 			.map(c => `> </${c.name}:${c.id}>: ${c.description}`)
