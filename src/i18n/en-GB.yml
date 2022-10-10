@@ -1,4 +1,7 @@
 buttons:
+  cancel:
+    emoji: 🚫
+    text: Cancel
   claim:
     emoji: 🙌
     text: Claim
@@ -32,8 +35,8 @@ commands:
         description: You can only pin messages in tickets.
         title: ❌ This isn't a ticket channel
       pinned:
-         description: The message has been pinned.
-         title: ✅ Pinned message
+        description: The message has been pinned.
+        title: ✅ Pinned message
   slash:
     add:
       description: Add a member to a ticket
@@ -49,7 +52,10 @@ commands:
       description: Claim a ticket
       name: claim
     close:
-      description: Close a ticket
+      description: Request a ticket to be closed
+      invalid_time:
+        description: "`{input}` is not a valid time format."
+        title: ❌ Invalid
       name: close
       options:
         reason:
@@ -58,12 +64,24 @@ commands:
         ticket:
           description: The ticket to close
           name: ticket
-        time:
-          description: Close all tickets that have been inactive for the specific time
-          name: time
     force-close:
+      confirm_multiple:
+        description: >
+          You are about to close **{count}** tickets that have been inactive for
+          more than `{time}`:
+
+          {tickets}
+        title: ❓ Are you sure?
       description: Forcibly close a ticket
       name: force-close
+      no_tickets:
+        description: >-
+          There are no open tickets that have been inactive for more than
+          `{time}`.
+        title: ❌ No tickets
+      not_staff:
+        description: Only staff members can force-close tickets.
+        title: ❌ Error
       options:
         reason:
           description: The reason for closing the ticket(s)
@@ -72,8 +90,22 @@ commands:
           description: The ticket to close
           name: ticket
         time:
-          description: Close all tickets that have been inactive for the specific time
+          description: Close all tickets that have been inactive for the specified time
           name: time
+    help:
+      description: Show the help menu
+      name: help
+      response:
+        commands: Commands
+        description: "**Use {command} to create a ticket and get support.**"
+        links:
+          commands: Full command list
+          docs: Documentation
+          feedback: Feedback
+          links: Useful links
+          support: Support
+        settings: Bot settings
+      title: Help
     new:
       description: Create a new ticket
       name: new
@@ -88,8 +120,8 @@ commands:
         priority:
           choices:
             HIGH: 🔴 High
-            MEDIUM: 🟠 Medium
             LOW: 🟢 Low
+            MEDIUM: 🟠 Medium
           description: The priority of the ticket
           name: priority
       success:
@@ -118,9 +150,6 @@ commands:
         tag:
           description: The name of the tag to use
           name: tag
-    topic:
-      description: Change the topic of a ticket
-      name: topic
     tickets:
       description: List your own or someone else's tickets
       name: tickets
@@ -128,8 +157,11 @@ commands:
         member:
           description: The member to list the tickets of
           name: member
+    topic:
+      description: Change the topic of a ticket
+      name: topic
     transcript:
-      description: Get the transcript of a ticket 
+      description: Get the transcript of a ticket
       name: transcript
       options:
         ticket:
@@ -147,12 +179,12 @@ commands:
       name: Create a ticket for user
 dm:
   confirm_open:
-    title: 'Do you want to open a ticket with the following topic?'
+    title: Do you want to open a ticket with the following topic?
 log:
   admin:
     changes: Changes
     description:
-      joined: '{user} {verb} {targetType}'
+      joined: "{user} {verb} {targetType}"
       target:
         category: a category
         panel: a panel
@@ -160,7 +192,7 @@ log:
         settings: the settings
         tag: a tag
     title:
-      joined: '{targetType} {verb}'
+      joined: "{targetType} {verb}"
       target:
         category: Category
         panel: Panel
@@ -172,13 +204,13 @@ log:
       delete: deleted
       update: updated
   ticket:
-    description: '{user} {verb} a ticket'
+    description: "{user} {verb} a ticket"
     ticket: Ticket
     title: Ticket {verb}
     verb:
-      create: created
       claim: claimed
       close: closed
+      create: created
       unclaim: released
       update: updated
 menus:
@@ -201,8 +233,12 @@ misc:
   error:
     description: Sorry, an unexpected error occurred.
     fields:
-      identifier: Identifier 
+      identifier: Identifier
     title: ⚠️ Something's wrong
+  expired:
+    description: You didn't respond in time. Please try again.
+    title: ⏰ Expired
+  expires_in: Expires in {time}
   member_limit:
     description:
       - Please use your existing ticket or close it before creating another.
@@ -213,14 +249,16 @@ misc:
       - ❌ You already have a ticket
       - ❌ You already have %d open tickets
   missing_roles:
-    description: You do not have the roles required to be able to create a ticket in this category.
+    description: >-
+      You do not have the roles required to be able to create a ticket in this
+      category.
     title: ❌ Insufficient roles
   no_categories:
     description: No ticket categories have been configured.
     title: ❌ There are no ticket categories
   not_ticket:
-        description: You can only use this command in tickets.
-        title: ❌ This isn't a ticket channel
+    description: You can only use this command in tickets.
+    title: ❌ This isn't a ticket channel
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down
@@ -234,11 +272,11 @@ modals:
     label: Topic
     placeholder: What is this ticket about?
 ticket:
-  created:
-    description: 'Your ticket channel has been created: {channel}.'
-    title: ✅ Ticket created
   answers:
-    no_value: '*No response*'
+    no_value: "*No response*"
+  created:
+    description: "Your ticket channel has been created: {channel}."
+    title: ✅ Ticket created
   edited:
     description: Your changes have been saved.
     title: ✅ Ticket updated
@@ -249,10 +287,10 @@ ticket:
     fields:
       topic: Topic
   references_message:
-    description: 'References [a message]({url}) sent {timestamp} by {author}.'
+    description: References [a message]({url}) sent {timestamp} by {author}.
     title: ℹ️ Reference
   references_ticket:
-    description: 'This ticket is related to a previous ticket:'
+    description: "This ticket is related to a previous ticket:"
     fields:
       date: Created at
       number: Number
