@@ -492,30 +492,31 @@ module.exports = class TicketManager {
 						} catch {
 							this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
 						}
-						await channel.send({
-							embeds: [
-								new ExtendedEmbedBuilder()
-									.setColor(category.guild.primaryColour)
-									.setTitle(getMessage('ticket.references_message.title'))
-									.setDescription(
-										getMessage('ticket.references_message.description', {
-											author: message.author.toString(),
-											timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
-											url: message.url,
-										})),
-								new ExtendedEmbedBuilder({
-									iconURL: guild.iconURL(),
-									text: category.guild.footer,
-								})
-									.setColor(category.guild.primaryColour)
-									.setAuthor({
-										iconURL: message.member?.displayAvatarURL(),
-										name: message.member?.displayName || 'Unknown',
-									})
-									.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
-							],
-						});
 					}
+					await channel.send({
+						embeds: [
+							new ExtendedEmbedBuilder()
+								.setColor(category.guild.primaryColour)
+								.setTitle(getMessage('ticket.references_message.title'))
+								.setDescription(
+									getMessage('ticket.references_message.description', {
+										author: message.author.toString(),
+										timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
+										url: message.url,
+									})),
+							new ExtendedEmbedBuilder({
+								iconURL: guild.iconURL(),
+								text: category.guild.footer,
+							})
+								.setColor(category.guild.primaryColour)
+								.setAuthor({
+									iconURL: message.member?.displayAvatarURL(),
+									name: message.member?.displayName || 'Unknown',
+								})
+								.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
+						],
+					});
+
 				}
 
 			}
@@ -595,7 +596,8 @@ module.exports = class TicketManager {
 			}
 
 			if (category.guild.archive && message) {
-				const row = await this.archiver.saveMessage(ticket.id, message, true);
+				let row = await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
+				if (!row) row = await this.archiver.saveMessage(ticket.id, message, true);
 				if (row) {
 					await this.client.prisma.ticket.update({
 						data: { referencesMessageId: row.id },
