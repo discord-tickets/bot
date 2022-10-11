@@ -110,7 +110,7 @@ module.exports = class TicketArchiver {
 					attachments: [...message.attachments.values()],
 					components: [...message.components.values()],
 					content: message.content,
-					embeds: message.embeds.map(embed => ({ embed })),
+					embeds: message.embeds.map(embed => ({ ...embed })),
 				}),
 			),
 			createdAt: message.createdAt,
