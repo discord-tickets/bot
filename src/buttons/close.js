@@ -8,5 +8,14 @@ module.exports = class CloseButton extends Button {
 		});
 	}
 
-	async run(id, interaction) { }
+	/**
+	 * @param {*} id
+	 * @param {import("discord.js").ButtonInteraction} interaction
+	 */
+	async run(id, interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply();
+	}
 };

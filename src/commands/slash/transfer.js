@@ -14,7 +14,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'category',
 				required: true,
-				type: ApplicationCommandOptionType.String,
+				type: ApplicationCommandOptionType.Integer,
 			},
 		];
 		opts = opts.map(o => {

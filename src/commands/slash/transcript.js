@@ -14,7 +14,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'ticket',
 				required: true,
-				type: ApplicationCommandOptionType.Integer,
+				type: ApplicationCommandOptionType.String,
 			},
 		];
 		opts = opts.map(o => {

@@ -1,5 +1,4 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = class ClaimSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -19,5 +18,7 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	async run(interaction) {
+		// tickets/manager.js
+	}
 };

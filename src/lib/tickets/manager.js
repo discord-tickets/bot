@@ -91,7 +91,7 @@ module.exports = class TicketManager {
 	/**
 	 * @param {object} data
 	 * @param {string} data.categoryId
-	 * @param {import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} data.interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} data.interaction
 	 * @param {string?} [data.topic]
 	 */
 	async create({
@@ -633,5 +633,33 @@ module.exports = class TicketManager {
 				],
 			});
 		}
+	}
+
+
+	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction} interaction
+	 */
+	async preClose(interaction) {
+		const ticket = await this.client.prisma.ticket.findUnique({
+			include: {
+				category: true,
+				guild: true,
+			},
+			where: { id: interaction.channel.id },
+		});
+		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
+	}
+
+	/**
+	 * close a ticket
+	 * @param {string} ticketId
+	 * @param {boolean} skip
+	 * @param {string} reason
+	 */
+	async close(ticketId, skip, reason) {
+		// TODO: update cache/cat count
+		// TODO: update cache/member count
+		// TODO: set messageCount on ticket
+		// delete
 	}
 };

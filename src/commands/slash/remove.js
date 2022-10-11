@@ -19,7 +19,7 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'ticket',
 				required: false,
-				type: ApplicationCommandOptionType.Integer,
+				type: ApplicationCommandOptionType.String,
 			},
 		];
 		opts = opts.map(o => {

@@ -14,6 +14,8 @@ module.exports = class CreateUserCommand extends UserCommand {
 	}
 
 	async run(interaction) {
+		// TODO: isStaff?
+		// TODO: user->create
 		// select category
 		// send button
 	}

@@ -259,6 +259,9 @@ misc:
   not_ticket:
     description: You can only use this command in tickets.
     title: ❌ This isn't a ticket channel
+  invalid_ticket:
+    description: Please specify a valid ticket.
+    title: ❌ Invalid ticket
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down

@@ -19,11 +19,6 @@ module.exports = class CloseSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'ticket',
 				required: false,
-				type: ApplicationCommandOptionType.Integer,
-			},
-			{
-				name: 'time',
-				required: false,
 				type: ApplicationCommandOptionType.String,
 			},
 		];
@@ -53,5 +48,10 @@ module.exports = class CloseSlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(interaction) {
+		
+	}
 };
