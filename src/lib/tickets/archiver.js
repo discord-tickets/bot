@@ -96,6 +96,9 @@ module.exports = class TicketArchiver {
 			});
 		}
 
+		let reference;
+		if (message.reference) reference = await message.fetchReference();
+
 		const messageD = {
 			author: {
 				connect: {
@@ -111,6 +114,7 @@ module.exports = class TicketArchiver {
 					components: [...message.components.values()],
 					content: message.content,
 					embeds: message.embeds.map(embed => ({ ...embed })),
+					reference: reference ? reference.id : null,
 				}),
 			),
 			createdAt: message.createdAt,
