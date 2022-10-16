@@ -167,12 +167,12 @@ commands:
         ticket:
           description: The number of the ticket to get the transcript of
           name: ticket
-    transfer:
-      description: Transfer a ticket to another category
-      name: transfer
+    move:
+      description: move a ticket to another category
+      name: move
       options:
         category:
-          description: The category to transfer the ticket to
+          description: The category to move the ticket to
           name: category
   user:
     create:

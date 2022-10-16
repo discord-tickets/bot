@@ -1,13 +1,13 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 
-module.exports = class TransferSlashCommand extends SlashCommand {
+module.exports = class MoveSlashCommand extends SlashCommand {
 	constructor(client, options) {
 		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.transfer.description')));
+		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.move.description')));
 
 		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.transfer.name')));
+		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.move.name')));
 
 		let opts = [
 			{
@@ -19,10 +19,10 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 		];
 		opts = opts.map(o => {
 			const descriptionLocalizations = {};
-			client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, `commands.slash.transfer.options.${o.name}.description`)));
+			client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, `commands.slash.move.options.${o.name}.description`)));
 
 			const nameLocalizations = {};
-			client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.transfer.options.${o.name}.name`)));
+			client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.move.options.${o.name}.name`)));
 
 			return {
 				...o,
