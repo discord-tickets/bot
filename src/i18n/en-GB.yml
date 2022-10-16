@@ -106,6 +106,13 @@ commands:
           support: Support
         settings: Bot settings
       title: Help
+    move:
+      description: move a ticket to another category
+      name: move
+      options:
+        category:
+          description: The category to move the ticket to
+          name: category
     new:
       description: Create a new ticket
       name: new
@@ -167,13 +174,13 @@ commands:
         ticket:
           description: The number of the ticket to get the transcript of
           name: ticket
-    move:
-      description: move a ticket to another category
-      name: move
+    transfer:
+      description: Transfer ownership of a ticket to another member
+      name: transfer
       options:
-        category:
-          description: The category to move the ticket to
-          name: category
+        member:
+          description: The member to transfer ownership to
+          name: member
   user:
     create:
       name: Create a ticket for user
@@ -239,6 +246,9 @@ misc:
     description: You didn't respond in time. Please try again.
     title: ⏰ Expired
   expires_in: Expires in {time}
+  invalid_ticket:
+    description: Please specify a valid ticket.
+    title: ❌ Invalid ticket
   member_limit:
     description:
       - Please use your existing ticket or close it before creating another.
@@ -259,9 +269,6 @@ misc:
   not_ticket:
     description: You can only use this command in tickets.
     title: ❌ This isn't a ticket channel
-  invalid_ticket:
-    description: Please specify a valid ticket.
-    title: ❌ Invalid ticket
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down
