@@ -20,6 +20,12 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 
 		let opts = [
 			{
+				autocomplete: true,
+				name: 'category',
+				required: false,
+				type: ApplicationCommandOptionType.Integer,
+			},
+			{
 				name: 'reason',
 				required: false,
 				type: ApplicationCommandOptionType.String,
