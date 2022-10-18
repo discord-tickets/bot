@@ -84,7 +84,9 @@ commands:
         title: ❌ Error
       options:
         category:
-          description: Close all tickets in the specified category (can be used with `time`)
+          description: >-
+            Close all tickets in the specified category (can be used with
+            `time`)
           name: category
         reason:
           description: The reason for closing the ticket(s)
@@ -93,7 +95,9 @@ commands:
           description: The ticket to close
           name: ticket
         time:
-          description: Close all tickets that have been inactive for the specified time (can be used with `category`)
+          description: >-
+            Close all tickets that have been inactive for the specified time
+            (can be used with `category`)
           name: time
     help:
       description: Show the help menu
@@ -211,6 +215,13 @@ log:
         tag: Tag
     verb:
       create: created
+      delete: deleted
+      update: updated
+  message:
+    description: "{user} {verb} a message"
+    message: Message
+    title: Message {verb}
+    verb:
       delete: deleted
       update: updated
   ticket:

@@ -183,8 +183,61 @@ async function logTicketEvent(client, {
 	return await channel.send({ embeds });
 }
 
+/**
+ * @param {import("client")} client
+ * @param {object} details
+ * @param {string} details.action
+ * @param {import("discord.js").Message} details.target
+ * @param {import("@prisma/client").Ticket & {guild: import("@prisma/client").Guild}} details.ticket
+*/
+async function logMessageEvent(client, {
+	action, target, ticket, diff,
+}) {
+	if (!ticket) return;
+	client.log.info.tickets(`${target.member.user.tag} ${client.i18n.getMessage('en-GB', `log.message.verb.${action}`)} message ${target.id}`);
+	if (!ticket.guild.logChannel) return;
+	const colour = action === 'update'
+		? 'Purple' : action === 'delete'
+			? 'DarkPurple' : 'Default';
+	const getMessage = client.i18n.getLocale(ticket.guild.locale);
+	const i18nOptions = {
+		user: `<@${target.member.user.id}>`,
+		verb: getMessage(`log.message.verb.${action}`),
+	};
+	const channel = client.channels.cache.get(ticket.guild.logChannel);
+	if (!channel) return;
+	const embeds = [
+		new EmbedBuilder()
+			.setColor(colour)
+			.setAuthor({
+				iconURL: target.member.displayAvatarURL(),
+				name: target.member.displayName,
+			})
+			.setTitle(getMessage('log.message.title', i18nOptions))
+			.setDescription(getMessage('log.message.description', i18nOptions))
+			.addFields([
+				{
+					name: getMessage('log.message.message'),
+					value: `[${target.id}](${target.url})`,
+				},
+			]),
+	];
+
+	if (diff && diff.original) {
+		embeds.push(
+			new EmbedBuilder()
+				.setColor(colour)
+				.setTitle(getMessage('log.admin.changes'))
+				.setFields(makeDiff(diff)),
+		);
+	}
+
+	return await channel.send({ embeds });
+}
+
 module.exports = {
 	getLogChannel,
 	logAdminEvent,
+	logMessageEvent,
 	logTicketEvent,
 };
