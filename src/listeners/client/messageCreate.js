@@ -179,13 +179,11 @@ module.exports = class extends Listener {
 					});
 			}
 		} else {
-			let ticket = await client.prisma.ticket.findUnique({
-				include: { guild: true },
-				where: { id: message.channel.id },
-			});
+			const settings = await client.prisma.guild.findUnique({ where: { id:message.guild.id } });
+			let ticket = await client.prisma.ticket.findUnique({ where: { id: message.channel.id } });
 
 			if (ticket) {
-				if (ticket.guild.archive) {
+				if (settings.archive) {
 					try {
 						await client.tickets.archiver.saveMessage(ticket.id, message);
 					} catch (error) {
@@ -218,8 +216,26 @@ module.exports = class extends Listener {
 				// TODO: if (!message.author.bot) staff status alert, working hours alerts
 			}
 
-			// TODO: if (!message.author.bot) auto tag
-
+			if (!message.author.bot) {
+				const enabled =
+				(settings.autoTag === 'all') ||
+					(settings.autoTag === 'ticket' && ticket) ||
+					(settings.autoTag === '!ticket' && !ticket) ||
+					(settings.autoTag.includes(message.channel.id));
+				if (enabled) {
+					const tags = await client.prisma.tag.findMany({ where: { guildId: message.guild.id } });
+					const tag = tags.find(tag => message.content.match(new RegExp(tag.regex, 'mi')));
+					if (tag) {
+						await message.reply({
+							embeds: [
+								new EmbedBuilder()
+									.setColor(settings.primaryColour)
+									.setDescription(tag.content),
+							],
+						});
+					}
+				}
+			}
 		}
 	}
 };

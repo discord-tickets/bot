@@ -1,5 +1,6 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
+const ExtendedEmbedBuilder = require('../../lib/embed');
 
 module.exports = class TagSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -14,7 +15,7 @@ module.exports = class TagSlashCommand extends SlashCommand {
 				autocomplete: true,
 				name: 'tag',
 				required: true,
-				type: ApplicationCommandOptionType.String,
+				type: ApplicationCommandOptionType.Integer,
 			},
 			{
 				name: 'for',
@@ -48,5 +49,28 @@ module.exports = class TagSlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		const user = interaction.options.getUser('for', false);
+		await interaction.deferReply({ ephemeral: !user });
+		const tag = await client.prisma.tag.findUnique({
+			include: { guild: true },
+			where: { id: interaction.options.getInteger('tag', true) },
+		});
+
+		await interaction.editReply({
+			allowedMentions: { users: user ? [user.id]: [] },
+			content: user?.toString(),
+			embeds: [
+				new ExtendedEmbedBuilder()
+					.setColor(tag.guild.primaryColour)
+					.setDescription(tag.content),
+			],
+		});
+	}
 };
