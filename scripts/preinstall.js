@@ -8,7 +8,7 @@ const env = {
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
 	HTTP_BIND: 8080,
-	HTTP_EXTERNAL: 'http://localhost',
+	HTTP_EXTERNAL: 'http://localhost:8080',
 	PORTAL: '',
 	PUBLIC_BOT: false,
 	SETTINGS_BIND: 8888,
