@@ -51,7 +51,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 
 		Mustache.escape = text => text; // don't HTML-escape
 		this.template = fs.readFileSync(
-			join('./user/templates/', this.client.config.templates.transcript),
+			join('./user/templates/', this.client.config.templates.transcript + '.mustache'),
 			{ encoding: 'utf8' },
 		);
 	}
