@@ -109,7 +109,7 @@ async function logAdminEvent(client, {
 			]),
 	];
 
-	if (diff && diff.original) {
+	if (diff?.original && makeDiff(diff)) {
 		embeds.push(
 			new EmbedBuilder()
 				.setColor(colour)
@@ -171,7 +171,7 @@ async function logTicketEvent(client, {
 			]),
 	];
 
-	if (diff && diff.original) {
+	if (diff?.original && makeDiff(diff)) {
 		embeds.push(
 			new EmbedBuilder()
 				.setColor(colour)
@@ -223,7 +223,7 @@ async function logMessageEvent(client, {
 			]),
 	];
 
-	if (diff && diff.original) {
+	if (diff?.original && makeDiff(diff)) {
 		embeds.push(
 			new EmbedBuilder()
 				.setColor(colour)
