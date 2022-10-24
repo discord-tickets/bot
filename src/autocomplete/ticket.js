@@ -11,6 +11,13 @@ module.exports = class TicketCompleter extends Autocompleter {
 		});
 	}
 
+	format(ticket) {
+		const date = new Date(ticket.createdAt).toLocaleString(ticket.guild.locale, { dateStyle: 'short' });
+		const topic = ticket.topic ? '| ' + decrypt(ticket.topic).substring(0, 50) : '';
+		const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+		return `${category} #${ticket.number} - ${date} ${topic}`;
+	}
+
 	/**
 	 * @param {string} value
 	 * @param {*} command
@@ -19,7 +26,6 @@ module.exports = class TicketCompleter extends Autocompleter {
 	async run(value, command, interaction) {
 		/** @type {import("client")} */
 		const client = this.client;
-		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const tickets = await client.prisma.ticket.findMany({
 			include: {
 				category: {
@@ -28,6 +34,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 						name: true,
 					},
 				},
+				guild: true,
 			},
 			where: {
 				createdById: interaction.user.id,
@@ -35,23 +42,14 @@ module.exports = class TicketCompleter extends Autocompleter {
 				open: ['add', 'close', 'force-close', 'remove'].includes(command.name), // false for `new`, `transcript` etc
 			},
 		});
-		const options = value ? tickets.filter(t =>
-			String(t.number).match(new RegExp(value, 'i')) ||
-			t.topic?.match(new RegExp(value, 'i')) ||
-			new Date(t.createdAt).toLocaleString(settings.locale, { dateStyle: 'short' })?.match(new RegExp(value, 'i')),
-		) : tickets;
+		const options = value ? tickets.filter(t => this.format(t).match(new RegExp(value, 'i'))) : tickets;
 		await interaction.respond(
 			options
 				.slice(0, 25)
-				.map(t => {
-					const date = new Date(t.createdAt).toLocaleString(settings.locale, { dateStyle: 'short' });
-					const topic = t.topic ? '| ' + decrypt(t.topic).substring(0, 50) : '';
-					const category = emoji.hasEmoji(t.category.emoji) ? emoji.get(t.category.emoji) + ' ' + t.category.name : t.category.name;
-					return {
-						name: `${category} #${t.number} - ${date} ${topic}`,
-						value: t.id,
-					};
-				}),
+				.map(t => ({
+					name: this.format(t),
+					value: t.id,
+				})),
 		);
 	}
 };

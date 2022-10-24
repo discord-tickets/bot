@@ -5,7 +5,7 @@ node_modules/
 prisma/
 
 # files
-.env
+*.env*
 *.db
 *.db-journal
 *.log
@@ -13,3 +13,4 @@ prisma/
 user/config.yml
 user/**/*.*
 !user/**/.gitkeep
+!user/templates/*
