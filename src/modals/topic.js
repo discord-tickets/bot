@@ -3,7 +3,10 @@ const { EmbedBuilder } = require('discord.js');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { logTicketEvent } = require('../lib/logging');
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+const {
+	encrypt,
+	decrypt,
+} = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class TopicModal extends Modal {
 	constructor(client, options) {
@@ -38,7 +41,7 @@ module.exports = class TopicModal extends Modal {
 				where: { id: interaction.channel.id },
 			});
 			const ticket = await client.prisma.ticket.update({
-				data: { topic: topic ? cryptr.encrypt(topic) : null },
+				data: { topic: topic ? encrypt(topic) : null },
 				select,
 				where: { id: interaction.channel.id },
 			});
@@ -72,7 +75,7 @@ module.exports = class TopicModal extends Modal {
 			/** @param {ticket} ticket */
 			const makeDiff = ticket => {
 				const diff = {};
-				diff[getMessage('ticket.opening_message.fields.topic')] = ticket.topic ? cryptr.decrypt(ticket.topic) : ' ';
+				diff[getMessage('ticket.opening_message.fields.topic')] = ticket.topic ? decrypt(ticket.topic) : ' ';
 				return diff;
 			};
 

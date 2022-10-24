@@ -1,7 +1,7 @@
 const { Autocompleter } = require('@eartharoid/dbf');
 const emoji = require('node-emoji');
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class ReferencesCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -45,7 +45,7 @@ module.exports = class ReferencesCompleter extends Autocompleter {
 				.slice(0, 25)
 				.map(t => {
 					const date = new Date(t.createdAt).toLocaleString(settings.locale, { dateStyle: 'short' });
-					const topic = t.topic ? '| ' + cryptr.decrypt(t.topic).substring(0, 50) : '';
+					const topic = t.topic ? '| ' + decrypt(t.topic).substring(0, 50) : '';
 					const category = emoji.hasEmoji(t.category.emoji) ? emoji.get(t.category.emoji) + ' ' + t.category.name : t.category.name;
 					return {
 						name: `${category} #${t.number} - ${date} ${topic}`,

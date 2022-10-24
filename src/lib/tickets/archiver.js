@@ -1,5 +1,5 @@
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
 /**
  * Returns highest (roles.highest) hoisted role , or everyone
@@ -12,8 +12,6 @@ module.exports = class TicketArchiver {
 	constructor(client) {
 		/** @type {import("client")} */
 		this.client = client;
-		this.encrypt = cryptr.encrypt;
-		this.decrypt = cryptr.decrypt;
 	}
 
 	/** Add or update a message
@@ -78,11 +76,11 @@ module.exports = class TicketArchiver {
 				avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
 				bot: member.user.bot,
 				discriminator: member.user.discriminator,
-				displayName: member.displayName ? this.encrypt(member.displayName) : null,
+				displayName: member.displayName ? encrypt(member.displayName) : null,
 				roleId: !!member && hoistedRole(member).id,
 				ticketId,
 				userId: member.user.id,
-				username: this.encrypt(member.user.username),
+				username: encrypt(member.user.username),
 			};
 			await this.client.prisma.archivedUser.upsert({
 				create: data,
@@ -108,7 +106,7 @@ module.exports = class TicketArchiver {
 					},
 				},
 			},
-			content: cryptr.encrypt(
+			content: encrypt(
 				JSON.stringify({
 					attachments: [...message.attachments.values()],
 					components: [...message.components.values()],
