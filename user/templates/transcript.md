@@ -2,7 +2,7 @@
 ---
 ID: {{ ticket.id }}
 Number: {{ guildName }} #{{ ticket.number }}
-Topic: {{ #ticket.topic }}{{ . }}{{ /ticket.topic }}
+Topic: {{ #ticket.topic }}{{ . }}{{ /ticket.topic }}{{ ^ticket.topic }}(no topic){{ /ticket.topic }}
 Created on: {{ #ticket }}{{ createdAtFull }}{{ /ticket }}
 Created by: {{ #ticket.createdBy }}"{{ displayName }}" @{{ username }}#{{ discriminator }}{{ /ticket.createdBy }}
 Closed on: {{ #ticket }}{{ closedAtFull }}{{ /ticket }}
