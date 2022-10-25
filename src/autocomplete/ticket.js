@@ -1,7 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 const { Autocompleter } = require('@eartharoid/dbf');
 const emoji = require('node-emoji');
 const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const Keyv = require('keyv');
+const ms = require('ms');
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -9,13 +12,55 @@ module.exports = class TicketCompleter extends Autocompleter {
 			...options,
 			id: 'ticket',
 		});
+
+		this.cache = new Keyv();
 	}
 
-	format(ticket) {
-		const date = new Date(ticket.createdAt).toLocaleString(ticket.guild.locale, { dateStyle: 'short' });
-		const topic = ticket.topic ? '| ' + decrypt(ticket.topic).substring(0, 50) : '';
-		const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
-		return `${category} #${ticket.number} - ${date} ${topic}`;
+	async getOptions(value, {
+		guildId,
+		open,
+		userId,
+	}) {
+		/** @type {import("client")} */
+		const client = this.client;
+		const cacheKey = [guildId, userId, open].join('/');
+
+		let tickets = await this.cache.get(cacheKey);
+
+		if (!tickets) {
+			tickets = await client.prisma.ticket.findMany({
+				include: {
+					category: {
+						select: {
+							emoji: true,
+							name: true,
+						},
+					},
+					guild: true,
+				},
+				where: {
+					createdById: userId,
+					guildId,
+					open,
+				},
+			});
+			tickets = tickets.map(ticket => {
+				const date = new Date(ticket.createdAt).toLocaleString([ticket.guild.locale, 'en-GB'], { dateStyle: 'short' });
+				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).substring(0, 50) : '';
+				const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+				ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
+				return ticket;
+			});
+			this.cache.set(cacheKey, tickets, ms('1m'));
+		}
+
+		const options = value ? tickets.filter(t => t._name.match(new RegExp(value, 'i'))) : tickets;
+		return options
+			.slice(0, 25)
+			.map(t => ({
+				name: t._name,
+				value: t.id,
+			}));
 	}
 
 	/**
@@ -24,32 +69,12 @@ module.exports = class TicketCompleter extends Autocompleter {
 	 * @param {import("discord.js").AutocompleteInteraction} interaction
 	 */
 	async run(value, command, interaction) {
-		/** @type {import("client")} */
-		const client = this.client;
-		const tickets = await client.prisma.ticket.findMany({
-			include: {
-				category: {
-					select: {
-						emoji: true,
-						name: true,
-					},
-				},
-				guild: true,
-			},
-			where: {
-				createdById: interaction.user.id,
-				guildId: interaction.guild.id,
-				open: ['add', 'close', 'force-close', 'remove'].includes(command.name), // false for `new`, `transcript` etc
-			},
-		});
-		const options = value ? tickets.filter(t => this.format(t).match(new RegExp(value, 'i'))) : tickets;
 		await interaction.respond(
-			options
-				.slice(0, 25)
-				.map(t => ({
-					name: this.format(t),
-					value: t.id,
-				})),
+			await this.getOptions(value, {
+				guildId: interaction.guild.id,
+				open: ['add', 'close', 'force-close', 'remove'].includes(command.name),  // false for `new`, `transcript` etc
+				userId: interaction.user.id,
+			}),
 		);
 	}
 };
