@@ -28,6 +28,10 @@ module.exports = class TicketCompleter extends Autocompleter {
 		let tickets = await this.cache.get(cacheKey);
 
 		if (!tickets) {
+			const { locale } = await client.prisma.guild.findUnique({
+				select: { locale: true },
+				where: { id: guildId },
+			});
 			tickets = await client.prisma.ticket.findMany({
 				include: {
 					category: {
@@ -36,7 +40,6 @@ module.exports = class TicketCompleter extends Autocompleter {
 							name: true,
 						},
 					},
-					guild: true,
 				},
 				where: {
 					createdById: userId,
@@ -45,7 +48,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 				},
 			});
 			tickets = tickets.map(ticket => {
-				const date = new Date(ticket.createdAt).toLocaleString([ticket.guild.locale, 'en-GB'], { dateStyle: 'short' });
+				const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
 				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).substring(0, 50) : '';
 				const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
 				ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
