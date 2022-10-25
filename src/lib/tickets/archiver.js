@@ -32,8 +32,8 @@ module.exports = class TicketArchiver {
 		}
 
 		const channels = message.mentions.channels;
-		const members = [...message.mentions.members];
-		const roles = [...message.mentions.roles];
+		const members = [...message.mentions.members.values()];
+		const roles = [...message.mentions.roles.values()];
 
 		if (message.member) {
 			members.push(message.member);
