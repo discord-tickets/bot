@@ -7,6 +7,7 @@ const {
 } = require('discord.js');
 const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const ExtendedEmbedBuilder = require('../../lib/embed');
 
 module.exports = class TopicSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -42,6 +43,22 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 			},
 			where: { id: interaction.channel.id },
 		});
+
+		if (!ticket) {
+			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+			const getMessage = client.i18n.getLocale(settings.locale);
+			return await interaction.reply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.errorColour)
+						.setTitle(getMessage('misc.not_ticket.title'))
+						.setDescription(getMessage('misc.not_ticket.description')),
+				],
+			});
+		}
 
 		const getMessage = client.i18n.getLocale(ticket.guild.locale);
 
