@@ -10,6 +10,6 @@ module.exports = class extends Listener {
 	}
 
 	run(commandName) {
-		this.client.log.warn('Unknown command:', commandName);
+		this.client.log.warn(`Unknown command: "${commandName}"; type "help" for a list of commands`);
 	}
 };
