@@ -5,55 +5,34 @@ const { logTicketEvent } = require('../../lib/logging');
 
 module.exports = class PrioritySlashCommand extends SlashCommand {
 	constructor(client, options) {
-		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.priority.description')));
-
-		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.priority.name')));
-
-		let opts = [
-			{
-				choices: ['HIGH', 'MEDIUM', 'LOW'],
-				name: 'priority',
-				required: true,
-				type: ApplicationCommandOptionType.String,
-			},
-		];
-		opts = opts.map(o => {
-			const descriptionLocalizations = {};
-			client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, `commands.slash.priority.options.${o.name}.description`)));
-
-			const nameLocalizations = {};
-			client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.priority.options.${o.name}.name`)));
-
-			if (o.choices) {
-				o.choices = o.choices.map(c => {
-					const nameLocalizations = {};
-					client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.priority.options.${o.name}.choices.${c}`)));
-					return {
-						name: nameLocalizations['en-GB'],
-						nameLocalizations: nameLocalizations,
-						value: c,
-					};
-				});
-			}
-
-			return {
-				...o,
-				description: descriptionLocalizations['en-GB'],
-				descriptionLocalizations,
-				nameLocalizations: nameLocalizations,
-			};
-		});
-
+		const name = 'priority';
 		super(client, {
 			...options,
-			description: descriptionLocalizations['en-GB'],
-			descriptionLocalizations,
+			description: client.i18n.getMessage(null, `commands.slash.${name}.description`),
+			descriptionLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.description`),
 			dmPermission: false,
-			name: nameLocalizations['en-GB'],
-			nameLocalizations,
-			options: opts,
+			name,
+			nameLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.name`),
+			options: [
+				{
+					choices: ['HIGH', 'MEDIUM', 'LOW'],
+					name: 'priority',
+					required: true,
+					type: ApplicationCommandOptionType.String,
+				},
+			].map(option => {
+				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
+				option.description = option.descriptionLocalizations['en-GB'];
+				option.nameLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.name`);
+				if (option.choices) {
+					option.choices = option.choices.map(choice => ({
+						name: client.i18n.getMessage(null, `commands.slash.priority.options.${option.name}.choices.${choice}`),
+						nameLocalizations: client.i18n.getAllMessages(`commands.slash.priority.options.${option.name}.choices.${choice}`),
+						value: choice,
+					}));
+				}
+				return option;
+			}),
 		});
 	}
 

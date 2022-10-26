@@ -5,19 +5,14 @@ const { version } = require('../../../package.json');
 
 module.exports = class ClaimSlashCommand extends SlashCommand {
 	constructor(client, options) {
-		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.help.description')));
-
-		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.help.name')));
-
+		const name = 'help';
 		super(client, {
 			...options,
-			description: descriptionLocalizations['en-GB'],
-			descriptionLocalizations,
+			description: client.i18n.getMessage(null, `commands.slash.${name}.description`),
+			descriptionLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.description`),
 			dmPermission: false,
-			name: nameLocalizations['en-GB'],
-			nameLocalizations,
+			name,
+			nameLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.name`),
 		});
 	}
 

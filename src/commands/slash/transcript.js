@@ -10,43 +10,27 @@ const pad = require('pad');
 
 module.exports = class TranscriptSlashCommand extends SlashCommand {
 	constructor(client, options) {
-		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.transcript.description')));
-
-		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.transcript.name')));
-
-		let opts = [
-			{
-				autocomplete: true,
-				name: 'ticket',
-				required: true,
-				type: ApplicationCommandOptionType.String,
-			},
-		];
-		opts = opts.map(o => {
-			const descriptionLocalizations = {};
-			client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, `commands.slash.transcript.options.${o.name}.description`)));
-
-			const nameLocalizations = {};
-			client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.transcript.options.${o.name}.name`)));
-
-			return {
-				...o,
-				description: descriptionLocalizations['en-GB'],
-				descriptionLocalizations,
-				nameLocalizations: nameLocalizations,
-			};
-		});
-
+		const name = 'transcript';
 		super(client, {
 			...options,
-			description: descriptionLocalizations['en-GB'],
-			descriptionLocalizations,
+			description: client.i18n.getMessage(null, `commands.slash.${name}.description`),
+			descriptionLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.description`),
 			dmPermission: false,
-			name: nameLocalizations['en-GB'],
-			nameLocalizations,
-			options: opts,
+			name,
+			nameLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.name`),
+			options: [
+				{
+					autocomplete: true,
+					name: 'ticket',
+					required: true,
+					type: ApplicationCommandOptionType.String,
+				},
+			].map(option => {
+				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
+				option.description = option.descriptionLocalizations['en-GB'];
+				option.nameLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.name`);
+				return option;
+			}),
 		});
 
 		Mustache.escape = text => text; // don't HTML-escape

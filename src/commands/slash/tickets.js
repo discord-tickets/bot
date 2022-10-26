@@ -7,42 +7,26 @@ const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
 module.exports = class TicketsSlashCommand extends SlashCommand {
 	constructor(client, options) {
-		const descriptionLocalizations = {};
-		client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.tickets.description')));
-
-		const nameLocalizations = {};
-		client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, 'commands.slash.tickets.name')));
-
-		let opts = [
-			{
-				name: 'member',
-				required: false,
-				type: ApplicationCommandOptionType.User,
-			},
-		];
-		opts = opts.map(o => {
-			const descriptionLocalizations = {};
-			client.i18n.locales.forEach(l => (descriptionLocalizations[l] = client.i18n.getMessage(l, `commands.slash.tickets.options.${o.name}.description`)));
-
-			const nameLocalizations = {};
-			client.i18n.locales.forEach(l => (nameLocalizations[l] = client.i18n.getMessage(l, `commands.slash.tickets.options.${o.name}.name`)));
-
-			return {
-				...o,
-				description: descriptionLocalizations['en-GB'],
-				descriptionLocalizations,
-				nameLocalizations: nameLocalizations,
-			};
-		});
-
+		const name = 'tickets';
 		super(client, {
 			...options,
-			description: descriptionLocalizations['en-GB'],
-			descriptionLocalizations,
+			description: client.i18n.getMessage(null, `commands.slash.${name}.description`),
+			descriptionLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.description`),
 			dmPermission: false,
-			name: nameLocalizations['en-GB'],
-			nameLocalizations,
-			options: opts,
+			name,
+			nameLocalizations: client.i18n.getAllMessages(`commands.slash.${name}.name`),
+			options: [
+				{
+					name: 'member',
+					required: false,
+					type: ApplicationCommandOptionType.User,
+				},
+			].map(option => {
+				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
+				option.description = option.descriptionLocalizations['en-GB'];
+				option.nameLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.name`);
+				return option;
+			}),
 		});
 	}
 
@@ -124,6 +108,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 				}).join('\n'),
 			});
 		}
+		// TODO: add portal URL to view all (this list is limited to the last 10)
 
 		const embed = new ExtendedEmbedBuilder({
 			iconURL: interaction.guild.iconURL(),
