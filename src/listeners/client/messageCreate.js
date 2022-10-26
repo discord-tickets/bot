@@ -10,7 +10,8 @@ const {
 	SelectMenuOptionBuilder,
 } = require('discord.js');
 const {
-	getCommonGuilds, isStaff,
+	getCommonGuilds,
+	isStaff,
 } = require('../../lib/users');
 const ms = require('ms');
 const emoji = require('node-emoji');
