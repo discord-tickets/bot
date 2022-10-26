@@ -81,7 +81,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		const getMessage = this.client.i18n.getLocale(settings.locale);
 		let ticket;
 
-		if (!isStaff(interaction.guild, interaction.user.id)) { // if user is not staff
+		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder({

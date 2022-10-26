@@ -36,7 +36,7 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 			.filter(c => c.type === 1)
 			.map(c => `> </${c.name}:${c.id}>: ${c.description}`)
 			.join('\n');
-		const ticket = client.application.commands.cache.find(c => c.name === 'new');
+		const newCommand = client.application.commands.cache.find(c => c.name === 'new');
 		const fields = [
 			{
 				name: getMessage('commands.slash.help.response.commands'),
@@ -76,7 +76,7 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 					.setTitle(getMessage('commands.slash.help.title'))
 					.setDescription(staff
 						? `**Discord Tickets v${version} by eartharoid.**`
-						: getMessage('commands.slash.help.response.description', { command: `</${ticket.name}:${ticket.id}>` }))
+						: getMessage('commands.slash.help.response.description', { command: `</${newCommand.name}:${newCommand.id}>` }))
 					.setFields(fields),
 			],
 		});

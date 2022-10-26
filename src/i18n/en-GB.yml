@@ -67,8 +67,8 @@ commands:
     force-close:
       confirm_multiple:
         description: >
-          You are about to close **{count}** tickets that have been inactive for
-          more than `{time}`:
+          You are about to close **{count}** tickets that have been inactive
+          for more than `{time}`:
 
           {tickets}
         title: ❓ Are you sure?
@@ -85,8 +85,7 @@ commands:
       options:
         category:
           description: >-
-            Close all tickets in the specified category (can be used with
-            `time`)
+            Close all tickets in the specified category (can be used with `time`)
           name: category
         reason:
           description: The reason for closing the ticket(s)
@@ -166,11 +165,30 @@ commands:
           name: tag
     tickets:
       description: List your own or someone else's tickets
+      fields:
       name: tickets
+      not_staff:
+        description: Only staff members can view others' tickets.
+        title: ❌ Error
       options:
         member:
           description: The member to list the tickets of
           name: member
+      response:
+        description: Use {transcript} to download the transcript of a ticket.
+        fields:
+          closed:
+            name: Closed tickets
+            none:
+              other: "{user} hasn't made any tickets."
+              own: |
+                You haven't made any tickets.
+                Use {new} to open a ticket.
+          open:
+            name: Open tickets
+        title:
+          other: "{displayName}'s tickets"
+          own: Your tickets
     topic:
       description: Change the topic of a ticket
       name: topic
@@ -274,8 +292,8 @@ misc:
       - ❌ You already have %d open tickets
   missing_roles:
     description: >-
-      You do not have the roles required to be able to create a ticket in this
-      category.
+      You do not have the roles required to be able to create a ticket in
+      this category.
     title: ❌ Insufficient roles
   no_categories:
     description: No ticket categories have been configured.
