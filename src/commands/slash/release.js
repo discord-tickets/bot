@@ -13,5 +13,14 @@ module.exports = class ReleaseSlashCommand extends SlashCommand {
 		});
 	}
 
-	async run(interaction) { }
+	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply({ ephemeral: false });
+		await client.tickets.release(interaction);
+	}
 };

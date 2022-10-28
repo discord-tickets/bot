@@ -8,5 +8,15 @@ module.exports = class ClaimButton extends Button {
 		});
 	}
 
-	async run (id, interaction) {}
+	/**
+	 * @param {*} id
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
+	async run(id, interaction) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply({ ephemeral: false });
+		await client.tickets.claim(interaction);
+	}
 };

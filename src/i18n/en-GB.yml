@@ -151,7 +151,6 @@ commands:
       description: Release (unclaim) a ticket
       name: release
     remove:
-      removed: ⬅️ {removed} has been removed by {by}.
       description: Remove a member from a ticket
       name: remove
       not_staff:
@@ -164,6 +163,7 @@ commands:
         ticket:
           description: The ticket to remove the member from
           name: ticket
+      removed: ⬅️ {removed} has been removed by {by}.
       success:
         description: "{member} has been removed from {ticket}."
         title: ✅ Added
@@ -332,6 +332,8 @@ modals:
 ticket:
   answers:
     no_value: "*No response*"
+  claimed: 🙌 {user} has claimed this ticket.
+  released: ♻️ {user} has released this ticket.
   created:
     description: "Your ticket channel has been created: {channel}."
     title: ✅ Ticket created

@@ -13,7 +13,14 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		});
 	}
 
+	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 */
 	async run(interaction) {
-		// tickets/manager.js
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply({ ephemeral: false });
+		await client.tickets.claim(interaction);
 	}
 };
