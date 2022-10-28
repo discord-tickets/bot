@@ -39,8 +39,12 @@ commands:
         title: ✅ Pinned message
   slash:
     add:
+      added: ➡️ {added} has been added by {by}.
       description: Add a member to a ticket
       name: add
+      not_staff:
+        description: Only staff members can add members to others' tickets.
+        title: ❌ Error
       options:
         member:
           description: The member to add to the ticket
@@ -48,6 +52,9 @@ commands:
         ticket:
           description: The ticket to add the member to
           name: ticket
+      success:
+        description: "{member} has been added to {ticket}."
+        title: ✅ Added
     claim:
       description: Claim a ticket
       name: claim
@@ -144,8 +151,12 @@ commands:
       description: Release (unclaim) a ticket
       name: release
     remove:
+      removed: ⬅️ {removed} has been removed by {by}.
       description: Remove a member from a ticket
       name: remove
+      not_staff:
+        description: Only staff members can removed members from others' tickets.
+        title: ❌ Error
       options:
         member:
           description: The member to remove from the ticket
@@ -153,6 +164,9 @@ commands:
         ticket:
           description: The ticket to remove the member from
           name: ticket
+      success:
+        description: "{member} has been removed from {ticket}."
+        title: ✅ Added
     tag:
       description: Use a tag
       name: tag
@@ -243,7 +257,9 @@ log:
       delete: deleted
       update: updated
   ticket:
+    added: Added members
     description: "{user} {verb} a ticket"
+    removed: Removed members
     ticket: Ticket
     title: Ticket {verb}
     verb:
