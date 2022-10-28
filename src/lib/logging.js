@@ -104,7 +104,7 @@ async function logAdminEvent(client, {
 			.addFields([
 				{
 					name: getMessage(`log.admin.title.target.${target.type}`),
-					value: target.name ?? target.id,
+					value: target.name ? `${target.name} (\`${target.id}\`)` : target.id,
 				},
 			]),
 	];
@@ -166,7 +166,7 @@ async function logTicketEvent(client, {
 			.addFields([
 				{
 					name: getMessage('log.ticket.ticket'),
-					value: target.name ?? target.id,
+					value: target.name ? `${target.name} (\`${target.id}\`)` : target.id,
 				},
 			]),
 	];
