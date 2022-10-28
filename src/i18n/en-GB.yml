@@ -166,7 +166,7 @@ commands:
       removed: ⬅️ {removed} has been removed by {by}.
       success:
         description: "{member} has been removed from {ticket}."
-        title: ✅ Added
+        title: ✅ Removed
     tag:
       description: Use a tag
       name: tag
