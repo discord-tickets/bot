@@ -32,3 +32,15 @@ creation requires an interaction:
   <source media="(prefers-color-scheme: light)" srcset="...">
   <img alt="..." src="...">
 </picture> -->
+
+## Contributing
+
+https://commitlint.js.org/#/
+
+huksy?
+eslint
+secret scan
+
+## Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=discord-tickets/bot)](https://github.com/discord-tickets/bot/graphs/contributors)
