@@ -220,6 +220,7 @@ commands:
         member:
           description: The member to transfer ownership to
           name: member
+      transferred: 📨 {user} has transferred this ticket from {from} to {to}.
   user:
     create:
       name: Create a ticket for user
