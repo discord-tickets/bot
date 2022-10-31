@@ -1,7 +1,7 @@
 const { Listener } = require('@eartharoid/dbf');
 const {
 	EmbedBuilder,
-	inlineCode,
+	codeBlock,
 } = require('discord.js');
 
 module.exports = class extends Listener {
@@ -29,18 +29,6 @@ module.exports = class extends Listener {
 			})).locale;
 		}
 		const getMessage = this.client.i18n.getLocale(locale);
-		const fields = [
-			{
-				name: getMessage('misc.error.fields.identifier'),
-				value: inlineCode(ref),
-			},
-		];
-		if (error.name) {
-			fields.unshift({
-				name: getMessage('misc.error.fields.code'),
-				value: inlineCode(error.name),
-			});
-		}
 		const data = {
 			components: [],
 			embeds: [
@@ -48,7 +36,12 @@ module.exports = class extends Listener {
 					.setColor('Orange')
 					.setTitle(getMessage('misc.error.title'))
 					.setDescription(getMessage('misc.error.description'))
-					.addFields(fields),
+					.addFields([
+						{
+							name: getMessage('misc.error.fields.identifier'),
+							value: codeBlock(ref),
+						},
+					]),
 			],
 		};
 
