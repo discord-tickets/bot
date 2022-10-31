@@ -118,6 +118,7 @@ commands:
       title: Help
     move:
       description: Move a ticket to another category
+      moved: 🗃️ {by} has moved this ticket from **{from}** to **{to}**.
       name: move
       options:
         category:
@@ -285,7 +286,9 @@ misc:
     description: Please wait {time} before creating another ticket in this category.
     title: ❌ Please wait
   error:
-    description: Sorry, an unexpected error occurred.
+    description: |
+      Sorry, an unexpected error occurred.
+      Please give this information to an administrator.
     fields:
       code: Error code
       identifier: Identifier

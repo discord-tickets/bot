@@ -17,12 +17,6 @@ module.exports = class CloseSlashCommand extends SlashCommand {
 					required: false,
 					type: ApplicationCommandOptionType.String,
 				},
-				{
-					autocomplete: true,
-					name: 'ticket',
-					required: false,
-					type: ApplicationCommandOptionType.String,
-				},
 			].map(option => {
 				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
 				option.description = option.descriptionLocalizations['en-GB'];

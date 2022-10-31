@@ -804,7 +804,7 @@ module.exports = class TicketManager {
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction} interaction
 	 */
-	async preClose(interaction) {
+	async requestClose(interaction) {
 		const ticket = await this.client.prisma.ticket.findUnique({
 			include: {
 				category: true,
@@ -821,7 +821,7 @@ module.exports = class TicketManager {
 	 * @param {boolean} skip
 	 * @param {string} reason
 	 */
-	async close(ticketId, skip, reason) {
+	async final(ticketId, skip, reason) {
 		// TODO: update cache/cat count
 		// TODO: update cache/member count
 		// TODO: set messageCount on ticket

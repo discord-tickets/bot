@@ -44,7 +44,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 
 		let ticket = await client.prisma.ticket.findUnique({ where: { id: interaction.channel.id } });
 		const from = ticket.createdById;
-
+		console.log(1)
 		ticket = await client.prisma.ticket.update({
 			data: {
 				createdBy: {
@@ -58,13 +58,11 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 			where: { id: interaction.channel.id },
 		});
 
-		await interaction.channel.setTopic(`${member.toString()}${ticket.topic?.length > 0 ? ` | ${decrypt(ticket.topic)}` : ''}`);
-
 		await interaction.editReply({
 			embeds: [
 				new EmbedBuilder()
 					.setColor(ticket.guild.primaryColour)
-					.setDescription(client.i18n.getMessage(ticket.guild.locale, 'commands.slash.transfer.transferred', {
+					.setDescription(client.i18n.getMessage(ticket.guild.locale, `commands.slash.transfer.transferred${interaction.member.id !== from ? '_from' : ''}`, {
 						from: `<@${from}>`,
 						to: member.toString(),
 						user: interaction.user.toString(),
@@ -72,5 +70,18 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 
 			],
 		});
+
+		await interaction.channel.setTopic(`${member.toString()}${ticket.topic?.length > 0 ? ` | ${decrypt(ticket.topic)}` : ''}`);
+
+		await interaction.channel.permissionOverwrites.edit(
+			member,
+			{
+				AttachFiles: true,
+				EmbedLinks: true,
+				ReadMessageHistory: true,
+				SendMessages: true,
+				ViewChannel: true,
+			},
+		);
 	}
 };
