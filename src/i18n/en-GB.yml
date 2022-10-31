@@ -68,9 +68,6 @@ commands:
         reason:
           description: The reason for closing the ticket(s)
           name: reason
-        ticket:
-          description: The ticket to close
-          name: ticket
     force-close:
       confirm_multiple:
         description: >
@@ -120,7 +117,7 @@ commands:
         settings: Bot settings
       title: Help
     move:
-      description: move a ticket to another category
+      description: Move a ticket to another category
       name: move
       options:
         category:
@@ -220,7 +217,8 @@ commands:
         member:
           description: The member to transfer ownership to
           name: member
-      transferred: 📨 {user} has transferred this ticket from {from} to {to}.
+      transferred: 📨 {user} has transferred this ticket to {to}.
+      transferred_from: 📨 {user} has transferred this ticket from {from} to {to}.
   user:
     create:
       name: Create a ticket for user
@@ -289,8 +287,9 @@ misc:
   error:
     description: Sorry, an unexpected error occurred.
     fields:
+      code: Error code
       identifier: Identifier
-    title: ⚠️ Something's wrong
+    title: ⚠️ Something went wrong
   expired:
     description: You didn't respond in time. Please try again.
     title: ⏰ Expired
@@ -334,7 +333,6 @@ ticket:
   answers:
     no_value: "*No response*"
   claimed: 🙌 {user} has claimed this ticket.
-  released: ♻️ {user} has released this ticket.
   created:
     description: "Your ticket channel has been created: {channel}."
     title: ✅ Ticket created
@@ -357,3 +355,4 @@ ticket:
       number: Number
       topic: Topic
     title: ℹ️ Reference
+  released: ♻️ {user} has released this ticket.

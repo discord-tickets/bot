@@ -8,19 +8,19 @@ module.exports = class extends Listener {
 	constructor(client, options) {
 		super(client, {
 			...options,
-			emitter: client.commands,
+			emitter: client.buttons,
 			event: 'error',
 		});
 	}
 
 	async run({
-		command,
+		button,
 		error,
 		interaction,
 	}) {
 		const ref = require('crypto').randomUUID();
-		this.client.log.error.commands(ref);
-		this.client.log.error.commands(`"${command.name}" command execution error:`, error);
+		this.client.log.error.buttons(ref);
+		this.client.log.error.buttons(`"${button.name}" button execution error:`, error);
 		let locale = null;
 		if (interaction.guild) {
 			locale = (await this.client.prisma.guild.findUnique({
