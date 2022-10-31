@@ -20,7 +20,6 @@ module.exports.get = () => ({
 				avatar: client.user.avatarURL(),
 				discriminator: client.user.discriminator,
 				id: client.user.id,
-				portal: process.env.PORTAL || null,
 				public: (process.env.PUBLIC_BOT === 'true'),
 				stats: {
 					activatedUsers: users.length,
