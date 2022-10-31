@@ -20,7 +20,7 @@ module.exports = class extends Listener {
 	}) {
 		const ref = require('crypto').randomUUID();
 		this.client.log.error.buttons(ref);
-		this.client.log.error.buttons(`"${button.name}" button execution error:`, error);
+		this.client.log.error.buttons(`"${button.id}" button execution error:`, error);
 		let locale = null;
 		if (interaction.guild) {
 			locale = (await this.client.prisma.guild.findUnique({
