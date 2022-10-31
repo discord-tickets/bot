@@ -58,7 +58,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 			where: { id: interaction.channel.id },
 		});
 
-		await interaction.channel.setTopic(`${member.toString}${ticket.topic?.length > 0 ? ` | ${decrypt(ticket.topic)}` : ''}`);
+		await interaction.channel.setTopic(`${member.toString()}${ticket.topic?.length > 0 ? ` | ${decrypt(ticket.topic)}` : ''}`);
 
 		await interaction.editReply({
 			embeds: [
