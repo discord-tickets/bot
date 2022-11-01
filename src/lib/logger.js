@@ -1,4 +1,8 @@
-const Logger = require('leekslazylogger');
+const {
+	ConsoleTransport,
+	FileTransport,
+	Logger,
+} = require('leekslazylogger');
 const DTF = require('@eartharoid/dtf');
 const { short } = require('leeks.js');
 
@@ -16,11 +20,11 @@ const colours = {
 
 module.exports = config => {
 	const transports = [
-		new Logger.transports.ConsoleTransport({
+		new ConsoleTransport({
 			format: log => {
 				const timestamp = dtf.fill('DD/MM/YY HH:mm:ss', log.timestamp);
 				const colour = colours[log.level.name];
-				return short(`&f&!7${timestamp}&r ${colour[0]}[${log.level.name.toUpperCase()}]&r ${log.namespace ? `&d(${log.namespace.toUpperCase()})&r ` : ''}${colour[1]}${log.content}`);
+				return short(`&f&!7 ${timestamp} &r ${colour[0]}[${log.level.name.toUpperCase()}]&r ${log.namespace ? `&d(${log.namespace.toUpperCase()})&r ` : ''}${colour[1]}${log.content}`);
 			},
 			level: config.logs.level,
 		}),
@@ -28,9 +32,10 @@ module.exports = config => {
 
 	if (config.logs.files.enabled) {
 		transports.push(
-			new Logger.transports.FileTransport({
+			new FileTransport({
 				clean_directory: config.logs.files.keepFor,
 				directory: config.logs.files.directory,
+				format: '[{timestamp}] [{LEVEL}] ({NAMESPACE}) @{file}:{line}:{column} {content}',
 				level: config.logs.level,
 				name: 'Discord Tickets by eartharoid',
 			}),
@@ -38,7 +43,17 @@ module.exports = config => {
 	}
 
 	return new Logger({
-		namespaces: ['autocomplete', 'buttons', 'commands', 'http', 'listeners', 'menus', 'modals', 'settings', 'tickets'],
+		namespaces: [
+			'autocomplete',
+			'buttons',
+			'commands',
+			'http',
+			'listeners',
+			'menus',
+			'modals',
+			'settings',
+			'tickets',
+		],
 		transports,
 	});
 };
