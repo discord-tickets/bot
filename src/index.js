@@ -212,6 +212,25 @@ class Bot extends Client {
 		}
 	}
 
+	async timerFunction() {
+		let ms = 10000;
+		setInterval(async () => {
+			console.log("Ticket Bot");
+			const res = await this.db.query('SELECT * FROM dsctickets_tickets where last_message > (NOW() + INTERVAL 1 DAY)');
+			if(res[0].length > 0) {
+				res[0].forEach(async (result) => {
+					const curr = this.channels.cache.get(result.id);
+					if(curr) {
+						this.tickets.close(result.id, this.user.id, result.guild, "");
+						await this.users.fetch(result.creator).then((user) => {
+							user.send(`Your ticket has been deleted.`);
+						})
+					}
+				})
+			}
+		}, ms);
+	}
+
 }
 
 new Bot();
