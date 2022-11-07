@@ -284,6 +284,11 @@ module.exports = class CloseCommand extends Command {
 						],
 						ephemeral: true
 					});
+
+					await this.client.users.fetch(interaction.user.id).then((user) => {
+						user.send(`Your ticket '${interaction.channel.name}' has been deleted.`);
+					});
+					
 				} else {
 					await i.editReply({
 						components: [],

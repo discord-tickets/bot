@@ -180,7 +180,8 @@ class Bot extends Client {
 			this.utils = new DiscordUtils(this);
 
 			this.log.info('Connecting to Discord API...');
-
+			this.timerFunction();
+			this.everyHourDM();
 			this.login();
 		})();
 	}
@@ -229,6 +230,22 @@ class Bot extends Client {
 			}
 		}, ms);
 	}
+
+	async everyHourDM() {
+		const ms = 8000;
+		setInterval(async () => {
+			const res = await this.db.query('SELECT * FROM dsctickets_tickets where last_message > (NOW() + INTERVAL 1 HOUR) and last_message < (NOW() + INTERVAL 1 DAY)');
+			if (res[0].length > 0) {
+				res[0].forEach(async result => {
+					await this.users.fetch(result.creator).then(user =>
+						user.send('There is still no activity in your ticket channel.')
+					);
+				})
+			}
+
+		}, ms);
+	}
+
 
 }
 
