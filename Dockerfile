@@ -1,9 +1,20 @@
-FROM node:16
+# Use the alpine image of node 16
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
-COPY package*.json ./
+# Create a dir for the app and make it owned by a non-root user (node)
+RUN mkdir /tickets && \
+	chown -R 1000:1000 /tickets
+WORKDIR /tickets
 
-RUN npm i --production
+# Change user to node
+USER node
 
-COPY . .
-CMD ["npm", "start"]
+# Install packages
+COPY --chown=1000:1000 package.json pnpm-lock.yaml ./
+RUN npx pnpm install --prod --frozen-lockfile
+
+# Copy src folder
+COPY src ./src
+
+# Set the command
+CMD ["node", "src/"]
