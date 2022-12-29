@@ -1,63 +1,63 @@
 buttons:
   cancel:
     emoji: 🚫
-    text: Cancel
+    text: Abbrechen
   claim:
     emoji: 🙌
     text: Claim
   close:
     emoji: ✖️
-    text: Close
+    text: Schließen
   confirm_open:
     emoji: ✅
-    text: Create ticket
+    text: Ticket erstellen
   create:
     emoji: 🎫
-    text: Create a ticket
+    text: Ein Ticket erstellen
   edit:
     emoji: ✏️
-    text: Edit
+    text: Editieren
   unclaim:
     emoji: ♻️
     text: Release
 commands:
   message:
     create:
-      name: Create a ticket from message
+      name: Ticket von Nachricht erstellen
     pin:
-      name: Pin message
+      name: Nachricht anpinnen
       not_pinnable:
         description: |
-          This message can't be pinned.
-          Please ask an administrator to check the bot's permissions.
-        title: ❌ Error
+          Diese Nachricht kann nicht angepinnt werden.
+          Bitte wende dich an einen Administrator, dieser sollte die Berechtigungen des Bots überprüfen.
+        title: ❌ Fehler
       not_ticket:
-        description: You can only pin messages in tickets.
-        title: ❌ This isn't a ticket channel
+        description: Du kannst Nachrichten nur in Tickets anpinnen.
+        title: ❌ Dies ist kein Ticket Kanal
       pinned:
-        description: The message has been pinned.
-        title: ✅ Pinned message
+        description: Die Nachricht wurde angepinnt
+        title: ✅ Nachricht angepinnt
   slash:
     add:
-      added: ➡️ {added} has been added by {by}.
-      description: Add a member to a ticket
+      added: ➡️ {added} wurde von {by} hinzugefügt.
+      description: Füge einen Nutzer hinzu
       name: add
       not_staff:
-        description: Only staff members can add members to others' tickets.
-        title: ❌ Error
+        description: Nur Teammitglieder können andere Benutzer hinzufügen.
+        title: ❌ Fehler
       options:
         member:
-          description: The member to add to the ticket
-          name: member
+          description: Den Nutzer den du hinzufügen möchtest.
+          name: Nutzer
         ticket:
-          description: The ticket to add the member to
-          name: ticket
+          description: Das Ticket in den du den Nutzer hinzufügen möchtest.
+          name: Ticket
       success:
-        description: "{member} has been added to {ticket}."
-        title: ✅ Added
+        description: "{member} wurde zu {ticket} hinzugefügt."
+        title: ✅ Hinzugefügt
     claim:
-      description: Claim a ticket
-      name: claim
+      description: Ein Ticket beanspruchen
+      name: Beanspruchen
     close:
       description: Request a ticket to be closed
       invalid_time:
