@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"module": "ESNext",
+		"target": "ESNext",
+		"moduleResolution": "Node",
+		"baseUrl": "src",
+		"resolveJsonModule": true,
+		"checkJs": false,
+	},
+	"include": [
+		"src/**/*.js"
+	]
+}
