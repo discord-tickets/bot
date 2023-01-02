@@ -7,8 +7,8 @@ const {
 	},
 	ChannelType: { GuildText },
 	EmbedBuilder,
-	SelectMenuBuilder,
-	SelectMenuOptionBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 } = require('discord.js');
 const emoji = require('node-emoji');
 const { logAdminEvent } = require('../../../../../lib/logging');
@@ -102,12 +102,12 @@ module.exports.post = fastify => ({
 				);
 			} else {
 				components.push(
-					new SelectMenuBuilder()
+					new StringSelectMenuBuilder()
 						.setCustomId(JSON.stringify({ action: 'create' }))
 						.setPlaceholder(getMessage('menus.category.placeholder'))
 						.setOptions(
 							categories.map(category =>
-								new SelectMenuOptionBuilder()
+								new StringSelectMenuOptionBuilder()
 									.setValue(String(category.id))
 									.setLabel(category.name)
 									.setDescription(category.description)

@@ -1,8 +1,8 @@
 const {
 	ActionRowBuilder,
 	EmbedBuilder,
-	SelectMenuBuilder,
-	SelectMenuOptionBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 } = require('discord.js');
 const emoji = require('node-emoji');
 
@@ -50,7 +50,7 @@ module.exports = {
 				components: [
 					new ActionRowBuilder()
 						.setComponents(
-							new SelectMenuBuilder()
+							new StringSelectMenuBuilder()
 								.setCustomId(JSON.stringify({
 									action: 'create',
 									referencesMessage,
@@ -60,7 +60,7 @@ module.exports = {
 								.setPlaceholder(getMessage('menus.category.placeholder'))
 								.setOptions(
 									settings.categories.map(category =>
-										new SelectMenuOptionBuilder()
+										new StringSelectMenuOptionBuilder()
 											.setValue(String(category.id))
 											.setLabel(category.name)
 											.setDescription(category.description)

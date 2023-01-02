@@ -7,8 +7,8 @@ const {
 	ButtonStyle,
 	inlineCode,
 	ModalBuilder,
-	SelectMenuBuilder,
-	SelectMenuOptionBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
 } = require('discord.js');
@@ -16,8 +16,9 @@ const emoji = require('node-emoji');
 const ms = require('ms');
 const ExtendedEmbedBuilder = require('../embed');
 const { logTicketEvent } = require('../logging');
+const { Collection } = require('discord.js');
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -241,14 +242,14 @@ module.exports = class TicketManager {
 								} else if (q.type === 'MENU') {
 									return new ActionRowBuilder()
 										.setComponents(
-											new SelectMenuBuilder()
+											new StringSelectMenuBuilder()
 												.setCustomId(q.id)
 												.setPlaceholder(q.placeholder || q.label)
 												.setMaxValues(q.maxLength)
 												.setMinValues(q.minLength)
 												.setOptions(
 													q.options.map((o, i) => {
-														const builder = new SelectMenuOptionBuilder()
+														const builder = new StringSelectMenuOptionBuilder()
 															.setValue(String(i))
 															.setLabel(o.label);
 														if (o.description) builder.setDescription(o.description);

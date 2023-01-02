@@ -6,8 +6,8 @@ const {
 	ChannelType,
 	ComponentType,
 	EmbedBuilder,
-	SelectMenuBuilder,
-	SelectMenuOptionBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 } = require('discord.js');
 const {
 	getCommonGuilds,
@@ -52,7 +52,7 @@ module.exports = class extends Listener {
 				components: [
 					new ActionRowBuilder()
 						.setComponents(
-							new SelectMenuBuilder()
+							new StringSelectMenuBuilder()
 								.setCustomId(JSON.stringify({
 									action: 'create',
 									topic,
@@ -60,7 +60,7 @@ module.exports = class extends Listener {
 								.setPlaceholder(getMessage('menus.category.placeholder'))
 								.setOptions(
 									settings.categories.map(category =>
-										new SelectMenuOptionBuilder()
+										new StringSelectMenuOptionBuilder()
 											.setValue(String(category.id))
 											.setLabel(category.name)
 											.setDescription(category.description)
@@ -143,12 +143,12 @@ module.exports = class extends Listener {
 					components: [
 						new ActionRowBuilder()
 							.setComponents(
-								new SelectMenuBuilder()
+								new StringSelectMenuBuilder()
 									.setCustomId(message.id)
 									.setPlaceholder(getMessage('menus.guild.placeholder'))
 									.setOptions(
 										commonGuilds.map(g =>
-											new SelectMenuOptionBuilder()
+											new StringSelectMenuOptionBuilder()
 												.setValue(String(g.id))
 												.setLabel(g.name),
 										),
