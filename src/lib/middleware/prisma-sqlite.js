@@ -38,9 +38,9 @@ const traverse = (obj, action) => {
 };
 
 module.exports = async (params, next) => {
-	if (params.args.create) params.args.create = traverse(params.args.create, 'SERIALISE');
-	if (params.args.data) params.args.data = traverse(params.args.data, 'SERIALISE');
-	if (params.args.update) params.args.update = traverse(params.args.update, 'SERIALISE');
+	if (params.args?.create) params.args.create = traverse(params.args.create, 'SERIALISE');
+	if (params.args?.data) params.args.data = traverse(params.args.data, 'SERIALISE');
+	if (params.args?.update) params.args.update = traverse(params.args.update, 'SERIALISE');
 	let result = await next(params);
 	if (result) result = traverse(result, 'PARSE');
 	return result;
