@@ -10,15 +10,10 @@ module.exports = class extends Listener {
 		});
 	}
 
-	/**
-	 * @param {import("discord.js").Message} oldMessage
-	 * @param {import("discord.js").Message} message
-	 */
 	async run(message) {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		if (message.partial) message.fetch().then(m => (message = m)).catch(client.log.error);
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },
 			where: { id: message.channel.id },
