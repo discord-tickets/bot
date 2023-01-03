@@ -70,7 +70,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 
 		if (ticket.closedReason) ticket.closedReason = decrypt(ticket.closedReason);
 		if (ticket.feedback?.comment) ticket.feedback.comment = decrypt(ticket.feedback.comment);
-		if (ticket.topic) ticket.topic = decrypt(ticket.topic);
+		if (ticket.topic) ticket.topic = decrypt(ticket.topic).replace(/\n/g, '\n\t');
 
 		ticket.archivedUsers.forEach((user, i) => {
 			if (user.displayName) user.displayName = decrypt(user.displayName);
