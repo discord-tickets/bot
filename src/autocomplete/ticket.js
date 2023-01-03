@@ -49,7 +49,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 			});
 			tickets = tickets.map(ticket => {
 				const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
-				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).substring(0, 50) : '';
+				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).replace(/\n/, ' ').substring(0, 50) : '';
 				const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
 				ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
 				return ticket;

@@ -2,8 +2,8 @@
 
 ---
 
-* ID: {{ ticket.id }}
-* Number: {{ guildName }} #{{ ticket.number }}
+* ID: {{ ticket.id }} ({{ guildName }})
+* Number: {{ ticket.category.name }} #{{ ticket.number }}
 * Topic: {{ #ticket.topic }}{{ . }}{{ /ticket.topic }}{{ ^ticket.topic }}(no topic){{ /ticket.topic }}
 * Created on: {{ #ticket }}{{ createdAtFull }}{{ /ticket }}
 * Created by: {{ #ticket.createdBy }}"{{ displayName }}" @{{ username }}#{{ discriminator }}{{ /ticket.createdBy }}
