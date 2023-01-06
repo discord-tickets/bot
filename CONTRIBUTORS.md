@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ## Contributors ✨
 
@@ -33,6 +33,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://github.com/thevisuales"><img src="https://avatars.githubusercontent.com/u/6569806?v=4?s=100" width="100px;" alt="thevisuales"/><br /><sub><b>thevisuales</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=thevisuales" title="Code">💻</a></td>
       <td align="center"><a href="https://rooray.xyz"><img src="https://avatars.githubusercontent.com/u/86845749?v=4?s=100" width="100px;" alt="RooRay"/><br /><sub><b>RooRay</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=RooRay" title="Documentation">📖</a> <a href="https://github.com/discord-tickets/bot/commits?author=RooRay" title="Code">💻</a></td>
       <td align="center"><a href="https://foxco-network.de"><img src="https://avatars.githubusercontent.com/u/54017453?v=4?s=100" width="100px;" alt="FoxXxHater"/><br /><sub><b>FoxXxHater</b></sub></a><br /><a href="#platform-FoxXxHater" title="Packaging/porting to new platform">📦</a></td>
+      <td align="center"><a href="https://c43721.dev"><img src="https://avatars.githubusercontent.com/u/55610086?v=4?s=100" width="100px;" alt="c43721"/><br /><sub><b>c43721</b></sub></a><br /><a href="#platform-c43721" title="Packaging/porting to new platform">📦</a></td>
     </tr>
   </tbody>
 </table>
