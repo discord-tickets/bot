@@ -169,6 +169,15 @@
       "contributions": [
         "platform"
       ]
+    },
+    {
+      "login": "AdminRAT",
+      "name": "AdminRAT",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24538037?v=4",
+      "profile": "https://adminrat.codes",
+      "contributions": [
+        "platform"
+      ]
     }
   ],
   "contributorsPerLine": 7,
