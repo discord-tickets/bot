@@ -1,7 +1,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -35,6 +36,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://foxco-network.de"><img src="https://avatars.githubusercontent.com/u/54017453?v=4?s=100" width="100px;" alt="FoxXxHater"/><br /><sub><b>FoxXxHater</b></sub></a><br /><a href="#platform-FoxXxHater" title="Packaging/porting to new platform">📦</a></td>
       <td align="center"><a href="https://adminrat.codes"><img src="https://avatars.githubusercontent.com/u/24538037?v=4?s=100" width="100px;" alt="AdminRAT"/><br /><sub><b>AdminRAT</b></sub></a><br /><a href="#platform-AdminRAT" title="Packaging/porting to new platform">📦</a></td>
       <td align="center"><a href="https://c43721.dev"><img src="https://avatars.githubusercontent.com/u/55610086?v=4?s=100" width="100px;" alt="c43721"/><br /><sub><b>c43721</b></sub></a><br /><a href="#platform-c43721" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/discord-tickets/bot/commits?author=c43721" title="Documentation">📖</a></td>
+      <td align="center"><a href="https://github.com/n1kkl"><img src="https://avatars.githubusercontent.com/u/100782498?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Niklas</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=n1kkl" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

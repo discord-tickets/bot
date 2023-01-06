@@ -236,15 +236,20 @@ module.exports = class TicketManager extends EventEmitter {
 		const guild = this.client.guilds.cache.get(t_row.guild);
 		const settings = await this.client.utils.getSettings(guild.id);
 		const i18n = this.client.i18n.getLocale(settings.locale);
-		const channel = await this.client.channels.fetch(t_row.id);
+		const channel = await this.client.channels.cache.find(channel =>
+			channel.id === t_row.id
+		) ? await this.client.channels.fetch(t_row.id) : null;
 
 		const close = async () => {
-			const pinned = await channel.messages.fetchPinned();
+			let pinned;
+			if (channel) {
+				pinned = await channel.messages.fetchPinned();
+			}
 			await t_row.update({
 				closed_by: closer_id || null,
 				closed_reason: reason ? this.client.cryptr.encrypt(reason) : null,
 				open: false,
-				pinned_messages: [...pinned.keys()]
+				pinned_messages: pinned ? [...pinned.keys()] : []
 			});
 
 			if (closer_id) {
@@ -252,42 +257,46 @@ module.exports = class TicketManager extends EventEmitter {
 
 				await this.archives.updateMember(ticket_id, closer);
 
-				const description = reason
-					? i18n('ticket.closed_by_member_with_reason.description', closer.user.toString(), reason)
-					: i18n('ticket.closed_by_member.description', closer.user.toString());
-				await channel.send({
-					embeds: [
-						new MessageEmbed()
-							.setColor(settings.success_colour)
-							.setAuthor(closer.user.username, closer.user.displayAvatarURL())
-							.setTitle(i18n('ticket.closed.title'))
-							.setDescription(description)
-							.setFooter(settings.footer, guild.iconURL())
-					]
-				});
+				if (channel) {
+					const description = reason
+						? i18n('ticket.closed_by_member_with_reason.description', closer.user.toString(), reason)
+						: i18n('ticket.closed_by_member.description', closer.user.toString());
+					await channel.send({
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setAuthor(closer.user.username, closer.user.displayAvatarURL())
+								.setTitle(i18n('ticket.closed.title'))
+								.setDescription(description)
+								.setFooter(settings.footer, guild.iconURL())
+						]
+					});
 
-				setTimeout(async () => {
-					await channel.delete(`Ticket channel closed by ${closer.user.tag}${reason ? `: "${reason}"` : ''}`);
-				}, 5000);
+					setTimeout(async () => {
+						await channel.delete(`Ticket channel closed by ${closer.user.tag}${reason ? `: "${reason}"` : ''}`);
+					}, 5000);
+				}
 
 				this.client.log.info(`${closer.user.tag} closed a ticket (${ticket_id})${reason ? `: "${reason}"` : ''}`);
 			} else {
-				const description = reason
-					? i18n('ticket.closed_with_reason.description')
-					: i18n('ticket.closed.description');
-				await channel.send({
-					embeds: [
-						new MessageEmbed()
-							.setColor(settings.success_colour)
-							.setTitle(i18n('ticket.closed.title'))
-							.setDescription(description)
-							.setFooter(settings.footer, guild.iconURL())
-					]
-				});
+				if (channel) {
+					const description = reason
+						? i18n('ticket.closed_with_reason.description')
+						: i18n('ticket.closed.description');
+					await channel.send({
+						embeds: [
+							new MessageEmbed()
+								.setColor(settings.success_colour)
+								.setTitle(i18n('ticket.closed.title'))
+								.setDescription(description)
+								.setFooter(settings.footer, guild.iconURL())
+						]
+					});
 
-				setTimeout(async () => {
-					await channel.delete(`Ticket channel closed${reason ? `: "${reason}"` : ''}`);
-				}, 5000);
+					setTimeout(async () => {
+						await channel.delete(`Ticket channel closed${reason ? `: "${reason}"` : ''}`);
+					}, 5000);
+				}
 
 				this.client.log.info(`A ticket was closed (${ticket_id})${reason ? `: "${reason}"` : ''}`);
 			}
@@ -409,6 +418,8 @@ module.exports = class TicketManager extends EventEmitter {
 					this.client.log.debug(error);
 					await close();
 				});
+		} else {
+			await close();
 		}
 
 		this.emit('close', ticket_id);
@@ -423,9 +434,7 @@ module.exports = class TicketManager extends EventEmitter {
 	async resolve(ticket_id, guild_id) {
 		let t_row;
 
-		if (this.client.channels.resolve(ticket_id)) {
-			t_row = await this.client.db.models.Ticket.findOne({ where: { id: ticket_id } });
-		} else {
+		if (!(t_row = await this.client.db.models.Ticket.findOne({ where: { id: ticket_id } }))) {
 			t_row = await this.client.db.models.Ticket.findOne({
 				where: {
 					guild: guild_id,
