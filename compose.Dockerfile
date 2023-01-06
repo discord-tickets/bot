@@ -11,10 +11,10 @@ USER node
 
 # Install packages
 COPY --chown=1000:1000 package.json pnpm-lock.yaml ./
-RUN npx pnpm install --prod --frozen-lockfile
-
-# Copy src folder
-COPY src ./src
+RUN npx pnpm install --prod --frozen-lockfile --no-optional && \
+	# Currently WIP since pnpm installs dev deps automatically when I don't want it to.
+	# Quick fix is to add to main deps
+	npx pnpm install mysql2
 
 # Set the command
 CMD ["node", "src/"]
