@@ -1,4 +1,5 @@
 const { logAdminEvent } = require('../../../../../../lib/logging');
+const { updateStaffRoles } = require('../../../../../../lib/users');
 const emoji = require('node-emoji');
 const { ChannelType: { GuildCategory } } = require('discord.js');
 const ms = require('ms');
@@ -92,6 +93,8 @@ module.exports.post = fastify => ({
 				questions: { createMany: { data: data.questions ?? [] } },
 			},
 		});
+
+		await updateStaffRoles(guild);
 
 		logAdminEvent(client, {
 			action: 'create',

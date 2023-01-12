@@ -1,15 +1,18 @@
 const { logAdminEvent } = require('../../../../../../../lib/logging');
+const { updateStaffRoles } = require('../../../../../../../lib/users');
 const { randomUUID } = require('crypto');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = res.context.config.client;
-		const guildId = req.params.guild;
+		const guild = client.guilds.cache.get(req.params.guild);
 		const categoryId = Number(req.params.category);
 		const original = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
-		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guild.id) return res.status(404).send(new Error('Not Found'));
 		const category = await client.prisma.category.delete({ where: { id: categoryId } });
+
+		await updateStaffRoles(guild);
 
 		logAdminEvent(client, {
 			action: 'delete',
@@ -136,6 +139,8 @@ module.exports.patch = fastify => ({
 			select,
 			where: { id: categoryId },
 		});
+
+		await updateStaffRoles(guild);
 
 		logAdminEvent(client, {
 			action: 'update',
