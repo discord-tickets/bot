@@ -1,4 +1,5 @@
 const { Autocompleter } = require('@eartharoid/dbf');
+const ms = require('ms');
 
 module.exports = class TagCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -17,7 +18,21 @@ module.exports = class TagCompleter extends Autocompleter {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		const tags = await client.prisma.tag.findMany({ where: { guildId: interaction.guild.id } });
+		const cacheKey = `cache/guild-tags:${interaction.guild.id}`;
+		let tags = await client.keyv.get(cacheKey);
+		if (!tags) {
+			tags = await client.prisma.tag.findMany({
+				select: {
+					content: true,
+					id: true,
+					name: true,
+					regex: true,
+				},
+				where: { guildId: interaction.guild.id },
+			});
+			client.keyv.set(cacheKey, tags, ms('1h'));
+		}
+
 		const options = value ? tags.filter(tag =>
 			tag.name.match(new RegExp(value, 'i')) ||
 			tag.content.match(new RegExp(value, 'i')) ||

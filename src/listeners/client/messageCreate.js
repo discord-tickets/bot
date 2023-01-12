@@ -184,6 +184,7 @@ module.exports = class extends Listener {
 			let ticket = await client.prisma.ticket.findUnique({ where: { id: message.channel.id } });
 
 			if (ticket) {
+				// archive messages
 				if (settings.archive) {
 					try {
 						await client.tickets.archiver.saveMessage(ticket.id, message);
@@ -194,6 +195,7 @@ module.exports = class extends Listener {
 				}
 
 				if (!message.author.bot) {
+					// update user's message count
 					await client.prisma.user.upsert({
 						create: {
 							id: message.author.id,
@@ -203,6 +205,7 @@ module.exports = class extends Listener {
 						where: { id: message.author.id },
 					});
 
+					// set first and last message timestamps
 					const data = { lastMessageAt: new Date() };
 					if (
 						ticket.firstResponseAt === null &&
@@ -212,30 +215,53 @@ module.exports = class extends Listener {
 						data,
 						where: { id: ticket.id },
 					});
+
+					// if the ticket was set as stale, unset it
+					if (client.tickets.$stale.has(ticket.id)) {
+						await message.channel.messages.delete(client.tickets.$stale.get(ticket.id).message.id);
+						client.tickets.$stale.delete(ticket.id);
+					}
 				}
 
 				// TODO: if (!message.author.bot) staff status alert, working hours alerts
 			}
 
-			if (!message.author.bot) {
-				const enabled =
-				(settings.autoTag === 'all') ||
+			// auto-tag
+			if (
+				!message.author.bot &&
+				(
+					(settings.autoTag === 'all') ||
 					(settings.autoTag === 'ticket' && ticket) ||
 					(settings.autoTag === '!ticket' && !ticket) ||
-					(settings.autoTag.includes(message.channel.id));
-				if (enabled) {
-					const tags = await client.prisma.tag.findMany({ where: { guildId: message.guild.id } });
-					const tag = tags.find(tag => message.content.match(new RegExp(tag.regex, 'mi')));
-					if (tag) {
-						await message.reply({
-							embeds: [
-								new EmbedBuilder()
-									.setColor(settings.primaryColour)
-									.setDescription(tag.content),
-							],
-						});
-					}
+					(settings.autoTag.includes(message.channel.id))
+				)
+			) {
+				const cacheKey = `cache/guild-tags:${message.guild.id}`;
+				let tags = await client.keyv.get(cacheKey);
+				if (!tags) {
+					tags = await client.prisma.tag.findMany({
+						select: {
+							content: true,
+							id: true,
+							name: true,
+							regex: true,
+						},
+						where: { guildId: message.guild.id },
+					});
+					client.keyv.set(cacheKey, tags, ms('1h'));
 				}
+
+				const tag = tags.find(tag => message.content.match(new RegExp(tag.regex, 'mi')));
+				if (tag) {
+					await message.reply({
+						embeds: [
+							new EmbedBuilder()
+								.setColor(settings.primaryColour)
+								.setDescription(tag.content),
+						],
+					});
+				}
+
 			}
 		}
 	}
