@@ -30,7 +30,7 @@ module.exports = async client => {
 			const guild = client.guilds.cache.get(ticket.guildId);
 			if (guild && guild.available && !client.channels.cache.has(ticket.id)) {
 				deleted += 0;
-				await client.tickets.close(ticket.id, true, 'channel deleted');
+				await client.tickets.finallyClose(ticket.id, { reason: 'channel deleted' });
 			}
 
 		}

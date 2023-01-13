@@ -62,7 +62,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		await interaction.deferReply();
 
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
-		const getMessage = this.client.i18n.getLocale(settings.locale);
+		const getMessage = client.i18n.getLocale(settings.locale);
 		let ticket;
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff

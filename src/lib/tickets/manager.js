@@ -807,6 +807,40 @@ module.exports = class TicketManager {
 		});
 	}
 
+	buildFeedbackModal(locale, id) {
+		const getMessage = this.client.i18n.getLocale(locale);
+		return new ModalBuilder()
+			.setCustomId(JSON.stringify({
+				action: 'feedback',
+				...id,
+			}))
+			.setTitle(getMessage('modals.feedback.title'))
+			.setComponents(
+				new ActionRowBuilder()
+					.setComponents(
+						new TextInputBuilder()
+							.setCustomId('rating')
+							.setLabel(getMessage('modals.feedback.rating.label'))
+							.setStyle(TextInputStyle.Short)
+							.setMaxLength(3)
+							.setMinLength(1)
+							.setPlaceholder(getMessage('modals.feedback.rating.placeholder'))
+							.setRequired(true),
+					),
+				new ActionRowBuilder()
+					.setComponents(
+						new TextInputBuilder()
+							.setCustomId('comment')
+							.setLabel(getMessage('modals.feedback.comment.label'))
+							.setStyle(TextInputStyle.Paragraph)
+							.setMaxLength(1000)
+							.setMinLength(4)
+							.setPlaceholder(getMessage('modals.feedback.comment.placeholder'))
+							.setRequired(false),
+					),
+			);
+	}
+
 
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction} interaction
@@ -815,7 +849,7 @@ module.exports = class TicketManager {
 		const ticket = await this.client.prisma.ticket.findUnique({
 			include: {
 				category: { select: { enableFeedback: true } },
-				feedback: { select: { id: true } },
+				feedback: true,
 				guild: true,
 			},
 			where: { id: interaction.channel.id },
@@ -836,7 +870,10 @@ module.exports = class TicketManager {
 			const getMessage = this.client.i18n.getLocale(locale);
 			return await interaction.editReply({
 				embeds: [
-					new ExtendedEmbedBuilder()
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
 						.setColor(errorColour)
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
@@ -846,7 +883,7 @@ module.exports = class TicketManager {
 
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		const staff = await isStaff(interaction.guild, interaction.user.id);
-		const reason = interaction.options?.getString('reason', false) || null; // ?. because it could be a button interaction)
+		const reason = interaction.options?.getString('reason', false) || null; // ?. because it could be a button interaction
 
 		if (ticket.createdById !== interaction.user.id && !staff) {
 			return await interaction.editReply({
@@ -859,41 +896,18 @@ module.exports = class TicketManager {
 			});
 		}
 
-		if (ticket.createdById === interaction.user.id && ticket.category.enableFeedback && !ticket.feedback) {
-			return await interaction.showModal(
-				new ModalBuilder()
-					.setCustomId(JSON.stringify({
-						action: 'feedback',
-						reason,
-					}))
-					.setTitle(getMessage('modals.feedback.title'))
-					.setComponents(
-						new ActionRowBuilder()
-							.setComponents(
-								new TextInputBuilder()
-									.setCustomId('rating')
-									.setLabel(getMessage('modals.feedback.rating.label'))
-									.setStyle(TextInputStyle.Short)
-									.setMaxLength(3)
-									.setMinLength(1)
-									.setPlaceholder(getMessage('modals.feedback.rating.placeholder'))
-									.setRequired(false),
-							),
-						new ActionRowBuilder()
-							.setComponents(
-								new TextInputBuilder()
-									.setCustomId('comment')
-									.setLabel(getMessage('modals.feedback.comment.label'))
-									.setStyle(TextInputStyle.Paragraph)
-									.setMaxLength(1000)
-									.setMinLength(4)
-									.setPlaceholder(getMessage('modals.feedback.comment.placeholder'))
-									.setRequired(false),
-							),
-					),
-			);
-
+		if (
+			ticket.createdById === interaction.user.id &&
+			ticket.category.enableFeedback &&
+			!ticket.feedback
+		) {
+			return await interaction.showModal(this.buildFeedbackModal(ticket.guild.locale, {
+				next: 'requestClose',
+				reason, // known issue: a reason longer than a few words will cause an error due to 100 character ID limit
+			}));
 		}
+
+		// not showing feedback, so send the close request
 
 		// defer asap
 		await interaction.deferReply();
@@ -903,7 +917,7 @@ module.exports = class TicketManager {
 		try {
 			await interaction.guild.members.fetch(ticket.createdById);
 		} catch {
-			return this.close(ticket.id, true, reason);
+			return this.finallyClose(ticket.id, { reason });
 		}
 
 		await this.requestClose(interaction, reason);
@@ -911,6 +925,7 @@ module.exports = class TicketManager {
 
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 * @param {string} reason
 	 */
 	async requestClose(interaction, reason) {
 		// interaction could be command, button. or modal
@@ -924,14 +939,17 @@ module.exports = class TicketManager {
 			action: 'close',
 			expect: staff ? 'user' : 'staff',
 		};
-		const embed = new ExtendedEmbedBuilder()
+		const embed = new ExtendedEmbedBuilder({
+			iconURL: interaction.guild.iconURL(),
+			text: ticket.guild.footer,
+		})
 			.setColor(ticket.guild.primaryColour)
 			.setTitle(getMessage(`ticket.close.${staff ? 'staff' : 'user'}_request.title`, { requestedBy: interaction.member.displayName }));
 
 		if (staff) {
 			embed.setDescription(
 				getMessage('ticket.close.staff_request.description', { requestedBy: interaction.user.toString() }) +
-					(ticket.guild.archive ? getMessage('ticket.close.staff_request.archived') : ''),
+				(ticket.guild.archive ? getMessage('ticket.close.staff_request.archived') : ''),
 			);
 		}
 
@@ -965,6 +983,7 @@ module.exports = class TicketManager {
 			closeAt: ticket.guild.autoClose ? Date.now() + ticket.guild.autoClose : null,
 			closedBy: interaction.user.id, // null if set as stale due to inactivity
 			message: sent,
+			messages: 0,
 			reason,
 			staleSince: Date.now(),
 		});
@@ -978,12 +997,18 @@ module.exports = class TicketManager {
 	}
 
 	/**
+	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 */
+	async acceptClose(interaction) {}
+
+	/**
 	 * close a ticket
 	 * @param {string} ticketId
-	 * @param {boolean} skip
-	 * @param {string} reason
 	 */
-	async close(ticketId, skip, reason) {
+	async finallyClose(ticketId, {
+		closedBy,
+		reason,
+	}) {
 		// TODO: update cache/cat count
 		// TODO: update cache/member count
 		// TODO: set messageCount on ticket

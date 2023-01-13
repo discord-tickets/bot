@@ -339,7 +339,7 @@ modals:
       placeholder: Do you have any additional feedback?
     rating:
       label: Rating
-      placeholder: 1-5 
+      placeholder: 1-5
     title: How did we do?
   topic:
     label: Topic
@@ -352,6 +352,7 @@ ticket:
     forbidden:
       description: You don't have permission to close this ticket.
       title: ❌ Error
+    rejected: ✋ {user} rejected a request to close this ticket.
     staff_request:
       archived: |
 
@@ -368,6 +369,7 @@ ticket:
   edited:
     description: Your changes have been saved.
     title: ✅ Ticket updated
+  feedback: Thank you for your feedback.
   opening_message:
     content: |
       {staff}

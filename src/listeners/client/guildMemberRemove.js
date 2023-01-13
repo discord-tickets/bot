@@ -26,7 +26,7 @@ module.exports = class extends Listener {
 		});
 
 		for (const ticket of tickets) {
-			await client.tickets.close(ticket.id, true, 'user left server');
+			await client.tickets.finallyClose(ticket.id, { reason: 'user left server' });
 		}
 	}
 };
