@@ -108,5 +108,13 @@ module.exports = class extends Listener {
 			send();
 			setInterval(() => send(), ms('12h'));
 		}
+
+		setInterval(() => {
+			// TODO: check lastMessageAt and set stale
+
+			for (const [ticketId, $] of client.tickets.$stale) {
+				// ⌛
+			}
+		}, ms('5m'));
 	}
 };

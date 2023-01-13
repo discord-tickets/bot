@@ -101,10 +101,9 @@ model Feedback {
     createdAt DateTime @default(now())
     guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId   String
-    id        Int      @id @default(autoincrement())
     rating    Int
     ticket    Ticket   @relation(fields: [ticketId], references: [id])
-    ticketId  String   @unique
+    ticketId  String   @id
     user      User?    @relation(fields: [userId], references: [id])
     userId    String?
 
@@ -199,10 +198,9 @@ model Ticket {
     createdAt           DateTime          @default(now())
     createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
     createdById         String
-    feedback            Feedback?
-    feedbackId          Int?
-    firstResponseAt     DateTime?
     deleted             Boolean           @default(false)
+    feedback            Feedback?
+    firstResponseAt     DateTime?
     guild               Guild             @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId             String
     id                  String            @id

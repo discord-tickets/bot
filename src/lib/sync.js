@@ -22,10 +22,10 @@ module.exports = async client => {
 	let cooldowns = 0;
 	for (const category of categories) {
 		ticketCount += category.tickets.length;
-		client.tickets.$.categories[category.id] = { total: category.tickets.length };
+		client.tickets.$count.categories[category.id] = { total: category.tickets.length };
 		for (const ticket of category.tickets) {
-			if (client.tickets.$.categories[category.id][ticket.createdById]) client.tickets.$.categories[category.id][ticket.createdById]++;
-			else client.tickets.$.categories[category.id][ticket.createdById] = 1;
+			if (client.tickets.$count.categories[category.id][ticket.createdById]) client.tickets.$count.categories[category.id][ticket.createdById]++;
+			else client.tickets.$count.categories[category.id][ticket.createdById] = 1;
 			/** @type {import("discord.js").Guild} */
 			const guild = client.guilds.cache.get(ticket.guildId);
 			if (guild && guild.available && !client.channels.cache.has(ticket.id)) {

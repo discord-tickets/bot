@@ -228,7 +228,5 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 				});
 			}
 		}
-
-		// TODO: close (reason)
 	}
 };

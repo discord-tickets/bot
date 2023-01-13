@@ -2,8 +2,8 @@ const { Button } = require('@eartharoid/dbf');
 const {
 	ActionRowBuilder,
 	ModalBuilder,
-	SelectMenuBuilder,
-	SelectMenuOptionBuilder,
+	StringSelectMenuBuilder,
+	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
 } = require('discord.js');
@@ -86,14 +86,14 @@ module.exports = class EditButton extends Button {
 								} else if (a.question.type === 'MENU') {
 									return new ActionRowBuilder()
 										.setComponents(
-											new SelectMenuBuilder()
+											new StringSelectMenuBuilder()
 												.setCustomId(a.question.id)
 												.setPlaceholder(a.question.placeholder || a.question.label)
 												.setMaxValues(a.question.maxLength)
 												.setMinValues(a.question.minLength)
 												.setOptions(
 													a.question.options.map((o, i) => {
-														const builder = new SelectMenuOptionBuilder()
+														const builder = new StringSelectMenuOptionBuilder()
 															.setValue(String(i))
 															.setLabel(o.label);
 														if (o.description) builder.setDescription(o.description);

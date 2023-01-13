@@ -1,6 +1,9 @@
 buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Accept
   cancel:
-    emoji: 🚫
+    emoji: ✖️
     text: Cancel
   claim:
     emoji: 🙌
@@ -17,6 +20,9 @@ buttons:
   edit:
     emoji: ✏️
     text: Edit
+  reject_close_request:
+    emoji: ✖️
+    text: Reject
   unclaim:
     emoji: ♻️
     text: Release
@@ -328,7 +334,13 @@ misc:
     title: ❌ That ticket category doesn't exist
 modals:
   feedback:
-    title: Feedback
+    comment:
+      label: Comment
+      placeholder: Do you have any additional feedback?
+    rating:
+      label: Rating
+      placeholder: 1-5 
+    title: How did we do?
   topic:
     label: Topic
     placeholder: What is this ticket about?
@@ -336,6 +348,20 @@ ticket:
   answers:
     no_value: "*No response*"
   claimed: 🙌 {user} has claimed this ticket.
+  close:
+    forbidden:
+      description: You don't have permission to close this ticket.
+      title: ❌ Error
+    staff_request:
+      archived: |
+
+        The messages in this channel will be archived for future reference.
+      description: |
+        {requestedBy} wants to close this ticket.
+        Click "Accept" to close it now, or "Reject" if you still need help.
+      title: ❓ Can this ticket be closed?
+    user_request:
+      title: ❓ {requestedBy} wants to close this ticket
   created:
     description: "Your ticket channel has been created: {channel}."
     title: ✅ Ticket created

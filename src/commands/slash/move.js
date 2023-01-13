@@ -85,8 +85,8 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 				where: { id: ticket.id },
 			});
 
-			const $oldCategory = client.tickets.$.categories[ticket.categoryId];
-			const $newCategory = client.tickets.$.categories[newCategory.id];
+			const $oldCategory = client.tickets.$count.categories[ticket.categoryId];
+			const $newCategory = client.tickets.$count.categories[newCategory.id];
 
 			$oldCategory.total--;
 			$oldCategory[ticket.createdById]--;

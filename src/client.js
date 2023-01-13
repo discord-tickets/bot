@@ -1,6 +1,7 @@
 const { FrameworkClient } = require('@eartharoid/dbf');
 const {
-	GatewayIntentBits, Partials,
+	GatewayIntentBits,
+	Partials,
 } = require('discord.js');
 const { PrismaClient } = require('@prisma/client');
 const Keyv = require('keyv');

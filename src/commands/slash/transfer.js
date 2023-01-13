@@ -44,7 +44,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 
 		let ticket = await client.prisma.ticket.findUnique({ where: { id: interaction.channel.id } });
 		const from = ticket.createdById;
-		console.log(1)
+
 		ticket = await client.prisma.ticket.update({
 			data: {
 				createdBy: {
