@@ -140,6 +140,8 @@ module.exports.patch = fastify => ({
 			where: { id: categoryId },
 		});
 
+		// update caches
+		await client.tickets.getCategory(categoryId, true);
 		await updateStaffRoles(guild);
 
 		logAdminEvent(client, {

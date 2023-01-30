@@ -349,6 +349,9 @@ ticket:
     no_value: "*No response*"
   claimed: 🙌 {user} has claimed this ticket.
   close:
+    closed:
+      description: This channel will be deleted in a few seconds...
+      title: ✅ Ticket closed
     forbidden:
       description: You don't have permission to close this ticket.
       title: ❌ Error
@@ -363,6 +366,8 @@ ticket:
       title: ❓ Can this ticket be closed?
     user_request:
       title: ❓ {requestedBy} wants to close this ticket
+    wait_for_staff: ✋ Please wait for staff to close this ticket.
+    wait_for_user: ✋ Please wait for the user to respond.
   created:
     description: "Your ticket channel has been created: {channel}."
     title: ✅ Ticket created

@@ -47,6 +47,8 @@ module.exports = class extends Listener {
 			}
 		}
 
+		if (newMessage.author.id === client.user.id) return;
+
 		await logMessageEvent(this.client, {
 			action: 'update',
 			diff: {

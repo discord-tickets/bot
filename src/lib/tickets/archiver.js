@@ -2,7 +2,7 @@ const Cryptr = require('cryptr');
 const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
 /**
- * Returns highest (roles.highest) hoisted role , or everyone
+ * Returns highest (roles.highest) hoisted role, or everyone
  * @param {import("discord.js").GuildMember} member
  * @returns {import("discord.js").Role}
  */
@@ -121,7 +121,7 @@ module.exports = class TicketArchiver {
 			id: message.id,
 		};
 
-		await this.client.prisma.ticket.update({
+		return await this.client.prisma.ticket.update({
 			data: {
 				archivedChannels: {
 					upsert: channels.map(channel => {

@@ -91,10 +91,10 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 			$oldCategory.total--;
 			$oldCategory[ticket.createdById]--;
 
-			if (!$newCategory.total) $newCategory.total = 0;
+			$newCategory.total ||= 0;
 			$newCategory.total++;
 
-			if (!$newCategory[ticket.createdById]) $newCategory[ticket.createdById] = 0;
+			$newCategory[ticket.createdById] ||= 0;
 			$newCategory[ticket.createdById]++;
 
 			await interaction.channel.setParent(discordCategory, {

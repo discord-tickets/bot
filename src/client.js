@@ -52,7 +52,12 @@ module.exports = class Client extends FrameworkClient {
 	async login(token) {
 		/** @type {PrismaClient} */
 		this.prisma = new PrismaClient();
-		if (process.env.DB_PROVIDER === 'sqlite') this.prisma.$use(sqliteMiddleware);
+		if (process.env.DB_PROVIDER === 'sqlite') {
+			this.prisma.$use(sqliteMiddleware);
+			// make sqlite faster (https://www.sqlite.org/wal.html),
+			// and the missing parentheses are not a mistake, `$queryRaw` is a tagged template literal
+			this.log.debug(await this.prisma.$queryRaw`PRAGMA journal_mode=WAL;`);
+		}
 		this.keyv = new Keyv();
 		return super.login(token);
 	}

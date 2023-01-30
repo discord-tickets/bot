@@ -26,6 +26,14 @@ const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
  * 	{guild: import('@prisma/client').Guild} &
  * 	{questions: import('@prisma/client').Question[]}} CategoryGuildQuestions
  */
+
+/**
+ * @typedef {import('@prisma/client').Ticket &
+ * 	{category: import('@prisma/client').Category} &
+ * 	{feedback: import('@prisma/client').Feedback} &
+ * 	{guild: import('@prisma/client').Guild}} TicketCategoryFeedbackGuild
+ */
+
 module.exports = class TicketManager {
 	constructor(client) {
 		/** @type {import("client")} */
@@ -58,10 +66,32 @@ module.exports = class TicketManager {
 		return category;
 	}
 
-	// TODO: update when a ticket is closed or moved
+	/**
+	 * Retrieve cached ticket data for the closing sequence
+	 * @param {string} ticketId the ticket ID
+	 * @param {boolean} force bypass & update the cache?
+	 * @returns {Promise<TicketCategoryFeedbackGuild>}
+	 */
+	async getTicket(ticketId, force) {
+		const cacheKey = `cache/ticket+category+feedback+guild:${ticketId}`;
+		/** @type {TicketCategoryFeedbackGuild} */
+		let ticket = await this.client.keyv.get(cacheKey);
+		if (!ticket || force) {
+			ticket = await this.client.prisma.ticket.findUnique({
+				include: {
+					category: true,
+					feedback: true,
+					guild: true,
+				},
+				where: { id: ticketId },
+			});
+			await this.client.keyv.set(cacheKey, ticket, ms('3m'));
+		}
+		return ticket;
+	}
+
 	async getTotalCount(categoryId) {
-		const category = this.$count.categories[categoryId];
-		if (!category) this.$count.categories[categoryId] = {};
+		this.$count.categories[categoryId] ||= {};
 		let count = this.$count.categories[categoryId].total;
 		if (!count) {
 			count = await this.client.prisma.ticket.count({
@@ -75,10 +105,8 @@ module.exports = class TicketManager {
 		return count;
 	}
 
-	// TODO: update when a ticket is closed or moved
 	async getMemberCount(categoryId, memberId) {
-		const category = this.$count.categories[categoryId];
-		if (!category) this.$count.categories[categoryId] = {};
+		this.$count.categories[categoryId] ||= {};
 		let count = this.$count.categories[categoryId][memberId];
 		if (!count) {
 			count = await this.client.prisma.ticket.count({
@@ -314,9 +342,10 @@ module.exports = class TicketManager {
 	async postQuestions({
 		action, categoryId, interaction, topic, referencesMessage, referencesTicketId,
 	}) {
-		await interaction.deferReply({ ephemeral: true });
-
-		const category = await this.getCategory(categoryId);
+		const [, category] = await Promise.all([
+			interaction.deferReply({ ephemeral: true }),
+			this.getCategory(categoryId),
+		]);
 
 		let answers;
 		if (interaction.isModalSubmit()) {
@@ -604,11 +633,12 @@ module.exports = class TicketManager {
 			}
 
 			if (category.guild.archive && message) {
-				let row = await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
-				if (!row) row = await this.archiver.saveMessage(ticket.id, message, true);
-				if (row) {
+				if (
+					await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } })||
+					await this.archiver.saveMessage(ticket.id, message, true)
+				) {
 					await this.client.prisma.ticket.update({
-						data: { referencesMessageId: row.id },
+						data: { referencesMessageId: message.id },
 						where: { id: ticket.id },
 					});
 				}
@@ -657,21 +687,21 @@ module.exports = class TicketManager {
 		});
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
-		await interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`);
-
-		for (const role of ticket.category.staffRoles) await interaction.channel.permissionOverwrites.edit(role, { 'ViewChannel': false }, `Ticket claimed by ${interaction.user.tag}`);
-
-		await this.client.prisma.ticket.update({
-			data: {
-				claimedBy: {
-					connectOrCreate: {
-						create: { id: interaction.user.id },
-						where: { id: interaction.user.id },
+		await Promise.all([
+			interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`),
+			...ticket.category.staffRoles.map(role => interaction.channel.permissionOverwrites.edit(role, { 'ViewChannel': false }, `Ticket claimed by ${interaction.user.tag}`)),
+			this.client.prisma.ticket.update({
+				data: {
+					claimedBy: {
+						connectOrCreate: {
+							create: { id: interaction.user.id },
+							where: { id: interaction.user.id },
+						},
 					},
 				},
-			},
-			where: { id: interaction.channel.id },
-		});
+				where: { id: interaction.channel.id },
+			}),
+		]);
 
 		const openingMessage = await interaction.channel.messages.fetch(ticket.openingMessageId);
 
@@ -735,6 +765,7 @@ module.exports = class TicketManager {
 	async release(interaction) {
 		const ticket = await this.client.prisma.ticket.findUnique({
 			include: {
+				_count: { select: { questionAnswers: true } },
 				category: true,
 				guild: true,
 			},
@@ -742,14 +773,14 @@ module.exports = class TicketManager {
 		});
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
-		await interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`);
-
-		for (const role of ticket.category.staffRoles) await interaction.channel.permissionOverwrites.edit(role, { 'ViewChannel': true }, `Ticket released by ${interaction.user.tag}`);
-
-		await this.client.prisma.ticket.update({
-			data: { claimedBy: { disconnect: true } },
-			where: { id: interaction.channel.id },
-		});
+		await Promise.all([
+			interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`),
+			...ticket.category.staffRoles.map(role => interaction.channel.permissionOverwrites.edit(role, { 'ViewChannel': true }, `Ticket released by ${interaction.user.tag}`)),
+			this.client.prisma.ticket.update({
+				data: { claimedBy: { disconnect: true } },
+				where: { id: interaction.channel.id },
+			}),
+		]);
 
 		const openingMessage = await interaction.channel.messages.fetch(ticket.openingMessageId);
 
@@ -846,19 +877,12 @@ module.exports = class TicketManager {
 	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction} interaction
 	 */
 	async beforeRequestClose(interaction) {
-		const ticket = await this.client.prisma.ticket.findUnique({
-			include: {
-				category: { select: { enableFeedback: true } },
-				feedback: true,
-				guild: true,
-			},
-			where: { id: interaction.channel.id },
-		});
-
+		const ticket = await this.getTicket(interaction.channel.id);
 		if (!ticket) {
 			await interaction.deferReply({ ephemeral: true });
 			const {
 				errorColour,
+				footer,
 				locale,
 			} = await this.client.prisma.guild.findUnique({
 				select: {
@@ -872,7 +896,7 @@ module.exports = class TicketManager {
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
-						text: ticket.guild.footer,
+						text: footer,
 					})
 						.setColor(errorColour)
 						.setTitle(getMessage('misc.not_ticket.title'))
@@ -903,7 +927,7 @@ module.exports = class TicketManager {
 		) {
 			return await interaction.showModal(this.buildFeedbackModal(ticket.guild.locale, {
 				next: 'requestClose',
-				reason, // known issue: a reason longer than a few words will cause an error due to 100 character ID limit
+				reason, // known issue: a reason longer than a few words will cause an error due to 100 character custom_id limit
 			}));
 		}
 
@@ -920,7 +944,7 @@ module.exports = class TicketManager {
 			return this.finallyClose(ticket.id, { reason });
 		}
 
-		await this.requestClose(interaction, reason);
+		this.requestClose(interaction, reason);
 	}
 
 	/**
@@ -929,12 +953,9 @@ module.exports = class TicketManager {
 	 */
 	async requestClose(interaction, reason) {
 		// interaction could be command, button. or modal
-		const ticket = await this.client.prisma.ticket.findUnique({
-			include: { guild: true },
-			where: { id: interaction.channel.id },
-		});
+		const ticket = await this.getTicket(interaction.channel.id);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
-		const staff = await isStaff(interaction.guild, interaction.user.id);
+		const staff = interaction.user.id !== ticket.createdById && await isStaff(interaction.guild, interaction.user.id);
 		const closeButtonId = {
 			action: 'close',
 			expect: staff ? 'user' : 'staff',
@@ -999,20 +1020,71 @@ module.exports = class TicketManager {
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
 	 */
-	async acceptClose(interaction) {}
+	async acceptClose(interaction) {
+		const ticket = await this.getTicket(interaction.channel.id);
+		const $ticket = this.$stale.get(interaction.channel.id);
+		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
+		await interaction.editReply({
+			embeds: [
+				new ExtendedEmbedBuilder({
+					iconURL: interaction.guild.iconURL(),
+					text: ticket.guild.footer,
+				})
+					.setColor(ticket.guild.successColour)
+					.setTitle(getMessage('ticket.close.closed.title'))
+					.setDescription(getMessage('ticket.close.closed.description')),
+			],
+		});
+		await new Promise(resolve => setTimeout(resolve, 5000));
+		await this.finallyClose(interaction.channel.id, $ticket);
+	}
 
 	/**
 	 * close a ticket
 	 * @param {string} ticketId
 	 */
 	async finallyClose(ticketId, {
-		closedBy,
-		reason,
+		closedBy = null,
+		reason = null,
 	}) {
-		// TODO: update cache/cat count
-		// TODO: update cache/member count
-		// TODO: set messageCount on ticket
-		// TODO: pinnedMessages, closedBy, closedAt
-		// delete
+		const ticket = await this.getTicket(ticketId);
+		this.$count.categories[ticket.categoryId].total -= 1;
+		this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
+
+		const { _count: { archivedMessages } } = await this.client.prisma.ticket.findUnique({
+			select: { _count: { select: { archivedMessages: true } } },
+			where: { id: ticket.id },
+		});
+
+		/** @type {import("@prisma/client").Ticket} */
+		const data = {
+			closedAt: new Date(),
+			closedBy: closedBy && {
+				connectOrCreate: {
+					create: { id: closedBy },
+					where: { id: closedBy },
+				},
+			} || undefined, // Prisma wants undefined not null because it is a relation
+			closedReason: reason && encrypt(reason),
+			messageCount: archivedMessages,
+		};
+
+		/** @type {import("discord.js").TextChannel} */
+		const channel = this.client.channels.cache.get(ticketId);
+		if (channel) {
+			const pinned = await channel.messages.fetchPinned();
+			data.pinnedMessageIds = pinned.keys();
+		}
+
+		await this.client.prisma.ticket.update({
+			data,
+			where: { id: ticket.id },
+		});
+
+
+		if (channel?.deletable) {
+			const member = closedBy ? channel.guild.members.cache.get(closedBy) : null;
+			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
+		}
 	}
 };

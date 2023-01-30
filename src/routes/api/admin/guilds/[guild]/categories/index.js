@@ -94,6 +94,8 @@ module.exports.post = fastify => ({
 			},
 		});
 
+		// update caches
+		await client.tickets.getCategory(category.id, true);
 		await updateStaffRoles(guild);
 
 		logAdminEvent(client, {

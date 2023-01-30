@@ -111,6 +111,14 @@ module.exports = class extends Listener {
 
 		setInterval(() => {
 			// TODO: check lastMessageAt and set stale
+			// this.$stale.set(ticket.id, {
+			// 	closeAt: ticket.guild.autoClose ? Date.now() + ticket.guild.autoClose : null,
+			// 	closedBy: null, // null if set as stale due to inactivity
+			// 	message: sent,
+			// 	messages: 0,
+			// 	reason: 'inactivity',
+			// 	staleSince: Date.now(),
+			// });
 
 			for (const [ticketId, $] of client.tickets.$stale) {
 				// ⌛
