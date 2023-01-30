@@ -1081,10 +1081,38 @@ module.exports = class TicketManager {
 			where: { id: ticket.id },
 		});
 
-
 		if (channel?.deletable) {
 			const member = closedBy ? channel.guild.members.cache.get(closedBy) : null;
 			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
 		}
+
+		if (closedBy) {
+			logTicketEvent(this.client, {
+				action: 'close',
+				target: {
+					id: ticket.id,
+					name: channel.toString(),
+				},
+				userId: closedBy,
+			});
+		}
+
+		try {
+			const creator = await channel?.guild.members.fetch(ticket.createdById);
+			if (creator) {
+				const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
+				const embed = new ExtendedEmbedBuilder({
+					iconURL: channel.guild.iconURL(),
+					text: ticket.guild.footer,
+				})
+					.setColor(ticket.guild.primaryColour)
+					.setTitle(getMessage('dm.closed.title'));
+				if (ticket.guild.archive) embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
+				await creator.send({ embeds: [embed] });
+			}
+		} catch (error) {
+			this.client.log.error(error);
+		}
+
 	}
 };

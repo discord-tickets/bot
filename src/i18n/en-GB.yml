@@ -230,6 +230,9 @@ commands:
     create:
       name: Create a ticket for user
 dm:
+  closed:
+    archived: Type `/transcript` in **{guild}** to view the archived messages.
+    title: Your ticket has been closed
   confirm_open:
     title: Do you want to open a ticket with the following topic?
 log:
