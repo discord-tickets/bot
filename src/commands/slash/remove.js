@@ -89,7 +89,7 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 		const ticketChannel = await interaction.guild.channels.fetch(ticket.id);
 		const member = interaction.options.getMember('member', true);
 
-		if (member.id === client.user.id) {
+		if (member.id === client.user.id || member.id === ticket.createdById) {
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder()
