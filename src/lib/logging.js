@@ -191,17 +191,18 @@ async function logTicketEvent(client, {
  * @param {import("@prisma/client").Ticket & {guild: import("@prisma/client").Guild}} details.ticket
 */
 async function logMessageEvent(client, {
-	action, target, ticket, diff,
+	action, executor, target, ticket, diff,
 }) {
 	if (!ticket) return;
-	client.log.info.tickets(`${target.member.user.tag} ${client.i18n.getMessage('en-GB', `log.message.verb.${action}`)} message ${target.id}`);
+	if (executor === undefined) executor = target.member;
+	client.log.info.tickets(`${executor?.user.tag || 'Unknown'} ${client.i18n.getMessage('en-GB', `log.message.verb.${action}`)} message ${target.id}`);
 	if (!ticket.guild.logChannel) return;
 	const colour = action === 'update'
 		? 'Purple' : action === 'delete'
 			? 'DarkPurple' : 'Default';
 	const getMessage = client.i18n.getLocale(ticket.guild.locale);
 	const i18nOptions = {
-		user: `<@${target.member.user.id}>`,
+		user: `<@${executor?.user.id}>`,
 		verb: getMessage(`log.message.verb.${action}`),
 	};
 	const channel = client.channels.cache.get(ticket.guild.logChannel);
@@ -210,15 +211,15 @@ async function logMessageEvent(client, {
 		new EmbedBuilder()
 			.setColor(colour)
 			.setAuthor({
-				iconURL: target.member.displayAvatarURL(),
-				name: target.member.displayName,
+				iconURL: target.member?.displayAvatarURL() || 'https://discord.com/assets/1f0bfc0865d324c2587920a7d80c609b.png',
+				name: target.member?.displayName || 'Unknown',
 			})
 			.setTitle(getMessage('log.message.title', i18nOptions))
 			.setDescription(getMessage('log.message.description', i18nOptions))
 			.addFields([
 				{
 					name: getMessage('log.message.message'),
-					value: `[${target.id}](${target.url})`,
+					value: `[\`${target.id}\`](${target.url})`,
 				},
 			]),
 	];

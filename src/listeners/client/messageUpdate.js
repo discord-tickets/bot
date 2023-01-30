@@ -20,9 +20,17 @@ module.exports = class extends Listener {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		if (newMessage.partial) newMessage.fetch().then(m => (newMessage = m)).catch(client.log.error);
+		if (newMessage.partial) {
+			try {
+				newMessage = await newMessage.fetch();
+			} catch (error) {
+				client.log.error(error);
+			}
+		}
+
+		if (!newMessage.guild) return;
 		if (newMessage.flags.has(MessageFlagsBitField.Flags.Ephemeral)) return;
-		if (!newMessage.edited) return;
+		if (!newMessage.editedAt) return;
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },
