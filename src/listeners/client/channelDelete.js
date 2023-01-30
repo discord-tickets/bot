@@ -17,7 +17,8 @@ module.exports = class extends Listener {
 			include: { guild: true },
 			where: { id: channel.id },
 		});
-		if (!ticket) return;
+
+		if (!ticket?.open) return;
 
 		await client.tickets.finallyClose(ticket.id, { reason: 'channel deleted' });
 		this.client.log.info(`Closed ticket ${ticket.id} because the channel was deleted`);

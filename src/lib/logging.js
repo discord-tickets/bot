@@ -131,10 +131,7 @@ async function logAdminEvent(client, {
 async function logTicketEvent(client, {
 	userId, action, target, diff,
 }) {
-	const ticket = await client.prisma.ticket.findUnique({
-		include: { guild: true },
-		where: { id: target.id },
-	});
+	const ticket = await client.tickets.getTicket(target.id);
 	if (!ticket) return;
 	/** @type {import("discord.js").Guild} */
 	const guild = client.guilds.cache.get(ticket.guild.id);

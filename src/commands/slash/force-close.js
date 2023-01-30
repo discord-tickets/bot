@@ -96,6 +96,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 				});
 			}
 
+			// TODO: category
 			const tickets = await client.prisma.ticket.findMany({
 				where: {
 					lastMessageAt: { lte: new Date(Date.now() - time) },
