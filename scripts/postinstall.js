@@ -31,6 +31,6 @@ fs.copySync(`./db/${provider}`, './prisma'); // copy schema & migrations
 
 (async () => {
 	await npx('prisma generate');
-	// await npx('prisma migrate deploy');
+	await npx('prisma migrate deploy');
 })();
 

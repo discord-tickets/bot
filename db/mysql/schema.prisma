@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DB_CONNECTION_URL")
+    provider          = "mysql"
+    url               = env("DB_CONNECTION_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model ArchivedChannel {
