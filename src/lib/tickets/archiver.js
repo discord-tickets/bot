@@ -21,7 +21,7 @@ module.exports = class TicketArchiver {
 	 * @returns {import("@prisma/client").ArchivedMessage|boolean}
 	 */
 	async saveMessage(ticketId, message, external = false) {
-		if (this.client.config.overrides.disableArchives) return false;
+		if (process.env.OVERRIDE_ARCHIVE === 'false') return false;
 
 		if (!message.member) {
 			try {

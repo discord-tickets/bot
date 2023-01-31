@@ -20,8 +20,6 @@ logs:
     enabled: true
     keepFor: 30
   level: info
-overrides:
-  disableArchives: false
 presence:
   activities:
     - name: /new
