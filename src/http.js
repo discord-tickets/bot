@@ -177,7 +177,10 @@ module.exports = async client => {
 	});
 
 	// start the fastify server
-	fastify.listen({ port: process.env.HTTP_BIND }, (err, addr) => {
+	fastify.listen({
+		host: '0.0.0.0',
+		port: process.env.HTTP_BIND,
+	}, (err, addr) => {
 		if (err) client.log.error.http(err);
 		else client.log.success.http(`Listening at ${addr}`);
 	});
