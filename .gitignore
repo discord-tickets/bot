@@ -8,7 +8,6 @@ prisma/
 *.env*
 *.db*
 *.log
-*-lock.*
 user/config.yml
 user/**/*.*
 !user/**/.gitkeep
