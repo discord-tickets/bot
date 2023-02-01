@@ -1,10 +1,16 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const fs = require('fs-extra');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+const { short } = require('leeks.js');
+
+function log(...strings) {
+	console.log(short('&9[postinstall]&r'), ...strings);
+}
 
 async function npx(cmd) {
-	console.log(`[postinstall] > ${cmd}`);
+	log(`> ${cmd}`);
 	const {
 		stderr,
 		stdout,
@@ -17,14 +23,14 @@ const providers = ['mysql', 'postgresql', 'sqlite'];
 const provider = process.env.DB_PROVIDER;
 
 if (!provider) {
-	console.log('[postinstall] environment not set, exiting.');
+	log('environment not set, exiting.');
 	process.exit(0);
 }
 
 if (!providers.includes(provider)) throw new Error(`DB_PROVIDER must be one of: ${providers}`);
 
-console.log(`[postinstall] provider=${provider}`);
-console.log(`[postinstall] copying ${provider} schema & migrations`);
+log(`provider=${provider}`);
+log(`copying ${provider} schema & migrations`);
 
 if (!fs.existsSync('./prisma')) fs.mkdirSync('./prisma');
 fs.copySync(`./db/${provider}`, './prisma'); // copy schema & migrations

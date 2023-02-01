@@ -19,6 +19,7 @@ module.exports.get = () => ({
 			.setCookie('token', token, {
 				domain: domain,
 				httpOnly: true,
+				maxAge: 604800, // seconds, not milliseconds
 				path: '/',
 				sameSite: true,
 				secure: false,

@@ -1,4 +1,4 @@
-const fastify = require('fastify')({ trustProxy: true });
+const fastify = require('fastify')({ trustProxy: process.env.HTTP_TRUST_PROXY === 'true' });
 const oauth = require('@fastify/oauth2');
 const { domain } = require('./lib/http');
 const { short } = require('leeks.js');
@@ -43,7 +43,7 @@ module.exports = async client => {
 		secret: process.env.ENCRYPTION_KEY,
 	});
 
-	// proxy /settings to express
+	// proxy `/settings` to express
 	fastify.register(require('@fastify/http-proxy'), {
 		http2: false,
 		prefix: '/settings',
@@ -54,7 +54,7 @@ module.exports = async client => {
 			}),
 		},
 		rewritePrefix: '/settings',
-		upstream: `http://127.0.0.1:${process.env.SETTINGS_BIND}`,
+		upstream: `http://${process.env.SETTINGS_HOST}:${process.env.SETTINGS_PORT}`,
 	});
 
 	// auth
@@ -172,14 +172,14 @@ module.exports = async client => {
 		client.log.verbose.http(short(`Express ${req.ip} ${req.method} ${req.route?.path ?? req.path}`));
 	});
 	express.use(handler); // let SvelteKit handle everything
-	express.listen(process.env.SETTINGS_BIND, () => { // start the express server
-		client.log.verbose.http(`Express listening on port ${process.env.SETTINGS_BIND}`);
+	express.listen(process.env.SETTINGS_PORT, process.env.SETTINGS_HOST,  () => { // start the express server
+		client.log.verbose.http(`Express listening on port ${process.env.SETTINGS_PORT}`);
 	});
 
 	// start the fastify server
 	fastify.listen({
-		host: '0.0.0.0',
-		port: process.env.HTTP_BIND,
+		host: process.env.HTTP_HOST,
+		port: process.env.HTTP_PORT,
 	}, (err, addr) => {
 		if (err) client.log.error.http(err);
 		else client.log.success.http(`Listening at ${addr}`);
