@@ -1,20 +1,19 @@
-# Use the alpine image of node 16
-FROM node:16-alpine
+#We start from NodeJS 18 image
+FROM node:18-alpine
 
-# Create a dir for the app and make it owned by a non-root user (node)
-RUN mkdir /tickets && \
-	chown -R 1000:1000 /tickets
-WORKDIR /tickets
+#We create the bot folder and we set the WORKDIR on it
+RUN mkdir /opt/bot
+WORKDIR /opt/bot
 
-# Change user to node
-USER node
+#Installing bot dependencies
+COPY package.json .
+RUN npm install production
 
-# Install packages
-COPY --chown=1000:1000 package.json pnpm-lock.yaml ./
-RUN npx pnpm install --prod --frozen-lockfile
+#We copy the bot files
+COPY . ./
 
-# Copy src folder
-COPY src ./src
+#We authorize the execution of the entrypoint
+RUN chmod +x ./start.sh
 
-# Set the command
-CMD ["node", "src/"]
+#We set the entrypoint
+ENTRYPOINT [ "/opt/bot/start.sh" ]
