@@ -1,19 +1,18 @@
-#We start from NodeJS 18 image
-FROM node:18-alpine
+# Use the alpine image of node 16
+FROM node:16-alpine
 
-#We create the bot folder and we set the WORKDIR on it
-RUN mkdir /opt/bot
-WORKDIR /opt/bot
+# Create a dir for the app and set the workdir on it
+RUN mkdir /opt/tickets
+WORKDIR /opt/tickets
 
-#Installing bot dependencies
-COPY package.json .
-RUN npm install production
+# Install packages
+COPY package.json pnpm-lock.yaml ./
+RUN npm i --production
 
-#We copy the bot files
+# Copy usefull folders
 COPY . ./
+RUN chmod +x start.sh
+RUN rm *.env
 
-#We authorize the execution of the entrypoint
-RUN chmod +x ./start.sh
-
-#We set the entrypoint
-ENTRYPOINT [ "/opt/bot/start.sh" ]
+# Set the entrypoint
+ENTRYPOINT [ "/opt/tickets/start.sh" ]
