@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@discord-tickets/settings': ^1.3.2
+  '@discord-tickets/settings': ^1.3.3
   '@eartharoid/dbf': ^0.3.3
   '@eartharoid/dtf': ^2.0.1
   '@eartharoid/i18n': ^1.2.1
@@ -41,7 +41,7 @@ specifiers:
   zlib-sync: ^0.1.8
 
 dependencies:
-  '@discord-tickets/settings': 1.3.2_svelte@3.55.1
+  '@discord-tickets/settings': 1.3.3_svelte@3.55.1
   '@eartharoid/dbf': 0.3.3_3cxu5zja4e2r5wmvge7mdcljwq
   '@eartharoid/dtf': 2.0.1
   '@eartharoid/i18n': 1.2.1
@@ -93,8 +93,8 @@ packages:
       regenerator-runtime: 0.13.11
     dev: true
 
-  /@discord-tickets/settings/1.3.2_svelte@3.55.1:
-    resolution: {integrity: sha512-CjFlnI45FGNfSWMiFB5FEWuNgHs38NKhMG0j3rqHSj0PZLnSxABSNVDj8EiLpz73D+tRAnYu39YlWaGKgtxvWQ==}
+  /@discord-tickets/settings/1.3.3_svelte@3.55.1:
+    resolution: {integrity: sha512-G6Z6DBsotbgY6CIhD+yVF1m1Lz/v699ONIEBKXLwMpAhXSXF+tCSzCcpRc5Do056YbVlEVxVUER4lbVtHn/ytQ==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.2.1
       cookie: 0.5.0
