@@ -166,13 +166,19 @@ module.exports = async client => {
 	// express server for settings
 	const express = require('express')();
 	const { handler } = await import('@discord-tickets/settings/build/handler.js');
+	process.on('sveltekit:error', ({
+		error,
+		errorId,
+	}) => {
+		client.log.error.http(`Express ${errorId} ${error}`);
+	});
 	express.set('trust proxy', true);
 	express.use((req, res, next) => {
 		next();
 		client.log.verbose.http(short(`Express ${req.ip} ${req.method} ${req.route?.path ?? req.path}`));
 	});
 	express.use(handler); // let SvelteKit handle everything
-	express.listen(process.env.SETTINGS_PORT, process.env.SETTINGS_HOST,  () => { // start the express server
+	express.listen(process.env.SETTINGS_PORT, process.env.SETTINGS_HOST, () => { // start the express server
 		client.log.verbose.http(`Express listening on port ${process.env.SETTINGS_PORT}`);
 	});
 

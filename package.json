@@ -1,6 +1,6 @@
 {
 	"name": "discord-tickets",
-	"version": "4.0.0-beta.1",
+	"version": "4.0.0-beta.2",
 	"private": "true",
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/",
@@ -34,7 +34,7 @@
 		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^1.1.7",
+		"@discord-tickets/settings": "^1.3.0",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -75,6 +75,6 @@
 		"bufferutil": "^4.0.7",
 		"erlpack": "github:discord/erlpack",
 		"utf-8-validate": "^5.0.10",
-		"zlib-sync": "^0.1.7"
+		"zlib-sync": "^0.1.8"
 	}
 }

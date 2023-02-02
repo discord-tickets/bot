@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@discord-tickets/settings': ^1.1.7
+  '@discord-tickets/settings': ^1.3.0
   '@eartharoid/dbf': ^0.3.3
   '@eartharoid/dtf': ^2.0.1
   '@eartharoid/i18n': ^1.2.1
@@ -38,10 +38,10 @@ specifiers:
   terminal-link: ^2.1.1
   utf-8-validate: ^5.0.10
   yaml: ^1.10.2
-  zlib-sync: ^0.1.7
+  zlib-sync: ^0.1.8
 
 dependencies:
-  '@discord-tickets/settings': 1.1.7
+  '@discord-tickets/settings': 1.3.0_svelte@3.55.1
   '@eartharoid/dbf': 0.3.3_3cxu5zja4e2r5wmvge7mdcljwq
   '@eartharoid/dtf': 2.0.1
   '@eartharoid/i18n': 1.2.1
@@ -76,7 +76,7 @@ optionalDependencies:
   bufferutil: 4.0.7
   erlpack: github.com/discord/erlpack/cbe76be04c2210fc9cb6ff95910f0937c1011d04
   utf-8-validate: 5.0.10
-  zlib-sync: 0.1.7
+  zlib-sync: 0.1.8
 
 devDependencies:
   all-contributors-cli: 6.24.0
@@ -93,8 +93,8 @@ packages:
       regenerator-runtime: 0.13.11
     dev: true
 
-  /@discord-tickets/settings/1.1.7:
-    resolution: {integrity: sha512-Y10SHQafNUkIhfM3hf6MNgEWm7z/rAGkbfhAuuBkpcITAm9mt6Kf9jm3RH1FZibPeDH8Mvd5U1208xLejTxDHA==}
+  /@discord-tickets/settings/1.3.0_svelte@3.55.1:
+    resolution: {integrity: sha512-fp7JSKY1SdhoE3WuE1lEVG4+QjFe9iAh8rKZJ1+9qwMOhr5/5zqCNhNy/BDgQ7RYn1R2/8nhJJiBYIeJNQG4RA==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.2.1
       cookie: 0.5.0
@@ -103,7 +103,9 @@ packages:
       ms: 2.1.3
       postcss: 8.4.21
       sortablejs: 1.15.0
-      svelte-modals: 1.2.0-beta.0
+      svelte-modals: 1.2.1_svelte@3.55.1
+    transitivePeerDependencies:
+      - svelte
     dev: false
 
   /@discordjs/builders/1.4.0:
@@ -185,7 +187,7 @@ packages:
     resolution: {integrity: sha512-ebbEtlI7dxXF5ziNdr05mOY8NnDiPB1XvAlLHctRt/Rc+C3LCOVW5imUVX+mhvUhnNzmPBHewUkOFgGlCxgdAA==}
     dependencies:
       ajv: 8.12.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.12.0
       fast-uri: 2.2.0
     dev: false
 
@@ -220,7 +222,7 @@ packages:
   /@fastify/http-proxy/8.4.0_3cxu5zja4e2r5wmvge7mdcljwq:
     resolution: {integrity: sha512-H8nwsmawFtKKRE6uhh1BtF1gQi/l147SmLsDGxB0HdYTHzjXz6uSQO3lEVmY7unKMzbArRjdoJQkEGpScszdSw==}
     dependencies:
-      '@fastify/reply-from': 8.4.0
+      '@fastify/reply-from': 8.4.1
       ws: 8.12.0_3cxu5zja4e2r5wmvge7mdcljwq
     transitivePeerDependencies:
       - bufferutil
@@ -247,8 +249,8 @@ packages:
       - supports-color
     dev: false
 
-  /@fastify/reply-from/8.4.0:
-    resolution: {integrity: sha512-ju8h7k1aP3qHWwYOVZK+1jJJA6HnxXOHassU4mSRJ02ekDrCYD1t2gjCZWVHBRwJsAnMKnqfqWIzlSc+nRqyzA==}
+  /@fastify/reply-from/8.4.1:
+    resolution: {integrity: sha512-fGI4aRAUs7Mo/X8Fx4IAYBVnNBCqrz65syhwxnyXjBF8Yalxdnom4CQRnGERUx8Kh7GW4W+FGnjrdbqX0+fiVg==}
     dependencies:
       '@fastify/error': 3.2.0
       end-of-stream: 1.4.4
@@ -462,8 +464,10 @@ packages:
     hasBin: true
     dev: true
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.12.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1146,7 +1150,7 @@ packages:
     dependencies:
       '@fastify/deepmerge': 1.3.0
       ajv: 8.12.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.12.0
       fast-deep-equal: 3.1.3
       fast-uri: 2.2.0
       rfdc: 1.3.0
@@ -2428,8 +2432,17 @@ packages:
       supports-color: 7.2.0
     dev: false
 
-  /svelte-modals/1.2.0-beta.0:
-    resolution: {integrity: sha512-c6bHI9iGryCTUixJ8hHeG6mlus5AJUEBiB2B+iRTergQE429S1vME55XBdc8HU71X8e9xWOcjWAKm3X1oLpg8Q==}
+  /svelte-modals/1.2.1_svelte@3.55.1:
+    resolution: {integrity: sha512-7MEKUx5wb5YppkXWFGeRlYM5FMGEnpix39u9Y6GtCNTMXRDZ7DB2Z50IYLMRTMW5lOsCdtJgFbB0E3iZMKmsAA==}
+    peerDependencies:
+      svelte: ^3.0.0
+    dependencies:
+      svelte: 3.55.1
+    dev: false
+
+  /svelte/3.55.1:
+    resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}
+    engines: {node: '>= 8'}
     dev: false
 
   /terminal-link/2.1.1:
@@ -2691,8 +2704,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zlib-sync/0.1.7:
-    resolution: {integrity: sha512-UmciU6ZrIwtwPC8noMzq+kGMdiWwNRZ3wC0SbED4Ew5Ikqx14MqDPRs/Pbk+3rZPh5SzsOgUBs1WRE0iieddpg==}
+  /zlib-sync/0.1.8:
+    resolution: {integrity: sha512-Xbu4odT5SbLsa1HFz8X/FvMgUbJYWxJYKB2+bqxJ6UOIIPaVGrqHEB3vyXDltSA6tTqBhSGYLgiVpzPQHYi3lA==}
     requiresBuild: true
     dependencies:
       nan: 2.17.0
