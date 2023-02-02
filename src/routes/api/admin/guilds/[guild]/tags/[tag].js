@@ -1,3 +1,4 @@
+const ms = require('ms');
 const { logAdminEvent } = require('../../../../../../lib/logging');
 
 module.exports.delete = fastify => ({
@@ -9,6 +10,17 @@ module.exports.delete = fastify => ({
 		const original = tagId && await client.prisma.tag.findUnique({ where: { id: tagId } });
 		if (original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
 		const tag = await client.prisma.tag.delete({ where: { id: tagId } });
+
+		const cacheKey = `cache/guild-tags:${guildId}`;
+		client.keyv.set(cacheKey, await client.prisma.tag.findMany({
+			select: {
+				content: true,
+				id: true,
+				name: true,
+				regex: true,
+			},
+			where: { guildId: guildId },
+		}), ms('1h'));
 
 		logAdminEvent(client, {
 			action: 'delete',
@@ -61,6 +73,17 @@ module.exports.patch = fastify => ({
 			data,
 			where: { id: tagId },
 		});
+
+		const cacheKey = `cache/guild-tags:${guildId}`;
+		client.keyv.set(cacheKey, await client.prisma.tag.findMany({
+			select: {
+				content: true,
+				id: true,
+				name: true,
+				regex: true,
+			},
+			where: { guildId: guildId },
+		}), ms('1h'));
 
 		logAdminEvent(client, {
 			action: 'update',
