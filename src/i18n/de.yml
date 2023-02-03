@@ -1,1 +1,39 @@
-{}
+buttons:
+  cancel:
+    emoji: ✖️
+    text: Abbrechen
+  close:
+    emoji: ✖️
+    text: Schließen
+  create:
+    text: Ticket erstellen
+    emoji: 🎫
+  accept_close_request:
+    emoji: ✅
+    text: Akzeptieren
+  claim:
+    emoji: 🙌
+  confirm_open:
+    emoji: ✅
+    text: Ticket erstellen
+  reject_close_request:
+    emoji: ✖️
+    text: Ablehnen
+  edit:
+    emoji: ✏️
+    text: Bearbeiten
+  unclaim:
+    text: Freigeben
+    emoji: ♻️
+commands:
+  message:
+    create:
+      name: Ein Ticket aus Nachricht erstellen
+    pin:
+      name: Nachricht anheften
+      not_pinnable:
+        description: "Diese Nachricht kann nicht angeheftet werden.\nBitten Sie einen\
+          \ Administrator, die Berechtigungen des Bots zu überprüfen.\n"
+        title: ❌ Fehler
+      not_ticket:
+        description: Sie können nur Nachrichten in Tickets anheften.
