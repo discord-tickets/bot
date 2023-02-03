@@ -1,1 +1,32 @@
-{}
+commands:
+  message:
+    pin:
+      not_ticket:
+        title: ❌ Tämä ei ole tiketti kanava
+  slash:
+    add:
+      description: Lisää jäsen tikettiin
+      name: lisää
+      options:
+        ticket:
+          name: tiketti
+        member:
+          name: jäsen
+          description: Jäsen joka lisätään tikettiin
+      not_staff:
+        description: Vain henkilökunta voi lisätä toisia tiketteihin.
+buttons:
+  close:
+    text: Sulje
+  edit:
+    text: Muokkaa
+  reject_close_request:
+    text: Hylkää
+  unclaim:
+    text: Julkaise
+  accept_close_request:
+    text: Hyväksy
+  cancel:
+    text: Peruuta
+  confirm_open:
+    text: Luo tiketti
