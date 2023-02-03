@@ -55,3 +55,26 @@ commands:
       success:
         description: '{member} wurde zu {ticket} hinzugefügt.'
         title: ✅ Hinzugefügt
+      description: Benutzer zu einem Ticket hinzufügen
+    help:
+      response:
+        links:
+          support: Unterstützung
+          links: Nützliche Links
+          docs: Dokumentation
+          commands: komplette Befehlsliste
+        commands: Befehle
+        description: '**Verwende {command} um ein Ticket zu erstellen und Hilfe zu
+          erhalten.**'
+        settings: Bot Einstellungen
+      name: Hilfe
+    force-close:
+      options:
+        reason:
+          name: Grund
+    close:
+      invalid_time:
+        title: ❌ Ungültig
+      options:
+        reason:
+          name: Grund
