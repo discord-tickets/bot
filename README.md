@@ -1,3 +1,5 @@
+[![Translation status](https://hosted.weblate.org/widgets/discord-tickets/-/bot/open-graph.png)](https://hosted.weblate.org/engage/discord-tickets/)
+
 https://www.prisma.io/docs/reference/database-reference/supported-databases
 
 ![](https://static.eartharoid.me/k/22/08/02185801.png) - for user/create, slash/force-close, slash/claim, slash/release, and slash/move
