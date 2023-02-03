@@ -38,3 +38,20 @@ commands:
         title: ❌ Fehler
       not_ticket:
         description: Sie können nur Nachrichten in Tickets anheften.
+        title: ❌ Dies ist kein Ticketkanal
+      pinned:
+        description: Die Nachricht wurde angeheftet.
+        title: ✅ Gepinnte Nachricht
+  slash:
+    add:
+      added: ➡️ {added} wurde von {by} hinzugefügt.
+      not_staff:
+        title: ❌ Fehler
+      options:
+        member:
+          name: Mitglied
+        ticket:
+          name: Ticket
+      success:
+        description: '{member} wurde zu {ticket} hinzugefügt.'
+        title: ✅ Hinzugefügt
