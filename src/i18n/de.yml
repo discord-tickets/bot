@@ -51,9 +51,10 @@ commands:
       options:
         member:
           name: Mitglied
-          description: Der Benutzer welcher zum Ticket hinzugefügt werden soll
+          description: Das Mitglied, das dem Ticket hinzugefügt werden soll
         ticket:
           name: Ticket
+          description: Das Ticket, zu dem das Mitglied hinzugefügt werden soll
       success:
         description: '{member} wurde zu {ticket} hinzugefügt.'
         title: ✅ Hinzugefügt
@@ -93,3 +94,6 @@ commands:
     new:
       name: neu
       description: Neues Ticket erstellen
+    claim:
+      description: Ticket übernehmen
+      name: Übernehmen
