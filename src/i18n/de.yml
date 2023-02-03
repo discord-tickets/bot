@@ -47,15 +47,18 @@ commands:
       added: ➡️ {added} wurde von {by} hinzugefügt.
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können Benutzer zu Tickets anderer hinzufügen.
       options:
         member:
           name: Mitglied
+          description: Der Benutzer welcher zum Ticket hinzugefügt werden soll
         ticket:
           name: Ticket
       success:
         description: '{member} wurde zu {ticket} hinzugefügt.'
         title: ✅ Hinzugefügt
       description: Benutzer zu einem Ticket hinzufügen
+      name: hinzufügen
     help:
       response:
         links:
@@ -68,6 +71,7 @@ commands:
           erhalten.**'
         settings: Bot Einstellungen
       name: Hilfe
+      title: Hilfe
     force-close:
       options:
         reason:
@@ -78,3 +82,14 @@ commands:
       options:
         reason:
           name: Grund
+    move:
+      name: verschieben
+      description: Verschiebe ein Ticket in eine andere Kategorie
+      moved: 🗃️ {by} hat dieses Ticket von **{from}** nach **{to}** verschoben.
+      options:
+        category:
+          description: Die Kategorie in welche das Ticket verschoben werden soll
+          name: Kategorie
+    new:
+      name: neu
+      description: Neues Ticket erstellen
