@@ -77,12 +77,25 @@ commands:
       options:
         reason:
           name: Grund
+          description: Der Grund für das Schließen des/der Tickets
+        category:
+          name: Kategorie
+        time:
+          name: Zeit
+      no_tickets:
+        description: Es gibt keine offenen Tickets, die länger als `{time}` inaktiv
+          waren.
+        title: Keine Tickets
+      not_staff:
+        title: ❌ Fehler
     close:
       invalid_time:
         title: ❌ Ungültig
+        description: '`{input}` ist kein gültiges Zeitformat.'
       options:
         reason:
           name: Grund
+          description: Der Grund für das Schließen des/der Tickets
     move:
       name: verschieben
       description: Verschiebe ein Ticket in eine andere Kategorie
@@ -94,6 +107,37 @@ commands:
     new:
       name: neu
       description: Neues Ticket erstellen
+      options:
+        references:
+          name: Verweise
     claim:
       description: Ticket übernehmen
       name: Übernehmen
+    priority:
+      options:
+        priority:
+          description: Die Priorität des Tickets
+          name: Priorität
+          choices:
+            HIGH: 🔴 Hoch
+            LOW: 🟢 Niedrig
+            MEDIUM: 🟠 Mittel
+      success:
+        title: ✅ Priorität gesetzt
+      name: Priorität
+    tickets:
+      not_staff:
+        title: ❌ Fehler
+      options:
+        member:
+          description: Das Mitglied, dessen Tickets aufgelistet werden sollen
+          name: Mitglied
+    remove:
+      not_staff:
+        description: Nur Mitarbeiter können Mitglieder aus den Tickets anderer entfernen.
+        title: ❌ Fehler
+      options:
+        member:
+          name: Mitglied
+      success:
+        title: ✅ Entfernt
