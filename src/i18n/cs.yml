@@ -1,1 +1,71 @@
-{}
+commands:
+  message:
+    pin:
+      name: Připnout zprávu
+      pinned:
+        description: Tato zpráva nemůže být připnutá.
+        title: ✅ Zpráva připnuta
+      not_pinnable:
+        description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,\
+          \ jestli má bot dostatečné oprávnění.\n"
+        title: ❌ Chyba
+      not_ticket:
+        description: Zprávy můžeš připnout jen v ticketech.
+        title: ❌ Tento kanál není ticket
+    create:
+      name: Vytvořit ticket ze zprávy
+  slash:
+    add:
+      name: přidat
+      options:
+        ticket:
+          name: ticket
+          description: Ticket na přidání člena
+        member:
+          name: člen
+          description: Člen na přidání do ticketu
+      added: ➡️{by} přidal {added}.
+      description: Přidat člena do ticketu
+      not_staff:
+        description: Pouze členové staff teamu můžou přidávat členy do ticketů ostatních.
+        title: ❌ Chyba
+      success:
+        description: '{member} byl přidán do {ticket}.'
+        title: ✅ Přidán
+    claim:
+      name: převzít
+      description: Převzít ticket
+    close:
+      invalid_time:
+        title: ❌ Neplatný
+        description: '`{input}` není platný formát času.'
+      description: Zažádat o uzavření ticketu
+      name: uzavřít
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Přijmout
+  create:
+    text: Vytvořit ticket
+    emoji: 🎫
+  cancel:
+    emoji: ✖️
+    text: Zrušit
+  claim:
+    emoji: 🙌
+    text: Převzít
+  edit:
+    emoji: ✏️
+    text: Upravit
+  close:
+    emoji: ✖️
+    text: Zavřít
+  confirm_open:
+    emoji: ✅
+    text: Vytvořit ticket
+  reject_close_request:
+    emoji: ✖️
+    text: Odmítnut
+  unclaim:
+    emoji: ♻️
+    text: Vydat
