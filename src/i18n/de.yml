@@ -13,6 +13,7 @@ buttons:
     text: Akzeptieren
   claim:
     emoji: 🙌
+    text: Übernehmen
   confirm_open:
     emoji: ✅
     text: Ticket erstellen
