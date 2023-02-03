@@ -1,1 +1,380 @@
-{}
+log:
+  admin:
+    description:
+      target:
+        panel: panel
+        question: kérdés
+        category: kategória
+        settings: beállítás
+        tag: címke
+      joined: '{user} {verb} {targetType}'
+    title:
+      target:
+        category: Kategória
+        settings: Beállítások
+        panel: Panel
+        question: Kérdés
+        tag: Címke
+      joined: '{targetType} {verb}'
+    verb:
+      create: létrehozva
+      delete: törölve
+      update: frissítve
+    changes: Változások
+  ticket:
+    added: Hozzáadott felhasználók
+    description: '{user} {verb} hibajegy'
+    removed: Eltávolított felhasználók
+    title: Hibjaegy {verb}
+    verb:
+      create: létrehozva
+      claim: begyűjtve
+      close: bezárva
+      unclaim: felszabadítva
+      update: frissítve
+    ticket: Hibajegy
+  message:
+    message: Üzenet
+    verb:
+      update: frissítve
+      delete: törölve
+    description: '{user} {verb} a(z) üzenet'
+    title: Üzenet {verb}
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Elfogadás
+  cancel:
+    emoji: ✖️
+    text: Mégse
+  claim:
+    emoji: 🙌
+    text: Begyűjtés
+  close:
+    emoji: ✖️
+    text: Bezárás
+  confirm_open:
+    text: Hibajegy létrehozása
+    emoji: ✅
+  edit:
+    text: Szerkesztés
+    emoji: ✏️
+  reject_close_request:
+    text: Elutasítás
+    emoji: ✖️
+  create:
+    emoji: 🎫
+    text: Hibajegy létrehozása
+  unclaim:
+    emoji: ♻️
+    text: Felszabadítás
+commands:
+  message:
+    pin:
+      not_ticket:
+        title: ❌ Nem hibajegy csatorna
+        description: Csak a hibajegyekben tudod kitűzni az üzeneteket.
+      name: Üzenet kitűzése
+      not_pinnable:
+        title: ❌ Hiba
+        description: "Ezt az üzenetet nem tudod kitűzni.\nKérlek vedd fel a kapcsolatot\
+          \ egy adminsztrátorral, aki le tudja ellenőrizni a bot jogosultságait.\n"
+      pinned:
+        description: Az üzenet kitűzésre került.
+        title: ✅ Üzenet kitűzve
+    create:
+      name: Hibajegy létrehozása üzenetből
+  slash:
+    force-close:
+      options:
+        time:
+          name: idő
+          description: Összes hibajegy bezására, amely inaktív volt a megadott ideig
+            (használható a(z) `kategóriával` is)
+        category:
+          description: Összes hibajegy bezására a megadott kategóriában (használható
+            a(z) `idővel` is)
+          name: kategória
+        reason:
+          description: Indok a hibajegy(ek) bezárására
+          name: indok
+        ticket:
+          description: A hibajegy, amit be szeretnél zárni
+          name: hibajegy
+      no_tickets:
+        description: Nincs olyan nyitott hibajegy, mely inaktív lenne `{time}` ideje.
+        title: ❌ Nincs hibajegy
+      confirm_multiple:
+        description: "Bezására kerül **{count}** darab hibajegy, mely inaktív `{time}`\
+          \ ideje:\n{tickets}\n"
+        title: ❓ Biztos vagy benne?
+      description: Hibajegy erőltetett bezárása
+      name: erőltetett-bezárás
+      not_staff:
+        description: Csak a személyzeti tagok erőltethetik a hibajegy bezárását.
+        title: ❌ Hiba
+    close:
+      invalid_time:
+        description: '`{input}` nem megfelelő formátumú.'
+        title: ❌ Érvénytelen
+      description: Kérelmezd a hibajegy bezárását
+      options:
+        reason:
+          description: Indok a hibajegy(ek) bezárásához
+          name: indok
+      name: bezárás
+    help:
+      name: segítség
+      response:
+        commands: Parancsok
+        links:
+          support: Segítség
+          commands: Teljes parancs lista
+          docs: Dokumentáció
+          feedback: Visszajelzés
+          links: Hasznos linkek
+        settings: Bot beállítások
+        description: '**Használd a(z) {command} parancsot a hibajegy létrehozásához..**'
+      description: Segítség menü megjelenítése
+      title: Segítség
+    tickets:
+      response:
+        title:
+          own: Hibajegyeid
+          other: '{displayName} hibajegyei'
+        description: Használd a(z) {transcript}, hogy letölthesd a hibajegy átiratát.
+        fields:
+          closed:
+            name: Bezárt hibajegyek
+            none:
+              other: '{user} még nem hozott létre hibajegyet.'
+              own: "Nem hoztál még létre hibajegyet.\nHasználd a(z) {new} a létrehozáshoz.\n"
+          open:
+            name: Nyitott hibajegyek
+      name: hibajegyek
+      not_staff:
+        description: Csak a személyzet tagjai tekinthetik meg mások hibajegyeit.
+        title: ❌ Hiba
+      description: Sorolja fel saját vagy valaki más hibajegyeit
+      options:
+        member:
+          description: A felhasználó, akinek a hibajegyeit szeretnéd listázni
+          name: felhasználó
+    new:
+      options:
+        references:
+          description: Kapcsolódó hibajegyek száma
+          name: hivatkozások
+      name: új
+      description: Hibajegy létrehozása
+    priority:
+      options:
+        priority:
+          description: A hibajegy prioritása
+          choices:
+            HIGH: 🔴 Magas
+            LOW: 🟢 Alacsony
+            MEDIUM: 🟠 Közepes
+          name: prioritás
+      name: prioritás
+      success:
+        title: ✅ Prioritás beállítva
+        description: 'A hibajegy prioritása beállításra került: `{priority}`.'
+      description: Hibajegy prioritásának beállítása
+    move:
+      description: Hibajegy áthelyezése másik kategóriába
+      moved: '🗃️ {by} áthelyezte a hibajegyet innen: **{from}** ide: **{to}**.'
+      options:
+        category:
+          description: Kategória, amibe át szeretnéd helyezni a hibajegyet
+          name: kategória
+      name: áthelyezés
+    remove:
+      options:
+        ticket:
+          name: hibajegy
+          description: A hibajegy, amiből el szeretnéd távolítani a felhasználót
+        member:
+          name: felhasználó
+          description: A felhasználó, akit el szeretnél távolítani a hibajegyből
+      name: eltávolítás
+      not_staff:
+        description: Csak a személyzeti tagok tudnak eltávolítani felhasználókat a
+          felhasználók hibajegyéből.
+        title: ❌ Hiba
+      removed: ⬅️ {removed} eltávolításra került {by} által.
+      success:
+        description: '{member} eltávolításra került a(z) {ticket} hibajegyből.'
+        title: ✅ Eltávolítva
+      description: Felhasználó eltávolítása a hibajegyből
+    release:
+      name: felszabadítás
+      description: Hibajegy felszabadítása
+    tag:
+      options:
+        tag:
+          name: címke
+          description: A használandó címke neve
+        for:
+          name: részére
+          description: A felhasználó, akihez a címkét szeretnéd kötni
+      description: Címke használata
+      name: címke
+    transfer:
+      name: átruházás
+      description: A hibajegy tulajdonjogának átruházása egy másik felhasználóra
+      options:
+        member:
+          description: A felhasználó, akire át szeretnéd ruházni a tulajdonjogot
+          name: felhasználó
+      transferred: 📨 {user} átruházta a hibajegy tulajdonjogát {to} számára.
+      transferred_from: '📨 {user} áthelyezte ezt a hibahegyet innen: {from} ide: {to}.'
+    add:
+      description: Felhasználó hozzáadása a hibajegyhez
+      success:
+        title: ✅ Hozzáadva
+        description: '{member} hozzáadásra került a(z) {ticket} hibajegyhez.'
+      name: hozzáadás
+      added: ➡️ {added} hozzáadásra került {by} által.
+      options:
+        member:
+          description: Felhasználó, akit hozzá szeretnél adni a hibajegyhez
+          name: felhasználó
+        ticket:
+          description: A hibajegy, amihez hozzá szeretnéd adni a felhasználót
+          name: hibajegy
+      not_staff:
+        description: Csak a személyzet tagiai tudnak hozzáadni felhasználót más felhasználó
+          hibajegyéhez.
+        title: ❌ Hiba
+    claim:
+      description: Hibajegy begyűjtése
+      name: begyűjtés
+    topic:
+      description: Hibajegy témájának megváltoztatása
+      name: téma
+    transcript:
+      options:
+        ticket:
+          description: A hibajegy száma, melynek az átiratát szeretnéd lekérni
+          name: hibajegy
+      description: Hibajegy átiratának lekérése
+      name: hibajegy
+  user:
+    create:
+      name: Hibajegy létrehozása a felhasználó számára
+dm:
+  closed:
+    title: A hibajegyed bezárásra került
+    archived: Használd a(z) `/transcript` a(z)**{guild}** szerveren, hogy megtekintsd
+      az archivált üzeneteket.
+  confirm_open:
+    title: Létre szeretnél hozni egy hibajegyet a megadott témával?
+misc:
+  blocked:
+    title: ❌ Letiltva
+    description: Nem tudsz hibajegyet létrehozni.
+  category_full:
+    description: "A kategória elérte a maximális kapacitást.\nPróbáld újra később.\n"
+    title: ❌ Kategória megtelt
+  cooldown:
+    description: Kérlek várj {time}, mielőtt új hibajegyet hoznál létre a kategóriában.
+    title: ❌ Kérlek várj
+  ratelimited:
+    description: Próbáld újra néhány másodperc múlva.
+    title: 🐢 Kérlek lassíts
+  expires_in: Lejár {time}
+  error:
+    description: "Sajnálom váratlan hiba lépett fel.\nKérlek vedd fel a kapcsolatot\
+      \ az adminisztrátorral.\n"
+    fields:
+      code: Hibakód
+      identifier: Azonosító
+    title: ⚠️ Hiba lépett fel
+  invalid_ticket:
+    description: Kérlek add meg egy létező hibajegyet.
+    title: ❌ Érvénytelen hibajegy
+  expired:
+    description: Nem válaszoltál időben. Kérlek próbáld újra.
+    title: ⏰ Lejárt
+  member_limit:
+    description:
+    - Kérlek használd a meglévő hibajegyed, vagy zárd be mielőtt újat hoznál létre.
+    - "Kérlek zárd be a hibajegyet, mielőtt másikat hoznál létre.\nHasználd a(z) `/tickets`\
+      \ parancsot a meglévő hibajegyeid megtekintéséhez.\n"
+    title:
+    - ❌ Már van hibajegyed
+    - ❌ Már van %d megnyitott hibajegyed
+  missing_roles:
+    title: ❌ Nem megfelelő rangok
+    description: Nincs megfelelő rangod ahhoz, hogy létrehozhass hibajegyet ebbe a
+      kategóriába.
+  no_categories:
+    description: Nem került konfigurálásra egyetlen hibajegy kategória sem.
+    title: ❌ Nincsenek hibajegy kategóriák
+  not_ticket:
+    description: Csak hibajegyekben használhatod ezt a parancsot.
+    title: ❌ Nem hibajegy csatorna
+  unknown_category:
+    description: Kérlek próbálj egy másik kategóriát.
+    title: ❌ Nem létezik ilyen hibajegy kategória
+menus:
+  category:
+    placeholder: Kategória választása
+  guild:
+    placeholder: Szerver választása
+ticket:
+  edited:
+    description: A változtatások mentésre kerültek.
+    title: ✅ Hibajegy frissítve
+  references_ticket:
+    title: ℹ️ Referencia
+    fields:
+      topic: Téma
+      number: Szám
+      date: Létrehozva
+    description: 'Ez a hibajegy egy korábbi hibajegyhez kapcsolódik:'
+  close:
+    wait_for_staff: ✋ Kérlek várj a személyzetre, ahhoz hogy bezárhasd ezt a hibajegyet.
+    closed:
+      description: A csatorna törlésre kerül néhány másodperc múlva...
+      title: ✅ Hibajegy bezárva
+    forbidden:
+      description: Nincs jogosultságod a hibajegy bezárásához.
+      title: ❌ Hiba
+    rejected: ✋ {user} elutasította a kérést a hibajegy bezárásáról.
+    staff_request:
+      archived: "\nAz üzenetek ebben a csatornában archiválásra kerülnek a későbbiekre.\n"
+      description: "{requestedBy} be szeretné zárni ezt a hibajegyet.\nKattints \"\
+        Elfogadás\" a bezáráshoz, vagy \"Elutasíts\" ha további segítsére van szükséged.\n"
+      title: ❓ Bezárásra kerülhet a hibajegy?
+    user_request:
+      title: ❓ {requestedBy} be szeretné zárni ezt a hibajegyet
+    wait_for_user: ✋ Kérlek várj a felhasználó válaszára.
+  released: ♻️ {user} felszabadította a hibajegyet.
+  created:
+    description: 'A hibajegyed létrehozásra került: {channel}.'
+    title: ✅ Hibajegy létrehozva
+  claimed: 🙌 {user} begyűjtötte a hibajegyet.
+  answers:
+    no_value: '*Nem válaszolt*'
+  feedback: Köszönjük a visszajelzést.
+  opening_message:
+    content: "{staff}\n{creator} létrehozott egy új hibajegyet\n"
+    fields:
+      topic: Téma
+  references_message:
+    title: ℹ️ Referencia
+    description: Referencia [üzenet]({url}) elküldve {timestamp} {author} által.
+modals:
+  feedback:
+    rating:
+      placeholder: 1-5
+      label: Értékelés
+    comment:
+      label: Megjegyzés
+      placeholder: Van további visszajelzése?
+    title: Mit gondolsz, hogy teljesítettünk?
+  topic:
+    label: Téma
+    placeholder: Miről szól a hibajegy?
