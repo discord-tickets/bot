@@ -82,6 +82,8 @@ commands:
           name: Kategorie
         time:
           name: Zeit
+          description: Alle Tickets schließen, die für die angegebene Zeit inaktiv
+            waren (kann mit `Kategorie` verwendet werden)
       no_tickets:
         description: Es gibt keine offenen Tickets, die länger als `{time}` inaktiv
           waren.
@@ -124,6 +126,7 @@ commands:
             MEDIUM: 🟠 Mittel
       success:
         title: ✅ Priorität gesetzt
+        description: Die Priorität dieses Tickets wurde auf `{priority}` gesetzt.
       name: Priorität
     tickets:
       not_staff:
@@ -132,6 +135,7 @@ commands:
         member:
           description: Das Mitglied, dessen Tickets aufgelistet werden sollen
           name: Mitglied
+      name: Tickets
     remove:
       not_staff:
         description: Nur Mitarbeiter können Mitglieder aus den Tickets anderer entfernen.
@@ -139,5 +143,7 @@ commands:
       options:
         member:
           name: Mitglied
+        ticket:
+          name: Ticket
       success:
         title: ✅ Entfernt
