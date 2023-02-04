@@ -98,6 +98,8 @@ commands:
         reason:
           name: Grund
           description: Der Grund für das Schließen des/der Tickets
+      description: Beantragen, dass ein Ticket geschlossen wird
+      name: Schließen
     move:
       name: verschieben
       description: Verschiebe ein Ticket in eine andere Kategorie
@@ -136,6 +138,10 @@ commands:
           description: Das Mitglied, dessen Tickets aufgelistet werden sollen
           name: Mitglied
       name: Tickets
+      response:
+        title:
+          own: Deine Tickets
+          other: '{displayName}s Tickets'
     remove:
       not_staff:
         description: Nur Mitarbeiter können Mitglieder aus den Tickets anderer entfernen.
@@ -147,3 +153,162 @@ commands:
           name: Ticket
       success:
         title: ✅ Entfernt
+    topic:
+      description: Thema eines Tickets ändern
+      name: Thema
+    transcript:
+      name: Abschrift
+      options:
+        ticket:
+          name: Ticket
+    transfer:
+      name: Übertragen
+      transferred_from: 📨 {user} hat dieses Ticket von {from} auf {to} übertragen.
+      options:
+        member:
+          name: Mitglied
+      transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
+  user:
+    create:
+      name: Ein Ticket für einen Benutzer erstellen
+log:
+  admin:
+    changes: Änderungen
+    description:
+      target:
+        question: eine Frage
+        settings: Einstellungen
+        category: eine Kategorie
+        panel: ein Panel
+    title:
+      target:
+        category: Kategorie
+        panel: Panel
+        settings: Einstellungen
+        question: Frage
+    verb:
+      delete: gelöscht
+      create: erstellt
+  message:
+    description: '{user} {verb} eine Nachricht'
+    verb:
+      delete: gelöscht
+    message: Nachricht
+    title: Nachricht {verb}
+  ticket:
+    title: Ticket {verb}
+    description: '{user} {verb} ein Ticket'
+    ticket: Ticket
+menus:
+  category:
+    placeholder: Wähle eine Ticketkategorie
+  guild:
+    placeholder: Wähle einen Server
+misc:
+  blocked:
+    title: ❌ Gesperrt
+    description: Du darfst keine Tickets erstellen.
+  cooldown:
+    description: Bitte warte {time}, bevor du ein weiteres Ticket in dieser Kategorie
+      erstellst.
+    title: ❌Bitte warten
+  error:
+    description: "Entschuldigung, ein unerwarteter Fehler ist aufgetreten.\nBitte\
+      \ gib diese Informationen an einen Administrator weiter.\n"
+    fields:
+      code: Fehlercode
+      identifier: Kennung
+    title: ⚠️ Etwas ist schief gelaufen
+  expired:
+    description: Du hast nicht rechtzeitig geantwortet. Bitte versuche es erneut.
+    title: ⏰ Abgelaufen
+  expires_in: Läuft in {time} ab
+  invalid_ticket:
+    description: Bitte gib ein gültiges Ticket an.
+    title: ❌ Ungültiges Ticket
+  member_limit:
+    description:
+    - Bitte verwende dein vorhandenes Ticket oder schließe es ab, bevor du ein neues
+      erstellst.
+    - "Bitte schließe ein Ticket, bevor du ein neues erstellst.\nVerwende `/Tickets`,\
+      \ um deine bestehenden Tickets anzuzeigen.\n"
+    title:
+    - ❌ Du hast bereits ein Ticket
+    - ❌ Du hast bereits %d offene Tickets
+  not_ticket:
+    title: ❌ Dies ist kein Ticketkanal
+    description: Du kannst diesen Befehl nur in Tickets verwenden.
+  ratelimited:
+    description: Versuche es in ein paar Sekunden erneut.
+  unknown_category:
+    description: Bitte versuche es mit einer anderen Kategorie.
+    title: ❌ Diese Ticketkategorie existiert nicht
+  no_categories:
+    title: ❌ Es gibt keine Ticketkategorien
+    description: Es wurden keine Ticketkategorien konfiguriert.
+  missing_roles:
+    description: Du hast nicht die erforderlichen Rollen, um ein Ticket in dieser
+      Kategorie erstellen zu können.
+    title: ❌ Unzureichende Rollen
+  category_full:
+    description: "Die Kategorie hat ihre maximale Kapazität erreicht.\nBitte versuche\
+      \ es später erneut.\n"
+    title: ❌ Kategorie voll
+modals:
+  feedback:
+    comment:
+      placeholder: Hast du zusätzliches Feedback?
+      label: Kommentar
+    rating:
+      label: Bewertung
+      placeholder: 1-5
+  topic:
+    label: Thema
+    placeholder: Worum geht es in diesem Ticket?
+ticket:
+  answers:
+    no_value: '*Keine Antwort*'
+  close:
+    closed:
+      description: Dieser Kanal wird in wenigen Sekunden gelöscht...
+      title: ✅ Ticket geschlossen
+    forbidden:
+      title: ❌ Fehler
+      description: Du bist nicht berechtigt, dieses Ticket zu schließen.
+    rejected: ✋ {user} hat eine Anfrage zum Schließen dieses Tickets abgelehnt.
+    staff_request:
+      title: ❓ Kann dieses Ticket geschlossen werden?
+      archived: "\nDie Nachrichten in diesem Kanal werden zum späteren Nachschlagen\
+        \ archiviert.\n"
+      description: "{requestedBy} möchte dieses Ticket schließen.\nKlicke auf \"Akzeptieren\"\
+        , um es jetzt zu schließen, oder auf \"Ablehnen\", wenn du noch Hilfe benötigst.\n"
+    user_request:
+      title: ❓ {requestedBy} möchte dieses Ticket schließen
+    wait_for_user: ✋ Bitte warte bis der Benutzer antwortet.
+  created:
+    title: ✅ Ticket erstellt
+    description: 'Dein Ticketkanal wurde erstellt: {channel}.'
+  edited:
+    description: Deine Änderungen wurden gespeichert.
+    title: ✅ Ticket aktualisiert
+  feedback: Danke für deine Rückmeldung.
+  opening_message:
+    content: "{staff}\n{creator} hat ein neues Ticket erstellt\n"
+    fields:
+      topic: Thema
+  references_message:
+    title: ℹ️ Referenz
+    description: Verweist auf [eine Nachricht]({url}), die {timestamp} von {author}
+      gesendet wurde.
+  references_ticket:
+    description: 'Dieses Ticket bezieht sich auf ein vorheriges Ticket:'
+    fields:
+      date: Erstellt am
+      number: Nummer
+      topic: Thema
+    title: ℹ️ Referenz
+dm:
+  closed:
+    title: Dein Ticket wurde geschlossen
+  confirm_open:
+    title: Möchtest du ein Ticket mit dem folgendem Thema eröffnen?
