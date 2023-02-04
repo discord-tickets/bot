@@ -41,6 +41,9 @@ commands:
         description: '`{input}` není platný formát času.'
       description: Zažádat o uzavření ticketu
       name: uzavřít
+      options:
+        reason:
+          description: Důvod pro uzavření ticketu
 buttons:
   accept_close_request:
     emoji: ✅
