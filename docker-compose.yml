@@ -2,15 +2,10 @@ version: "3.8"
 
 services:
   bot:
-    build:
-      context: .
-      dockerfile: compose.Dockerfile
+    image: ticket-v3-test
     restart: unless-stopped
     volumes:
-      - ./src:/tickets/src
-      - ./user:/tickets/user
-      - ./logs:/tickets/logs
-      - ./.env:/tickets/.env:ro
+      - ticket-bot-v3:/opt/tickets
     environment:
       - DB_TYPE=mysql
       - DB_HOST=db
@@ -19,20 +14,21 @@ services:
       - DB_USER=tickets
       - DB_PASS=tickets
       - DB_TABLE_PREFIX=dsctickets_
+      - "DISCORD_TOKEN=TOKEN"
     depends_on:
       - db
 
   db:
-    image: mariadb:10.6
+    image: mysql:8
     restart: unless-stopped
     environment:
       - "MYSQL_DATABASE=tickets"
       - "MYSQL_USER=tickets"
       - "MYSQL_PASSWORD=tickets"
-
       - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
     volumes:
       - db:/var/lib/mysql
 
 volumes:
   db:
+  ticket-bot-v3:
