@@ -353,7 +353,7 @@ ticket:
   claimed: 🙌 {user} has claimed this ticket.
   close:
     closed:
-      description: This channel will be deleted in a few seconds...
+      description: This channel will be deleted in a few seconds…
       title: ✅ Ticket closed
     forbidden:
       description: You don't have permission to close this ticket.
