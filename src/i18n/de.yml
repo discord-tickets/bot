@@ -80,7 +80,6 @@ commands:
           name: Kategorie
         time:
           name: Zeit
-          description: ''
       no_tickets:
         description: Es gibt keine offenen Tickets, die länger als `{time}` inaktiv
           waren.
@@ -165,9 +164,7 @@ commands:
         member:
           name: Mitglied
       transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
-  user:
-    create:
-      name: ''
+  user: {}
 log:
   admin:
     changes: Änderungen
