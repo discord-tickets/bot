@@ -80,8 +80,7 @@ commands:
           name: Kategorie
         time:
           name: Zeit
-          description: Alle Tickets schließen, die für die angegebene Zeit inaktiv
-            waren (kann mit `Kategorie` verwendet werden)
+          description: ''
       no_tickets:
         description: Es gibt keine offenen Tickets, die länger als `{time}` inaktiv
           waren.
@@ -168,7 +167,7 @@ commands:
       transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
   user:
     create:
-      name: Ein Ticket für einen Benutzer erstellen
+      name: ''
 log:
   admin:
     changes: Änderungen
