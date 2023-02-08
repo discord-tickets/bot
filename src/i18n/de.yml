@@ -28,8 +28,6 @@ buttons:
     emoji: ♻️
 commands:
   message:
-    create:
-      name: ''
     pin:
       name: Nachricht anheften
       not_pinnable:
