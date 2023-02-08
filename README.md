@@ -1,4 +1,4 @@
-[![Translation status](https://hosted.weblate.org/widgets/discord-tickets/-/bot/open-graph.png)](https://hosted.weblate.org/engage/discord-tickets/)
+[![Translation status](https://hosted.weblate.org/widgets/discord-tickets/-/open-graph.png)](https://hosted.weblate.org/engage/discord-tickets/)
 
 https://www.prisma.io/docs/reference/database-reference/supported-databases
 
