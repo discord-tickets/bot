@@ -28,8 +28,6 @@ buttons:
     emoji: ♻️
 commands:
   message:
-    create:
-      name: Ein Ticket aus Nachricht erstellen
     pin:
       name: Nachricht anheften
       not_pinnable:
