@@ -260,9 +260,7 @@ commands:
           name: hibajegy
       description: Hibajegy átiratának lekérése
       name: hibajegy
-  user:
-    create:
-      name: ''
+  user: {}
 dm:
   closed:
     title: A hibajegyed bezárásra került
