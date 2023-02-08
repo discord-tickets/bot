@@ -262,7 +262,7 @@ commands:
       name: hibajegy
   user:
     create:
-      name: Hibajegy létrehozása a felhasználó számára
+      name: ''
 dm:
   closed:
     title: A hibajegyed bezárásra került
@@ -337,7 +337,7 @@ ticket:
   close:
     wait_for_staff: ✋ Kérlek várj a személyzetre, ahhoz hogy bezárhasd ezt a hibajegyet.
     closed:
-      description: A csatorna törlésre kerül néhány másodperc múlva...
+      description: A csatorna törlésre kerül néhány másodperc múlva…
       title: ✅ Hibajegy bezárva
     forbidden:
       description: Nincs jogosultságod a hibajegy bezárásához.

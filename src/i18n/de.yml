@@ -264,7 +264,7 @@ ticket:
     no_value: '*Keine Antwort*'
   close:
     closed:
-      description: Dieser Kanal wird in wenigen Sekunden gelöscht...
+      description: Dieser Kanal wird in wenigen Sekunden gelöscht…
       title: ✅ Ticket geschlossen
     forbidden:
       title: ❌ Fehler
