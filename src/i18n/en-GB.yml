@@ -72,7 +72,7 @@ commands:
       name: close
       options:
         reason:
-          description: The reason for closing the ticket(s)
+          description: The reason for closing the ticket
           name: reason
     force-close:
       confirm_multiple:
