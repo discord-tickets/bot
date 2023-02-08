@@ -29,7 +29,7 @@ buttons:
 commands:
   message:
     create:
-      name: Ein Ticket aus Nachricht erstellen
+      name: ''
     pin:
       name: Nachricht anheften
       not_pinnable:
