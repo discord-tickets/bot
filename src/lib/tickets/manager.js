@@ -1067,6 +1067,7 @@ module.exports = class TicketManager {
 			} || undefined, // Prisma wants undefined not null because it is a relation
 			closedReason: reason && encrypt(reason),
 			messageCount: archivedMessages,
+			open: false,
 		};
 
 		/** @type {import("discord.js").TextChannel} */
