@@ -1092,7 +1092,7 @@ module.exports = class TicketManager {
 				action: 'close',
 				target: {
 					id: ticket.id,
-					name: channel.toString(),
+					name: `[${ticket.number}]`,
 				},
 				userId: closedBy,
 			});
