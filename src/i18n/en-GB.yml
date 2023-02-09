@@ -231,7 +231,18 @@ commands:
       name: Create a ticket for user
 dm:
   closed:
-    archived: Type `/transcript` in **{guild}** to view the archived messages.
+    archived: Use the `/transcript` command in **{guild}** to view the archived messages.
+    fields:
+      closed:
+        name: Closed at
+        value: "{timestamp} (after {duration})"
+      closed_by: Closed by
+      created: Created at
+      feedback: Your feedback
+      reason: Closed because
+      response: Response time
+      ticket: Ticket
+      topic: Topic
     title: Your ticket has been closed
   confirm_open:
     title: Do you want to open a ticket with the following topic?
