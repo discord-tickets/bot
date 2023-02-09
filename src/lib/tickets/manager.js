@@ -1074,7 +1074,7 @@ module.exports = class TicketManager {
 		const channel = this.client.channels.cache.get(ticketId);
 		if (channel) {
 			const pinned = await channel.messages.fetchPinned();
-			data.pinnedMessageIds = pinned.keys();
+			data.pinnedMessageIds = [...pinned.keys()];
 		}
 
 		await this.client.prisma.ticket.update({
