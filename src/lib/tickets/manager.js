@@ -584,7 +584,7 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: false,
 						name: getMessage('ticket.references_ticket.fields.topic'),
-						value: ticket.topic,
+						value: decrypt(ticket.topic),
 					});
 				}
 				await channel.send({ embeds: [embed] });
