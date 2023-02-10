@@ -10,11 +10,12 @@ module.exports.get = () => ({
 		if (!cached) {
 			const tickets = await client.prisma.ticket.findMany({
 				select: {
+					closedAt: true,
 					createdAt: true,
 					firstResponseAt: true,
 				},
 			});
-			const closedTickets = tickets.filter(t => t.closedAt);
+			const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
 			const users = await client.prisma.user.findMany({ select: { messageCount: true } });
 			cached = {
 				avatar: client.user.avatarURL(),

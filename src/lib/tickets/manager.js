@@ -406,9 +406,17 @@ module.exports = class TicketManager {
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
 		if (!stats) {
-			const { tickets } = await this.client.prisma.category.findUnique({
-				select: { tickets: { where: { open: false } } },
-				where: { id: categoryId },
+			const tickets = await this.client.prisma.ticket.findMany({
+				select: {
+					closedAt: true,
+					createdAt: true,
+					firstResponseAt: true,
+				},
+				where: {
+					categoryId: category.id,
+					firstResponseAt: { not: null },
+					open: false,
+				},
 			});
 			stats = {
 				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),

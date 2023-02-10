@@ -33,11 +33,12 @@ module.exports = class extends Listener {
 			if (!cached) {
 				const tickets = await client.prisma.ticket.findMany({
 					select: {
+						closedAt: true,
 						createdAt: true,
 						firstResponseAt: true,
 					},
 				});
-				const closedTickets = tickets.filter(t => t.closedAt);
+				const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
 				cached = {
 					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
