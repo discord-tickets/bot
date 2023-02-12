@@ -129,15 +129,27 @@ commands:
     tickets:
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können Tickets anderer einsehen.
       options:
         member:
           description: Das Mitglied, dessen Tickets aufgelistet werden sollen
           name: Mitglied
-      name: Tickets
+      name: tickets
       response:
         title:
           own: Deine Tickets
           other: '{displayName}s Tickets'
+        fields:
+          closed:
+            none:
+              own: "Du hast noch keine Tickets erstellt\nBenutze {new} um ein Ticket\
+                \ zu öffnen.\n"
+              other: '{user} hat noch keine Tickets erstellt.'
+            name: Geschlossene Tickets
+          open:
+            name: Offene Tickets
+        description: Verwende {transcript}, um die Abschrift eines Tickets herunterzuladen.
+      description: Eigene oder fremde Tickets auflisten
     remove:
       not_staff:
         description: Nur Mitarbeiter können Mitglieder aus den Tickets anderer entfernen.
@@ -149,21 +161,36 @@ commands:
           name: Ticket
       success:
         title: ✅ Entfernt
+        description: '{member} wurde von {ticket} entfernt.'
     topic:
       description: Thema eines Tickets ändern
-      name: Thema
+      name: thema
     transcript:
-      name: Abschrift
+      name: abschrift
       options:
         ticket:
-          name: Ticket
+          name: ticket
+          description: Die Nummer des Tickets von welchem die Abschrift erstellt werden
+            soll
+      description: Abschrift eines Tickets erhalten
     transfer:
-      name: Übertragen
+      name: übertragen
       transferred_from: 📨 {user} hat dieses Ticket von {from} auf {to} übertragen.
       options:
         member:
           name: Mitglied
+          description: Das Mitglied an welches das Ticket transferiert werden soll.
       transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
+      description: Ein Ticket an ein anderes Mitglied übertragen
+    tag:
+      options:
+        for:
+          name: für
+        tag:
+          name: Tag
+          description: Der Name des zu verwendenden Tags
+      name: tag
+      description: Verwende einen Tag
   user: {}
 log:
   admin:
