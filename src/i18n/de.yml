@@ -40,6 +40,8 @@ commands:
       pinned:
         description: Die Nachricht wurde angeheftet.
         title: ✅ Gepinnte Nachricht
+    create:
+      name: Ein Ticket aus einer Nachricht erstellen
   slash:
     add:
       added: ➡️ {added} wurde von {by} hinzugefügt.
@@ -86,6 +88,10 @@ commands:
         title: Keine Tickets
       not_staff:
         title: ❌ Fehler
+      confirm_multiple:
+        description: "Du bist dabei **{count}** Tickets zu schließen die länger als\
+          \ `{time}`:\n{tickets} inaktiv waren.\n"
+        title: ❓Bist du dir sicher?
     close:
       invalid_time:
         title: ❌ Ungültig
@@ -93,7 +99,7 @@ commands:
       options:
         reason:
           name: Grund
-          description: Der Grund für das Schließen des/der Tickets
+          description: Der Grund für das Schließen des Tickets
       description: Beantragen, dass ein Ticket geschlossen wird
       name: Schließen
     move:
