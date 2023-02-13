@@ -10,10 +10,14 @@
 		"keygen": "node scripts/keygen",
 		"lint": "eslint src scripts --fix",
 		"preinstall": "node scripts/preinstall",
+		"prepare": "husky install",
 		"postinstall": "node scripts/postinstall",
 		"start": "node .",
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"
+	},
+	"lint-staged": {
+		"**/*.js": ["npm run lint --"]
 	},
 	"repository": {
 		"type": "git",
@@ -72,6 +76,7 @@
 		"eslint": "^8.33.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
+		"lint-staged": "^13.1.1",
 		"nodemon": "^2.0.20"
 	},
 	"optionalDependencies": {
