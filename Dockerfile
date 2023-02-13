@@ -7,16 +7,9 @@ WORKDIR /opt/bot
 
 #Installing bot dependencies
 COPY . ./
-RUN npm i --production
-
-#We copy the bot files
-COPY . ./
-
-#We authorize the execution of the entrypoint
-RUN chmod +x ./start.sh \
+RUN npm i \
+    && chmod +x ./start.sh \
     && rm .env
-
-EXPOSE 8080
 
 #We set the entrypoint
 ENTRYPOINT [ "/opt/bot/start.sh" ]
