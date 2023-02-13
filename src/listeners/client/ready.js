@@ -121,9 +121,9 @@ module.exports = class extends Listener {
 			// 	staleSince: Date.now(),
 			// });
 
-			for (const [ticketId, $] of client.tickets.$stale) {
-				// ⌛
-			}
+			// for (const [ticketId, $] of client.tickets.$stale) {
+			// 	// ⌛
+			// }
 		}, ms('5m'));
 	}
 };

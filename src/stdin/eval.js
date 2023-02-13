@@ -12,7 +12,7 @@ module.exports = class extends StdinCommand {
 		const toEval = input.join(' ');
 		try {
 			const res = await eval(toEval);
-			console.log(res);
+			console.log(res); // eslint-disable-line no-console
 			return true;
 		} catch (error) {
 			this.client.log.error(error);

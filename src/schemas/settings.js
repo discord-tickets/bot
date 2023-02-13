@@ -1,3 +1,5 @@
+// TODO
+/*  eslint-disable no-undef */
 module.exports = joi.object({
 	archive: joi.boolean().optional(),
 	autoClose: joi.number().min(3_600_000).optional(),

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 
