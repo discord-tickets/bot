@@ -7,7 +7,8 @@ WORKDIR /opt/bot
 
 #Installing bot dependencies
 COPY . ./
-RUN npm i -- production\
+RUN npm install -g pnpm \
+    && pnpm install -P
     && chmod +x ./start.sh \
     && rm .env
 
