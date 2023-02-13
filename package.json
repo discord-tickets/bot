@@ -8,7 +8,7 @@
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
 		"keygen": "node scripts/keygen",
-		"lint": "eslint src scripts --ext mjs --fix",
+		"lint": "eslint src scripts --fix",
 		"preinstall": "node scripts/preinstall",
 		"postinstall": "node scripts/postinstall",
 		"start": "node .",
