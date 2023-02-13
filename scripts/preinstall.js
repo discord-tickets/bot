@@ -29,6 +29,7 @@ if (!process.env.ENCRYPTION_KEY && !fs.existsSync('./.env')) {
 	log('generating ENCRYPTION_KEY');
 	fs.writeFileSync('./.env', Object.entries(env).map(([k, v]) => `${k}=${v}`).join('\n'));
 	log('created .env file');
+	log(short('&r&0&!e WARNING &r &e&lkeep your environment variables safe, don\'t lose your encryption key or you will lose data'));
 } else {
 	log('nothing to do');
 }
