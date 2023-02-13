@@ -7,7 +7,7 @@ WORKDIR /opt/bot
 
 #Installing bot dependencies
 COPY . ./
-RUN npm i \
+RUN npm i -- production\
     && chmod +x ./start.sh \
     && rm .env
 
