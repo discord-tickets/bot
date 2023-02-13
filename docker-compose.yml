@@ -9,37 +9,41 @@ services:
     networks:
       - ticket-bot
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=discord-ticket
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
     restart: unless-stopped
   
   ticket-bot:
-    image: discord-ticket-v4
+    image: tickets-bot:v4
     tty: true
     stdin_open: true
     hostname: ticket-bot
-    ports: 
-      - 8080:8080
-      - 8888:8888
     volumes:
-      - ticket-bot:/opt/bot/user
+      - ticket-bot:/opt/bot
     networks:
-      - ticket-bot
+      - ticket-test
+
     depends_on:
       - ticket-bot-mysql
     environment:
-      - DISCORD_TOKEN=TOKEN
-      - DB_PROVIDER=mysql
-      - DB_CONNECTION_URL=mysql://root:$MYSQL_ROOT_PASSWORD@MYSQL_HOSTNAME:3306/discord-ticket
-      - ENCRYPTION_KEY=key
-      - HTTP_EXTERNAL=http://localhost:8080
-      - HTTP_BIND=8080
-      - SETTINGS_BIND=8888
+      - DISCORD_TOKEN=
+      - DB_PROVIDER=
+      - DB_CONNECTION_URL=
+      - HTTP_EXTERNAL=
+      - HTTP_HOST=
+      - HTTP_PORT=
+      - SETTINGS_PORT=
+      - SETTINGS_HOST=
+      - SUPER=
+      - PUBLIC_BOT=
+      - HTTP_TRUST_PROXY=
+      - OVERRIDE_ARCHIVE=
+      - DISCORD_SECRET=
 
     restart: unless-stopped
 
 networks:
-  ticket-bot:
+  ticket-test:
 
 volumes:
   ticket-bot-mysql:
