@@ -1,0 +1,5 @@
+buttons:
+  accept_close_request:
+    text: Conferma
+  cancel:
+    text: Annulla

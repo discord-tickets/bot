@@ -1,3 +1,4 @@
+const ms = require('ms');
 const { logAdminEvent } = require('../../../../../../lib/logging');
 
 module.exports.get = fastify => ({
@@ -28,6 +29,24 @@ module.exports.post = fastify => ({
 				...data,
 			},
 		});
+
+		const cacheKey = `cache/guild-tags:${guild.id}`;
+		let tags = await client.keyv.get(cacheKey);
+		if (!tags) {
+			tags = await client.prisma.tag.findMany({
+				select: {
+					content: true,
+					id: true,
+					name: true,
+					regex: true,
+				},
+				where: { guildId: guild.id },
+			});
+			client.keyv.set(cacheKey, tags, ms('1h'));
+		} else {
+			tags.push(tag);
+			client.keyv.set(cacheKey, tags, ms('1h'));
+		}
 
 		logAdminEvent(client, {
 			action: 'create',

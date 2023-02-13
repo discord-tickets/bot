@@ -1,6 +1,6 @@
 {
 	"name": "discord-tickets",
-	"version": "4.0.0-beta.0",
+	"version": "4.0.0-beta.4",
 	"private": "true",
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/",
@@ -8,12 +8,16 @@
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
 		"keygen": "node scripts/keygen",
-		"lint": "eslint src scripts --ext mjs --fix",
+		"lint": "eslint src scripts --fix",
 		"preinstall": "node scripts/preinstall",
+		"prepare": "husky install",
 		"postinstall": "node scripts/postinstall",
 		"start": "node .",
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"
+	},
+	"lint-staged": {
+		"**/*.js": ["npm run lint --"]
 	},
 	"repository": {
 		"type": "git",
@@ -34,7 +38,7 @@
 		"node": ">=18.0"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^1.1.6",
+		"@discord-tickets/settings": "^1.3.3",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -48,7 +52,7 @@
 		"discord.js": "^14.7.1",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
-		"fastify": "^4.11.0",
+		"fastify": "^4.12.0",
 		"figlet": "^1.5.2",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.2",
@@ -66,15 +70,19 @@
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^17.4.3",
+		"@commitlint/config-conventional": "^17.4.3",
 		"all-contributors-cli": "^6.24.0",
-		"eslint": "^8.31.0",
+		"eslint": "^8.33.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.1.1",
 		"nodemon": "^2.0.20"
 	},
 	"optionalDependencies": {
 		"bufferutil": "^4.0.7",
 		"erlpack": "github:discord/erlpack",
 		"utf-8-validate": "^5.0.10",
-		"zlib-sync": "^0.1.7"
+		"zlib-sync": "^0.1.8"
 	}
 }

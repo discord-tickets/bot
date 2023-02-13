@@ -1,0 +1,34 @@
+buttons:
+  accept_close_request:
+    text: Accepter
+  cancel:
+    emoji: ✖️
+    text: Annuler
+  claim:
+    emoji: 🙌
+  close:
+    text: Fermer
+  reject_close_request:
+    emoji: ✖️
+    text: Rejeter
+commands:
+  message:
+    pin:
+      name: Épingler le message
+      not_pinnable:
+        title: ❌ Erreur
+      pinned:
+        title: ✅ Message épinglé
+  slash:
+    add:
+      not_staff:
+        title: ❌ Erreur
+      success:
+        title: ✅ Ajouté
+    close:
+      invalid_time:
+        title: ❌ Invalide
+    force-close:
+      options:
+        ticket:
+          name: billet

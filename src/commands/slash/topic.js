@@ -57,6 +57,17 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 
 		const getMessage = client.i18n.getLocale(ticket.guild.locale);
 
+		const field = new TextInputBuilder()
+			.setCustomId('topic')
+			.setLabel(getMessage('modals.topic.label'))
+			.setStyle(TextInputStyle.Paragraph)
+			.setMaxLength(1000)
+			.setMinLength(5)
+			.setPlaceholder(getMessage('modals.topic.placeholder'))
+			.setRequired(true);
+
+		if (ticket.topic) field.setValue(decrypt(ticket.topic)); // why can't discord.js accept null or undefined :(
+
 		await interaction.showModal(
 			new ModalBuilder()
 				.setCustomId(JSON.stringify({
@@ -66,17 +77,7 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 				.setTitle(ticket.category.name)
 				.setComponents(
 					new ActionRowBuilder()
-						.setComponents(
-							new TextInputBuilder()
-								.setCustomId('topic')
-								.setLabel(getMessage('modals.topic.label'))
-								.setStyle(TextInputStyle.Paragraph)
-								.setMaxLength(1000)
-								.setMinLength(5)
-								.setPlaceholder(getMessage('modals.topic.placeholder'))
-								.setRequired(true)
-								.setValue(ticket.topic ? decrypt(ticket.topic) : ''),
-						),
+						.setComponents(field),
 				),
 		);
 	}

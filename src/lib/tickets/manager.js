@@ -19,7 +19,10 @@ const { logTicketEvent } = require('../logging');
 const { isStaff } = require('../users');
 const { Collection } = require('discord.js');
 const Cryptr = require('cryptr');
-const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const {
+	decrypt,
+	encrypt,
+} = new Cryptr(process.env.ENCRYPTION_KEY);
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -403,9 +406,17 @@ module.exports = class TicketManager {
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
 		if (!stats) {
-			const { tickets } = await this.client.prisma.category.findUnique({
-				select: { tickets: { where: { open: false } } },
-				where: { id: categoryId },
+			const tickets = await this.client.prisma.ticket.findMany({
+				select: {
+					closedAt: true,
+					createdAt: true,
+					firstResponseAt: true,
+				},
+				where: {
+					categoryId: category.id,
+					firstResponseAt: { not: null },
+					open: false,
+				},
 			});
 			stats = {
 				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
@@ -584,7 +595,7 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: false,
 						name: getMessage('ticket.references_ticket.fields.topic'),
-						value: ticket.topic,
+						value: decrypt(ticket.topic),
 					});
 				}
 				await channel.send({ embeds: [embed] });
@@ -1047,7 +1058,8 @@ module.exports = class TicketManager {
 		closedBy = null,
 		reason = null,
 	}) {
-		const ticket = await this.getTicket(ticketId);
+		let ticket = await this.getTicket(ticketId);
+		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		this.$count.categories[ticket.categoryId].total -= 1;
 		this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
 
@@ -1067,17 +1079,23 @@ module.exports = class TicketManager {
 			} || undefined, // Prisma wants undefined not null because it is a relation
 			closedReason: reason && encrypt(reason),
 			messageCount: archivedMessages,
+			open: false,
 		};
 
 		/** @type {import("discord.js").TextChannel} */
 		const channel = this.client.channels.cache.get(ticketId);
 		if (channel) {
 			const pinned = await channel.messages.fetchPinned();
-			data.pinnedMessageIds = pinned.keys();
+			data.pinnedMessageIds = [...pinned.keys()];
 		}
 
-		await this.client.prisma.ticket.update({
+		ticket = await this.client.prisma.ticket.update({
 			data,
+			include: {
+				category: true,
+				feedback: true,
+				guild: true,
+			},
 			where: { id: ticket.id },
 		});
 
@@ -1091,7 +1109,7 @@ module.exports = class TicketManager {
 				action: 'close',
 				target: {
 					id: ticket.id,
-					name: channel.toString(),
+					name: `${ticket.category.name} **#${ticket.number}**`,
 				},
 				userId: closedBy,
 			});
@@ -1100,14 +1118,79 @@ module.exports = class TicketManager {
 		try {
 			const creator = await channel?.guild.members.fetch(ticket.createdById);
 			if (creator) {
-				const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 				const embed = new ExtendedEmbedBuilder({
 					iconURL: channel.guild.iconURL(),
 					text: ticket.guild.footer,
 				})
 					.setColor(ticket.guild.primaryColour)
-					.setTitle(getMessage('dm.closed.title'));
+					.setTitle(getMessage('dm.closed.title'))
+					.addFields([
+						{
+							inline: true,
+							name: getMessage('dm.closed.fields.ticket'),
+							value: `${ticket.category.name} **#${ticket.number}**`,
+						},
+
+					]);
+				if (ticket.topic) {
+					embed.addFields({
+						inline: true,
+						name: getMessage('dm.closed.fields.topic'),
+						value: decrypt(ticket.topic),
+					});
+				}
+
+				embed.addFields([
+					{
+						inline: true,
+						name: getMessage('dm.closed.fields.created'),
+						value: `<t:${Math.floor(ticket.createdAt / 1000)}:f>`,
+					},
+					{
+						inline: true,
+						name: getMessage('dm.closed.fields.closed.name'),
+						value: getMessage('dm.closed.fields.closed.value', {
+							duration: ms(ticket.closedAt - ticket.createdAt, { long: true }),
+							timestamp: `<t:${Math.floor(ticket.closedAt / 1000)}:f>`,
+						}),
+					},
+				]);
+
+				if (ticket.firstResponseAt) {
+					embed.addFields({
+						inline: true,
+						name: getMessage('dm.closed.fields.response'),
+						value: ms(ticket.firstResponseAt - ticket.createdAt, { long: true }),
+					});
+				}
+
+				if (ticket.feedback) {
+					embed.addFields({
+						inline: true,
+						name: getMessage('dm.closed.fields.feedback'),
+						value: Array(ticket.feedback.rating).fill('⭐').join(' ') + ` (${ticket.feedback.rating}/5)`,
+					});
+				}
+
+				if (ticket.closedById) {
+					embed.addFields({
+						inline: true,
+						name: getMessage('dm.closed.fields.closed_by'),
+						value: `<@${ticket.closedById}>`,
+					});
+				}
+
+
+				if (reason) {
+					embed.addFields({
+						inline: true,
+						name: getMessage('dm.closed.fields.reason'),
+						value: reason,
+					});
+				}
+
 				if (ticket.guild.archive) embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
+
 				await creator.send({ embeds: [embed] });
 			}
 		} catch (error) {

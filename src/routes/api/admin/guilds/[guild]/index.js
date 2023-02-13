@@ -23,12 +23,13 @@ module.exports.get = fastify => ({
 			});
 			const tickets = await client.prisma.ticket.findMany({
 				select: {
+					closedAt: true,
 					createdAt: true,
 					firstResponseAt: true,
 				},
 				where: { guildId: id },
 			});
-			const closedTickets = tickets.filter(t => t.closedAt);
+			const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
 			cached = {
 				createdAt: settings.createdAt,
 				id: guild.id,

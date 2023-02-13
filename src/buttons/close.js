@@ -57,27 +57,22 @@ module.exports = class CloseButton extends Button {
 						await client.tickets.acceptClose(interaction);
 					}
 				} else {
-					// TODO: reply
-					if (client.tickets.$stale.has(ticket.id)) {
-						try {
-							await interaction.channel.messages.edit(
-								client.tickets.$stale.get(ticket.id).message.id,
-								{
-									components: [],
-									embeds: [
-										new ExtendedEmbedBuilder({
-											iconURL: interaction.guild.iconURL(),
-											text: ticket.guild.footer,
-										})
-											.setColor(ticket.guild.errorColour)
-											.setDescription(getMessage('ticket.close.rejected', { user: interaction.user.toString() }))
-											.setFooter({ text: null }),
-									],
-								},
-							);
-						} finally { // this should run regardless of whatever happens above
-							client.tickets.$stale.delete(ticket.id);
-						}
+					try {
+						await interaction.update({
+							components: [],
+							embeds: [
+								new ExtendedEmbedBuilder({
+									iconURL: interaction.guild.iconURL(),
+									text: ticket.guild.footer,
+								})
+									.setColor(ticket.guild.errorColour)
+									.setDescription(getMessage('ticket.close.rejected', { user: interaction.user.toString() }))
+									.setFooter({ text: null }),
+							],
+						});
+
+					} finally { // this should run regardless of whatever happens above
+						client.tickets.$stale.delete(ticket.id);
 					}
 				}
 			}

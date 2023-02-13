@@ -29,7 +29,7 @@ module.exports.get = fastify => ({
 			where: { id: req.params.guild },
 		});
 		categories = categories.map(c => {
-			const closedTickets = c.tickets.filter(t => t.closedAt);
+			const closedTickets = c.tickets.filter(t => t.firstResponseAt && t.closedAt);
 			c = {
 				...c,
 				stats: {

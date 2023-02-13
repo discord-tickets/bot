@@ -181,6 +181,7 @@ module.exports = class extends Listener {
 			}
 		} else {
 			const settings = await client.prisma.guild.findUnique({ where: { id: message.guild.id } });
+			if (!settings) return;
 			let ticket = await client.prisma.ticket.findUnique({ where: { id: message.channel.id } });
 
 			if (ticket) {

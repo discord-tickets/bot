@@ -18,9 +18,9 @@ module.exports = class extends Listener {
 			where: { id: channel.id },
 		});
 
-		if (!ticket?.open) return;
-
-		await client.tickets.finallyClose(ticket.id, { reason: 'channel deleted' });
-		this.client.log.info(`Closed ticket ${ticket.id} because the channel was deleted`);
+		if (ticket?.open) {
+			await client.tickets.finallyClose(ticket.id, { reason: 'channel deleted' });
+			this.client.log.info.tickets(`Closed ticket ${ticket.id} because the channel was deleted`);
+		}
 	}
 };
