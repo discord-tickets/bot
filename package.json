@@ -66,9 +66,12 @@
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^17.4.3",
+		"@commitlint/config-conventional": "^17.4.3",
 		"all-contributors-cli": "^6.24.0",
 		"eslint": "^8.33.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
+		"husky": "^8.0.3",
 		"nodemon": "^2.0.20"
 	},
 	"optionalDependencies": {
