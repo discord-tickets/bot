@@ -31,15 +31,15 @@ commands:
     pin:
       name: Nachricht anheften
       not_pinnable:
-        description: "Diese Nachricht kann nicht angeheftet werden.\nBitten Sie einen\
-          \ Administrator, die Berechtigungen des Bots zu überprüfen.\n"
+        description: "Diese Nachricht kann nicht angeheftet werden.\nBitte einen Administrator,\
+          \ die Berechtigungen des Bots zu überprüfen.\n"
         title: ❌ Fehler
       not_ticket:
-        description: Sie können nur Nachrichten in Tickets anheften.
+        description: Du kannst Nachrichten nur in Tickets anheften.
         title: ❌ Dies ist kein Ticketkanal
       pinned:
         description: Die Nachricht wurde angeheftet.
-        title: ✅ Gepinnte Nachricht
+        title: ✅ Nachricht angeheftet
     create:
       name: Ein Ticket aus einer Nachricht erstellen
   slash:
@@ -66,13 +66,15 @@ commands:
           support: Unterstützung
           links: Nützliche Links
           docs: Dokumentation
-          commands: komplette Befehlsliste
+          commands: Vollständige Befehlsliste
+          feedback: Feedback
         commands: Befehle
         description: '**Verwende {command} um ein Ticket zu erstellen und Hilfe zu
           erhalten.**'
-        settings: Bot Einstellungen
-      name: Hilfe
-      title: Hilfe
+        settings: Bot-Einstellungen
+      name: hilfe
+      title: hilfe
+      description: Zeigt das Hilfemenü an
     force-close:
       options:
         reason:
@@ -80,18 +82,28 @@ commands:
           description: Der Grund für das Schließen des/der Tickets
         category:
           name: Kategorie
+          description: Schließe alle Tickets einer Kategorie (kann mit `time` benutzt
+            werden)
         time:
           name: Zeit
+          description: Alle Tickets schließen, die für die angegebene Zeit inaktiv
+            waren (mit `Kategorie` verwendbar)
+        ticket:
+          description: Das Ticket welches geschlossen werden soll
+          name: ticket
       no_tickets:
         description: Es gibt keine offenen Tickets, die länger als `{time}` inaktiv
           waren.
-        title: Keine Tickets
+        title: ❌ Keine Tickets
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können Tickets zwangsweise abschliessen.
       confirm_multiple:
         description: "Du bist dabei **{count}** Tickets zu schließen die länger als\
           \ `{time}`:\n{tickets} inaktiv waren.\n"
         title: ❓Bist du dir sicher?
+      description: Ticket zwangsweise schließen
+      name: force-close
     close:
       invalid_time:
         title: ❌ Ungültig
@@ -101,7 +113,7 @@ commands:
           name: Grund
           description: Der Grund für das Schließen des Tickets
       description: Beantragen, dass ein Ticket geschlossen wird
-      name: Schließen
+      name: schließen
     move:
       name: verschieben
       description: Verschiebe ein Ticket in eine andere Kategorie
@@ -116,9 +128,10 @@ commands:
       options:
         references:
           name: Verweise
+          description: Die Nummer eines zugehörigen Tickets
     claim:
       description: Ticket übernehmen
-      name: Übernehmen
+      name: übernehmen
     priority:
       options:
         priority:
@@ -132,6 +145,7 @@ commands:
         title: ✅ Priorität gesetzt
         description: Die Priorität dieses Tickets wurde auf `{priority}` gesetzt.
       name: Priorität
+      description: Legt die Priorität eines Tickets fest
     tickets:
       not_staff:
         title: ❌ Fehler
@@ -163,11 +177,16 @@ commands:
       options:
         member:
           name: Mitglied
+          description: Das Mitglied, das aus dem Ticket entfernt werden soll
         ticket:
           name: Ticket
+          description: Das Ticket, aus dem das Mitglied entfernt werden soll
       success:
         title: ✅ Entfernt
         description: '{member} wurde von {ticket} entfernt.'
+      description: Entfernt ein Mitglied aus einem Ticket
+      name: entfernen
+      removed: ⬅️ {removed} wurde von {by} entfernt.
     topic:
       description: Thema eines Tickets ändern
       name: thema
@@ -185,7 +204,8 @@ commands:
       options:
         member:
           name: Mitglied
-          description: Das Mitglied an welches das Ticket transferiert werden soll.
+          description: Das Mitglied, an das die Eigentümerschaft übertragen werden
+            soll
       transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
       description: Ein Ticket an ein anderes Mitglied übertragen
     tag:
@@ -197,7 +217,12 @@ commands:
           description: Der Name des zu verwendenden Tags
       name: tag
       description: Verwende einen Tag
-  user: {}
+    release:
+      description: Ein Ticket freigeben (unclaim)
+      name: freigeben
+  user:
+    create:
+      name: Erstellt ein Ticket für einen Benutzer
 log:
   admin:
     changes: Änderungen
@@ -207,25 +232,39 @@ log:
         settings: Einstellungen
         category: eine Kategorie
         panel: ein Panel
+        tag: ein Tag
+      joined: '{user} {verb} {targetType}'
     title:
       target:
         category: Kategorie
         panel: Panel
         settings: Einstellungen
         question: Frage
+        tag: Tag
+      joined: '{targetType} {verb}'
     verb:
       delete: gelöscht
       create: erstellt
+      update: Aktualisiert
   message:
     description: '{user} {verb} eine Nachricht'
     verb:
       delete: gelöscht
+      update: Aktualisiert
     message: Nachricht
     title: Nachricht {verb}
   ticket:
     title: Ticket {verb}
     description: '{user} {verb} ein Ticket'
     ticket: Ticket
+    verb:
+      claim: übernommen
+      close: Geschlossen
+      update: Aktualisiert
+      create: erstellt
+      unclaim: freigegeben
+    added: Mitglieder hinzugefügt
+    removed: Entfernte Mitglieder
 menus:
   category:
     placeholder: Wähle eine Ticketkategorie
@@ -289,6 +328,7 @@ modals:
     rating:
       label: Bewertung
       placeholder: 1-5
+    title: Wie haben wir das gemacht?
   topic:
     label: Thema
     placeholder: Worum geht es in diesem Ticket?
@@ -312,6 +352,7 @@ ticket:
     user_request:
       title: ❓ {requestedBy} möchte dieses Ticket schließen
     wait_for_user: ✋ Bitte warte bis der Benutzer antwortet.
+    wait_for_staff: ✋ Bitte wartee, bis das Personal dieses Ticket schließt.
   created:
     title: ✅ Ticket erstellt
     description: 'Dein Ticketkanal wurde erstellt: {channel}.'
@@ -334,8 +375,22 @@ ticket:
       number: Nummer
       topic: Thema
     title: ℹ️ Referenz
+  claimed: 🙌 {user} hat dieses Ticket übernommen.
+  released: ♻️ {user} hat das ticket freigegeben.
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
+    fields:
+      closed:
+        name: Geschlossen um
+        value: '{timestamp} (nach {duration})'
+      closed_by: Geschlossen durch
+      created: Erstellt um
+      feedback: Deine Rückmeldung
+      reason: Grund des Schließens
+      response: Reaktionszeit
+      ticket: Ticket
+      topic: Thema
+    archived: Benutze `/transcript` in **{guild}** um archivierte Nachrichten einzusehen.
   confirm_open:
     title: Möchtest du ein Ticket mit dem folgendem Thema eröffnen?
