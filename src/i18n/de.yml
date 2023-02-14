@@ -144,7 +144,7 @@ commands:
       success:
         title: ✅ Priorität gesetzt
         description: Die Priorität dieses Tickets wurde auf `{priority}` gesetzt.
-      name: Priorität
+      name: priorität
       description: Legt die Priorität eines Tickets fest
     tickets:
       not_staff:
@@ -306,6 +306,7 @@ misc:
     description: Du kannst diesen Befehl nur in Tickets verwenden.
   ratelimited:
     description: Versuche es in ein paar Sekunden erneut.
+    title: 🐢 Bitte langsamer
   unknown_category:
     description: Bitte versuche es mit einer anderen Kategorie.
     title: ❌ Diese Ticketkategorie existiert nicht
