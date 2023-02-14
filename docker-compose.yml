@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  ticket-bot-mysql:
+    image: mysql:8
+    hostname: ticket-bot-mysql
+    volumes: 
+      - ticket-bot-mysql:/var/lib/mysql
+    networks:
+      - ticket-bot
+    environment:
+      - MYSQL_ROOT_PASSWORD=pwd
+      - MYSQL_DATABASE=database
+    restart: unless-stopped
+  
+  ticket-bot:
+    image: tickets-bot:v4
+    tty: true
+    stdin_open: true
+    hostname: ticket-bot
+    volumes:
+      - ticket-bot:/opt/bot
+    networks:
+      - ticket-bot
+    ports:
+      - 8080:8080
+
+    depends_on:
+      - ticket-bot-mysql
+    environment:
+      - DISCORD_TOKEN=
+      - DB_PROVIDER=mysql
+      - DB_CONNECTION_URL=mysql://root:pwd@ticket-bot-mysql:3306/database
+      - HTTP_EXTERNAL=127.0.0.1:8080
+      - HTTP_HOST=0.0.0.0
+      - HTTP_PORT=8080
+      - SETTINGS_PORT=8081
+      - SETTINGS_HOST=0.0.0.0
+      - SUPER=
+      - PUBLIC_BOT=false
+      - HTTP_TRUST_PROXY=false
+      - OVERRIDE_ARCHIVE=false
+      - DISCORD_SECRET=
+
+    restart: unless-stopped
+
+networks:
+  ticket-bot:
+
+volumes:
+  ticket-bot-mysql:
+  ticket-bot:
