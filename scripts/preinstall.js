@@ -7,6 +7,11 @@ function log (...strings) {
 	console.log(short('&9[preinstall]&r'), ...strings);
 }
 
+if (process.env.CI) {
+	log('CI detected, skipping');
+	process.exit(0);
+}
+
 const env = {
 	DB_CONNECTION_URL: '',
 	DB_PROVIDER: '', // don't default to sqlite, postinstall checks if empty
