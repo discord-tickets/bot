@@ -197,6 +197,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Uzurka",
+      "name": "Uzurka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/101745008?v=4",
+      "profile": "https://github.com/Uzurka",
+      "contributions": [
+        "bug",
+        "platform",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
