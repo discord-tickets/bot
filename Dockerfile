@@ -19,6 +19,6 @@ ENV NODE_ENV=production \
 	SETTINGS_HOST=127.0.0.1 \
 	SETTINGS_PORT=8169
 WORKDIR /usr/bot
-COPY --from=build /build ./
+COPY --from=builder /build ./
 EXPOSE ${HTTP_PORT}
 ENTRYPOINT [ "/bin/sh", "/usr/bot/scripts/start.sh" ]
