@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18-alpine AS build
+FROM node:18-alpine AS builder
 WORKDIR /build
 COPY package.json pnpm-lock.yaml ./
 COPY --link scripts scripts
@@ -12,7 +12,7 @@ RUN npm install -g pnpm
 RUN CI=true pnpm install --prod --frozen-lockfile
 COPY --link . .
 
-FROM node:18-alpine AS final
+FROM node:18-alpine AS runner
 ENV NODE_ENV=production \
 	HTTP_HOST=0.0.0.0 \
 	HTTP_PORT=80 \
