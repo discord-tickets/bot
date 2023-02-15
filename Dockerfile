@@ -2,12 +2,12 @@
 
 FROM node:18-alpine AS builder
 WORKDIR /build
-COPY package.json pnpm-lock.yaml ./
-COPY --link scripts scripts
 # install python etc so node-gyp works for the optional dependencies
 RUN apk add --no-cache make gcc g++ python3
 # install pnpm to make dependency installation faster (because it has a lockfile)
 RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml ./
+COPY --link scripts scripts
 # install dependencies, CI=true to skip pre/postinstall scripts
 RUN CI=true pnpm install --prod --frozen-lockfile
 COPY --link . .
