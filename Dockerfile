@@ -21,4 +21,4 @@ ENV NODE_ENV=production \
 WORKDIR /usr/bot
 COPY --from=builder /build ./
 EXPOSE ${HTTP_PORT}
-ENTRYPOINT [ "/bin/sh", "/usr/bot/scripts/start.sh" ]
+ENTRYPOINT [ "/usr/bot/scripts/start.sh" ]
