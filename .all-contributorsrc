@@ -4,11 +4,13 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "CONTRIBUTORS.md"
+    "CONTRIBUTORS.md",
+    "README.md"
   ],
   "imageSize": 100,
-  "commit": true,
+  "commit": false,
   "commitConvention": "angular",
+  "badgeTemplate": "<a href=\"https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md\">\n<img src=\"https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=flat-square\"alt=\"All contributors\">\n</a>",
   "contributors": [
     {
       "login": "eartharoid",
@@ -78,10 +80,10 @@
       ]
     },
     {
-      "login": "davidjcralph",
+      "login": "davidcralph",
       "name": "David Ralph",
       "avatar_url": "https://avatars.githubusercontent.com/u/14052956?v=4",
-      "profile": "https://davidjcralph.co.uk/",
+      "profile": "https://davidcralph.co.uk/",
       "contributions": [
         "code"
       ]
@@ -206,6 +208,33 @@
       "contributions": [
         "bug",
         "platform",
+        "translation"
+      ]
+    },
+    {
+      "login": "iNOEEL",
+      "name": "Noel Horvath",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26775559?v=4",
+      "profile": "https://github.com/iNOEEL",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Gdanycz",
+      "name": "Gdany",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60316826?v=4",
+      "profile": "https://github.com/Gdanycz",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Chaosfelix4451",
+      "name": "Chaosfelix4451",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46029764?v=4",
+      "profile": "https://github.com/Chaosfelix4451",
+      "contributions": [
         "translation"
       ]
     }

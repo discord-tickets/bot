@@ -21,6 +21,11 @@
 	<img
 		src="https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=flat-square"
 		alt="">
+	<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<a href="https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md">
+  <img src="https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=flat-square"alt="All contributors">
+</a>
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 	<a
 		href="https://www.codacy.com/gh/discord-tickets/bot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=discord-tickets/bot&amp;utm_campaign=Badge_Grade"><img
 		src="https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=flat-square"
