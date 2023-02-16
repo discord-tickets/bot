@@ -419,8 +419,8 @@ module.exports = class TicketManager {
 				},
 			});
 			stats = {
-				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length),
-				avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length),
+				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length, { long: true }),
+				avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length, { long: true }),
 			};
 			this.client.keyv.set(statsCacheKey, stats, ms('1h'));
 		}
