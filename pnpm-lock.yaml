@@ -12,7 +12,7 @@ specifiers:
   '@fastify/http-proxy': ^8.4.0
   '@fastify/jwt': ^5.0.1
   '@fastify/oauth2': ^5.1.0
-  '@prisma/client': ^4.9.0
+  '@prisma/client': ^4.10.1
   all-contributors-cli: ^6.24.0
   bufferutil: ^4.0.7
   conventional-changelog-cli: ^2.2.2
@@ -38,7 +38,7 @@ specifiers:
   nodemon: ^2.0.20
   object-diffy: ^1.0.4
   pad: ^3.2.0
-  prisma: ^4.9.0
+  prisma: ^4.10.1
   semver: ^7.3.8
   terminal-link: ^2.1.1
   utf-8-validate: ^5.0.10
@@ -46,7 +46,7 @@ specifiers:
   zlib-sync: ^0.1.8
 
 dependencies:
-  '@discord-tickets/settings': 1.3.3_svelte@3.55.1
+  '@discord-tickets/settings': 1.3.3
   '@eartharoid/dbf': 0.3.3_3cxu5zja4e2r5wmvge7mdcljwq
   '@eartharoid/dtf': 2.0.1
   '@eartharoid/i18n': 1.2.1
@@ -55,7 +55,7 @@ dependencies:
   '@fastify/http-proxy': 8.4.0_3cxu5zja4e2r5wmvge7mdcljwq
   '@fastify/jwt': 5.0.1
   '@fastify/oauth2': 5.1.0
-  '@prisma/client': 4.9.0_prisma@4.9.0
+  '@prisma/client': 4.10.1_prisma@4.10.1
   cryptr: 6.1.0
   discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
   dotenv: 16.0.3
@@ -72,7 +72,7 @@ dependencies:
   node-emoji: 1.11.0
   object-diffy: 1.0.4
   pad: 3.2.0
-  prisma: 4.9.0
+  prisma: 4.10.1
   semver: 7.3.8
   terminal-link: 2.1.1
   yaml: 1.10.2
@@ -299,7 +299,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@discord-tickets/settings/1.3.3_svelte@3.55.1:
+  /@discord-tickets/settings/1.3.3:
     resolution: {integrity: sha512-G6Z6DBsotbgY6CIhD+yVF1m1Lz/v699ONIEBKXLwMpAhXSXF+tCSzCcpRc5Do056YbVlEVxVUER4lbVtHn/ytQ==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.2.1
@@ -309,7 +309,7 @@ packages:
       ms: 2.1.3
       postcss: 8.4.21
       sortablejs: 1.15.0
-      svelte-modals: 1.2.1_svelte@3.55.1
+      svelte-modals: 1.2.1
     transitivePeerDependencies:
       - svelte
     dev: false
@@ -393,7 +393,7 @@ packages:
     resolution: {integrity: sha512-ebbEtlI7dxXF5ziNdr05mOY8NnDiPB1XvAlLHctRt/Rc+C3LCOVW5imUVX+mhvUhnNzmPBHewUkOFgGlCxgdAA==}
     dependencies:
       ajv: 8.12.0
-      ajv-formats: 2.1.1_ajv@8.12.0
+      ajv-formats: 2.1.1
       fast-uri: 2.2.0
     dev: false
 
@@ -599,8 +599,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@prisma/client/4.9.0_prisma@4.9.0:
-    resolution: {integrity: sha512-bz6QARw54sWcbyR1lLnF2QHvRW5R/Jxnbbmwh3u+969vUKXtBkXgSgjDA85nji31ZBlf7+FrHDy5x+5ydGyQDg==}
+  /@prisma/client/4.10.1_prisma@4.10.1:
+    resolution: {integrity: sha512-VonXLJZybdt8e5XZH5vnIGCRNnIh6OMX1FS3H/yzMGLT3STj5TJ/OkMcednrvELgk8PK89Vo3aSh51MWNO0axA==}
     engines: {node: '>=14.17'}
     requiresBuild: true
     peerDependencies:
@@ -609,16 +609,16 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 4.9.0-42.ceb5c99003b99c9ee2c1d2e618e359c14aef2ea5
-      prisma: 4.9.0
+      '@prisma/engines-version': 4.10.1-2.aead147aa326ccb985dcfed5b065b4fdabd44b19
+      prisma: 4.10.1
     dev: false
 
-  /@prisma/engines-version/4.9.0-42.ceb5c99003b99c9ee2c1d2e618e359c14aef2ea5:
-    resolution: {integrity: sha512-M16aibbxi/FhW7z1sJCX8u+0DriyQYY5AyeTH7plQm9MLnURoiyn3CZBqAyIoQ+Z1pS77usCIibYJWSgleBMBA==}
+  /@prisma/engines-version/4.10.1-2.aead147aa326ccb985dcfed5b065b4fdabd44b19:
+    resolution: {integrity: sha512-tsjTho7laDhf9EJ9EnDxAPEf7yrigSMDhniXeU4YoWc7azHAs4GPxRi2P9LTFonmHkJLMOLjR77J1oIP8Ife1w==}
     dev: false
 
-  /@prisma/engines/4.9.0:
-    resolution: {integrity: sha512-t1pt0Gsp+HcgPJrHFc+d/ZSAaKKWar2G/iakrE07yeKPNavDP3iVKPpfXP22OTCHZUWf7OelwKJxQgKAm5hkgw==}
+  /@prisma/engines/4.10.1:
+    resolution: {integrity: sha512-B3tcTxjx196nuAu1GOTKO9cGPUgTFHYRdkPkTS4m5ptb2cejyBlH9X7GOfSt3xlI7p4zAJDshJP4JJivCg9ouA==}
     requiresBuild: true
     dev: false
 
@@ -739,10 +739,8 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats/2.1.1_ajv@8.12.0:
+  /ajv-formats/2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
-    peerDependencies:
-      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -1819,7 +1817,7 @@ packages:
     dependencies:
       '@fastify/deepmerge': 1.3.0
       ajv: 8.12.0
-      ajv-formats: 2.1.1_ajv@8.12.0
+      ajv-formats: 2.1.1
       fast-deep-equal: 3.1.3
       fast-uri: 2.2.0
       rfdc: 1.3.0
@@ -3201,13 +3199,13 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prisma/4.9.0:
-    resolution: {integrity: sha512-bS96oZ5oDFXYgoF2l7PJ3Mp1wWWfLOo8B/jAfbA2Pn0Wm5Z/owBHzaMQKS3i1CzVBDWWPVnOohmbJmjvkcHS5w==}
+  /prisma/4.10.1:
+    resolution: {integrity: sha512-0jDxgg+DruB1kHVNlcspXQB9au62IFfVg9drkhzXudszHNUAQn0lVuu+T8np0uC2z1nKD5S3qPeCyR8u5YFLnA==}
     engines: {node: '>=14.17'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 4.9.0
+      '@prisma/engines': 4.10.1
     dev: false
 
   /process-nextick-args/2.0.1:
@@ -3828,17 +3826,10 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /svelte-modals/1.2.1_svelte@3.55.1:
+  /svelte-modals/1.2.1:
     resolution: {integrity: sha512-7MEKUx5wb5YppkXWFGeRlYM5FMGEnpix39u9Y6GtCNTMXRDZ7DB2Z50IYLMRTMW5lOsCdtJgFbB0E3iZMKmsAA==}
     peerDependencies:
       svelte: ^3.0.0
-    dependencies:
-      svelte: 3.55.1
-    dev: false
-
-  /svelte/3.55.1:
-    resolution: {integrity: sha512-S+87/P0Ve67HxKkEV23iCdAh/SX1xiSfjF1HOglno/YTbSTW7RniICMCofWGdJJbdjw3S+0PfFb1JtGfTXE0oQ==}
-    engines: {node: '>= 8'}
     dev: false
 
   /temp-dir/2.0.0:
