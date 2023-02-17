@@ -6,7 +6,6 @@ const Mustache = require('mustache');
 const { AttachmentBuilder } = require('discord.js');
 const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
-const pad = require('pad');
 
 module.exports = class TranscriptSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -84,7 +83,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 			message.text = message.content.content?.replace(/\n/g, '\n\t') ?? '';
 			message.content.attachments?.forEach(a => (message.text += '\n\t' + a.url));
 			message.content.embeds?.forEach(() => (message.text += '\n\t[embedded content]'));
-			message.number = 'M' + pad(String(ticket.archivedMessages.length).length, i + 1, '0');
+			message.number = 'M' + String(i + 1).padStart(ticket.archivedMessages.length.toString().length, '0');
 			ticket.archivedMessages[i] = message;
 		});
 

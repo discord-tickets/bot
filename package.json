@@ -65,7 +65,6 @@
 		"node-dir": "^0.1.17",
 		"node-emoji": "^1.11.0",
 		"object-diffy": "^1.0.4",
-		"pad": "^3.2.0",
 		"prisma": "^4.10.1",
 		"semver": "^7.3.8",
 		"terminal-link": "^2.1.1",
