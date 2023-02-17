@@ -15,6 +15,8 @@ commands:
           \ ad un amministratore di verificare i permessi del bot.\n"
       pinned:
         description: Il messaggio è stato fissato
+    create:
+      name: Crea un ticket dal messaggio
   slash:
     add:
       description: Aggiungi un utente ad un ticket
@@ -22,3 +24,4 @@ commands:
       not_staff:
         description: Solo i membri dello staff possono aggiungere utenti ai ticket
           altrui.
+      added: ➡️ {added} è stato aggiunto da {by}.
