@@ -1,12 +1,24 @@
 buttons:
   accept_close_request:
     text: Conferma
+    emoji: ✅
   cancel:
     text: Annulla
+    emoji: ✖️
   close:
     text: Chiudi
   edit:
     text: Modifica
+  claim:
+    text: Rivendica
+  confirm_open:
+    text: Crea un ticket
+  create:
+    text: Crea un ticket
+  reject_close_request:
+    text: Rifiuta
+  unclaim:
+    text: Rilascia
 commands:
   message:
     pin:
@@ -15,6 +27,9 @@ commands:
           \ ad un amministratore di verificare i permessi del bot.\n"
       pinned:
         description: Il messaggio è stato fissato
+      name: Fissa il messaggio
+      not_ticket:
+        description: Puoi fissare solo i messaggi nei ticket
     create:
       name: Crea un ticket dal messaggio
   slash:
