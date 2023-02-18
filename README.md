@@ -81,6 +81,7 @@
 - 🤖 **Automation** - ease your staff team's workload with configurable automation
   - 🏷️ [**Tags**](https://v4--discordtickets.netlify.app/features/#tags) - resolve members' problems without escalating to tickets
   - 🎫 **Tickets** - close inactive tickets automatically
+- 📜 **Archiving** - store messages in the database and view transcripts later
 - ❓ **Context** - ask for a topic or up to 5 custom questions before creating a ticket, and see references to a message or previous ticket at a glance
 - 🗃️ **Organisation** - claim, release, move and transfer tickets between members and categories
 - 🌎 [**Internationalisation**](#-translating) - available in more than 10 languages
