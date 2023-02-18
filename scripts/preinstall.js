@@ -19,7 +19,7 @@ const env = {
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
 	HTTP_EXTERNAL: 'http://127.0.0.1:8080',
-	HTTP_HOST: '127.0.0.1',
+	HTTP_HOST: '0.0.0.0',
 	HTTP_PORT: 8080,
 	HTTP_TRUST_PROXY: false,
 	OVERRIDE_ARCHIVE: '',
