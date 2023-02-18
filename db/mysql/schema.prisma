@@ -188,7 +188,7 @@ model Ticket {
     archivedMessages    ArchivedMessage[]
     archivedRoles       ArchivedRole[]
     archivedUsers       ArchivedUser[]
-    category            Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+    category            Category?         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
     categoryId          Int?
     claimedBy           User?             @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
     claimedById         String?           @db.VarChar(19)
