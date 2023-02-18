@@ -145,7 +145,6 @@ If you want to help translate, suggest a feature, submit a bug report,
 or contribute in any other way, please read the [contributing guidelines](https://github.com/discord-tickets/.github/blob/main//CONTRIBUTING.md).
 
 > **Note**
->
 > You can add yourself to the list of contributors [here](https://github.com/discord-tickets/bot/issues/new/choose).
 
 ### 🌎 Translating
