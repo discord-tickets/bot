@@ -65,8 +65,8 @@
 - [⚡ Getting started](#-getting-started)
 - [🤑 Sponsors](#-sponsors)
 - [🎖️ Contributors](#️-contributors)
-  - [🧰 Contributing](#-contributing)
-  - [🌎 Translating](#-translating)
+  - [💻 Contributing](#-contributing)
+    - [🌎 Translating](#-translating)
 - [😕 Support](#-support)
 - [⭐ Star History](#-star-history)
 - [🥱 License](#-license)
@@ -104,7 +104,7 @@ There are 3 ways to get started with Discord Tickets:
 
 - ☁️ [Add the public bot](https://discordtickets.app/public/) - instant setup, but branded *(great for testing)*
 - 😴 [Get a managed bot](https://discordtickets.app/managed/) - your own bot, hosted by me *(easy and cheap)*
-- 🧑‍💻 [Install your own bot](https://discordtickets.app/self-hosting/) - host it yourself *(⚠️ experience recommended)*
+- 🧑‍💻 [Install your own bot](https://discordtickets.app/self-hosting/) - host it yourself *(experience recommended)*
 
 **[Read the documentation](https://discordtickets.app/getting-started/)** for more information.
 
@@ -140,7 +140,7 @@ Please consider sponsoring the project if it adds value to your business/communi
 Discord Tickets is made possible by all of the people listed in [CONTRIBUTORS.md](https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md).
 
 
-### 🧰 Contributing
+### 💻 Contributing
 
 If you want to help translate, suggest a feature, submit a bug report,
 or contribute in any other way, please read the [contributing guidelines](https://github.com/discord-tickets/.github/blob/main//CONTRIBUTING.md).
@@ -148,7 +148,7 @@ or contribute in any other way, please read the [contributing guidelines](https:
 > **Note**
 > You can add yourself to the list of contributors [here](https://github.com/discord-tickets/bot/issues/new/choose).
 
-### 🌎 Translating
+#### 🌎 Translating
 
 [![Translation status](https://hosted.weblate.org/widgets/discord-tickets/-/open-graph.png)](https://hosted.weblate.org/engage/discord-tickets/)
 
