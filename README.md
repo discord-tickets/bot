@@ -48,7 +48,6 @@
 
 [![PebbleHost](https://img.eartharoid.me/insecure/rs:auto:180/plain/s3://eartharoid/sharex/21/10/pebblehost.webp)](https://pebble.host/discordtickets)
 
-<br>
 <a href="https://pebble.host/discordtickets">Partnered with PebbleHost</a>
 <br>
 <sub>for affordable bot hosting</sub>
