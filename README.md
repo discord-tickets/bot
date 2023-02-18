@@ -74,7 +74,7 @@
 
 ## ✨ Features
 
-- 📖 [**Documentation**](https://discordtickets.app/getting-started/) - comprehensive documentation and guides to help you get started
+- 📖 [**Documentation**](https://v4--discordtickets.netlify.app/self-hosting/installation/) - comprehensive documentation and guides to help you get started
 - ⚙️ **Simple settings** - configure your bot with the included and easy-to-use dashboard
 - 🎨 **Highly customisable** - tweak features, colours, messages, and more to your liking
 - 🛸 **Modern features** - including slash commands, buttons, select menus, and modals
