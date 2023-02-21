@@ -3,11 +3,11 @@ commands:
     pin:
       name: Připnout zprávu
       pinned:
-        description: Tato zpráva nemůže být připnutá.
+        description: Zpráva byla připnuta.
         title: ✅ Zpráva připnuta
       not_pinnable:
         description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,\
-          \ jestli má bot dostatečné oprávnění.\n"
+          \ jestli má robot dostatečné oprávnění.\n"
         title: ❌ Chyba
       not_ticket:
         description: Zprávy můžeš připnout jen v ticketech.
@@ -23,7 +23,7 @@ commands:
           description: Ticket na přidání člena
         member:
           name: člen
-          description: Člen na přidání do ticketu
+          description: Člen, kterého chcete přidat do ticketu.
       added: ➡️{by} přidal {added}.
       description: Přidat člena do ticketu
       not_staff:
@@ -44,6 +44,99 @@ commands:
       options:
         reason:
           description: Důvod pro uzavření ticketu
+          name: důvod
+    remove:
+      options:
+        ticket:
+          name: tiket
+          description: Tiket pro odebrání člena
+        member:
+          description: Člen, který má být odstraněn z tiketu
+          name: člen
+      not_staff:
+        description: Pouze členové staff teamu mohou odstranit členy z ostatních tiketů.
+        title: ❌ Chyba
+      success:
+        description: '{member} byl odstraněn z {ticket}.'
+        title: ✅ Odstraněn
+      description: Odstranit člena z tiketu
+      name: odstranit
+      removed: ⬅️ {removed} byl odstraněn uživatelem {by}.
+    help:
+      response:
+        links:
+          feedback: Zpětná vazba
+          commands: Celý list příkazů
+          docs: Dokumentace
+          links: Užitečné odkazy
+          support: Podpora
+        commands: Příkazy
+        settings: Nastavení bota
+        description: '**Použijte {command} pro vytvoření ticketu a získání podpory.**'
+      description: Zobrazit pomocné menu
+      name: pomoc
+      title: Pomoc
+    force-close:
+      options:
+        category:
+          name: kategorie
+        reason:
+          description: Důvod pro uzavření ticketu(ů)
+          name: důvod
+        ticket:
+          description: Ticket k uzavření
+          name: ticket
+        time:
+          name: čas
+      confirm_multiple:
+        title: ❓Jste si jist?
+      name: uzavřít silou
+      description: Násilně uzavřít ticket
+      no_tickets:
+        title: ❌Žádné tickety
+      not_staff:
+        title: ❌Chyba
+    move:
+      description: Přesunout ticket do jiné kategorie
+      name: přesunout
+      options:
+        category:
+          description: Kategorie, do které se má ticket přesunout
+          name: kategorie
+      moved: 🗃️ {by} přesunul tento ticket z **{from}** do **{to}**.
+    new:
+      description: Vytvořit nový ticket
+      name: nový
+      options:
+        references:
+          description: Číslo souvisejícího tiketu
+          name: reference
+    priority:
+      description: Nastavit důležitost ticketu
+      name: důležitost
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Vysoká
+            LOW: 🟢 Malá
+            MEDIUM: 🟠 Střední
+          description: Priorita tiketu
+          name: priorita
+      success:
+        description: Priorita tiketu byla nastavena na `{priority}`.
+        title: ✅ Priorita nastavena
+    release:
+      name: uvolnit
+    tag:
+      description: Použijte tag
+      name: tag
+      options:
+        for:
+          description: Uživatel, na kterého má cílit tag
+          name: pro
+        tag:
+          description: Jméno tagu pro použití
+          name: tag
 buttons:
   accept_close_request:
     emoji: ✅
