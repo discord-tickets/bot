@@ -96,6 +96,7 @@ commands:
         title: ❌Žádné tickety
       not_staff:
         title: ❌Chyba
+        description: Tickety mohou násilně uzavírat pouze zaměstnanci.
     move:
       description: Přesunout ticket do jiné kategorie
       name: přesunout
