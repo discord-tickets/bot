@@ -19,11 +19,11 @@ commands:
       name: přidat
       options:
         ticket:
-          name: ticket
+          name: tiket
           description: Ticket na přidání člena
         member:
           name: člen
-          description: Člen, kterého chcete přidat do ticketu.
+          description: Člen, kterého chcete přidat do ticketu
       added: ➡️{by} přidal {added}.
       description: Přidat člena do ticketu
       not_staff:
@@ -85,15 +85,15 @@ commands:
           name: důvod
         ticket:
           description: Ticket k uzavření
-          name: ticket
+          name: tiket
         time:
           name: čas
       confirm_multiple:
         title: ❓Jste si jist?
       name: uzavřít silou
-      description: Násilně uzavřít ticket
+      description: Násilně uzavřít tiketu
       no_tickets:
-        title: ❌Žádné tickety
+        title: ❌Žádné tikety
       not_staff:
         title: ❌Chyba
         description: Tickety mohou násilně uzavírat pouze zaměstnanci.
