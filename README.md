@@ -5,13 +5,8 @@
 > *dev notes:*
 > - https://static.eartharoid.me/k/22/08/02185801.png - for user/create, slash/force-close, slash/claim, slash/release, and slash/move
 > - menu question max length cannot be higher than question options 
-> - ports <1024 require root
 > - TODO: update notifications
 > - TODO: user:create, force-close
-> - **likely to be rate limited by discord**: 
-> 
-> [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/eB6TkX?referralCode=Z3aYd2) 
-
 
 
 <div align="center">
