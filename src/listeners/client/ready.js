@@ -23,7 +23,15 @@ module.exports = class extends Listener {
 		process.title = 'tickets';
 		client.log.success('Connected to Discord as "%s"', client.user.tag);
 
+		// fill cache
 		await sync(client);
+
+		if (process.env.PUBLISH_COMMANDS === 'true') {
+			client.log.info('Automatically publishing commands...');
+			client.commands.publish()
+				.then(commands => client.log.success('Published %d commands', commands?.size))
+				.catch(client.log.error);
+		}
 
 		// presence/activity
 		let next = 0;

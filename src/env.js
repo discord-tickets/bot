@@ -35,6 +35,7 @@ const env = {
 	HTTP_TRUST_PROXY: () => true, // optional
 	OVERRIDE_ARCHIVE: () => true, // optional
 	PUBLIC_BOT: () => true, // optional
+	PUBLISH_COMMANDS: () => true, // optional
 	SETTINGS_HOST: v =>
 		(!!v && !v.startsWith('http')) ||
 		new Error('is required and must be an address, not a URL'),

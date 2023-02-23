@@ -39,11 +39,12 @@ services:
       HTTP_HOST: 0.0.0.0
       HTTP_PORT: 80
       HTTP_TRUST_PROXY: false # set to true if you're using a reverse proxy
-      PUBLIC_BOT: false
       OVERRIDE_ARCHIVE: null
+      PUBLIC_BOT: false
+      PUBLISH_COMMANDS: false
       SETTINGS_PORT: 8169
       SETTINGS_HOST: 127.0.0.1
-      SUPER: !!str 319467558166069248 # optionally add `,youruseridhere`
+      SUPER: 319467558166069248 # optionally add `,youruseridhere`
 
 networks:
   discord-tickets:
