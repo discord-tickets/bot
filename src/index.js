@@ -23,20 +23,12 @@
 
 /* eslint-disable no-console */
 
-process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
-require('dotenv').config(); // load env file
-
 const pkg = require('../package.json');
 const banner = require('./lib/banner');
 console.log(banner(pkg.version)); // print big title
 
-const fs = require('fs');
 const semver = require('semver');
 const { colours } = require('leeks.js');
-const logger = require('./lib/logger');
-const YAML = require('yaml');
-const Client = require('./client');
-const http = require('./http');
 
 // check node version
 if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
@@ -44,10 +36,15 @@ if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
 	process.exit(1);
 }
 
-if (process.env.ENCRYPTION_KEY === undefined) {
-	console.log('\x07' + colours.redBright('Error: The "ENCRYPTION_KEY" environment variable is not set.\nRun "npm run keygen" to generate a key.'));
-	process.exit(1);
-}
+// this could be done first, but then there would be no banner :(
+process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
+require('./env').load(); // load and check environment variables
+
+const fs = require('fs');
+const YAML = require('yaml');
+const logger = require('./lib/logger');
+const Client = require('./client');
+const http = require('./http');
 
 if (!fs.existsSync('./user/config.yml')) {
 	const examplePath = './user/example.config.yml';
