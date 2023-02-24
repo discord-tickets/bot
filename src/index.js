@@ -37,7 +37,7 @@ if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
 }
 
 // this could be done first, but then there would be no banner :(
-process.env.NODE_ENV ??= 'development'; // make sure NODE_ENV is set
+process.env.NODE_ENV ??= 'production'; // make sure NODE_ENV is set
 require('./env').load(); // load and check environment variables
 
 const fs = require('fs');
