@@ -28,7 +28,7 @@ specifiers:
   fs-extra: ^10.1.0
   husky: ^8.0.3
   keyv: ^4.5.2
-  leeks.js: ^0.2.4
+  leeks.js: ^0.3.0
   leekslazylogger: ^5.0.1
   lint-staged: ^13.1.2
   ms: ^2.1.3
@@ -63,7 +63,7 @@ dependencies:
   figlet: 1.5.2
   fs-extra: 10.1.0
   keyv: 4.5.2
-  leeks.js: 0.2.4
+  leeks.js: 0.3.0
   leekslazylogger: 5.0.1
   ms: 2.1.3
   mustache: 4.2.0
@@ -2488,6 +2488,10 @@ packages:
 
   /leeks.js/0.2.4:
     resolution: {integrity: sha512-yFR6BtcTA/5s2FJAVkPn2VEzqO76DqBIdkC+1vNyersz1Hw0DxhunRu7bI7/XKxwrNy8x0K4e1p4YQKIGRCBww==}
+    dev: false
+
+  /leeks.js/0.3.0:
+    resolution: {integrity: sha512-6viaW7OYf8ijUe3G+rQ6CvbCLkN32vmeaEnVg82M474MbEeB++FcA80Qya1lv3cCgwkuxnfzDgnmWxol1bfhfA==}
     dev: false
 
   /leekslazylogger/5.0.1:
