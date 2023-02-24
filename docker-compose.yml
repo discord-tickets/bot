@@ -27,6 +27,8 @@ services:
       - 8080:8080
     volumes:
       - tickets-bot:/usr/bot/user
+    tty: true
+    stdin_open: true
     # Please refer to the documentation:
     # https://discordtickets.app/self-hosting/configuration/#environment-variables
     environment:
