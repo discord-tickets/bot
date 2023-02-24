@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
-  '@discord-tickets/settings': ^1.4.1
+  '@discord-tickets/settings': ^1.4.2
   '@eartharoid/dbf': ^0.3.3
   '@eartharoid/dtf': ^2.0.1
   '@eartharoid/i18n': ^1.2.1
@@ -45,7 +45,7 @@ specifiers:
   zlib-sync: ^0.1.8
 
 dependencies:
-  '@discord-tickets/settings': 1.4.1_svelte@3.55.1
+  '@discord-tickets/settings': 1.4.2_svelte@3.55.1
   '@eartharoid/dbf': 0.3.3_3cxu5zja4e2r5wmvge7mdcljwq
   '@eartharoid/dtf': 2.0.1
   '@eartharoid/i18n': 1.2.1
@@ -297,8 +297,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@discord-tickets/settings/1.4.1_svelte@3.55.1:
-    resolution: {integrity: sha512-Gi/DbZY9VdtXiSn3ricZCemDStkDVW1NA7TBfY4VUXuZ7gxhV6UlIs2H7LP3mFV1bMJB6R0Zk5WbL/H95lANQg==}
+  /@discord-tickets/settings/1.4.2_svelte@3.55.1:
+    resolution: {integrity: sha512-C8/aS9XTDUcnaX8wbFFUxH32M9SELcZ/BbsARTnXwFS3fGFs04mMI7L05Br0VHMYbKGmIykBMNZAGGco6Ka48A==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.3.0
       '@skyra/discord-components-core': 3.6.0
