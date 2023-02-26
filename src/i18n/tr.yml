@@ -9,3 +9,7 @@ buttons:
     emoji: 🎫
   edit:
     emoji: ✏️
+  claim:
+    emoji: 🙌
+  confirm_open:
+    emoji: ✅
