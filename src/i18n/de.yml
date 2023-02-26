@@ -41,7 +41,7 @@ commands:
         description: Die Nachricht wurde angeheftet.
         title: ✅ Nachricht angeheftet
     create:
-      name: Ein Ticket aus einer Nachricht erstellen
+      name: Erstelle Ticket aus Nachricht
   slash:
     add:
       added: ➡️ {added} wurde von {by} hinzugefügt.
@@ -222,7 +222,7 @@ commands:
       name: freigeben
   user:
     create:
-      name: Erstellt ein Ticket für einen Benutzer
+      name: Erstelle Ticket für Benutzer
 log:
   admin:
     changes: Änderungen
