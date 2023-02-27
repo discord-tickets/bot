@@ -138,6 +138,14 @@ commands:
         tag:
           description: Jméno tagu pro použití
           name: tag
+    tickets:
+      name: tickety
+      response:
+        fields:
+          closed:
+            name: Uzavřené tickety
+          open:
+            name: Otevřít tickety
 buttons:
   accept_close_request:
     emoji: ✅
