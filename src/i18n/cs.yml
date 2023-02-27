@@ -146,6 +146,10 @@ commands:
             name: Uzavřené tickety
           open:
             name: Otevřít tickety
+      not_staff:
+        title: ❌ Chyba
+    topic:
+      name: téma
 buttons:
   accept_close_request:
     emoji: ✅
