@@ -80,6 +80,7 @@ commands:
       options:
         category:
           name: kategorie
+          description: Uzavřít všechny tickety v zadané kategorii (lze použít s `time`).
         reason:
           description: Důvod pro uzavření ticketu(ů)
           name: důvod
@@ -88,12 +89,18 @@ commands:
           name: tiket
         time:
           name: čas
+          description: Zavřít všechny tickety, které byly po zadanou dobu neaktivní
+            (lze použít s `category`).
       confirm_multiple:
         title: ❓Jste si jist?
+        description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní\
+          \ déle než `{time}`:\n{tickets}\n"
       name: uzavřít silou
       description: Násilně uzavřít tiketu
       no_tickets:
         title: ❌Žádné tikety
+        description: Neexistují žádné otevřené tickety, které by byly neaktivní déle
+          než `{time}`.
       not_staff:
         title: ❌Chyba
         description: Tickety mohou násilně uzavírat pouze zaměstnanci.
@@ -128,6 +135,7 @@ commands:
         title: ✅ Priorita nastavena
     release:
       name: uvolnit
+      description: Uvolnit (vrátit) ticket
     tag:
       description: Použijte tag
       name: tag
@@ -146,6 +154,8 @@ commands:
             name: Uzavřené tickety
           open:
             name: Otevřít tickety
+        title:
+          other: Tickety uživatele {displayName}
       not_staff:
         title: ❌ Chyba
     topic:
@@ -178,3 +188,19 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Vydat
+dm:
+  closed:
+    archived: Chcete-li zobrazit archivované zprávy, zadejte `/transcript` do **{guild}**.
+    title: Váš ticket byl uzavřen
+    fields:
+      closed_by: Zavřeno uživatelem
+      ticket: Ticket
+  confirm_open:
+    title: Chcete otevřít ticket s následujícím tématem?
+log:
+  admin:
+    description:
+      target:
+        tag: značka
+    verb:
+      create: vytvořeno
