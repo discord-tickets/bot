@@ -195,6 +195,14 @@ dm:
     fields:
       closed_by: Zavřeno uživatelem
       ticket: Ticket
+      closed:
+        name: Zavřeno v
+        value: '{timestamp} (po {duration})'
+      created: Vytvořeno v
+      feedback: Vaše zpětná vazba
+      reason: Zavřeno, protože
+      response: Doba odezvy
+      topic: Téma
   confirm_open:
     title: Chcete otevřít ticket s následujícím tématem?
 log:
@@ -202,5 +210,22 @@ log:
     description:
       target:
         tag: značka
+        settings: nastavení
+        category: kategorie
+        panel: panel
+        question: otázka
+      joined: '{user} {verb} {targetType}'
     verb:
       create: vytvořeno
+    title:
+      target:
+        panel: Panel
+        category: Kategorie
+        question: Otázka
+        settings: Nastavení
+        tag: Štítek
+      joined: '{targetType} {verb}'
+    changes: Změny
+misc:
+  error:
+    title: ⚠️ Něco se pokazilo
