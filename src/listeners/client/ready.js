@@ -4,6 +4,7 @@ const ms = require('ms');
 const { version } = require('../../../package.json');
 const { msToMins } = require('../../lib/misc');
 const sync = require('../../lib/sync');
+const checkForUpdates = require('../../lib/updates');
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -116,6 +117,11 @@ module.exports = class extends Listener {
 			};
 			send();
 			setInterval(() => send(), ms('12h'));
+		}
+
+		if (client.config.updates) {
+			checkForUpdates(client);
+			setInterval(() => checkForUpdates(client), ms('1w'));
 		}
 
 		setInterval(() => {

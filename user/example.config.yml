@@ -33,3 +33,4 @@ presence:
 stats: true
 templates:
   transcript: transcript.md
+updates: true

@@ -5,6 +5,7 @@ const {
 } = require('leekslazylogger');
 const DTF = require('@eartharoid/dtf');
 const { short } = require('leeks.js');
+const { format } = require('util');
 
 const dtf = new DTF('en-GB');
 const colours = {
@@ -24,7 +25,13 @@ module.exports = config => {
 			format: log => {
 				const timestamp = dtf.fill('DD/MM/YY HH:mm:ss', log.timestamp);
 				const colour = colours[log.level.name];
-				return short(`&f&!7 ${timestamp} &r ${colour[0]}[${log.level.name.toUpperCase()}]&r ${log.namespace ? `&d(${log.namespace.toUpperCase()})&r ` : ''}${colour[1]}${log.content}`);
+				return format(
+					short(`&f&!7 %s &r ${colour[0]}[%s]&r %s${colour[1]}%s&r`),
+					timestamp,
+					log.level.name.toUpperCase(),
+					log.namespace ? short(`&d(${log.namespace.toUpperCase()})&r `) : '',
+					log.content,
+				);
 			},
 			level: config.logs.level,
 		}),

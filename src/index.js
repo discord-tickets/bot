@@ -32,7 +32,7 @@ const { colours } = require('leeks.js');
 
 // check node version
 if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
-	console.log('\x07' + colours.redBright(`Error: Your current Node.js version, ${process.versions.node}, does not meet the requirement "${pkg.engines.node}".`));
+	console.log('\x07' + colours.redBright(`Error: Your current Node.js version, ${process.versions.node}, does not meet the requirement "${pkg.engines.node}". Please update to version ${semver.minVersion(pkg.engines.node).version} or higher.`));
 	process.exit(1);
 }
 

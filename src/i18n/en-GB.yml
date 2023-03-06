@@ -183,7 +183,6 @@ commands:
           name: tag
     tickets:
       description: List your own or someone else's tickets
-      fields:
       name: tickets
       not_staff:
         description: Only staff members can view others' tickets.
@@ -346,6 +345,12 @@ misc:
   unknown_category:
     description: Please try a different category.
     title: ❌ That ticket category doesn't exist
+  update:
+    description: |
+      > [View `{version}` on GitHub]({github})
+      > [Changelog]({changelog})
+      > [Update guide]({guide})
+    title: An update is available
 modals:
   feedback:
     comment:
