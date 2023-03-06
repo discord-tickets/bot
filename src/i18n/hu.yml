@@ -260,12 +260,25 @@ commands:
           name: hibajegy
       description: Hibajegy átiratának lekérése
       name: hibajegy
-  user: {}
+  user:
+    create:
+      name: Hibajegy létrehozása a felhasználó számára
 dm:
   closed:
     title: A hibajegyed bezárásra került
     archived: Használd a(z) `/transcript` a(z)**{guild}** szerveren, hogy megtekintsd
       az archivált üzeneteket.
+    fields:
+      closed:
+        name: Bezárva ekkor
+        value: '{timestamp} ({duration} alatt)'
+      closed_by: Bezárva általa
+      created: Létrehozva ekkor
+      feedback: Visszajelzésed
+      reason: Bezárva ezért
+      response: Válaszidő
+      ticket: Hibajegy
+      topic: Téma
   confirm_open:
     title: Létre szeretnél hozni egy hibajegyet a megadott témával?
 misc:
