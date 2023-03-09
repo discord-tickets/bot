@@ -12,7 +12,7 @@ specifiers:
   '@fastify/http-proxy': ^8.4.0
   '@fastify/jwt': ^5.0.1
   '@fastify/oauth2': ^5.1.0
-  '@prisma/client': ^4.10.1
+  '@prisma/client': ^4.11.0
   all-contributors-cli: ^6.24.0
   boxen: ^7.0.2
   bufferutil: ^4.0.7
@@ -38,7 +38,7 @@ specifiers:
   node-emoji: ^1.11.0
   nodemon: ^2.0.20
   object-diffy: ^1.0.4
-  prisma: ^4.10.1
+  prisma: ^4.11.0
   semver: ^7.3.8
   terminal-link: ^2.1.1
   utf-8-validate: ^5.0.10
@@ -55,7 +55,7 @@ dependencies:
   '@fastify/http-proxy': 8.4.0_3cxu5zja4e2r5wmvge7mdcljwq
   '@fastify/jwt': 5.0.1
   '@fastify/oauth2': 5.1.0
-  '@prisma/client': 4.10.1_prisma@4.10.1
+  '@prisma/client': 4.11.0_prisma@4.11.0
   boxen: 7.0.2
   cryptr: 6.1.0
   discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
@@ -72,7 +72,7 @@ dependencies:
   node-dir: 0.1.17
   node-emoji: 1.11.0
   object-diffy: 1.0.4
-  prisma: 4.10.1
+  prisma: 4.11.0
   semver: 7.3.8
   terminal-link: 2.1.1
   yaml: 1.10.2
@@ -600,8 +600,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@prisma/client/4.10.1_prisma@4.10.1:
-    resolution: {integrity: sha512-VonXLJZybdt8e5XZH5vnIGCRNnIh6OMX1FS3H/yzMGLT3STj5TJ/OkMcednrvELgk8PK89Vo3aSh51MWNO0axA==}
+  /@prisma/client/4.11.0_prisma@4.11.0:
+    resolution: {integrity: sha512-0INHYkQIqgAjrt7NzhYpeDQi8x3Nvylc2uDngKyFDDj1tTRQ4uV1HnVmd1sQEraeVAN63SOK0dgCKQHlvjL0KA==}
     engines: {node: '>=14.17'}
     requiresBuild: true
     peerDependencies:
@@ -610,16 +610,16 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 4.10.1-2.aead147aa326ccb985dcfed5b065b4fdabd44b19
-      prisma: 4.10.1
+      '@prisma/engines-version': 4.11.0-57.8fde8fef4033376662cad983758335009d522acb
+      prisma: 4.11.0
     dev: false
 
-  /@prisma/engines-version/4.10.1-2.aead147aa326ccb985dcfed5b065b4fdabd44b19:
-    resolution: {integrity: sha512-tsjTho7laDhf9EJ9EnDxAPEf7yrigSMDhniXeU4YoWc7azHAs4GPxRi2P9LTFonmHkJLMOLjR77J1oIP8Ife1w==}
+  /@prisma/engines-version/4.11.0-57.8fde8fef4033376662cad983758335009d522acb:
+    resolution: {integrity: sha512-3Vd8Qq06d5xD8Ch5WauWcUUrsVPdMC6Ge8ILji8RFfyhUpqon6qSyGM0apvr1O8n8qH8cKkEFqRPsYjuz5r83g==}
     dev: false
 
-  /@prisma/engines/4.10.1:
-    resolution: {integrity: sha512-B3tcTxjx196nuAu1GOTKO9cGPUgTFHYRdkPkTS4m5ptb2cejyBlH9X7GOfSt3xlI7p4zAJDshJP4JJivCg9ouA==}
+  /@prisma/engines/4.11.0:
+    resolution: {integrity: sha512-0AEBi2HXGV02cf6ASsBPhfsVIbVSDC9nbQed4iiY5eHttW9ZtMxHThuKZE1pnESbr8HRdgmFSa/Kn4OSNYuibg==}
     requiresBuild: true
     dev: false
 
@@ -3240,13 +3240,13 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prisma/4.10.1:
-    resolution: {integrity: sha512-0jDxgg+DruB1kHVNlcspXQB9au62IFfVg9drkhzXudszHNUAQn0lVuu+T8np0uC2z1nKD5S3qPeCyR8u5YFLnA==}
+  /prisma/4.11.0:
+    resolution: {integrity: sha512-4zZmBXssPUEiX+GeL0MUq/Yyie4ltiKmGu7jCJFnYMamNrrulTBc+D+QwAQSJ01tyzeGHlD13kOnqPwRipnlNw==}
     engines: {node: '>=14.17'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 4.10.1
+      '@prisma/engines': 4.11.0
     dev: false
 
   /process-nextick-args/2.0.1:

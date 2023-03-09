@@ -102,9 +102,9 @@ model Feedback {
     guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
     guildId   String
     rating    Int
-    ticket    Ticket   @relation(fields: [ticketId], references: [id])
+    ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
     ticketId  String   @id
-    user      User?    @relation(fields: [userId], references: [id])
+    user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String?
 
     @@map("feedback")
