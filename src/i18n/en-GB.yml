@@ -64,6 +64,9 @@ commands:
     claim:
       description: Claim a ticket
       name: claim
+      not_staff:
+        description: Only staff members can claim tickets.
+        title: ❌ Error
     close:
       description: Request a ticket to be closed
       invalid_time:
@@ -126,6 +129,9 @@ commands:
       description: Move a ticket to another category
       moved: 🗃️ {by} has moved this ticket from **{from}** to **{to}**.
       name: move
+      not_staff:
+        description: Only staff members can move tickets.
+        title: ❌ Error
       options:
         category:
           description: The category to move the ticket to
@@ -140,6 +146,9 @@ commands:
     priority:
       description: Set the priority of a ticket
       name: priority
+      not_staff:
+        description: Only staff members can change the priority of tickets.
+        title: ❌ Error
       options:
         priority:
           choices:
@@ -158,7 +167,7 @@ commands:
       description: Remove a member from a ticket
       name: remove
       not_staff:
-        description: Only staff members can removed members from others' tickets.
+        description: Only staff members can remove members from others' tickets.
         title: ❌ Error
       options:
         member:

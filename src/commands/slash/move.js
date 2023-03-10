@@ -1,6 +1,7 @@
 const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
+const { isStaff } = require('../../lib/users');
 
 module.exports = class MoveSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -62,10 +63,25 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 			});
 		}
 
+		const getMessage = client.i18n.getLocale(ticket.guild.locale);
+
+		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.move.not_staff.title'))
+						.setDescription(getMessage('commands.slash.move.not_staff.description')),
+				],
+			});
+		}
+
 		const creator = await interaction.guild.members.fetch(ticket.createdById);
 		const newCategory = await client.prisma.category.findUnique({ where: { id: interaction.options.getInteger('category', true) } });
 		const discordCategory = await interaction.guild.channels.fetch(newCategory.discordCategory);
-		const getMessage = client.i18n.getLocale(ticket.guild.locale);
 
 		if (discordCategory.children.cache.size === 50) {
 			return await interaction.editReply({

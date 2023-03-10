@@ -2,6 +2,7 @@ const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { logTicketEvent } = require('../../lib/logging');
+const { isStaff } = require('../../lib/users');
 
 module.exports = class PrioritySlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -82,6 +83,20 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 						.setColor(settings.errorColour)
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
+				],
+			});
+		}
+
+		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.move.not_staff.title'))
+						.setDescription(getMessage('commands.slash.move.not_staff.description')),
 				],
 			});
 		}

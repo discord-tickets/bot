@@ -698,6 +698,20 @@ module.exports = class TicketManager {
 		});
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
+		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
+						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
+				],
+			});
+		}
+
 		await Promise.all([
 			interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`),
 			...ticket.category.staffRoles.map(role => interaction.channel.permissionOverwrites.edit(role, { 'ViewChannel': false }, `Ticket claimed by ${interaction.user.tag}`)),
@@ -783,6 +797,20 @@ module.exports = class TicketManager {
 			where: { id: interaction.channel.id },
 		});
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
+
+		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
+						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
+				],
+			});
+		}
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`),
