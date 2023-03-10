@@ -36,12 +36,6 @@ const env = {
 	OVERRIDE_ARCHIVE: () => true, // optional
 	PUBLIC_BOT: () => true, // optional
 	PUBLISH_COMMANDS: () => true, // optional
-	SETTINGS_HOST: v =>
-		(!!v && !v.startsWith('http')) ||
-		new Error('is required and must be an address, not a URL'),
-	SETTINGS_PORT: v =>
-		!!v ||
-		new Error('is required'),
 	SUPER: () => true, // optional
 };
 

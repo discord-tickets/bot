@@ -6,16 +6,8 @@ const { join } = require('path');
 const { files } = require('node-dir');
 const { PermissionsBitField } = require('discord.js');
 
-process.env.PUBLIC_HOST = process.env.HTTP_EXTERNAL; // the SvelteKit app expects `PUBLIC_HOST`
 
 module.exports = async client => {
-	// cors plugin
-	fastify.register(require('@fastify/cors'), {
-		credentials: true,
-		methods: ['DELETE', 'GET', 'PATCH', 'PUT', 'POST'],
-		origin: true,
-	});
-
 	// oauth2 plugin
 	fastify.states = new Map();
 	fastify.register(oauth, {
@@ -54,20 +46,6 @@ module.exports = async client => {
 			signed: false,
 		},
 		secret: process.env.ENCRYPTION_KEY,
-	});
-
-	// proxy `/settings` to express
-	fastify.register(require('@fastify/http-proxy'), {
-		http2: false,
-		prefix: '/settings',
-		replyOptions: {
-			rewriteRequestHeaders: (req, headers) => ({
-				...headers,
-				'host': domain,
-			}),
-		},
-		rewritePrefix: '/settings',
-		upstream: `http://${process.env.SETTINGS_HOST}:${process.env.SETTINGS_PORT}`,
 	});
 
 	// auth
@@ -176,24 +154,10 @@ module.exports = async client => {
 		})); // register route
 	});
 
-	// express server for settings
-	const express = require('express')();
 	const { handler } = await import('@discord-tickets/settings/build/handler.js');
-	process.on('sveltekit:error', ({
-		error,
-		errorId,
-	}) => {
-		client.log.error.http(`Express ${errorId} ${error}`);
-	});
-	express.set('trust proxy', true);
-	express.use((req, res, next) => {
-		next();
-		client.log.verbose.http(short(`Express ${req.ip} ${req.method} ${req.route?.path ?? req.path}`));
-	});
-	express.use(handler); // let SvelteKit handle everything
-	express.listen(process.env.SETTINGS_PORT, process.env.SETTINGS_HOST, () => { // start the express server
-		client.log.verbose.http(`Express listening on port ${process.env.SETTINGS_PORT}`);
-	});
+
+	// https://stackoverflow.com/questions/72317071/how-to-set-up-fastify-correctly-so-that-sveltekit-works-fine
+	fastify.all('/*', {}, (req, res) => handler(req.raw, res.raw, () => { }));
 
 	// start the fastify server
 	fastify.listen({
@@ -202,5 +166,12 @@ module.exports = async client => {
 	}, (err, addr) => {
 		if (err) client.log.error.http(err);
 		else client.log.success.http(`Listening at ${addr}`);
+	});
+
+	process.on('sveltekit:error', ({
+		error,
+		errorId,
+	}) => {
+		client.log.error.http(`SvelteKit ${errorId} ${error}`);
 	});
 };

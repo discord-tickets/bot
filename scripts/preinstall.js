@@ -18,16 +18,14 @@ const env = {
 	DISCORD_SECRET: '',
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
-	HTTP_EXTERNAL: 'http://127.0.0.1:8080',
+	HTTP_EXTERNAL: 'http://127.0.0.1:8169',
 	HTTP_HOST: '0.0.0.0',
-	HTTP_PORT: 8080,
+	HTTP_PORT: 8169,
 	HTTP_TRUST_PROXY: false,
 	NODE_ENV: 'production', // not bot-specific
 	OVERRIDE_ARCHIVE: '',
 	PUBLIC_BOT: false,
 	PUBLISH_COMMANDS: false,
-	SETTINGS_HOST: '127.0.0.1',
-	SETTINGS_PORT: 8169,
 	SUPER: '319467558166069248',
 };
 
