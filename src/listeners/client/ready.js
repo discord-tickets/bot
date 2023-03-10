@@ -34,6 +34,9 @@ module.exports = class extends Listener {
 				.catch(client.log.error);
 		}
 
+		// commands are not cached automatically
+		await client.application.commands.fetch();
+
 		// presence/activity
 		let next = 0;
 		const setPresence = async () => {

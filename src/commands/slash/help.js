@@ -27,7 +27,7 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		const staff = await isStaff(interaction.guild, interaction.member.id);
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const getMessage = client.i18n.getLocale(settings.locale);
-		const commands = (await client.application.commands.fetch())
+		const commands = client.application.commands.cache
 			.filter(c => c.type === 1)
 			.map(c => `> </${c.name}:${c.id}>: ${c.description}`)
 			.join('\n');
