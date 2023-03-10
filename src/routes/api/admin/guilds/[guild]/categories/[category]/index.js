@@ -1,6 +1,7 @@
 const { logAdminEvent } = require('../../../../../../../lib/logging');
 const { updateStaffRoles } = require('../../../../../../../lib/users');
 const { randomUUID } = require('crypto');
+const { ApplicationCommandPermissionType } = require('discord.js');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
@@ -71,6 +72,7 @@ module.exports.patch = fastify => ({
 		const client = res.context.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
+		/** @type {import('discord.js').Guild} */
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
 
@@ -143,6 +145,37 @@ module.exports.patch = fastify => ({
 		// update caches
 		await client.tickets.getCategory(categoryId, true);
 		await updateStaffRoles(guild);
+
+		if (req.user.payload.accessToken && JSON.stringify(category.staffRoles) !== JSON.stringify(original.staffRoles)) {
+			Promise.all([
+				'Create ticket for user',
+				'claim',
+				'force-close',
+				'move',
+				'priority',
+				'release',
+			].map(name =>
+				client.application.commands.permissions.set({
+					command: client.application.commands.cache.find(cmd => cmd.name === name),
+					guild,
+					permissions: [
+						{
+							id: guild.id, // @everyone
+							permission: false,
+							type: ApplicationCommandPermissionType.Role,
+						},
+						...category.staffRoles.map(id => ({
+							id,
+							permission: true,
+							type: ApplicationCommandPermissionType.Role,
+						})),
+					],
+					token: req.user.payload.accessToken,
+				}),
+			))
+				.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
+				.catch(error => client.log.error(error));
+		}
 
 		logAdminEvent(client, {
 			action: 'update',

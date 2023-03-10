@@ -1,7 +1,10 @@
 const { logAdminEvent } = require('../../../../../../lib/logging');
 const { updateStaffRoles } = require('../../../../../../lib/users');
 const emoji = require('node-emoji');
-const { ChannelType: { GuildCategory } } = require('discord.js');
+const {
+	ApplicationCommandPermissionType,
+	ChannelType: { GuildCategory },
+} = require('discord.js');
 const ms = require('ms');
 
 module.exports.get = fastify => ({
@@ -97,6 +100,37 @@ module.exports.post = fastify => ({
 		// update caches
 		await client.tickets.getCategory(category.id, true);
 		await updateStaffRoles(guild);
+
+		if (req.user.payload.accessToken) {
+			Promise.all([
+				'Create ticket for user',
+				'claim',
+				'force-close',
+				'move',
+				'priority',
+				'release',
+			].map(name =>
+				client.application.commands.permissions.set({
+					command: client.application.commands.cache.find(cmd => cmd.name === name),
+					guild,
+					permissions: [
+						{
+							id: guild.id, // @everyone
+							permission: false,
+							type: ApplicationCommandPermissionType.Role,
+						},
+						...category.staffRoles.map(id => ({
+							id,
+							permission: true,
+							type: ApplicationCommandPermissionType.Role,
+						})),
+					],
+					token: req.user.payload.accessToken,
+				}),
+			))
+				.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
+				.catch(error => client.log.error(error));
+		}
 
 		logAdminEvent(client, {
 			action: 'create',
