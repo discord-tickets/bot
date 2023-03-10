@@ -40,7 +40,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^1.4.2",
+		"@discord-tickets/settings": "^1.5.0",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -51,11 +51,11 @@
 		"@fastify/oauth2": "^5.1.0",
 		"@prisma/client": "^4.11.0",
 		"boxen": "^7.0.2",
-		"cryptr": "^6.1.0",
+		"cryptr": "^6.2.0",
 		"discord.js": "^14.7.1",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
-		"fastify": "^4.13.0",
+		"fastify": "^4.14.1",
 		"figlet": "^1.5.2",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.2",
@@ -76,11 +76,11 @@
 		"@commitlint/config-conventional": "^17.4.4",
 		"all-contributors-cli": "^6.24.0",
 		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^8.34.0",
+		"eslint": "^8.35.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.1.2",
-		"nodemon": "^2.0.20"
+		"nodemon": "^2.0.21"
 	},
 	"optionalDependencies": {
 		"bufferutil": "^4.0.7",

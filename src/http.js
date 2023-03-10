@@ -27,7 +27,7 @@ module.exports = async client => {
 			},
 		},
 		name: 'discord',
-		scope: ['identify'],
+		scope: ['applications.commands.permissions.update', 'guilds', 'identify'],
 		startRedirectPath: '/auth/login',
 	});
 
