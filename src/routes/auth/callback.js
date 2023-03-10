@@ -3,15 +3,15 @@ const { domain } = require('../../lib/http');
 module.exports.get = () => ({
 	handler: async function (req, res) { // MUST NOT use arrow function syntax
 		const {
-			access_token,
-			expires_in,
+			access_token: accessToken,
+			expires_in: expiresIn,
 		} = await this.discord.getAccessTokenFromAuthorizationCodeFlow(req);
-		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${access_token}` } })).json();
+		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${accessToken}` } })).json();
 		const payload = {
-			access_token,
+			accessToken,
 			avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp`,
 			discriminator: user.discriminator,
-			expiresAt: Date.now() + (expires_in * 1000),
+			expiresAt: Date.now() + (expiresIn * 1000),
 			id: user.id,
 			locale: user.locale,
 			username: user.username,
@@ -20,15 +20,14 @@ module.exports.get = () => ({
 		const token = this.jwt.sign({ payload });
 		res
 			.setCookie('token', token, {
-				domain: domain,
+				domain,
 				httpOnly: true,
-				maxAge: 604800, // seconds, not milliseconds
+				maxAge: expiresIn,
 				path: '/',
 				sameSite: true,
 				secure: false,
 			})
-			// .redirect('/settings')
-			.type('text/html')
-			.send('<a href="/settings">/settings</a>'); // temp fix: redirecting causes weird discord<->callback loop, probably caching?
+			.redirect(this.states.get(req.query.state) || '/');
+		this.states.delete(req.query.state);
 	},
 });

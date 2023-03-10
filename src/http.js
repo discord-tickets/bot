@@ -1,6 +1,6 @@
 const fastify = require('fastify')({ trustProxy: process.env.HTTP_TRUST_PROXY === 'true' });
 const oauth = require('@fastify/oauth2');
-const { domain } = require('./lib/http');
+const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
@@ -17,14 +17,27 @@ module.exports = async client => {
 	});
 
 	// oauth2 plugin
+	fastify.states = new Map();
 	fastify.register(oauth, {
 		callbackUri: `${process.env.HTTP_EXTERNAL}/auth/callback`,
+		checkStateFunction: (state, callback) => {
+			if (fastify.states.has(state)) {
+				callback();
+				return;
+			}
+			callback(new Error('Invalid state'));
+		},
 		credentials: {
 			auth: oauth.DISCORD_CONFIGURATION,
 			client: {
 				id: client.user.id,
 				secret: process.env.DISCORD_SECRET,
 			},
+		},
+		generateStateFunction: req => {
+			const state = randomBytes(12).toString('hex');
+			fastify.states.set(state, req.query.r);
+			return state;
 		},
 		name: 'discord',
 		scope: ['applications.commands.permissions.update', 'guilds', 'identify'],
