@@ -29,7 +29,7 @@ buttons:
 commands:
   message:
     create:
-      name: Create a ticket from message
+      name: Create ticket from message
     pin:
       name: Pin message
       not_pinnable:
@@ -227,7 +227,7 @@ commands:
       transferred_from: 📨 {user} has transferred this ticket from {from} to {to}.
   user:
     create:
-      name: Create a ticket for user
+      name: Create ticket for user
 dm:
   closed:
     archived: Use the `/transcript` command in **{guild}** to view the archived messages.

@@ -95,7 +95,7 @@ commands:
         title: ❓Jste si jist?
         description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní\
           \ déle než `{time}`:\n{tickets}\n"
-      name: uzavřít silou
+      name: uzavřít-silou
       description: Násilně uzavřít tiketu
       no_tickets:
         title: ❌Žádné tikety

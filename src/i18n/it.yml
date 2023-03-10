@@ -43,7 +43,7 @@ commands:
   slash:
     add:
       description: Aggiungi un utente ad un ticket
-      name: Aggiungi
+      name: aggiungi
       not_staff:
         description: Solo i membri dello staff possono aggiungere utenti ai ticket
           altrui.

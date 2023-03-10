@@ -262,7 +262,7 @@ commands:
       name: hibajegy
   user:
     create:
-      name: Hibajegy létrehozása a felhasználó számára
+      name: Create ticket for user
 dm:
   closed:
     title: A hibajegyed bezárásra került

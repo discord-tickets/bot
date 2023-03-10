@@ -1,4 +1,5 @@
 const { StdinCommand } = require('@eartharoid/dbf');
+const { inspect } = require('util');
 
 module.exports = class Commands extends StdinCommand {
 	constructor(client, options) {
@@ -13,7 +14,11 @@ module.exports = class Commands extends StdinCommand {
 		case 'publish': {
 			this.client.commands.publish()
 				.then(commands => this.client.log.success('Published %d commands', commands?.size))
-				.catch(this.client.log.error);
+				.catch(error => {
+					this.client.log.warn('Failed to publish commands');
+					this.client.log.error(error);
+					this.client.log.error(inspect(error.rawError?.errors, { depth: Infinity }));
+				});
 			break;
 		}
 		default: {

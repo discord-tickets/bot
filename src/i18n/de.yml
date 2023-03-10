@@ -50,10 +50,10 @@ commands:
         description: Nur Teammitglieder können Benutzer zu Tickets anderer hinzufügen.
       options:
         member:
-          name: Mitglied
+          name: mitglied
           description: Das Mitglied, das dem Ticket hinzugefügt werden soll
         ticket:
-          name: Ticket
+          name: ticket
           description: Das Ticket, zu dem das Mitglied hinzugefügt werden soll
       success:
         description: '{member} wurde zu {ticket} hinzugefügt.'
@@ -78,14 +78,14 @@ commands:
     force-close:
       options:
         reason:
-          name: Grund
+          name: grund
           description: Der Grund für das Schließen des/der Tickets
         category:
-          name: Kategorie
+          name: kategorie
           description: Schließe alle Tickets einer Kategorie (kann mit `time` benutzt
             werden)
         time:
-          name: Zeit
+          name: zeit
           description: Alle Tickets schließen, die für die angegebene Zeit inaktiv
             waren (mit `Kategorie` verwendbar)
         ticket:
@@ -110,7 +110,7 @@ commands:
         description: '`{input}` ist kein gültiges Zeitformat.'
       options:
         reason:
-          name: Grund
+          name: grund
           description: Der Grund für das Schließen des Tickets
       description: Beantragen, dass ein Ticket geschlossen wird
       name: schließen
@@ -121,13 +121,13 @@ commands:
       options:
         category:
           description: Die Kategorie in welche das Ticket verschoben werden soll
-          name: Kategorie
+          name: kategorie
     new:
       name: neu
       description: Neues Ticket erstellen
       options:
         references:
-          name: Verweise
+          name: verweise
           description: Die Nummer eines zugehörigen Tickets
     claim:
       description: Ticket übernehmen
@@ -136,7 +136,7 @@ commands:
       options:
         priority:
           description: Die Priorität des Tickets
-          name: Priorität
+          name: priorität
           choices:
             HIGH: 🔴 Hoch
             LOW: 🟢 Niedrig
@@ -153,7 +153,7 @@ commands:
       options:
         member:
           description: Das Mitglied, dessen Tickets aufgelistet werden sollen
-          name: Mitglied
+          name: mitglied
       name: tickets
       response:
         title:
@@ -176,10 +176,10 @@ commands:
         title: ❌ Fehler
       options:
         member:
-          name: Mitglied
+          name: mitglied
           description: Das Mitglied, das aus dem Ticket entfernt werden soll
         ticket:
-          name: Ticket
+          name: ticket
           description: Das Ticket, aus dem das Mitglied entfernt werden soll
       success:
         title: ✅ Entfernt
@@ -203,7 +203,7 @@ commands:
       transferred_from: 📨 {user} hat dieses Ticket von {from} auf {to} übertragen.
       options:
         member:
-          name: Mitglied
+          name: mitglied
           description: Das Mitglied, an das die Eigentümerschaft übertragen werden
             soll
       transferred: 📨 {user} hat dieses Ticket an {to} übertragen.
@@ -213,7 +213,7 @@ commands:
         for:
           name: für
         tag:
-          name: Tag
+          name: tag
           description: Der Name des zu verwendenden Tags
       name: tag
       description: Verwende einen Tag
