@@ -10,14 +10,13 @@ COPY package.json pnpm-lock.yaml ./
 COPY --link scripts scripts
 # install dependencies, CI=true to skip pre/postinstall scripts
 RUN CI=true pnpm install --prod --frozen-lockfile
+RUN chmod +x /usr/bot/scripts/start.sh
 COPY --link . .
 
 FROM node:18-alpine AS runner
 ENV NODE_ENV=production \
 	HTTP_HOST=0.0.0.0 \
-	HTTP_PORT=80 \
-	SETTINGS_HOST=127.0.0.1 \
-	SETTINGS_PORT=8169
+	HTTP_PORT=80
 WORKDIR /usr/bot
 COPY --from=builder /build ./
 EXPOSE ${HTTP_PORT}

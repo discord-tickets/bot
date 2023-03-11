@@ -24,7 +24,7 @@ services:
     networks:
       - discord-tickets
     ports:
-      - 8080:8080
+      - 8169:8169
     volumes:
       - tickets-bot:/usr/bot/user
     tty: true
@@ -37,15 +37,13 @@ services:
       DISCORD_TOKEN: # required
       ENCRYPTION_KEY: # required
       DB_PROVIDER: mysql
-      HTTP_EXTERNAL: http://127.0.0.1:8080 # change this to your server's external IP (or domain)
+      HTTP_EXTERNAL: http://127.0.0.1:8169 # change this to your server's external IP (or domain)
       HTTP_HOST: 0.0.0.0
-      HTTP_PORT: 8080
+      HTTP_PORT: 8169
       HTTP_TRUST_PROXY: false # set to true if you're using a reverse proxy
       OVERRIDE_ARCHIVE: null
       PUBLIC_BOT: false
       PUBLISH_COMMANDS: false
-      SETTINGS_PORT: 8169
-      SETTINGS_HOST: 127.0.0.1
       SUPER: 319467558166069248 # optionally add `,youruseridhere`
 
 networks:
