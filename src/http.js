@@ -6,6 +6,7 @@ const { join } = require('path');
 const { files } = require('node-dir');
 const { PermissionsBitField } = require('discord.js');
 
+process.env.ORIGIN = process.env.HTTP_EXTERNAL;
 
 module.exports = async client => {
 	// oauth2 plugin
