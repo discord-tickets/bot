@@ -8,9 +8,9 @@ RUN apk add --no-cache make gcc g++ python3
 RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml ./
 COPY --link scripts scripts
+RUN chmod +x ./scripts/start.sh
 # install dependencies, CI=true to skip pre/postinstall scripts
 RUN CI=true pnpm install --prod --frozen-lockfile
-RUN chmod +x /usr/bot/scripts/start.sh
 COPY --link . .
 
 FROM node:18-alpine AS runner
