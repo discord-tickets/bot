@@ -134,7 +134,7 @@ module.exports.post = fastify => ({
 				id: channel.toString(),
 				type: 'panel',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return true;

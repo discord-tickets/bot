@@ -54,7 +54,7 @@ module.exports.post = fastify => ({
 		/** @type {import('client')} */
 		const client = res.context.config.client;
 
-		const user = await client.users.fetch(req.user.payload.id);
+		const user = await client.users.fetch(req.user.id);
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
 		const allow = ['ViewChannel', 'ReadMessageHistory', 'SendMessages', 'EmbedLinks', 'AttachFiles'];
@@ -101,7 +101,7 @@ module.exports.post = fastify => ({
 		await client.tickets.getCategory(category.id, true);
 		await updateStaffRoles(guild);
 
-		if (req.user.payload.accessToken) {
+		if (req.user.accessToken) {
 			Promise.all([
 				'Create ticket for user',
 				'claim',
@@ -125,7 +125,7 @@ module.exports.post = fastify => ({
 							type: ApplicationCommandPermissionType.Role,
 						})),
 					],
-					token: req.user.payload.accessToken,
+					token: req.user.accessToken,
 				}),
 			))
 				.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
@@ -140,7 +140,7 @@ module.exports.post = fastify => ({
 				name: category.name,
 				type: 'category',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return category;

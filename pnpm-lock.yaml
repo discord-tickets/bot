@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@commitlint/cli': ^17.4.4
   '@commitlint/config-conventional': ^17.4.4
-  '@discord-tickets/settings': ^2.0.0
+  '@discord-tickets/settings': ^2.1.0
   '@eartharoid/dbf': ^0.3.3
   '@eartharoid/dtf': ^2.0.1
   '@eartharoid/i18n': ^1.2.1
@@ -16,7 +16,7 @@ specifiers:
   bufferutil: ^4.0.7
   conventional-changelog-cli: ^2.2.2
   cryptr: ^6.2.0
-  discord.js: ^14.7.1
+  discord.js: ^14.8.0
   dotenv: ^16.0.3
   erlpack: github:discord/erlpack
   eslint: ^8.36.0
@@ -43,7 +43,7 @@ specifiers:
   zlib-sync: ^0.1.8
 
 dependencies:
-  '@discord-tickets/settings': 2.0.0_svelte@3.56.0
+  '@discord-tickets/settings': 2.1.0_svelte@3.56.0
   '@eartharoid/dbf': 0.3.3_3cxu5zja4e2r5wmvge7mdcljwq
   '@eartharoid/dtf': 2.0.1
   '@eartharoid/i18n': 1.2.1
@@ -53,7 +53,7 @@ dependencies:
   '@prisma/client': 4.11.0_prisma@4.11.0
   boxen: 7.0.2
   cryptr: 6.2.0
-  discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
+  discord.js: 14.8.0_3cxu5zja4e2r5wmvge7mdcljwq
   dotenv: 16.0.3
   fastify: 4.14.1
   figlet: 1.5.2
@@ -293,8 +293,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@discord-tickets/settings/2.0.0_svelte@3.56.0:
-    resolution: {integrity: sha512-oVG8qfX21cmufi/jyJV4LrbzsZK86KUmFfgb5W39LCD/+zIg1+l8XrOfkONjwlbFUKbjtV0CV2xgx9Ns+0Wg2w==}
+  /@discord-tickets/settings/2.1.0_svelte@3.56.0:
+    resolution: {integrity: sha512-eWs4hQ/5VtbMsPcs/jOHwrPBOB5XBKuGYY0xILUqYFINa5oJsHIzHEjHjEIDcxW2xUJ3g92soBe5GVM3PjkfMA==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.3.0
       '@skyra/discord-components-core': 3.6.0
@@ -310,11 +310,12 @@ packages:
       - svelte
     dev: false
 
-  /@discordjs/builders/1.4.0:
-    resolution: {integrity: sha512-nEeTCheTTDw5kO93faM1j8ZJPonAX86qpq/QVoznnSa8WWcCgJpjlu6GylfINTDW6o7zZY0my2SYdxx2mfNwGA==}
+  /@discordjs/builders/1.5.0:
+    resolution: {integrity: sha512-7XxT78mnNBPigHn2y6KAXkicxIBFtZREGWaRZ249EC1l6gBUEP8IyVY5JTciIjJArxkF+tg675aZvsTNTKBpmA==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@discordjs/util': 0.1.0
+      '@discordjs/formatters': 0.2.0
+      '@discordjs/util': 0.2.0
       '@sapphire/shapeshift': 3.8.1
       discord-api-types: 0.37.35
       fast-deep-equal: 3.1.3
@@ -322,17 +323,24 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /@discordjs/collection/1.3.0:
-    resolution: {integrity: sha512-ylt2NyZ77bJbRij4h9u/wVy7qYw/aDqQLWnadjvDqW/WoWCxrsX6M3CIw9GVP5xcGCDxsrKj5e0r5evuFYwrKg==}
+  /@discordjs/collection/1.4.0:
+    resolution: {integrity: sha512-hiOJyk2CPFf1+FL3a4VKCuu1f448LlROVuu8nLz1+jCOAPokUcdFAV+l4pd3B3h6uJlJQSASoZzrdyNdjdtfzQ==}
     engines: {node: '>=16.9.0'}
     dev: false
 
-  /@discordjs/rest/1.5.0:
-    resolution: {integrity: sha512-lXgNFqHnbmzp5u81W0+frdXN6Etf4EUi8FAPcWpSykKd8hmlWh1xy6BmE0bsJypU1pxohaA8lQCgp70NUI3uzA==}
+  /@discordjs/formatters/0.2.0:
+    resolution: {integrity: sha512-vn4oMSXuMZUm8ITqVOtvE7/fMMISj4cI5oLsR09PEQXHKeKDAMLltG/DWeeIs7Idfy6V8Fk3rn1e69h7NfzuNA==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@discordjs/collection': 1.3.0
-      '@discordjs/util': 0.1.0
+      discord-api-types: 0.37.35
+    dev: false
+
+  /@discordjs/rest/1.6.0:
+    resolution: {integrity: sha512-HGvqNCZ5Z5j0tQHjmT1lFvE5ETO4hvomJ1r0cbnpC1zM23XhCpZ9wgTCiEmaxKz05cyf2CI9p39+9LL+6Yz1bA==}
+    engines: {node: '>=16.9.0'}
+    dependencies:
+      '@discordjs/collection': 1.4.0
+      '@discordjs/util': 0.2.0
       '@sapphire/async-queue': 1.5.0
       '@sapphire/snowflake': 3.4.0
       discord-api-types: 0.37.35
@@ -341,15 +349,15 @@ packages:
       undici: 5.20.0
     dev: false
 
-  /@discordjs/util/0.1.0:
-    resolution: {integrity: sha512-e7d+PaTLVQav6rOc2tojh2y6FE8S7REkqLldq1XF4soCx74XB/DIjbVbVLtBemf0nLW77ntz0v+o5DytKwFNLQ==}
+  /@discordjs/util/0.2.0:
+    resolution: {integrity: sha512-/8qNbebFzLWKOOg+UV+RB8itp4SmU5jw0tBUD3ifElW6rYNOj1Ku5JaSW7lLl/WgjjxF01l/1uQPCzkwr110vg==}
     engines: {node: '>=16.9.0'}
     dev: false
 
   /@eartharoid/dbf/0.3.3_3cxu5zja4e2r5wmvge7mdcljwq:
     resolution: {integrity: sha512-eVDdpFlDV5CAvqoV5g1iAvoYhPjnvcyJ0Nnepc1YihlE1KIYGhVIK/2RaDsltzxRuiweO3Y7dvDj/cUpJnnFPA==}
     dependencies:
-      discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
+      discord.js: 14.8.0_3cxu5zja4e2r5wmvge7mdcljwq
       node-dir: 0.1.17
     transitivePeerDependencies:
       - bufferutil
@@ -1419,14 +1427,15 @@ packages:
     resolution: {integrity: sha512-iyKZ/82k7FX3lcmHiAvvWu5TmyfVo78RtghBV/YsehK6CID83k5SI03DKKopBcln+TiEIYw5MGgq7SJXSpNzMg==}
     dev: false
 
-  /discord.js/14.7.1_3cxu5zja4e2r5wmvge7mdcljwq:
-    resolution: {integrity: sha512-1FECvqJJjjeYcjSm0IGMnPxLqja/pmG1B0W2l3lUY2Gi4KXiyTeQmU1IxWcbXHn2k+ytP587mMWqva2IA87EbA==}
+  /discord.js/14.8.0_3cxu5zja4e2r5wmvge7mdcljwq:
+    resolution: {integrity: sha512-UOxYtc/YnV7jAJ2gISluJyYeBw4e+j8gWn+IoqG8unaHAVuvZ13DdYN0M1f9fbUgUvSarV798inIrYFtDNDjwQ==}
     engines: {node: '>=16.9.0'}
     dependencies:
-      '@discordjs/builders': 1.4.0
-      '@discordjs/collection': 1.3.0
-      '@discordjs/rest': 1.5.0
-      '@discordjs/util': 0.1.0
+      '@discordjs/builders': 1.5.0
+      '@discordjs/collection': 1.4.0
+      '@discordjs/formatters': 0.2.0
+      '@discordjs/rest': 1.6.0
+      '@discordjs/util': 0.2.0
       '@sapphire/snowflake': 3.4.0
       '@types/ws': 8.5.4
       discord-api-types: 0.37.35
@@ -1646,8 +1655,8 @@ packages:
       strip-final-newline: 2.0.0
     dev: true
 
-  /execa/7.0.0:
-    resolution: {integrity: sha512-tQbH0pH/8LHTnwTrsKWideqi6rFB/QNUawEwrn+WHyz7PX1Tuz2u7wfTvbaNBdP5JD5LVWxNo8/A8CHNZ3bV6g==}
+  /execa/7.1.0:
+    resolution: {integrity: sha512-T6nIJO3LHxUZ6ahVRaxXz9WLEruXLqdcluA+UuTptXmLM7nDAn9lx9IfkxPyzEL21583qSt4RmL44pO71EHaJQ==}
     engines: {node: ^14.18.0 || ^16.14.0 || >=18.0.0}
     dependencies:
       cross-spawn: 7.0.3
@@ -2369,9 +2378,9 @@ packages:
       cli-truncate: 3.1.0
       commander: 10.0.0
       debug: 4.3.4
-      execa: 7.0.0
+      execa: 7.1.0
       lilconfig: 2.1.0
-      listr2: 5.0.7
+      listr2: 5.0.8
       micromatch: 4.0.5
       normalize-path: 3.0.0
       object-inspect: 1.12.3
@@ -2383,8 +2392,8 @@ packages:
       - supports-color
     dev: true
 
-  /listr2/5.0.7:
-    resolution: {integrity: sha512-MD+qXHPmtivrHIDRwPYdfNkrzqDiuaKU/rfBcec3WMyMF3xylQj3jMq344OtvQxz7zaCFViRAeqlr2AFhPvXHw==}
+  /listr2/5.0.8:
+    resolution: {integrity: sha512-mC73LitKHj9w6v30nLNGPetZIlfpUniNSsxxrbaPcWOjDb92SHPzJPi/t+v1YC/lxKz/AJ9egOjww0qUuFxBpA==}
     engines: {node: ^14.13.1 || >=16.0.0}
     peerDependencies:
       enquirer: '>= 2.3.0 < 3'

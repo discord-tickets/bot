@@ -7,17 +7,15 @@ module.exports.get = () => ({
 			expires_in: expiresIn,
 		} = await this.discord.getAccessTokenFromAuthorizationCodeFlow(req);
 		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${accessToken}` } })).json();
-		const payload = {
+		const token = this.jwt.sign({
 			accessToken,
-			avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.webp`,
+			avatar: user.avatar,
 			discriminator: user.discriminator,
 			expiresAt: Date.now() + (expiresIn * 1000),
 			id: user.id,
 			locale: user.locale,
 			username: user.username,
-
-		};
-		const token = this.jwt.sign({ payload });
+		});
 		res
 			.setCookie('token', token, {
 				domain,

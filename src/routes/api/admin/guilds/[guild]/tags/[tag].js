@@ -30,7 +30,7 @@ module.exports.delete = fastify => ({
 				name: tag.name,
 				type: 'tag',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return tag;
@@ -97,7 +97,7 @@ module.exports.patch = fastify => ({
 				name: tag.name,
 				type: 'tag',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return tag;

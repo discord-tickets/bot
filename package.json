@@ -1,6 +1,6 @@
 {
 	"name": "discord-tickets",
-	"version": "4.0.0-beta.7",
+	"version": "4.0.0-beta.8",
 	"private": "true",
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/",
@@ -40,7 +40,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^2.0.0",
+		"@discord-tickets/settings": "^2.1.0",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -50,7 +50,7 @@
 		"@prisma/client": "^4.11.0",
 		"boxen": "^7.0.2",
 		"cryptr": "^6.2.0",
-		"discord.js": "^14.7.1",
+		"discord.js": "^14.8.0",
 		"dotenv": "^16.0.3",
 		"fastify": "^4.14.1",
 		"figlet": "^1.5.2",

@@ -20,7 +20,7 @@ module.exports.delete = fastify => ({
 				name: question.label,
 				type: 'question',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return question;

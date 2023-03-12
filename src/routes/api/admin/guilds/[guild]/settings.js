@@ -16,7 +16,7 @@ module.exports.delete = fastify => ({
 				name: client.guilds.cache.get(id),
 				type: 'settings',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 		return settings;
 	},
@@ -69,7 +69,7 @@ module.exports.patch = fastify => ({
 				name: client.guilds.cache.get(id).name,
 				type: 'settings',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 		return settings;
 	},

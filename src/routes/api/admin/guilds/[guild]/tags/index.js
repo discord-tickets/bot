@@ -56,7 +56,7 @@ module.exports.post = fastify => ({
 				name: tag.name,
 				type: 'tag',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return tag;

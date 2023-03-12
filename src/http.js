@@ -53,22 +53,20 @@ module.exports = async client => {
 	fastify.decorate('authenticate', async (req, res) => {
 		try {
 			const data = await req.jwtVerify();
-			if (data.payload.expiresAt < Date.now()) {
-				return res.code(401).send({
-					error: 'Unauthorised',
-					message: 'You are not authenticated.',
-					statusCode: 401,
-
-				});
-			}
-		} catch (err) {
-			res.send(err);
+			if (data.expiresAt < Date.now()) throw 'expired';
+			if (data.createdAt < new Date(process.env.INVALIDATE_TOKENS).getTime()) throw 'expired';
+		} catch (error) {
+			return res.code(401).send({
+				error: 'Unauthorised',
+				message: error === 'expired' ? 'Your token has expired; please re-authenticate.' : 'You are not authenticated.',
+				statusCode: 401,
+			});
 		}
 	});
 
 	fastify.decorate('isAdmin', async (req, res) => {
 		try {
-			const userId = req.user.payload.id;
+			const userId = req.user.id;
 			const guildId = req.params.guild;
 			const guild = client.guilds.cache.get(guildId);
 			if (!guild) {

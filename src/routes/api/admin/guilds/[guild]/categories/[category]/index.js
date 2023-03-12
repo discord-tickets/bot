@@ -23,7 +23,7 @@ module.exports.delete = fastify => ({
 				name: category.name,
 				type: 'category',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return category;
@@ -146,7 +146,7 @@ module.exports.patch = fastify => ({
 		await client.tickets.getCategory(categoryId, true);
 		await updateStaffRoles(guild);
 
-		if (req.user.payload.accessToken && JSON.stringify(category.staffRoles) !== JSON.stringify(original.staffRoles)) {
+		if (req.user.accessToken && JSON.stringify(category.staffRoles) !== JSON.stringify(original.staffRoles)) {
 			Promise.all([
 				'Create ticket for user',
 				'claim',
@@ -170,7 +170,7 @@ module.exports.patch = fastify => ({
 							type: ApplicationCommandPermissionType.Role,
 						})),
 					],
-					token: req.user.payload.accessToken,
+					token: req.user.accessToken,
 				}),
 			))
 				.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
@@ -189,7 +189,7 @@ module.exports.patch = fastify => ({
 				name: category.name,
 				type: 'category',
 			},
-			userId: req.user.payload.id,
+			userId: req.user.id,
 		});
 
 		return category;
