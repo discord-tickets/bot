@@ -40,7 +40,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^2.1.0",
+		"@discord-tickets/settings": "^2.1.1",
 		"@eartharoid/dbf": "^0.3.3",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
