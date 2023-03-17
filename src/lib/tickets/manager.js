@@ -18,6 +18,7 @@ const ExtendedEmbedBuilder = require('../embed');
 const { logTicketEvent } = require('../logging');
 const { isStaff } = require('../users');
 const { Collection } = require('discord.js');
+const spacetime = require('spacetime');
 const Cryptr = require('cryptr');
 const {
 	decrypt,
@@ -440,8 +441,6 @@ module.exports = class TicketManager {
 				),
 		];
 
-		// TODO: !staff || workingHours
-
 		if (answers) {
 			embeds.push(
 				new ExtendedEmbedBuilder()
@@ -618,6 +617,7 @@ module.exports = class TicketManager {
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
+
 		await interaction.editReply({
 			components: [],
 			embeds: [
@@ -645,7 +645,7 @@ module.exports = class TicketManager {
 
 			if (category.guild.archive && message) {
 				if (
-					await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } })||
+					await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } }) ||
 					await this.archiver.saveMessage(ticket.id, message, true)
 				) {
 					await this.client.prisma.ticket.update({
@@ -682,6 +682,47 @@ module.exports = class TicketManager {
 				],
 			});
 		}
+
+		const workingHours = category.guild.workingHours;
+		const timezone = workingHours[0];
+		workingHours.shift(); // remove timezone
+		const now = spacetime.now(timezone);
+		const currentHours = workingHours[now.day()];
+		const start = now.time(currentHours[0]);
+		const end = now.time(currentHours[1]);
+
+		if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
+			// first look for the next working day *this* week (after today)
+			let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
+			// if there isn't one, look for the next working day *next* week (before and including today's weekday)
+			if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
+			if (nextIndex) {
+				const next = workingHours[nextIndex];
+				let then = now.add(nextIndex - now.day(), 'day');
+				if (nextIndex <= now.day()) then = then.add(1, 'week');
+				const timestamp = Math.ceil(then.time(next[0]).d.getTime() / 1000); // in seconds
+				await channel.send({
+					embeds: [
+						new ExtendedEmbedBuilder()
+							.setColor(category.guild.primaryColour)
+							.setTitle(getMessage('ticket.working_hours.next.title'))
+							.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
+					],
+				});
+			}
+		} else if (now.isBefore(start)) { // staff haven't started working yet
+			const timestamp = Math.ceil(start.d.getTime() / 1000); // in seconds
+			await channel.send({
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor(category.guild.primaryColour)
+						.setTitle(getMessage('ticket.working_hours.today.title'))
+						.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
+				],
+			});
+		}
+
+		// TODO: !staff
 	}
 
 	/**

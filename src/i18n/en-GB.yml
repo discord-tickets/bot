@@ -420,3 +420,14 @@ ticket:
       topic: Topic
     title: ℹ️ Reference
   released: ♻️ {user} has released this ticket.
+  working_hours:
+    next:
+      description:
+        We'll be back at <t:{timestamp}:F> (<t:{timestamp}:R>), although
+        you may receive a response before then.
+      title: 🕗 We're not working at the moment
+    today:
+      description:
+        You may receive a response before, but we don't start working until
+        <t:{timestamp}:t> today (<t:{timestamp}:R>).
+      title: 🕗 We're not working at the moment
