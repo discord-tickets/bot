@@ -54,8 +54,15 @@ module.exports.patch = fastify => ({
 		const original = await client.prisma.guild.findUnique({ where: { id } });
 		const settings = await client.prisma.guild.update({
 			data: data,
+			include: { categories: { select: { id: true } } },
 			where: { id },
 		});
+
+		// Update cached categories, which include guild settings
+		for (const { id } of settings.categories) await client.tickets.getCategory(id, true);
+
+		// don't log the categories
+		delete settings.categories;
 
 		logAdminEvent(client, {
 			action: 'update',
