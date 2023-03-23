@@ -133,7 +133,7 @@ commands:
           docs: Dokumentáció
           feedback: Visszajelzés
           links: Hasznos linkek
-        settings: Bot beállítások
+        settings: Bot konfiguráció
         description: '**Használd a(z) {command} parancsot a hibajegy létrehozásához..**'
       description: Segítség menü megjelenítése
       title: Segítség
@@ -181,14 +181,21 @@ commands:
         title: ✅ Prioritás beállítva
         description: 'A hibajegy prioritása beállításra került: `{priority}`.'
       description: Hibajegy prioritásának beállítása
+      not_staff:
+        description: Csak a személyzet tagjai tudják megváltoztatni a hibajegy prioritását.
+        title: ❌ Hiba
     move:
       description: Hibajegy áthelyezése másik kategóriába
-      moved: '🗃️ {by} áthelyezte a hibajegyet innen: **{from}** ide: **{to}**.'
+      moved: '🗃️ {by} áthelyezte ezt a jegyet a következőről: **{from}** a következőre:
+        **{to}**.'
       options:
         category:
           description: Kategória, amibe át szeretnéd helyezni a hibajegyet
           name: kategória
-      name: áthelyezés
+      name: mozgat
+      not_staff:
+        title: ❌ Hiba
+        description: Csak a személyzet tagjai mozgathatják a jegyeket.
     remove:
       options:
         ticket:
@@ -199,8 +206,8 @@ commands:
           description: A felhasználó, akit el szeretnél távolítani a hibajegyből
       name: eltávolítás
       not_staff:
-        description: Csak a személyzeti tagok tudnak eltávolítani felhasználókat a
-          felhasználók hibajegyéből.
+        description: Csak személyzeti tagok tudnak eltávolítani felhasználókat a felhasználók
+          hibajegyéből.
         title: ❌ Hiba
       removed: ⬅️ {removed} eltávolításra került {by} által.
       success:
@@ -250,6 +257,9 @@ commands:
     claim:
       description: Hibajegy begyűjtése
       name: begyűjtés
+      not_staff:
+        description: Csak a személyzet tagjai tudják begyűjteni a hibajegyet.
+        title: ❌ Hiba
     topic:
       description: Hibajegy témájának megváltoztatása
       name: téma
@@ -329,6 +339,10 @@ misc:
   unknown_category:
     description: Kérlek próbálj egy másik kategóriát.
     title: ❌ Nem létezik ilyen hibajegy kategória
+  update:
+    description: "> [`{version}` megtekintése a GitHubon]({github})\n> [Változásnapló]({changelog})\n\
+      > [Frissítési útmutató]({guide})\n"
+    title: Frissítés elérhető
 menus:
   category:
     placeholder: Kategória választása
@@ -377,6 +391,15 @@ ticket:
   references_message:
     title: ℹ️ Referencia
     description: Referencia [üzenet]({url}) elküldve {timestamp} {author} által.
+  working_hours:
+    next:
+      description: Visszatérünk a <t:{timestamp}:F> (<t:{timestamp}:R>) időpontra,
+        bár előfordulhat, hogy ez előtt választ kap.
+      title: 🕗 Jelenleg nem dolgozunk
+    today:
+      description: 'Előfordulhat, hogy korábban is kap választ, azonban nem dolgozunk
+        <t:{timestamp}:t> -ig (ma: <t:{timestamp}:R> )'
+      title: 🕗 Jelenleg nem dolgozunk
 modals:
   feedback:
     rating:
