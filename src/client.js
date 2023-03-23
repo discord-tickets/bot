@@ -23,10 +23,11 @@ module.exports = class Client extends FrameworkClient {
 				GatewayIntentBits.Guilds,
 				GatewayIntentBits.GuildMembers,
 				GatewayIntentBits.GuildMessages,
+				GatewayIntentBits.GuildPresences,
 			],
 			partials: [
-				Partials.Message,
 				Partials.Channel,
+				Partials.Message,
 				Partials.Reaction,
 			],
 		});

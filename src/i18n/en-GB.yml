@@ -403,6 +403,11 @@ ticket:
     description: Your changes have been saved.
     title: ✅ Ticket updated
   feedback: Thank you for your feedback.
+  offline:
+    description:
+      There aren't any staff members available at the moment, so it may
+      take longer than usual to get a response.
+    title: 😴 We're not online
   opening_message:
     content: |
       {staff}
