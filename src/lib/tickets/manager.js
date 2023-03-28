@@ -728,8 +728,8 @@ module.exports = class TicketManager {
 
 		if (working) {
 			let online = 0;
-			for (const [, member] of message.channel.members) {
-				if (!await isStaff(message.channel.guild, member.id)) continue;
+			for (const [, member] of channel.members) {
+				if (!await isStaff(channel.guild, member.id)) continue;
 				if (member.presence && member.presence !== 'offline') online++;
 			}
 			if (online === 0) {
