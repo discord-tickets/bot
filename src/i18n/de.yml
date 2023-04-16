@@ -212,6 +212,7 @@ commands:
       options:
         for:
           name: für
+          description: Der Benutzer, an den das Tag gerichtet werden soll
         tag:
           name: tag
           description: Der Name des zu verwendenden Tags
