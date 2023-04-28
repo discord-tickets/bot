@@ -12,10 +12,10 @@ module.exports.get = fastify => ({
   
 	  res.clearCookie('token', {
 		domain,
-		path: '/',
 		httpOnly: true,
-		secure: false,
+		path: '/',
 		sameSite: 'Lax',
+		secure: false,
 	  }).send('The token has been revoked.');
 	},
 	onRequest: [fastify.authenticate],
