@@ -1,13 +1,22 @@
+const { domain } = require('../../lib/http');
+
 module.exports.get = fastify => ({
 	handler: async function (req, res) {
-		await fetch('https://discord.com/api/oauth2/token/revoke', {
-			body: new URLSearchParams({ token: req.user.accessToken }).toString(),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-			method: 'POST',
-		});
-		res
-			.clearCookie('token', '/')
-			.send('The token has been revoked.');
+	  const { accessToken } = req.user;
+  
+	  await fetch('https://discord.com/api/oauth2/token/revoke', {
+		body: new URLSearchParams({ token: accessToken }).toString(),
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		method: 'POST',
+	  });
+  
+	  res.clearCookie('token', {
+		domain,
+		path: '/',
+		httpOnly: true,
+		secure: false,
+		sameSite: 'Lax',
+	  }).send('The token has been revoked.');
 	},
 	onRequest: [fastify.authenticate],
-});
+  });
