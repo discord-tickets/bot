@@ -9,8 +9,10 @@ buttons:
     text: Создать тикет
   close:
     emoji: ✖️
+    text: Закрыть
   claim:
     emoji: 🙌
+    text: Взять
   create:
     emoji: 🎫
     text: Создать тикет
@@ -19,6 +21,7 @@ buttons:
     text: Редактировать
   reject_close_request:
     emoji: ✖️
+    text: Отклонить
   unclaim:
     emoji: ♻️
 commands:
