@@ -1,6 +1,7 @@
 buttons:
   accept_close_request:
     emoji: ✅
+    text: Принять
   cancel:
     emoji: ✖️
     text: Отмена
