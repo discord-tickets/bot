@@ -6,6 +6,10 @@ const {
 	ChannelType: { GuildCategory },
 } = require('discord.js');
 const ms = require('ms');
+const {
+	getAvgResolutionTime,
+	getAvgResponseTime,
+} = require('../../../../../../lib/stats');
 
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
@@ -36,8 +40,8 @@ module.exports.get = fastify => ({
 			c = {
 				...c,
 				stats: {
-					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
+					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
 				},
 			};
 			delete c.tickets;

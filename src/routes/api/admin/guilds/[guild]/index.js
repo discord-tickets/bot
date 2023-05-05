@@ -1,4 +1,8 @@
 /* eslint-disable no-underscore-dangle */
+const {
+	getAvgResolutionTime,
+	getAvgResponseTime,
+} = require('../../../../../lib/stats');
 const ms = require('ms');
 
 module.exports.get = fastify => ({
@@ -36,8 +40,8 @@ module.exports.get = fastify => ({
 				logo: guild.iconURL(),
 				name: guild.name,
 				stats: {
-					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
+					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
 					categories: categories.map(c => ({
 						id: c.id,
 						name: c.name,

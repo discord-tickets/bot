@@ -1,5 +1,9 @@
 const { Listener } = require('@eartharoid/dbf');
 const crypto = require('crypto');
+const {
+	getAvgResolutionTime,
+	getAvgResponseTime,
+} = require('../../lib/stats');
 const ms = require('ms');
 const { version } = require('../../../package.json');
 const { msToMins } = require('../../lib/misc');
@@ -58,8 +62,8 @@ module.exports = class extends Listener {
 				});
 				const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
 				cached = {
-					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
+					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
 					openTickets: tickets.length - closedTickets.length,
 					totalTickets: tickets.length,
 				};

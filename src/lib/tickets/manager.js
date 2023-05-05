@@ -21,6 +21,10 @@ const { Collection } = require('discord.js');
 const spacetime = require('spacetime');
 const Cryptr = require('cryptr');
 const {
+	getAvgResolutionTime,
+	getAvgResponseTime,
+} = require('../stats');
+const {
 	decrypt,
 	encrypt,
 } = new Cryptr(process.env.ENCRYPTION_KEY);
@@ -404,10 +408,11 @@ module.exports = class TicketManager {
 
 		if (category.image) await channel.send(category.image);
 
+		const needsStats = category.openingMessage.match(/{+\s?avgResponseTime\s?}+/i) || category.openingMessage.match(/{+\s?avgResolutionTime\s?}+/i);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
-		if (!stats) {
-			const tickets = await this.client.prisma.ticket.findMany({
+		if (needsStats && !stats) {
+			const closedTickets = await this.client.prisma.ticket.findMany({
 				select: {
 					closedAt: true,
 					createdAt: true,
@@ -420,8 +425,8 @@ module.exports = class TicketManager {
 				},
 			});
 			stats = {
-				avgResolutionTime: ms(tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / tickets.length, { long: true }),
-				avgResponseTime: ms(tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / tickets.length, { long: true }),
+				avgResolutionTime: ms(getAvgResolutionTime(closedTickets), { long: true }),
+				avgResponseTime: ms(getAvgResponseTime(closedTickets), { long: true }),
 			};
 			this.client.keyv.set(statsCacheKey, stats, ms('1h'));
 		}

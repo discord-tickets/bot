@@ -1,3 +1,6 @@
+const {
+	getAvgResolutionTime, getAvgResponseTime,
+} = require('../../lib/stats');
 const ms = require('ms');
 
 module.exports.get = () => ({
@@ -25,8 +28,8 @@ module.exports.get = () => ({
 				stats: {
 					activatedUsers: users.length,
 					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted
-					avgResolutionTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avgResponseTime: ms(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
+					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
+					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
 					categories: await client.prisma.category.count(),
 					guilds: client.guilds.cache.size,
 					members: client.guilds.cache.reduce((t, g) => t + g.memberCount, 0),
