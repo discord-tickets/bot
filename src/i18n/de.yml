@@ -122,6 +122,9 @@ commands:
         category:
           description: Die Kategorie in welche das Ticket verschoben werden soll
           name: kategorie
+      not_staff:
+        description: Nur Mitarbeiter können Tickets verschieben.
+        title: ❌ Fehler
     new:
       name: neu
       description: Neues Ticket erstellen
@@ -132,6 +135,8 @@ commands:
     claim:
       description: Ticket übernehmen
       name: übernehmen
+      not_staff:
+        title: ❌ Fehler
     priority:
       options:
         priority:
@@ -146,6 +151,8 @@ commands:
         description: Die Priorität dieses Tickets wurde auf `{priority}` gesetzt.
       name: priorität
       description: Legt die Priorität eines Tickets fest
+      not_staff:
+        title: ❌ Fehler
     tickets:
       not_staff:
         title: ❌ Fehler
