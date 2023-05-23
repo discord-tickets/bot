@@ -2,6 +2,16 @@
  * @param {import("client")} client
  */
 module.exports = async client => {
+	// load ticket numbers
+	const guilds = await client.prisma.guild.findMany({ select: { id: true } });
+	for (const guild of guilds) {
+		const { _max: { number: max } } = await client.prisma.ticket.aggregate({
+			_max: { number: true },
+			where: { guildId: guild.id },
+		});
+		client.tickets.$numbers[guild.id] = max ?? 0;
+	}
+
 	// load total number of open tickets
 	const categories = await client.prisma.category.findMany({
 		select: {

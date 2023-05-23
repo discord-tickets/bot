@@ -48,6 +48,7 @@ module.exports = class TicketManager {
 		this.client = client;
 		this.archiver = new TicketArchiver(client);
 		this.$count = { categories: {} };
+		this.$numbers = {};
 		this.$stale = new Collection();
 	}
 
@@ -132,6 +133,11 @@ module.exports = class TicketManager {
 	async getCooldown(categoryId, memberId) {
 		const cacheKey = `cooldowns/category-member:${categoryId}-${memberId}`;
 		return await this.client.keyv.get(cacheKey);
+	}
+
+	getNextNumber(guildId) {
+		this.$numbers[guildId] += 1;
+		return this.$numbers[guildId];
 	}
 
 	/**
@@ -373,7 +379,7 @@ module.exports = class TicketManager {
 		const guild = this.client.guilds.cache.get(category.guild.id);
 		const getMessage = this.client.i18n.getLocale(category.guild.locale);
 		const creator = await guild.members.fetch(interaction.user.id);
-		const number = (await this.client.prisma.ticket.count({ where: { guildId: category.guild.id } })) + 1;
+		const number = this.getNextNumber(category.guild.id);
 		const channelName = category.channelName
 			.replace(/{+\s?(user)?name\s?}+/gi, creator.user.username)
 			.replace(/{+\s?(nick|display)(name)?\s?}+/gi, creator.displayName)
