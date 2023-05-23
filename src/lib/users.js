@@ -2,14 +2,11 @@ const { PermissionsBitField } = require('discord.js');
 
 /**
  *
- * @param {import("client")} client
+ * @param {import("discord.js").Client} client
  * @param {string} userId
  * @returns {Promise<Collection<import("discord.js").Guild>}
  */
-module.exports.getCommonGuilds = async (client, userId) => await client.guilds.cache.filter(async guild => {
-	const member = await guild.members.fetch(userId);
-	return !!member;
-});
+module.exports.getCommonGuilds = (client, userId) => client.guilds.cache.filter(guild => guild.members.cache.has(userId));
 
 /**
  * @param {import("discord.js").Guild} guild
