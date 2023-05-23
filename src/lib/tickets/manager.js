@@ -408,7 +408,7 @@ module.exports = class TicketManager {
 
 		if (category.image) await channel.send(category.image);
 
-		const needsStats = category.openingMessage.match(/{+\s?avgResponseTime\s?}+/i) || category.openingMessage.match(/{+\s?avgResolutionTime\s?}+/i);
+		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime)\s?}+/i.test(category.openingMessage);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
 		if (needsStats && !stats) {
@@ -441,8 +441,8 @@ module.exports = class TicketManager {
 				.setDescription(
 					category.openingMessage
 						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString())
-						.replace(/{+\s?avgResponseTime\s?}+/gi, stats.avgResponseTime)
-						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats.avgResolutionTime),
+						.replace(/{+\s?avgResponseTime\s?}+/gi, stats?.avgResponseTime)
+						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime),
 				),
 		];
 
