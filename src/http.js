@@ -117,9 +117,9 @@ module.exports = async client => {
 						? '&2'
 						: '&f') + res.statusCode;
 		let responseTime = res.getResponseTime().toFixed(2);
-		responseTime = (responseTime >= 20
+		responseTime = (responseTime >= 100
 			? '&c'
-			: responseTime >= 5
+			: responseTime >= 10
 				? '&e'
 				: '&a') + responseTime + 'ms';
 		const level = req.routerPath === '/*' ? 'verbose' : 'info';
