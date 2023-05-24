@@ -1217,7 +1217,7 @@ module.exports = class TicketManager {
 		}
 
 		try {
-			const creator = await channel?.guild.members.fetch(ticket.createdById);
+			const creator = channel?.guild.members.cache.has(ticket.createdById);
 			if (creator) {
 				const embed = new ExtendedEmbedBuilder({
 					iconURL: channel.guild.iconURL(),
