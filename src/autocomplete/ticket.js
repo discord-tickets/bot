@@ -5,6 +5,7 @@ const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 const Keyv = require('keyv');
 const ms = require('ms');
+const { isStaff } = require('../lib/users');
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -72,11 +73,13 @@ module.exports = class TicketCompleter extends Autocompleter {
 	 * @param {import("discord.js").AutocompleteInteraction} interaction
 	 */
 	async run(value, command, interaction) {
+		const otherMember = await isStaff(interaction.guild, interaction.user.id) && interaction.options.data[1]?.value;
+		const userId = otherMember || interaction.user.id;
 		await interaction.respond(
 			await this.getOptions(value, {
 				guildId: interaction.guild.id,
 				open: ['add', 'close', 'force-close', 'remove'].includes(command.name),  // false for `new`, `transcript` etc
-				userId: interaction.user.id,
+				userId,
 			}),
 		);
 	}

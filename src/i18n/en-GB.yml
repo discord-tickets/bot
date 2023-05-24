@@ -222,8 +222,11 @@ commands:
       description: Get the transcript of a ticket
       name: transcript
       options:
+        member:
+          description: The member to search for tickets of
+          name: member
         ticket:
-          description: The number of the ticket to get the transcript of
+          description: The ticket to get the transcript of
           name: ticket
     transfer:
       description: Transfer ownership of a ticket to another member

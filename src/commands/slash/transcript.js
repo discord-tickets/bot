@@ -24,6 +24,11 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 					required: true,
 					type: ApplicationCommandOptionType.String,
 				},
+				{
+					name: 'member',
+					required: false,
+					type: ApplicationCommandOptionType.User,
+				},
 			].map(option => {
 				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
 				option.description = option.descriptionLocalizations['en-GB'];
