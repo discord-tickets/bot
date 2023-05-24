@@ -138,6 +138,8 @@ async function logTicketEvent(client, {
 	const member = await guild.members.fetch(userId);
 	client.log.info.tickets(`${member.user.tag} ${client.i18n.getMessage('en-GB', `log.ticket.verb.${action}`)} ticket ${target.id}`);
 	if (!ticket.guild.logChannel) return;
+	const channel = client.channels.cache.get(ticket.guild.logChannel);
+	if (!channel) return;
 	const colour = action === 'create'
 		? 'Aqua' : action === 'close'
 			? 'DarkAqua' : action === 'update'
@@ -149,8 +151,6 @@ async function logTicketEvent(client, {
 		user: `<@${member.user.id}>`,
 		verb: getMessage(`log.ticket.verb.${action}`),
 	};
-	const channel = client.channels.cache.get(ticket.guild.logChannel);
-	if (!channel) return;
 	const embeds = [
 		new EmbedBuilder()
 			.setColor(colour)
