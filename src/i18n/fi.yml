@@ -9,6 +9,7 @@ commands:
         title: ❌ Virhe
       pinned:
         description: Viesti on kiinnitetty.
+        title: ✅ Kiinnitetty viesti
     create:
       name: Luo tiketti viestistä
   slash:
