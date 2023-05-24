@@ -73,6 +73,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		const closed = await client.prisma.ticket.findMany({
 			include: { category: true },
 			orderBy: { createdAt: 'desc' },
+			take: 10, // max 10 rows
 			where: {
 				createdById: member.id,
 				guildId: interaction.guild.id,
@@ -102,7 +103,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		} else {
 			fields.push({
 				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
-				value: closed.slice(0, 10).map(ticket => { // max 10 rows
+				value: closed.map(ticket => {
 					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
 					return `> ${ticket.category.name} #${ticket.number} ${topic}`;
 				}).join('\n'),
