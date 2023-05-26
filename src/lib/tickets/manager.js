@@ -713,7 +713,7 @@ module.exports = class TicketManager {
 				const next = workingHours[nextIndex];
 				let then = now.add(nextIndex - now.day(), 'day');
 				if (nextIndex <= now.day()) then = then.add(1, 'week');
-				const timestamp = Math.ceil(then.time(next[0]).d.getTime() / 1000); // in seconds
+				const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
 				await channel.send({
 					embeds: [
 						new ExtendedEmbedBuilder()
@@ -725,7 +725,7 @@ module.exports = class TicketManager {
 			}
 		} else if (now.isBefore(start)) { // staff haven't started working yet
 			working = false;
-			const timestamp = Math.ceil(start.d.getTime() / 1000); // in seconds
+			const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
 			await channel.send({
 				embeds: [
 					new ExtendedEmbedBuilder()
