@@ -186,7 +186,7 @@ module.exports = class extends Listener {
 			// set inactive tickets as stale
 			for (const guild of guilds) {
 				for (const ticket of guild.tickets) {
-				// if (ticket.lastMessageAt && ticket.lastMessageAt < Date.now() - guild.staleAfter)
+					if (client.tickets.$stale.has(ticket.id)) continue;
 					if (ticket.lastMessageAt && Date.now() - ticket.lastMessageAt > guild.staleAfter) {
 					/** @type {import("discord.js").TextChannel} */
 						const channel = client.channels.cache.get(ticket.id);

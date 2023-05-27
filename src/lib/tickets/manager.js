@@ -1159,6 +1159,7 @@ module.exports = class TicketManager {
 		closedBy = null,
 		reason = null,
 	}) {
+		if (this.$stale.has(ticketId)) this.$stale.delete(ticketId);
 		let ticket = await this.getTicket(ticketId);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		this.$count.categories[ticket.categoryId].total -= 1;
