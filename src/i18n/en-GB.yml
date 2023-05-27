@@ -399,6 +399,11 @@ ticket:
       title: ❓ {requestedBy} wants to close this ticket
     wait_for_staff: ✋ Please wait for staff to close this ticket.
     wait_for_user: ✋ Please wait for the user to respond.
+  closing_soon:
+    description: |
+      This ticket will be closed due to inactivity <t:{timestamp}:R>.
+      Send a message to cancel this automation.
+    title: ⌛ This ticket will be closed soon
   created:
     description: "Your ticket channel has been created: {channel}."
     title: ✅ Ticket created
@@ -406,6 +411,11 @@ ticket:
     description: Your changes have been saved.
     title: ✅ Ticket updated
   feedback: Thank you for your feedback.
+  inactive:
+    description: |
+      There hasn't been any activity in this channel since <t:{timestamp}:R>.
+      Please continue the conversation or {close} the ticket.
+    title: ⏰ This ticket is inactive
   offline:
     description:
       There aren't any staff members available at the moment, so it may
