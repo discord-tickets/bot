@@ -1072,10 +1072,10 @@ module.exports = class TicketManager {
 			action: 'close',
 			expect: staff ? 'user' : 'staff',
 		};
-		const embed = new ExtendedEmbedBuilder({
+		const embed = new ExtendedEmbedBuilder(/* {
 			iconURL: interaction.guild.iconURL(),
 			text: ticket.guild.footer,
-		})
+		} */)
 			.setColor(ticket.guild.primaryColour)
 			.setTitle(getMessage(`ticket.close.${staff ? 'staff' : 'user'}_request.title`, { requestedBy: interaction.member.displayName }));
 
