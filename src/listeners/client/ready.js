@@ -191,11 +191,12 @@ module.exports = class extends Listener {
 					/** @type {import("discord.js").TextChannel} */
 						const channel = client.channels.cache.get(ticket.id);
 						const messages = (await channel.messages.fetch({ limit: 5 })).filter(m => m.author.id !== client.user.id);
+						const botmessage = (await channel.messages.fetch({ limit: 1 })).first();
+						if (botmessage.author.id === client.user.id) return;
 						let ping = '';
 
 						if (messages.size > 0) {
 							const lastMessage = messages.first();
-							if(lastMessage.author.bot) return;
 							const staff = await isStaff(channel.guild, lastMessage.author.id);
 							if (staff) ping = lastMessage.author.toString();
 							else ping = ticket.category.pingRoles.map(r => `<@&${r}>`).join(' ');
