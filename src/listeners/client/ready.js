@@ -194,7 +194,8 @@ module.exports = class extends Listener {
 						let ping = '';
 
 						if (messages.size > 0) {
-							const lastMessage =  messages.first();
+							const lastMessage = messages.first();
+							if(lastMessage.author.bot) return;
 							const staff = await isStaff(channel.guild, lastMessage.author.id);
 							if (staff) ping = lastMessage.author.toString();
 							else ping = ticket.category.pingRoles.map(r => `<@&${r}>`).join(' ');
