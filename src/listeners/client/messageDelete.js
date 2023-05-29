@@ -13,6 +13,9 @@ module.exports = class extends Listener {
 		});
 	}
 
+	/**
+	 * @param {import("discord.js").Message} message
+	 */
 	async run(message) {
 		/** @type {import("client")} */
 		const client = this.client;
@@ -64,15 +67,17 @@ module.exports = class extends Listener {
 			}
 		}
 
-		await logMessageEvent(this.client, {
-			action: 'delete',
-			diff: {
-				original: { content },
-				updated: { content: '' },
-			},
-			executor,
-			target: message,
-			ticket,
-		});
+		if (message.author.id !== client.user.id && !message.flags.has('Ephemeral')) {
+			await logMessageEvent(this.client, {
+				action: 'delete',
+				diff: {
+					original: { content },
+					updated: { content: '' },
+				},
+				executor,
+				target: message,
+				ticket,
+			});
+		}
 	}
 };
