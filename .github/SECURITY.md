@@ -13,4 +13,5 @@ Release versions that will receive security updates.
 
 ## Reporting a vulnerability
 
-If you find a vulnerability, please send an email to [contact@discordtickets.app](mailto:contact@discordtickets.app).
+If you find a vulnerability, please use for the [security advisories form](https://github.com/discord-tickets/bot/security/advisories/new)
+or send an email to [contact@discordtickets.app](mailto:contact@discordtickets.app).

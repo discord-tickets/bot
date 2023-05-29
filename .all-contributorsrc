@@ -78,10 +78,10 @@
       ]
     },
     {
-      "login": "davidjcralph",
+      "login": "davidcralph",
       "name": "David Ralph",
       "avatar_url": "https://avatars.githubusercontent.com/u/14052956?v=4",
-      "profile": "https://davidjcralph.co.uk/",
+      "profile": "https://davidcralph.co.uk/",
       "contributions": [
         "code"
       ]
@@ -149,6 +149,91 @@
       "profile": "https://github.com/thevisuales",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "RooRay",
+      "name": "RooRay",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86845749?v=4",
+      "profile": "https://rooray.xyz",
+      "contributions": [
+        "doc",
+        "code"
+      ]
+    },
+    {
+      "login": "FoxXxHater",
+      "name": "FoxXxHater",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54017453?v=4",
+      "profile": "https://foxco-network.de",
+      "contributions": [
+        "platform"
+      ]
+    },
+    {
+      "login": "AdminRAT",
+      "name": "AdminRAT",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24538037?v=4",
+      "profile": "https://adminrat.codes",
+      "contributions": [
+        "platform"
+      ]
+    },
+    {
+      "login": "c43721",
+      "name": "c43721",
+      "avatar_url": "https://avatars.githubusercontent.com/u/55610086?v=4",
+      "profile": "https://c43721.dev",
+      "contributions": [
+        "platform",
+        "doc"
+      ]
+    },
+    {
+      "login": "n1kkl",
+      "name": "Niklas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/100782498?v=4",
+      "profile": "https://github.com/n1kkl",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Uzurka",
+      "name": "Uzurka",
+      "avatar_url": "https://avatars.githubusercontent.com/u/101745008?v=4",
+      "profile": "https://github.com/Uzurka",
+      "contributions": [
+        "bug",
+        "platform",
+        "translation"
+      ]
+    },
+    {
+      "login": "iNOEEL",
+      "name": "Noel Horvath",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26775559?v=4",
+      "profile": "https://github.com/iNOEEL",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Gdanycz",
+      "name": "Gdany",
+      "avatar_url": "https://avatars.githubusercontent.com/u/60316826?v=4",
+      "profile": "https://github.com/Gdanycz",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Chaosfelix4451",
+      "name": "Chaosfelix4451",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46029764?v=4",
+      "profile": "https://github.com/Chaosfelix4451",
+      "contributions": [
+        "translation"
       ]
     }
   ],
