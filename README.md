@@ -1,14 +1,3 @@
-> **Warning**
-> 
-> This is the development branch, it may be unstable and may not work as expected.
-> 
-> *dev notes:*
-> - https://static.eartharoid.me/k/22/08/02185801.png - for user/create, slash/force-close, slash/claim, slash/release, and slash/move
-> - menu question max length cannot be higher than question options 
-> - TODO: update notifications
-> - TODO: user:create, force-close
-
-
 <div align="center">
 
 ![bots](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients.total&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
@@ -103,7 +92,6 @@ There are 3 ways to get started with Discord Tickets:
 
 **[Read the documentation](https://discordtickets.app/getting-started/)** for more information.
 
-> **Warning**
 > This button is here because it looks nice, but I will cry if you click it before reading the [documentation](https://discordtickets.app/getting-started/). :)
 
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/eB6TkX?referralCode=Z3aYd2)
@@ -125,7 +113,6 @@ Please consider sponsoring the project if it adds value to your business/communi
 > **Note**
 >
 > Your logo will only appear here if you sponsor through GitHub Sponsors.
-> 
 > [Create an organisation](https://github.com/account/organizations/new?plan=free) if you want to use your business/community logo.
 
 ## 🎖️ Contributors
@@ -155,7 +142,7 @@ or contribute in any other way, please read the [contributing guidelines](https:
 
 <details>
   <summary>Show graph</summary>
-  
+
   [![Star History Chart](https://api.star-history.com/svg?repos=discord-tickets/bot&type=Date)](https://star-history.com/#discord-tickets/bot&Date)
 
 </details>
