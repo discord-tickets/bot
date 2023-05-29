@@ -3,7 +3,7 @@ buttons:
     emoji: ✅
     text: Accept
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Cancel
   claim:
     emoji: 🙌
@@ -78,6 +78,9 @@ commands:
           description: The reason for closing the ticket
           name: reason
     force-close:
+      closed_one:
+        description: The channel will be deleted in a few seconds.
+        title: ✅ Ticket closed
       confirm_multiple:
         description: >
           You are about to close **{count}** tickets that have been inactive
@@ -85,6 +88,11 @@ commands:
 
           {tickets}
         title: ❓ Are you sure?
+      confirmed_multiple:
+        description: The channels will be deleted in a few seconds.
+        title:
+          - ✅ Closing %d ticket
+          - ✅ Closing %d tickets
       description: Forcibly close a ticket
       name: force-close
       no_tickets:
@@ -97,8 +105,9 @@ commands:
         title: ❌ Error
       options:
         category:
-          description: >-
-            Close all tickets in the specified category (can be used with `time`)
+          description:
+            Close all tickets in the specified category (must be used with
+            `time`)
           name: category
         reason:
           description: The reason for closing the ticket(s)
@@ -107,9 +116,7 @@ commands:
           description: The ticket to close
           name: ticket
         time:
-          description: >-
-            Close all tickets that have been inactive for the specified time
-            (can be used with `category`)
+          description: Close all tickets that have been inactive for the specified time
           name: time
     help:
       description: Show the help menu

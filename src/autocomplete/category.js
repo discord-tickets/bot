@@ -18,8 +18,12 @@ module.exports = class CategoryCompleter extends Autocompleter {
 		const client = this.client;
 
 		let categories = await client.prisma.category.findMany({ where: { guildId: interaction.guild.id } });
-		const ticket = await client.prisma.ticket.findUnique({ where: { id: interaction.channel.id } });
-		if (ticket) categories = categories.filter(category => ticket.categoryId !== category.id);
+
+		if (command.name === 'move') {
+			const ticket = await client.prisma.ticket.findUnique({ where: { id: interaction.channel.id } });
+			if (ticket) categories = categories.filter(category => ticket.categoryId !== category.id);
+		}
+
 		const options = value ? categories.filter(category => category.name.match(new RegExp(value, 'i'))) : categories;
 		await interaction.respond(
 			options

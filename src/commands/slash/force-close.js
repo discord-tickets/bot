@@ -59,7 +59,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply();
+		await interaction.deferReply({ ephemeral: true });
 
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const getMessage = client.i18n.getLocale(settings.locale);
@@ -79,7 +79,46 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 			});
 		}
 
-		if (interaction.options.getString('time', false)) { // if time option is passed
+		if (interaction.options.getString('ticket', false)) { // if ticket option is passed
+			ticket = await client.prisma.ticket.findUnique({
+				include: { category: true },
+				where: { id: interaction.options.getString('ticket') },
+			});
+
+			if (!ticket) {
+				return await interaction.editReply({
+					embeds: [
+						new ExtendedEmbedBuilder({
+							iconURL: interaction.guild.iconURL(),
+							text: settings.footer,
+						})
+							.setColor(settings.errorColour)
+							.setTitle(getMessage('misc.invalid_ticket.title'))
+							.setDescription(getMessage('misc.invalid_ticket.description')),
+					],
+				});
+			}
+
+			await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.successColour)
+						.setTitle(getMessage('commands.slash.force-close.closed_one.title'))
+						.setDescription(getMessage('commands.slash.force-close.closed_one.description', { ticket: ticket.id })),
+				],
+			});
+
+			setTimeout(async () => {
+				await client.tickets.finallyClose(ticket.id, {
+					closedBy: interaction.user.id,
+					reason: interaction.options.getString('reason', false),
+				});
+			}, ms('3s'));
+
+		} else if (interaction.options.getString('time', false)) { // if time option is passed
 			const time = ms(interaction.options.getString('time', false));
 
 			if (!time) {
@@ -96,9 +135,10 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 				});
 			}
 
-			// TODO: category
+			const categoryId = interaction.options.getInteger('category', false);
 			const tickets = await client.prisma.ticket.findMany({
 				where: {
+					categoryId: categoryId ?? undefined, // must be undefined not null
 					lastMessageAt: { lte: new Date(Date.now() - time) },
 					open: true,
 				},
@@ -118,7 +158,6 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 				});
 			}
 
-			let confirmed = false;
 			const collectorTime = ms('15s');
 			const confirmationM = await interaction.editReply({
 				components: [
@@ -157,58 +196,53 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 				],
 			});
 
-
 			confirmationM.awaitMessageComponent({
 				componentType: ComponentType.Button,
-				filter: i => {
-					i.deferUpdate();
-					return i.user.id === interaction.user.id;
-				},
+				filter: i => i.user.id === interaction.user.id,
 				time: collectorTime,
 			})
-				.then(i => {
+				.then(async i => {
 					if (JSON.parse(i.customId).id === 'close') {
-						confirmed = true;
-						// TODO: i.editReply
+						await i.reply({
+							components: [],
+							embeds: [
+								new ExtendedEmbedBuilder({
+									iconURL: interaction.guild.iconURL(),
+									text: settings.footer,
+								})
+									.setColor(settings.successColour)
+									.setTitle(getMessage('commands.slash.force-close.confirmed_multiple.title', tickets.length, tickets.length))
+									.setDescription(getMessage('commands.slash.force-close.confirmed_multiple.description')),
+							],
+							ephemeral: true,
+						});
+						setTimeout(async () => {
+							for (const ticket of tickets) {
+								await client.tickets.finallyClose(ticket.id, {
+									closedBy: interaction.user.id,
+									reason: interaction.options.getString('reason', false),
+								});
+							}
+						}, ms('3s'));
 					} else {
-						// TODO: cancelled
+						await interaction.deleteReply();
 					}
 				})
-				.catch(() => interaction.editReply({
-					components: [],
-					embeds: [
-						new ExtendedEmbedBuilder({
-							iconURL: interaction.guild.iconURL(),
-							text: settings.footer,
-						})
-							.setColor(settings.errorColour)
-							.setTitle(getMessage('misc.expired.title'))
-							.setDescription(getMessage('misc.expired.description', { time: ms(time, { long: true }) })),
-					],
-				}));
-
-			if (!confirmed) return;
-
-			// TODO: tickets: for each, close (check reason)
-		} else if (interaction.options.getString('ticket', false)) { // if ticket option is passed
-			ticket = await client.prisma.ticket.findUnique({
-				include: { category: true },
-				where: { id: interaction.options.getString('ticket', false) },
-			});
-
-			if (!ticket) {
-				return await interaction.editReply({
-					embeds: [
-						new ExtendedEmbedBuilder({
-							iconURL: interaction.guild.iconURL(),
-							text: settings.footer,
-						})
-							.setColor(settings.errorColour)
-							.setTitle(getMessage('misc.invalid_ticket.title'))
-							.setDescription(getMessage('misc.invalid_ticket.description')),
-					],
+				.catch(async error => {
+					client.log.error(error);
+					await interaction.reply({
+						components: [],
+						embeds: [
+							new ExtendedEmbedBuilder({
+								iconURL: interaction.guild.iconURL(),
+								text: settings.footer,
+							})
+								.setColor(settings.errorColour)
+								.setTitle(getMessage('misc.expired.title'))
+								.setDescription(getMessage('misc.expired.description', { time: ms(time, { long: true }) })),
+						],
+					});
 				});
-			}
 		} else {
 			ticket = await client.prisma.ticket.findUnique({
 				include: { category: true },
@@ -228,6 +262,25 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 					],
 				});
 			}
+
+			await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.successColour)
+						.setTitle(getMessage('commands.slash.force-close.closed_one.title'))
+						.setDescription(getMessage('commands.slash.force-close.closed_one.description', { ticket: ticket.id })),
+				],
+			});
+
+			setTimeout(async () => {
+				await client.tickets.finallyClose(ticket.id, {
+					closedBy: interaction.user.id,
+					reason: interaction.options.getString('reason', false),
+				});
+			}, ms('3s'));
 		}
 	}
 };
