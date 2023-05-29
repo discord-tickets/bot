@@ -247,6 +247,15 @@ commands:
   user:
     create:
       name: Create ticket for user
+      not_staff:
+        description: Only staff members can open tickets for other members.
+        title: ❌ Error
+      prompt:
+        description: Click the button below to create a ticket.
+        title: Please create a ticket
+      sent:
+        description: "{user} has been invited to create a ticket in **{category}**."
+        title: ✅ Prompt sent
 dm:
   closed:
     archived: Use the `/transcript` command in **{guild}** to view the archived messages.
