@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@discord-tickets/settings": "^2.1.4",
-		"@eartharoid/dbf": "^0.3.3",
+		"@eartharoid/dbf": "^0.4.0",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
 		"@fastify/cookie": "^6.0.0",
@@ -65,14 +65,14 @@
 		"object-diffy": "^1.0.4",
 		"prisma": "^4.14.1",
 		"semver": "^7.5.1",
-		"spacetime": "^7.4.3",
+		"spacetime": "^7.4.4",
 		"terminal-link": "^2.1.1",
 		"yaml": "^1.10.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.6.3",
 		"@commitlint/config-conventional": "^17.6.3",
-		"all-contributors-cli": "^6.25.1",
+		"all-contributors-cli": "^6.26.0",
 		"conventional-changelog-cli": "^2.2.2",
 		"eslint": "^8.41.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
