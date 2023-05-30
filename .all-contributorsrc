@@ -4,13 +4,11 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "CONTRIBUTORS.md",
-    "README.md"
+    "CONTRIBUTORS.md"
   ],
   "imageSize": 100,
-  "commit": false,
+  "commit": true,
   "commitConvention": "angular",
-  "badgeTemplate": "<a href=\"https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md\">\n<img src=\"https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=flat-square\"alt=\"All contributors\">\n</a>",
   "contributors": [
     {
       "login": "eartharoid",

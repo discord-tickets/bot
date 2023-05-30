@@ -1,0 +1,1 @@
+module.exports.domain = process.env.HTTP_EXTERNAL.match(/http(s?):\/\/(?<domain>[a-zA-Z0-9\-_.]+)(:\d+)?/).groups.domain;

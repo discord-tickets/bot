@@ -1,0 +1,467 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Accept
+  cancel:
+    emoji: ➖
+    text: Cancel
+  claim:
+    emoji: 🙌
+    text: Claim
+  close:
+    emoji: ✖️
+    text: Close
+  confirm_open:
+    emoji: ✅
+    text: Create ticket
+  create:
+    emoji: 🎫
+    text: Create a ticket
+  edit:
+    emoji: ✏️
+    text: Edit
+  reject_close_request:
+    emoji: ✖️
+    text: Reject
+  unclaim:
+    emoji: ♻️
+    text: Release
+commands:
+  message:
+    create:
+      name: Create ticket from message
+    pin:
+      name: Pin message
+      not_pinnable:
+        description: |
+          This message can't be pinned.
+          Please ask an administrator to check the bot's permissions.
+        title: ❌ Error
+      not_ticket:
+        description: You can only pin messages in tickets.
+        title: ❌ This isn't a ticket channel
+      pinned:
+        description: The message has been pinned.
+        title: ✅ Pinned message
+  slash:
+    add:
+      added: ➡️ {added} has been added by {by}.
+      description: Add a member to a ticket
+      name: add
+      not_staff:
+        description: Only staff members can add members to others' tickets.
+        title: ❌ Error
+      options:
+        member:
+          description: The member to add to the ticket
+          name: member
+        ticket:
+          description: The ticket to add the member to
+          name: ticket
+      success:
+        description: "{member} has been added to {ticket}."
+        title: ✅ Added
+    claim:
+      description: Claim a ticket
+      name: claim
+      not_staff:
+        description: Only staff members can claim tickets.
+        title: ❌ Error
+    close:
+      description: Request a ticket to be closed
+      invalid_time:
+        description: "`{input}` is not a valid time format."
+        title: ❌ Invalid
+      name: close
+      options:
+        reason:
+          description: The reason for closing the ticket
+          name: reason
+    force-close:
+      closed_one:
+        description: The channel will be deleted in a few seconds.
+        title: ✅ Ticket closed
+      confirm_multiple:
+        description: >
+          You are about to close **{count}** tickets that have been inactive
+          for more than `{time}`:
+
+          {tickets}
+        title: ❓ Are you sure?
+      confirmed_multiple:
+        description: The channels will be deleted in a few seconds.
+        title:
+          - ✅ Closing %d ticket
+          - ✅ Closing %d tickets
+      description: Forcibly close a ticket
+      name: force-close
+      no_tickets:
+        description: >-
+          There are no open tickets that have been inactive for more than
+          `{time}`.
+        title: ❌ No tickets
+      not_staff:
+        description: Only staff members can force-close tickets.
+        title: ❌ Error
+      options:
+        category:
+          description:
+            Close all tickets in the specified category (must be used with
+            `time`)
+          name: category
+        reason:
+          description: The reason for closing the ticket(s)
+          name: reason
+        ticket:
+          description: The ticket to close
+          name: ticket
+        time:
+          description: Close all tickets that have been inactive for the specified time
+          name: time
+    help:
+      description: Show the help menu
+      name: help
+      response:
+        commands: Commands
+        description: "**Use {command} to create a ticket and get support.**"
+        links:
+          commands: Full command list
+          docs: Documentation
+          feedback: Feedback
+          links: Useful links
+          support: Support
+        settings: Bot settings
+      title: Help
+    move:
+      description: Move a ticket to another category
+      moved: 🗃️ {by} has moved this ticket from **{from}** to **{to}**.
+      name: move
+      not_staff:
+        description: Only staff members can move tickets.
+        title: ❌ Error
+      options:
+        category:
+          description: The category to move the ticket to
+          name: category
+    new:
+      description: Create a new ticket
+      name: new
+      options:
+        references:
+          description: The number of a related ticket
+          name: references
+    priority:
+      description: Set the priority of a ticket
+      name: priority
+      not_staff:
+        description: Only staff members can change the priority of tickets.
+        title: ❌ Error
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 High
+            LOW: 🟢 Low
+            MEDIUM: 🟠 Medium
+          description: The priority of the ticket
+          name: priority
+      success:
+        description: This ticket's priority has been set to `{priority}`.
+        title: ✅ Priority set
+    release:
+      description: Release (unclaim) a ticket
+      name: release
+    remove:
+      description: Remove a member from a ticket
+      name: remove
+      not_staff:
+        description: Only staff members can remove members from others' tickets.
+        title: ❌ Error
+      options:
+        member:
+          description: The member to remove from the ticket
+          name: member
+        ticket:
+          description: The ticket to remove the member from
+          name: ticket
+      removed: ⬅️ {removed} has been removed by {by}.
+      success:
+        description: "{member} has been removed from {ticket}."
+        title: ✅ Removed
+    tag:
+      description: Use a tag
+      name: tag
+      options:
+        for:
+          description: The user to target the tag to
+          name: for
+        tag:
+          description: The name of the tag to use
+          name: tag
+    tickets:
+      description: List your own or someone else's tickets
+      name: tickets
+      not_staff:
+        description: Only staff members can view others' tickets.
+        title: ❌ Error
+      options:
+        member:
+          description: The member to list the tickets of
+          name: member
+      response:
+        description: Use {transcript} to download the transcript of a ticket.
+        fields:
+          closed:
+            name: Closed tickets
+            none:
+              other: "{user} hasn't made any tickets."
+              own: |
+                You haven't made any tickets.
+                Use {new} to open a ticket.
+          open:
+            name: Open tickets
+        title:
+          other: "{displayName}'s tickets"
+          own: Your tickets
+    topic:
+      description: Change the topic of a ticket
+      name: topic
+    transcript:
+      description: Get the transcript of a ticket
+      name: transcript
+      options:
+        member:
+          description: The member to search for tickets of
+          name: member
+        ticket:
+          description: The ticket to get the transcript of
+          name: ticket
+    transfer:
+      description: Transfer ownership of a ticket to another member
+      name: transfer
+      options:
+        member:
+          description: The member to transfer ownership to
+          name: member
+      transferred: 📨 {user} has transferred this ticket to {to}.
+      transferred_from: 📨 {user} has transferred this ticket from {from} to {to}.
+  user:
+    create:
+      name: Create ticket for user
+      not_staff:
+        description: Only staff members can open tickets for other members.
+        title: ❌ Error
+      prompt:
+        description: Click the button below to create a ticket.
+        title: Please create a ticket
+      sent:
+        description: "{user} has been invited to create a ticket in **{category}**."
+        title: ✅ Prompt sent
+dm:
+  closed:
+    archived: Use the `/transcript` command in **{guild}** to view the archived messages.
+    fields:
+      closed:
+        name: Closed at
+        value: "{timestamp} (after {duration})"
+      closed_by: Closed by
+      created: Created at
+      feedback: Your feedback
+      reason: Closed because
+      response: Response time
+      ticket: Ticket
+      topic: Topic
+    title: Your ticket has been closed
+  confirm_open:
+    title: Do you want to open a ticket with the following topic?
+log:
+  admin:
+    changes: Changes
+    description:
+      joined: "{user} {verb} {targetType}"
+      target:
+        category: a category
+        panel: a panel
+        question: a question
+        settings: the settings
+        tag: a tag
+    title:
+      joined: "{targetType} {verb}"
+      target:
+        category: Category
+        panel: Panel
+        question: Question
+        settings: Settings
+        tag: Tag
+    verb:
+      create: created
+      delete: deleted
+      update: updated
+  message:
+    description: "{user} {verb} a message"
+    message: Message
+    title: Message {verb}
+    verb:
+      delete: deleted
+      update: updated
+  ticket:
+    added: Added members
+    description: "{user} {verb} a ticket"
+    removed: Removed members
+    ticket: Ticket
+    title: Ticket {verb}
+    verb:
+      claim: claimed
+      close: closed
+      create: created
+      unclaim: released
+      update: updated
+menus:
+  category:
+    placeholder: Select a ticket category
+  guild:
+    placeholder: Select a server
+misc:
+  blocked:
+    description: You are not allowed to create tickets.
+    title: ❌ Blocked
+  category_full:
+    description: |
+      The category has reached its maximum capacity.
+      Please try again later.
+    title: ❌ Category full
+  cooldown:
+    description: Please wait {time} before creating another ticket in this category.
+    title: ❌ Please wait
+  error:
+    description: |
+      Sorry, an unexpected error occurred.
+      Please give this information to an administrator.
+    fields:
+      code: Error code
+      identifier: Identifier
+    title: ⚠️ Something went wrong
+  expired:
+    description: You didn't respond in time. Please try again.
+    title: ⏰ Expired
+  expires_in: Expires in {time}
+  invalid_ticket:
+    description: Please specify a valid ticket.
+    title: ❌ Invalid ticket
+  member_limit:
+    description:
+      - Please use your existing ticket or close it before creating another.
+      - |
+        Please close a ticket before creating another.
+        Use `/tickets` to view your existing tickets.
+    title:
+      - ❌ You already have a ticket
+      - ❌ You already have %d open tickets
+  missing_roles:
+    description: >-
+      You do not have the roles required to be able to create a ticket in
+      this category.
+    title: ❌ Insufficient roles
+  no_categories:
+    description: No ticket categories have been configured.
+    title: ❌ There are no ticket categories
+  not_ticket:
+    description: You can only use this command in tickets.
+    title: ❌ This isn't a ticket channel
+  ratelimited:
+    description: Try again in a few seconds.
+    title: 🐢 Please slow down
+  unknown_category:
+    description: Please try a different category.
+    title: ❌ That ticket category doesn't exist
+  update:
+    description: |
+      > [View `{version}` on GitHub]({github})
+      > [Changelog]({changelog})
+      > [Update guide]({guide})
+    title: An update is available
+modals:
+  feedback:
+    comment:
+      label: Comment
+      placeholder: Do you have any additional feedback?
+    rating:
+      label: Rating
+      placeholder: 1-5
+    title: How did we do?
+  topic:
+    label: Topic
+    placeholder: What is this ticket about?
+ticket:
+  answers:
+    no_value: "*No response*"
+  claimed: 🙌 {user} has claimed this ticket.
+  close:
+    closed:
+      description: This channel will be deleted in a few seconds…
+      title: ✅ Ticket closed
+    forbidden:
+      description: You don't have permission to close this ticket.
+      title: ❌ Error
+    rejected: ✋ {user} rejected a request to close this ticket.
+    staff_request:
+      archived: |
+
+        The messages in this channel will be archived for future reference.
+      description: |
+        {requestedBy} wants to close this ticket.
+        Click "Accept" to close it now, or "Reject" if you still need help.
+      title: ❓ Can this ticket be closed?
+    user_request:
+      title: ❓ {requestedBy} wants to close this ticket
+    wait_for_staff: ✋ Please wait for staff to close this ticket.
+    wait_for_user: ✋ Please wait for the user to respond.
+  closing_soon:
+    description: |
+      This ticket will be closed due to inactivity <t:{timestamp}:R>.
+      Send a message to cancel this automation.
+    title: ⌛ This ticket will be closed soon
+  created:
+    description: "Your ticket channel has been created: {channel}."
+    title: ✅ Ticket created
+  edited:
+    description: Your changes have been saved.
+    title: ✅ Ticket updated
+  feedback: Thank you for your feedback.
+  inactive:
+    description: |
+      There hasn't been any activity in this channel since <t:{timestamp}:R>.
+      Please continue the conversation or {close} the ticket.
+    title: ⏰ This ticket is inactive
+  offline:
+    description:
+      There aren't any staff members available at the moment, so it may
+      take longer than usual to get a response.
+    title: 😴 We're not online
+  opening_message:
+    content: |
+      {staff}
+      {creator} has created a new ticket
+    fields:
+      topic: Topic
+  references_message:
+    description: References [a message]({url}) sent {timestamp} by {author}.
+    title: ℹ️ Reference
+  references_ticket:
+    description: "This ticket is related to a previous ticket:"
+    fields:
+      date: Created at
+      number: Number
+      topic: Topic
+    title: ℹ️ Reference
+  released: ♻️ {user} has released this ticket.
+  working_hours:
+    next:
+      description:
+        We'll be back at <t:{timestamp}:F> (<t:{timestamp}:R>), although
+        you may receive a response before then.
+      title: 🕗 We're not working at the moment
+    today:
+      description:
+        You may receive a response before, but we don't start working until
+        <t:{timestamp}:t> today (<t:{timestamp}:R>).
+      title: 🕗 We're not working at the moment

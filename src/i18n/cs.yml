@@ -1,0 +1,231 @@
+commands:
+  message:
+    pin:
+      name: Připnout zprávu
+      pinned:
+        description: Zpráva byla připnuta.
+        title: ✅ Zpráva připnuta
+      not_pinnable:
+        description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,\
+          \ jestli má robot dostatečné oprávnění.\n"
+        title: ❌ Chyba
+      not_ticket:
+        description: Zprávy můžeš připnout jen v ticketech.
+        title: ❌ Tento kanál není ticket
+    create:
+      name: Vytvořit ticket ze zprávy
+  slash:
+    add:
+      name: přidat
+      options:
+        ticket:
+          name: tiket
+          description: Ticket na přidání člena
+        member:
+          name: člen
+          description: Člen, kterého chcete přidat do ticketu
+      added: ➡️{by} přidal {added}.
+      description: Přidat člena do ticketu
+      not_staff:
+        description: Pouze členové staff teamu můžou přidávat členy do ticketů ostatních.
+        title: ❌ Chyba
+      success:
+        description: '{member} byl přidán do {ticket}.'
+        title: ✅ Přidán
+    claim:
+      name: převzít
+      description: Převzít ticket
+    close:
+      invalid_time:
+        title: ❌ Neplatný
+        description: '`{input}` není platný formát času.'
+      description: Zažádat o uzavření ticketu
+      name: uzavřít
+      options:
+        reason:
+          description: Důvod pro uzavření ticketu
+          name: důvod
+    remove:
+      options:
+        ticket:
+          name: tiket
+          description: Tiket pro odebrání člena
+        member:
+          description: Člen, který má být odstraněn z tiketu
+          name: člen
+      not_staff:
+        description: Pouze členové staff teamu mohou odstranit členy z ostatních tiketů.
+        title: ❌ Chyba
+      success:
+        description: '{member} byl odstraněn z {ticket}.'
+        title: ✅ Odstraněn
+      description: Odstranit člena z tiketu
+      name: odstranit
+      removed: ⬅️ {removed} byl odstraněn uživatelem {by}.
+    help:
+      response:
+        links:
+          feedback: Zpětná vazba
+          commands: Celý list příkazů
+          docs: Dokumentace
+          links: Užitečné odkazy
+          support: Podpora
+        commands: Příkazy
+        settings: Nastavení bota
+        description: '**Použijte {command} pro vytvoření ticketu a získání podpory.**'
+      description: Zobrazit pomocné menu
+      name: pomoc
+      title: Pomoc
+    force-close:
+      options:
+        category:
+          name: kategorie
+          description: Uzavřít všechny tickety v zadané kategorii (lze použít s `time`).
+        reason:
+          description: Důvod pro uzavření ticketu(ů)
+          name: důvod
+        ticket:
+          description: Ticket k uzavření
+          name: tiket
+        time:
+          name: čas
+          description: Zavřít všechny tickety, které byly po zadanou dobu neaktivní
+            (lze použít s `category`).
+      confirm_multiple:
+        title: ❓Jste si jist?
+        description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní\
+          \ déle než `{time}`:\n{tickets}\n"
+      name: uzavřít-silou
+      description: Násilně uzavřít tiketu
+      no_tickets:
+        title: ❌Žádné tikety
+        description: Neexistují žádné otevřené tickety, které by byly neaktivní déle
+          než `{time}`.
+      not_staff:
+        title: ❌Chyba
+        description: Tickety mohou násilně uzavírat pouze zaměstnanci.
+    move:
+      description: Přesunout ticket do jiné kategorie
+      name: přesunout
+      options:
+        category:
+          description: Kategorie, do které se má ticket přesunout
+          name: kategorie
+      moved: 🗃️ {by} přesunul tento ticket z **{from}** do **{to}**.
+    new:
+      description: Vytvořit nový ticket
+      name: nový
+      options:
+        references:
+          description: Číslo souvisejícího tiketu
+          name: reference
+    priority:
+      description: Nastavit důležitost ticketu
+      name: důležitost
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Vysoká
+            LOW: 🟢 Malá
+            MEDIUM: 🟠 Střední
+          description: Priorita tiketu
+          name: priorita
+      success:
+        description: Priorita tiketu byla nastavena na `{priority}`.
+        title: ✅ Priorita nastavena
+    release:
+      name: uvolnit
+      description: Uvolnit (vrátit) ticket
+    tag:
+      description: Použijte tag
+      name: tag
+      options:
+        for:
+          description: Uživatel, na kterého má cílit tag
+          name: pro
+        tag:
+          description: Jméno tagu pro použití
+          name: tag
+    tickets:
+      name: tickety
+      response:
+        fields:
+          closed:
+            name: Uzavřené tickety
+          open:
+            name: Otevřít tickety
+        title:
+          other: Tickety uživatele {displayName}
+      not_staff:
+        title: ❌ Chyba
+    topic:
+      name: téma
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Přijmout
+  create:
+    text: Vytvořit ticket
+    emoji: 🎫
+  cancel:
+    emoji: ✖️
+    text: Zrušit
+  claim:
+    emoji: 🙌
+    text: Převzít
+  edit:
+    emoji: ✏️
+    text: Upravit
+  close:
+    emoji: ✖️
+    text: Zavřít
+  confirm_open:
+    emoji: ✅
+    text: Vytvořit ticket
+  reject_close_request:
+    emoji: ✖️
+    text: Odmítnut
+  unclaim:
+    emoji: ♻️
+    text: Vydat
+dm:
+  closed:
+    archived: Chcete-li zobrazit archivované zprávy, zadejte `/transcript` do **{guild}**.
+    title: Váš ticket byl uzavřen
+    fields:
+      closed_by: Zavřeno uživatelem
+      ticket: Ticket
+      closed:
+        name: Zavřeno v
+        value: '{timestamp} (po {duration})'
+      created: Vytvořeno v
+      feedback: Vaše zpětná vazba
+      reason: Zavřeno, protože
+      response: Doba odezvy
+      topic: Téma
+  confirm_open:
+    title: Chcete otevřít ticket s následujícím tématem?
+log:
+  admin:
+    description:
+      target:
+        tag: značka
+        settings: nastavení
+        category: kategorie
+        panel: panel
+        question: otázka
+      joined: '{user} {verb} {targetType}'
+    verb:
+      create: vytvořeno
+    title:
+      target:
+        panel: Panel
+        category: Kategorie
+        question: Otázka
+        settings: Nastavení
+        tag: Štítek
+      joined: '{targetType} {verb}'
+    changes: Změny
+misc:
+  error:
+    title: ⚠️ Něco se pokazilo

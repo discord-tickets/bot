@@ -1,38 +1,54 @@
-version: "3.8"
+version: "3.9"
 
 services:
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    hostname: mysql
+    networks:
+      - discord-tickets
+    volumes: 
+      - tickets-mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: tickets
+      MYSQL_PASSWORD: insecure # change this to a secure password
+      MYSQL_ROOT_PASSWORD: insecure # change this to a (different) secure password
+      MYSQL_USER: tickets
+  
   bot:
-    build:
-      context: .
-      dockerfile: compose.Dockerfile
-    restart: unless-stopped
-    volumes:
-      - ./src:/tickets/src
-      - ./user:/tickets/user
-      - ./logs:/tickets/logs
-      - ./.env:/tickets/.env:ro
-    environment:
-      - DB_TYPE=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_NAME=tickets
-      - DB_USER=tickets
-      - DB_PASS=tickets
-      - DB_TABLE_PREFIX=dsctickets_
+    image: eartharoid/discord-tickets:4.0
     depends_on:
-      - db
-
-  db:
-    image: mariadb:10.6
+      - mysql
     restart: unless-stopped
-    environment:
-      - "MYSQL_DATABASE=tickets"
-      - "MYSQL_USER=tickets"
-      - "MYSQL_PASSWORD=tickets"
-
-      - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
+    hostname: bot
+    networks:
+      - discord-tickets
+    ports:
+      - 8169:8169
     volumes:
-      - db:/var/lib/mysql
+      - tickets-bot:/usr/bot/user
+    tty: true
+    stdin_open: true
+    # Please refer to the documentation:
+    # https://discordtickets.app/self-hosting/configuration/#environment-variables
+    environment:
+      DB_CONNECTION_URL: mysql://tickets:insecure@mysql/tickets # change `insecure` to the MYSQL_PASSWORD you set above
+      DISCORD_SECRET: # required
+      DISCORD_TOKEN: # required
+      ENCRYPTION_KEY: # required
+      DB_PROVIDER: mysql
+      HTTP_EXTERNAL: http://127.0.0.1:8169 # change this to your server's external IP (or domain)
+      HTTP_HOST: 0.0.0.0
+      HTTP_PORT: 8169
+      HTTP_TRUST_PROXY: false # set to true if you're using a reverse proxy
+      OVERRIDE_ARCHIVE: null
+      PUBLIC_BOT: false
+      PUBLISH_COMMANDS: false
+      SUPER: 319467558166069248 # optionally add `,youruseridhere`
+
+networks:
+  discord-tickets:
 
 volumes:
-  db:
+  tickets-mysql:
+  tickets-bot:

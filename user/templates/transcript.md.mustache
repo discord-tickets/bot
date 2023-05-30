@@ -1,0 +1,30 @@
+#{{ channelName }} ticket transcript
+
+---
+
+* ID: {{ ticket.id }} ({{ guildName }})
+* Number: {{ ticket.category.name }} #{{ ticket.number }}
+* Topic: {{ #ticket.topic }}{{ . }}{{ /ticket.topic }}{{ ^ticket.topic }}(no topic){{ /ticket.topic }}
+* Created on: {{ #ticket }}{{ createdAtFull }}{{ /ticket }}
+* Created by: {{ #ticket.createdBy }}"{{ displayName }}" @{{ username }}#{{ discriminator }}{{ /ticket.createdBy }}
+* Closed on: {{ #ticket }}{{ closedAtFull }}{{ /ticket }}
+* Closed by: {{ #ticket.closedBy }}"{{ displayName }}" @{{ username }}#{{ discriminator }}{{ /ticket.closedBy }}{{ ^ticket.closedBy }}(automated){{ /ticket.closedBy }}
+* Closed because: {{ #ticket.closedReason }}{{ ticket.closedReason }}{{ /ticket.closedReason }}{{ ^ticket.closedReason }}(no reason){{ /ticket.closedReason }}
+* Claimed by: {{ #ticket.claimedBy }}"{{ displayName }}" @{{ username }}#{{ discriminator }}{{ /ticket.claimedBy }}{{ ^ticket.claimedBy }}(not claimed){{ /ticket.claimedBy }}
+{{ #ticket.feedback }}
+* Feedback:
+  * Rating: {{ rating }}/5
+  * Comment: {{ comment }}{{ ^comment }}(no comment){{ /comment }}
+{{ /ticket.feedback }}
+* Participants:
+{{ #ticket.archivedUsers }}
+  * "{{ displayName }}" @{{ username }}#{{ discriminator }} ({{ userId }})
+{{ /ticket.archivedUsers }}
+* Pinned messages: {{ #pinned }}{{ . }}{{ /pinned }}
+
+---
+
+{{ #ticket.archivedMessages }}
+<{{ number }}> [{{ createdAtTimestamp }}] {{author.displayName}}: {{ text }}
+
+{{ /ticket.archivedMessages }}

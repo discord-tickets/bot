@@ -1,0 +1,15 @@
+buttons:
+  cancel:
+    emoji: ✖️
+  close:
+    emoji: ✖️
+  accept_close_request:
+    emoji: ✅
+  create:
+    emoji: 🎫
+  edit:
+    emoji: ✏️
+  claim:
+    emoji: 🙌
+  confirm_open:
+    emoji: ✅

@@ -1,0 +1,247 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DB_CONNECTION_URL")
+}
+
+model ArchivedChannel {
+    channelId String   @db.VarChar(19)
+    createdAt DateTime @default(now())
+    name      String
+    ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String   @db.VarChar(19)
+
+    @@id([ticketId, channelId])
+    @@unique([ticketId, channelId])
+    @@map("archivedChannels")
+}
+
+model ArchivedMessage {
+    author    ArchivedUser @relation(fields: [ticketId, authorId], references: [ticketId, userId], onDelete: Cascade)
+    authorId  String       @db.VarChar(19)
+    content   String       @db.Text
+    createdAt DateTime     @default(now())
+    deleted   Boolean      @default(false)
+    edited    Boolean      @default(false)
+    external  Boolean      @default(false)
+    id        String       @id @db.VarChar(19)
+    ticket    Ticket       @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String       @db.VarChar(19)
+
+    @@map("archivedMessages")
+}
+
+model ArchivedRole {
+    archivedUsers ArchivedUser[]
+    colour        String         @default("5865F2") @db.Char(6) // 7289DA 
+    createdAt     DateTime       @default(now())
+    name          String
+    roleId        String         @db.VarChar(19)
+    ticket        Ticket         @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId      String         @db.VarChar(19)
+
+    @@id([ticketId, roleId])
+    @@unique([ticketId, roleId])
+    @@map("archivedRoles")
+}
+
+model ArchivedUser {
+    archivedMessages ArchivedMessage[]
+    avatar           String?
+    bot              Boolean           @default(false)
+    createdAt        DateTime          @default(now())
+    discriminator    String?           @db.Char(4)
+    displayName      String?           @db.Text
+    role             ArchivedRole?     @relation(fields: [ticketId, roleId], references: [ticketId, roleId], onDelete: Cascade)
+    roleId           String?           @db.VarChar(19)
+    ticket           Ticket            @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId         String            @db.VarChar(19)
+    userId           String            @db.VarChar(19)
+    username         String?           @db.Text
+
+    @@id([ticketId, userId])
+    @@unique([ticketId, userId])
+    @@map("archivedUsers")
+}
+
+model Category {
+    channelName     String
+    claiming        Boolean    @default(false)
+    createdAt       DateTime   @default(now())
+    cooldown        Int?
+    customTopic     String?
+    description     String
+    discordCategory String     @db.VarChar(19)
+    emoji           String
+    enableFeedback  Boolean    @default(false)
+    guild           Guild      @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId         String     @db.VarChar(19)
+    id              Int        @id @default(autoincrement())
+    image           String?
+    memberLimit     Int        @default(1)
+    name            String
+    openingMessage  String     @db.Text
+    pingRoles       Json       @default("[]")
+    questions       Question[]
+    ratelimit       Int?
+    requiredRoles   Json       @default("[]")
+    requireTopic    Boolean    @default(false)
+    staffRoles      Json
+    tickets         Ticket[]
+    totalLimit      Int        @default(50)
+
+    @@map("categories")
+}
+
+model Feedback {
+    comment   String?  @db.Text
+    createdAt DateTime @default(now())
+    guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId   String   @db.VarChar(19)
+    rating    Int
+    ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId  String   @id @db.VarChar(19)
+    user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String?  @db.VarChar(19)
+
+    @@map("feedback")
+}
+
+model Guild {
+    autoClose     Int        @default(43200000)
+    autoTag       Json       @default("[]")
+    archive       Boolean    @default(true)
+    blocklist     Json       @default("[]")
+    categories    Category[]
+    claimButton   Boolean    @default(false)
+    closeButton   Boolean    @default(false)
+    createdAt     DateTime   @default(now())
+    errorColour   String     @default("Red")
+    feedback      Feedback[]
+    footer        String?    @default("Discord Tickets by eartharoid")
+    id            String     @id @db.VarChar(19)
+    locale        String     @default("en-GB")
+    logChannel    String?    @db.VarChar(19)
+    primaryColour String     @default("#009999")
+    staleAfter    Int?
+    successColour String     @default("Green")
+    tags          Tag[]
+    tickets       Ticket[]
+    workingHours  Json       @default("[\"UTC\", [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"], [\"00:00\",\"23:59\"]]")
+
+    @@map("guilds")
+}
+
+model Question {
+    answers     QuestionAnswer[]
+    createdAt   DateTime         @default(now())
+    id          String           @id @default(uuid())
+    category    Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId  Int
+    label       String           @db.VarChar(45)
+    maxLength   Int?             @default(4000)
+    minLength   Int?             @default(0)
+    options     Json             @default("[]")
+    order       Int
+    placeholder String?          @db.VarChar(100)
+    required    Boolean          @default(true)
+    style       Int              @default(2)
+    type        QuestionType     @default(TEXT)
+    value       String?          @db.Text
+
+    @@map("questions")
+}
+
+model QuestionAnswer {
+    createdAt  DateTime @default(now())
+    id         Int      @id @default(autoincrement())
+    ticket     Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+    ticketId   String   @db.VarChar(19)
+    question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+    questionId String
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId     String   @db.VarChar(19)
+    value      String?  @db.Text
+
+    @@map("questionAnswers")
+}
+
+model Tag {
+    content   String   @db.Text
+    createdAt DateTime @default(now())
+    guild     Guild    @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId   String   @db.VarChar(19)
+    id        Int      @id @default(autoincrement())
+    name      String
+    regex     String?
+
+    @@unique([guildId, name])
+    @@map("tags")
+}
+
+model Ticket {
+    archivedChannels    ArchivedChannel[]
+    archivedMessages    ArchivedMessage[]
+    archivedRoles       ArchivedRole[]
+    archivedUsers       ArchivedUser[]
+    category            Category?         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId          Int?
+    claimedBy           User?             @relation(name: "TicketsClaimedByUser", fields: [claimedById], references: [id])
+    claimedById         String?           @db.VarChar(19)
+    closedAt            DateTime?
+    closedBy            User?             @relation(name: "TicketsClosedByUser", fields: [closedById], references: [id])
+    closedById          String?           @db.VarChar(19)
+    closedReason        String?           @db.Text
+    createdAt           DateTime          @default(now())
+    createdBy           User              @relation(name: "TicketsCreatedByUser", fields: [createdById], references: [id])
+    createdById         String            @db.VarChar(19)
+    deleted             Boolean           @default(false)
+    feedback            Feedback?
+    firstResponseAt     DateTime?
+    guild               Guild             @relation(fields: [guildId], references: [id], onDelete: Cascade)
+    guildId             String            @db.VarChar(19)
+    id                  String            @id @db.VarChar(19)
+    lastMessageAt       DateTime?
+    messageCount        Int?
+    number              Int
+    open                Boolean           @default(true)
+    openingMessageId    String            @db.VarChar(19)
+    pinnedMessageIds    Json              @default("[]")
+    priority            TicketPriority?
+    referencedBy        Ticket[]          @relation("TicketsReferencedByTicket")
+    referencesMessageId String?           @db.VarChar(19)
+    referencesTicket    Ticket?           @relation(name: "TicketsReferencedByTicket", fields: [referencesTicketId], references: [id], onDelete: SetNull)
+    referencesTicketId  String?           @db.VarChar(19)
+    topic               String?           @db.Text
+    questionAnswers     QuestionAnswer[]
+
+    @@unique([guildId, number])
+    @@map("tickets")
+}
+
+model User {
+    createdAt       DateTime         @default(now())
+    feedback        Feedback[]
+    id              String           @id @db.VarChar(19)
+    messageCount    Int              @default(0)
+    ticketsCreated  Ticket[]         @relation("TicketsCreatedByUser")
+    ticketsClosed   Ticket[]         @relation("TicketsClosedByUser")
+    ticketsClaimed  Ticket[]         @relation("TicketsClaimedByUser")
+    questionAnswers QuestionAnswer[]
+
+    @@map("users")
+}
+
+enum TicketPriority {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum QuestionType {
+    MENU
+    TEXT
+}

@@ -1,30 +1,32 @@
-name: eslint
-on:
-  push:
-    branches:
-      - main
+name: Lint
+on: [push, pull_request]
+  # push:
+    # branches:
+      # - main
   # pull_request:
-  #   branches:
-  #     - main
+    # branches:
+      # - main
 
 jobs:
-   lint:
+  commitlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-pnpm-modules
+      - uses: actions/checkout@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-      - uses: pnpm/action-setup@v2.0.1
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
         with:
-          version: 6.3.0
-          run_install: false
-      - run: pnpm install eslint
-      - run: pnpm run lint
+          configFile: .commitlintrc.js
+  eslint:
+   runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@v3
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 7
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'pnpm'
+    - run: pnpm install
+    - run: pnpm run lint

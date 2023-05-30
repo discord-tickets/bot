@@ -1,0 +1,33 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Принять
+  cancel:
+    emoji: ✖️
+    text: Отмена
+  confirm_open:
+    emoji: ✅
+    text: Создать тикет
+  close:
+    emoji: ✖️
+    text: Закрыть
+  claim:
+    emoji: 🙌
+    text: Взять
+  create:
+    emoji: 🎫
+    text: Создать тикет
+  edit:
+    emoji: ✏️
+    text: Редактировать
+  reject_close_request:
+    emoji: ✖️
+    text: Отклонить
+  unclaim:
+    emoji: ♻️
+commands:
+  message:
+    create:
+      name: Создать тикет из сообщения
+    pin:
+      name: Закрепить сообщение

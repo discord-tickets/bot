@@ -1,0 +1,50 @@
+buttons:
+  accept_close_request:
+    text: Conferma
+    emoji: ✅
+  cancel:
+    text: Annulla
+    emoji: ✖️
+  close:
+    text: Chiudi
+    emoji: ✖️
+  edit:
+    text: Modifica
+    emoji: ✏️
+  claim:
+    text: Rivendica
+    emoji: 🙌
+  confirm_open:
+    text: Crea un ticket
+    emoji: ✅
+  create:
+    text: Crea un ticket
+    emoji: 🎫
+  reject_close_request:
+    text: Rifiuta
+    emoji: ✖️
+  unclaim:
+    text: Rilascia
+    emoji: ♻️
+commands:
+  message:
+    pin:
+      not_pinnable:
+        description: "Questo messaggio non può essere fissato.\nPer favore chiedi\
+          \ ad un amministratore di verificare i permessi del bot.\n"
+        title: ❌ Errore
+      pinned:
+        description: Il messaggio è stato fissato
+      name: Fissa il messaggio
+      not_ticket:
+        description: Puoi fissare solo i messaggi nei ticket
+    create:
+      name: Crea un ticket dal messaggio
+  slash:
+    add:
+      description: Aggiungi un utente ad un ticket
+      name: aggiungi
+      not_staff:
+        description: Solo i membri dello staff possono aggiungere utenti ai ticket
+          altrui.
+      added: ➡️ {added} è stato aggiunto da {by}.
