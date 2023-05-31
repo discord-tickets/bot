@@ -246,6 +246,15 @@
         "ideas",
         "question"
       ]
+    },
+    {
+      "login": "Manfred-exe",
+      "name": "Manfred.exe",
+      "avatar_url": "https://avatars.githubusercontent.com/u/81268335?v=4",
+      "profile": "https://github.com/Manfred-exe",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
