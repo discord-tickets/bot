@@ -1,3 +1,19 @@
+## [4.0.1](https://github.com/discord-tickets/bot/compare/v4.0.0...v4.0.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* creating the first ticket in a new guild ([eccca34](https://github.com/discord-tickets/bot/commit/eccca3409c61b7aecad7e4e4dfc8cc693091f51f))
+* creating the first ticket in a new guild (closes [#428](https://github.com/discord-tickets/bot/issues/428)) ([fbc08c6](https://github.com/discord-tickets/bot/commit/fbc08c6cd07be366017a9295d8e5ca5afd848180))
+* **docker:** quote booleans in `docker-compose.yml` ([6bbedee](https://github.com/discord-tickets/bot/commit/6bbedee9f61c81420e3856bcc986ea35ff1c85b9))
+
+
+### Features
+
+* strip trailing slash rather than complaining about it ([be6a045](https://github.com/discord-tickets/bot/commit/be6a0459a6df8827fe37167ce11bd506ec79c95b))
+
+
+
 # [4.0.0](https://github.com/discord-tickets/bot/compare/v3.1.3...v4.0.0) (2023-05-30)
 
 
