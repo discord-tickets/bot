@@ -23,9 +23,14 @@ const env = {
 	ENCRYPTION_KEY: v =>
 		(!!v && v.length >= 48) ||
 		new Error('is required and must be at least 48 characters long; run "npm run keygen" to generate a key'),
-	HTTP_EXTERNAL: v =>
-		(!!v && v.startsWith('http') && !v.endsWith('/')) ||
-		new Error('must be a valid URL without a trailing slash'),
+	HTTP_EXTERNAL: v => {
+		if (v?.endsWith('/')) {
+			v = v.slice(0, -1);
+			process.env.HTTP_EXTERNAL = v;
+		}
+		return (!!v && v.startsWith('http')) ||
+			new Error('must be a valid URL without a trailing slash');
+	},
 	HTTP_HOST: v =>
 		(!!v && !v.startsWith('http')) ||
 		new Error('is required and must be an address, not a URL'),
@@ -49,6 +54,7 @@ const load = options => {
 			process.exit(1);
 		}
 	});
+	console.log(process.env.HTTP_EXTERNAL);
 };
 
 module.exports = {
