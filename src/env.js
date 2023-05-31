@@ -54,7 +54,6 @@ const load = options => {
 			process.exit(1);
 		}
 	});
-	console.log(process.env.HTTP_EXTERNAL);
 };
 
 module.exports = {
