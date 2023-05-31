@@ -7,14 +7,14 @@ services:
     hostname: mysql
     networks:
       - discord-tickets
-    volumes: 
+    volumes:
       - tickets-mysql:/var/lib/mysql
     environment:
       MYSQL_DATABASE: tickets
       MYSQL_PASSWORD: insecure # change this to a secure password
       MYSQL_ROOT_PASSWORD: insecure # change this to a (different) secure password
       MYSQL_USER: tickets
-  
+
   bot:
     image: eartharoid/discord-tickets:4.0
     depends_on:
@@ -40,10 +40,10 @@ services:
       HTTP_EXTERNAL: http://127.0.0.1:8169 # change this to your server's external IP (or domain)
       HTTP_HOST: 0.0.0.0
       HTTP_PORT: 8169
-      HTTP_TRUST_PROXY: false # set to true if you're using a reverse proxy
+      HTTP_TRUST_PROXY: "false" # set to true if you're using a reverse proxy
       OVERRIDE_ARCHIVE: null
-      PUBLIC_BOT: false
-      PUBLISH_COMMANDS: false
+      PUBLIC_BOT: "false"
+      PUBLISH_COMMANDS: "false"
       SUPER: 319467558166069248 # optionally add `,youruseridhere`
 
 networks:
