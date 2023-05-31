@@ -1,8 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-<a href="https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md">
- <img src="https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=flat-square"alt="All contributors">
-</a>
+[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Contributors ✨
@@ -45,6 +43,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/iNOEEL"><img src="https://avatars.githubusercontent.com/u/26775559?v=4?s=100" width="100px;" alt="Noel Horvath"/><br /><sub><b>Noel Horvath</b></sub></a><br /><a href="#translation-iNOEEL" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Gdanycz"><img src="https://avatars.githubusercontent.com/u/60316826?v=4?s=100" width="100px;" alt="Gdany"/><br /><sub><b>Gdany</b></sub></a><br /><a href="#translation-Gdanycz" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Chaosfelix4451"><img src="https://avatars.githubusercontent.com/u/46029764?v=4?s=100" width="100px;" alt="Chaosfelix4451"/><br /><sub><b>Chaosfelix4451</b></sub></a><br /><a href="#translation-Chaosfelix4451" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/GeckoBoy84"><img src="https://avatars.githubusercontent.com/u/67899387?v=4?s=100" width="100px;" alt="GeckoBoy84"/><br /><sub><b>GeckoBoy84</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/issues?q=author%3AGeckoBoy84" title="Bug reports">🐛</a> <a href="#ideas-GeckoBoy84" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-GeckoBoy84" title="Answering Questions">💬</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Manfred-exe"><img src="https://avatars.githubusercontent.com/u/81268335?v=4?s=100" width="100px;" alt="Manfred.exe"/><br /><sub><b>Manfred.exe</b></sub></a><br /><a href="#translation-Manfred-exe" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
