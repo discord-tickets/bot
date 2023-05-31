@@ -1,6 +1,6 @@
 {
 	"name": "discord-tickets",
-	"version": "4.0.0",
+	"version": "4.0.1-beta.0",
 	"private": "true",
 	"description": "An open-source Discord bot for ticket management",
 	"main": "src/",
