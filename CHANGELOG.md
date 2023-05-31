@@ -1,3 +1,12 @@
+## [4.0.2](https://github.com/discord-tickets/bot/compare/v4.0.1...v4.0.2) (2023-05-31)
+
+
+### Bug Fixes
+
+* remove unintentional `console.log()` ([797f851](https://github.com/discord-tickets/bot/commit/797f85153c16dab5c45a6b15af80291a89ac9792))
+
+
+
 ## [4.0.1](https://github.com/discord-tickets/bot/compare/v4.0.0...v4.0.1) (2023-05-31)
 
 
