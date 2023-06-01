@@ -31,8 +31,8 @@ commands:
     pin:
       name: Nachricht anheften
       not_pinnable:
-        description: "Diese Nachricht kann nicht angeheftet werden.\nBitte einen Administrator,\
-          \ die Berechtigungen des Bots zu überprüfen.\n"
+        description: "Diese Nachricht kann nicht angeheftet werden.\nBitte einen Administrator,
+          die Berechtigungen des Bots zu überprüfen.\n"
         title: ❌ Fehler
       not_ticket:
         description: Du kannst Nachrichten nur in Tickets anheften.
@@ -44,7 +44,7 @@ commands:
       name: Ticket aus Nachricht erstellen
   slash:
     add:
-      added: ➡️ {added} wurde von {by} hinzugefügt.
+      added: ➡️ {added} wurde von {by} zum Ticket hinzugefügt.
       not_staff:
         title: ❌ Fehler
         description: Nur Teammitglieder können Benutzer zu Tickets anderer hinzufügen.
@@ -87,7 +87,7 @@ commands:
         time:
           name: zeit
           description: Alle Tickets schließen, die für die angegebene Zeit inaktiv
-            waren (mit `Kategorie` verwendbar)
+            waren
         ticket:
           description: Das Ticket welches geschlossen werden soll
           name: ticket
@@ -99,11 +99,19 @@ commands:
         title: ❌ Fehler
         description: Nur Teammitglieder können Tickets zwangsweise abschliessen.
       confirm_multiple:
-        description: "Du bist dabei **{count}** Tickets zu schließen die länger als\
-          \ `{time}`:\n{tickets} inaktiv waren.\n"
+        description: "Du bist dabei **{count}** Tickets zu schließen die länger als
+          `{time}`:\n{tickets} inaktiv waren.\n"
         title: ❓Bist du dir sicher?
       description: Ticket zwangsweise schließen
       name: force-close
+      closed_one:
+        description: Das Ticket wird in ein paar Sekunden gelöscht.
+        title: ✅ Ticket geschlossen
+      confirmed_multiple:
+        description: Die Tickets werden in ein paar Sekunden gelöscht.
+        title:
+        - ✅ Schließe %d Tickets
+        - ✅ Schließe %d Tickets
     close:
       invalid_time:
         title: ❌ Ungültig
@@ -137,6 +145,7 @@ commands:
       name: übernehmen
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können Tickets übernehmen.
     priority:
       options:
         priority:
@@ -169,8 +178,8 @@ commands:
         fields:
           closed:
             none:
-              own: "Du hast noch keine Tickets erstellt\nBenutze {new} um ein Ticket\
-                \ zu öffnen.\n"
+              own: "Du hast noch keine Tickets erstellt\nBenutze {new} um ein Ticket
+                zu öffnen.\n"
               other: '{user} hat noch keine Tickets erstellt.'
             name: Geschlossene Tickets
           open:
@@ -204,6 +213,9 @@ commands:
           name: ticket
           description: Die Nummer des Tickets von welchem die Abschrift erstellt werden
             soll
+        member:
+          description: Das Mitglied, für das nach Tickets gesucht werden soll
+          name: mitglied
       description: Abschrift eines Tickets erhalten
     transfer:
       name: übertragen
@@ -231,6 +243,15 @@ commands:
   user:
     create:
       name: Erstelle Ticket für Benutzer
+      prompt:
+        description: Drücke auf die Schaltfläche unten, um ein Ticket zu erstellen.
+        title: Bitte erstelle ein Ticket
+      sent:
+        title: ✅ Prompt gesendet
+        description: '{user} wurde eingeladen, ein Ticket in **{category}** zu erstellen.'
+      not_staff:
+        title: ❌ Fehler
+        description: Nur Teammitglieder können Tickets für andere Mitglieder öffnen.
 log:
   admin:
     changes: Änderungen
@@ -287,8 +308,8 @@ misc:
       erstellst.
     title: ❌Bitte warten
   error:
-    description: "Entschuldigung, ein unerwarteter Fehler ist aufgetreten.\nBitte\
-      \ gib diese Informationen an einen Administrator weiter.\n"
+    description: "Entschuldigung, ein unerwarteter Fehler ist aufgetreten.\nBitte
+      gib diese Informationen an einen Administrator weiter.\n"
     fields:
       code: Fehlercode
       identifier: Kennung
@@ -304,8 +325,8 @@ misc:
     description:
     - Bitte verwende dein vorhandenes Ticket oder schließe es ab, bevor du ein neues
       erstellst.
-    - "Bitte schließe ein Ticket, bevor du ein neues erstellst.\nVerwende `/Tickets`,\
-      \ um deine bestehenden Tickets anzuzeigen.\n"
+    - "Bitte schließe ein Ticket, bevor du ein neues erstellst.\nVerwende `/Tickets`,
+      um deine bestehenden Tickets anzuzeigen.\n"
     title:
     - ❌ Du hast bereits ein Ticket
     - ❌ Du hast bereits %d offene Tickets
@@ -326,9 +347,13 @@ misc:
       Kategorie erstellen zu können.
     title: ❌ Unzureichende Rollen
   category_full:
-    description: "Die Kategorie hat ihre maximale Kapazität erreicht.\nBitte versuche\
-      \ es später erneut.\n"
+    description: "Die Kategorie hat ihre maximale Kapazität erreicht.\nBitte versuche
+      es später erneut.\n"
     title: ❌ Kategorie voll
+  update:
+    description: "> [`{version}` auf GitHub anzeigen]({github})\n> [Änderungsprotokoll]({changelog})\n
+      > [Anleitung aktualisieren]({guide})\n"
+    title: Eine Aktualisierung ist verfügbar
 modals:
   feedback:
     comment:
@@ -354,8 +379,8 @@ ticket:
     rejected: ✋ {user} hat eine Anfrage zum Schließen dieses Tickets abgelehnt.
     staff_request:
       title: ❓ Kann dieses Ticket geschlossen werden?
-      archived: "\nDie Nachrichten in diesem Kanal werden zum späteren Nachschlagen\
-        \ archiviert.\n"
+      archived: "\nDie Nachrichten in diesem Kanal werden zum späteren Nachschlagen
+        archiviert.\n"
       description: "{requestedBy} möchte dieses Ticket schließen.\nKlicke auf \"Akzeptieren\"\
         , um es jetzt zu schließen, oder auf \"Ablehnen\", wenn du noch Hilfe benötigst.\n"
     user_request:
@@ -386,6 +411,10 @@ ticket:
     title: ℹ️ Referenz
   claimed: 🙌 {user} hat dieses Ticket übernommen.
   released: ♻️ {user} hat das ticket freigegeben.
+  closing_soon:
+    title: ⌛ Dieses Ticket wird bald geschlossen
+    description: "Dieses Ticket wird wegen Inaktivität <t:{timestamp}:R> geschlossen.\n
+      Sende eine Nachricht, um diese Automatisierung abzubrechen.\n"
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
