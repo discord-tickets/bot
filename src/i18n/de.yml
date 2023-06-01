@@ -162,6 +162,7 @@ commands:
       description: Legt die Priorität eines Tickets fest
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können die Priorität von Tickets ändern.
     tickets:
       not_staff:
         title: ❌ Fehler
