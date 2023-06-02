@@ -36,6 +36,8 @@ commands:
         title: ✅ Закрепленное сообщение
       not_pinnable:
         title: ❌ Ошибка
+      not_ticket:
+        title: ❌ Это не канал тикета
   slash:
     close:
       invalid_time:
@@ -43,6 +45,9 @@ commands:
       options:
         reason:
           name: причина
+          description: Причина закрытия тикета
+      name: закрыть
+      description: Запросить закрытие тикета
     force-close:
       confirm_multiple:
         title: ❓ Вы уверены?
@@ -52,6 +57,9 @@ commands:
           name: категория
       not_staff:
         title: ❌ Ошибка
+        description: Только администраторы могут принудительно закрывать тикеты.
+      no_tickets:
+        title: ❌Тикетов нет
     add:
       added: ➡️ {added} был добавлен пользователем {by}.
       description: Добавить участника в тикет
@@ -60,3 +68,10 @@ commands:
       options:
         member:
           description: Участник, которого нужно добавить в тикет
+          name: участник
+        ticket:
+          name: тикет
+      name: добавить
+    claim:
+      description: Взять тикет
+      name: взять
