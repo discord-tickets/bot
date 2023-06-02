@@ -423,6 +423,10 @@ ticket:
   offline:
     description: Momentan sind keine Teammitglieder verfügbar, daher kann es länger
       als gewöhnlich dauern, bis Sie eine Antwort erhalten.
+  working_hours:
+    next:
+      description: Wir werden um <t:{timestamp}:F> (<t:{timestamp}:R>) zurück sein,
+        Sie erhalten möglicherweise aber schon vorher eine Antwort.
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
