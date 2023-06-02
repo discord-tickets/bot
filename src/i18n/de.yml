@@ -416,6 +416,10 @@ ticket:
     title: ⌛ Dieses Ticket wird bald geschlossen
     description: "Dieses Ticket wird wegen Inaktivität <t:{timestamp}:R> geschlossen.\n
       Sende eine Nachricht, um diese Automatisierung abzubrechen.\n"
+  inactive:
+    description: "Seit <t:{timestamp}:R> gab es in diesem Kanal keine Aktivität mehr.\n
+      Bitte führe das Gespräch fort oder {close} das Ticket.\n"
+    title: ⏰ Dieses Ticket ist inaktiv
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
