@@ -422,7 +422,8 @@ ticket:
     title: ⏰ Dieses Ticket ist inaktiv
   offline:
     description: Momentan sind keine Teammitglieder verfügbar, daher kann es länger
-      als gewöhnlich dauern, bis Sie eine Antwort erhalten.
+      als gewöhnlich dauern, um eine Antwort erhalten.
+    title: 😴 Wir sind nicht online
   working_hours:
     next:
       description: Wir werden um <t:{timestamp}:F> (<t:{timestamp}:R>) zurück sein,
