@@ -31,3 +31,32 @@ commands:
       name: Создать тикет из сообщения
     pin:
       name: Закрепить сообщение
+      pinned:
+        description: Сообщение закреплено.
+        title: ✅ Закрепленное сообщение
+      not_pinnable:
+        title: ❌ Ошибка
+  slash:
+    close:
+      invalid_time:
+        description: '`{input}` не является допустимым форматом времени.'
+      options:
+        reason:
+          name: причина
+    force-close:
+      confirm_multiple:
+        title: ❓ Вы уверены?
+      description: Принудительно закрыть тикет
+      options:
+        category:
+          name: категория
+      not_staff:
+        title: ❌ Ошибка
+    add:
+      added: ➡️ {added} был добавлен пользователем {by}.
+      description: Добавить участника в тикет
+      not_staff:
+        title: ❌ Ошибка
+      options:
+        member:
+          description: Участник, которого нужно добавить в тикет
