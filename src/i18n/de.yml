@@ -420,6 +420,9 @@ ticket:
     description: "Seit <t:{timestamp}:R> gab es in diesem Kanal keine Aktivität mehr.\n
       Bitte führe das Gespräch fort oder {close} das Ticket.\n"
     title: ⏰ Dieses Ticket ist inaktiv
+  offline:
+    description: Momentan sind keine Teammitglieder verfügbar, daher kann es länger
+      als gewöhnlich dauern, bis Sie eine Antwort erhalten.
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
