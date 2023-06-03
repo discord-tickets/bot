@@ -102,7 +102,7 @@ There are 3 ways to get started with Discord Tickets:
 
 Discord Tickets is made possible by these awesome people and organisations:
 
-![Sponsors](https://cdn.jsdelivr.net/gh/eartharoid/sponsors/sponsorkit/sponsors.svg)
+![Sponsors](https://cdn.jsdelivr.net/gh/eartharoid/sponsors/sponsorkit/sponsors-wide.svg)
 
 Please consider sponsoring the project if it adds value to your business/community.
 
