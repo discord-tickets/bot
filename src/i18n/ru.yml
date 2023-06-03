@@ -46,6 +46,7 @@ commands:
     close:
       invalid_time:
         description: '`{input}` не является допустимым форматом времени.'
+        title: ❌ Неправильно
       options:
         reason:
           name: причина
@@ -61,6 +62,8 @@ commands:
       options:
         category:
           name: категория
+          description: Закрыть все тикеты в указанной категории (должно быть использовано
+            с `time`)
         reason:
           description: Причина закрытия тикета(ов)
           name: причина
@@ -80,7 +83,7 @@ commands:
       confirmed_multiple:
         description: Каналы будут удалены через несколько секунд.
         title:
-        - 
+        - ✅ Закрытие тикета %d
         - ✅ Закрытие %d тикет(-ов)
       closed_one:
         description: Канал будет удален через несколько секунд.
@@ -90,13 +93,18 @@ commands:
       description: Добавить участника в тикет
       not_staff:
         title: ❌ Ошибка
+        description: Только администраторы могут добавлять участников в чужие тикеты.
       options:
         member:
           description: Участник, которого нужно добавить в тикет
           name: участник
         ticket:
           name: тикет
+          description: Тикет, в который нужно добавить участника
       name: добавить
+      success:
+        description: '{member} был добавлен в {ticket}.'
+        title: ✅ Добавлен
     claim:
       description: Взять тикет
       name: взять
