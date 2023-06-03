@@ -1,6 +1,6 @@
 buttons:
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Abbrechen
   close:
     emoji: ✖️
@@ -131,7 +131,7 @@ commands:
           description: Die Kategorie in welche das Ticket verschoben werden soll
           name: kategorie
       not_staff:
-        description: Nur Mitarbeiter können Tickets verschieben.
+        description: Nur Teammitglieder können Tickets verschieben.
         title: ❌ Fehler
     new:
       name: neu
@@ -189,7 +189,8 @@ commands:
       description: Eigene oder fremde Tickets auflisten
     remove:
       not_staff:
-        description: Nur Mitarbeiter können Mitglieder aus den Tickets anderer entfernen.
+        description: Nur Teammitglieder können Mitglieder aus den Tickets anderer
+          entfernen.
         title: ❌ Fehler
       options:
         member:
@@ -232,7 +233,7 @@ commands:
       options:
         for:
           name: für
-          description: Der Benutzer, an den das Tag gerichtet werden soll
+          description: Der Benutzer, an den der Tag gerichtet werden soll
         tag:
           name: tag
           description: Der Name des zu verwendenden Tags
@@ -427,7 +428,12 @@ ticket:
   working_hours:
     next:
       description: Wir werden um <t:{timestamp}:F> (<t:{timestamp}:R>) zurück sein,
-        Sie erhalten möglicherweise aber schon vorher eine Antwort.
+        du erhältst aber möglicherweise schon vorher eine Antwort.
+      title: 🕗 Wir arbeiten im Moment nicht
+    today:
+      title: 🕗 Wir arbeiten im Moment nicht
+      description: Möglicherweise erhältst du schon vorher eine Antwort, aber wir
+        beginnen erst um <t:{timestamp}:t> heute (<t:{timestamp}:R>) mit der Arbeit.
 dm:
   closed:
     title: Dein Ticket wurde geschlossen
