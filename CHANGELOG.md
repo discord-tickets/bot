@@ -1,3 +1,30 @@
+## [4.0.3](https://github.com/discord-tickets/bot/compare/v4.0.2...v4.0.3) (2023-06-05)
+
+
+### Bug Fixes
+
+* changelog URL ([562e6b8](https://github.com/discord-tickets/bot/commit/562e6b874db3aebfa346aa0eb33ae1c5097a2aa8))
+
+
+### Features
+
+* **i18n:** update German translations [skip ci] ([b0063e2](https://github.com/discord-tickets/bot/commit/b0063e261989538f48d48dad4cbfb3bc666d8523))
+* **i18n:** update German translations [skip ci] ([e32f239](https://github.com/discord-tickets/bot/commit/e32f2399bc2a73b402bb19f714416538811208e8))
+* **i18n:** update German translations [skip ci] ([98d7029](https://github.com/discord-tickets/bot/commit/98d7029483fe4bbea6d610f0ec9a83be18885319))
+* **i18n:** update German translations [skip ci] ([e68ece2](https://github.com/discord-tickets/bot/commit/e68ece2207526cca44012d2469c7f622744bc321))
+* **i18n:** update German translations [skip ci] ([a1f575e](https://github.com/discord-tickets/bot/commit/a1f575ebbd1943a6cfc7c9bd5467af33a93c5727))
+* **i18n:** update German translations [skip ci] ([3bfe8b5](https://github.com/discord-tickets/bot/commit/3bfe8b5bbc2165d5b495c233eea82d25722542f5))
+* **i18n:** update German translations [skip ci] ([dc60c8b](https://github.com/discord-tickets/bot/commit/dc60c8b3bc7bacd516416fe8c4113c8b8662a348))
+* **i18n:** update Russian translations [skip ci] ([a3ae81e](https://github.com/discord-tickets/bot/commit/a3ae81ee77ae175107abcc4a417af844da7b04a4))
+* **i18n:** update Russian translations [skip ci] ([f5c7b43](https://github.com/discord-tickets/bot/commit/f5c7b431bad7118da5361b0be9e0060029b809dd))
+* **i18n:** update Russian translations [skip ci] ([164ecb5](https://github.com/discord-tickets/bot/commit/164ecb550fa111e407ec317f8031e56d813aec92))
+* **i18n:** update Russian translations [skip ci] ([e53013c](https://github.com/discord-tickets/bot/commit/e53013cffb6df3af663d1e873661ddce7867da28))
+* **i18n:** update Russian translations [skip ci] ([1a44797](https://github.com/discord-tickets/bot/commit/1a447972e56d36af9876474d0c6f7fa1529a29d2))
+* **i18n:** update Russian translations [skip ci] ([604abe6](https://github.com/discord-tickets/bot/commit/604abe67b8367559998dd72783728f945b29f127))
+* **i18n:** update Russian translations [skip ci] ([a5e7105](https://github.com/discord-tickets/bot/commit/a5e7105a5fbdfa72c12b311bc7838ab8be331863))
+
+
+
 ## [4.0.2](https://github.com/discord-tickets/bot/compare/v4.0.1...v4.0.2) (2023-05-31)
 
 
