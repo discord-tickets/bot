@@ -168,7 +168,7 @@ module.exports = class extends Listener {
 						],
 					});
 				} else if ($.closeAt < Date.now()) {
-					client.tickets.finallyClose(ticketId, $.reason);
+					client.tickets.finallyClose(ticketId, $);
 				}
 			}
 
