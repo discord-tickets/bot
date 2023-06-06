@@ -78,7 +78,7 @@ commands:
         title: ❌ Ошибка
         description: Только администраторы могут принудительно закрывать тикеты.
       no_tickets:
-        title: ❌Тикетов нет
+        title: ❌ Тикетов нет
         description: Нет открытых тикетов, которые были неактивны более `{time}`.
       confirmed_multiple:
         description: Каналы будут удалены через несколько секунд.
@@ -304,7 +304,7 @@ log:
       update: обновлен
       unclaim: отказался
     added: Добавлены участники
-    description: '{user} {verb} тикет'
+    description: 'Тикет {verb} {user}'
     title: Тикет {verb}
     removed: Удалены участники
     ticket: Тикет
@@ -412,7 +412,7 @@ ticket:
     title: ✅ Тикет обновлен
   feedback: Спасибо за ваш отзыв.
   inactive:
-    description: "На этом канале не было никаких действий с момента <t:{timestamp}:R>.\n
+    description: "На этом канале не было никакой активности с момента <t:{timestamp}:R>.\n
       Пожалуйста, продолжайте обсуждение или {close} тикет.\n"
     title: ⏰ Этот тикет неактивен
   offline:
