@@ -68,7 +68,7 @@ module.exports = client => {
 										name: latestRelease.author.login,
 									})
 									.setTitle(getMessage('misc.update.title'))
-									.setDescription(getMessage('misc.update.fields.links.value', {
+									.setDescription(getMessage('misc.update.description', {
 										changelog,
 										github: latestRelease.html_url,
 										guide,
