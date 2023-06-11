@@ -16,6 +16,11 @@
 		"studio": "npx prisma studio",
 		"test": "echo \"There's nothing to test\" && exit 1"
 	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
 	"lint-staged": {
 		"**/*.js": [
 			"npm run lint --"
