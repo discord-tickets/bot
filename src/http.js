@@ -122,7 +122,11 @@ module.exports = async client => {
 			: responseTime >= 10
 				? '&e'
 				: '&a') + responseTime + 'ms';
-		const level = req.routerPath === '/*' ? 'verbose' : 'info';
+		const level = req.routerPath === '/status'
+			? 'debug'
+			:  req.routerPath === '/*'
+				? 'verbose'
+				: 'info';
 		client.log[level].http(short(`${req.id} ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
 		if (!req.routerPath) client.log.verbose.http(`${req.id} ${req.method} ${req.url}`);
 		done();
