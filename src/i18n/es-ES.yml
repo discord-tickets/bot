@@ -1,1 +1,136 @@
-{}
+commands:
+  slash:
+    add:
+      options:
+        ticket:
+          name: ticket
+          description: El ticket para añadir el miembro a
+        member:
+          description: El miembro a añadir al ticket
+          name: miembro
+      added: ➡️ {added} ha sido añadido por {by}.
+      description: Añadir un miembro a un ticket
+      name: añadir
+      not_staff:
+        description: Solo los miembros del staff pueden añadir miembros a los tickets
+          de otros.
+        title: ❌ Error
+      success:
+        description: '{member} se ha añadido a {ticket}.'
+        title: ✅ Añadido
+    help:
+      response:
+        links:
+          feedback: Feedback
+          commands: Lista completa de comandos
+          docs: Documentación
+          links: Links de interés
+          support: Soporte
+        commands: Comandos
+        description: '**Utiliza {command} para crear un ticket y recibir ayuda.**'
+        settings: Configuración del bot
+      description: Mostrar el menú de ayuda
+      name: ayuda
+      title: Ayuda
+    force-close:
+      closed_one:
+        description: El canal se eliminará en unos segundos.
+        title: ✅ Ticket cerrado
+      description: Cerrar forzosamente un ticket
+      no_tickets:
+        description: No hay tickets abiertos que hayan estado inactivos por más de
+          `{time}`.
+        title: ❌ Sin tickets
+      confirm_multiple:
+        description: "Está a punto de cerrar **{count}** tickets que han estado inactivos
+          por más de `{time}`:\n{tickets}\n"
+        title: ❓ ¿Estás seguro?
+      confirmed_multiple:
+        description: Los canales se borrarán en unos segundos.
+        title:
+        - ✅ Cerrando %d ticket
+        - ✅ Cerrando %d tickets
+      name: forzar-cierre
+      not_staff:
+        title: ❌ Error
+        description: Solo los miembros del staff pueden forzar el cierre de tickets.
+      options:
+        category:
+          name: categoría
+          description: Cerrar todos los tickets en la categoría especificada (debe
+            usarse con `tiempo`)
+        reason:
+          description: El motivo para cerrar el/los ticket(s)
+          name: motivo
+        ticket:
+          description: El ticket a cerrar
+          name: ticket
+        time:
+          description: Cerrar todos los tickets que han estado inactivos durante el
+            tiempo especificado
+          name: tiempo
+    move:
+      not_staff:
+        description: Solo los miembros del staff pueden mover tickets.
+        title: ❌ Error
+      description: Mover un ticket a otra categoría
+      name: mover
+      moved: 🗃️ {by} ha movido este ticket de **{from}** a **{to}**.
+    claim:
+      description: Reclamar un ticket
+      name: reclamar
+      not_staff:
+        description: Solo los miembros del staff pueden reclamar tickets.
+        title: ❌ Error
+    close:
+      description: Solicitar cerrar un ticket
+      invalid_time:
+        description: '`{input}` no es un formato de hora válido.'
+        title: ❌ Inválido
+      name: cerrar
+      options:
+        reason:
+          description: El motivo para cerrar el ticket
+          name: motivo
+  message:
+    create:
+      name: Crear ticket desde mensaje
+    pin:
+      name: Fijar mensaje
+      not_pinnable:
+        description: "Este mensaje no se puede fijar.\nSolicite a un administrador
+          que verifique los permisos del bot.\n"
+        title: ❌ Error
+      not_ticket:
+        description: Solo puedes anclar mensajes en tickets.
+        title: ❌ Este no es un canal de tickets
+      pinned:
+        description: El mensaje ha sido fijado.
+        title: ✅ Mensaje fijado
+buttons:
+  confirm_open:
+    text: Crear ticket
+    emoji: ✅
+  accept_close_request:
+    text: Aceptar
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: Cancelar
+  claim:
+    emoji: 🙌
+    text: Reclamar
+  close:
+    emoji: ✖️
+    text: Cerrar
+  create:
+    emoji: 🎫
+    text: Crear un ticket
+  edit:
+    emoji: ✏️
+    text: Editar
+  reject_close_request:
+    emoji: ✖️
+    text: Rechazar
+  unclaim:
+    emoji: ♻️
