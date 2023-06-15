@@ -46,7 +46,7 @@
 	},
 	"dependencies": {
 		"@discord-tickets/settings": "^2.1.4",
-		"@eartharoid/dbf": "^0.4.0",
+		"@eartharoid/dbf": "^0.4.1",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
 		"@fastify/cookie": "^6.0.0",
