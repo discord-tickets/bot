@@ -14,7 +14,8 @@ RUN CI=true pnpm install --prod --frozen-lockfile
 COPY --link . .
 
 FROM node:18-alpine AS runner
-RUN adduser --disabled-password --home /home/container container
+RUN apk --no-cache add curl \
+	adduser --disabled-password --home /home/container container
 USER container
 ENV USER=container \
 	HOME=/home/container \
