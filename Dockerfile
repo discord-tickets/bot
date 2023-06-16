@@ -15,7 +15,7 @@ COPY --link . .
 
 FROM node:18-alpine AS runner
 RUN apk --no-cache add curl \
-	adduser --disabled-password --home /home/container container
+	&& adduser --disabled-password --home /home/container container
 USER container
 ENV USER=container \
 	HOME=/home/container \
