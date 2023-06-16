@@ -2,7 +2,7 @@
 	"name": "discord-tickets",
 	"version": "4.0.3",
 	"private": "true",
-	"description": "An open-source Discord bot for ticket management",
+	"description": "The most popular open-source ticket management bot for Discord.",
 	"main": "src/",
 	"scripts": {
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
