@@ -1,6 +1,5 @@
 const { logAdminEvent } = require('../../../../../../../lib/logging');
 const { updateStaffRoles } = require('../../../../../../../lib/users');
-const { randomUUID } = require('crypto');
 const { ApplicationCommandPermissionType } = require('discord.js');
 
 module.exports.delete = fastify => ({
@@ -128,14 +127,11 @@ module.exports.patch = fastify => ({
 			data: {
 				...data,
 				questions: {
-					upsert: data.questions?.map(q => {
-						if (!q.id) q.id = randomUUID();
-						return {
-							create: q,
-							update: q,
-							where: { id: q.id },
-						};
-					}),
+					upsert: data.questions?.map(q => ({
+						create: q,
+						update: q,
+						where: { id: q.id },
+					})),
 				},
 			},
 			select,
