@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@discord-tickets/settings':
-    specifier: ^2.1.4
-    version: 2.1.4(svelte@3.59.1)
+    specifier: ^2.1.6
+    version: 2.1.6(svelte@3.59.1)
   '@eartharoid/dbf':
     specifier: ^0.4.1
     version: 0.4.1(bufferutil@4.0.7)(utf-8-validate@5.0.10)
@@ -333,8 +333,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@discord-tickets/settings@2.1.4(svelte@3.59.1):
-    resolution: {integrity: sha512-eABoWIOPLh8gdCRN9QfzFl7Nl9l0rVWthOQyawcbrdrmsSt1rKveNZ1aAZftJ9z8JvJMIacDRQurxVbb18/Wjg==}
+  /@discord-tickets/settings@2.1.6(svelte@3.59.1):
+    resolution: {integrity: sha512-9x4UMbqqnHnnpLU4TvlZu3L855i/GxrlvioYf3NGil/NoGsQbd0vtis/RuI/E8sGKS8VOjJOv9TkEvB2tmvXqw==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.4.0
       '@skyra/discord-components-core': 3.6.0
@@ -346,6 +346,7 @@ packages:
       sortablejs: 1.15.0
       svelte-modals: 1.2.1(svelte@3.59.1)
       svelte-toasts: 1.1.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - svelte
     dev: false
@@ -3873,6 +3874,11 @@ packages:
     deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
     hasBin: true
     dev: true
+
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
