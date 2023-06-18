@@ -61,12 +61,13 @@ if (!fs.existsSync('./user/config.yml')) {
 const config = YAML.parse(fs.readFileSync('./user/config.yml', 'utf8'));
 const log = logger(config);
 
-process.on('unhandledRejection', error => {
+process.on('uncaughtException', (error, origin) => {
 	log.notice(`Discord Tickets v${pkg.version} on Node.js ${process.version} (${process.platform})`);
-	log.notice('An error was not caught');
-	if (error instanceof Error) log.warn(`Uncaught ${error.name}`);
+	log.warn(origin === 'uncaughtException' ? 'Uncaught exception' : 'Unhandled promise rejection' + ` (${error.name})`);
 	log.error(error);
 });
+
+process.on('warning', warning => log.warn(warning.stack));
 
 const client = new Client(config, log);
 client.login().then(() => {
