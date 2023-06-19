@@ -1,3 +1,41 @@
+## [4.0.4](https://github.com/discord-tickets/bot/compare/v4.0.3...v4.0.4) (2023-06-19)
+
+
+### Bug Fixes
+
+* auto closing tickets ([24360e4](https://github.com/discord-tickets/bot/commit/24360e4dcd362c525344cbb6ce2910be2b2b5ed2))
+* **docker:** && I am dumb ([42af824](https://github.com/discord-tickets/bot/commit/42af8241f94b112ebbdb99984476222ee8d64362))
+* **docker:** change file ownership ([516c45f](https://github.com/discord-tickets/bot/commit/516c45f9abc531ce15123f77d479eac026a96211))
+* **docker:** install `curl` for healthcheck ([11ec0ff](https://github.com/discord-tickets/bot/commit/11ec0ff7e62252c46071aa80a007a94c16cf6061))
+* **docker:** maybe there was a reason for that extra line ([ed0457a](https://github.com/discord-tickets/bot/commit/ed0457a0e9a718a0608a1f59adc5c4276046c93f))
+* **docker:** update compose file with new path [skip ci] ([d77d37c](https://github.com/discord-tickets/bot/commit/d77d37cf9e234e826178f34ebb50681b4e8bf899))
+* **i18n:** rename `es` to `es-ES` ([fa8d159](https://github.com/discord-tickets/bot/commit/fa8d159435ea04204ab923e07ee5f804a215bdb8))
+* remove unnecessary code for updating questions ([6e5ccd1](https://github.com/discord-tickets/bot/commit/6e5ccd118def5e1efd76cc3cf70fb62f11119408))
+* update notification ([2cfcdba](https://github.com/discord-tickets/bot/commit/2cfcdbaac81a85ff0c8e2588182cd2a26227ed1a))
+
+
+### Features
+
+* **docker:** add non-root user, labels, and healthcheck (closes [#433](https://github.com/discord-tickets/bot/issues/433)) ([bd42781](https://github.com/discord-tickets/bot/commit/bd427818789a1a26109d9bb8c03b5ef107feecec))
+* **i18n:** add Spanish translations [skip ci] ([faddacc](https://github.com/discord-tickets/bot/commit/faddacc6dfa0e29dd6409c437e19a4fe0807d62e))
+* **i18n:** add Spanish translations [skip ci] ([3c57130](https://github.com/discord-tickets/bot/commit/3c571304c3c490fa512aeb7595d87795471311e0))
+* **i18n:** remove Spanish translations [skip ci] ([7232e56](https://github.com/discord-tickets/bot/commit/7232e567290ca6894550bc5d364a54a99c392ef2))
+* **i18n:** update Russian translations [skip ci] ([f995589](https://github.com/discord-tickets/bot/commit/f9955896273283d4e9c92936661fad9893252ce8))
+* **i18n:** update Spanish translations [skip ci] ([0bbed13](https://github.com/discord-tickets/bot/commit/0bbed13560705990947666f5267a5dc5b397e4a3))
+
+
+### Performance Improvements
+
+* **docker:** add `.git` to `.dockerignore` ([4de509c](https://github.com/discord-tickets/bot/commit/4de509cd1b9d7765360a90d9786211615fad007c))
+* **sqlite:** synchronous=normal  ([5895b3d](https://github.com/discord-tickets/bot/commit/5895b3dd6e1b953c80d122cd82056272cb316437))
+
+
+### Reverts
+
+* weblate didn't like that ([d5eff28](https://github.com/discord-tickets/bot/commit/d5eff28b8813cfc5bc7ff356fc4ebe0d000ba11b))
+
+
+
 ## [4.0.3](https://github.com/discord-tickets/bot/compare/v4.0.2...v4.0.3) (2023-06-05)
 
 
