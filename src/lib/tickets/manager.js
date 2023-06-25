@@ -420,8 +420,6 @@ module.exports = class TicketManager {
 			topic: `${creator}${topic?.length > 0 ? ` | ${topic}` : ''}`,
 		});
 
-		if (category.image) await channel.send(category.image);
-
 		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime)\s?}+/i.test(category.openingMessage);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
@@ -459,6 +457,8 @@ module.exports = class TicketManager {
 						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime),
 				),
 		];
+
+		if (category.image) embeds[0].setImage(category.image);
 
 		if (answers) {
 			embeds.push(
