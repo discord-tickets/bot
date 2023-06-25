@@ -52,8 +52,21 @@ module.exports = class Client extends FrameworkClient {
 	}
 
 	async login(token) {
+		const levels = ['error', 'info', 'warn'];
+		if (this.config.logs.level === 'debug') levels.push('query');
+
 		/** @type {PrismaClient} */
-		this.prisma = new PrismaClient();
+		this.prisma = new PrismaClient({
+			log: levels.map(level => ({
+				emit: 'event',
+				level,
+			})),
+		});
+
+		this.prisma.$on('error', e => this.log.error.prisma(`${e.target} ${e.message}`));
+		this.prisma.$on('info', e => this.log.info.prisma(`${e.target} ${e.message}`));
+		this.prisma.$on('warn', e => this.log.warn.prisma(`${e.target} ${e.message}`));
+		this.prisma.$on('query', e => this.log.debug.prisma(e));
 
 		if (process.env.DB_PROVIDER === 'sqlite') {
 			// rewrite queries that use unsupported features

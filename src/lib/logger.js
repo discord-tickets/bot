@@ -58,6 +58,7 @@ module.exports = config => {
 			'listeners',
 			'menus',
 			'modals',
+			'prisma',
 			'settings',
 			'tickets',
 		],
