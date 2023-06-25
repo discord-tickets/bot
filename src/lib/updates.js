@@ -31,7 +31,7 @@ module.exports = client => {
 				if (currentRelease === -1) return client.log.warn('Failed to find current release');
 				const behind = currentRelease;
 				currentRelease = releases[currentRelease];
-				const changelog = `https://discordtickets.app/changelogs/v${latestVersion.replaceAll('.', '-') }/`;
+				const changelog = `https://discordtickets.app/changelogs/v${latestVersion}/`;
 				const guide = 'https://discordtickets.app/self-hosting/updating/';
 				const { default: boxen } = await import('boxen');
 
