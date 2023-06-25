@@ -1,3 +1,26 @@
+## [4.0.5](https://github.com/discord-tickets/bot/compare/v4.0.4...v4.0.5) (2023-06-25)
+
+
+### Bug Fixes
+
+* editing question answers in a category with `customTopic` set ([47fc7bd](https://github.com/discord-tickets/bot/commit/47fc7bde4333c7e5533e7b4d4015d1a89a199d07))
+* encrypt topic ([502f488](https://github.com/discord-tickets/bot/commit/502f48866ade95721400393ca15c196ac8428ca5))
+* send image in embed (closes [#441](https://github.com/discord-tickets/bot/issues/441)) ([48902f8](https://github.com/discord-tickets/bot/commit/48902f8131b01d84cff1cf9ead77aae8b5611288))
+
+
+### Features
+
+* add prisma logging ([3b5e58c](https://github.com/discord-tickets/bot/commit/3b5e58c1fed1fd8aa18c4dd461572cbdf682c195))
+* improve error handling ([e8b95a2](https://github.com/discord-tickets/bot/commit/e8b95a2f3149fab08ed3c927f771d8ee4fad9d04))
+* new `suid-time` stdin command ([ff8e666](https://github.com/discord-tickets/bot/commit/ff8e66638a56f437ed31032d799498483d185543))
+
+
+### Performance Improvements
+
+* **sqlite:** run `optimize` every 6h ([8971c0a](https://github.com/discord-tickets/bot/commit/8971c0ad13c287eb21c7a63341dd5c48c1b6ed06))
+
+
+
 ## [4.0.4](https://github.com/discord-tickets/bot/compare/v4.0.3...v4.0.4) (2023-06-19)
 
 
