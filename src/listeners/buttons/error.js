@@ -3,6 +3,7 @@ const {
 	EmbedBuilder,
 	codeBlock,
 } = require('discord.js');
+const { getSUID } = require('../../lib/logging');
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -18,7 +19,7 @@ module.exports = class extends Listener {
 		error,
 		interaction,
 	}) {
-		const ref = require('crypto').randomUUID();
+		const ref = getSUID();
 		this.client.log.error.buttons(ref);
 		this.client.log.error.buttons(`"${button.id}" button execution error:`, error);
 		let locale = null;
@@ -39,7 +40,7 @@ module.exports = class extends Listener {
 					.addFields([
 						{
 							name: getMessage('misc.error.fields.identifier'),
-							value: codeBlock(ref),
+							value: codeBlock('             ' + ref + '             '),
 						},
 					]),
 			],

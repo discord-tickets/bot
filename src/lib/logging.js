@@ -3,6 +3,11 @@ const {
 	EmbedBuilder,
 } = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
+const ShortUniqueId = require('short-unique-id');
+
+const uid = new ShortUniqueId();
+
+const getSUID = () => uid.stamp(10);
 
 const uuidRegex = /[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/g;
 
@@ -235,6 +240,7 @@ async function logMessageEvent(client, {
 
 module.exports = {
 	getLogChannel,
+	getSUID,
 	logAdminEvent,
 	logMessageEvent,
 	logTicketEvent,

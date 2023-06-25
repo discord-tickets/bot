@@ -9,19 +9,19 @@ module.exports = class extends Listener {
 	constructor(client, options) {
 		super(client, {
 			...options,
-			emitter: client.commands,
+			emitter: client.menus,
 			event: 'error',
 		});
 	}
 
 	async run({
-		command,
+		menu,
 		error,
 		interaction,
 	}) {
 		const ref = getSUID();
-		this.client.log.error.commands(ref);
-		this.client.log.error.commands(`"${command.name}" command execution error:`, error);
+		this.client.log.error.menus(ref);
+		this.client.log.error.menus(`"${menu.id}" menu execution error:`, error);
 		let locale = null;
 		if (interaction.guild) {
 			locale = (await this.client.prisma.guild.findUnique({
