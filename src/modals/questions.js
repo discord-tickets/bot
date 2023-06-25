@@ -65,7 +65,7 @@ module.exports = class QuestionsModal extends Modal {
 							where: { id: Number(f.customId) },
 						})),
 					},
-					topic,
+					topic: topic ? encrypt(topic) : null,
 				},
 				select,
 				where: { id: interaction.channel.id },
