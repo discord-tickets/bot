@@ -17,14 +17,16 @@ module.exports = class Client extends FrameworkClient {
 	constructor(config, log) {
 		super({
 			intents: [
-				GatewayIntentBits.DirectMessages,
-				GatewayIntentBits.DirectMessageReactions,
-				GatewayIntentBits.DirectMessageTyping,
-				GatewayIntentBits.MessageContent,
-				GatewayIntentBits.Guilds,
-				GatewayIntentBits.GuildMembers,
-				GatewayIntentBits.GuildMessages,
-				GatewayIntentBits.GuildPresences,
+				...[
+					GatewayIntentBits.DirectMessages,
+					GatewayIntentBits.DirectMessageReactions,
+					GatewayIntentBits.DirectMessageTyping,
+					GatewayIntentBits.MessageContent,
+					GatewayIntentBits.Guilds,
+					GatewayIntentBits.GuildMembers,
+					GatewayIntentBits.GuildMessages,
+				],
+				...(process.env.PUBLIC_BOT !== 'true' ? [GatewayIntentBits.GuildPresences] : []),
 			],
 			partials: [
 				Partials.Channel,
