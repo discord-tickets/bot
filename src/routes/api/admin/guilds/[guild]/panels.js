@@ -83,9 +83,9 @@ module.exports.post = fastify => ({
 							action: 'create',
 							target: categories[0].id,
 						}))
-						.setStyle(Primary)
-						.setLabel(getMessage('buttons.create.text'))
-						.setEmoji(getMessage('buttons.create.emoji')),
+						.setStyle(Secondary)
+						.setLabel(categories[0].name)
+						.setEmoji(emoji.hasEmoji(categories[0].emoji) ? emoji.get(categories[0].emoji) : { id: categories[0].emoji }),
 				);
 			} else if (data.type === 'BUTTON') {
 				components.push(
