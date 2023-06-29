@@ -2,7 +2,6 @@ const {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle: {
-		Primary,
 		Secondary,
 	},
 	ChannelType: { GuildText },
