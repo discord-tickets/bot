@@ -1,3 +1,14 @@
+## [4.0.6](https://github.com/discord-tickets/bot/compare/v4.0.5...v4.0.6) (2023-07-02)
+
+
+### Bug Fixes
+
+* disable presence check on public bots ([ca09070](https://github.com/discord-tickets/bot/commit/ca09070c6681cc8815572d5b0c127ac34817ecb7))
+* disable presence intent on public bots ([c7d9bbf](https://github.com/discord-tickets/bot/commit/c7d9bbff53ce1e3e5151f0732653ab5e671a3743))
+* use new changelog URL ([e8bf45a](https://github.com/discord-tickets/bot/commit/e8bf45a9a44ffe2f928bccbfe8189736072913fa))
+
+
+
 ## [4.0.5](https://github.com/discord-tickets/bot/compare/v4.0.4...v4.0.5) (2023-06-25)
 
 
