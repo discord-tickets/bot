@@ -9,7 +9,7 @@ commands:
           description: El miembro a añadir al ticket
           name: miembro
       added: ➡️ {added} ha sido añadido por {by}.
-      description: Añadir un miembro a un ticket
+      description: Añadir una persona a un ticket
       name: añadir
       not_staff:
         description: Solo los miembros del staff pueden añadir miembros a los tickets
@@ -76,6 +76,10 @@ commands:
       description: Mover un ticket a otra categoría
       name: mover
       moved: 🗃️ {by} ha movido este ticket de **{from}** a **{to}**.
+      options:
+        category:
+          name: categoría
+          description: La categoría a donde mover el ticket
     claim:
       description: Reclamar un ticket
       name: reclamar
@@ -92,6 +96,9 @@ commands:
         reason:
           description: El motivo para cerrar el ticket
           name: motivo
+    new:
+      description: Crear un nuevo ticket
+      name: nuevo
   message:
     create:
       name: Crear ticket desde mensaje
@@ -103,7 +110,7 @@ commands:
         title: ❌ Error
       not_ticket:
         description: Solo puedes anclar mensajes en tickets.
-        title: ❌ Este no es un canal de tickets
+        title: ❌ Esto no es un canal de tickets
       pinned:
         description: El mensaje ha sido fijado.
         title: ✅ Mensaje fijado
@@ -134,3 +141,4 @@ buttons:
     text: Rechazar
   unclaim:
     emoji: ♻️
+    text: Liberar
