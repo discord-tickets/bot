@@ -45,7 +45,7 @@ buttons:
     emoji: ✅
     text: Elfogadás
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Mégse
   claim:
     emoji: 🙌
@@ -77,8 +77,8 @@ commands:
       name: Üzenet kitűzése
       not_pinnable:
         title: ❌ Hiba
-        description: "Ezt az üzenetet nem tudod kitűzni.\nKérlek vedd fel a kapcsolatot\
-          \ egy adminsztrátorral, aki le tudja ellenőrizni a bot jogosultságait.\n"
+        description: "Ezt az üzenetet nem tudod kitűzni.\nKérlek vedd fel a kapcsolatot
+          egy adminsztrátorral, aki le tudja ellenőrizni a bot jogosultságait.\n"
       pinned:
         description: Az üzenet kitűzésre került.
         title: ✅ Üzenet kitűzve
@@ -89,11 +89,11 @@ commands:
       options:
         time:
           name: idő
-          description: Összes hibajegy bezására, amely inaktív volt a megadott ideig
-            (használható a(z) `kategóriával` is)
+          description: Zárjon be minden olyan jegyet, amely a megadott ideig inaktív
+            volt (az `kategóriával` használható)
         category:
-          description: Összes hibajegy bezására a megadott kategóriában (használható
-            a(z) `idővel` is)
+          description: Zárja be az összes jegyet a megadott kategóriában (az `idővel`
+            használható)
           name: kategória
         reason:
           description: Indok a hibajegy(ek) bezárására
@@ -105,14 +105,22 @@ commands:
         description: Nincs olyan nyitott hibajegy, mely inaktív lenne `{time}` ideje.
         title: ❌ Nincs hibajegy
       confirm_multiple:
-        description: "Bezására kerül **{count}** darab hibajegy, mely inaktív `{time}`\
-          \ ideje:\n{tickets}\n"
+        description: "Bezására kerül **{count}** darab hibajegy, mely inaktív `{time}`
+          ideje:\n{tickets}\n"
         title: ❓ Biztos vagy benne?
       description: Hibajegy erőltetett bezárása
       name: erőltetett-bezárás
       not_staff:
         description: Csak a személyzeti tagok erőltethetik a hibajegy bezárását.
         title: ❌ Hiba
+      closed_one:
+        title: ✅ Hibajegy bezárva
+        description: A csatorna törlésre kerül néhány másodperc múlva..
+      confirmed_multiple:
+        title:
+        - ✅ Záró %d jegy
+        - ✅ %d jegyek lezárása
+        description: A csatorna törlésre kerül néhány másodperc múlva…
     close:
       invalid_time:
         description: '`{input}` nem megfelelő formátumú.'
@@ -268,11 +276,14 @@ commands:
         ticket:
           description: A hibajegy száma, melynek az átiratát szeretnéd lekérni
           name: hibajegy
+        member:
+          description: A tag, akinek jegyet kell keresnie
+          name: felhasználó
       description: Hibajegy átiratának lekérése
       name: hibajegy
   user:
     create:
-      name: Create ticket for user
+      name: Hozzon létre egy jegyet a felhasználó számára
 dm:
   closed:
     title: A hibajegyed bezárásra került
@@ -282,7 +293,7 @@ dm:
       closed:
         name: Bezárva ekkor
         value: '{timestamp} ({duration} alatt)'
-      closed_by: Bezárva általa
+      closed_by: Lezárva
       created: Létrehozva ekkor
       feedback: Visszajelzésed
       reason: Bezárva ezért
@@ -306,8 +317,8 @@ misc:
     title: 🐢 Kérlek lassíts
   expires_in: Lejár {time}
   error:
-    description: "Sajnálom váratlan hiba lépett fel.\nKérlek vedd fel a kapcsolatot\
-      \ az adminisztrátorral.\n"
+    description: "Sajnálom váratlan hiba lépett fel.\nKérlek vedd fel a kapcsolatot
+      az adminisztrátorral.\n"
     fields:
       code: Hibakód
       identifier: Azonosító
@@ -321,8 +332,8 @@ misc:
   member_limit:
     description:
     - Kérlek használd a meglévő hibajegyed, vagy zárd be mielőtt újat hoznál létre.
-    - "Kérlek zárd be a hibajegyet, mielőtt másikat hoznál létre.\nHasználd a(z) `/tickets`\
-      \ parancsot a meglévő hibajegyeid megtekintéséhez.\n"
+    - "Kérlek zárd be a hibajegyet, mielőtt másikat hoznál létre.\nHasználd a(z) `/tickets`
+      parancsot a meglévő hibajegyeid megtekintéséhez.\n"
     title:
     - ❌ Már van hibajegyed
     - ❌ Már van %d megnyitott hibajegyed
@@ -340,7 +351,7 @@ misc:
     description: Kérlek próbálj egy másik kategóriát.
     title: ❌ Nem létezik ilyen hibajegy kategória
   update:
-    description: "> [`{version}` megtekintése a GitHubon]({github})\n> [Változásnapló]({changelog})\n\
+    description: "> [`{version}` megtekintése a GitHubon]({github})\n> [Változásnapló]({changelog})\n
       > [Frissítési útmutató]({guide})\n"
     title: Frissítés elérhető
 menus:
@@ -400,6 +411,13 @@ ticket:
       description: 'Előfordulhat, hogy korábban is kap választ, azonban nem dolgozunk
         <t:{timestamp}:t> -ig (ma: <t:{timestamp}:R> )'
       title: 🕗 Jelenleg nem dolgozunk
+  closing_soon:
+    description: "Ez a jegy <t:{timestamp}:R> inaktivitás miatt zárva lesz.\nÜzenet
+      küldése ennek az automatizálásnak a leállításához.\n"
+    title: ⌛ Ez a jegy hamarosan megszűnik
+  inactive:
+    description: "A <t:{timestamp}:R> óta nem volt tevékenység ezen a csatornán.\n
+      Kérjük, folytassa a beszélgetést vagy {close} a jegyet.\n"
 modals:
   feedback:
     rating:
