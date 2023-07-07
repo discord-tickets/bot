@@ -283,7 +283,7 @@ commands:
       name: hibajegy
   user:
     create:
-      name: Hozzon létre egy jegyet a felhasználó számára
+      name: Jegy létrehozása
 dm:
   closed:
     title: A hibajegyed bezárásra került
