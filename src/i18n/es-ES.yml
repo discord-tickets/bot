@@ -142,3 +142,7 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Liberar
+ticket:
+  working_hours:
+    today:
+      title: 🕗 No estamos trabajando en este momento
