@@ -113,7 +113,7 @@ commands:
             HIGH: 🔴 Alto
             LOW: 🟢 Bajo
           description: La prioridad del ticket
-          name: Prioridad
+          name: prioridad
       not_staff:
         description: Solo los miembros del staff pueden cambiar la prioridad de los
           tickets.
@@ -123,7 +123,7 @@ commands:
         title: ✅ Prioridad establecida
     release:
       description: Liberar (desmarcar) un ticket
-      name: Liberar
+      name: liberar
     remove:
       options:
         member:
