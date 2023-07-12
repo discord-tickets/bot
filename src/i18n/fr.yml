@@ -36,22 +36,22 @@ commands:
           \ de vérifier les permissions du bot\n"
       pinned:
         title: ✅ Message épinglé
-        description: Les message à été épinglé.
+        description: Le message a été épinglé.
       not_ticket:
-        title: ❌ Ceci n'est pas un salon de ticket
-        description: Vous pouvez seulement épingler des messages dans les tickets.
+        title: ❌ Ceci n'est pas un salon de tickets
+        description: Vous pouvez seulement épingler des messages dans les salons de tickets.
     create:
       name: Transformer ce message en ticket
   slash:
     add:
       not_staff:
         title: ❌ Erreur
-        description: Seul les membres de l'équipe peuvent ajouter des membres aux
+        description: Seuls les membres de l'équipe peuvent ajouter des membres aux
           tickets des autres.
       success:
         title: ✅ Ajouté
-        description: '{member} à été ajouté au ticket {ticket}.'
-      added: '{added} à été ajouté par {by}.'
+        description: '{member} a été ajouté au ticket {ticket}.'
+      added: '{added} a été ajouté par {by}.'
       description: Ajouter un membre à un ticket
       name: ajouter
       options:
@@ -99,12 +99,12 @@ commands:
       confirm_multiple:
         description: "Vous êtes sur le point de clôturer **{count}** tickets inactifs\
           \ depuis plus de `{time}` :\n{tickets}\n"
-        title: ❓Êtes vous sûr ?
+        title: ❓ Êtes vous sûr ?
     claim:
       description: S'approprier un ticket
       name: claim
       not_staff:
-        description: Seul les membres de l'équipe peuvent s'approprier un ticket.
+        description: Seuls les membres de l'équipe peuvent s'approprier un ticket.
         title: ❌ Erreur
     help:
       name: aide
@@ -126,7 +126,7 @@ commands:
         category:
           name: catégorie
           description: La catégorie dans laquelle déplacer le ticket
-      moved: 🗃️ {by} as déplacé ce ticket de **{from}** vers **{to}**.
+      moved: 🗃️ {by} a déplacé ce ticket de **{from}** vers **{to}**.
       name: déplacer
       not_staff:
         description: Seuls les membres de l'équipe peuvent déplacer des tickets.
@@ -151,7 +151,7 @@ commands:
       description: Définir la priorité d'un ticket
       success:
         title: ✅ Priorité définie
-        description: La priorité du ticket à été définie sur `{priority}`.
+        description: La priorité du ticket a été définie sur `{priority}`.
       not_staff:
         title: ❌ Erreur
         description: Seuls les membres de l'équipe peuvent changer la priorité d'un
@@ -164,7 +164,7 @@ commands:
       name: retirer
       success:
         title: ✅ Retiré
-        description: '{member} as été retiré de {ticket}.'
+        description: '{member} a été retiré de {ticket}.'
       options:
         member:
           description: Le membre à retirer du ticket
@@ -172,7 +172,7 @@ commands:
         ticket:
           description: Le ticket dont il faut retirer le membre
           name: ticket
-      removed: ⬅️ {removed} as été retiré par {by}.
+      removed: ⬅️ {removed} a été retiré par {by}.
       not_staff:
         description: Seuls les membres de l'équipe peuvent retirer des membres des
           tickets des autres.
@@ -192,7 +192,7 @@ commands:
         member:
           name: membre
           description: Le membre dont il faut lister les tickets
-      description: Lister votre tickets ou ceux de quelqu'un d'autre
+      description: Lister vos tickets ou ceux de quelqu'un d'autre
       not_staff:
         description: Seuls les membres de l'équipe peuvent voir les tickets des autres
           membres.
@@ -218,16 +218,16 @@ commands:
       options:
         ticket:
           name: ticket
-          description: Le nombre de ticket dont vous souhaitez obtenir la transcription
+          description: Le nombre de tickets dont vous souhaitez obtenir la transcription
     transfer:
       description: Transférer la propriété d'un ticket à un autre membre
       name: transférer
-      transferred_from: '{user} as transféré ce ticket de {from} à {to}.'
+      transferred_from: '{user} a transféré ce ticket de {from} à {to}.'
       options:
         member:
           description: Le membre à qui transférer la propriété
           name: membre
-      transferred: '{user} as transféré ce ticket à {to}.'
+      transferred: '{user} a transféré ce ticket à {to}.'
     topic:
       name: sujet
       description: Changer le sujet d'un ticket
@@ -236,11 +236,11 @@ commands:
       name: Créer un ticket pour un membre
 misc:
   update:
-    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notice de changement]({changelog})\n\
+    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notes de mises à jour]({changelog})\n\
       > [Guide de mise à jour]({guide})\n"
     title: Une mise à jour est disponible
   category_full:
-    description: "Cette catégorie as atteint sa capacité maximum.\nVeuillez réessayer\
+    description: "Cette catégorie a atteint sa capacité maximale.\nVeuillez réessayer\
       \ ultérieurement.\n"
     title: ❌ Catégorie pleine
   expires_in: Expire dans {time}
@@ -293,7 +293,7 @@ modals:
     rating:
       label: Notation
       placeholder: 1-5
-    title: Comment avons-nous fait ?
+    title: Quelle note nous donneriez-vous ?
     comment:
       label: Commentaire
       placeholder: Avez vous un retour supplémentaire ?
@@ -311,17 +311,17 @@ ticket:
     staff_request:
       title: ❓ Ce ticket peut il être clôturé ?
       description: "{requestedBy} souhaite clôturer ce ticket.\nCliquez sur \"Accepter\"\
-        \ pour le fermer, or \"Refuser\" si vous avez toujours besoin d'aide.\n"
+        \ pour le fermer, ou \"Refuser\" si vous avez toujours besoin d'aide.\n"
       archived: "\nLes messages de ce salon seront archivés pour une référence future.\n"
     forbidden:
       title: ❌ Erreur
       description: Vous n'avez pas la permission de clôturer ce ticket.
-    rejected: ✋ {user} as rejeté une demande de clôture de ce ticket.
+    rejected: ✋ {user} a rejeté une demande de clôture de ce ticket.
     user_request:
       title: ❓ {requestedBy} souhaite clôturer le ticket
     wait_for_staff: ✋ Veuillez attendre que l'équipe ferme ce ticket.
     wait_for_user: ✋ Veuillez attendre une réponse de l'utilisateur.
-  released: ♻️ {user} as relâché ce ticket.
+  released: ♻️ {user} a relâché ce ticket.
   references_message:
     title: ℹ️ Référence
     description: Fait référence à [a message]({url}) envoyé {timestamp} par {author}.
@@ -330,24 +330,24 @@ ticket:
     fields:
       number: Nombre
       topic: Sujet
-      date: Crée à
+      date: Créé à
     description: 'Ce ticket est lié à un ticket précédent :'
   opening_message:
-    content: "{staff}\n{creator} as ouvert un nouveau ticket\n"
+    content: "{staff}\n{creator} a ouvert un nouveau ticket\n"
     fields:
       topic: Sujet
   edited:
     title: ✅ Ticket mis à jour
     description: Vos modifications ont été enregistrées.
   created:
-    description: 'Votre ticket as été crée : {channel}.'
-    title: ✅ Ticket crée
+    description: 'Votre ticket a été créé : {channel}.'
+    title: ✅ Ticket créé
   feedback: Merci pour votre retour.
 dm:
   closed:
-    title: Votre ticket as été clôturé
+    title: Votre ticket a été clôturé
     fields:
-      created: Crée à
+      created: Créé à
       closed:
         name: Clôturé à
         value: '{timestamp} (après {duration})'
@@ -360,7 +360,7 @@ dm:
     archived: Utilisez la commande `/transcript` sur **{guild}** pour voir les messages
       archivés.
   confirm_open:
-    title: Souhaitez vous ouvrir un ticket avec le sujet suivant ?
+    title: Souhaitez-vous ouvrir un ticket avec le sujet suivant ?
 log:
   admin:
     changes: Modifications
@@ -383,14 +383,14 @@ log:
     verb:
       update: mis à jour
       delete: supprimé
-      create: crée
+      create: créé
   ticket:
     description: '{user} {verb} un ticket'
     verb:
       unclaim: Relâché
       update: mis à jour
       close: Fermé
-      create: Crée
+      create: Créé
       claim: Approprié
     added: Membres ajoutés
     removed: Membres supprimés
