@@ -1,3 +1,23 @@
+## [4.0.7](https://github.com/discord-tickets/bot/compare/v4.0.6...v4.0.7) (2023-07-13)
+
+
+### Bug Fixes
+
+* **i18n:** lowercase names [skip ci] ([b782326](https://github.com/discord-tickets/bot/commit/b7823266ffdc6a13edc7b9f814b55f755369f9c8))
+* **i18n:** shorten Hungarian command name ([65ce04d](https://github.com/discord-tickets/bot/commit/65ce04def227fff11db0c4ec9ee83c3cec0997a7))
+
+
+### Features
+
+* **i18n:** update Hungarian translations [skip ci] ([560ab78](https://github.com/discord-tickets/bot/commit/560ab786bbe05614d8c53dba6889856aa4a2b6e8))
+* **i18n:** update Spanish translations [skip ci] ([bd063c4](https://github.com/discord-tickets/bot/commit/bd063c465523e36098afe1d0fdcbf72691774812))
+* **i18n:** update Spanish translations [skip ci] ([60e7447](https://github.com/discord-tickets/bot/commit/60e744731928fa2795f6a24650d36dcdd5fb247d))
+* **i18n:** update Spanish translations [skip ci] ([ffc44bf](https://github.com/discord-tickets/bot/commit/ffc44bf7ce1ba5d78e188d5844c4138f3cded813))
+* **i18n:** update Spanish translations [skip ci] ([0270402](https://github.com/discord-tickets/bot/commit/0270402bd9a7c15521919721fa9d58a55662ca95))
+* stats houston v4 ([4b4dcd2](https://github.com/discord-tickets/bot/commit/4b4dcd236eece95dd420700d3afcf917dbc68d49))
+
+
+
 ## [4.0.6](https://github.com/discord-tickets/bot/compare/v4.0.5...v4.0.6) (2023-07-02)
 
 
