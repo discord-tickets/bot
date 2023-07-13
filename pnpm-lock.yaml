@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@discord-tickets/settings':
-    specifier: ^2.1.7
+    specifier: ^2.1.6
     version: 2.1.7(svelte@4.0.5)
   '@eartharoid/dbf':
     specifier: ^0.4.1
@@ -23,10 +23,10 @@ dependencies:
     specifier: ^5.1.0
     version: 5.1.0
   '@prisma/client':
-    specifier: ^4.16.2
+    specifier: ^4.16.1
     version: 4.16.2(prisma@4.16.2)
   boxen:
-    specifier: ^7.1.1
+    specifier: ^7.1.0
     version: 7.1.1
   cryptr:
     specifier: ^6.2.0
@@ -35,10 +35,10 @@ dependencies:
     specifier: ^14.11.0
     version: 14.11.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
   dotenv:
-    specifier: ^16.3.1
+    specifier: ^16.0.3
     version: 16.3.1
   fastify:
-    specifier: ^4.19.2
+    specifier: ^4.17.0
     version: 4.19.2
   figlet:
     specifier: ^1.6.0
@@ -71,11 +71,11 @@ dependencies:
     specifier: ^1.0.4
     version: 1.0.4
   prisma:
-    specifier: ^4.16.2
+    specifier: ^4.16.1
     version: 4.16.2
   semver:
-    specifier: ^7.5.4
-    version: 7.5.4
+    specifier: ^7.5.1
+    version: 7.5.2
   short-unique-id:
     specifier: ^4.4.4
     version: 4.4.4
@@ -105,19 +105,19 @@ optionalDependencies:
 
 devDependencies:
   '@commitlint/cli':
-    specifier: ^17.6.6
+    specifier: ^17.6.3
     version: 17.6.6
   '@commitlint/config-conventional':
-    specifier: ^17.6.6
+    specifier: ^17.6.3
     version: 17.6.6
   all-contributors-cli:
-    specifier: ^6.26.1
+    specifier: ^6.26.0
     version: 6.26.1
   conventional-changelog-cli:
     specifier: ^2.2.2
     version: 2.2.2
   eslint:
-    specifier: ^8.44.0
+    specifier: ^8.41.0
     version: 8.44.0
   eslint-plugin-unused-imports:
     specifier: ^2.0.0
@@ -126,7 +126,7 @@ devDependencies:
     specifier: ^8.0.3
     version: 8.0.3
   lint-staged:
-    specifier: ^13.2.3
+    specifier: ^13.2.2
     version: 13.2.3
   nodemon:
     specifier: ^2.0.22
@@ -3482,7 +3482,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
