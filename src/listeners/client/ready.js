@@ -1,12 +1,9 @@
 const { Listener } = require('@eartharoid/dbf');
-const crypto = require('crypto');
 const {
 	getAvgResolutionTime,
 	getAvgResponseTime,
 } = require('../../lib/stats');
 const ms = require('ms');
-const { version } = require('../../../package.json');
-const { msToMins } = require('../../lib/misc');
 const sync = require('../../lib/sync');
 const checkForUpdates = require('../../lib/updates');
 const { isStaff } = require('../../lib/users');
@@ -16,6 +13,7 @@ const {
 	ButtonStyle,
 } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
+const { sendToHouston } = require('../../lib/stats');
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -94,49 +92,8 @@ module.exports = class extends Listener {
 
 		// stats posting
 		if (client.config.stats) {
-			const send = async () => {
-				const tickets = await client.prisma.ticket.findMany({
-					select: {
-						createdAt: true,
-						firstResponseAt: true,
-					},
-				});
-				const closedTickets = tickets.filter(t => t.closedAt);
-				const users = await client.prisma.user.findMany({ select: { messageCount: true } });
-				const stats = {
-					activated_users: users.length,
-					arch: process.arch,
-					avg_resolution_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avg_response_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					categories: await client.prisma.category.count(),
-					database: process.env.DB_PROVIDER,
-					guilds: client.guilds.cache.size,
-					id: crypto.createHash('md5').update(client.user.id).digest('hex'),
-					members: client.guilds.cache.reduce((t, g) => t + g.memberCount, 0),
-					messages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted,
-					node: process.version,
-					os: process.platform,
-					tags: await client.prisma.tag.count(),
-					tickets: tickets.length,
-					version,
-				};
-				try {
-					const res = await fetch('https://stats.discordtickets.app/api/v3/houston', {
-						body: JSON.stringify(stats),
-						headers: { 'content-type': 'application/json' },
-						method: 'POST',
-					});
-					if (!res.ok) throw res;
-					client.log.success('Posted client stats');
-					client.log.verbose(stats);
-					client.log.debug(res);
-				} catch (res) {
-					client.log.error('An error occurred whilst posting stats', (await res.json())?.error);
-					client.log.debug(res);
-				}
-			};
-			send();
-			setInterval(() => send(), ms('12h'));
+			sendToHouston(client);
+			setInterval(() => sendToHouston(client), ms('12h'));
 		}
 
 		if (client.config.updates) {
