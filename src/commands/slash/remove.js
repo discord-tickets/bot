@@ -18,13 +18,13 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 				{
 					name: 'member',
 					required: true,
-					type: ApplicationCommandOptionType.User,
+					type: ApplicationCommandOptionType.USER,
 				},
 				{
 					autocomplete: true,
 					name: 'ticket',
 					required: false,
-					type: ApplicationCommandOptionType.String,
+					type: ApplicationCommandOptionType.STRING,
 				},
 			].map(option => {
 				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
@@ -35,11 +35,7 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 		});
 	}
 
-	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
-	 */
 	async run(interaction) {
-		/** @type {import("client")} */
 		const client = this.client;
 
 		await interaction.deferReply({ ephemeral: true });
@@ -85,7 +81,6 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 			});
 		}
 
-		/** @type {import("discord.js").TextChannel} */
 		const ticketChannel = await interaction.guild.channels.fetch(ticket.id);
 		const member = interaction.options.getMember('member', true);
 

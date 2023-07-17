@@ -19,7 +19,7 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 					choices: ['HIGH', 'MEDIUM', 'LOW'],
 					name: 'priority',
 					required: true,
-					type: ApplicationCommandOptionType.String,
+					type: ApplicationCommandOptionType.STRING,
 				},
 			].map(option => {
 				option.descriptionLocalizations = client.i18n.getAllMessages(`commands.slash.${name}.options.${option.name}.description`);
@@ -40,28 +40,20 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 	getEmoji(priority) {
 		let emoji;
 		switch (priority) {
-		case 'HIGH': {
-			emoji = '🔴';
-			break;
-		}
-		case 'MEDIUM': {
-			emoji = '🟠';
-			break;
-		}
-		case 'LOW': {
-			emoji = '🟢';
-			break;
-		}
+			case 'HIGH':
+				emoji = '🔴';
+				break;
+			case 'MEDIUM':
+				emoji = '🟠';
+				break;
+			case 'LOW':
+				emoji = '🟢';
+				break;
 		}
 		return emoji;
 	}
 
-	/**
-	 *
-	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
-	 */
 	async run(interaction) {
-		/** @type {import("client")} */
 		const client = this.client;
 
 		await interaction.deferReply();
@@ -87,7 +79,7 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 			});
 		}
 
-		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
+		if (!(await isStaff(interaction.guild, interaction.user.id))) {
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder({
@@ -107,7 +99,6 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 		else name = this.getEmoji(priority) + name;
 		await interaction.channel.setName(name);
 
-		// don't reassign ticket because the original is used below
 		await client.prisma.ticket.update({
 			data: { priority },
 			where: { id: interaction.channel.id },
@@ -137,6 +128,5 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 					.setDescription(getMessage('commands.slash.priority.success.description', { priority: getMessage(`commands.slash.priority.options.priority.choices.${priority}`) })),
 			],
 		});
-
 	}
 };
