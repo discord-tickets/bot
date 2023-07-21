@@ -6,8 +6,8 @@ commands:
         description: Zpráva byla připnuta.
         title: ✅ Zpráva připnuta
       not_pinnable:
-        description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,\
-          \ jestli má robot dostatečné oprávnění.\n"
+        description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,
+          jestli má robot dostatečné oprávnění.\n"
         title: ❌ Chyba
       not_ticket:
         description: Zprávy můžeš připnout jen v ticketech.
@@ -93,8 +93,8 @@ commands:
             (lze použít s `category`).
       confirm_multiple:
         title: ❓Jste si jist?
-        description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní\
-          \ déle než `{time}`:\n{tickets}\n"
+        description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní
+          déle než `{time}`:\n{tickets}\n"
       name: uzavřít-silou
       description: Násilně uzavřít tiketu
       no_tickets:
