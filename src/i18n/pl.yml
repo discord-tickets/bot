@@ -1,3 +1,46 @@
 buttons:
   accept_close_request:
     emoji: ✅
+  cancel:
+    emoji: ➖
+  claim:
+    emoji: 🙌
+  close:
+    emoji: ✖️
+  create:
+    emoji: 🎫
+  edit:
+    emoji: ✏️
+  confirm_open:
+    emoji: ✅
+  unclaim:
+    emoji: ♻️
+  reject_close_request:
+    emoji: ✖️
+commands:
+  slash:
+    add:
+      not_staff:
+        title: ❌ Błąd
+      added: ➡️ {added} został dodany przez {by}.
+      options:
+        member:
+          name: członek
+      success:
+        description: '{member} został dodany do {ticket}.'
+    claim:
+      not_staff:
+        title: ❌ Błąd
+    close:
+      invalid_time:
+        description: '`{input}` nie jest prawidłowym formatem czasu.'
+  message:
+    pin:
+      name: Przypnij wiadomość
+      not_pinnable:
+        description: "Tej wiadomości nie można przypiąć.\nPoproś administratora o
+          sprawdzenie uprawnień bota.\n"
+        title: ❌ Błąd
+      pinned:
+        description: Wiadomość została przypięta.
+        title: ✅ Przypięta wiadomość
