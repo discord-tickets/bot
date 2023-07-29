@@ -38,7 +38,7 @@ module.exports.sendToHouston = async client => {
 			}
 			return true;
 		}).map(guild => {
-			const closedTickets = guild.tickets.filter(t => t.closedAt);
+			const closedTickets = guild.tickets.filter(t => t.firstResponseAt && t.closedAt);
 			return {
 				avg_resolution_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
 				avg_response_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
@@ -58,7 +58,7 @@ module.exports.sendToHouston = async client => {
 				locale: guild.locale,
 				members: client.guilds.cache.get(guild.id).memberCount,
 				messages: users.reduce((total, user) => total + user.messageCount, 0), // global not guild, don't count archivedMessage table rows, they can be deleted
-				tickets: guilds.reduce((total, guild) => total + guild.tickets.length, 0),
+				tickets: guild.tickets.length,
 			};
 		}),
 		id: md5(client.user.id),
