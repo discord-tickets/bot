@@ -1,3 +1,25 @@
+## [4.0.8](https://github.com/discord-tickets/bot/compare/v4.0.7...v4.0.8) (2023-07-30)
+
+
+### Bug Fixes
+
+* 🤦‍♂️ inflated ticket count and negative response times in stats ([32697c6](https://github.com/discord-tickets/bot/commit/32697c6d13fcd46eb755f83b9ce2e9e972a655ab))
+* **🚨 security:** being able to close tickets from other servers (closes [#466](https://github.com/discord-tickets/bot/issues/466)) ([8a8bc2b](https://github.com/discord-tickets/bot/commit/8a8bc2bebe094e7b8eb8b2311fadcac984f60969))
+* **i18n:** lowercase names [skip ci] ([0597997](https://github.com/discord-tickets/bot/commit/05979972fe7002a6a2ca527f0887ca2d62671e48))
+* keep priority when moving (closes [#467](https://github.com/discord-tickets/bot/issues/467)) ([34b5090](https://github.com/discord-tickets/bot/commit/34b509057519293d188043502b922d583fb7505d))
+
+
+### Features
+
+* **i18n:** add Polish translations [skip ci] ([e4fff0c](https://github.com/discord-tickets/bot/commit/e4fff0cba5168425e1264b3e2ffd79a6489faa80))
+* **i18n:** update Czech translations [skip ci] ([d32b08c](https://github.com/discord-tickets/bot/commit/d32b08c184c934f2ca0dea26b7b7050bbff163fe))
+* **i18n:** update Polish translations [skip ci] ([a1be71c](https://github.com/discord-tickets/bot/commit/a1be71c5d7002da5d5e3a6fba45906dd73256b3a))
+* **i18n:** update Polish translations [skip ci] ([c23530f](https://github.com/discord-tickets/bot/commit/c23530f962b20d637d5ca27781eee5df2fd89ad5))
+* **i18n:** update Polish translations [skip ci] ([09ff025](https://github.com/discord-tickets/bot/commit/09ff025bf3522f531f10bebc143eb7ba8d71c01a))
+* **i18n:** update Spanish translations [skip ci] ([e91d1cc](https://github.com/discord-tickets/bot/commit/e91d1ccb2af596de5af54995e2ae2e333a0eebf9))
+
+
+
 ## [4.0.7](https://github.com/discord-tickets/bot/compare/v4.0.6...v4.0.7) (2023-07-13)
 
 
