@@ -39,7 +39,7 @@ commands:
           name: członek
           description: Członek, który ma zostać dodany do zgłoszenia
         ticket:
-          name: Zgłoszenie
+          name: zgłoszenie
           description: Zgłoszenie, do którego ma zostać dodany członek
       success:
         description: '{member} został dodany do {ticket}.'
@@ -75,7 +75,7 @@ commands:
           name: zgłoszenie
           description: Zgłoszenie do zamknięcia
         category:
-          name: Kategoria
+          name: kategoria
           description: Zamknij wszystkie zgłoszenia w określonej kategorii (należy
             użyć z `czas`)
       not_staff:
@@ -120,7 +120,7 @@ commands:
       options:
         category:
           description: Kategoria, do której ma zostać przeniesione zgłoszenie
-          name: Kategoria
+          name: kategoria
       description: Przenieś zgłoszenie do innej kategorii
       moved: 🗃️ {by} przeniósł te zgłoszenie z **{from}** do **{to}**.
     new:
@@ -149,7 +149,7 @@ commands:
         title: ✅ Ustawiony priorytet
     release:
       description: Zwolnij (zajęcie) zgłoszenia
-      name: Zwolnij
+      name: zwolnij
     remove:
       options:
         member:
