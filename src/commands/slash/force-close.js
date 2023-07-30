@@ -139,6 +139,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 			const tickets = await client.prisma.ticket.findMany({
 				where: {
 					categoryId: categoryId ?? undefined, // must be undefined not null
+					guildId: interaction.guild.id,
 					lastMessageAt: { lte: new Date(Date.now() - time) },
 					open: true,
 				},
