@@ -2,7 +2,7 @@ const { SlashCommand } = require('@eartharoid/dbf');
 const { ApplicationCommandOptionType } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
-
+const { getEmoji } = require('./priority');
 module.exports = class MoveSlashCommand extends SlashCommand {
 	constructor(client, options) {
 		const name = 'move';
@@ -129,7 +129,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 					.replace(/{+\s?num(ber)?\s?}+/gi, ticket.number === 1488 ? '1487b' : ticket.number);
 				await interaction.channel.edit({
 					lockPermissions: false,
-					name: channelName,
+					name: ticket.priority ? getEmoji(ticket.priority) + channelName : channelName,
 					parent: discordCategory,
 					permissionOverwrites: [
 						{
