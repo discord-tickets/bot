@@ -163,7 +163,7 @@ commands:
           osób.
         title: ❌ Błąd
       description: Usuń członka ze zgłoszenia
-      name: usunąć
+      name: usuń
       removed: ⬅️ {removed} został usunięty przez {by}.
       success:
         title: ✅ Usunięto
@@ -213,14 +213,14 @@ commands:
       description: Pobierz transkrypcję zgłoszenia
       name: transkrypcja
     transfer:
-      name: przenieś
+      name: transferuj
       options:
         member:
           name: członek
           description: Członek, na który ma zostać przeniesiona własność
       transferred: 📨 {user} przekazał te zgłoszenie do {to}.
       transferred_from: 📨 {user} przeniósł te zgłoszenie z {from} do {to}.
-      description: Przenieś własność zgłoszenia na innego członka
+      description: Transferuj własność zgłoszenia na innego członka
     topic:
       description: Zmień temat zgłoszenia
       name: temat
@@ -265,7 +265,7 @@ dm:
       reason: Zamknięte, ponieważ
       response: Czas odpowiedzi
       ticket: Zgłoszenie
-    archived: Użyj polecenia `/transcript` w **{guild}**, aby wyświetlić zarchiwizowane
+    archived: Użyj polecenia `/transkrypcja` w **{guild}**, aby wyświetlić zarchiwizowane
       wiadomości.
     title: Twoje zgłoszenie zostało zamknięte
   confirm_open:
