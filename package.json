@@ -51,7 +51,7 @@
 		"@eartharoid/i18n": "^1.2.1",
 		"@fastify/cookie": "^6.0.0",
 		"@fastify/jwt": "^5.0.1",
-		"@fastify/oauth2": "^5.1.0",
+		"@fastify/oauth2": "^7.2.0",
 		"@prisma/client": "^4.16.1",
 		"boxen": "^7.1.0",
 		"cryptr": "^6.2.0",
