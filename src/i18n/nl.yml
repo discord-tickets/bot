@@ -1,1 +1,118 @@
-{}
+commands:
+  slash:
+    force-close:
+      closed_one:
+        description: Het kanaal wordt over een paar seconden verwijderd.
+        title: ✅ Ticket gesloten
+      confirmed_multiple:
+        description: De kanalen worden binnen enkele seconden verwijderd.
+        title:
+        - ✅ Afsluitend %d ticket
+        - ✅ Afsluitende %d tickets
+      not_staff:
+        description: Alleen admins kunnen tickets geforceerd sluiten.
+        title: ❌ Fout
+      options:
+        time:
+          description: Sluit alle tickets die gedurende de opgegeven tijd inactief
+            zijn gewees
+          name: tijd
+        category:
+          name: categorie
+          description: Sluit alle tickets in de opgegeven categorie (moet worden gebruikt
+            met `time`)
+        reason:
+          description: De reden voor het sluiten van de ticket(s)
+          name: reden
+        ticket:
+          description: De ticket om te sluiten
+          name: ticket
+      name: geforceerd sluiten
+      no_tickets:
+        description: Er zijn geen open tickets die langer dan `{time}` inactief zijn
+          geweest.
+        title: ❌ Geen tickets
+      confirm_multiple:
+        description: "U staat op het punt **{count}**tickets te sluiten die langer
+          dan `{time}` inactief is:\n{tickets}\n"
+        title: ❓Weet je het zeker?
+      description: Sluit een ticket zonder goedkeuring
+    help:
+      description: Toon het helpmenu
+      name: hulp
+    add:
+      added: ➡️ {added} is toegevoegd door {by}.
+      description: Voeg iemand toe aan een ticket
+      name: toevoegen
+      not_staff:
+        title: ❌ Fout
+        description: Alleen staff leden kunnen leden toevoegen aan tickets van anderen.
+      options:
+        member:
+          description: Het lid dat aan de ticket moet worden toegevoegd
+          name: lid
+        ticket:
+          description: De ticket om het lid aan toe te voegen
+          name: ticket
+      success:
+        description: '{member} is toegevoegd aan {ticket}.'
+        title: ✅ Toegevoegd
+    close:
+      description: Een verzoek indienen om een ticket te sluiten
+      invalid_time:
+        description: '`{input}` is geen geldig tijdsformaat'
+        title: ❌ Ongeldig
+      options:
+        reason:
+          description: De reden voor het sluiten van het ticket
+          name: reden
+      name: sluit
+    claim:
+      description: Claim een ticket
+      name: claim
+      not_staff:
+        description: Alleen staffleden kunnen tickets claimen.
+        title: ❌ Fout
+  message:
+    pin:
+      not_ticket:
+        title: ❌ Dit is geen ticket kanaal
+        description: Je kan alleen berichten in tickets vastzetten.
+      pinned:
+        description: Het bericht is vastgezet.
+        title: ✅ Vastgezet bericht
+      not_pinnable:
+        description: "Dit bericht kan niet vastgezet worden.\nVraag aan een admin
+          om de permissies van de bot te bekijken.\n"
+        title: ❌ Error
+      name: Bericht vastzetten
+    create:
+      name: Maak ticket van bericht
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Accepteren
+  cancel:
+    emoji: ➖
+    text: Annuleer
+  claim:
+    emoji: 🙌
+    text: Claim
+  edit:
+    text: Wijzig
+    emoji: ✏️
+  reject_close_request:
+    emoji: ✖️
+    text: Afwijzen
+  close:
+    emoji: ✖️
+    text: Sluiten
+  unclaim:
+    emoji: ♻️
+    text: Unclaimen
+  confirm_open:
+    emoji: ✅
+    text: Maak een ticket
+  create:
+    emoji: 🎫
+    text: Maak een ticket
