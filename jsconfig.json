@@ -3,7 +3,7 @@
 		"module": "ESNext",
 		"target": "ESNext",
 		"moduleResolution": "Node",
-		"baseUrl": ".",
+		"baseUrl": "src",
 		"resolveJsonModule": true,
 		"checkJs": false,
 	},
