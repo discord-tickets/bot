@@ -228,6 +228,9 @@ commands:
     transcript:
       description: Get the transcript of a ticket
       name: transcript
+      not_staff:
+        description: Only staff members can read the transcripts of others' tickets.
+        title: ❌ Error
       options:
         member:
           description: The member to search for tickets of
