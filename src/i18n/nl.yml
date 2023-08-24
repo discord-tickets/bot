@@ -27,7 +27,7 @@ commands:
         ticket:
           description: De ticket om te sluiten
           name: ticket
-      name: geforceerd sluiten
+      name: geforceerd-sluiten
       no_tickets:
         description: Er zijn geen open tickets die langer dan `{time}` inactief zijn
           geweest.
