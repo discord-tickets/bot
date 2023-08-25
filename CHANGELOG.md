@@ -1,3 +1,23 @@
+## [4.0.9](https://github.com/discord-tickets/bot/compare/v4.0.8...v4.0.9) (2023-08-25)
+
+
+### Bug Fixes
+
+* `npx` workaround for PebbleHost ([4a2f85e](https://github.com/discord-tickets/bot/commit/4a2f85e9eb4361a0188a70f8ff3155d8d1e02826))
+* **🚨 security:** anyone with the channel ID could read transcripts ([b2790fc](https://github.com/discord-tickets/bot/commit/b2790fca40e55b88e768ae608c01c8d66d77beea))
+* edit channel name when transferring (closes [#470](https://github.com/discord-tickets/bot/issues/470)) ([77e5b45](https://github.com/discord-tickets/bot/commit/77e5b45aa8938039374a436c2886a8927d5c9cda))
+* **i18n:** space in command name ([2abd9cc](https://github.com/discord-tickets/bot/commit/2abd9cc0086b04ccba7185bf6ca43676fbbe91b1))
+* stale notification pinging staff instead of creator (closes [#459](https://github.com/discord-tickets/bot/issues/459)) ([59a6358](https://github.com/discord-tickets/bot/commit/59a6358b37d7b790cca1daee94fdcdf2a1987865))
+* update counters when transferring (closes [#468](https://github.com/discord-tickets/bot/issues/468)) ([d1e30ce](https://github.com/discord-tickets/bot/commit/d1e30ce069c4999a82b2381df39fc3d613cd06de))
+
+
+### Features
+
+* **i18n:** update Dutch translations [skip ci] ([e22f9bc](https://github.com/discord-tickets/bot/commit/e22f9bcf625484f9504a6f85d2593dd1cd57371f))
+* **i18n:** update Polish translations [skip ci] ([fb7a11f](https://github.com/discord-tickets/bot/commit/fb7a11fc78c3f48e01ad2671d9efa59e00f17748))
+
+
+
 ## [4.0.8](https://github.com/discord-tickets/bot/compare/v4.0.7...v4.0.8) (2023-07-30)
 
 
