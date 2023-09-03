@@ -29,14 +29,14 @@ buttons:
 commands:
   message:
     create:
-      name: Criar ticket a partir da mensagem
+      name: Criar ticket para a mensagem
     pin:
       name: Fixar mensagem
       not_pinnable:
         description: |
           Esta mensagem não pode ser fixada.
           Por favor, peça a um administrador para verificar as permissões do bot.
-        title: ❌ Error
+        title: ❌ Erro
       not_ticket:
         description: Você só pode fixar mensagens em tickets.
         title: ❌ Este não é um canal de ticket
@@ -47,10 +47,11 @@ commands:
     add:
       added: ➡️ {added} foi adicionado por {by}.
       description: Adicionar um membro a um ticket
-      name: add
+      name: adicionar
       not_staff:
-        description: Apenas membros da equipe podem adicionar membros a tickets de outros.
-        title: ❌ Error
+        description: Apenas membros da equipe podem adicionar membros a tickets de
+          outros.
+        title: ❌ Erro
       options:
         member:
           description: O membro a ser adicionado ao ticket
@@ -66,7 +67,7 @@ commands:
       name: reivindicar
       not_staff:
         description: Apenas membros da equipe podem reivindicar tickets.
-        title: ❌ Error
+        title: ❌ Erro
     close:
       description: Solicitar o fechamento de um ticket
       invalid_time:
@@ -91,8 +92,8 @@ commands:
       confirmed_multiple:
         description: Os canais serão excluídos em alguns segundos.
         title:
-          - ✅ Fechando %d ticket
-          - ✅ Fechando %d tickets
+        - ✅ Fechando %d ticket
+        - ✅ Fechando %d tickets
       description: Forçar o fechamento de um ticket
       name: fechamento-forcado
       no_tickets:
@@ -102,12 +103,11 @@ commands:
         title: ❌ Sem tickets
       not_staff:
         description: Apenas membros da equipe podem forçar o fechamento de tickets.
-        title: ❌ Error
+        title: ❌ Erro
       options:
         category:
-          description:
-            Fechar todos os tickets na categoria especificada (deve ser usado com
-            `time`)
+          description: Fechar todos os tickets na categoria especificada (deve ser
+            usado com `time`)
           name: categoria
         reason:
           description: O motivo para fechar o(s) ticket(s)
@@ -127,7 +127,7 @@ commands:
         links:
           commands: Lista completa de comandos
           docs: Documentação
-          feedback: Feedback
+          feedback: Opinião
           links: Links Úteis
           support: Suporte
         settings: Configurações do bot
@@ -138,24 +138,24 @@ commands:
       name: mover
       not_staff:
         description: Somente membros da equipe podem movimentar tickets.
-        title: ❌ Error
+        title: ❌ Erro
       options:
         category:
           description: A categoria para a qual mover o ticket
           name: categoria
     new:
       description: Criar um novo ticket
-      name: new
+      name: novo
       options:
         references:
           description: O número de um ticket relacionado
-          name: references
+          name: referências
     priority:
       description: Definir a prioridade de um ticket
-      name: priority
+      name: prioridade
       not_staff:
         description: Apenas membros da equipe podem alterar a prioridade dos tickets.
-        title: ❌ Error
+        title: ❌ Erro
       options:
         priority:
           choices:
@@ -163,7 +163,7 @@ commands:
             LOW: 🟢 Baixa
             MEDIUM: 🟠 Média
           description: A prioridade do ticket
-          name: priority
+          name: prioridade
       success:
         description: A prioridade deste ticket foi definida como `{priority}`.
         title: ✅ Prioridade definida
@@ -172,10 +172,11 @@ commands:
       name: release
     remove:
       description: Remover um membro de um ticket
-      name: remove
+      name: remover
       not_staff:
-        description: Apenas membros da equipe podem remover membros dos tickets de outros.
-        title: ❌ Error
+        description: Apenas membros da equipe podem remover membros dos tickets de
+          outros.
+        title: ❌ Erro
       options:
         member:
           description: O membro a ser removido do ticket
@@ -193,16 +194,16 @@ commands:
       options:
         for:
           description: O usuário alvo da marcação
-          name: for
+          name: para
         tag:
           description: O nome da marcação a ser usada
-          name: tag
+          name: cargo
     tickets:
       description: Listar seus próprios tickets ou os de outra pessoa
       name: tickets
       not_staff:
         description: Apenas membros da equipe podem ver os tickets de outros.
-        title: ❌ Error
+        title: ❌ Erro
       options:
         member:
           description: O membro para listar os tickets
@@ -227,10 +228,11 @@ commands:
       name: tópico
     transcript:
       description: Obter a transcrição de um ticket
-      name: transcript
+      name: transcrição
       not_staff:
-        description: Apenas membros da equipe podem ler as transcrições dos tickets de outros.
-        title: ❌ Error
+        description: Apenas membros da equipe podem ler as transcrições dos tickets
+          de outros.
+        title: ❌ Erro
       options:
         member:
           description: O membro para procurar tickets
@@ -252,7 +254,7 @@ commands:
       name: Criar ticket para usuário
       not_staff:
         description: Apenas membros da equipe podem abrir tickets para outros membros.
-        title: ❌ Error
+        title: ❌ Erro
       prompt:
         description: Clique no botão abaixo para criar um ticket.
         title: Por favor, crie um ticket
@@ -261,7 +263,8 @@ commands:
         title: ✅ Solicitação enviada
 dm:
   closed:
-    archived: Use o comando `/transcript` em **{guild}** para visualizar as mensagens arquivadas.
+    archived: Use o comando `/transcript` em **{guild}** para visualizar as mensagens
+      arquivadas.
     fields:
       closed:
         name: Fechado às
@@ -352,13 +355,13 @@ misc:
     title: ❌ Ticket inválido
   member_limit:
     description:
-      - Utilize seu ticket existente ou feche-o antes de criar outro.
-      - |
-        Feche um ticket antes de criar outro.
-        Use `/tickets` para visualizar seus tickets existentes.
+    - Utilize seu ticket existente ou feche-o antes de criar outro.
+    - |
+      Feche um ticket antes de criar outro.
+      Use `/tickets` para visualizar seus tickets existentes.
     title:
-      - ❌ Você já tem ticket aberto
-      - ❌ Você já tem %d tickets abertos
+    - ❌ Você já tem ticket aberto
+    - ❌ Você já tem %d tickets abertos
   missing_roles:
     description: >-
       Você não tem as funções necessárias para criar um ticket no
@@ -404,10 +407,10 @@ ticket:
       title: ✅ Ticket fechado
     forbidden:
       description: Você não tem permissão para fechar este ticket.
-      title: ❌ Error
+      title: ❌ Erro
     rejected: ✋ {user} rejeitou uma solicitação para fechar este ticket.
     staff_request:
-      archived: |
+      archived: |2
 
         As mensagens neste canal serão arquivadas para referência futura.
       description: |
@@ -436,8 +439,7 @@ ticket:
       Continue a conversa ou {close} o ticket.
     title: ⏰ Este ticket está inativo
   offline:
-    description:
-      Não há nenhum membro da equipe disponível no momento, então pode
+    description: Não há nenhum membro da equipe disponível no momento, então pode
       demorar mais do que o normal para obter uma resposta.
     title: 😴 Não estamos online
   opening_message:
@@ -459,12 +461,10 @@ ticket:
   released: ♻️ {user} liberou este ticket.
   working_hours:
     next:
-      description:
-        Estaremos de volta às <t:{timestamp}:F> (<t:{timestamp}:R>), embora
+      description: Estaremos de volta às <t:{timestamp}:F> (<t:{timestamp}:R>), embora
         você pode receber uma resposta antes disso.
       title: 🕗 Não estamos funcionando no momento
     today:
-      description:
-        Você pode receber uma resposta antes, mas só começaremos a trabalhar
+      description: Você pode receber uma resposta antes, mas só começaremos a trabalhar
         <t:{timestamp}:t> hoje (<t:{timestamp}:R>).
       title: 🕗 Não estamos funcionando no momento
