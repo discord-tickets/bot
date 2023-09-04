@@ -7,7 +7,7 @@ buttons:
     text: Cancelar
   claim:
     emoji: 🙌
-    text: Reivindicar
+    text: Assumir
   close:
     emoji: ✖️
     text: Fechar
@@ -24,8 +24,8 @@ buttons:
     emoji: ✖️
     text: Rejeitar
   unclaim:
-    emoji: ♻️
-    text: Liberar
+    emoji: ◀️
+    text: Abdicar
 commands:
   message:
     create:
@@ -63,10 +63,10 @@ commands:
         description: "{member} foi adicionado a {ticket}."
         title: ✅ Adicionado
     claim:
-      description: Reivindicar um ticket
-      name: reivindicar
+      description: Assumir um ticket
+      name: assumir
       not_staff:
-        description: Apenas membros da equipe podem reivindicar tickets.
+        description: Apenas membros da equipe podem assumir tickets.
         title: ❌ Erro
     close:
       description: Solicitar o fechamento de um ticket
@@ -168,8 +168,8 @@ commands:
         description: A prioridade deste ticket foi definida como `{priority}`.
         title: ✅ Prioridade definida
     release:
-      description: Liberar (desreivindicar) um ticket
-      name: release
+      description: Liberar (abdicar) um ticket
+      name: liberar
     remove:
       description: Remover um membro de um ticket
       name: remover
@@ -275,7 +275,7 @@ dm:
       reason: Fechado porque
       response: Tempo de resposta
       ticket: Ticket
-      topic: Topico
+      topic: Tópico
     title: Seu ticket foi fechado
   confirm_open:
     title: Você deseja abrir um ticket com o seguinte tópico?
@@ -316,10 +316,10 @@ log:
     ticket: Ticket
     title: Ticket {verb}
     verb:
-      claim: reivindicou
+      claim: assumiu
       close: fechou
       create: criou
-      unclaim: liberou
+      unclaim: abdicou
       update: atualizou
 menus:
   category:
@@ -400,7 +400,7 @@ modals:
 ticket:
   answers:
     no_value: "*Sem resposta*"
-  claimed: 🙌 {user} reivindicou este ticket.
+  claimed: 🙌 {user} assumiu este ticket.
   close:
     closed:
       description: Este canal será excluído em alguns segundos…
@@ -447,7 +447,7 @@ ticket:
       {staff}
       {creator} criou um novo ticket
     fields:
-      topic: Topico
+      topic: Tópico
   references_message:
     description: Referências [uma mensagem]({url}) enviada {timestamp} por {author}.
     title: ℹ️ Referência
@@ -456,9 +456,9 @@ ticket:
     fields:
       date: Criado em
       number: Número
-      topic: Topico
+      topic: Tópico
     title: ℹ️ Referência
-  released: ♻️ {user} liberou este ticket.
+  released: ♻️ {user} deixou de ser responsável por este ticket.
   working_hours:
     next:
       description: Estaremos de volta às <t:{timestamp}:F> (<t:{timestamp}:R>), embora
