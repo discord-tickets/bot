@@ -72,7 +72,7 @@ commands:
         description: '**Verwende {command} um ein Ticket zu erstellen und Hilfe zu
           erhalten.**'
         settings: Bot-Einstellungen
-      name: hil fe
+      name: hilfe
       title: hilfe
       description: Zeigt das Hilfemenü an
     force-close:

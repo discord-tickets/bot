@@ -184,7 +184,7 @@ async function summarise() {
 		markdownTable([
 			['Locale', 'Result'],
 			...locales.map(locale => [
-				`${locale}`,
+				`\`${locale}\``,
 				errors.filter(error => error.locale === locale).length === 0 ? '✅ Passed' : '❌ Failed',
 			]),
 		]) + '\n\n';
