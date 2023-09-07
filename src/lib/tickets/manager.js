@@ -1301,7 +1301,7 @@ module.exports = class TicketManager {
 
 				if (ticket.guild.archive) embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
 
-				await creator.send({ embeds: [embed] });
+			//	await creator.send({ embeds: [embed] });
 			}
 		} catch (error) {
 			this.client.log.error(error);
