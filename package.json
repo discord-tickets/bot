@@ -14,7 +14,7 @@
 		"postinstall": "node scripts/postinstall",
 		"start": "node .",
 		"studio": "npx prisma studio",
-		"test": "echo \"There's nothing to test\" && exit 1"
+		"test": "node scripts/check-i18n"
 	},
 	"commitlint": {
 		"extends": [
@@ -73,7 +73,7 @@
 		"short-unique-id": "^4.4.4",
 		"spacetime": "^7.4.4",
 		"terminal-link": "^2.1.1",
-		"yaml": "^1.10.2"
+		"yaml": "^2.3.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.6.3",
@@ -84,6 +84,7 @@
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.2.2",
+		"markdown-table": "^3.0.3",
 		"nodemon": "^2.0.22"
 	},
 	"optionalDependencies": {
