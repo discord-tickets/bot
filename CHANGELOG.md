@@ -1,3 +1,15 @@
+## [4.0.10](https://github.com/discord-tickets/bot/compare/v4.0.9...v4.0.10) (2023-09-07)
+
+
+### Features
+
+* **i18n:** translate to Brazilian Portuguese ([#477](https://github.com/discord-tickets/bot/issues/477)) ([febe356](https://github.com/discord-tickets/bot/commit/febe3560555367293d14c8a53e67d032f5b873dd))
+* **i18n:** update Portuguese (Brazil) translations [skip ci] ([d6009a9](https://github.com/discord-tickets/bot/commit/d6009a99ad77dc22183bb21bb0412c5ee804811e))
+* **i18n:** update Portuguese (Brazil) translations [skip ci] ([#479](https://github.com/discord-tickets/bot/issues/479)) ([1ebe0c6](https://github.com/discord-tickets/bot/commit/1ebe0c61dc8087f4a6d2868cd252a013e5da516a))
+* **i18n:** update Spanish translations [skip ci] ([ea16eb7](https://github.com/discord-tickets/bot/commit/ea16eb704bac9d50b5f1260622e502c94ea0145e))
+
+
+
 ## [4.0.9](https://github.com/discord-tickets/bot/compare/v4.0.8...v4.0.9) (2023-08-25)
 
 
