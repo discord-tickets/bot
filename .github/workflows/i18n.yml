@@ -36,4 +36,4 @@ jobs:
         run: pnpm install
 
       - name: Validate localisations
-        run: ./scripts/check-i18n.js
+        run: node ./scripts/check-i18n.js
