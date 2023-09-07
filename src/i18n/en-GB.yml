@@ -54,7 +54,7 @@ commands:
       options:
         member:
           description: The member to add to the ticket
-          name: Member
+          name: member
         ticket:
           description: The ticket to add the member to
           name: ticket
