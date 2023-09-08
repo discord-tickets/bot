@@ -12,3 +12,4 @@ user/config.yml
 user/**/*.*
 !user/**/.gitkeep
 !user/templates/*
+summary.md
