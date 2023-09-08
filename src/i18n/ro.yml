@@ -1,0 +1,470 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Acceptă
+  cancel:
+    emoji: ➖
+    text: Anulează
+  claim:
+    emoji: 🙌
+    text: Claim
+  close:
+    emoji: ✖️
+    text: Închideți
+  confirm_open:
+    emoji: ✅
+    text: Creați un ticket
+  create:
+    emoji: 🎫
+    text: Creați un ticket
+  edit:
+    emoji: ✏️
+    text: Editează
+  reject_close_request:
+    emoji: ✖️
+    text: Refuzați
+  unclaim:
+    emoji: ♻️
+    text: Release
+commands:
+  message:
+    create:
+      name: Creați un ticket din mesaj
+    pin:
+      name: Mesaj fixat
+      not_pinnable:
+        description: |
+          Acest mesaj nu poate fi fixat.
+          Vă rugăm să cereți unui administrator să verifice permisiunile botului.
+        title: ❌ Eroare
+      not_ticket:
+        description: You can only pin messages in tickets.
+        title: ❌ This isn't a ticket channel
+      pinned:
+        description: Mesajul a fost fixat.
+        title: ✅ Mesaj fixat
+  slash:
+    add:
+      added: ➡️ {added} a fost adăugat de {by}.
+      description: Adăugați un membru la un ticket
+      name: adăugați
+      not_staff:
+        description: Numai membrii staff-ului pot adăuga membri la ticketele altora.
+        title: ❌ Eroare
+      options:
+        member:
+          description: Membrul care trebuie adăugat la ticket
+          name: membru
+        ticket:
+          description: ticketul la care se adaugă membrul
+          name: ticket
+      success:
+        description: "{member} a fost adăugat la {ticket}."
+        title: ✅ Added
+    claim:
+      description: Revendicați un ticket
+      name: revendicați
+      not_staff:
+        description: Numai membrii Staff-ului pot solicita tickete.
+        title: ❌ Eroare
+    close:
+      description: Cereți ca un ticket să fie închis
+      invalid_time:
+        description: "`{input}` nu este un format de timp valid."
+        title: ❌ Invalid
+      name: închideți
+      options:
+        reason:
+          description: Motivul închiderii ticketului
+          name: motiv
+    force-close:
+      closed_one:
+        description: Canalul va fi șters în câteva secunde.
+        title: ✅ Ticket închis
+      confirm_multiple:
+        description: >
+          Sunteți pe cale să închideți **{count}** tickete care au fost inactive
+          pentru mai mult de `{time}`:
+
+          {tickets}
+        title: ❓ Ești sigur?
+      confirmed_multiple:
+        description: Canalele vor fi șterse în câteva secunde.
+        title:
+          - ✅ Închiderea %d ticket
+          - ✅ Închiderea %d tickete
+      description: Închideți forțat un ticket
+      name: închidere-forțată
+      no_tickets:
+        description: >-
+          Nu există tickete deschise care au fost inactive pentru mai mult de
+          `{time}`.
+        title: ❌ Fără tickete
+      not_staff:
+        description: Numai membrii Staff-ului pot închide forțat ticketurile.
+        title: ❌ Eroare
+      options:
+        category:
+          description:
+            Închideți toate ticketele din categoria specificată (trebuie utilizat cu
+            `time`)
+          name: categoria
+        reason:
+          description: Motivul închiderii ticketului (" Ticketlor ")
+          name: motiv
+        ticket:
+          description: Ticket de închidere
+          name: ticket
+        time:
+          description: Închideți toate ticketele care au fost inactive pentru perioada de timp specificată
+          name: timp
+    help:
+      description: Afișați meniul de ajutor
+      name: ajutor
+      response:
+        commands: Comenzi
+        description: "**Utilizați {comand} pentru a crea un ticket și a obține asistență.**"
+        links:
+          commands: Lista completă de comenzi
+          docs: Documentație
+          feedback: Feedback
+          links: Link-uri utile
+          support: Support
+        settings: Setări bot
+      title: Ajutor
+    move:
+      description: Move a ticket to another category
+      moved: 🗃️ {by} a mutat acest ticket de la **{from}** la **{to}**.
+      name: muta
+      not_staff:
+        description: Numai membrii Staff-ului pot muta tickete.
+        title: ❌ Eroare
+      options:
+        category:
+          description: Categoria în care să mutați ticketul
+          name: categoria
+    new:
+      description: Creați un nou ticket.
+      name: nou
+      options:
+        references:
+          description: Numărul unui ticket aferent
+          name: referințe
+    priority:
+      description: Stabiliți prioritatea unui ticket
+      name: prioritate
+      not_staff:
+        description: Numai membrii Staff-ului pot modifica prioritatea biletelor.
+        title: ❌ Eroare
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Înaltă
+            LOW: 🟢 Scăzută
+            MEDIUM: 🟠 Medie
+          description: Prioritatea ticket-ului
+          name: prioritate
+      success:
+        description: Prioritatea acestui ticket a fost setată la `{priority}`.
+        title: ✅ Prioritate stabilită
+    release:
+      description: Retragerea (anularea) unui ticket
+      name: eliberare
+    remove:
+      description: Scoateți un membru dintr-un ticket
+      name: eliminați
+      not_staff:
+        description: Numai membrii staff-ului pot elimina membri de pe tickete ale altora.
+        title: ❌ Eroare
+      options:
+        member:
+          description: Membrul care trebuie eliminat din ticket
+          name: membru
+        ticket:
+          description: Ticketul pentru eliminarea membrului din
+          name: ticket
+      removed: ⬅️ {removed} a fost eliminat/ă de către {by}.
+      success:
+        description: "{member} a fost eliminat/ă din {ticket}."
+        title: ✅ Eliminat
+    tag:
+      description: Utilizați un tag
+      name: tag
+      options:
+        for:
+          description: Utilizatorul căruia trebuie să i se adreseze tag-ul
+          name: for
+        tag:
+          description: Numele tag-ului care trebuie utilizat
+          name: tag
+    tickets:
+      description: Listați ticketele dumneavoastră sau ale altcuiva
+      name: tickete
+      not_staff:
+        description: Numai membrii staff-ului pot vedea ticketurile altora.
+        title: ❌ Eroare
+      options:
+        member:
+          description: Membrul pentru a lista ticketurile de
+          name: membru
+      response:
+        description: Utilizați {transcript} pentru a descărca transcrierea unui ticket.
+        fields:
+          closed:
+            name: Tickete închise
+            none:
+              other: "{user} nu a făcut niciun ticket."
+              own: |
+                Nu ați făcut niciun ticket.
+                Utilizați {new} pentru a deschide un ticket.
+          open:
+            name: Tickete deschise
+        title:
+          other: "Ticketele lui {displayname}"
+          own: Ticketele dvs.
+    topic:
+      description: Modificarea subiectului unui ticket
+      name: topic
+    transcript:
+      description: Obțineți transcrierea unui ticket
+      name: transcript
+      not_staff:
+        description: Numai membrii staff-ului pot citi transcrierile ticketurilor altora.
+        title: ❌ Eroare
+      options:
+        member:
+          description: Membrul pentru a căuta ticket-uri de
+          name: membru
+        ticket:
+          description: Ticketul pentru a obține transcrierea
+          name: ticket
+    transfer:
+      description: Transferul proprietarul unui ticket către un alt membru
+      name: transfer
+      options:
+        member:
+          description: Membrul care urmează să transfere proprietarului catre
+          name: member
+      transferred: 📨 {user}a transferat acest ticket către {to}.
+      transferred_from: 📨 {user} a transferat acest ticket de la {from} la {to}.
+  user:
+    create:
+      name: Creați un ticket pentru el
+      not_staff:
+        description: Numai membrii staff-ului pot deschide tickete pentru alți membri.
+        title: ❌ Eroare
+      prompt:
+        description: Faceți clic pe butonul de mai jos pentru a crea un ticket.
+        title: Vă rugăm să creați un ticket
+      sent:
+        description: "{user} a fost invitat să creeze un ticket în **{category}**."
+        title: ✅ Prompt trimis
+dm:
+  closed:
+    archived: Utilizați comanda `/transcript` în **{guild}** pentru a vizualiza mesajele arhivate.
+    fields:
+      closed:
+        name: Închis la
+        value: "{timestamp} (after {duration})"
+      closed_by: Închis de
+      created: Creat la
+      feedback: Feedback-ul dumneavoastră
+      reason: Închis deoarece
+      response: Timp de răspuns
+      ticket: Ticket
+      topic: Subiect
+    title: Biletul dvs. a fost închis
+  confirm_open:
+    title: Doriți să deschideți un ticket cu următorul subiect?
+log:
+  admin:
+    changes: Modificări
+    description:
+      joined: "{user} {verb} {targetType}"
+      target:
+        category: o categorie
+        panel: un panou
+        question: o întrebare
+        settings: setările
+        tag: o etichetă
+    title:
+      joined: "{targetType} {verb}"
+      target:
+        category: Categoria
+        panel: Panou
+        question: Întrebare
+        settings: Setări
+        tag: Tag
+    verb:
+      create: a creat
+      delete: șters
+      update: actualizat
+  message:
+    description: "{user} {verb} un mesaj"
+    message: Mesaj
+    title: Mesaj {verb}
+    verb:
+      delete: șters
+      update: actualizat
+  ticket:
+    added: Membrii adăugați
+    description: "{user} {verb} un ticket"
+    removed: Membrii eliminați
+    ticket: Ticket
+    title: Ticket {verb}
+    verb:
+      claim: a venit la
+      close: închisă
+      create: a creat
+      unclaim: eliberat
+      update: actualizat
+menus:
+  category:
+    placeholder: Selectați o categorie de ticket
+  guild:
+    placeholder: Selectați un server
+misc:
+  blocked:
+    description: Nu aveți voie să creați tickete.
+    title: ❌ Blocare
+  category_full:
+    description: |
+      Categoria și-a atins capacitatea maximă.
+      Vă rugăm să încercați din nou mai târziu.
+    title: ❌ Categorie plină
+  cooldown:
+    description: Vă rugăm să așteptați {time} înainte de a crea un alt ticket în această categorie.
+    title: ❌ Vă rugăm să așteptați
+  error:
+    description: |
+      Ne pare rău, a apărut o eroare neașteptată.
+      Please give this information to an administrator.
+    fields:
+      code: Codul erorri
+      identifier: Identificator
+    title: ⚠️ Ceva a mers prost.
+  expired:
+    description: Nu ai răspuns la timp. Vă rugăm să încercați din nou.
+    title: ⏰ Expirat
+  expires_in: Expiră în {time}
+  invalid_ticket:
+    description: Vă rugăm să specificați un ticket valabil.
+    title: ❌ Ticket invalid
+  member_limit:
+    description:
+      - Vă rugăm să folosiți ticketul existent sau să îl închideți înainte de a crea un altul.
+      - |
+        Vă rugăm să închideți un ticket înainte de a crea un altul.
+        Utilizați `/tickets` pentru a vizualiza ticketele existente.
+    title:
+      - ❌ Aveți deja un ticket
+      - ❌ Aveți deja %d tickete deschise
+  missing_roles:
+    description: >-
+      Nu aveți rolurile necesare pentru a putea crea un ticket în
+      această categorie.
+    title: ❌ Roluri insuficiente
+  no_categories:
+    description: Nu a fost configurată nicio categorie de tickete.
+    title: ❌ Nu există categorii de tickete
+  not_ticket:
+    description: Puteți utiliza această comandă numai în ticket-uri.
+    title: ❌ Ăsta nu e un canal de ticket.
+  ratelimited:
+    description: Încercați din nou peste câteva secunde.
+    title: 🐢 Please slow down
+  unknown_category:
+    description: Vă rugăm să încercați o altă categorie.
+    title: ❌ Această categorie de ticket nu există
+  update:
+    description: |
+      > [View `{version}` on GitHub]({github})
+      > [Changelog]({changelog})
+      > [Update guide]({guide})
+    title: Este disponibilă o actualizare
+modals:
+  feedback:
+    comment:
+      label: Comentariu
+      placeholder: Aveți vreun feedback suplimentar?
+    rating:
+      label: Clasificare
+      placeholder: 1-5
+    title: Cum ne-am descurcat?
+  topic:
+    label: Subiect
+    placeholder: Despre ce este vorba în acest ticket?
+ticket:
+  answers:
+    no_value: "*Nici un răspuns*"
+  claimed: 🙌 {user} a revendicat acest ticket.
+  close:
+    closed:
+      description: Acest canal va fi șters în câteva secunde…
+      title: ✅ Ticket închis
+    forbidden:
+      description: Nu aveți permisiunea de a închide acest ticket.
+      title: ❌ Eroare
+    rejected: ✋ {user} a respins o cerere de închidere a acestui ticket.
+    staff_request:
+      archived: |
+
+        Mesajele de pe acest canal vor fi arhivate pentru referințe viitoare.
+      description: |
+        {requestedBy} dorește să închidă acest ticket.
+        Faceți clic pe "Acceptă" pentru a o închide acum, sau pe "Respinge" dacă mai aveți nevoie de ajutor.
+      title: ❓ Poate fi închis acest ticket?
+    user_request:
+      title: ❓ {requestedBy} dorește să închidă acest ticket
+    wait_for_staff: ✋ Vă rugăm să așteptați ca staff-ul să închidă acest ticket.
+    wait_for_user: ✋ Vă rugăm să așteptați ca utilizatorul să răspundă.
+  closing_soon:
+    description: |
+      Acest ticket va fi închis din cauza inactivității <t:{timestamp}:R>.
+      Trimiteți un mesaj pentru a anula această automatizare.
+    title: ⌛ Acest ticket va fi închis în curând
+  created:
+    description: "Canalul dvs. de ticket a fost creat: {channel}."
+    title: ✅ Ticket creat
+  edited:
+    description: Modificările dvs. au fost salvate.
+    title: ✅ Ticket actualizat
+  feedback: Vă mulțumim pentru feedback-ul dumneavoastră.
+  inactive:
+    description: |
+      Nu a existat nici o activitate în acest canal de când <t:{timestamp}:R>.
+      Vă rugăm să continuați conversația sau să {close} biletul.
+    title: ⏰ Acest ticket este inactiv
+  offline:
+    description:
+      Nu există niciun membru al personalului disponibil în acest moment, așa că s-ar putea
+      să durează mai mult decât de obicei pentru a primi un răspuns.
+    title: 😴 Nu suntem online
+  opening_message:
+    content: |
+      {staff}
+      {creator} a creat un nou ticket
+    fields:
+      topic: Subiect
+  references_message:
+    description: Referințe [a message]({url}) trimis {timestamp} de {author}.
+    title: ℹ️ Referință
+  references_ticket:
+    description: "Acest ticket este legat de un ticket anterior:"
+    fields:
+      date: Creat la
+      number: Număr
+      topic: Subiect
+    title: ℹ️ Referință
+  released: ♻️ {user} a eliberat acest ticket.
+  working_hours:
+    next:
+      description:
+        Ne vom întoarce la <t:{timestamp}:F> (<t:{timestamp}:R>), deși
+        este posibil să primiți un răspuns înainte de această dată.
+      title: 🕗 Nu lucrăm în acest moment.
+    today:
+      description:
+        Este posibil să primiți un răspuns înainte, dar noi nu începem să lucrăm până când
+        <t:{timestamp}:t> astăzi (<t:{timestamp}:R>).
+      title: 🕗 Nu lucrăm în acest moment.
