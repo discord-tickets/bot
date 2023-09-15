@@ -29,6 +29,7 @@ commands:
       success:
         title: ✅ Lisätty
         description: '{member} lisättiin {ticket}'
+      added: ➡️ {by} lisäsi {added}.
     force-close:
       not_staff:
         title: ❌ Virhe
