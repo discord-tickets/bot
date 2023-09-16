@@ -153,6 +153,7 @@ commands:
       description: Obtener la transcripción de un ticket
       not_staff:
         title: ❌ Error
+        description: Solamente el staff puede acceder a los tickets de otros usuarios.
     tickets:
       not_staff:
         description: Solamente el staff puede acceder a los tickets de otros usuarios.
