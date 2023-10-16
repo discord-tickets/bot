@@ -1,231 +1,470 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Prijať
+  create:
+    text: Vytvoriť ticket
+    emoji: 🎫
+  cancel:
+    emoji: ✖️
+    text: Zrušiť
+  claim:
+    emoji: 🙌
+    text: Prevziať
+  edit:
+    emoji: ✏️
+    text: Upraviť
+  close:
+    emoji: ✖️
+    text: Zavrieť
+  confirm_open:
+    emoji: ✅
+    text: Vytvoriť ticket
+  reject_close_request:
+    emoji: ✖️
+    text: Odmietnuť
+  unclaim:
+    emoji: ♻️
+    text: Odovzdať
 commands:
   message:
+    create:
+      name: Vytvoriť ticket zo správy
     pin:
-      name: Připnout zprávu
-      pinned:
-        description: Zpráva byla připnuta.
-        title: ✅ Zpráva připnuta
+      name: Pripnúť správu
       not_pinnable:
-        description: "Tato zpráva nemůže být připnuta.\nProsím zeptejte se admininistrátora,
-          jestli má robot dostatečné oprávnění.\n"
+        description: |
+          Táto správa nemôže byť pinnutá.
+          Povedz prosím členovi AT aby skontroloval moje oprávnenia.
         title: ❌ Chyba
       not_ticket:
-        description: Zprávy můžeš připnout jen v ticketech.
-        title: ❌ Tento kanál není ticket
-    create:
-      name: Vytvořit ticket ze zprávy
+        description: Správy môžeš pripnúť len v ticketoch.
+        title: ❌ Tento kanál neni ticket
+      pinned:
+        description: Správa bola pripnutá.
+        title: ✅ Správa připnuta
   slash:
     add:
-      name: přidat
+      name: pridať
       options:
         ticket:
           name: tiket
-          description: Ticket na přidání člena
+          description: Ticket na pridanie člena
         member:
           name: člen
-          description: Člen, kterého chcete přidat do ticketu
-      added: ➡️{by} přidal {added}.
-      description: Přidat člena do ticketu
+          description: Člen, ktorého chcete pridat do ticketu
+      added: ➡️{by} pridal {added}.
+      description: Pridat člena do ticketu
       not_staff:
-        description: Pouze členové staff teamu můžou přidávat členy do ticketů ostatních.
+        description: Iba členovia AT môžu přidávať členov do ticketov ostatných.
         title: ❌ Chyba
       success:
-        description: '{member} byl přidán do {ticket}.'
-        title: ✅ Přidán
+        description: '{member} bol pridaný do {ticket}.'
+        title: ✅ Pridaný
     claim:
-      name: převzít
-      description: Převzít ticket
+      description: Prevziať ticket
+      name: prevziať
+      not_staff:
+        description: Iba členovia AT môžu prevziať tickety.
+        title: ❌ Chyba
     close:
+      description: Zažiadať o uzavrenie ticketu
       invalid_time:
         title: ❌ Neplatný
-        description: '`{input}` není platný formát času.'
-      description: Zažádat o uzavření ticketu
-      name: uzavřít
+        description: '`{input}` neni platný formát času.'
+      name: uzatvoriť
       options:
         reason:
-          description: Důvod pro uzavření ticketu
-          name: důvod
-    remove:
-      options:
-        ticket:
-          name: tiket
-          description: Tiket pro odebrání člena
-        member:
-          description: Člen, který má být odstraněn z tiketu
-          name: člen
-      not_staff:
-        description: Pouze členové staff teamu mohou odstranit členy z ostatních tiketů.
-        title: ❌ Chyba
-      success:
-        description: '{member} byl odstraněn z {ticket}.'
-        title: ✅ Odstraněn
-      description: Odstranit člena z tiketu
-      name: odstranit
-      removed: ⬅️ {removed} byl odstraněn uživatelem {by}.
-    help:
-      response:
-        links:
-          feedback: Zpětná vazba
-          commands: Celý list příkazů
-          docs: Dokumentace
-          links: Užitečné odkazy
-          support: Podpora
-        commands: Příkazy
-        settings: Nastavení bota
-        description: '**Použijte {command} pro vytvoření ticketu a získání podpory.**'
-      description: Zobrazit pomocné menu
-      name: pomoc
-      title: Pomoc
+          description: Dôvod pre uzavretie ticketu
+          name: dôvod
     force-close:
-      options:
-        category:
-          name: kategorie
-          description: Uzavřít všechny tickety v zadané kategorii (lze použít s `time`).
-        reason:
-          description: Důvod pro uzavření ticketu(ů)
-          name: důvod
-        ticket:
-          description: Ticket k uzavření
-          name: tiket
-        time:
-          name: čas
-          description: Zavřít všechny tickety, které byly po zadanou dobu neaktivní
-            (lze použít s `category`).
+      closed_one:
+        description: Ticket bude vymazaný za pár sekúnd.
+        title: ✅ Ticket uzavretý
       confirm_multiple:
-        title: ❓Jste si jist?
-        description: "Chystáte se uzavřít **{count}** ticketů, které jsou neaktivní
-          déle než `{time}`:\n{tickets}\n"
-      name: uzavřít-silou
-      description: Násilně uzavřít tiketu
+        description: >
+          Chystáte se uzavrieť **{count}** ticketov, ktoré sú neaktívne
+          dlhšie ako `{time}`:
+          
+          {tickets}
+        title: ❓Ste si istý?
+      confirmed_multiple:
+        description: Tickety budú vymazané za pár sekúnd.
+        title:
+          - ✅ Uzatváram %d ticket
+          - ✅ Uzatváram %d ticketov
+      description: Násilne uzavrieť tiket
+      name: uzavrieť-silou
       no_tickets:
-        title: ❌Žádné tikety
-        description: Neexistují žádné otevřené tickety, které by byly neaktivní déle
+        description: >-
+          Neexistujú žiadne otevrené tickety, ktoré by boli neaktívne dlhšie
           než `{time}`.
+        title: ❌Žiadne tickety
       not_staff:
         title: ❌Chyba
-        description: Tickety mohou násilně uzavírat pouze zaměstnanci.
-    move:
-      description: Přesunout ticket do jiné kategorie
-      name: přesunout
+        description: Tickety môžu násilne uzatvárať iba členi AT.
       options:
         category:
-          description: Kategorie, do které se má ticket přesunout
-          name: kategorie
-      moved: 🗃️ {by} přesunul tento ticket z **{from}** do **{to}**.
+          description:
+            Uzavrieť všetky tickety v zadanej kategórii (musí byť použité s 
+            `time`)
+          name: kategória
+        reason:
+          description: Dôvod pre uzavřetie ticketu(ov)
+          name: dôvod
+        ticket:
+          description: Ticket k uzavretiu
+          name: tiket
+        time:
+          description: Zavrieť všetky tickety, ktoré boli po zadanom čase neaktívne
+          name: čas
+    help:
+      description: Zobraziť pomocné menu
+      name: pomoc
+      response:
+        commands: Príkazy
+        description: '**Použite {command} pre vytvořenie ticketu a získánie podpory.**'
+        links:
+          commands: Celý list príkazov
+          docs: Dokumentácia
+          feedback: Spätná väzba
+          links: Užitočné odkazy
+          support: Podpora
+        settings: Nastavenia bota
+      title: Pomoc
+    move:
+      description: Presunúť ticket do inej kategórie
+      moved: 🗃️ {by} presunul ticket z **{from}** do **{to}**.
+      name: presunúť
+      not_staff:
+        description: Iba členovia AT môžu presúvať tickety.
+        title: ❌ Chyba
+      options:
+        category:
+          description: Kategória, do ktorej sa má ticket presunúť
+          name: kategória
     new:
-      description: Vytvořit nový ticket
+      description: Vytvoriť nový ticket
       name: nový
       options:
         references:
-          description: Číslo souvisejícího tiketu
-          name: reference
+          description: Číslo súvisiaceho tiketu
+          name: odkaz
     priority:
-      description: Nastavit důležitost ticketu
-      name: důležitost
+      description: Nastaviť prioritu ticketu
+      name: priorita
+      not_staff:
+        description: Iba členovia AT môžu zmeniť prioritu ticketov.
+        title: ❌ Chyba
       options:
         priority:
           choices:
             HIGH: 🔴 Vysoká
             LOW: 🟢 Malá
-            MEDIUM: 🟠 Střední
+            MEDIUM: 🟠 Stredná
           description: Priorita tiketu
           name: priorita
       success:
-        description: Priorita tiketu byla nastavena na `{priority}`.
-        title: ✅ Priorita nastavena
+        description: Priorita tiketu bola nastavená na `{priority}`.
+        title: ✅ Priorita nastavená
     release:
-      name: uvolnit
-      description: Uvolnit (vrátit) ticket
+      description: Odovzdať ticket
+      name: uvolniť
+    remove:
+      description: Odstrániť člena z tiketu
+      name: odstrániť
+      not_staff:
+        description: Iba členi AT môžu odstrániť používateľov z ticketu.
+        title: ❌ Chyba
+      options:
+        ticket:
+          description: Tiket pre odobranie člena
+          name: tiket
+        member:
+          description: Člen, ktorý má byť odstránený z tiketu
+          name: člen
+      removed: ⬅️ {removed} bol odstránený používatelom {by}.
+      success:
+        description: '{member} bol odstránený z {ticket}.'
+        title: ✅ Odstránený
     tag:
-      description: Použijte tag
+      description: Použite tag
       name: tag
       options:
         for:
-          description: Uživatel, na kterého má cílit tag
-          name: pro
+          description: Používateť, na ktorého má cieliť tag
+          name: pre
         tag:
-          description: Jméno tagu pro použití
+          description: Názov tagu
           name: tag
     tickets:
+      description: Vypíše tvoje alebo niekoho iného tickety
       name: tickety
+      not_staff:
+        description: Iba členovia AT môžu vidieť tickety ostatných.
+        title: ❌ Error
+      options:
+        member:
+          description: Používateľ ktorého tickety chceš vidieť
+          name: člen
       response:
+        description: Použi {transcript} pre stiahnutie archívovaného ticketu.
         fields:
           closed:
-            name: Uzavřené tickety
+            name: Uzavreté tickety
+            none:
+              other: "{user} si nezaložil žiadne tickety."
+              own: |
+                Nezaložil si žiadne tickety.
+                Použi {new} pre založenie ticketu.
           open:
-            name: Otevřít tickety
+            name: Otvorené tickety
         title:
-          other: Tickety uživatele {displayName}
-      not_staff:
-        title: ❌ Chyba
+          other: "{displayName} tickety"
+          own: Tvoje tickety
     topic:
+      description: Zmeniť tému ticketu
       name: téma
-buttons:
-  accept_close_request:
-    emoji: ✅
-    text: Přijmout
-  create:
-    text: Vytvořit ticket
-    emoji: 🎫
-  cancel:
-    emoji: ✖️
-    text: Zrušit
-  claim:
-    emoji: 🙌
-    text: Převzít
-  edit:
-    emoji: ✏️
-    text: Upravit
-  close:
-    emoji: ✖️
-    text: Zavřít
-  confirm_open:
-    emoji: ✅
-    text: Vytvořit ticket
-  reject_close_request:
-    emoji: ✖️
-    text: Odmítnut
-  unclaim:
-    emoji: ♻️
-    text: Vydat
+    transcript:
+      description: Získať transcript archívovaného ticketu
+      name: transcript
+      not_staff:
+        description: Iba členovia AT môžu čítať transcripty iných používateľov.
+        title: ❌ Chyba
+      options:
+        member:
+          description: Člen ktorého tickety chceš vidieť
+          name: člen
+        ticket:
+          description: Ticket ktorého transcript chceš vidieť
+          name: ticket
+    transfer:
+      description: Zmeniť zakladateľa ticketu na iného používateľa
+      name: zakladateľ
+      options:
+        member:
+          description: Používateľ na ktorého sa zmení zakladateľ
+          name: člen
+      transferred: 📨 {user} zmenil zakladateľa ticketu na {to}.
+      transferred_from: 📨 {user} zmenil zakladateľa ticketu z {from} na {to}.
+  user:
+    create:
+      name: Vytvorí ticket pre používateľa
+      not_staff:
+        description: Iba členovia AT môžu otvárať tickety pre ostatných používateľov.
+        title: ❌ Chyba
+      prompt:
+        description: Klikni na tlačítko pre vytvorenie ticketu.
+        title: Vytvor si ticket prosím
+      sent:
+        description: "{user} bol pozvaný na vytvorenie ticketu v **{category}**."
+        title: ✅ Požiadavka odoslaná
 dm:
   closed:
-    archived: Chcete-li zobrazit archivované zprávy, zadejte `/transcript` do **{guild}**.
-    title: Váš ticket byl uzavřen
+    archived: Ak chcete zobraziť archivované správy, zadejte `/transcript` do **{guild}**.
+    title: Váš ticket bol uzavretý
     fields:
-      closed_by: Zavřeno uživatelem
+      closed_by: Zavrené používatelom
       ticket: Ticket
       closed:
-        name: Zavřeno v
+        name: Zavrené
         value: '{timestamp} (po {duration})'
-      created: Vytvořeno v
-      feedback: Vaše zpětná vazba
-      reason: Zavřeno, protože
-      response: Doba odezvy
+      created: Vytvorené
+      feedback: Vaša spätná väzba
+      reason: Zavrené, pretože
+      response: Doba odozvy
       topic: Téma
   confirm_open:
-    title: Chcete otevřít ticket s následujícím tématem?
+    title: Chcete otvoriť ticket s nasledujúcou témou?
 log:
   admin:
+    changes: Zmeny
     description:
+      joined: '{user} {verb} {targetType}'
       target:
-        tag: značka
-        settings: nastavení
-        category: kategorie
+        category: kategória
         panel: panel
         question: otázka
-      joined: '{user} {verb} {targetType}'
-    verb:
-      create: vytvořeno
+        settings: nastavenia
+        tag: tag
     title:
-      target:
-        panel: Panel
-        category: Kategorie
-        question: Otázka
-        settings: Nastavení
-        tag: Štítek
       joined: '{targetType} {verb}'
-    changes: Změny
+      target:
+        category: Kategória
+        panel: Panel
+        question: Otázka
+        settings: Nastavenia
+        tag: Štítok
+    verb:
+      create: vytvorené
+      delete: uzavreté
+      update: aktualizované
+  message:
+    description: "{user} {verb} správu"
+    message: Správa
+    title: Správa {verb}
+    verb:
+      delete: vymazaná
+      update: aktualizovaná
+  ticket:
+    added: Pridal používateľov
+    description: "{user} {verb} ticket"
+    removed: Odobral používateľov
+    ticket: Ticket
+    title: Ticket {verb}
+    verb:
+      claim: prevzial
+      close: uzatvoril
+      create: vytvoril
+      unclaim: odovzdal
+      update: aktualizoval
+menus:
+  category:
+    placeholder: Vyber kategóriu ticketu
+  guild:
+    placeholder: Vyber server
 misc:
+  blocked:
+    description: Nemáš právo vytvárať tickety.
+    title: ❌ Zablokované
+  category_full:
+    description: |
+      Kategória dosiahla maximálnej kapacity.
+      Skús to prosím neskôr.
+    title: ❌ Kategória plná
+  cooldown:
+    description: Počkaj prosím {time} pred vytvorením ďaľšieho ticketu v tejto kategórii.
+    title: ❌ Počkaj chvíľu
   error:
-    title: ⚠️ Něco se pokazilo
+    description: |
+      Ospravedlňujeme sa, ale vyskytla sa nečakaná chyba.
+      Poskytni tieto informácie členovi AT.
+    fields:
+      code: Error kód
+      identifier: Identifikátor
+    title: ⚠️ Niečo sa pokazilo
+  expired:
+    description: Neodpovedal si včas. Skús to prosím znova.
+    title: ⏰ Expirované
+  expires_in: Expiruje za {time}
+  invalid_ticket:
+    description: Prosím špecifikuj platný ticket.
+    title: ❌ Neplatný ticket
+  member_limit:
+    description:
+      - Uzavri prosím tvoj aktuálny ticket alebo ho uzavri pred vytvorením nového.
+      - |
+        Prosím uzavri ticket pred vytvorením nového.
+        Použi `/tickets` pre zobrazenie tvojich ticketov.
+    title:
+      - ❌ Už máš založený ticket
+      - ❌ Už máš založené %d tickety
+  missing_roles:
+    description: >-
+      Nemáš dostatočné role na to aby si mohol vytvoriť ticket v
+      tejto kategórii.
+    title: ❌ Nedostatočné role
+  no_categories:
+    description: Žiadne kategórie ticketov nie sú nakonfigurované.
+    title: ❌ Žiadne kategórie
+  not_ticket:
+    description: Tento príkaz môžeš použiť iba v ticketoch.
+    title: ❌ Toto neni ticket kanál
+  ratelimited:
+    description: Skús to znova za pár sekúnd.
+    title: 🐢 Spomal prosím
+  unknown_category:
+    description: Skús prosím inú kategóriu.
+    title: ❌ Kategória neexistuje
+  update:
+    description: |
+      > [Pozri `{version}` na GitHube]({github})
+      > [Changelog]({changelog})
+      > [Aktualizačná príručka]({guide})
+    title: Aktualizácia je dostupná
+modals:
+  feedback:
+    comment:
+      label: Komentár
+      placeholder: Praješ si niečo dodať?
+    rating:
+      label: Hodnotenie
+      placeholder: 1-5
+    title: Ako sa nám darilo?
+  topic:
+    label: Téma
+    placeholder: O čom je tento ticket?
+ticket:
+  answers:
+    no_value: "*Bez odpovědi*"
+  claimed: 🙌 {user} si claimol ticket.
+  close:
+    closed:
+      description: Tento ticket bude vymazaný za pár sekúnd…
+      title: ✅ Ticket uzavretý
+    forbidden:
+      description: Nemáš oprávnenie na uzavretie ticketu.
+      title: ❌ Chyba
+    rejected: ✋ {user} zamietol žiadosť o uzavretie tohto ticketu.
+    staff_request:
+      archived: |
+
+        Správy v tomto tickete budú archivované pre budúce použitie.
+      description: |
+        {requestedBy} si praje uzavrieť tento ticket.
+        Kliknutím na Prijať ho uzavrite alebo použite Odmietnuť, ak stále potrebujete pomoc.
+      title: ❓ Môže byť tento ticket uzavretý?
+    user_request:
+      title: ❓ {requestedBy} si praje uzavrieť tento ticket
+    wait_for_staff: ✋ Počkaj prosím na člena AT aby sa rozhodol.
+    wait_for_user: ✋ Počkaj prosím na používateľa aby sa rozhodol.
+  closing_soon:
+    description: |
+      Tento ticket bude uzavretý z dôvodu nečinnosti (<t:{timestamp}:R>).
+      Pošlite správu na zrušenie.
+    title: ⌛ Tento ticket sa čoskoro uzavrie
+  created:
+    description: "Tvoj ticket je vytvorený: {channel}."
+    title: ✅ Ticket vytvorený
+  edited:
+    description: Tvoje zmeny boli uložené.
+    title: ✅ Ticket aktualizovaný
+  feedback: Thank you for your feedback.
+  inactive:
+    description: |
+      V tomto kanáli nebola zaznamenaná žiadna aktivita (<t:{timestamp}:R>).
+      Prosím pokračuj v konverzácii alebo uzavri ticket ({close}).
+    title: ⏰ Tento ticket je neaktívny
+  offline:
+    description:
+      Momentálne nie sú k dispozícii žiadni členi AT, takže je možné, že
+      bude trvať dlhšie ako zvyčajne, kým dostanete odpoveď.
+    title: 😴 Nie sme online
+  opening_message:
+    content: |
+      {staff}
+      {creator} vytvoril ticket
+    fields:
+      topic: Téma
+  references_message:
+    description: Odkazuje na [správu]({url}) ({timestamp}) od {author}.
+    title: ℹ️ Odkaz
+  references_ticket:
+    description: "Tento ticket súvisí s ticketom:"
+    fields:
+      date: Vytvorené
+      number: Číslo
+      topic: Téma
+    title: ℹ️ Odkaz
+  released: ♻️ {user} odovzdal tento ticket.
+  working_hours:
+    next:
+      description:
+        Vrátime sa o <t:{timestamp}:F> (<t:{timestamp}:R>), hoci
+        možno dostanete odpoveď skôr.
+      title: 🕗 Momentálne nie sme dostupný
+    today:
+      description:
+        Odpoveď môžete dostať skôr, ale oficiálne začíname o
+        <t:{timestamp}:t> dnes (<t:{timestamp}:R>).
+      title: 🕗 Momentálne nie sme dostupný
