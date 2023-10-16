@@ -32,14 +32,15 @@ commands:
       name: Épingler le message
       not_pinnable:
         title: ❌ Erreur
-        description: "Ce message ne peut être épinglé.\nVeuillez demander à un administrateur\
-          \ de vérifier les permissions du bot\n"
+        description: "Ce message ne peut être épinglé.\nVeuillez demander à un administrateur
+          de vérifier les permissions du bot\n"
       pinned:
         title: ✅ Message épinglé
         description: Le message a été épinglé.
       not_ticket:
         title: ❌ Ceci n'est pas un salon de tickets
-        description: Vous pouvez seulement épingler des messages dans les salons de tickets.
+        description: Vous pouvez seulement épingler des messages dans les salons de
+          tickets.
     create:
       name: Transformer ce message en ticket
   slash:
@@ -97,8 +98,8 @@ commands:
           tickets.
         title: ❌ Erreur
       confirm_multiple:
-        description: "Vous êtes sur le point de clôturer **{count}** tickets inactifs\
-          \ depuis plus de `{time}` :\n{tickets}\n"
+        description: "Vous êtes sur le point de clôturer **{count}** tickets inactifs
+          depuis plus de `{time}` :\n{tickets}\n"
         title: ❓ Êtes vous sûr ?
     claim:
       description: S'approprier un ticket
@@ -202,8 +203,8 @@ commands:
           closed:
             none:
               other: "{user} n'as ouvert aucun ticket."
-              own: "Vous n'avez ouvert aucun ticket\nUtilisez {new} pour ouvrir un\
-                \ ticket.\n"
+              own: "Vous n'avez ouvert aucun ticket\nUtilisez {new} pour ouvrir un
+                ticket.\n"
             name: Tickets clôturés
           open:
             name: Tickets ouverts
@@ -236,12 +237,12 @@ commands:
       name: Créer un ticket pour un membre
 misc:
   update:
-    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notes de mises à jour]({changelog})\n\
+    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notes de mises à jour]({changelog})\n
       > [Guide de mise à jour]({guide})\n"
     title: Une mise à jour est disponible
   category_full:
-    description: "Cette catégorie a atteint sa capacité maximale.\nVeuillez réessayer\
-      \ ultérieurement.\n"
+    description: "Cette catégorie a atteint sa capacité maximale.\nVeuillez réessayer
+      ultérieurement.\n"
     title: ❌ Catégorie pleine
   expires_in: Expire dans {time}
   not_ticket:
@@ -261,8 +262,8 @@ misc:
     fields:
       code: Code d'erreur
       identifier: Identifiant
-    description: "Désolé, une erreur inattendue s'est produite.\nVeuillez transmettre\
-      \ cette information à un administrateur.\n"
+    description: "Désolé, une erreur inattendue s'est produite.\nVeuillez transmettre
+      cette information à un administrateur.\n"
     title: ⚠️ Quelque chose s'est mal passé
   missing_roles:
     description: Vous n'avez pas les rôles requis pour créer un ticket dans cette
@@ -283,8 +284,8 @@ misc:
     - Vous avez déjà %d tickets ouverts
     description:
     - Veuillez utiliser votre ticket ouvert ou le clôturer avant d'en créer un nouveau.
-    - "Veuillez clôturer votre ticket avant d'en créer un autre.\nUtilisez `/tickets`\
-      \ afin de voir vos tickets existants.\n"
+    - "Veuillez clôturer votre ticket avant d'en créer un autre.\nUtilisez `/tickets`
+      afin de voir vos tickets existants.\n"
   unknown_category:
     description: Veuillez tenter une autre catégorie.
     title: ❌ Cette catégorie de ticket n'existe pas

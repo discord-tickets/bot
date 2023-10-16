@@ -6,7 +6,7 @@ buttons:
     text: Vytvoriť ticket
     emoji: 🎫
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Zrušiť
   claim:
     emoji: 🙌
@@ -85,14 +85,14 @@ commands:
         description: >
           Chystáte se uzavrieť **{count}** ticketov, ktoré sú neaktívne
           dlhšie ako `{time}`:
-          
+
           {tickets}
         title: ❓Ste si istý?
       confirmed_multiple:
         description: Tickety budú vymazané za pár sekúnd.
         title:
-          - ✅ Uzatváram %d ticket
-          - ✅ Uzatváram %d ticketov
+        - ✅ Uzatváram %d ticket
+        - ✅ Uzatváram %d ticketov
       description: Násilne uzavrieť tiket
       name: uzavrieť-silou
       no_tickets:
@@ -105,9 +105,8 @@ commands:
         description: Tickety môžu násilne uzatvárať iba členi AT.
       options:
         category:
-          description:
-            Uzavrieť všetky tickety v zadanej kategórii (musí byť použité s 
-            `time`)
+          description: Uzavrieť všetky tickety v zadanej kategórii (musí byť použité
+            s `time`)
           name: kategória
         reason:
           description: Dôvod pre uzavřetie ticketu(ov)
@@ -352,13 +351,13 @@ misc:
     title: ❌ Neplatný ticket
   member_limit:
     description:
-      - Uzavri prosím tvoj aktuálny ticket alebo ho uzavri pred vytvorením nového.
-      - |
-        Prosím uzavri ticket pred vytvorením nového.
-        Použi `/tickets` pre zobrazenie tvojich ticketov.
+    - Uzavri prosím tvoj aktuálny ticket alebo ho uzavri pred vytvorením nového.
+    - |
+      Prosím uzavri ticket pred vytvorením nového.
+      Použi `/tickets` pre zobrazenie tvojich ticketov.
     title:
-      - ❌ Už máš založený ticket
-      - ❌ Už máš založené %d tickety
+    - ❌ Už máš založený ticket
+    - ❌ Už máš založené %d tickety
   missing_roles:
     description: >-
       Nemáš dostatočné role na to aby si mohol vytvoriť ticket v
@@ -407,7 +406,7 @@ ticket:
       title: ❌ Chyba
     rejected: ✋ {user} zamietol žiadosť o uzavretie tohto ticketu.
     staff_request:
-      archived: |
+      archived: |2
 
         Správy v tomto tickete budú archivované pre budúce použitie.
       description: |
@@ -436,8 +435,7 @@ ticket:
       Prosím pokračuj v konverzácii alebo uzavri ticket ({close}).
     title: ⏰ Tento ticket je neaktívny
   offline:
-    description:
-      Momentálne nie sú k dispozícii žiadni členi AT, takže je možné, že
+    description: Momentálne nie sú k dispozícii žiadni členi AT, takže je možné, že
       bude trvať dlhšie ako zvyčajne, kým dostanete odpoveď.
     title: 😴 Nie sme online
   opening_message:
@@ -459,12 +457,10 @@ ticket:
   released: ♻️ {user} odovzdal tento ticket.
   working_hours:
     next:
-      description:
-        Vrátime sa o <t:{timestamp}:F> (<t:{timestamp}:R>), hoci
-        možno dostanete odpoveď skôr.
+      description: Vrátime sa o <t:{timestamp}:F> (<t:{timestamp}:R>), hoci možno
+        dostanete odpoveď skôr.
       title: 🕗 Momentálne nie sme dostupný
     today:
-      description:
-        Odpoveď môžete dostať skôr, ale oficiálne začíname o
-        <t:{timestamp}:t> dnes (<t:{timestamp}:R>).
+      description: Odpoveď môžete dostať skôr, ale oficiálne začíname o <t:{timestamp}:t>
+        dnes (<t:{timestamp}:R>).
       title: 🕗 Momentálne nie sme dostupný
