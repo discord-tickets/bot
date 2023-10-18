@@ -1,10 +1,12 @@
 buttons:
   cancel:
     emoji: ✖️
+    text: İptal Et
   close:
     emoji: ✖️
   accept_close_request:
     emoji: ✅
+    text: Kabul Et
   create:
     emoji: 🎫
   edit:
