@@ -4,6 +4,7 @@ buttons:
     text: İptal Et
   close:
     emoji: ✖️
+    text: Kapat
   accept_close_request:
     emoji: ✅
     text: Kabul Et
