@@ -203,7 +203,7 @@ async function summarise() {
 			}
 		} else {
 			summary += 'No errors found\n\n';
-			console.log(`::notice file=src/i18n/${locale}.yml::No errors found`);
+			// console.log(`::notice file=src/i18n/${locale}.yml::No errors found`);
 		}
 
 		console.log('::endgroup::');
