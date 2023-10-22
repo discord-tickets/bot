@@ -40,6 +40,8 @@ commands:
     help:
       description: Toon het helpmenu
       name: hulp
+      response:
+        commands: Commando's
     add:
       added: ➡️ {added} is toegevoegd door {by}.
       description: Voeg iemand toe aan een ticket
@@ -60,7 +62,7 @@ commands:
     close:
       description: Een verzoek indienen om een ticket te sluiten
       invalid_time:
-        description: '`{input}` is geen geldig tijdsformaat'
+        description: '`{input}` is geen geldig tijdsformaat.'
         title: ❌ Ongeldig
       options:
         reason:
