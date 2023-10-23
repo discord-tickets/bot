@@ -44,6 +44,10 @@ commands:
         commands: Opdrachten
         description: '**Gebruik {command} om een ticket aan te maken en ondersteuning
           te krijgen.**'
+        links:
+          docs: Documentatie
+          feedback: Feedback
+          commands: Volledige commandolijst
     add:
       added: ➡️ {added} is toegevoegd door {by}.
       description: Voeg iemand toe aan een ticket
