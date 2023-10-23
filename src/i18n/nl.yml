@@ -41,7 +41,9 @@ commands:
       description: Toon het helpmenu
       name: hulp
       response:
-        commands: Commando's
+        commands: Opdrachten
+        description: '**Gebruik {command} om een ticket aan te maken en ondersteuning
+          te krijgen.**'
     add:
       added: ➡️ {added} is toegevoegd door {by}.
       description: Voeg iemand toe aan een ticket
