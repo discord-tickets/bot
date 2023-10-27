@@ -105,7 +105,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
 				value: closed.map(ticket => {
 					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
-					return `> ${ticket.category.name} #${ticket.number} ` + "`" + `${ticket.id}` + "`" + ` ${topic}`;
+					return `> ${ticket.category.name} #${ticket.number} ` + "`" + ticket.id + "`" + ` ${topic}`;
 				}).join('\n'),
 			});
 		}
