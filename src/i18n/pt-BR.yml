@@ -263,7 +263,7 @@ commands:
         title: ✅ Solicitação enviada
 dm:
   closed:
-    archived: Use o comando `/transcript` em **{guild}** para visualizar as mensagens
+    archived: Use o comando `/transcrição` em **{guild}** para visualizar as mensagens
       arquivadas.
     fields:
       closed:
@@ -283,13 +283,13 @@ log:
   admin:
     changes: Alterações
     description:
-      joined: "{user} {verb} {targetType}"
+      joined: "{targetType} {verb} por {user}"
       target:
-        category: uma categoria
-        panel: um painel
-        question: uma pergunta
-        settings: as configurações
-        tag: uma marcação
+        category: Categoria
+        panel: Painel
+        question: Pergunta
+        settings: Configurações
+        tag: Marcação
     title:
       joined: "{targetType} {verb}"
       target:
@@ -299,28 +299,28 @@ log:
         settings: Configurações
         tag: Marcação
     verb:
-      create: criou
-      delete: deletou
-      update: atualizou
+      create: criado(a)
+      delete: deletado(a)
+      update: atualizado(a)
   message:
-    description: "{user} {verb} uma mensagem"
+    description: "Mensagem {verb} por {user}"
     message: Mensagem
     title: Mensagem {verb}
     verb:
-      delete: deletou
-      update: atualizou
+      delete: deletada
+      update: atualizada
   ticket:
     added: Membros adicionados
-    description: "{user} {verb} um ticket"
+    description: "Ticket {verb} por {user}"
     removed: Membros removidos
     ticket: Ticket
     title: Ticket {verb}
     verb:
-      claim: assumiu
-      close: fechou
-      create: criou
-      unclaim: abdicou
-      update: atualizou
+      claim: assumido
+      close: fechado
+      create: criado
+      unclaim: abdicado
+      update: atualizado
 menus:
   category:
     placeholder: Selecione uma categoria de ticket
@@ -364,9 +364,9 @@ misc:
     - ❌ Você já tem %d tickets abertos
   missing_roles:
     description: >-
-      Você não tem as funções necessárias para criar um ticket no
-      esta categoria.
-    title: ❌ Funções insuficientes
+      Você não tem os cargos necessários para criar um ticket
+      nesta categoria.
+    title: ❌ Cargos insuficientes
   no_categories:
     description: Nenhuma categoria de ticket foi configurada.
     title: ❌ Não há categorias de tickets
@@ -427,7 +427,7 @@ ticket:
       Envie uma mensagem para cancelar esta automação.
     title: ⌛ Este ticket será fechado em breve
   created:
-    description: "Seu canal de tickets foi criado: {channel}."
+    description: "Seu canal de ticket foi criado: {channel}."
     title: ✅ Ticket criado
   edited:
     description: Suas alterações foram salvas.
@@ -449,7 +449,7 @@ ticket:
     fields:
       topic: Tópico
   references_message:
-    description: Referências [uma mensagem]({url}) enviada {timestamp} por {author}.
+    description: Referencia [uma mensagem]({url}) enviada {timestamp} por {author}.
     title: ℹ️ Referência
   references_ticket:
     description: "Este ticket está relacionado a um ticket anterior:"
@@ -463,8 +463,8 @@ ticket:
     next:
       description: Estaremos de volta às <t:{timestamp}:F> (<t:{timestamp}:R>), embora
         você pode receber uma resposta antes disso.
-      title: 🕗 Não estamos funcionando no momento
+      title: 🕗 Não estamos trabalhando no momento
     today:
       description: Você pode receber uma resposta antes, mas só começaremos a trabalhar
         <t:{timestamp}:t> hoje (<t:{timestamp}:R>).
-      title: 🕗 Não estamos funcionando no momento
+      title: 🕗 Não estamos trabalhando no momento
