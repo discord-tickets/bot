@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Contributors ✨
@@ -46,6 +46,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/GeckoBoy84"><img src="https://avatars.githubusercontent.com/u/67899387?v=4?s=100" width="100px;" alt="GeckoBoy84"/><br /><sub><b>GeckoBoy84</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/issues?q=author%3AGeckoBoy84" title="Bug reports">🐛</a> <a href="#ideas-GeckoBoy84" title="Ideas, Planning, & Feedback">🤔</a> <a href="#question-GeckoBoy84" title="Answering Questions">💬</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Manfred-exe"><img src="https://avatars.githubusercontent.com/u/81268335?v=4?s=100" width="100px;" alt="Manfred.exe"/><br /><sub><b>Manfred.exe</b></sub></a><br /><a href="#translation-Manfred-exe" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Thomasthegama"><img src="https://avatars.githubusercontent.com/u/70441539?v=4?s=100" width="100px;" alt="Thomasthegama"/><br /><sub><b>Thomasthegama</b></sub></a><br /><a href="#translation-Thomasthegama" title="Translation">🌍</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/VinDotRun"><img src="https://avatars.githubusercontent.com/u/28811713?v=4?s=100" width="100px;" alt="Vin"/><br /><sub><b>Vin</b></sub></a><br /><a href="#translation-VinDotRun" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>

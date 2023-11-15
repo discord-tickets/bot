@@ -264,6 +264,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "VinDotRun",
+      "name": "Vin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28811713?v=4",
+      "profile": "https://github.com/VinDotRun",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
