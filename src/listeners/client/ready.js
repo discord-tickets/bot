@@ -65,10 +65,11 @@ module.exports = class extends Listener {
 						firstResponseAt: true,
 					},
 				});
-				const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
+				const closedTicketsWithResponse = tickets.filter(t => t.firstResponseAt && t.closedAt);
+				const closedTickets = tickets.filter(t => t.closedAt);
 				cached = {
-					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
-					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
+					avgResolutionTime: ms(getAvgResolutionTime(closedTicketsWithResponse)),
+					avgResponseTime: ms(getAvgResponseTime(closedTicketsWithResponse)),
 					openTickets: tickets.length - closedTickets.length,
 					totalTickets: tickets.length,
 				};
