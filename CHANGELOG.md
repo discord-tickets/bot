@@ -1,3 +1,29 @@
+## [4.0.11](https://github.com/discord-tickets/bot/compare/v4.0.10...v4.0.11) (2023-11-16)
+
+
+### Bug Fixes
+
+* **i18n:** update Portuguese (Brazil) translations ([#497](https://github.com/discord-tickets/bot/issues/497)) ([efc7885](https://github.com/discord-tickets/bot/commit/efc7885367552955cd1857eb94b0940a56505ec6))
+* open tickets count ([#500](https://github.com/discord-tickets/bot/issues/500)) ([b329d5a](https://github.com/discord-tickets/bot/commit/b329d5ae2e0e64b0752d0f452170f4d58accc735))
+
+
+### Features
+
+* add ticket/channel ID on closed tickets list ([#496](https://github.com/discord-tickets/bot/issues/496)) ([cab1b3b](https://github.com/discord-tickets/bot/commit/cab1b3b6ca067578dabf05a2075697361e7d031b))
+* **i18n:** add Romanian translations ([f87d880](https://github.com/discord-tickets/bot/commit/f87d88075395fc13841329ca4c9ed29ac157371d))
+* **i18n:** update Czech translations ([a707869](https://github.com/discord-tickets/bot/commit/a7078697b61722aec5bc7ecbb437dab31bb50465))
+* **i18n:** update Czech translations ([80bedbc](https://github.com/discord-tickets/bot/commit/80bedbc2ba1204376a93260b25c8bbb6a1dbdac1))
+* **i18n:** update Dutch translations ([6b8cd9e](https://github.com/discord-tickets/bot/commit/6b8cd9eb290ea2a97927d4bf57541d4e8221d022))
+* **i18n:** update Dutch translations ([1e834fd](https://github.com/discord-tickets/bot/commit/1e834fdeb3f726d59aef06a8f42ab1de5e4a9b04))
+* **i18n:** update Dutch translations ([4c8bba3](https://github.com/discord-tickets/bot/commit/4c8bba3917c8ce6e1c088487d15f858c1a58ff31))
+* **i18n:** update Finnish translations ([e7a1aac](https://github.com/discord-tickets/bot/commit/e7a1aac42411c85186b5f4af3b4590c53f2dfdba))
+* **i18n:** update Russian translations ([380d315](https://github.com/discord-tickets/bot/commit/380d315a91718e20eb6b47ea64e6f23f5c7c0677))
+* **i18n:** update Spanish translations ([1f7899b](https://github.com/discord-tickets/bot/commit/1f7899b7723555736c697b1a790ddfb8f877eae0))
+* **i18n:** update Turkish translations ([99904c2](https://github.com/discord-tickets/bot/commit/99904c2f7af2a9eda164b16ec1e92d3a02a3d461))
+* **i18n:** update Turkish translations ([830b1b1](https://github.com/discord-tickets/bot/commit/830b1b1edc03aadf4c8a284615ac80f8b0c42e81))
+
+
+
 ## [4.0.10](https://github.com/discord-tickets/bot/compare/v4.0.9...v4.0.10) (2023-09-07)
 
 
