@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Contributors ✨
@@ -47,6 +47,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Manfred-exe"><img src="https://avatars.githubusercontent.com/u/81268335?v=4?s=100" width="100px;" alt="Manfred.exe"/><br /><sub><b>Manfred.exe</b></sub></a><br /><a href="#translation-Manfred-exe" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Thomasthegama"><img src="https://avatars.githubusercontent.com/u/70441539?v=4?s=100" width="100px;" alt="Thomasthegama"/><br /><sub><b>Thomasthegama</b></sub></a><br /><a href="#translation-Thomasthegama" title="Translation">🌍</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/VinDotRun"><img src="https://avatars.githubusercontent.com/u/28811713?v=4?s=100" width="100px;" alt="Vin"/><br /><sub><b>Vin</b></sub></a><br /><a href="#translation-VinDotRun" title="Translation">🌍</a> <a href="https://github.com/discord-tickets/bot/issues?q=author%3AVinDotRun" title="Bug reports">🐛</a> <a href="https://github.com/discord-tickets/bot/commits?author=VinDotRun" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/M4rlus"><img src="https://avatars.githubusercontent.com/u/43551856?v=4?s=100" width="100px;" alt="Marius"/><br /><sub><b>Marius</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=M4rlus" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
