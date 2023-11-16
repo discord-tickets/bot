@@ -12,9 +12,9 @@ const {
 } = require('../../../../../../lib/stats');
 
 module.exports.get = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 
 		let { categories } = await client.prisma.guild.findUnique({
 			select: {
@@ -54,9 +54,9 @@ module.exports.get = fastify => ({
 });
 
 module.exports.post = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 
 		const user = await client.users.fetch(req.user.id);
 		const guild = client.guilds.cache.get(req.params.guild);

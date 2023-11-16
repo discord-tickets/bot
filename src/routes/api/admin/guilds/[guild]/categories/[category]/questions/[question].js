@@ -3,7 +3,7 @@ const { logAdminEvent } = require('../../../../../../../../lib/logging');
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
 		const questionId = req.params.question;

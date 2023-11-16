@@ -1,7 +1,7 @@
 module.exports.get = () => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import("client")} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		return client.i18n.locales;
 	},
 });

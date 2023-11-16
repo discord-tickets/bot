@@ -4,9 +4,9 @@ const {
 const ms = require('ms');
 
 module.exports.get = () => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import("client")} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const cacheKey = 'cache/stats/client';
 		let cached = await client.keyv.get(cacheKey);
 

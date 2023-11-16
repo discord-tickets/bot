@@ -4,7 +4,7 @@ const { logAdminEvent } = require('../../../../../../lib/logging');
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const tagId = Number(req.params.tag);
 		const original = tagId && await client.prisma.tag.findUnique({ where: { id: tagId } });
@@ -41,7 +41,7 @@ module.exports.delete = fastify => ({
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const tagId = Number(req.params.tag);
 		const tag = await client.prisma.tag.findUnique({ where: { id: tagId } });
@@ -56,7 +56,7 @@ module.exports.get = fastify => ({
 module.exports.patch = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const tagId = Number(req.params.tag);
 		const guild = client.guilds.cache.get(req.params.guild);
