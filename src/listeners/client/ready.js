@@ -75,7 +75,7 @@ module.exports = class extends Listener {
 				};
 				await client.keyv.set(cacheKey, cached, ms('15m'));
 			}
-			const activity = client.config.presence.activities[next];
+			const activity = { ...client.config.presence.activities[next] };
 			activity.name = activity.name
 				.replace(/{+avgResolutionTime}+/gi, cached.avgResolutionTime)
 				.replace(/{+avgResponseTime}+/gi, cached.avgResponseTime)
