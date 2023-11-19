@@ -1,3 +1,12 @@
+## [4.0.12](https://github.com/discord-tickets/bot/compare/v4.0.11...v4.0.12) (2023-11-18)
+
+
+### Bug Fixes
+
+* activity name update ([#503](https://github.com/discord-tickets/bot/issues/503)) ([12c4c96](https://github.com/discord-tickets/bot/commit/12c4c96c1fe7c56990fd385fc9e26217ea9ff467))
+
+
+
 ## [4.0.11](https://github.com/discord-tickets/bot/compare/v4.0.10...v4.0.11) (2023-11-16)
 
 
