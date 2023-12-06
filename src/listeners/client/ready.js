@@ -53,43 +53,47 @@ module.exports = class extends Listener {
 		await client.application.commands.fetch();
 
 		// presence/activity
-		let next = 0;
-		const setPresence = async () => {
-			const cacheKey = 'cache/presence';
-			let cached = await client.keyv.get(cacheKey);
-			if (!cached) {
-				const tickets = await client.prisma.ticket.findMany({
-					select: {
-						closedAt: true,
-						createdAt: true,
-						firstResponseAt: true,
-					},
+		if (client.config.presence.activities?.length > 0) {
+			let next = 0;
+			const setPresence = async () => {
+				const cacheKey = 'cache/presence';
+				let cached = await client.keyv.get(cacheKey);
+				if (!cached) {
+					const tickets = await client.prisma.ticket.findMany({
+						select: {
+							closedAt: true,
+							createdAt: true,
+							firstResponseAt: true,
+						},
+					});
+					const closedTicketsWithResponse = tickets.filter(t => t.firstResponseAt && t.closedAt);
+					const closedTickets = tickets.filter(t => t.closedAt);
+					cached = {
+						avgResolutionTime: ms(getAvgResolutionTime(closedTicketsWithResponse)),
+						avgResponseTime: ms(getAvgResponseTime(closedTicketsWithResponse)),
+						openTickets: tickets.length - closedTickets.length,
+						totalTickets: tickets.length,
+					};
+					await client.keyv.set(cacheKey, cached, ms('15m'));
+				}
+				const activity = { ...client.config.presence.activities[next] };
+				activity.name = activity.name
+					.replace(/{+avgResolutionTime}+/gi, cached.avgResolutionTime)
+					.replace(/{+avgResponseTime}+/gi, cached.avgResponseTime)
+					.replace(/{+openTickets}+/gi, cached.openTickets)
+					.replace(/{+totalTickets}+/gi, cached.totalTickets);
+				client.user.setPresence({
+					activities: [activity],
+					status: client.config.presence.status,
 				});
-				const closedTicketsWithResponse = tickets.filter(t => t.firstResponseAt && t.closedAt);
-				const closedTickets = tickets.filter(t => t.closedAt);
-				cached = {
-					avgResolutionTime: ms(getAvgResolutionTime(closedTicketsWithResponse)),
-					avgResponseTime: ms(getAvgResponseTime(closedTicketsWithResponse)),
-					openTickets: tickets.length - closedTickets.length,
-					totalTickets: tickets.length,
-				};
-				await client.keyv.set(cacheKey, cached, ms('15m'));
-			}
-			const activity = { ...client.config.presence.activities[next] };
-			activity.name = activity.name
-				.replace(/{+avgResolutionTime}+/gi, cached.avgResolutionTime)
-				.replace(/{+avgResponseTime}+/gi, cached.avgResponseTime)
-				.replace(/{+openTickets}+/gi, cached.openTickets)
-				.replace(/{+totalTickets}+/gi, cached.totalTickets);
-			client.user.setPresence({
-				activities: [activity],
-				status: client.config.presence.status,
-			});
-			next++;
-			if (next === client.config.presence.activities.length) next = 0;
-		};
-		setPresence();
-		if (client.config.presence.activities.length > 1) setInterval(() => setPresence(), client.config.presence.interval * 1000);
+				next++;
+				if (next === client.config.presence.activities.length) next = 0;
+			};
+			setPresence();
+			if (client.config.presence.activities.length > 1) setInterval(() => setPresence(), client.config.presence.interval * 1000);
+		} else {
+			client.log.info('Presence activities are disabled');
+		}
 
 		// stats posting
 		if (client.config.stats) {
