@@ -54,6 +54,7 @@ commands:
       options:
         member:
           name: partecipante
+          description: L'utente da aggiungere al ticket
         ticket:
           description: Il ticket dove aggiungere il membro
           name: ticket
