@@ -64,6 +64,7 @@ commands:
       options:
         reason:
           name: ragione
+          description: Motivo di chiusura del ticket
       description: Richiedere che un ticket venga chiuso
       name: chiudi
       invalid_time:
