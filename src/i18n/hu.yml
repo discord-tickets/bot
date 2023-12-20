@@ -281,9 +281,16 @@ commands:
           name: felhasználó
       description: Hibajegy átiratának lekérése
       name: hibajegy
+      not_staff:
+        title: ❌ Hiba
   user:
     create:
       name: Jegy létrehozása
+      prompt:
+        title: Kérlek hozz létre egy hibajegyet
+        description: Kattints a lent található gombra a hibajegy létrehozásához.
+      not_staff:
+        title: ❌ Hiba
 dm:
   closed:
     title: A hibajegyed bezárásra került
