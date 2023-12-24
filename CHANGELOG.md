@@ -1,3 +1,27 @@
+## [4.0.13](https://github.com/discord-tickets/bot/compare/v4.0.12...v4.0.13) (2023-12-24)
+
+
+### Bug Fixes
+
+* `npx` stdin command's child process stderr logging ([296002e](https://github.com/discord-tickets/bot/commit/296002e04f545189912b05ef92dae68085fef33e))
+* allow no activities ([bd15bd8](https://github.com/discord-tickets/bot/commit/bd15bd8145f4f9fe9b35e4069feafe04777a7d67))
+
+
+### Features
+
+* **i18n:** add Thai translations ([e2a88f8](https://github.com/discord-tickets/bot/commit/e2a88f82e7189814b15edf3834e153d8dfed6ae4))
+* **i18n:** update Finnish translations ([f5b2fc7](https://github.com/discord-tickets/bot/commit/f5b2fc795b37dd81bfdf11f4a848f3666b687e06))
+* **i18n:** update Hungarian translations ([717ed0f](https://github.com/discord-tickets/bot/commit/717ed0f4052e1b8c2768e32e33301b0461ed4fd8))
+* **i18n:** update Italian translations ([c021f8a](https://github.com/discord-tickets/bot/commit/c021f8a42345de34fc7f64c8a9599778cdf0b721))
+* **i18n:** update Italian translations ([cbc62dc](https://github.com/discord-tickets/bot/commit/cbc62dcb046ea96e251c17207cdb5fcd06199b0a))
+* **i18n:** update Italian translations ([26e3ac2](https://github.com/discord-tickets/bot/commit/26e3ac26cec2b320fe17a06bfb3c5e6c4b5082e2))
+* **i18n:** update Thai translations ([106473b](https://github.com/discord-tickets/bot/commit/106473b26ab137346b3c587e51725ae122ed3bf7))
+* **i18n:** update Thai translations ([e30fb14](https://github.com/discord-tickets/bot/commit/e30fb146d7a88e0ba28e02c3a8f55a56e918835a))
+* **i18n:** update Thai translations ([081d7a8](https://github.com/discord-tickets/bot/commit/081d7a8cebffade6f849d104d00ea4f85421de71))
+* **i18n:** update Thai translations ([fcd174d](https://github.com/discord-tickets/bot/commit/fcd174d827b1df1b42337a3757fa8c89e857743c))
+
+
+
 ## [4.0.12](https://github.com/discord-tickets/bot/compare/v4.0.11...v4.0.12) (2023-11-18)
 
 
