@@ -19,3 +19,13 @@ buttons:
     emoji: ✅
   reject_close_request:
     text: Reddet
+    emoji: ✖️
+  unclaim:
+    emoji: ♻️
+commands:
+  message:
+    pin:
+      not_pinnable:
+        title: ❌ Hata
+      pinned:
+        description: Mesaj sabitlendi.
