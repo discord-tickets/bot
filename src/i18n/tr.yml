@@ -12,7 +12,10 @@ buttons:
     emoji: 🎫
   edit:
     emoji: ✏️
+    text: Düzenle
   claim:
     emoji: 🙌
   confirm_open:
     emoji: ✅
+  reject_close_request:
+    text: Reddet
