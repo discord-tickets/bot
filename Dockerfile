@@ -22,7 +22,8 @@ ENV USER=container \
 	HOME=/home/container \
 	NODE_ENV=production \
 	HTTP_HOST=0.0.0.0 \
-	HTTP_PORT=80
+	HTTP_PORT=80 \
+	DOCKER=true
 WORKDIR /home/container
 COPY --from=builder --chown=container:container /build /app
 EXPOSE ${HTTP_PORT}/tcp
