@@ -15,25 +15,28 @@ const ms = require('ms');
 
 module.exports = class Client extends FrameworkClient {
 	constructor(config, log) {
-		super({
-			intents: [
-				...[
-					GatewayIntentBits.DirectMessages,
-					GatewayIntentBits.DirectMessageReactions,
-					GatewayIntentBits.DirectMessageTyping,
-					GatewayIntentBits.MessageContent,
-					GatewayIntentBits.Guilds,
-					GatewayIntentBits.GuildMembers,
-					GatewayIntentBits.GuildMessages,
+		super(
+			{
+				intents: [
+					...[
+						GatewayIntentBits.DirectMessages,
+						GatewayIntentBits.DirectMessageReactions,
+						GatewayIntentBits.DirectMessageTyping,
+						GatewayIntentBits.MessageContent,
+						GatewayIntentBits.Guilds,
+						GatewayIntentBits.GuildMembers,
+						GatewayIntentBits.GuildMessages,
+					],
+					...(process.env.PUBLIC_BOT !== 'true' ? [GatewayIntentBits.GuildPresences] : []),
 				],
-				...(process.env.PUBLIC_BOT !== 'true' ? [GatewayIntentBits.GuildPresences] : []),
-			],
-			partials: [
-				Partials.Channel,
-				Partials.Message,
-				Partials.Reaction,
-			],
-		});
+				partials: [
+					Partials.Channel,
+					Partials.Message,
+					Partials.Reaction,
+				],
+			},
+			{ baseDir: __dirname },
+		);
 
 		const locales = {};
 		fs.readdirSync(join(__dirname, 'i18n'))
@@ -57,13 +60,19 @@ module.exports = class Client extends FrameworkClient {
 		const levels = ['error', 'info', 'warn'];
 		if (this.config.logs.level === 'debug') levels.push('query');
 
-		/** @type {PrismaClient} */
-		this.prisma = new PrismaClient({
+		const prisma_options = {
 			log: levels.map(level => ({
 				emit: 'event',
 				level,
 			})),
-		});
+		};
+
+		if (process.env.DB_PROVIDER === 'sqlite' && !process.env.DB_CONNECTION_URL) {
+			prisma_options.datasources = { db: { url:'file:' + join(process.cwd(), './user/database.db') } };
+		}
+
+		/** @type {PrismaClient} */
+		this.prisma = new PrismaClient(prisma_options);
 
 		this.prisma.$on('error', e => this.log.error.prisma(`${e.target} ${e.message}`));
 		this.prisma.$on('info', e => this.log.info.prisma(`${e.target} ${e.message}`));
