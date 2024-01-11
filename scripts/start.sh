@@ -1,7 +1,10 @@
-#!/usr/bin/env bash
-
-source="${BASH_SOURCE}"
-base_dir=$(dirname $(dirname "$source"))
+#!/usr/bin/env sh
+if [ "$DOCKER" = "true" ]; then
+    base_dir="/app"
+else
+    source="${BASH_SOURCE}"
+    base_dir=$(dirname $(dirname "$source"))
+fi
 
 echo "Checking environment..."
 script=scripts/preinstall
