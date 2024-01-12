@@ -27,7 +27,7 @@ ENV USER=container \
 	HTTP_PORT=80 \
 	DOCKER=true
 WORKDIR /home/container
-COPY --from=builder /build /app
+COPY --from=builder --chown=container:container --chmod=777 /build /app
 EXPOSE ${HTTP_PORT}/tcp
 ENTRYPOINT [ "/app/scripts/start.sh" ]
 HEALTHCHECK --interval=15s --timeout=5s --start-period=60s \
