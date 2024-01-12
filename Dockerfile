@@ -17,6 +17,7 @@ FROM node:18-alpine AS runner
 RUN apk --no-cache add curl \
 	&& adduser --disabled-password --home /home/container container \
 	&& mkdir /app \
+	&& chown container:container /app \
 	&& chmod -R 777 /app
 USER container
 ENV USER=container \
@@ -26,7 +27,7 @@ ENV USER=container \
 	HTTP_PORT=80 \
 	DOCKER=true
 WORKDIR /home/container
-COPY --from=builder --chown=container:container /build /app
+COPY --from=builder /build /app
 EXPOSE ${HTTP_PORT}/tcp
 ENTRYPOINT [ "/app/scripts/start.sh" ]
 HEALTHCHECK --interval=15s --timeout=5s --start-period=60s \
