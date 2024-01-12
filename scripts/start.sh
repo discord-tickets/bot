@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 if [ "$DOCKER" = "true" ]; then
     base_dir="/app"
 else
