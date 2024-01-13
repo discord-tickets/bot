@@ -41,9 +41,11 @@ const base_dir = path.resolve(path.join(__dirname, '../'));
 const cwd = path.resolve(process.cwd());
 if (base_dir !== cwd) {
 	console.log('\x07' + colours.yellowBright('Warning: The current working directory is not the same as the base directory.'));
-	console.log(colours.yellowBright('This may result in unexpected behaviour, particularly with missing environment variables.'));
-	console.log('  Base directory: ' + colours.gray(base_dir));
-	console.log('  CWD: ' + colours.gray(cwd));
+	if (!process.env.DOCKER) {
+		console.log(colours.yellowBright('This may result in unexpected behaviour, particularly with missing environment variables.'));
+	}
+	console.log('  Base directory:    ' + colours.gray(base_dir));
+	console.log('  Current directory: ' + colours.gray(cwd));
 	console.log(colours.blueBright('  Learn more at https://lnk.earth/dt-cwd.'));
 }
 
