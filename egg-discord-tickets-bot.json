@@ -1,0 +1,172 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-01-13T08:56:25-05:00",
+    "name": "Discord Tickets Bot",
+    "author": "contact@bisecthosting.com",
+    "description": "An egg for the discord-tickets bot service.",
+    "features": null,
+    "docker_images": {
+        "docker.io\/eartharoid\/discord-tickets:main": "docker.io\/eartharoid\/discord-tickets:main"
+    },
+    "file_denylist": [],
+    "startup": "\/app\/scripts\/start.sh",
+    "config": {
+        "files": "{\r\n    \".env\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"HTTP_PORT\": \"{{server.build.default.port}}\",\r\n            \"HTTP_HOST\": \"0.0.0.0\",\r\n            \"DB_PROVIDER\": \"{{env.DB_PROV}}\",\r\n            \"DB_CONNECTION_URL\": \"{{env.DBHOST}}\",\r\n            \"DISCORD_SECRET\": \"{{env.DISCORDSECRET}}\",\r\n            \"DISCORD_TOKEN\": \"{{env.DISCORDTOKEN}}\",\r\n            \"HTTP_EXTERNAL\": \"{{env.EXTERNAL}}\",\r\n            \"SUPER\": \"{{env.SUPERIDS}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \"SUCCESS\"\r\n}",
+        "logs": "{}",
+        "stop": "exit",
+        "prestop": null
+    },
+    "scripts": {
+        "installation": {
+            "script": "output_file=\"\/mnt\/server\/.env\"\r\nrandom=$(cat \/dev\/urandom | tr -dc 'a-f0-9' | fold -w 48 | head -n 1)\r\necho \"DB_CONNECTION_URL=\" >> $output_file\r\necho \"DB_PROVIDER=\" >> $output_file\r\necho \"DISCORD_SECRET=\" >> $output_file\r\necho \"DISCORD_TOKEN=\" >> $output_file\r\necho \"ENCRYPTION_KEY=${random}\" >> $output_file\r\necho \"HTTP_EXTERNAL=http:\/\/127.0.0.1:8169\" >> $output_file\r\necho \"HTTP_HOST=0.0.0.0\" >> $output_file\r\necho \"HTTP_PORT=8169\" >> $output_file\r\necho \"HTTP_TRUST_PROXY=false\" >> $output_file\r\necho \"NODE_ENV=production\" >> $output_file\r\necho \"OVERRIDE_ARCHIVE=\" >> $output_file\r\necho \"PUBLIC_BOT=false\" >> $output_file\r\necho \"PUBLISH_COMMANDS=false\" >> $output_file\r\necho \"SUPER=319467558166069248\" >> $output_file\r\n\r\necho \"Environment variables written to $output_file\"",
+            "container": "node:14-buster-slim",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Database Provider",
+            "description": "The database type you want to use, it is not recommended to use SQLite in production.",
+            "env_variable": "DB_PROV",
+            "prefix": "",
+            "input_type": "dropdown",
+            "input_options": [
+                {
+                    "value": "mysql",
+                    "name": "MariaDB\/MySQL"
+                },
+                {
+                    "value": "postgresql",
+                    "name": "PostgreSQL"
+                },
+                {
+                    "value": "sqlite",
+                    "name": "SQLite"
+                }
+            ],
+            "default_value": "sqlite",
+            "default_enabled": true,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "required|string|max:30",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "Database URL",
+            "description": "It is recommended you do not use SQLite in production.\r\nhttps:\/\/discordtickets.app\/self-hosting\/configuration\/#db_connection_url",
+            "env_variable": "DBHOST",
+            "prefix": "",
+            "input_type": "text",
+            "input_options": [],
+            "default_value": "file:\/\/home\/container\/user\/database.db?socket_timeout=120000&busy_timeout=10000\"",
+            "default_enabled": true,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": true,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "nullable|string|max:200",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "Discord 0Auth Secret",
+            "description": "",
+            "env_variable": "DISCORDSECRET",
+            "prefix": "",
+            "input_type": "text",
+            "input_options": [],
+            "default_value": "",
+            "default_enabled": false,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "nullable|string|max:75",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "Discord Bot Token",
+            "description": "",
+            "env_variable": "DISCORDTOKEN",
+            "prefix": "",
+            "input_type": "text",
+            "input_options": [],
+            "default_value": "",
+            "default_enabled": true,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "nullable|string|max:100",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "External URL",
+            "description": "The externally accessible url of the bot, in most cases this will be the server IP and Port assigned to you.",
+            "env_variable": "EXTERNAL",
+            "prefix": "",
+            "input_type": "text",
+            "input_options": [],
+            "default_value": "http:\/\/ip:port",
+            "default_enabled": true,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "required|string|max:150",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "Owner IDs",
+            "description": "Comma separated list of discord owner IDs, the default is that of the bot developer and is recommended to leave in if you wan them to be able to debug issues for you.",
+            "env_variable": "SUPERIDS",
+            "prefix": "",
+            "input_type": "text",
+            "input_options": [],
+            "default_value": "319467558166069248",
+            "default_enabled": true,
+            "user_viewable": true,
+            "user_editable": true,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "nullable|string|max:200",
+            "order": 0,
+            "field_type": "text"
+        },
+        {
+            "name": "PTERODACTYL",
+            "description": "Internal variable to denote to the bot that it is in a pterodactyl container, required for functionality",
+            "env_variable": "PTERODACTYL",
+            "prefix": "true",
+            "input_type": "none",
+            "input_options": [],
+            "default_value": "",
+            "default_enabled": true,
+            "user_viewable": false,
+            "user_editable": false,
+            "user_toggleable": false,
+            "copy_previous": false,
+            "add_quotes": false,
+            "rules": "nullable|string|max:20",
+            "order": 0,
+            "field_type": "text"
+        }
+    ]
+}
