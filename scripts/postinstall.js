@@ -21,7 +21,7 @@ function log(...strings) {
 async function npx(cmd) {
 	const parts = cmd.split(' ');
 	// fallback for environments with no symlink/npx support (PebbleHost)
-	if (!fs.existsSync(`./node_modules/.bin/${parts[0]}`)) {
+	if (!fs.existsSync(pathify(`./node_modules/.bin/${parts[0]}`))) {
 		const x = parts.shift();
 		cmd = 'node ' + fallback[x] + ' ' + parts.join(' ');
 	} else {
