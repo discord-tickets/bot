@@ -25,7 +25,7 @@
 
 const pkg = require('../package.json');
 const banner = require('./lib/banner');
-console.log(banner(pkg.version)); // print big title
+banner(pkg.version); // print big title
 
 const semver = require('semver');
 const { colours } = require('leeks.js');
