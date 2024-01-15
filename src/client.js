@@ -47,6 +47,7 @@ module.exports = class Client extends FrameworkClient {
 				locales[name] = YAML.parse(data);
 			});
 
+		this.keyv = new Keyv();
 		/** @type {I18n} */
 		this.i18n = new I18n('en-GB', locales);
 		/** @type {TicketManager} */
@@ -54,6 +55,22 @@ module.exports = class Client extends FrameworkClient {
 		this.config = config;
 		this.log = log;
 		this.supers = (process.env.SUPER ?? '').split(',');
+		/** @param {import('discord.js/typings').Interaction} interaction */
+		this.commands.interceptor = async interaction => {
+			if (!interaction.inGuild()) return;
+			const id = interaction.guildId;
+			const cacheKey = `cache/known/guild:${id}`;
+			if (await this.keyv.has(cacheKey)) return;
+			await this.prisma.guild.upsert({
+				create: {
+					id,
+					locale: this.i18n.locales.find(locale => locale === interaction.guild.preferredLocale), // undefined if not supported
+				},
+				update: {},
+				where: { id },
+			});
+			await this.keyv.set(cacheKey, true);
+		};
 	}
 
 	async login(token) {
@@ -91,7 +108,6 @@ module.exports = class Client extends FrameworkClient {
 			}, ms('6h'));
 		}
 
-		this.keyv = new Keyv();
 		return super.login(token);
 	}
 
