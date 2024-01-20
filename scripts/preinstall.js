@@ -20,6 +20,7 @@ const env = {
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
 	HTTP_EXTERNAL: 'http://127.0.0.1:8169',
 	HTTP_HOST: '0.0.0.0',
+	HTTP_INTERNAL: '',
 	HTTP_PORT: 8169,
 	HTTP_TRUST_PROXY: false,
 	NODE_ENV: 'production', // not bot-specific
