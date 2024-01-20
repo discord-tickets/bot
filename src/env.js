@@ -34,6 +34,7 @@ const env = {
 	HTTP_HOST: v =>
 		(!!v && !v.startsWith('http')) ||
 		new Error('is required and must be an address, not a URL'),
+	HTTP_INTERNAL: () => true, // optional
 	HTTP_PORT: v =>
 		!!v ||
 		new Error('is required'),
