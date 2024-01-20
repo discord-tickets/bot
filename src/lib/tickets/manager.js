@@ -285,18 +285,16 @@ module.exports = class TicketManager {
 							.filter(q => q.type === 'TEXT') // TODO: remove this when modals support select menus
 							.map(q => {
 								if (q.type === 'TEXT') {
-									return new ActionRowBuilder()
-										.setComponents(
-											new TextInputBuilder()
-												.setCustomId(q.id)
-												.setLabel(q.label)
-												.setStyle(q.style)
-												.setMaxLength(Math.min(q.maxLength, 1000))
-												.setMinLength(q.minLength)
-												.setPlaceholder(q.placeholder)
-												.setRequired(q.required)
-												.setValue(q.value),
-										);
+									const field = new TextInputBuilder()
+										.setCustomId(q.id)
+										.setLabel(q.label)
+										.setStyle(q.style)
+										.setMaxLength(Math.min(q.maxLength, 1000))
+										.setMinLength(q.minLength)
+										.setPlaceholder(q.placeholder)
+										.setRequired(q.required);
+									if (q.value) field.setValue(q.value);
+									return new ActionRowBuilder().setComponents(field);
 								} else if (q.type === 'MENU') {
 									return new ActionRowBuilder()
 										.setComponents(
