@@ -30,9 +30,9 @@
 
 ---
 
-[![PebbleHost](https://img.eartharoid.me/insecure/rs:auto:180/plain/s3://eartharoid/sharex/21/10/pebblehost.webp)](https://pebble.host/discordtickets)
+[![BisectHosting](https://www.bisecthosting.com/partners/custom-banners/41ca8074-184e-4ad1-a44d-77750ee8bfb9.webp)](https://bisecthosting.com/discordtickets)
 
-<a href="https://pebble.host/discordtickets">Partnered with PebbleHost</a>
+<a href="https://bisecthosting.com/discordtickets">Partnered with BisectHosting</a>
 <br>
 <sub>for affordable bot hosting</sub>
 
