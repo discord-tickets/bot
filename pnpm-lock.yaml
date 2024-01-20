@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@discord-tickets/settings':
-    specifier: ^2.1.7
-    version: 2.1.7(svelte@4.2.8)
+    specifier: ^2.2.0
+    version: 2.2.0(svelte@4.2.8)
   '@eartharoid/dbf':
     specifier: ^0.4.2
     version: 0.4.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
@@ -357,8 +357,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
-  /@discord-tickets/settings@2.1.7(svelte@4.2.8):
-    resolution: {integrity: sha512-Ely8XSsEgIcdN7AksxAUJZlJUJEwn7G2wzM4qX2icgdmJcdjrDzc0qsEfOqGpnfZVLxIIBGsIUgt+NjtfXLb/A==}
+  /@discord-tickets/settings@2.2.0(svelte@4.2.8):
+    resolution: {integrity: sha512-ObZ/pJQoW//fwz8K9A6u/WN8OSW98txCDs7dLHwLuXcID10szBjs4H8lc9miETuJASnY58vTpynbMdhzEDms0w==}
     dependencies:
       '@fortawesome/fontawesome-free': 6.5.1
       '@skyra/discord-components-core': 3.6.1
