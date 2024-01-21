@@ -39,8 +39,10 @@ services:
       DB_PROVIDER: mysql
       HTTP_EXTERNAL: http://127.0.0.1:8169 # change this to your server's external IP (or domain)
       HTTP_HOST: 0.0.0.0
+      HTTP_INTERNAL:
       HTTP_PORT: 8169
       HTTP_TRUST_PROXY: "false" # set to true if you're using a reverse proxy
+      INVALIDATE_TOKENS:
       OVERRIDE_ARCHIVE: null
       PUBLIC_BOT: "false"
       PUBLISH_COMMANDS: "false"
