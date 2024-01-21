@@ -25,13 +25,7 @@ module.exports = async client => {
 	fastify.states = new Map();
 	fastify.register(oauth, {
 		callbackUri: `${process.env.HTTP_EXTERNAL}/auth/callback`,
-		// checkStateFunction: (req, callback) => {
-		// 	if (req.query.state === req.cookies['oauth2-redirect-state']) {
-		// 		callback();
-		// 		return;
-		// 	}
-		// 	callback(new Error('Invalid state'));
-		// },
+		callbackUriParams: { prompt: 'none' },
 		checkStateFunction: async req => {
 			if (req.query.state !== req.cookies['oauth2-redirect-state']) {
 				throw new Error('Invalid state');
