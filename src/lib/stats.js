@@ -77,7 +77,13 @@ module.exports.sendToHouston = async client => {
 		client.log.success('Posted client stats');
 		client.log.debug(res);
 	} catch (res) {
-		client.log.error('An error occurred whilst posting stats:', (await res.json())?.error);
+		try {
+			const json = await res.json();
+			client.log.error('An error occurred whilst posting stats:', json);
+		} catch (error) {
+			client.log.error('An error occurred whilst posting stats and the response couldn\'t be parsed');
+			client.log.error(error.message);
+		}
 		client.log.debug(res);
 	}
 };
