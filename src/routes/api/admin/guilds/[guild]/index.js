@@ -6,9 +6,9 @@ const {
 const ms = require('ms');
 
 module.exports.get = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import("client")} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const id = req.params.guild;
 		const cacheKey = `cache/stats/guild:${id}`;
 		let cached = await client.keyv.get(cacheKey);

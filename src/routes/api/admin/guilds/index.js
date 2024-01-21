@@ -2,7 +2,7 @@ const { PermissionsBitField } = require('discord.js');
 
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
-		const { client } = res.context.config;
+		const { client } = req.routeOptions.config;
 		const guilds = await (await fetch('https://discordapp.com/api/users/@me/guilds', { headers: { 'Authorization': `Bearer ${req.user.accessToken}` } })).json();
 		res.send(
 			guilds

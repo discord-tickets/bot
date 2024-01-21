@@ -5,7 +5,7 @@ const { ApplicationCommandPermissionType } = require('discord.js');
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guild = client.guilds.cache.get(req.params.guild);
 		const categoryId = Number(req.params.category);
 		const original = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
@@ -33,7 +33,7 @@ module.exports.delete = fastify => ({
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
 		const category = await client.prisma.category.findUnique({
@@ -68,7 +68,7 @@ module.exports.get = fastify => ({
 module.exports.patch = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
 		/** @type {import('discord.js').Guild} */

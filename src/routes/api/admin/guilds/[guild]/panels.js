@@ -14,9 +14,9 @@ const emoji = require('node-emoji');
 const { logAdminEvent } = require('../../../../../lib/logging');
 
 module.exports.post = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guild = client.guilds.cache.get(req.params.guild);
 		const data = req.body;
 

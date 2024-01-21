@@ -9,16 +9,34 @@ const { PermissionsBitField } = require('discord.js');
 process.env.ORIGIN = process.env.HTTP_INTERNAL || process.env.HTTP_EXTERNAL;
 
 module.exports = async client => {
+	// cookies plugin, must be registered before oauth2 since oauth2@7.2.0
+	fastify.register(require('@fastify/cookie'));
+
+	// jwt plugin
+	fastify.register(require('@fastify/jwt'), {
+		cookie: {
+			cookieName: 'token',
+			signed: false,
+		},
+		secret: process.env.ENCRYPTION_KEY,
+	});
+
 	// oauth2 plugin
 	fastify.states = new Map();
 	fastify.register(oauth, {
 		callbackUri: `${process.env.HTTP_EXTERNAL}/auth/callback`,
-		checkStateFunction: (state, callback) => {
-			if (fastify.states.has(state)) {
-				callback();
-				return;
+		// checkStateFunction: (req, callback) => {
+		// 	if (req.query.state === req.cookies['oauth2-redirect-state']) {
+		// 		callback();
+		// 		return;
+		// 	}
+		// 	callback(new Error('Invalid state'));
+		// },
+		checkStateFunction: async req => {
+			if (req.query.state !== req.cookies['oauth2-redirect-state']) {
+				throw new Error('Invalid state');
 			}
-			callback(new Error('Invalid state'));
+			return true;
 		},
 		credentials: {
 			auth: oauth.DISCORD_CONFIGURATION,
@@ -37,17 +55,6 @@ module.exports = async client => {
 		startRedirectPath: '/auth/login',
 	});
 
-	// cookies plugin
-	fastify.register(require('@fastify/cookie'));
-
-	// jwt plugin
-	fastify.register(require('@fastify/jwt'), {
-		cookie: {
-			cookieName: 'token',
-			signed: false,
-		},
-		secret: process.env.ENCRYPTION_KEY,
-	});
 
 	// auth
 	fastify.decorate('authenticate', async (req, res) => {
@@ -122,13 +129,13 @@ module.exports = async client => {
 			: responseTime >= 10
 				? '&e'
 				: '&a') + responseTime + 'ms';
-		const level = req.routerPath === '/status'
+		const level = req.routeOptions.url === '/status'
 			? 'debug'
-			:  req.routerPath === '/*'
+			:  req.routeOptions.url === '/*'
 				? 'verbose'
 				: 'info';
-		client.log[level].http(short(`${req.id} ${req.ip} ${req.method} ${req.routerPath ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
-		if (!req.routerPath) client.log.verbose.http(`${req.id} ${req.method} ${req.url}`);
+		client.log[level].http(short(`${req.id} ${req.ip} ${req.method} ${req.routeOptions.url ?? '*'} &m-+>&r ${status}&b in ${responseTime}`));
+		if (!req.routeOptions.url) client.log.verbose.http(`${req.id} ${req.method} ${req.url}`);
 		done();
 	});
 
