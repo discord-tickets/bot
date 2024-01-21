@@ -30,14 +30,16 @@ commands:
   message:
     pin:
       not_pinnable:
-        description: "Questo messaggio non può essere fissato.\nPer favore chiedi\
-          \ ad un amministratore di verificare i permessi del bot.\n"
+        description: "Questo messaggio non può essere fissato.\nPer favore chiedi
+          ad un amministratore di verificare i permessi del bot.\n"
         title: ❌ Errore
       pinned:
-        description: Il messaggio è stato fissato
+        description: Il messaggio è stato fissato.
+        title: ✅ Messaggio fissato
       name: Fissa il messaggio
       not_ticket:
         description: Puoi fissare solo i messaggi nei ticket
+        title: ❌Questo non è un canale predisposto per i ticket
     create:
       name: Crea un ticket dal messaggio
   slash:
@@ -47,4 +49,43 @@ commands:
       not_staff:
         description: Solo i membri dello staff possono aggiungere utenti ai ticket
           altrui.
+        title: ❌ Errore
       added: ➡️ {added} è stato aggiunto da {by}.
+      options:
+        member:
+          name: partecipante
+          description: L'utente da aggiungere al ticket
+        ticket:
+          description: Il ticket dove aggiungere il membro
+          name: ticket
+      success:
+        title: ✅ Aggiunto
+    close:
+      options:
+        reason:
+          name: ragione
+          description: Motivo di chiusura del ticket
+      description: Richiedere che un ticket venga chiuso
+      name: chiudi
+      invalid_time:
+        title: ❌ Non valido
+        description: '`{input}` non è un formato orario valido.'
+    force-close:
+      confirmed_multiple:
+        description: I canali verranno eliminati in pochi secondi.
+        title:
+        - ✅ Chiusura ticket %d
+      confirm_multiple:
+        description: "Stai per chiudere **{count}** ticket che sono rimasti inattivi
+          per più di `{time}`:\n{tickets}\n"
+        title: ❓Sei sicuro?
+      closed_one:
+        description: Il canale verrà eliminato in pochi secondi.
+        title: ✅ Ticket chiuso
+    claim:
+      name: prendere
+      not_staff:
+        description: Solo i membri dello staff sono in grado di prendere in gestione
+          un ticket di supporto
+        title: ❌ Errore
+      description: Occuparsi di un ticket

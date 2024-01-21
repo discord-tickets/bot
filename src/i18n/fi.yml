@@ -89,6 +89,8 @@ commands:
     claim:
       description: Varaa tiketti
       name: varaa
+      not_staff:
+        title: ❌ Virhe
     new:
       description: Luo uusi tiketti
       name: uusi

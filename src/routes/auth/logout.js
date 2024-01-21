@@ -5,7 +5,11 @@ module.exports.get = fastify => ({
 		const { accessToken } = req.user;
 
 		await fetch('https://discord.com/api/oauth2/token/revoke', {
-			body: new URLSearchParams({ token: accessToken }).toString(),
+			body: new URLSearchParams({
+				client_id: req.routeOptions.config.client.user.id,
+				client_secret: process.env.DISCORD_SECRET,
+				token: accessToken,
+			}).toString(),
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			method: 'POST',
 		});

@@ -3,13 +3,10 @@
 .vscode/
 node_modules/
 prisma/
+user/
 
 # files
 *.env*
 *.db*
 *.log
-user/config.yml
-user/**/*.*
-!user/**/.gitkeep
-!user/templates/*
 summary.md

@@ -15,17 +15,19 @@ COPY --link . .
 
 FROM node:18-alpine AS runner
 RUN apk --no-cache add curl \
-	&& adduser --disabled-password --home /home/container container
+	&& adduser --disabled-password --home /home/container container \
+	&& mkdir /app \
+	&& chown container:container /app \
+	&& chmod -R 777 /app
 USER container
 ENV USER=container \
 	HOME=/home/container \
 	NODE_ENV=production \
 	HTTP_HOST=0.0.0.0 \
-	HTTP_PORT=80
+	DOCKER=true
 WORKDIR /home/container
-COPY --from=builder --chown=container:container /build ./
-EXPOSE ${HTTP_PORT}/tcp
-ENTRYPOINT [ "/home/container/scripts/start.sh" ]
+COPY --from=builder --chown=container:container --chmod=777 /build /app
+ENTRYPOINT [ "/app/scripts/start.sh" ]
 HEALTHCHECK --interval=15s --timeout=5s --start-period=60s \
 	CMD curl -f http://localhost:${HTTP_PORT}/status || exit 1
 LABEL org.opencontainers.image.source=https://github.com/discord-tickets/bot \

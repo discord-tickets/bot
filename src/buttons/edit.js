@@ -36,6 +36,15 @@ module.exports = class EditButton extends Button {
 		const getMessage = client.i18n.getLocale(ticket.guild.locale);
 
 		if (ticket.questionAnswers.length === 0) {
+			const field = new TextInputBuilder()
+				.setCustomId('topic')
+				.setLabel(getMessage('modals.topic.label'))
+				.setStyle(TextInputStyle.Paragraph)
+				.setMaxLength(1000)
+				.setMinLength(5)
+				.setPlaceholder(getMessage('modals.topic.placeholder'))
+				.setRequired(true);
+			if (ticket.topic) field.setValue(cryptr.decrypt(ticket.topic));
 			await interaction.showModal(
 				new ModalBuilder()
 					.setCustomId(JSON.stringify({
@@ -45,17 +54,7 @@ module.exports = class EditButton extends Button {
 					.setTitle(ticket.category.name)
 					.setComponents(
 						new ActionRowBuilder()
-							.setComponents(
-								new TextInputBuilder()
-									.setCustomId('topic')
-									.setLabel(getMessage('modals.topic.label'))
-									.setStyle(TextInputStyle.Paragraph)
-									.setMaxLength(1000)
-									.setMinLength(5)
-									.setPlaceholder(getMessage('modals.topic.placeholder'))
-									.setRequired(true)
-									.setValue(ticket.topic ? cryptr.decrypt(ticket.topic) : ''),
-							),
+							.setComponents(field),
 					),
 			);
 		} else {
@@ -71,18 +70,17 @@ module.exports = class EditButton extends Button {
 							.filter(a => a.question.type === 'TEXT') // TODO: remove this when modals support select menus
 							.map(a => {
 								if (a.question.type === 'TEXT') {
-									return new ActionRowBuilder()
-										.setComponents(
-											new TextInputBuilder()
-												.setCustomId(String(a.id))
-												.setLabel(a.question.label)
-												.setStyle(a.question.style)
-												.setMaxLength(Math.min(a.question.maxLength, 1000))
-												.setMinLength(a.question.minLength)
-												.setPlaceholder(a.question.placeholder)
-												.setRequired(a.question.required)
-												.setValue(a.value ? cryptr.decrypt(a.value) : a.question.value),
-										);
+									const field = new TextInputBuilder()
+										.setCustomId(String(a.id))
+										.setLabel(a.question.label)
+										.setStyle(a.question.style)
+										.setMaxLength(Math.min(a.question.maxLength, 1000))
+										.setMinLength(a.question.minLength)
+										.setPlaceholder(a.question.placeholder)
+										.setRequired(a.question.required);
+									if (a.value) field.setValue(cryptr.decrypt(a.value));
+									else if (a.question.value) field.setValue(a.question.value);
+									return new ActionRowBuilder().setComponents(field);
 								} else if (a.question.type === 'MENU') {
 									return new ActionRowBuilder()
 										.setComponents(

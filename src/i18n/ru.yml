@@ -215,6 +215,8 @@ commands:
           name: тикет
       description: Получить транскрипт тикета
       name: транскрипт
+      not_staff:
+        title: ❌ Ошибка
     transfer:
       description: Передать права на тикет другому участнику
       name: передать

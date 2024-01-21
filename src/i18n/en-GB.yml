@@ -365,7 +365,9 @@ misc:
       this category.
     title: ❌ Insufficient roles
   no_categories:
-    description: No ticket categories have been configured.
+    description: |-
+      No ticket categories have been configured.
+      Configure your server at {url}.
     title: ❌ There are no ticket categories
   not_ticket:
     description: You can only use this command in tickets.

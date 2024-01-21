@@ -38,7 +38,7 @@ module.exports = class extends Listener {
 					new EmbedBuilder()
 						.setColor(settings.errorColour)
 						.setTitle(getMessage('misc.no_categories.title'))
-						.setDescription(getMessage('misc.no_categories.description')),
+						.setDescription(getMessage('misc.no_categories.description', { url: `${process.env.HTTP_EXTERNAL}/settings/${interaction.guildId}` })),
 				],
 			});
 		} else if (settings.categories.length === 1) {
