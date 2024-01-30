@@ -31,8 +31,8 @@ commands:
     add:
       not_staff:
         title: ❌ Błąd
-        description: Tylko członkowie personelu mogą dodawać członków do zgłoszeń
-          innych osób.
+        description: Tylko administracja może dodawać członków do zgłoszeń innych
+          osób.
       added: ➡️ {added} został dodany przez {by}.
       options:
         member:
