@@ -1,1 +1,119 @@
-{}
+buttons:
+  create:
+    emoji: 🎫
+    text: 티켓 만들기
+  edit:
+    emoji: ✏️
+    text: 편집
+  reject_close_request:
+    emoji: ✖️
+    text: 거절
+  unclaim:
+    emoji: ♻️
+  accept_close_request:
+    text: 수락
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: 취소
+  claim:
+    emoji: 🙌
+    text: 나에게 배정
+  close:
+    emoji: ✖️
+    text: 닫기
+  confirm_open:
+    emoji: ✅
+    text: 티켓 만들기
+commands:
+  message:
+    create:
+      name: 메시지로부터 티켓 만들기
+    pin:
+      not_ticket:
+        description: 티켓 채널에서만 메시지를 고정할 수 있습니다.
+        title: ❌ 이 채널은 티켓 채널이 아닙니다
+      not_pinnable:
+        title: ❌ 오류
+        description: "이 메시지는 고정될 수 없습니다.\n봇의 권한을 확인하려면 관리자에게 문의하세요.\n"
+      name: 메시지 고정하기
+      pinned:
+        description: 메시지가 고정되었습니다.
+        title: ✅ 고정된 메시지
+  slash:
+    add:
+      success:
+        title: ✅ 추가됨
+        description: '{member}(이)가 {ticket}에 추가되었습니다.'
+      added: ➡️ {added}(이)가 {by}에 의해 추가되었습니다.
+      name: 추가
+      not_staff:
+        title: ❌ 오류
+        description: 관리자만 티켓에 다른 멤버를 추가할 수 있습니다.
+      description: 티켓에 멤버를 추가합니다
+      options:
+        member:
+          name: 멤버
+          description: 티켓에 추가할 멤버
+        ticket:
+          description: 멤버를 추가할 티켓
+          name: 티켓
+    force-close:
+      confirmed_multiple:
+        description: 몇 초 후에 채널들이 삭제됩니다.
+        title:
+        - ✅ 티켓 %d개 종료됨
+        - ✅ 티켓 %d개 종료됨
+      description: 티켓을 강제로 종료합니다
+      name: 강제종료
+      no_tickets:
+        description: '`{time}` 이상 활동이 없는 티켓이 없습니다.'
+        title: ❌ 티켓 없음
+      closed_one:
+        description: 몇 초 후에 채널이 삭제됩니다.
+        title: ✅ 티켓 종료됨
+      confirm_multiple:
+        description: "`{time}` 이상 활동이 없었던 **{count}**개의 티켓을 종료하려고 합니다:\n{tickets}\n"
+        title: ❓ 정말로 진행할까요?
+      not_staff:
+        description: 관리자만 티켓을 강제로 종료할 수 있습니다.
+        title: ❌ 오류
+      options:
+        category:
+          description: 지정된 카테고리의 모든 티켓을 종료합니다 (`시간` 필수 입력)
+          name: 카테고리
+        reason:
+          description: 티켓 종료 사유
+          name: 사유
+        ticket:
+          description: 종료할 티켓
+          name: 티켓
+        time:
+          description: 지정된 시간 동안 활동이 없었던 모든 티켓을 종료합니다
+          name: 시간
+    claim:
+      description: 티켓을 나에게 배정합니다
+      name: 배정
+      not_staff:
+        description: 관리자만 티켓을 배정할 수 있습니다.
+        title: ❌ 오류
+    close:
+      description: 티켓 종료를 요청합니다
+      invalid_time:
+        description: '`{input}`은(는) 유효한 시간 형식이 아닙니다.'
+        title: ❌ 유효하지 않음
+      name: 종료
+      options:
+        reason:
+          description: 티켓 종료 사유
+          name: 사유
+    help:
+      description: 도움말 메뉴를 표시합니다
+      name: 도움말
+      response:
+        commands: 명령어
+        description: '**지원을 받으려면 {command}(을)를 사용하여 티켓을 만드세요.**'
+        links:
+          commands: 전체 명령어 목록
+          feedback: 피드백
+          links: 유용한 링크
