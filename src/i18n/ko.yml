@@ -22,7 +22,7 @@ buttons:
     text: 나에게 배정
   close:
     emoji: ✖️
-    text: 닫기
+    text: 종료
   confirm_open:
     emoji: ✅
     text: 티켓 만들기
