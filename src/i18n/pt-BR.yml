@@ -368,7 +368,8 @@ misc:
       nesta categoria.
     title: ❌ Cargos insuficientes
   no_categories:
-    description: Nenhuma categoria de ticket foi configurada.
+    description: "Nenhuma categoria de ticket foi configurada.\nConfigure seu servidor
+      em {url}."
     title: ❌ Não há categorias de tickets
   not_ticket:
     description: Você só pode usar esse comando em tickets.
