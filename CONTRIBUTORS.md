@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Contributors ✨
@@ -50,6 +50,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/M4rlus"><img src="https://avatars.githubusercontent.com/u/43551856?v=4?s=100" width="100px;" alt="Marius"/><br /><sub><b>Marius</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=M4rlus" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/cccc9803"><img src="https://avatars.githubusercontent.com/u/30467450?v=4?s=100" width="100px;" alt="cccc9803"/><br /><sub><b>cccc9803</b></sub></a><br /><a href="#translation-cccc9803" title="Translation">🌍</a></td>
     </tr>
   </tbody>
 </table>
