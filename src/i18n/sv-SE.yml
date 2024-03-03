@@ -7,8 +7,10 @@ buttons:
     text: Avbryt
   claim:
     emoji: 🙌
+    text: Gör anspråk på
   confirm_open:
     emoji: ✅
+    text: Skapa ett ärende
   reject_close_request:
     emoji: ✖️
     text: Neka
@@ -22,6 +24,7 @@ buttons:
     text: Stäng
   create:
     emoji: 🎫
+    text: Skapa ett ärende
 commands:
   slash:
     add:
@@ -139,7 +142,53 @@ commands:
     pin:
       pinned:
         title: ✅ Nålade fast meddelandet
+      name: Nåla fast meddelande
+      not_pinnable:
+        description: "Det här meddelandet kan inte nålas fast.\nVänligen be en administratör
+          att kontrollera behörigheterna för boten.\n"
+        title: ❌ Fel
   user:
     create:
       not_staff:
         title: ❌ Fel
+log:
+  admin:
+    description:
+      joined: '{user} {verb} {targetType}'
+      target:
+        settings: inställningarna
+        tag: en tagg
+        category: en kategori
+        panel: en panel
+        question: en fråga
+    title:
+      joined: '{targetType} {verb}'
+      target:
+        category: Kategori
+        settings: Inställningar
+        panel: Panel
+        question: Fråga
+        tag: Tagg
+    verb:
+      update: uppdaterades
+      create: skapades
+      delete: togs bort
+    changes: Ändringar
+  message:
+    description: '{user} {verb} ett meddelande'
+    message: Meddelande
+    title: Meddelande {verb}
+    verb:
+      delete: togs bort
+misc:
+  cooldown:
+    title: ❌ Vänligen vänta
+menus:
+  guild:
+    placeholder: Välj en server
+dm:
+  closed:
+    fields:
+      reason: Stängd på grund av
+      response: Svarstid
+      topic: Ämne
