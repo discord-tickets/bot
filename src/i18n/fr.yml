@@ -103,7 +103,7 @@ commands:
         title: ❓ Êtes vous sûr ?
     claim:
       description: S'approprier un ticket
-      name: claim
+      name: réclamer
       not_staff:
         description: Seuls les membres de l'équipe peuvent s'approprier un ticket.
         title: ❌ Erreur
