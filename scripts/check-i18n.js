@@ -191,22 +191,22 @@ async function summarise() {
 
 	for (const locale of locales) {
 		// thanks copilot
-		console.log(`::group::${locale}`);
 		const localeErrors = errors.filter(error => error.locale === locale);
 
 		summary += `## \`${locale}\`\n\n`;
 
 		if (localeErrors.length > 0) {
+			console.log(`::group::${locale}`);
 			for (const error of localeErrors) {
 				summary += `https://github.com/discord-tickets/bot/blob/${branch}/src/i18n/${locale}.yml#L${error.line}\n\n`;
 				console.log(`::error file=src/i18n/${locale}.yml,line=${error.line},col=${error.col}::${error.message}`);
 			}
+			console.log('::endgroup::');
 		} else {
 			summary += 'No errors found\n\n';
 			// console.log(`::notice file=src/i18n/${locale}.yml::No errors found`);
 		}
 
-		console.log('::endgroup::');
 	}
 
 	fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY || 'summary.md', summary);
