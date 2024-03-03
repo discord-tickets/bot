@@ -82,8 +82,8 @@ commands:
             utilisée avec `time`)
           name: catégorie
         time:
-          description: Clôturer tout les tickets inactifs depuis le temps spécifié
-            (peut être utilisé avec `category`)
+          description: Clôturer tous les billets qui ont été inactifs pendant le temps
+            spécifié (peut être utilisé avec `category`)
           name: temps
         reason:
           name: raison
