@@ -45,7 +45,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^2.2.0",
+		"@discord-tickets/settings": "^2.2.3",
 		"@eartharoid/dbf": "^0.4.2",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -56,8 +56,8 @@
 		"boxen": "^7.1.1",
 		"cryptr": "^6.3.0",
 		"discord.js": "^14.14.1",
-		"dotenv": "^16.3.1",
-		"fastify": "^4.25.2",
+		"dotenv": "^16.4.5",
+		"fastify": "^4.26.2",
 		"figlet": "^1.7.0",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.4",
@@ -69,18 +69,18 @@
 		"node-emoji": "^1.11.0",
 		"object-diffy": "^1.0.4",
 		"prisma": "^4.16.2",
-		"semver": "^7.5.4",
+		"semver": "^7.6.0",
 		"short-unique-id": "^4.4.4",
-		"spacetime": "^7.5.0",
+		"spacetime": "^7.6.0",
 		"terminal-link": "^2.1.1",
-		"yaml": "^2.3.4"
+		"yaml": "^2.4.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^17.8.1",
 		"all-contributors-cli": "^6.26.1",
 		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^8.56.0",
+		"eslint": "^8.57.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
