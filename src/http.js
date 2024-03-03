@@ -117,7 +117,7 @@ module.exports = async client => {
 					: res.statusCode >= 200
 						? '&2'
 						: '&f') + res.statusCode;
-		let responseTime = res.getResponseTime().toFixed(2);
+		let responseTime = res.elapsedTime.toFixed(2);
 		responseTime = (responseTime >= 100
 			? '&c'
 			: responseTime >= 10
