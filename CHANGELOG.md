@@ -1,3 +1,30 @@
+## [4.0.15](https://github.com/discord-tickets/bot/compare/v4.0.14...v4.0.15) (2024-03-03)
+
+
+### Bug Fixes
+
+* catch missing role errors (closes [#518](https://github.com/discord-tickets/bot/issues/518)) ([c09972f](https://github.com/discord-tickets/bot/commit/c09972f3cf65eeb755cf00537bcd6bcd05e4df13))
+* preview rendering error with missing roles ([04f0b0d](https://github.com/discord-tickets/bot/commit/04f0b0d0339c0b93c92111de782a819a8316107e))
+
+
+### Features
+
+* **docker:** mount timezone configs ([74fb398](https://github.com/discord-tickets/bot/commit/74fb398c8f84bdaaa89538b7d0dbf841f997aa84))
+* **i18n:** add Danish translations ([b8972ba](https://github.com/discord-tickets/bot/commit/b8972ba825191d375a18c9e3b8f97ecf384fee57))
+* **i18n:** add Korean translations ([dd068f5](https://github.com/discord-tickets/bot/commit/dd068f5349a1a2a59e621cd3281d384904c8f669))
+* **i18n:** add Traditional Chinese (zh-TW) translations ([#522](https://github.com/discord-tickets/bot/issues/522)) ([1bcfd65](https://github.com/discord-tickets/bot/commit/1bcfd65055859ea7fbb307089cc8f32e2f0c7e6b))
+* **i18n:** update Greek translations ([4715fc9](https://github.com/discord-tickets/bot/commit/4715fc94aac44204c5f57dfd0d1e46866611eda2))
+* **i18n:** update Korean translations ([215f942](https://github.com/discord-tickets/bot/commit/215f9421b5778ad9889242a2ed53f351803b342b))
+* **i18n:** update Korean translations ([e8b9aef](https://github.com/discord-tickets/bot/commit/e8b9aefa4906ee5ca2b89d7930b1c8f80a816567))
+* **i18n:** update Korean translations ([b1117d7](https://github.com/discord-tickets/bot/commit/b1117d77dd5e434160ac74de55d35aefe34abe7b))
+* **i18n:** update Korean translations ([348565d](https://github.com/discord-tickets/bot/commit/348565d15ed3267d2686b4be819e82263343ea46))
+* **i18n:** update Polish translations ([963e15b](https://github.com/discord-tickets/bot/commit/963e15b783b2bbc5f83e2f0b5a1b61f18d1f2494))
+* **i18n:** update Portuguese (Brazil) translations ([d7c1eac](https://github.com/discord-tickets/bot/commit/d7c1eac8b476ce98ceab2cee51a7341947397742))
+* **i18n:** update Swedish translations ([e9295ba](https://github.com/discord-tickets/bot/commit/e9295bab86903b93309a43e8d1e7254e3cd00bb9))
+* **i18n:** update translation files ([984973e](https://github.com/discord-tickets/bot/commit/984973e0fc72e83f7cf131c72f242a9f4d170562))
+
+
+
 ## [4.0.14](https://github.com/discord-tickets/bot/compare/v4.0.13...v4.0.14) (2024-01-21)
 
 
