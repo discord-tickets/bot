@@ -28,7 +28,7 @@ buttons:
 commands:
   slash:
     add:
-      name: lägg till
+      name: läggtill
       options:
         member:
           name: medlem
@@ -99,7 +99,7 @@ commands:
     remove:
       not_staff:
         title: ❌ Fel
-      name: ta bort
+      name: ta-bort
       options:
         member:
           name: medlem

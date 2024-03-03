@@ -83,7 +83,7 @@ commands:
           name: catégorie
         time:
           description: Clôturer tous les billets qui ont été inactifs pendant le temps
-            spécifié (peut être utilisé avec `category`)
+            spécifié
           name: temps
         reason:
           name: raison
