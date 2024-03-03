@@ -1,1 +1,145 @@
-{}
+buttons:
+  accept_close_request:
+    text: Acceptera
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: Avbryt
+  claim:
+    emoji: 🙌
+  confirm_open:
+    emoji: ✅
+  reject_close_request:
+    emoji: ✖️
+    text: Neka
+  unclaim:
+    emoji: ♻️
+  edit:
+    text: Redigera
+    emoji: ✏️
+  close:
+    emoji: ✖️
+    text: Stäng
+  create:
+    emoji: 🎫
+commands:
+  slash:
+    add:
+      name: lägg till
+      options:
+        member:
+          name: medlem
+      added: ➡️ {added}har lagts till av {by}.
+      not_staff:
+        title: ❌ Fel
+      success:
+        title: ✅ Lades till
+    claim:
+      not_staff:
+        title: ❌ Fel
+    close:
+      invalid_time:
+        title: ❌ Ogiltig
+        description: '`{input}` är inte ett giltigt tidsformat.'
+      options:
+        reason:
+          name: anledning
+      name: stäng
+    force-close:
+      closed_one:
+        description: Kanalen kommer att tas bort om några sekunder.
+      options:
+        reason:
+          name: anledning
+        category:
+          name: kategori
+        time:
+          name: tid
+      confirm_multiple:
+        title: ❓ Är du säker?
+      confirmed_multiple:
+        description: Kanalerna kommer att tas bort om några sekunder.
+      not_staff:
+        title: ❌ Fel
+    help:
+      response:
+        links:
+          feedback: Återgivning
+          links: Användbara länkar
+          docs: Dokumentation
+          support: Hjälp
+        settings: Bot-inställningar
+        commands: Kommandon
+      title: Hjälp
+      description: Visa hjälp-menyn
+      name: hjälp
+    move:
+      name: flytta
+      not_staff:
+        title: ❌ Fel
+      options:
+        category:
+          name: kategori
+    priority:
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Hög
+            LOW: 🟢 Låg
+            MEDIUM: 🟠 Mellan
+          name: prioritet
+      name: prioritet
+      not_staff:
+        title: ❌ Fel
+      success:
+        title: ✅ Prioritetens fastställdes
+    remove:
+      not_staff:
+        title: ❌ Fel
+      name: ta bort
+      options:
+        member:
+          name: medlem
+      removed: ⬅️ {removed} har tagits bort av {by}.
+    tag:
+      name: tagg
+      options:
+        tag:
+          description: Namnet på taggen som ska användas
+          name: tagg
+        for:
+          description: Användaren som taggen ska riktas mot
+      description: Använd en tagg
+    tickets:
+      options:
+        member:
+          name: medlem
+      not_staff:
+        title: ❌ Fel
+    transcript:
+      options:
+        member:
+          name: medlem
+      not_staff:
+        title: ❌ Fel
+    new:
+      options:
+        references:
+          name: referenser
+      name: nytt
+    topic:
+      name: ämne
+    transfer:
+      name: överför
+      options:
+        member:
+          description: Medlemmen att överföra äganderätten till
+          name: medlem
+  message:
+    pin:
+      pinned:
+        title: ✅ Nålade fast meddelandet
+  user:
+    create:
+      not_staff:
+        title: ❌ Fel
