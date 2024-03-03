@@ -76,7 +76,7 @@ process.on('uncaughtException', (error, origin) => {
 	log.error(error);
 });
 
-process.on('warning', warning => log.warn(warning.stack));
+process.on('warning', warning => log.warn(warning.stack || warning));
 
 const client = new Client(config, log);
 client.login().then(() => {

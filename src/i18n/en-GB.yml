@@ -340,7 +340,6 @@ misc:
       Sorry, an unexpected error occurred.
       Please give this information to an administrator.
     fields:
-      code: Error code
       identifier: Identifier
     title: ⚠️ Something went wrong
   expired:
@@ -375,6 +374,15 @@ misc:
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down
+  role_error:
+    description: Sorry, the operation failed because of an invalid configuration.
+    fields:
+      for_admins:
+        name: For server administrators
+        value: >
+          An invalid user or role was supplied, which usually means a staff role has been deleted.
+          [Click here]({url}) for resolution instructions.
+    title: ⚠️ Something went wrong
   unknown_category:
     description: Please try a different category.
     title: ❌ That ticket category doesn't exist
