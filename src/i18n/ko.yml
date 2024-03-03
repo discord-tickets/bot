@@ -353,7 +353,6 @@ misc:
     title: ⚠️ 문제가 발생했습니다
     fields:
       identifier: 고유 식별자
-      code: 오류 코드
     description: "죄송합니다. 예상치 못한 오류가 발생했습니다.\n다음 정보를 관리자에게 전달해 주세요.\n"
   category_full:
     description: "현재 이 카테고리의 문의량이 많아 도움을 드리기 어렵습니다.\n다음에 다시 시도해 주세요.\n"

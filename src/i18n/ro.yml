@@ -91,8 +91,8 @@ commands:
       confirmed_multiple:
         description: Canalele vor fi șterse în câteva secunde.
         title:
-          - ✅ Închiderea %d ticket
-          - ✅ Închiderea %d tickete
+        - ✅ Închiderea %d ticket
+        - ✅ Închiderea %d tickete
       description: Închideți forțat un ticket
       name: închidere-forțată
       no_tickets:
@@ -105,9 +105,8 @@ commands:
         title: ❌ Eroare
       options:
         category:
-          description:
-            Închideți toate ticketele din categoria specificată (trebuie utilizat cu
-            `time`)
+          description: Închideți toate ticketele din categoria specificată (trebuie
+            utilizat cu `time`)
           name: categoria
         reason:
           description: Motivul închiderii ticketului (" Ticketlor ")
@@ -116,7 +115,8 @@ commands:
           description: Ticket de închidere
           name: ticket
         time:
-          description: Închideți toate ticketele care au fost inactive pentru perioada de timp specificată
+          description: Închideți toate ticketele care au fost inactive pentru perioada
+            de timp specificată
           name: timp
     help:
       description: Afișați meniul de ajutor
@@ -174,7 +174,8 @@ commands:
       description: Scoateți un membru dintr-un ticket
       name: eliminați
       not_staff:
-        description: Numai membrii staff-ului pot elimina membri de pe tickete ale altora.
+        description: Numai membrii staff-ului pot elimina membri de pe tickete ale
+          altora.
         title: ❌ Eroare
       options:
         member:
@@ -229,7 +230,8 @@ commands:
       description: Obțineți transcrierea unui ticket
       name: transcript
       not_staff:
-        description: Numai membrii staff-ului pot citi transcrierile ticketurilor altora.
+        description: Numai membrii staff-ului pot citi transcrierile ticketurilor
+          altora.
         title: ❌ Eroare
       options:
         member:
@@ -261,7 +263,8 @@ commands:
         title: ✅ Prompt trimis
 dm:
   closed:
-    archived: Utilizați comanda `/transcript` în **{guild}** pentru a vizualiza mesajele arhivate.
+    archived: Utilizați comanda `/transcript` în **{guild}** pentru a vizualiza mesajele
+      arhivate.
     fields:
       closed:
         name: Închis la
@@ -333,14 +336,14 @@ misc:
       Vă rugăm să încercați din nou mai târziu.
     title: ❌ Categorie plină
   cooldown:
-    description: Vă rugăm să așteptați {time} înainte de a crea un alt ticket în această categorie.
+    description: Vă rugăm să așteptați {time} înainte de a crea un alt ticket în această
+      categorie.
     title: ❌ Vă rugăm să așteptați
   error:
     description: |
       Ne pare rău, a apărut o eroare neașteptată.
       Please give this information to an administrator.
     fields:
-      code: Codul erorri
       identifier: Identificator
     title: ⚠️ Ceva a mers prost.
   expired:
@@ -352,13 +355,14 @@ misc:
     title: ❌ Ticket invalid
   member_limit:
     description:
-      - Vă rugăm să folosiți ticketul existent sau să îl închideți înainte de a crea un altul.
-      - |
-        Vă rugăm să închideți un ticket înainte de a crea un altul.
-        Utilizați `/tickets` pentru a vizualiza ticketele existente.
+    - Vă rugăm să folosiți ticketul existent sau să îl închideți înainte de a crea
+      un altul.
+    - |
+      Vă rugăm să închideți un ticket înainte de a crea un altul.
+      Utilizați `/tickets` pentru a vizualiza ticketele existente.
     title:
-      - ❌ Aveți deja un ticket
-      - ❌ Aveți deja %d tickete deschise
+    - ❌ Aveți deja un ticket
+    - ❌ Aveți deja %d tickete deschise
   missing_roles:
     description: >-
       Nu aveți rolurile necesare pentru a putea crea un ticket în
@@ -407,7 +411,7 @@ ticket:
       title: ❌ Eroare
     rejected: ✋ {user} a respins o cerere de închidere a acestui ticket.
     staff_request:
-      archived: |
+      archived: |2
 
         Mesajele de pe acest canal vor fi arhivate pentru referințe viitoare.
       description: |
@@ -436,9 +440,8 @@ ticket:
       Vă rugăm să continuați conversația sau să {close} biletul.
     title: ⏰ Acest ticket este inactiv
   offline:
-    description:
-      Nu există niciun membru al personalului disponibil în acest moment, așa că s-ar putea
-      să durează mai mult decât de obicei pentru a primi un răspuns.
+    description: Nu există niciun membru al personalului disponibil în acest moment,
+      așa că s-ar putea să durează mai mult decât de obicei pentru a primi un răspuns.
     title: 😴 Nu suntem online
   opening_message:
     content: |
@@ -459,12 +462,10 @@ ticket:
   released: ♻️ {user} a eliberat acest ticket.
   working_hours:
     next:
-      description:
-        Ne vom întoarce la <t:{timestamp}:F> (<t:{timestamp}:R>), deși
+      description: Ne vom întoarce la <t:{timestamp}:F> (<t:{timestamp}:R>), deși
         este posibil să primiți un răspuns înainte de această dată.
       title: 🕗 Nu lucrăm în acest moment.
     today:
-      description:
-        Este posibil să primiți un răspuns înainte, dar noi nu începem să lucrăm până când
-        <t:{timestamp}:t> astăzi (<t:{timestamp}:R>).
+      description: Este posibil să primiți un răspuns înainte, dar noi nu începem
+        să lucrăm până când <t:{timestamp}:t> astăzi (<t:{timestamp}:R>).
       title: 🕗 Nu lucrăm în acest moment.

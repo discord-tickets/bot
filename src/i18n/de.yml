@@ -313,7 +313,6 @@ misc:
     description: "Entschuldigung, ein unerwarteter Fehler ist aufgetreten.\nBitte
       gib diese Informationen an einen Administrator weiter.\n"
     fields:
-      code: Fehlercode
       identifier: Kennung
     title: ⚠️ Etwas ist schief gelaufen
   expired:

@@ -398,7 +398,6 @@ misc:
     description: "Se produjo un error inesperado.\nPor favor, proporciona esta información
       a un administrador.\n"
     fields:
-      code: Código de error
       identifier: ID
     title: ⚠️ Algo salió mal
   expired:

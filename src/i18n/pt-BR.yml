@@ -343,7 +343,6 @@ misc:
       Desculpe, ocorreu um erro inesperado.
       Por favor, forneça essa informação a um administrador.
     fields:
-      code: Código de erro
       identifier: Identificador
     title: ⚠️ Algo deu errado
   expired:

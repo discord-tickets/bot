@@ -339,7 +339,6 @@ misc:
       Ospravedlňujeme sa, ale vyskytla sa nečakaná chyba.
       Poskytni tieto informácie členovi AT.
     fields:
-      code: Error kód
       identifier: Identifikátor
     title: ⚠️ Niečo sa pokazilo
   expired:

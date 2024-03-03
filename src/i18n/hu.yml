@@ -327,7 +327,6 @@ misc:
     description: "Sajnálom váratlan hiba lépett fel.\nKérlek vedd fel a kapcsolatot
       az adminisztrátorral.\n"
     fields:
-      code: Hibakód
       identifier: Azonosító
     title: ⚠️ Hiba lépett fel
   invalid_ticket:

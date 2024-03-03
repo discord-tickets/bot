@@ -260,7 +260,6 @@ misc:
       catégorie.
   error:
     fields:
-      code: Code d'erreur
       identifier: Identifiant
     description: "Désolé, une erreur inattendue s'est produite.\nVeuillez transmettre
       cette information à un administrateur.\n"

@@ -65,7 +65,7 @@ commands:
       description: 認領工單
       name: 認領
       not_staff:
-        description:  只有工作人員可以認領工單。
+        description: 只有工作人員可以認領工單。
         title: ❌ 錯誤
     close:
       description: 要求關閉工單
@@ -90,21 +90,20 @@ commands:
       confirmed_multiple:
         description: 幾秒後將刪除這些頻道。
         title:
-          - ✅ 關閉 %d 張工單
-          - ✅ 關閉 %d 張工單
+        - ✅ 關閉 %d 張工單
+        - ✅ 關閉 %d 張工單
       description: 強制關閉一張工單
       name: 強制關閉
       no_tickets:
         description: >-
-              目前沒有超過 `{time}` 時間不活躍的工單。
+          目前沒有超過 `{time}` 時間不活躍的工單。
         title: ❌ 沒有工單
       not_staff:
         description: 只有工作人員可以強制關閉工單。
         title: ❌ 錯誤
       options:
         category:
-          description:
-            關閉指定類別中的所有工單（必須與 `time` 一起使用）
+          description: 關閉指定類別中的所有工單（必須與 `time` 一起使用）
           name: 類別
         reason:
           description: 關閉工單的原因
@@ -337,7 +336,6 @@ misc:
       抱歉，發生了不可預期的錯誤。
       請將此資訊提供給管理員。
     fields:
-      code: 錯誤程式碼
       identifier: 資訊
     title: ⚠️ 出現錯誤
   expired:
@@ -349,13 +347,13 @@ misc:
     title: ❌ 無效工單
   member_limit:
     description:
-      - 請在建立另一個工單之前使用您現有的工單或將其關閉。
-      - |
-        請在建立另一個工單之前先關閉一個工單。
-        使用 `/tickets` 檢視您現有的工單。
+    - 請在建立另一個工單之前使用您現有的工單或將其關閉。
+    - |
+      請在建立另一個工單之前先關閉一個工單。
+      使用 `/tickets` 檢視您現有的工單。
     title:
-      - ❌ 您已經有一個工單
-      - ❌ 您已經有 %d 個開啟的工單
+    - ❌ 您已經有一個工單
+    - ❌ 您已經有 %d 個開啟的工單
   missing_roles:
     description: >-
       您沒有所需的角色，無法在此類別中建立工單。
@@ -405,7 +403,7 @@ ticket:
       title: ❌ 錯誤
     rejected: ✋ {user} 拒絕了關閉此工單的請求。
     staff_request:
-      archived: |
+      archived: |2
 
         此頻道中的訊息將被存檔以供將來參考。
       description: |
@@ -434,8 +432,7 @@ ticket:
       請繼續對話或 {close} 工單。
     title: ⏰ 此工單不活躍
   offline:
-    description:
-      目前沒有可用的工作人員，因此回應時間可能比平常長。
+    description: 目前沒有可用的工作人員，因此回應時間可能比平常長。
     title: 😴 我們不在線上
   opening_message:
     content: |
@@ -456,10 +453,8 @@ ticket:
   released: ♻️ {user} 已釋放此工單。
   working_hours:
     next:
-      description:
-        我們將在 <t:{timestamp}:F> （<t:{timestamp}:R>）回來，雖然您可能在此之前收到回覆。
+      description: 我們將在 <t:{timestamp}:F> （<t:{timestamp}:R>）回來，雖然您可能在此之前收到回覆。
       title: 🕗 我們目前無法處理工單
     today:
-      description:
-        您可能在此之前收到回覆，但我們在今天 <t:{timestamp}:t>（<t:{timestamp}:R>）才會開始處理工單。
+      description: 您可能在此之前收到回覆，但我們在今天 <t:{timestamp}:t>（<t:{timestamp}:R>）才會開始處理工單。
       title: 🕗 我們目前無法處理工單

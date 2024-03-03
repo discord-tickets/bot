@@ -339,7 +339,6 @@ misc:
       administratorowi.\n"
     fields:
       identifier: Identyfikator
-      code: Kod błędu
     title: ⚠️ Coś poszło nie tak
   expired:
     title: ⏰ Wygasł
