@@ -3,7 +3,7 @@
 ![bots](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients.total&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
 ![tickets](https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=for-the-badge)](https://github.com/discord-tickets/bot/stargazers)
-[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=for-the-badge)](https://www.codacy.com/gh/discord-tickets/bot/dashboard)
+[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=for-the-badge)](https://app.codacy.com/gh/discord-tickets/bot/dashboard)
 [![All Contributors](https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=for-the-badge)](https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&amp;color=7289DA&amp;style=for-the-badge)](https://lnk.earth/discord)
 
