@@ -32,14 +32,20 @@ commands:
       options:
         member:
           name: medlem
+        ticket:
+          name: ärende
       added: ➡️ {added}har lagts till av {by}.
       not_staff:
         title: ❌ Fel
       success:
         title: ✅ Lades till
+        description: '{member} har lagts till i {ticket}.'
     claim:
       not_staff:
         title: ❌ Fel
+        description: Endast personal-medlemmar kan göra anspråk på ärenden.
+      description: Gör anspråk på ett ärende
+      name: claim
     close:
       invalid_time:
         title: ❌ Ogiltig
@@ -47,10 +53,13 @@ commands:
       options:
         reason:
           name: anledning
+          description: Anledningen till att ärendet stängs
       name: stäng
+      description: Begär stängning av ett ärende
     force-close:
       closed_one:
         description: Kanalen kommer att tas bort om några sekunder.
+        title: ✅ Ärendet stängdes
       options:
         reason:
           name: anledning
