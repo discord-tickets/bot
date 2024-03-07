@@ -1,3 +1,16 @@
+## [4.0.16](https://github.com/discord-tickets/bot/compare/v4.0.15...v4.0.16) (2024-03-07)
+
+
+### Features
+
+* **i18n:** update French translations ([c408d6b](https://github.com/discord-tickets/bot/commit/c408d6bf5724c44a08aeb6398a96024ad73caf81))
+* **i18n:** update French translations ([0989c46](https://github.com/discord-tickets/bot/commit/0989c468aa8a3958c0244943cd1c84431208c846))
+* **i18n:** update Swedish translations ([ae9afdc](https://github.com/discord-tickets/bot/commit/ae9afdccf838b71110466b4cb270fe2dc6827308))
+* **i18n:** update Swedish translations ([2a43aad](https://github.com/discord-tickets/bot/commit/2a43aadca1dfcb1c4d0dbf66d262a04338742a01))
+* **i18n:** update Swedish translations ([95b713b](https://github.com/discord-tickets/bot/commit/95b713b689fdb4dc79560d5838f5496fed64f2d7))
+
+
+
 ## [4.0.15](https://github.com/discord-tickets/bot/compare/v4.0.14...v4.0.15) (2024-03-03)
 
 
