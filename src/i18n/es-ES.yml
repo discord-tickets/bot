@@ -379,7 +379,8 @@ misc:
     - ❌ Ya tienes un ticket
     - ❌ Ya tienes %d tickets abiertos
   no_categories:
-    description: No hay configuración de categorías de ticket.
+    description: "No se han configurado categorías para tickets.\nConfigura tu servidor
+      en {url}."
     title: ❌ No hay categorías de Ticket
   blocked:
     description: No tienes permiso para crear tickets.
@@ -415,6 +416,15 @@ misc:
     description: "> [Ver `{version}` en GitHub]({github})\n> [Cambios]({changelog})\n
       > [Guía de actualización]({guide})\n"
     title: Hay una nueva versión disponible
+  role_error:
+    description: Lo sentimos, la acción falló por una configuración incorrecta.
+    fields:
+      for_admins:
+        value: "Se ha proporcionado un usuario o rol no válido, lo que suele significar
+          que se ha eliminado un rol de personal. [Haz clic aquí]({url}) para obtener
+          instrucciones de resolución.\n"
+        name: Para administradores del servidor
+    title: ⚠️ Algo ha salido mal
 dm:
   closed:
     archived: Para ver los mensajes archivados, utiliza el comando `/transcript` en
