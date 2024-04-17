@@ -385,6 +385,8 @@ misc:
       > [Registro de alterações]({changelog})
       > [Guia de atualização]({guide})
     title: Uma atualização está disponível
+  role_error:
+    description: Desculpe, a operação falhou devido a uma configuração inválida.
 modals:
   feedback:
     comment:
