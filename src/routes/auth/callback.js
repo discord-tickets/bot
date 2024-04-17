@@ -19,7 +19,6 @@ module.exports.get = () => ({
 		const token = this.jwt.sign({
 			accessToken: data.access_token,
 			avatar: user.avatar,
-			discriminator: user.discriminator,
 			expiresAt: Date.now() + (data.expires_in * 1000),
 			id: user.id,
 			locale: user.locale,
