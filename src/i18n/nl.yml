@@ -48,6 +48,10 @@ commands:
           docs: Documentatie
           feedback: Feedback
           commands: Volledige commandolijst
+          links: Handige links
+          support: Ondersteuning
+        settings: Bot-instellingen
+      title: Hulp
     add:
       added: ➡️ {added} is toegevoegd door {by}.
       description: Voeg iemand toe aan een ticket
@@ -81,6 +85,8 @@ commands:
       not_staff:
         description: Alleen staffleden kunnen tickets claimen.
         title: ❌ Fout
+    move:
+      description: Verplaats een ticket naar een andere categorie
   message:
     pin:
       not_ticket:
