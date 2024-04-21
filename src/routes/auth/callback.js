@@ -29,9 +29,16 @@ module.exports.get = () => ({
 			httpOnly: true,
 			maxAge: data.expires_in,
 			path: '/',
-			sameSite: 'Lax',
+			sameSite: 'Strict',
 			secure: false,
 		});
-		return res.redirect(303, redirect);
+		res.header('Content-Type', 'text/html');
+		return res.send(`
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="refresh" content="0; url='${redirect}'"></head>
+<body></body>
+</html>
+`);
 	},
 });

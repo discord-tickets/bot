@@ -18,7 +18,7 @@ module.exports.get = fastify => ({
 			domain,
 			httpOnly: true,
 			path: '/',
-			sameSite: 'Lax',
+			sameSite: 'Strict',
 			secure: false,
 		}).send('The token has been revoked.');
 	},
