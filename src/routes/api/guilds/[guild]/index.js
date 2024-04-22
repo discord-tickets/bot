@@ -1,3 +1,4 @@
+const { getPrivilegeLevel } = require('../../../../lib/users');
 const { iconURL } = require('../../../../lib/misc');
 
 module.exports.get = fastify => ({
@@ -9,8 +10,9 @@ module.exports.get = fastify => ({
 			id: guild.id,
 			logo: iconURL(guild),
 			name: guild.name,
+			privilegeLevel: await getPrivilegeLevel(await guild.members.fetch(req.user.id)),
 		});
 	},
-	onRequest: [fastify.authenticate],
+	onRequest: [fastify.authenticate, fastify.isMember],
 });
 
