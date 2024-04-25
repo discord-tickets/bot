@@ -74,7 +74,7 @@
 		"short-unique-id": "^4.4.4",
 		"spacetime": "^7.6.0",
 		"terminal-link": "^2.1.1",
-		"yaml": "^2.4.0"
+		"yaml": "^2.4.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
@@ -83,7 +83,7 @@
 		"conventional-changelog-cli": "^2.2.2",
 		"eslint": "^8.57.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"husky": "^8.0.0",
+		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
 		"markdown-table": "^3.0.3",
 		"nodemon": "^2.0.22"
