@@ -15,7 +15,7 @@
 		"start": "node .",
 		"studio": "npx prisma studio",
 		"test": "node scripts/check-i18n",
-		"prepare": "husky install"
+		"__prepare": "husky install"
 	},
 	"commitlint": {
 		"extends": [
