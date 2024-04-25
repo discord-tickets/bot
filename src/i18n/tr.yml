@@ -90,8 +90,8 @@ commands:
       confirmed_multiple:
         description: Kanallar birkaç saniye içinde silinecektir.
         title:
-          - ✅ %d talep kapatılıyor
-          - ✅ %d talep kapatılıyor
+        - ✅ %d talep kapatılıyor
+        - ✅ %d talep kapatılıyor
       description: Talebi zorla kapat
       name: force-close
       no_tickets:
@@ -103,8 +103,8 @@ commands:
         title: ❌ Hata
       options:
         category:
-          description:
-            Belirtilen kategorideki tüm talepleri kapatın ('time' ile birlikte kullanılmalıdır)
+          description: Belirtilen kategorideki tüm talepleri kapatın ('time' ile birlikte
+            kullanılmalıdır)
           name: category
         reason:
           description: Talep(ler)in kapatılma nedeni
@@ -251,14 +251,16 @@ commands:
         description: Talep açmak için aşağıdaki butonu kullanın.
         title: Lütfen talep oluşturun
       sent:
-        description: "{user}, **{category}** kategorisinde talep oluşturmak için davet edildi."
+        description: "{user}, **{category}** kategorisinde talep oluşturmak için davet
+          edildi."
         title: ✅ Davet gönderildi
 dm:
   closed:
-    archived: Arşivlenmiş mesajları görüntülemek için **{guild}** içinde `/transcript` komutunu kullanın.
+    archived: Arşivlenmiş mesajları görüntülemek için **{guild}** içinde `/transcript`
+      komutunu kullanın.
     fields:
       closed:
-        name: Kapatıldı. 
+        name: Kapatıldı.
         value: "{timestamp} ({duration} sonra)"
       closed_by: Tarafından kapatıldı
       created: Oluşturuldu
@@ -334,7 +336,6 @@ misc:
       Üzgünüz, beklenmedik bir hata oluştu.
       Lütfen bu bilgiyi bir yöneticiye verin.
     fields:
-      code: Hata kodu
       identifier: Tanımlayıcı
     title: ⚠️ Bir şeyler yanlış gitti
   expired:
@@ -346,13 +347,13 @@ misc:
     title: ❌ Geçersiz talep
   member_limit:
     description:
-      - Lütfen mevcut talebinizi kullanın veya başka bir talep oluşturmadan önce kapatın.
-      - |
-        Lütfen başka bir talep oluşturmadan önce bir talebi kapatın.
-        Mevcut talepberinizi görüntülemek için `/tickets` kullanın.
+    - Lütfen mevcut talebinizi kullanın veya başka bir talep oluşturmadan önce kapatın.
+    - |
+      Lütfen başka bir talep oluşturmadan önce bir talebi kapatın.
+      Mevcut talepberinizi görüntülemek için `/tickets` kullanın.
     title:
-      - ❌ Zaten bir talebiniz var
-      - ❌ Zaten %d açık talebiniz var
+    - ❌ Zaten bir talebiniz var
+    - ❌ Zaten %d açık talebiniz var
   missing_roles:
     description: >-
       Bu kategoride talep oluşturabilmek için gerekli rollere sahip değilsiniz.
@@ -400,7 +401,7 @@ ticket:
       title: ❌ Hata
     rejected: ✋ {user}, bu talebi kapatma isteğini reddetti.
     staff_request:
-      archived: |
+      archived: |2
 
         Bu kanaldaki mesajlar ileride başvurmak üzere arşivlenecektir.
       description: |
@@ -429,8 +430,8 @@ ticket:
       Lütfen görüşmeye devam edin veya talebi kapatın {close}.
     title: ⏰ Talep inaktif
   offline:
-    description:
-      Şu anda müsait bir yetkili yok, bu nedenle yanıt almanız normalden daha uzun sürebilir.
+    description: Şu anda müsait bir yetkili yok, bu nedenle yanıt almanız normalden
+      daha uzun sürebilir.
     title: 😴 Müsait yetkili yok
   opening_message:
     content: |
