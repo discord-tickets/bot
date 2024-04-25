@@ -9,7 +9,7 @@ module.exports.delete = fastify => ({
 		const questionId = req.params.question;
 		const original = questionId && await client.prisma.question.findUnique({ where: { id: questionId } });
 		const category = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
-		if (original?.categoryId !== categoryId || category.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (original?.categoryId !== categoryId || category.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 		const question = await client.prisma.question.delete({ where: { id: questionId } });
 
 		logAdminEvent(client, {

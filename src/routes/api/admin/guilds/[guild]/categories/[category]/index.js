@@ -9,7 +9,7 @@ module.exports.delete = fastify => ({
 		const guild = client.guilds.cache.get(req.params.guild);
 		const categoryId = Number(req.params.category);
 		const original = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
-		if (!original || original.guildId !== guild.id) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guild.id) return res.status(400).send(new Error('Bad Request'));
 		const category = await client.prisma.category.delete({ where: { id: categoryId } });
 
 		await updateStaffRoles(guild);
@@ -58,7 +58,7 @@ module.exports.get = fastify => ({
 			where: { id: categoryId },
 		});
 
-		if (!category || category.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!category || category.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
 		return category;
 	},
@@ -118,7 +118,7 @@ module.exports.patch = fastify => ({
 			where: { id: categoryId },
 		});
 
-		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
 		if (data.hasOwnProperty('id')) delete data.id;
 		if (data.hasOwnProperty('createdAt')) delete data.createdAt;

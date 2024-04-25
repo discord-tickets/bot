@@ -8,7 +8,7 @@ module.exports.delete = fastify => ({
 		const guildId = req.params.guild;
 		const tagId = Number(req.params.tag);
 		const original = tagId && await client.prisma.tag.findUnique({ where: { id: tagId } });
-		if (original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (original.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 		const tag = await client.prisma.tag.delete({ where: { id: tagId } });
 
 		const cacheKey = `cache/guild-tags:${guildId}`;
@@ -46,7 +46,7 @@ module.exports.get = fastify => ({
 		const tagId = Number(req.params.tag);
 		const tag = await client.prisma.tag.findUnique({ where: { id: tagId } });
 
-		if (!tag || tag.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!tag || tag.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
 		return tag;
 	},
@@ -64,7 +64,7 @@ module.exports.patch = fastify => ({
 
 		const original = req.params.tag && await client.prisma.tag.findUnique({ where: { id: tagId } });
 
-		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
 		if (data.hasOwnProperty('id')) delete data.id;
 		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
