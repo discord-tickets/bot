@@ -311,6 +311,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "zukreindev",
+      "name": "Arda Samed Çelik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73394120?v=4",
+      "profile": "https://zukrein.xyz",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
