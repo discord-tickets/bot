@@ -1,33 +1,462 @@
 buttons:
-  cancel:
-    emoji: ✖️
-    text: İptal Et
-  close:
-    emoji: ✖️
-    text: Kapat
   accept_close_request:
     emoji: ✅
-    text: Kabul Et
-  create:
-    emoji: 🎫
-  edit:
-    emoji: ✏️
-    text: Düzenle
+    text: Kabul et
+  cancel:
+    emoji: ➖
+    text: İptal
   claim:
     emoji: 🙌
     text: Devral
+  close:
+    emoji: ✖️
+    text: Kapat
   confirm_open:
     emoji: ✅
-    text: Talep Oluştur
+    text: Talebi oluştur
+  create:
+    emoji: 🎫
+    text: Talep oluştur
+  edit:
+    emoji: ✏️
+    text: Düzenle
   reject_close_request:
-    text: Reddet
     emoji: ✖️
+    text: Reddet
   unclaim:
     emoji: ♻️
+    text: Bırak
 commands:
   message:
+    create:
+      name: Mesajdan talep oluştur
     pin:
+      name: Mesajı sabitle
       not_pinnable:
+        description: |
+          Mesaj sabitlenemedi.
+          Botun yetkilerini kontrol etmesi için bir yönetici ile görüşün.
         title: ❌ Hata
+      not_ticket:
+        description: Sadece taleplerde mesajları sabitleyebilirsiniz.
+        title: ❌ Burası bir talep kanalı değil
       pinned:
-        description: Mesaj sabitlendi.
+        description: Mesaj başarıyla sabitlendi.
+        title: ✅ Mesaj sabitlendi
+  slash:
+    add:
+      added: ➡️ {added}, {by} tarafından eklendi.
+      description: Talebe üye ekle
+      name: add
+      not_staff:
+        description: Başkalarının taleplerine sadece yetkililer üye ekleyebilir.
+        title: ❌ Hata
+      options:
+        member:
+          description: The member to add to the ticket
+          name: member
+        ticket:
+          description: The ticket to add the member to
+          name: ticket
+      success:
+        description: "{member}, {ticket} talebine eklendi."
+        title: ✅ Eklendi
+    claim:
+      description: Talebi devral
+      name: claim
+      not_staff:
+        description: Sadece yetkililer talepleri devralabilir.
+        title: ❌ Hata
+    close:
+      description: Bir talebin kapatılmasını talep et
+      invalid_time:
+        description: "`{input}` doğru bir zaman formatı değil."
+        title: ❌ Yanlış
+      name: close
+      options:
+        reason:
+          description: Talebin kapatılmasının sebebi
+          name: reason
+    force-close:
+      closed_one:
+        description: Kanal birkaç saniye içinde silinecektir.
+        title: ✅ Talep kapatıldı
+      confirm_multiple:
+        description: >
+          `{time}` boyunca inaktif kalan **{count}** kadar talebi kapatmak üzeresiniz:
+
+          {tickets}
+        title: ❓ Emin misiniz?
+      confirmed_multiple:
+        description: Kanallar birkaç saniye içinde silinecektir.
+        title:
+          - ✅ %d talep kapatılıyor
+          - ✅ %d talep kapatılıyor
+      description: Talebi zorla kapat
+      name: force-close
+      no_tickets:
+        description: >-
+          `{time}` süredir inaktif kalan talep yok.
+        title: ❌ Talep yok
+      not_staff:
+        description: Sadece yetkililer talepleri zorla kapatabilir.
+        title: ❌ Hata
+      options:
+        category:
+          description:
+            Belirtilen kategorideki tüm talepleri kapatın ('time' ile birlikte kullanılmalıdır)
+          name: category
+        reason:
+          description: Talep(ler)in kapatılma nedeni
+          name: reason
+        ticket:
+          description: Kapatılacak talep
+          name: ticket
+        time:
+          description: Belirtilen süre boyunca etkin olmayan tüm talepleri kapatın
+          name: time
+    help:
+      description: Yardım menüsünü göster
+      name: help
+      response:
+        commands: Commands
+        description: "**Use {command} to create a ticket and get support.**"
+        links:
+          commands: Tam komut listesi
+          docs: Dokümantasyon
+          feedback: Geri bildirim
+          links: Faydalı bağlantılar
+          support: Destek
+        settings: Bot ayarları
+      title: Yardım
+    move:
+      description: Talebi başka bir kategoriye taşıma
+      moved: 🗃️ {by} bu talebi **{from}**'den **{to}**'e taşıdı.
+      name: move
+      not_staff:
+        description: Sadece yetkililer talepleri taşıyabilir.
+        title: ❌ Hata
+      options:
+        category:
+          description: Talebin taşınacağı kategori
+          name: category
+    new:
+      description: Yeni bir talep oluştur
+      name: new
+      options:
+        references:
+          description: İlgili talebin numarası
+          name: references
+    priority:
+      description: Bir talebin önceliğini belirleyin
+      name: priority
+      not_staff:
+        description: Sadece yetkililer taleplerin önceliğini değiştirebilir.
+        title: ❌ Hata
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Yüksek
+            LOW: 🟢 Düşük
+            MEDIUM: 🟠 Orta
+          description: Talebin önceliği
+          name: priority
+      success:
+        description: Bu talebin önceliği şu şekilde ayarlandı `{priority}`.
+        title: ✅ Öncelik ayarlandı
+    release:
+      description: Talebi serbest bırak
+      name: release
+    remove:
+      description: Talepten üye çıkar
+      name: remove
+      not_staff:
+        description: Başkalarının taleplerinden sadece yetkililer üye çıkarabilir.
+        title: ❌ Hata
+      options:
+        member:
+          description: Talepten çıkarılacak üye
+          name: member
+        ticket:
+          description: Üyenin çıkarılacağı talep
+          name: ticket
+      removed: ⬅️ {removed}, {by} tarafından çıkarıldı.
+      success:
+        description: "{member}, {ticket} talebinden çıkarıldı."
+        title: ✅ Üye çıkarıldı
+    tag:
+      description: Etiket kullan
+      name: tag
+      options:
+        for:
+          description: Etiketin hedefleneceği kullanıcı
+          name: for
+        tag:
+          description: Kullanılacak etiketin adı
+          name: tag
+    tickets:
+      description: Kendinizin veya başkasının taleplerini listeleyin
+      name: tickets
+      not_staff:
+        description: Sadece yetkililer başkalarının taleplerini görebilir
+        title: ❌ Hata
+      options:
+        member:
+          description: Talepleri listelenecek üye
+          name: member
+      response:
+        description: Talebin transkriptini indirmek için {transcript} kullanın.
+        fields:
+          closed:
+            name: Kapalı talepler
+            none:
+              other: "{user} herhangi bir talep oluşturmamış."
+              own: |
+                Herhangi bir talep oluşturmadınız.
+                {new} kullanarak yeni bir talep oluşturabilirsiniz.
+          open:
+            name: Talep açın
+        title:
+          other: "{displayName}'in talepleri"
+          own: Talepleriniz
+    topic:
+      description: Talebin konusunu değiştir
+      name: topic
+    transcript:
+      description: Talebin transkriptini çıkar
+      name: transcript
+      options:
+        member:
+          description: Talepleri aranacak üye
+          name: member
+        ticket:
+          description: Transkripti alınacak talep
+          name: ticket
+    transfer:
+      description: Talebin sahipliğini başka bir üyeye aktarma
+      name: transfer
+      options:
+        member:
+          description: Talebin devredileceği üye
+          name: member
+      transferred: 📨 {user} talebi {to}'e devretti.
+      transferred_from: 📨 {user} talebi {from}'den {to}'e devretti.
+  user:
+    create:
+      name: Kullanıcı için talep oluştur
+      not_staff:
+        description: Sadece yetkililer başkaları için talep açabilir.
+        title: ❌ Hata
+      prompt:
+        description: Talep açmak için aşağıdaki butonu kullanın.
+        title: Lütfen talep oluşturun
+      sent:
+        description: "{user}, **{category}** kategorisinde talep oluşturmak için davet edildi."
+        title: ✅ Davet gönderildi
+dm:
+  closed:
+    archived: Arşivlenmiş mesajları görüntülemek için **{guild}** içinde `/transcript` komutunu kullanın.
+    fields:
+      closed:
+        name: Kapatıldı. 
+        value: "{timestamp} ({duration} sonra)"
+      closed_by: Tarafından kapatıldı
+      created: Oluşturuldu
+      feedback: Geri bildiriminiz
+      reason: Kapatılma sebebi
+      response: Cevap süresi
+      ticket: Talep
+      topic: Konu
+    title: Talebiniz kapatıldı
+  confirm_open:
+    title: Aşağıdaki konu ile bir talep açmak ister misiniz?
+log:
+  admin:
+    changes: Changes
+    description:
+      joined: "{user} {verb} {targetType}"
+      target:
+        category: a category
+        panel: a panel
+        question: a question
+        settings: the settings
+        tag: a tag
+    title:
+      joined: "{targetType} {verb}"
+      target:
+        category: Category
+        panel: Panel
+        question: Question
+        settings: Settings
+        tag: Tag
+    verb:
+      create: created
+      delete: deleted
+      update: updated
+  message:
+    description: "{user} {verb} a message"
+    message: Message
+    title: Message {verb}
+    verb:
+      delete: deleted
+      update: updated
+  ticket:
+    added: Added members
+    description: "{user} {verb} a ticket"
+    removed: Removed members
+    ticket: Ticket
+    title: Ticket {verb}
+    verb:
+      claim: claimed
+      close: closed
+      create: created
+      unclaim: released
+      update: updated
+menus:
+  category:
+    placeholder: Bir talep kategorisi seçin
+  guild:
+    placeholder: Bir sunucu seç
+misc:
+  blocked:
+    description: Talep oluşturmanıza izin verilmiyor.
+    title: ❌ Engellendi
+  category_full:
+    description: |
+      Kategori maksimum kapasitesine ulaştı.
+      Lütfen daha sonra tekrar deneyiniz.
+    title: ❌ Kategori dolu
+  cooldown:
+    description: Bu kategoride başka bir talep oluşturmadan önce lütfen {time} bekleyin.
+    title: ❌ Lütfen bekleyin
+  error:
+    description: |
+      Üzgünüz, beklenmedik bir hata oluştu.
+      Lütfen bu bilgiyi bir yöneticiye verin.
+    fields:
+      code: Hata kodu
+      identifier: Tanımlayıcı
+    title: ⚠️ Bir şeyler yanlış gitti
+  expired:
+    description: Zamanında cevap vermediniz. Lütfen tekrar deneyin.
+    title: ⏰ Zaman aşımı
+  expires_in: "{time} zaman aşımına uğrayacak"
+  invalid_ticket:
+    description: Lütfen geçerli bir talep belirtin.
+    title: ❌ Geçersiz talep
+  member_limit:
+    description:
+      - Lütfen mevcut talebinizi kullanın veya başka bir talep oluşturmadan önce kapatın.
+      - |
+        Lütfen başka bir talep oluşturmadan önce bir talebi kapatın.
+        Mevcut talepberinizi görüntülemek için `/tickets` kullanın.
+    title:
+      - ❌ Zaten bir talebiniz var
+      - ❌ Zaten %d açık talebiniz var
+  missing_roles:
+    description: >-
+      Bu kategoride talep oluşturabilmek için gerekli rollere sahip değilsiniz.
+    title: ❌ Yetersiz roller
+  no_categories:
+    description: Hiçbir talep kategorisi yapılandırılmadı.
+    title: ❌ Talep kategorisi yok
+  not_ticket:
+    description: Bu komutu sadece taleplerde kullanabilirsiniz.
+    title: ❌ Bu bir talep kanalı değil
+  ratelimited:
+    description: Birkaç saniye sonra tekrar deneyin.
+    title: 🐢 Yavaşlayın
+  unknown_category:
+    description: Lütfen farklı bir kategori deneyin.
+    title: ❌ Bu talep kategorisi mevcut değil
+  update:
+    description: |
+      > [View `{version}` on GitHub]({github})
+      > [Changelog]({changelog})
+      > [Update guide]({guide})
+    title: Bir güncelleme mevcut
+modals:
+  feedback:
+    comment:
+      label: Yorum
+      placeholder: Herhangi bir ek geri bildiriminiz var mı?
+    rating:
+      label: Değerlendirme
+      placeholder: 1-5
+    title: Desteğimizi değerlendirin
+  topic:
+    label: Konu
+    placeholder: Bu talep ne hakkında?
+ticket:
+  answers:
+    no_value: "*Cevap yok*"
+  claimed: 🙌 {user} bu talebi devraldı.
+  close:
+    closed:
+      description: Bu kanal birkaç saniye içinde silinecek…
+      title: ✅ Talep kapatıldı
+    forbidden:
+      description: Bu talebi kapatma izniniz yok.
+      title: ❌ Hata
+    rejected: ✋ {user}, bu talebi kapatma isteğini reddetti.
+    staff_request:
+      archived: |
+
+        Bu kanaldaki mesajlar ileride başvurmak üzere arşivlenecektir.
+      description: |
+        {requestedBy} bu talebi kapatmak istiyor.
+        Şimdi kapatmak için "Kabul Et"i veya hâlâ yardıma ihtiyacınız varsa "İptal"i tıklayın.
+      title: ❓ Bu talep kapatılabilir mi?
+    user_request:
+      title: ❓ {requestedBy} bu talebi kapatmak istiyor.
+    wait_for_staff: ✋ Lütfen yetkililerin bu talebi kapatmasını bekleyin.
+    wait_for_user: ✋ Lütfen kullanıcının yanıt vermesini bekleyin.
+  closing_soon:
+    description: |
+      Bu talep, <t:{timestamp}:R> işlem yapılmaması nedeniyle kapatılacak.
+      Bu işlemi iptal etmek için bir mesaj gönderin.
+    title: ⌛ Bu talep yakında kapanacak
+  created:
+    description: "Talebiniz oluşturuldu: {channel}."
+    title: ✅ Talep oluşturuldu
+  edited:
+    description: Değişiklikleriniz kaydedildi.
+    title: ✅ Talep güncellendi
+  feedback: Geri bildiriminiz için teşekkür ederiz.
+  inactive:
+    description: |
+      <t:{timestamp}:R> tarihinden beri bu kanalda herhangi bir etkinlik olmamıştır.
+      Lütfen görüşmeye devam edin veya talebi kapatın {close}.
+    title: ⏰ Talep inaktif
+  offline:
+    description:
+      Şu anda müsait bir yetkili yok, bu nedenle yanıt almanız normalden daha uzun sürebilir.
+    title: 😴 Müsait yetkili yok
+  opening_message:
+    content: |
+      {staff}
+      {creator} yeni bir talep oluşturdu
+    fields:
+      topic: Konu
+  references_message:
+    description: References [a message]({url}) sent {timestamp} by {author}.
+    title: ℹ️ Referans
+  references_ticket:
+    description: "This ticket is related to a previous ticket:"
+    fields:
+      date: Created at
+      number: Number
+      topic: Topic
+    title: ℹ️ Referans
+  released: ♻️ {user} has released this ticket.
+  working_hours:
+    next:
+      description: |
+        Şu an çalışma saatleri dışındayız. Her ne kadar cevap alabilecek olsanız da bunu garanti edemiyoruz.
+        Başlangıç tarihi: <t:{timestamp}:F> (<t:{timestamp}:R>)
+      title: 🕗 Şu an mesai saatleri dışındayız
+    today:
+      description: |
+        Şu an çalışma saatleri dışındayız. Her ne kadar cevap alabilecek olsanız da bunu garanti edemiyoruz.
+        Başlangıç saati: Bugün <t:{timestamp}:t> (<t:{timestamp}:R>).
+      title: 🕗 Şu an mesai saatleri dışındayız
