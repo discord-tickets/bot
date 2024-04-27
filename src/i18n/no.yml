@@ -1,1 +1,55 @@
-{}
+buttons:
+  accept_close_request:
+    text: Aksepter
+  cancel:
+    text: Avbryt
+  claim:
+    text: Ta over
+  close:
+    text: Lukk
+  confirm_open:
+    text: Lag ticket
+  edit:
+    text: Endre
+  reject_close_request:
+    text: Avslå
+  unclaim:
+    text: Avbyt overtak
+  create:
+    text: Lag en ticket
+commands:
+  message:
+    create:
+      name: Opprett ticket fra melding
+    pin:
+      name: Fest melding
+      not_pinnable:
+        description: "Denne meldingen kan ikke festes.\nVennligst be en administrator
+          om å sjekke botens tillatelser.\n"
+      not_ticket:
+        description: Du kan bare feste meldinger i tickets.
+        title: ❌ Dette er ikke en ticket kanal
+      pinned:
+        description: Meldingen er festet.
+        title: ✅ Festet melding
+  slash:
+    add:
+      options:
+        ticket:
+          description: Ticket å legge medlemmet til
+          name: ticket
+        member:
+          description: Medlemmet å legge til ticketen
+          name: Medlem
+      success:
+        description: '{member} er lagt til {ticket}.'
+        title: ✅ Addet
+      added: ➡️ {added} er lagt til av {by}.
+      description: Legg til et medlem på en ticket
+      not_staff:
+        description: Bare staff kan legge til medlemmer til andres tickets.
+    claim:
+      description: Overta en ticket
+      name: Overta
+      not_staff:
+        description: Kun staff kan overta tickets.
