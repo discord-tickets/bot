@@ -230,7 +230,7 @@ commands:
 buttons:
   accept_close_request:
     emoji: ✅
-    text: Accepteren
+    text: Accepteer
   cancel:
     emoji: ➖
     text: Annuleer
@@ -248,7 +248,7 @@ buttons:
     text: Sluiten
   unclaim:
     emoji: ♻️
-    text: Unclaimen
+    text: Vrijgeven
   confirm_open:
     emoji: ✅
     text: Maak een ticket
