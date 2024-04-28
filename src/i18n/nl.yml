@@ -95,6 +95,7 @@ commands:
         category:
           description: De categorie waarnaar het ticket moet worden verplaatst
           name: categorie
+      name: verplaatsen
     transfer:
       options:
         member:
@@ -110,6 +111,7 @@ commands:
           description: Het nummer van een gerelateerd ticket
           name: referenties
       name: nieuw
+      description: Maak een nieuw ticket aan
     priority:
       description: Stel de prioriteit van een ticket in
       name: prioriteit
@@ -195,6 +197,7 @@ commands:
         title: ❌ Fout
     release:
       description: Vrijgeven (claim intrekken) van een ticket
+      name: vrijgeven
   message:
     pin:
       not_ticket:
