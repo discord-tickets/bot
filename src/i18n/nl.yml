@@ -54,17 +54,17 @@ commands:
       title: Hulp
     add:
       added: ➡️ {added} is toegevoegd door {by}.
-      description: Voeg iemand toe aan een ticket
+      description: Voeg een lid toe aan een ticket
       name: toevoegen
       not_staff:
         title: ❌ Fout
-        description: Alleen staff leden kunnen leden toevoegen aan tickets van anderen.
+        description: Alleen medewerkers kunnen leden toevoegen aan tickets van anderen.
       options:
         member:
           description: Het lid dat aan de ticket moet worden toegevoegd
           name: lid
         ticket:
-          description: De ticket om het lid aan toe te voegen
+          description: Het ticket om het lid aan toe te voegen
           name: ticket
       success:
         description: '{member} is toegevoegd aan {ticket}.'
@@ -83,7 +83,7 @@ commands:
       description: Claim een ticket
       name: claim
       not_staff:
-        description: Alleen staffleden kunnen tickets claimen.
+        description: Alleen medewerkers kunnen tickets claimen.
         title: ❌ Fout
     move:
       description: Verplaats een ticket naar een andere categorie
@@ -203,7 +203,7 @@ commands:
   message:
     pin:
       not_ticket:
-        title: ❌ Dit is geen ticket kanaal
+        title: ❌ Dit is geen ticketkanaal
         description: Je kan alleen berichten in tickets vastzetten.
       pinned:
         description: Het bericht is vastgezet.
@@ -211,10 +211,10 @@ commands:
       not_pinnable:
         description: "Dit bericht kan niet vastgezet worden.\nVraag aan een admin
           om de permissies van de bot te bekijken.\n"
-        title: ❌ Error
-      name: Bericht vastzetten
+        title: ❌ Fout
+      name: Pin bericht
     create:
-      name: Maak ticket van bericht
+      name: Ticket maken van bericht
   user:
     create:
       not_staff:
