@@ -10,12 +10,12 @@ commands:
         - ✅ Afsluitend %d ticket
         - ✅ Afsluitende %d tickets
       not_staff:
-        description: Alleen admins kunnen tickets geforceerd sluiten.
+        description: Alleen medewerkers kunnen tickets geforceerd sluiten.
         title: ❌ Fout
       options:
         time:
           description: Sluit alle tickets die gedurende de opgegeven tijd inactief
-            zijn gewees
+            zijn geweest
           name: tijd
         category:
           name: categorie
@@ -25,7 +25,7 @@ commands:
           description: De reden voor het sluiten van de ticket(s)
           name: reden
         ticket:
-          description: De ticket om te sluiten
+          description: Het ticket om te sluiten
           name: ticket
       name: geforceerd-sluiten
       no_tickets:
