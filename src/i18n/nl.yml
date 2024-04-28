@@ -195,6 +195,8 @@ commands:
           name: ticket
       not_staff:
         title: ❌ Fout
+        description: Alleen personeelsleden kunnen de transcripties van de tickets
+          van anderen lezen.
     release:
       description: Vrijgeven (claim intrekken) van een ticket
       name: vrijgeven
@@ -234,7 +236,7 @@ buttons:
     text: Annuleer
   claim:
     emoji: 🙌
-    text: Claim
+    text: Claimen
   edit:
     text: Wijzig
     emoji: ✏️
