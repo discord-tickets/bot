@@ -33,8 +33,8 @@ commands:
           geweest.
         title: ❌ Geen tickets
       confirm_multiple:
-        description: "U staat op het punt **{count}**tickets te sluiten die langer
-          dan `{time}` inactief is:\n{tickets}\n"
+        description: "U staat op het punt **{count}** tickets te sluiten die langer
+          dan `{time}` inactief zijn:\n{tickets}\n"
         title: ❓Weet je het zeker?
       description: Sluit een ticket zonder goedkeuring
     help:
