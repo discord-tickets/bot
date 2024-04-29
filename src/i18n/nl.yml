@@ -149,7 +149,7 @@ commands:
     tag:
       options:
         for:
-          description: De gebruiker aan wie je de tag wilt geven
+          description: De gebruiker aan wie je de label wilt geven
           name: voor
         tag:
           description: De naam van de te gebruiken tag
@@ -191,7 +191,7 @@ commands:
           description: Het lid om tickets voor te zoeken
           name: lid
         ticket:
-          description: Het nummer van het ticket waarvan je het transcript wilt ontvangen
+          description: Het nummer van het ticket waarvan je de transcriptie wilt ontvangen
           name: ticket
       not_staff:
         title: ❌ Fout
