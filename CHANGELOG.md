@@ -1,3 +1,32 @@
+## [4.0.17](https://github.com/discord-tickets/bot/compare/v4.0.16...v4.0.17) (2024-04-29)
+
+
+### Bug Fixes
+
+* **i18n:** update Norwegian translations ([174e4a6](https://github.com/discord-tickets/bot/commit/174e4a6fae583a87f9c1e27b0293d00b61f63e74))
+
+
+### Features
+
+* **i18n:** add Norwegian ([22e26e1](https://github.com/discord-tickets/bot/commit/22e26e11d96321ca66deaf2d8cc60c2c2b54f75b))
+* **i18n:** make turkish language support more comprehensive ([#538](https://github.com/discord-tickets/bot/issues/538)) ([895b629](https://github.com/discord-tickets/bot/commit/895b629da13b471c97cea5af6bcfacba653b522c))
+* **i18n:** update Dutch translations ([c2f9dd7](https://github.com/discord-tickets/bot/commit/c2f9dd711018379f43ab4b13b6e649eda586c130))
+* **i18n:** update Dutch translations ([c4f8169](https://github.com/discord-tickets/bot/commit/c4f8169a38b79b7e61c813e02ac46be9e9a21fcd))
+* **i18n:** update Dutch translations ([3d7bbc8](https://github.com/discord-tickets/bot/commit/3d7bbc8057ff4dfc31d56c8fd1121ab9bd0a58ac))
+* **i18n:** update Dutch translations ([b453cf6](https://github.com/discord-tickets/bot/commit/b453cf66e0a8e15b84a47450847be430b6ae60a5))
+* **i18n:** update Dutch translations ([88398bf](https://github.com/discord-tickets/bot/commit/88398bf517b4530ec40fb0ee722e21ae1997f149))
+* **i18n:** update Dutch translations ([438ac01](https://github.com/discord-tickets/bot/commit/438ac01830ca50868a9003aedc71c06024d66b38))
+* **i18n:** update Dutch translations ([e2d3ec9](https://github.com/discord-tickets/bot/commit/e2d3ec987b3cdbaac76b5486a65cb363ab978d1b))
+* **i18n:** update Dutch translations ([711a472](https://github.com/discord-tickets/bot/commit/711a47250eceafba76d82463bab134ba9787ea0f))
+* **i18n:** update Dutch translations ([f1feb06](https://github.com/discord-tickets/bot/commit/f1feb061ecb77e7bb02f86b1aa2be83515327a81))
+* **i18n:** update Dutch translations ([092c6bf](https://github.com/discord-tickets/bot/commit/092c6bff989cd3bbc54cb81fe64a76874066ee9c))
+* **i18n:** update Norwegian Bokmål translations ([5aa682f](https://github.com/discord-tickets/bot/commit/5aa682f0ec50356799e41714a1d1ebf69e0f212e))
+* **i18n:** update Portuguese (Brazil) translations ([3403014](https://github.com/discord-tickets/bot/commit/340301481290875798661c174b2dd90cecb551c1))
+* **i18n:** update Spanish translations ([4790949](https://github.com/discord-tickets/bot/commit/4790949fb4bf55e282989471e1c46b2510eff3f7))
+* **i18n:** update translation files ([66cb831](https://github.com/discord-tickets/bot/commit/66cb83123703bb370b018d1bd1cb746cfc9311b7))
+
+
+
 ## [4.0.16](https://github.com/discord-tickets/bot/compare/v4.0.15...v4.0.16) (2024-03-07)
 
 
