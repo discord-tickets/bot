@@ -40,7 +40,7 @@ commands:
           name: ticket
         member:
           description: Medlemmet å legge til ticketen
-          name: Medlem
+          name: medlem
       success:
         description: '{member} er lagt til {ticket}.'
         title: ✅ Addet
@@ -50,6 +50,6 @@ commands:
         description: Bare staff kan legge til medlemmer til andres tickets.
     claim:
       description: Overta en ticket
-      name: Overta
+      name: overta
       not_staff:
         description: Kun staff kan overta tickets.
