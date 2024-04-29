@@ -61,7 +61,7 @@ commands:
         description: Alleen medewerkers kunnen leden toevoegen aan tickets van anderen.
       options:
         member:
-          description: Het lid dat aan de ticket moet worden toegevoegd
+          description: Het lid dat aan het ticket moet worden toegevoegd
           name: lid
         ticket:
           description: Het ticket om het lid aan toe te voegen
@@ -188,7 +188,7 @@ commands:
       name: transcriptie
       options:
         member:
-          description: Het lid om tickets voor te zoeken
+          description: Het lid om tickets van te zoeken
           name: lid
         ticket:
           description: Het nummer van het ticket waarvan je de transcriptie wilt ontvangen
@@ -209,12 +209,12 @@ commands:
         description: Het bericht is vastgezet.
         title: ✅ Vastgezet bericht
       not_pinnable:
-        description: "Dit bericht kan niet vastgezet worden.\nVraag aan een admin
-          om de permissies van de bot te bekijken.\n"
+        description: "Dit bericht kan niet worden vastgezet.\nVraag een beheerder
+          om de rechten van de bot te controleren.\n"
         title: ❌ Fout
       name: Pin bericht
     create:
-      name: Ticket maken van bericht
+      name: Maak ticket van bericht
   user:
     create:
       not_staff:
@@ -358,7 +358,7 @@ misc:
     title: ❌ Geblokkeerd
   unknown_category:
     description: Probeer een andere categorie.
-    title: Die ticketcategorie bestaat niet
+    title: ❌ Die ticketcategorie bestaat niet
 ticket:
   edited:
     title: ✅ Ticket bijgewerkt
