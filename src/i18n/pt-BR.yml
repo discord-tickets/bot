@@ -393,6 +393,7 @@ misc:
         value: "Foi fornecido um usuário ou função inválido, o que geralmente significa
           que uma função da equipe foi excluída. [Clique aqui]({url}) para obter instruções
           de resolução.\n"
+    title: ⚠️ Algo deu errado
 modals:
   feedback:
     comment:
