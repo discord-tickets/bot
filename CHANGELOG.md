@@ -1,3 +1,12 @@
+## [4.0.18](https://github.com/discord-tickets/bot/compare/v4.0.17...v4.0.18) (2024-05-01)
+
+
+### Features
+
+* internal sharding ([7a131e7](https://github.com/discord-tickets/bot/commit/7a131e79360da3fc7985d27a5c7b515915420675))
+
+
+
 ## [4.0.17](https://github.com/discord-tickets/bot/compare/v4.0.16...v4.0.17) (2024-04-29)
 
 
