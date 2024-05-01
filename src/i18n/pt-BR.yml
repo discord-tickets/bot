@@ -387,6 +387,12 @@ misc:
     title: Uma atualização está disponível
   role_error:
     description: Desculpe, a operação falhou devido a uma configuração inválida.
+    fields:
+      for_admins:
+        name: Para administradores do servidor
+        value: "Foi fornecido um usuário ou função inválido, o que geralmente significa
+          que uma função da equipe foi excluída. [Clique aqui]({url}) para obter instruções
+          de resolução.\n"
 modals:
   feedback:
     comment:
