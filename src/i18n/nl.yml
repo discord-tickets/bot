@@ -279,7 +279,7 @@ log:
       update: bijgewerkt
     changes: Veranderingen
   message:
-    description: '{user} {verb} een bericht'
+    description: '{user} heeft een bericht {verb}'
     message: Bericht
     title: Bericht {verb}
     verb:
@@ -296,7 +296,7 @@ log:
       close: gesloten
       create: gemaakt
     added: Leden toegevoegd
-    description: '{user} {verb} een ticket'
+    description: '{user} heeft een ticket {verb}'
 misc:
   expires_in: Verloopt over {time}
   ratelimited:
