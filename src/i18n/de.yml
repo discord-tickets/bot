@@ -219,6 +219,8 @@ commands:
           description: Das Mitglied, für das nach Tickets gesucht werden soll
           name: mitglied
       description: Abschrift eines Tickets erhalten
+      not_staff:
+        title: ❌ Fehler
     transfer:
       name: übertragen
       transferred_from: 📨 {user} hat dieses Ticket von {from} auf {to} übertragen.
