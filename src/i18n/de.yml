@@ -221,6 +221,8 @@ commands:
       description: Abschrift eines Tickets erhalten
       not_staff:
         title: ❌ Fehler
+        description: Nur Teammitglieder können das Transcript eines anderen Tickets
+          lesen.
     transfer:
       name: übertragen
       transferred_from: 📨 {user} hat dieses Ticket von {from} auf {to} übertragen.
