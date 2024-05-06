@@ -378,8 +378,8 @@ ticket:
       title: ❓Kan dit ticket gesloten worden?
       archived: "\nDe berichten in dit kanaal worden gearchiveerd voor toekomstig
         gebruik.\n"
-      description: "{requestedBy} wil dit ticket sluiten.\nKlik op \"Accepteren\"
-        om het nu te sluiten, of op \"Weigeren\" als je nog steeds hulp nodig hebt.\n"
+      description: "{requestedBy} wil dit ticket sluiten.\nKlik op \"Accepteer\" om
+        het nu te sluiten, of op \"Afwijzen\" als je nog steeds hulp nodig hebt.\n"
     wait_for_user: ✋ Wacht tot de gebruiker reageert.
     user_request:
       title: ❓ {requestedBy} wil dit ticket sluiten
