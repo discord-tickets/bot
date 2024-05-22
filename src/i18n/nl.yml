@@ -260,7 +260,7 @@ log:
     description:
       target:
         category: een categorie
-        panel: een paneel
+        panel: heeft een paneel
         question: een vraag
         settings: de instellingen
         tag: een label
