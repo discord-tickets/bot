@@ -1,3 +1,23 @@
+## [4.0.19](https://github.com/discord-tickets/bot/compare/v4.0.18...v4.0.19) (2024-05-29)
+
+
+### Bug Fixes
+
+* **http:** ipv6 support ([e78469e](https://github.com/discord-tickets/bot/commit/e78469e9f66dbaf9d3e4e7ad44e3d4ddcf0dcf03))
+
+
+### Features
+
+* **i18n:** update Dutch translations ([8bef2eb](https://github.com/discord-tickets/bot/commit/8bef2eb5f86d52f04788402db1df136fd95e803a))
+* **i18n:** update Dutch translations ([1d97895](https://github.com/discord-tickets/bot/commit/1d97895058a4823eb05d13dd2bee0079cde9617f))
+* **i18n:** update Dutch translations ([7fd9157](https://github.com/discord-tickets/bot/commit/7fd91574ee7f5bab457432159730f24f2a0318ff))
+* **i18n:** update German translations ([37b7f6e](https://github.com/discord-tickets/bot/commit/37b7f6eb6b771e436c18398f3b4dc46b66e66633))
+* **i18n:** update German translations ([0e65790](https://github.com/discord-tickets/bot/commit/0e6579002f63e37a61e2621f1febcf5c6b341eed))
+* **i18n:** update Portuguese (Brazil) translations ([fef853d](https://github.com/discord-tickets/bot/commit/fef853d2ae3c41ada44686a7003d73188ee7fd2d))
+* **i18n:** update Portuguese (Brazil) translations ([2383f50](https://github.com/discord-tickets/bot/commit/2383f5074873b773e90e91d5c45844c2d937e7d9))
+
+
+
 ## [4.0.18](https://github.com/discord-tickets/bot/compare/v4.0.17...v4.0.18) (2024-05-01)
 
 
