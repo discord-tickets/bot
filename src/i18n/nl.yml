@@ -260,11 +260,11 @@ log:
     description:
       target:
         category: een categorie
-        panel: heeft een paneel
+        panel: een paneel
         question: een vraag
         settings: de instellingen
         tag: een label
-      joined: '{user} {verb} {targetType}'
+      joined: '{user} heeft {targetType} {verb}'
     title:
       joined: '{targetType} {verb}'
       target:
