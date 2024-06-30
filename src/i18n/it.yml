@@ -91,8 +91,8 @@ commands:
       confirmed_multiple:
         description: I canali verrano cancellati in alcuni secondi ...
         title:
-          - ✅ Chiudendo %d ticket
-          - ✅ chiudendo %d tickets
+        - ✅ Chiudendo %d ticket
+        - ✅ chiudendo %d tickets
       description: Chiudi un ticket forzatamente
       name: force-close
       no_tickets:
@@ -105,9 +105,8 @@ commands:
         title: ❌ Errore
       options:
         category:
-          description:
-            Chiudi tutti i ticket nella specifica categoria (deve essere usato con
-            `time`)
+          description: Chiudi tutti i ticket nella specifica categoria (deve essere
+            usato con `time`)
           name: category
         reason:
           description: La ragione per la chiusura del/i ticket(s)
@@ -116,7 +115,8 @@ commands:
           description: La ragione per la chiusura
           name: ticket
         time:
-          description: Chiude tutti i ticket che sono rimasti inattivi per più del tempo specificato
+          description: Chiude tutti i ticket che sono rimasti inattivi per più del
+            tempo specificato
           name: time
     help:
       description: Mostra il menù di aiuto
@@ -335,13 +335,6 @@ misc:
   cooldown:
     description: Per favore aspetta {time} prima di creare un altro ticket.
     title: ❌ Per favore aspetta
-  Error:
-    description: |
-      Spiacenti ma si è verificato un errore
-      Per favore invia queste informazioni ad un amministratore.
-    fields:
-      identifier: Identificatore
-    title: ⚠️ Qualcosa è andato storto
   expired:
     description: Non hai risposto in tempo. per favore riprova.
     title: ⏰ Scaduto
@@ -351,13 +344,13 @@ misc:
     title: ❌ Ticket invalido
   member_limit:
     description:
-      - Per favore usa il tuo ticket esistente o chiudilo prima di aprirne un altro.
-      - |
-        Per favore chiudi un ticket prima di crearne un altro.
-        Usa `/tickets` per vedere i tuoi ticket esistenti.
+    - Per favore usa il tuo ticket esistente o chiudilo prima di aprirne un altro.
+    - |
+      Per favore chiudi un ticket prima di crearne un altro.
+      Usa `/tickets` per vedere i tuoi ticket esistenti.
     title:
-      - ❌ Hai già un ticket aperto
-      - ❌ Hai già %d ticket aperti
+    - ❌ Hai già un ticket aperto
+    - ❌ Hai già %d ticket aperti
   missing_roles:
     description: >-
       Non hai i ruoli necessari per creare un ticket in
@@ -380,7 +373,8 @@ misc:
       for_admins:
         name: Per gli amministratori dei server
         value: >
-          Un membro o ruolo invalido è stato specificato, di solito significa che un urolo staff è stato eliminato.
+          Un membro o ruolo invalido è stato specificato, di solito significa che
+          un urolo staff è stato eliminato.
           [Clicca qui]({url}) per informazioni su come risolvere il problema.
     title: ⚠️ Qualcosa è andato storto
   unknown_category:
@@ -417,7 +411,7 @@ ticket:
       title: ❌ Errore
     rejected: ✋ {user} ha rifiutato la richiesta di chiusura del ticket.
     staff_request:
-      archived: |
+      archived: |2
 
         I messaggi in questo canale verrano archiviati.
       description: |
@@ -446,8 +440,7 @@ ticket:
       Per favore continua la conversazione o {close} il ticket.
     title: ⏰ Questo ticket è inattivo
   offline:
-    description:
-      Non ci sono membri dello staff attivi in questo momento, quindi potresti
+    description: Non ci sono membri dello staff attivi in questo momento, quindi potresti
       non ricevere una risposta per un pò di tempo.
     title: 😴 Non siamo online
   opening_message:
@@ -469,12 +462,10 @@ ticket:
   released: ♻️ {user} ha creato questo ticket.
   working_hours:
     next:
-      description:
-        Saremo attivi <t:{timestamp}:R> (<t:{timestamp}:T>), però
-        potresti lo stesso ricevere una risposta.
+      description: Saremo attivi <t:{timestamp}:R> (<t:{timestamp}:T>), però potresti
+        lo stesso ricevere una risposta.
       title: 🕗 Non stiamo lavorando al momento
     today:
-      description:
-        Potresti ricevere una risposta, ma non ricominceremo a lavorare fino alle
-        <t:{timestamp}:t> (<t:{timestamp}:R>).
+      description: Potresti ricevere una risposta, ma non ricominceremo a lavorare
+        fino alle <t:{timestamp}:t> (<t:{timestamp}:R>).
       title: 🕗 Non stiamo lavorando al momento
