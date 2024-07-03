@@ -20,7 +20,15 @@ module.exports.get = fastify => ({
 			path: '/',
 			sameSite: 'Strict',
 			secure: false,
-		}).send('The token has been revoked.');
+		});
+		res.header('Content-Type', 'text/html');
+		return res.send(`
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="refresh" content="0; url='/'"></head>
+<body></body>
+</html>
+`);
 	},
 	onRequest: [fastify.authenticate],
 });
