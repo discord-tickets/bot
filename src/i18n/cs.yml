@@ -54,9 +54,9 @@ commands:
           name: člen
           description: Člen, kterého chcete přidat do tiketu
       added: ➡️ {added} byl přidaný uživatelem {by}.
-      description: Přidat člena do ticketu
+      description: Přidat člena do tiketu
       not_staff:
-        description: Pouze zaměstnanci mohou přidávat ostatní uživatele do ticketů.
+        description: Pouze zaměstnanci mohou přidávat ostatní uživatele do tiketů.
         title: ❌ Chyba
       success:
         description: '{member} byl přidán do {ticket}.'
@@ -90,7 +90,7 @@ commands:
       confirmed_multiple:
         description: Kanály budou zavřený během několika sekund.
         title:
-        - ✅ Uzavírání %d tiket
+        - ✅ Uzavírání %d tiketu
         - ✅ Uzavírám %d ticketů
       description: Násilné uzavřený tiketu
       name: vynutit-uzavření
@@ -108,40 +108,41 @@ commands:
           name: kategorie
         reason:
           description: Důvod pro uzavření tiketu/tiketů
-          name: dôvod
+          name: důvod
         ticket:
-          description: Ticket k uzavretiu
+          description: Ticket k uzavření
           name: tiket
         time:
-          description: Zavrieť všetky tickety, ktoré boli po zadanom čase neaktívne
+          description: Uzavřít všechny tikety, které byly neaktivní po stanovenou
+            dobu
           name: čas
     help:
-      description: Zobraziť pomocné menu
+      description: Zobrazit nápovědu
       name: pomoc
       response:
-        commands: Príkazy
-        description: '**Použite {command} pre vytvořenie ticketu a získánie podpory.**'
+        commands: Příkazy
+        description: '**Použijte {command} pro vytvoření tiketu a získání podpory.**'
         links:
-          commands: Celý list príkazov
-          docs: Dokumentácia
-          feedback: Spätná väzba
-          links: Užitočné odkazy
+          commands: Seznam všech příkazů
+          docs: Dokumentace
+          feedback: Zpětná vazba
+          links: Užitečné odkazy
           support: Podpora
-        settings: Nastavenia bota
+        settings: Nastavení robota
       title: Pomoc
     move:
-      description: Presunúť ticket do inej kategórie
-      moved: 🗃️ {by} presunul ticket z **{from}** do **{to}**.
-      name: presunúť
+      description: Přesunout tiket do jiné kategorie
+      moved: 🗃️ {by} přesunul tento tiket z **{from}** do **{to}**.
+      name: přesunout
       not_staff:
-        description: Iba členovia AT môžu presúvať tickety.
+        description: Pouze zaměstnanci mohou přesouvat tikety.
         title: ❌ Chyba
       options:
         category:
           description: Kategória, do ktorej sa má ticket presunúť
-          name: kategória
+          name: kategorie
     new:
-      description: Vytvoriť nový ticket
+      description: Vytvořit nový tiket
       name: nový
       options:
         references:
