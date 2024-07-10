@@ -25,13 +25,13 @@ buttons:
     text: Odmietnuť
   unclaim:
     emoji: ♻️
-    text: Odovzdať
+    text: Uvolnit
 commands:
   message:
     create:
-      name: Vytvoriť ticket zo správy
+      name: Vytvořit ticket ze zprávy
     pin:
-      name: Pripnúť správu
+      name: Připnout zprávu
       not_pinnable:
         description: |
           Táto správa nemôže byť pinnutá.
