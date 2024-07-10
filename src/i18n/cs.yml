@@ -139,14 +139,14 @@ commands:
         title: ❌ Chyba
       options:
         category:
-          description: Kategória, do ktorej sa má ticket presunúť
+          description: Kategorie, do které chcete ticket přesunout
           name: kategorie
     new:
       description: Vytvořit nový tiket
       name: nový
       options:
         references:
-          description: Číslo súvisiaceho tiketu
+          description: Číslo souvisejícího ticketu
           name: odkaz
     priority:
       description: Nastaviť prioritu ticketu
