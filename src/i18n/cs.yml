@@ -1,28 +1,28 @@
 buttons:
   accept_close_request:
     emoji: ✅
-    text: Prijať
+    text: Přijmout
   create:
-    text: Vytvoriť ticket
+    text: Vytvořit ticket
     emoji: 🎫
   cancel:
     emoji: ➖
-    text: Zrušiť
+    text: Zrušit
   claim:
     emoji: 🙌
-    text: Prevziať
+    text: Převzít
   edit:
     emoji: ✏️
-    text: Upraviť
+    text: Upravit
   close:
     emoji: ✖️
-    text: Zavrieť
+    text: Zavřít
   confirm_open:
     emoji: ✅
-    text: Vytvoriť ticket
+    text: Vytvořit tiket
   reject_close_request:
     emoji: ✖️
-    text: Odmietnuť
+    text: Odmítnout
   unclaim:
     emoji: ♻️
     text: Uvolnit
@@ -34,82 +34,80 @@ commands:
       name: Připnout zprávu
       not_pinnable:
         description: |
-          Táto správa nemôže byť pinnutá.
-          Povedz prosím členovi AT aby skontroloval moje oprávnenia.
+          Tuto zprávu nelze připnout.
+          Požádejte správce, aby zkontroloval oprávnění robota.
         title: ❌ Chyba
       not_ticket:
-        description: Správy môžeš pripnúť len v ticketoch.
-        title: ❌ Tento kanál neni ticket
+        description: Zprávy můžete připínat pouze v ticketech.
+        title: ❌ Tento kanál není ticket
       pinned:
-        description: Správa bola pripnutá.
-        title: ✅ Správa připnuta
+        description: Zpráva byla připnutá.
+        title: ✅ Zpráva připnuta
   slash:
     add:
-      name: pridať
+      name: přidat
       options:
         ticket:
           name: tiket
-          description: Ticket na pridanie člena
+          description: Tiket, do kterého chcete přidat uživatele
         member:
           name: člen
-          description: Člen, ktorého chcete pridat do ticketu
-      added: ➡️{by} pridal {added}.
-      description: Pridat člena do ticketu
+          description: Člen, kterého chcete přidat do tiketu
+      added: ➡️ {added} byl přidaný uživatelem {by}.
+      description: Přidat člena do ticketu
       not_staff:
-        description: Iba členovia AT môžu přidávať členov do ticketov ostatných.
+        description: Pouze zaměstnanci mohou přidávat ostatní uživatele do ticketů.
         title: ❌ Chyba
       success:
-        description: '{member} bol pridaný do {ticket}.'
-        title: ✅ Pridaný
+        description: '{member} byl přidán do {ticket}.'
+        title: ✅ Přidaný
     claim:
-      description: Prevziať ticket
-      name: prevziať
+      description: Převzít tiket
+      name: převzít
       not_staff:
-        description: Iba členovia AT môžu prevziať tickety.
+        description: Pouze zaměstnanci mohou převzít tikety.
         title: ❌ Chyba
     close:
-      description: Zažiadať o uzavrenie ticketu
+      description: Požádat o uzavřený tiketu
       invalid_time:
         title: ❌ Neplatný
-        description: '`{input}` neni platný formát času.'
-      name: uzatvoriť
+        description: '`{input}` není platný formát času.'
+      name: uzavřít
       options:
         reason:
-          description: Dôvod pre uzavretie ticketu
-          name: dôvod
+          description: Důvod pro uzavřený tiketu
+          name: důvod
     force-close:
       closed_one:
-        description: Ticket bude vymazaný za pár sekúnd.
-        title: ✅ Ticket uzavretý
+        description: Tiket bude smazán během několika sekund.
+        title: ✅ Tiket zavřený
       confirm_multiple:
         description: >
-          Chystáte se uzavrieť **{count}** ticketov, ktoré sú neaktívne
-          dlhšie ako `{time}`:
+          Chystáte se uzavřít **{count}** tiketů, které jsou neaktivní více než `{time}`:
 
           {tickets}
-        title: ❓Ste si istý?
+        title: ❓ Jste si jistý?
       confirmed_multiple:
-        description: Tickety budú vymazané za pár sekúnd.
+        description: Kanály budou zavřený během několika sekund.
         title:
-        - ✅ Uzatváram %d ticket
-        - ✅ Uzatváram %d ticketov
-      description: Násilne uzavrieť tiket
-      name: uzavrieť-silou
+        - ✅ Uzavírání %d tiket
+        - ✅ Uzavírám %d ticketů
+      description: Násilné uzavřený tiketu
+      name: vynutit-uzavření
       no_tickets:
         description: >-
-          Neexistujú žiadne otevrené tickety, ktoré by boli neaktívne dlhšie
-          než `{time}`.
-        title: ❌Žiadne tickety
+          Neexistují žádné otevřené tikety, které jsou neaktivní déle než `{time}`.
+        title: ❌Žádné tikety
       not_staff:
-        title: ❌Chyba
-        description: Tickety môžu násilne uzatvárať iba členi AT.
+        title: ❌ Chyba
+        description: Vynutit uzavření tiketu mohou pouze zaměstnanci.
       options:
         category:
-          description: Uzavrieť všetky tickety v zadanej kategórii (musí byť použité
+          description: Uzavřít všechny tiketu v zadané kategorii (musí být použité
             s `time`)
-          name: kategória
+          name: kategorie
         reason:
-          description: Dôvod pre uzavřetie ticketu(ov)
+          description: Důvod pro uzavření tiketu/tiketů
           name: dôvod
         ticket:
           description: Ticket k uzavretiu
