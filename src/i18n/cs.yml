@@ -146,31 +146,31 @@ commands:
       name: nový
       options:
         references:
-          description: Číslo souvisejícího ticketu
-          name: odkaz
+          description: Číslo souvisejícího tiketu
+          name: reference
     priority:
-      description: Nastaviť prioritu ticketu
+      description: Nastavit prioritu tiketu
       name: priorita
       not_staff:
-        description: Iba členovia AT môžu zmeniť prioritu ticketov.
+        description: Pouze zaměstnanci mohou změnit prioritu tiketů.
         title: ❌ Chyba
       options:
         priority:
           choices:
             HIGH: 🔴 Vysoká
-            LOW: 🟢 Malá
-            MEDIUM: 🟠 Stredná
-          description: Priorita tiketu
+            LOW: 🟢 Nízká
+            MEDIUM: 🟠 Střední
+          description: priorita tiketu
           name: priorita
       success:
-        description: Priorita tiketu bola nastavená na `{priority}`.
+        description: Priorita tiketu byla nastavena na `{priority}`.
         title: ✅ Priorita nastavená
     release:
-      description: Odovzdať ticket
-      name: uvolniť
+      description: Uvolnit tiket
+      name: uvolnit
     remove:
-      description: Odstrániť člena z tiketu
-      name: odstrániť
+      description: Odebrat člena z tiketu
+      name: odebrat
       not_staff:
         description: Iba členi AT môžu odstrániť používateľov z ticketu.
         title: ❌ Chyba
