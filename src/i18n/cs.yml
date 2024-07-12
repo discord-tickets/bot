@@ -172,91 +172,91 @@ commands:
       description: Odebrat člena z tiketu
       name: odebrat
       not_staff:
-        description: Iba členi AT môžu odstrániť používateľov z ticketu.
+        description: Pouze zaměstnanci mohou odebírat uživatele z ostatních tiketů.
         title: ❌ Chyba
       options:
         ticket:
-          description: Tiket pre odobranie člena
+          description: Tiket, ze kterého má být uživatel odstraněn
           name: tiket
         member:
-          description: Člen, ktorý má byť odstránený z tiketu
+          description: Člen, který má být odebranej z tiketu
           name: člen
-      removed: ⬅️ {removed} bol odstránený používatelom {by}.
+      removed: ⬅️ {removed} byl odstraněnej uživatelem {by}.
       success:
-        description: '{member} bol odstránený z {ticket}.'
-        title: ✅ Odstránený
+        description: '{member} byl odstraněnej z {ticket}.'
+        title: ✅ Odebraný
     tag:
-      description: Použite tag
+      description: Použijte tag
       name: tag
       options:
         for:
-          description: Používateť, na ktorého má cieliť tag
-          name: pre
+          description: Uživatel, na kterého má tag cílit
+          name: pro
         tag:
-          description: Názov tagu
+          description: Název tagu, kterej chcete použít
           name: tag
     tickets:
-      description: Vypíše tvoje alebo niekoho iného tickety
-      name: tickety
+      description: Zobrazit své tikety nebo tikety ostatních
+      name: tikety
       not_staff:
-        description: Iba členovia AT môžu vidieť tickety ostatných.
-        title: ❌ Error
+        description: Pouze zaměstnanci mohou vidět tikety ostatních uživatelů.
+        title: ❌ Chyba
       options:
         member:
-          description: Používateľ ktorého tickety chceš vidieť
-          name: člen
+          description: Uživatel, jehož tikety mají být uvedeny
+          name: uživatel
       response:
-        description: Použi {transcript} pre stiahnutie archívovaného ticketu.
+        description: Použij {transcript} pro stáhnutí archivovaného tiketu.
         fields:
           closed:
-            name: Uzavreté tickety
+            name: Uzavřené tikety
             none:
-              other: "{user} si nezaložil žiadne tickety."
+              other: "{user} zatím nevytvořil žádné tikety."
               own: |
-                Nezaložil si žiadne tickety.
-                Použi {new} pre založenie ticketu.
+                Nezaložil jsis zatím žádné tikety.
+                Použij {new} pro založení tiketu.
           open:
-            name: Otvorené tickety
+            name: Otevřené tikety
         title:
-          other: "{displayName} tickety"
-          own: Tvoje tickety
+          other: "Tikety uživatele {displayName}"
+          own: Tvé tikety
     topic:
-      description: Zmeniť tému ticketu
+      description: Změnit téma tiketu
       name: téma
     transcript:
-      description: Získať transcript archívovaného ticketu
+      description: Získat transcript tiketu
       name: transcript
       not_staff:
-        description: Iba členovia AT môžu čítať transcripty iných používateľov.
+        description: Pouze zaměstnanci mohou číst transcripty cizích tiketů.
         title: ❌ Chyba
       options:
         member:
-          description: Člen ktorého tickety chceš vidieť
-          name: člen
+          description: Uživatel, u kterého chceš vidět jeho tikety
+          name: uživatel
         ticket:
-          description: Ticket ktorého transcript chceš vidieť
-          name: ticket
+          description: Tiket, u kterého chceš vidět transcript
+          name: tiket
     transfer:
-      description: Zmeniť zakladateľa ticketu na iného používateľa
-      name: zakladateľ
+      description: Změnit zakledatele tiketu na jiného uživatele
+      name: zakladatel
       options:
         member:
-          description: Používateľ na ktorého sa zmení zakladateľ
-          name: člen
-      transferred: 📨 {user} zmenil zakladateľa ticketu na {to}.
-      transferred_from: 📨 {user} zmenil zakladateľa ticketu z {from} na {to}.
+          description: Uživatel, na kterého má být převedeno vlastnictví
+          name: uživatel
+      transferred: 📨 {user} změnil zakladatele tiketu na {to}.
+      transferred_from: 📨 {user} změnil zakladatele tiketu z {from} na {to}.
   user:
     create:
-      name: Vytvorí ticket pre používateľa
+      name: Vytvoří tiket pro uživatele
       not_staff:
-        description: Iba členovia AT môžu otvárať tickety pre ostatných používateľov.
+        description: Pouze zaměstnanci mohou otevírat tikety pro jiný uživatele.
         title: ❌ Chyba
       prompt:
-        description: Klikni na tlačítko pre vytvorenie ticketu.
-        title: Vytvor si ticket prosím
+        description: Klikni na tlačítko pro vytvoření tiketu.
+        title: Prosím, vytvoř si tiket
       sent:
-        description: "{user} bol pozvaný na vytvorenie ticketu v **{category}**."
-        title: ✅ Požiadavka odoslaná
+        description: "{user} byl pozván na vytvoření tiketu v **{category}**."
+        title: ✅ Požadavek odeslán
 dm:
   closed:
     archived: Ak chcete zobraziť archivované správy, zadejte `/transcript` do **{guild}**.
@@ -314,7 +314,7 @@ log:
       claim: prevzial
       close: uzatvoril
       create: vytvoril
-      unclaim: odovzdal
+      unclaim: uvolněno
       update: aktualizoval
 menus:
   category:
@@ -452,7 +452,7 @@ ticket:
       number: Číslo
       topic: Téma
     title: ℹ️ Odkaz
-  released: ♻️ {user} odovzdal tento ticket.
+  released: ♻️ {user} uvolnil tento ticket.
   working_hours:
     next:
       description: Vrátime sa o <t:{timestamp}:F> (<t:{timestamp}:R>), hoci možno
