@@ -29,7 +29,7 @@ buttons:
 commands:
   message:
     create:
-      name: Vytvořit ticket ze zprávy
+      name: Vytvořit tiket ze zprávy
     pin:
       name: Připnout zprávu
       not_pinnable:
@@ -38,8 +38,8 @@ commands:
           Požádejte správce, aby zkontroloval oprávnění robota.
         title: ❌ Chyba
       not_ticket:
-        description: Zprávy můžete připínat pouze v ticketech.
-        title: ❌ Tento kanál není ticket
+        description: Zprávy můžete připínat pouze v tiketech.
+        title: ❌ Tento kanál není tiket
       pinned:
         description: Zpráva byla připnutá.
         title: ✅ Zpráva připnuta
@@ -110,7 +110,7 @@ commands:
           description: Důvod pro uzavření tiketu/tiketů
           name: důvod
         ticket:
-          description: Ticket k uzavření
+          description: Tiket k uzavření
           name: tiket
         time:
           description: Uzavřít všechny tikety, které byly neaktivní po stanovenou
@@ -160,7 +160,7 @@ commands:
             HIGH: 🔴 Vysoká
             LOW: 🟢 Nízká
             MEDIUM: 🟠 Střední
-          description: priorita tiketu
+          description: Priorita tiketu
           name: priorita
       success:
         description: Priorita tiketu byla nastavena na `{priority}`.
@@ -259,28 +259,29 @@ commands:
         title: ✅ Požadavek odeslán
 dm:
   closed:
-    archived: Ak chcete zobraziť archivované správy, zadejte `/transcript` do **{guild}**.
-    title: Váš ticket bol uzavretý
+    archived: Pokuď chcete vidět archivované zprávy, použijte příkaz `/transcript`
+      na serveru **{guild}**.
+    title: Váš tiket byl uzavřený
     fields:
-      closed_by: Zavrené používatelom
-      ticket: Ticket
+      closed_by: Zavřeno uživatelem
+      ticket: Tiket
       closed:
-        name: Zavrené
+        name: Zavřeno v
         value: '{timestamp} (po {duration})'
-      created: Vytvorené
-      feedback: Vaša spätná väzba
-      reason: Zavrené, pretože
-      response: Doba odozvy
+      created: Vytvořené
+      feedback: Vaše zpětná vazba
+      reason: Zavřené, protože
+      response: Doba odezvy
       topic: Téma
   confirm_open:
-    title: Chcete otvoriť ticket s nasledujúcou témou?
+    title: Chcete otevřít tiket s následujícím tématem?
 log:
   admin:
-    changes: Zmeny
+    changes: Změny
     description:
       joined: '{user} {verb} {targetType}'
       target:
-        category: kategória
+        category: kategorie
         panel: panel
         question: otázka
         settings: nastavenia
