@@ -309,7 +309,7 @@ ticket:
       title: 🕗 지금은 업무 시간이 아닙니다
       description: 다음 업무 시간은 <t:{timestamp}:F> (<t:{timestamp}:R>)부터입니다만, 때에 따라 그
         전에 답변을 받을 수도 있습니다.
-  released: ♻️ {user}(이)가 이 티켓의 배정을 해제하였습니다.
+  released: ♻️ {user}이(가) 이 티켓의 배정을 해제하였습니다.
 modals:
   topic:
     placeholder: 이 티켓의 주제가 무엇인가요?
@@ -374,6 +374,7 @@ misc:
     fields:
       for_admins:
         name: 서버 관리자용
+    description: 죄송합니다. 구성이 잘못되어 작업이 실패하였습니다.
 log:
   ticket:
     ticket: 티켓
