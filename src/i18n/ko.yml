@@ -309,7 +309,7 @@ ticket:
       title: 🕗 지금은 업무 시간이 아닙니다
       description: 다음 업무 시간은 <t:{timestamp}:F> (<t:{timestamp}:R>)부터입니다만, 때에 따라 그
         전에 답변을 받을 수도 있습니다.
-  released: ♻️ {user}이(가) 이 티켓의 배정을 해제하였습니다.
+  released: ♻️ {user}이(가) 이 티켓의 배정을 해제했습니다.
 modals:
   topic:
     placeholder: 이 티켓의 주제가 무엇인가요?
@@ -374,7 +374,10 @@ misc:
     fields:
       for_admins:
         name: 서버 관리자용
-    description: 죄송합니다. 구성이 잘못되어 작업이 실패하였습니다.
+        value: "잘못된 사용자 또는 역할이 제공되었습니다. 일반적으로 이는 관리자 역할이 삭제되었음을 의미합니다. [여기를 눌러]({url})
+          해결 지침을 확인하세요.\n"
+    description: 죄송합니다. 잘못된 구성으로 인해 작업을 실패했습니다.
+    title: ⚠️ 문제가 발생했습니다
 log:
   ticket:
     ticket: 티켓
@@ -387,9 +390,9 @@ log:
     title: 티켓 {verb}됨
     added: 추가된 멤버
     removed: 제거된 멤버
-    description: '{user}이(가) 티켓을 {verb}하였습니다'
+    description: '{user}이(가) 티켓을 {verb}했습니다'
   message:
-    description: '{user}이(가) 메시지를 {verb}하였습니다'
+    description: '{user}이(가) 메시지를 {verb}했습니다'
     verb:
       update: 갱신
       delete: 삭제
@@ -415,7 +418,7 @@ log:
         category: 카테고리
         tag: 태그
         settings: 설정
-      joined: '{user}이(가) {targetType}을(를) {verb}하였습니다'
+      joined: '{user}이(가) {targetType}을(를) {verb}했습니다'
     changes: 변경 사항
 dm:
   closed:
