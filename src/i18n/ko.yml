@@ -370,6 +370,10 @@ misc:
   invalid_ticket:
     title: ❌ 유효하지 않은 티켓
     description: 유효한 티켓을 입력해 주세요.
+  role_error:
+    fields:
+      for_admins:
+        name: 서버 관리자용
 log:
   ticket:
     ticket: 티켓
