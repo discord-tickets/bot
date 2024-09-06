@@ -329,6 +329,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "Luzifix",
+      "name": "Luzifix",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7042325?v=4",
+      "profile": "https://github.com/Luzifix",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
