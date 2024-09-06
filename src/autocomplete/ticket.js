@@ -18,12 +18,13 @@ module.exports = class TicketCompleter extends Autocompleter {
 	}
 
 	async getOptions(value, {
-		guildId,
+		interaction,
 		open,
 		userId,
 	}) {
 		/** @type {import("client")} */
 		const client = this.client;
+		const guildId = interaction.guild.id;
 		const cacheKey = [guildId, userId, open].join('/');
 
 		let tickets = await this.cache.get(cacheKey);
@@ -34,27 +35,22 @@ module.exports = class TicketCompleter extends Autocompleter {
 				where: { id: guildId },
 			});
 			tickets = await client.prisma.ticket.findMany({
-				include: {
-					category: {
-						select: {
-							emoji: true,
-							name: true,
-						},
-					},
-				},
+				include: { category: true },
 				where: {
 					createdById: userId,
 					guildId,
 					open,
 				},
 			});
-			tickets = tickets.map(ticket => {
-				const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
-				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).replace(/\n/g, ' ').substring(0, 50) : '';
-				const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
-				ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
-				return ticket;
-			});
+			tickets = tickets
+				.filter(ticket => client.commands.commands.slash.get('transcript').shouldAllowAccess(interaction, ticket))
+				.map(ticket => {
+					const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
+					const topic = ticket.topic ? '- ' + decrypt(ticket.topic).replace(/\n/g, ' ').substring(0, 50) : '';
+					const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+					ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
+					return ticket;
+				});
 			this.cache.set(cacheKey, tickets, ms('1m'));
 		}
 
@@ -77,7 +73,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 		const userId = otherMember || interaction.user.id;
 		await interaction.respond(
 			await this.getOptions(value, {
-				guildId: interaction.guild.id,
+				interaction,
 				open: ['add', 'close', 'force-close', 'remove'].includes(command.name),  // false for `new`, `transcript` etc
 				userId,
 			}),
