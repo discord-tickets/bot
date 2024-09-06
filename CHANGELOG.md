@@ -1,3 +1,34 @@
+## [4.0.20](https://github.com/discord-tickets/bot/compare/v4.0.19...v4.0.20) (2024-09-06)
+
+
+### Bug Fixes
+
+* downgrade discord.js to resolve Discord API breaking change ([cae54b9](https://github.com/discord-tickets/bot/commit/cae54b97c9d2f03e6e163397564e920086ff299b))
+* **security:** transcript access control (closes [#555](https://github.com/discord-tickets/bot/issues/555)) ([b8b5ac9](https://github.com/discord-tickets/bot/commit/b8b5ac946a11a9fc0e34ae1f7050d5235e559608))
+
+
+### Features
+
+* **i18n:** add Bulgarian translations ([952c154](https://github.com/discord-tickets/bot/commit/952c1541587d9490d1367a4806c1e07b6ffdf9b1))
+* **i18n:** update Czech translations ([28764fd](https://github.com/discord-tickets/bot/commit/28764fde8c157de65e0d44823337753f1f9b8ec2))
+* **i18n:** update Czech translations ([1c1c993](https://github.com/discord-tickets/bot/commit/1c1c993d20458fc291c38e6e72f8e7dfbe13a631))
+* **i18n:** update Czech translations ([b76df6b](https://github.com/discord-tickets/bot/commit/b76df6b47ce19c9a0bcc507cb830fc78b06caac5))
+* **i18n:** update Czech translations ([60d48f9](https://github.com/discord-tickets/bot/commit/60d48f93a86b293f654ad027ceb369be048078b9))
+* **i18n:** update Czech translations ([619c7a4](https://github.com/discord-tickets/bot/commit/619c7a45e6e5cd322e203001acfb9adb1d364bb8))
+* **i18n:** update Czech translations ([5859073](https://github.com/discord-tickets/bot/commit/5859073b83f94a57e49651196acf05f044d50c67))
+* **i18n:** update Czech translations ([a6b5447](https://github.com/discord-tickets/bot/commit/a6b5447740c4f184374fef69a072f36893812694))
+* **i18n:** update Dutch translations ([3aee581](https://github.com/discord-tickets/bot/commit/3aee581ebc4239dbe81403b998c495d1922ea7c6))
+* **i18n:** update Italian translations ([#547](https://github.com/discord-tickets/bot/issues/547)) ([7fbbe45](https://github.com/discord-tickets/bot/commit/7fbbe450d39e7370539ab1fa1c1f1ca4bc2c240a))
+* **i18n:** update Korean translations ([4a0f31e](https://github.com/discord-tickets/bot/commit/4a0f31e295418a8c1bbf234d0c9baeb9a5567bcb))
+* **i18n:** update Korean translations ([f9df305](https://github.com/discord-tickets/bot/commit/f9df30569c28397a477dc7110cd4affe5f1df0eb))
+* **i18n:** update Korean translations ([afb72ed](https://github.com/discord-tickets/bot/commit/afb72ed280fb82a7b9dec2945108dee775e1d15c))
+* **i18n:** update Korean translations ([d6ed6ab](https://github.com/discord-tickets/bot/commit/d6ed6ab44a299e6eb3547da9614dfa55cd0aa751))
+* **i18n:** update Korean translations ([1bd5ea3](https://github.com/discord-tickets/bot/commit/1bd5ea32a7d18c062401421a929499f498956e00))
+* **i18n:** update Russian translations ([4aa9a6f](https://github.com/discord-tickets/bot/commit/4aa9a6fefd2b000fd46f57a8c12c05dbf656e04b))
+* **i18n:** update translation files ([4db7614](https://github.com/discord-tickets/bot/commit/4db76148ad8348946151f548a10fb6798c2fa349))
+
+
+
 ## [4.0.19](https://github.com/discord-tickets/bot/compare/v4.0.18...v4.0.19) (2024-05-29)
 
 
