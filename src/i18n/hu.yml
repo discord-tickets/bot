@@ -430,8 +430,8 @@ ticket:
         bár előfordulhat, hogy ez előtt választ kap.
       title: 🕗 Jelenleg nem dolgozunk
     today:
-      description: 'Előfordulhat, hogy korábban is kap választ, azonban nem dolgozunk
-        <t:{timestamp}:t> -ig (ma: <t:{timestamp}:R> )'
+      description: 'Lehet, hogy korábban is kap választ, de csak a mai napon kezdjük
+        meg a munkát (<t:{timestamp}:R>).'
       title: 🕗 Jelenleg nem dolgozunk
   closing_soon:
     description: "Ez a jegy <t:{timestamp}:R> inaktivitás miatt zárva lesz.\nÜzenet
