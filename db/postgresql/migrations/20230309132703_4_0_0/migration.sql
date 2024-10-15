@@ -56,6 +56,7 @@ CREATE TABLE "archivedUsers" (
 
 -- CreateTable
 CREATE TABLE "categories" (
+    "blockedRoles" JSONB NOT NULL DEFAULT '[]',
     "channelName" TEXT NOT NULL,
     "claiming" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
