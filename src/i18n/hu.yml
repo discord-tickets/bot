@@ -90,7 +90,7 @@ commands:
         time:
           name: idő
           description: Zárjon be minden olyan jegyet, amely a megadott ideig inaktív
-            volt (az `kategóriával` használható)
+            volt
         category:
           description: Zárja be az összes jegyet a megadott kategóriában (az `idővel`
             használható)
@@ -283,6 +283,8 @@ commands:
       name: hibajegy
       not_staff:
         title: ❌ Hiba
+        description: Csak a személyzeti tagok tudják megtekinteni mások hibajegyeinek
+          átiratát.
   user:
     create:
       name: Jegy létrehozása
@@ -291,6 +293,10 @@ commands:
         description: Kattints a lent található gombra a hibajegy létrehozásához.
       not_staff:
         title: ❌ Hiba
+        description: Csak a személyzeti tagok tudnak hibajegyet nyitni más tag részére.
+      sent:
+        description: '{user} meghívást kapott egy jegy létrehozására a(z) **{category}**-ban.'
+        title: ✅ Felkérés kézbesítve
 dm:
   closed:
     title: A hibajegyed bezárásra került
@@ -348,7 +354,8 @@ misc:
     description: Nincs megfelelő rangod ahhoz, hogy létrehozhass hibajegyet ebbe a
       kategóriába.
   no_categories:
-    description: Nem került konfigurálásra egyetlen hibajegy kategória sem.
+    description: "Nem került konfigurálásra egyetlen hibajegy kategória sem.\nKonfiguráld
+      a szervert itt {url}"
     title: ❌ Nincsenek hibajegy kategóriák
   not_ticket:
     description: Csak hibajegyekben használhatod ezt a parancsot.
@@ -360,6 +367,15 @@ misc:
     description: "> [`{version}` megtekintése a GitHubon]({github})\n> [Változásnapló]({changelog})\n
       > [Frissítési útmutató]({guide})\n"
     title: Frissítés elérhető
+  role_error:
+    description: Sajnáljuk, a művelet érvénytelen konfiguráció miatt sikertelen volt.
+    fields:
+      for_admins:
+        name: Adminisztrátorok számára
+        value: "Érvénytelen felhasználó vagy szerepkör került megadásra, ami általában
+          azt jelenti, hogy egy személyzeti szerepkört töröltek. [Kattints ide]({url})
+          a további utasításokért.\n"
+    title: ⚠️ Valami hiba történt
 menus:
   category:
     placeholder: Kategória választása
@@ -424,6 +440,11 @@ ticket:
   inactive:
     description: "A <t:{timestamp}:R> óta nem volt tevékenység ezen a csatornán.\n
       Kérjük, folytassa a beszélgetést vagy {close} a jegyet.\n"
+    title: ⏰ A hibajegy inaktív
+  offline:
+    description: Jelenleg nincsenek elérhető munkatársak, ezért a szokásosnál tovább
+      tarthat a válaszadás.
+    title: 😴 Jelenleg nem vagyunk elérhetőek
 modals:
   feedback:
     rating:
