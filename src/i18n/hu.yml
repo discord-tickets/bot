@@ -354,8 +354,8 @@ misc:
     description: Nincs megfelelő rangod ahhoz, hogy létrehozhass hibajegyet ebbe a
       kategóriába.
   no_categories:
-    description: "Nem került konfigurálásra egyetlen hibajegy kategória sem.\nKonfiguráld
-      a szervert itt {url}"
+    description: "Nem került konfigurálásra egyetlen hibajegy kategória sem.\nÁllítsd
+      be a szerveredet itt: {url}."
     title: ❌ Nincsenek hibajegy kategóriák
   not_ticket:
     description: Csak hibajegyekben használhatod ezt a parancsot.
