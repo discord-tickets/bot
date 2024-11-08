@@ -56,10 +56,10 @@
 		"@prisma/client": "^4.16.2",
 		"boxen": "^7.1.1",
 		"cryptr": "^6.3.0",
-		"discord.js": "~14.14.1",
+		"discord.js": "^14.16.3",
 		"dotenv": "^16.4.5",
 		"fastify": "^4.28.1",
-		"figlet": "^1.7.0",
+		"figlet": "^1.8.0",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.4",
 		"leeks.js": "^0.3.0",
@@ -72,20 +72,20 @@
 		"prisma": "^4.16.2",
 		"semver": "^7.6.3",
 		"short-unique-id": "^4.4.4",
-		"spacetime": "^7.6.1",
+		"spacetime": "^7.6.2",
 		"terminal-link": "^2.1.1",
-		"yaml": "^2.5.1"
+		"yaml": "^2.6.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^17.8.1",
 		"all-contributors-cli": "^6.26.1",
 		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^8.57.0",
+		"eslint": "^8.57.1",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
-		"markdown-table": "^3.0.3",
+		"markdown-table": "^3.0.4",
 		"nodemon": "^2.0.22"
 	},
 	"optionalDependencies": {
