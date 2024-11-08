@@ -12,7 +12,7 @@ module.exports = {
 	 * @param {import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} interaction
 	 */
 	async useGuild(client, interaction, {
-		referencesMessage,
+		referencesMessageId,
 		referencesTicketId,
 		topic,
 	}) {
@@ -41,7 +41,7 @@ module.exports = {
 			await client.tickets.create({
 				categoryId: settings.categories[0].id,
 				interaction,
-				referencesMessage,
+				referencesMessageId,
 				referencesTicketId,
 				topic,
 			});
@@ -53,7 +53,7 @@ module.exports = {
 							new StringSelectMenuBuilder()
 								.setCustomId(JSON.stringify({
 									action: 'create',
-									referencesMessage,
+									referencesMessageId,
 									referencesTicketId,
 									topic,
 								}))
