@@ -1140,7 +1140,6 @@ module.exports = class TicketManager {
 	 */
 	async acceptClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
-		const $ticket = this.$stale.get(interaction.channel.id);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		await interaction.editReply({
 			embeds: [
@@ -1154,7 +1153,7 @@ module.exports = class TicketManager {
 			],
 		});
 		await new Promise(resolve => setTimeout(resolve, 5000));
-		await this.finallyClose(interaction.channel.id, $ticket);
+		await this.finallyClose(interaction.channel.id, this.$stale.get(interaction.channel.id) || {});
 	}
 
 	/**
