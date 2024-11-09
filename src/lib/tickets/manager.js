@@ -1210,16 +1210,14 @@ module.exports = class TicketManager {
 			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
 		}
 
-		if (closedBy) {
-			logTicketEvent(this.client, {
-				action: 'close',
-				target: {
-					id: ticket.id,
-					name: `${ticket.category.name} **#${ticket.number}**`,
-				},
-				userId: closedBy,
-			});
-		}
+		logTicketEvent(this.client, {
+			action: 'close',
+			target: {
+				id: ticket.id,
+				name: `${ticket.category.name} **#${ticket.number}**`,
+			},
+			userId: closedBy || this.client.user.id,
+		});
 
 		try {
 			const creator = channel?.guild.members.cache.get(ticket.createdById);
