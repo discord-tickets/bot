@@ -129,12 +129,12 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
 	 */
-	async run(interaction) {
+	async run(interaction, ticketId) {
 		/** @type {import("client")} */
 		const client = this.client;
 
 		await interaction.deferReply({ ephemeral: true });
-		const ticketId = interaction.options.getString('ticket', true);
+		ticketId = ticketId || interaction.options.getString('ticket', true);
 		const ticket = await client.prisma.ticket.findUnique({
 			include: {
 				archivedChannels: true,
