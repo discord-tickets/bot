@@ -56,7 +56,7 @@ commands:
           description: Membrul care trebuie adăugat la tichet
           name: membru
         ticket:
-          description: ticketul la care se adaugă membrul
+          description: Tichetul la care se adaugă membrul
           name: tichet
       success:
         description: "{member} a fost adăugat la {ticket}."
@@ -198,7 +198,7 @@ commands:
           description: Numele tag-ului care trebuie utilizat
           name: tag
     tickets:
-      description: Listează-ți tichetelurile proprii sau ale altcuiva
+      description: Listează-ți ticheturile proprii sau ale altcuiva
       name: tichete
       not_staff:
         description: Numai membrii staff-ului pot vedea tichetele altora.
@@ -255,7 +255,7 @@ commands:
         title: ❌ Eroare
       prompt:
         description: Faceți clic pe butonul de mai jos pentru a deschide un tichet.
-        title: Vă rugăm să creați un ticket
+        title: Vă rugăm să creați un tichet
       sent:
         description: "{user} a fost invitat să deschidă un tichet în **{category}**."
         title: ✅ Prompt trimis
@@ -422,30 +422,30 @@ ticket:
 
         Mesajele de pe acest canal vor fi arhivate pentru referințe viitoare.
       description: |
-        {requestedBy} dorește să închidă acest ticket.
+        {requestedBy} dorește să închidă acest tichet.
         Faceți clic pe "Acceptă" pentru a o închide acum, sau pe "Respinge" dacă mai aveți nevoie de ajutor.
-      title: ❓ Poate fi închis acest ticket?
+      title: ❓ Poate fi închis acest tichet?
     user_request:
-      title: ❓ {requestedBy} dorește să închidă acest ticket
-    wait_for_staff: ✋ Vă rugăm să așteptați ca staff-ul să închidă acest ticket.
+      title: ❓ {requestedBy} dorește să închidă acest tichet
+    wait_for_staff: ✋ Vă rugăm să așteptați ca staff-ul să închidă acest tichet.
     wait_for_user: ✋ Vă rugăm să așteptați ca utilizatorul să răspundă.
   closing_soon:
     description: |
-      Acest ticket va fi închis din cauza inactivității <t:{timestamp}:R>.
+      Acest tichet va fi închis din cauza inactivității <t:{timestamp}:R>.
       Trimiteți un mesaj pentru a anula această automatizare.
-    title: ⌛ Acest ticket va fi închis în curând
+    title: ⌛ Acest tichet va fi închis în curând
   created:
-    description: "Canalul dvs. de ticket a fost creat: {channel}."
-    title: ✅ Ticket creat
+    description: "Canalul dvs. de tichet a fost creat: {channel}."
+    title: ✅ Tichet creat
   edited:
     description: Modificările dvs. au fost salvate.
-    title: ✅ Ticket actualizat
+    title: ✅ Tichet actualizat
   feedback: Vă mulțumim pentru feedback-ul dumneavoastră.
   inactive:
     description: |
       Nu a existat nici o activitate în acest canal de când <t:{timestamp}:R>.
       Vă rugăm să continuați conversația sau să {close} biletul.
-    title: ⏰ Acest ticket este inactiv
+    title: ⏰ Acest tichet este inactiv
   offline:
     description: Nu există niciun membru al personalului disponibil în acest moment,
       așa că s-ar putea să durează mai mult decât de obicei pentru a primi un răspuns.
@@ -453,20 +453,20 @@ ticket:
   opening_message:
     content: |
       {staff}
-      {creator} a creat un nou ticket
+      {creator} a creat un nou tichet
     fields:
       topic: Subiect
   references_message:
     description: Referințe [a message]({url}) trimis {timestamp} de {author}.
     title: ℹ️ Referință
   references_ticket:
-    description: "Acest ticket este legat de un ticket anterior:"
+    description: "Acest tichet este legat de un tichet anterior:"
     fields:
       date: Creat la
       number: Număr
       topic: Subiect
     title: ℹ️ Referință
-  released: ♻️ {user} a eliberat acest ticket.
+  released: ♻️ {user} a eliberat acest tichet.
   working_hours:
     next:
       description: Ne vom întoarce la <t:{timestamp}:F> (<t:{timestamp}:R>), deși
