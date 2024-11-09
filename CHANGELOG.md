@@ -1,3 +1,25 @@
+## [4.0.21](https://github.com/discord-tickets/bot/compare/v4.0.20...v4.0.21) (2024-11-09)
+
+
+### Bug Fixes
+
+* `null` incorrectly triggering tags (closes [#484](https://github.com/discord-tickets/bot/issues/484)) ([9f5c30c](https://github.com/discord-tickets/bot/commit/9f5c30c0bfea9a6d7d403654d50cf5543f7f1e58))
+* accepting a close request after a restart ([f9a7f0c](https://github.com/discord-tickets/bot/commit/f9a7f0cbd9d5de9a0fb3f50a2887cc3e3d85ac98))
+* custom ID overflow with `Create from message` (closes [#494](https://github.com/discord-tickets/bot/issues/494)) ([b0d77c1](https://github.com/discord-tickets/bot/commit/b0d77c1af657c2cda4c9d152ee6409e97e655ccb))
+* log ticket closure even when there is no closer ([412c65c](https://github.com/discord-tickets/bot/commit/412c65c0ff63829c760eb874b36905d41f105581))
+
+
+### Features
+
+* **i18n:** update German translations ([80b863e](https://github.com/discord-tickets/bot/commit/80b863eec3fadd372128c20c8cb8baeaebe6cc74))
+* **i18n:** update Hungarian translations ([aafd960](https://github.com/discord-tickets/bot/commit/aafd96055b9c2564a3be68fa21adfd9c6cd81a8c))
+* **i18n:** update Hungarian translations ([a254774](https://github.com/discord-tickets/bot/commit/a25477495931c0742ffdb8a3c15eccef274f2ae0))
+* **i18n:** update Hungarian translations ([9efdd25](https://github.com/discord-tickets/bot/commit/9efdd25f81d6f8dbfbd3542e6f594f1e7ee185b8))
+* **i18n:** update Romanian translations ([519f9f4](https://github.com/discord-tickets/bot/commit/519f9f4e6d3528e9091976c4645eddaec4f3b7f0))
+* transcript button in log channel ([2a96858](https://github.com/discord-tickets/bot/commit/2a96858782f0d9b5404e237aabffb3be877497cc))
+
+
+
 ## [4.0.20](https://github.com/discord-tickets/bot/compare/v4.0.19...v4.0.20) (2024-09-06)
 
 
