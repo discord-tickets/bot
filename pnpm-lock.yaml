@@ -101,7 +101,7 @@ importers:
         version: 4.0.8
       erlpack:
         specifier: github:discord/erlpack
-        version: https://codeload.github.com/discord/erlpack/tar.gz/b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b
+        version: git+https://git@github.com:discord/erlpack.git#b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b
       utf-8-validate:
         specifier: ^5.0.10
         version: 5.0.10
@@ -928,8 +928,8 @@ packages:
   emojilib@2.4.0:
     resolution: {integrity: sha512-5U0rVMU5Y2n2+ykNLQqMoqklN9ICBT/KsvC1Gz6vqHbz2AXXGkG+Pm5rMWk/8Vjrr/mY9985Hi8DYzn1F09Nyw==}
 
-  erlpack@https://codeload.github.com/discord/erlpack/tar.gz/b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b:
-    resolution: {tarball: https://codeload.github.com/discord/erlpack/tar.gz/b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b}
+  erlpack@git+https://git@github.com:discord/erlpack.git#b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b:
+    resolution: {commit: b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b, repo: git@github.com:discord/erlpack.git, type: git}
     version: 0.1.3
 
   error-ex@1.3.2:
@@ -3296,7 +3296,7 @@ snapshots:
 
   emojilib@2.4.0: {}
 
-  erlpack@https://codeload.github.com/discord/erlpack/tar.gz/b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b:
+  erlpack@git+https://git@github.com:discord/erlpack.git#b25ebd51ae4c097bd7f756fd4e1c841b61bfe50b:
     dependencies:
       bindings: 1.5.0
       nan: 2.22.0
