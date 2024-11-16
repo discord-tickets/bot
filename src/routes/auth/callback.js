@@ -33,6 +33,6 @@ module.exports.get = () => ({
 			sameSite: 'Lax',
 			secure: false,
 		});
-		return res.redirect(303, redirect);
+		return res.redirect(redirect, 303);
 	},
 });
