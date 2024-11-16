@@ -1,4 +1,7 @@
 const {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle,
 	cleanCodeBlockContent,
 	EmbedBuilder,
 } = require('discord.js');
@@ -182,7 +185,24 @@ async function logTicketEvent(client, {
 		);
 	}
 
-	return await channel.send({ embeds });
+	return await channel.send({
+		components:
+			action === 'close' ? [
+				new ActionRowBuilder()
+					.addComponents(
+						new ButtonBuilder()
+							.setCustomId(JSON.stringify({
+								action: 'transcript',
+								ticket: target.id,
+							}))
+							.setStyle(ButtonStyle.Primary)
+							.setEmoji(getMessage('buttons.transcript.emoji'))
+							.setLabel(getMessage('buttons.transcript.text')),
+
+					),
+			] : [],
+		embeds,
+	});
 }
 
 /**

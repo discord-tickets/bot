@@ -1,12 +1,14 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType,
+	PermissionsBitField,
+} = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
 const Mustache = require('mustache');
 const { AttachmentBuilder } = require('discord.js');
 const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
-const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 
 module.exports = class TranscriptSlashCommand extends SlashCommand {
@@ -44,6 +46,15 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 			join('./user/templates/', this.client.config.templates.transcript + '.mustache'),
 			{ encoding: 'utf8' },
 		);
+	}
+
+	shouldAllowAccess(interaction, ticket)  {
+		if (interaction.guild.id !== ticket.guildId) return false;
+		if (ticket.createdById === interaction.member.id) return true;
+		if (interaction.client.supers.includes(interaction.member.id)) return true;
+		if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
+		if (interaction.member.roles.cache.filter(role => ticket.category.staffRoles.includes(role.id)).size > 0) return true;
+		return false;
 	}
 
 	async fillTemplate(ticket) {
@@ -118,12 +129,12 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
 	 */
-	async run(interaction) {
+	async run(interaction, ticketId) {
 		/** @type {import("client")} */
 		const client = this.client;
 
 		await interaction.deferReply({ ephemeral: true });
-		const ticketId = interaction.options.getString('ticket', true);
+		ticketId = ticketId || interaction.options.getString('ticket', true);
 		const ticket = await client.prisma.ticket.findUnique({
 			include: {
 				archivedChannels: true,
@@ -146,10 +157,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 
 		if (!ticket) throw new Error(`Ticket ${ticketId} does not exist`);
 
-		if (
-			ticket.createdById !== interaction.member.id &&
-			!(await isStaff(interaction.guild, interaction.member.id))
-		) {
+		if (!this.shouldAllowAccess(interaction, ticket)) {
 			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 			const getMessage = client.i18n.getLocale(settings.locale);
 			return await interaction.editReply({

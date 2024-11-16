@@ -34,6 +34,7 @@ module.exports = class Client extends FrameworkClient {
 					Partials.Message,
 					Partials.Reaction,
 				],
+				shards: 'auto',
 			},
 			{ baseDir: __dirname },
 		);

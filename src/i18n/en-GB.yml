@@ -26,6 +26,9 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Release
+  transcript:
+    emoji: 📄
+    text: Transcript
 commands:
   message:
     create:

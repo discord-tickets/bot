@@ -31,7 +31,7 @@ module.exports = class extends Listener {
 
 		// process.title = `"[Discord Tickets] ${client.user.tag}"`; // too long and gets cut off
 		process.title = 'tickets';
-		client.log.success('Connected to Discord as "%s"', client.user.tag);
+		client.log.success('Connected to Discord as "%s" over %d shards', client.user.tag, client.ws.shards.size);
 
 		// fill cache
 		await sync(client);

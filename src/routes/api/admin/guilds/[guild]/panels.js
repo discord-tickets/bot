@@ -14,7 +14,7 @@ const emoji = require('node-emoji');
 const { logAdminEvent } = require('../../../../../lib/logging');
 
 module.exports.post = fastify => ({
-	handler: async req => {
+	handler: async (req, res) => {
 		/** @type {import('client')} */
 		const client = req.routeOptions.config.client;
 		const guild = client.guilds.cache.get(req.params.guild);
@@ -34,6 +34,7 @@ module.exports.post = fastify => ({
 		if (categories.length === 0) throw new Error('No categories');
 		if (categories.length !== 1 && data.type === 'MESSAGE') throw new Error('Invalid number of categories for panel type');
 
+		/** @type {import("discord.js").TextChannel} */
 		let channel;
 		if (data.channel) {
 			channel = await client.channels.fetch(data.channel);
@@ -118,13 +119,54 @@ module.exports.post = fastify => ({
 
 			}
 
-			await channel.send({
-				components: [
-					new ActionRowBuilder()
-						.setComponents(components),
-				],
-				embeds: [embed],
-			});
+			try {
+				await channel.send({
+					components: [
+						new ActionRowBuilder()
+							.setComponents(components),
+					],
+					embeds: [embed],
+				});
+			} catch (error) {
+				if (!data.channel) await channel.delete('Failed to send panel');
+
+				const human_errors = [];
+				const action_row = error?.rawError?.errors?.components?.['0'];
+
+				if (action_row) {
+					const buttons_or_options = {
+						BUTTON: action_row.components,
+						MENU: action_row.components['0'].options,
+					}[data.type];
+
+					for (const [k, v] of Object.entries(buttons_or_options)) {
+						// const category = categories.find(category => category.id === parseInt(k));
+						const category = categories[parseInt(k)]; // k is a string of the index, not ID
+						// eslint-disable-next-line no-underscore-dangle
+						const emoji_errors = v.emoji?.id?._errors;
+						if (emoji_errors) {
+							const invalid_name = emoji_errors[0]?.message?.match(/Value "(.*)" is not snowflake/)?.[1];
+							if (invalid_name) {
+								const url = `${process.env.HTTP_EXTERNAL}/settings/${guild.id}/categories/${category.id}`;
+								human_errors.push({
+									message: `The emoji for the \`${category.name}\` category is invalid: \`${invalid_name}\`. <a href="${url}" target="_blank">Click here</a> to open the category's settings page in a new tab.`,
+									type: 'invalid_emoji',
+								});
+							}
+						}
+					}
+				}
+
+				if (human_errors.length) {
+					return res.code(400).send({
+						code: error.code,
+						errors: human_errors,
+						status: error.status,
+					});
+				}
+
+				throw error;
+			}
 		}
 
 		logAdminEvent(client, {

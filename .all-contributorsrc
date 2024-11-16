@@ -311,6 +311,33 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "zukreindev",
+      "name": "Arda Samed Çelik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73394120?v=4",
+      "profile": "https://zukrein.xyz",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "creeperita09",
+      "name": "creeperita09",
+      "avatar_url": "https://avatars.githubusercontent.com/u/97898994?v=4",
+      "profile": "https://github.com/creeperita09",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Luzifix",
+      "name": "Luzifix",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7042325?v=4",
+      "profile": "https://github.com/Luzifix",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -1,5 +1,8 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType,
+	PermissionsBitField,
+} = require('discord.js');
 const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const Cryptr = require('cryptr');
@@ -60,12 +63,45 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		}
 
 		const fields = [];
+		let base_filter;
+
+		if (member.id === interaction.member.id) {
+			base_filter = {
+				createdById: member.id,
+				guildId: interaction.guild.id,
+			};
+		} else {
+			const { categories } = await client.prisma.guild.findUnique({
+				select: {
+					categories: {
+						select: {
+							id: true,
+							staffRoles: true,
+						},
+					},
+				},
+				where: { id: interaction.guild.id },
+			});
+			const allow_category_ids = (
+				(
+					client.supers.includes(interaction.member.id) ||
+					interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)
+				)
+					? categories
+					: categories.filter(c => c.staffRoles.some(id => interaction.member.roles.cache.has(id)))
+			)
+				.map(c => c.id);
+			base_filter = {
+				categoryId: { in: allow_category_ids },
+				createdById: member.id,
+				guildId: interaction.guild.id,
+			};
+		}
 
 		const open = await client.prisma.ticket.findMany({
 			include: { category: true },
 			where: {
-				createdById: member.id,
-				guildId: interaction.guild.id,
+				...base_filter,
 				open: true,
 			},
 		});
@@ -75,8 +111,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 			orderBy: { createdAt: 'desc' },
 			take: 10, // max 10 rows
 			where: {
-				createdById: member.id,
-				guildId: interaction.guild.id,
+				...base_filter,
 				open: false,
 			},
 		});
@@ -84,8 +119,8 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		if (open.length >= 1) {
 			fields.push({
 				name: getMessage('commands.slash.tickets.response.fields.open.name'),
-				value: open.map(ticket =>{
-					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30) }\`` : '';
+				value: open.map(ticket => {
+					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
 					return `> <#${ticket.id}> ${topic}`;
 				}).join('\n'),
 			});

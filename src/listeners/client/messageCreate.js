@@ -277,7 +277,7 @@ module.exports = class extends Listener {
 					client.keyv.set(cacheKey, tags, ms('1h'));
 				}
 
-				const tag = tags.find(tag => message.content.match(new RegExp(tag.regex, 'mi')));
+				const tag = tags.find(tag => tag.regex && message.content.match(new RegExp(tag.regex, 'mi')));
 				if (tag) {
 					await message.reply({
 						embeds: [

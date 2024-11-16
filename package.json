@@ -1,6 +1,6 @@
 {
 	"name": "discord-tickets",
-	"version": "4.0.16",
+	"version": "4.0.21",
 	"private": "true",
 	"description": "The most popular open-source ticket management bot for Discord.",
 	"main": "src/",
@@ -15,7 +15,7 @@
 		"start": "node .",
 		"studio": "npx prisma studio",
 		"test": "node scripts/check-i18n",
-		"prepare": "husky install"
+		"__prepare": "husky install"
 	},
 	"commitlint": {
 		"extends": [
@@ -46,20 +46,20 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^2.2.3",
+		"@discord-tickets/settings": "^2.2.4",
 		"@eartharoid/dbf": "^0.4.2",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
-		"@fastify/cookie": "^9.3.1",
-		"@fastify/jwt": "^8.0.0",
-		"@fastify/oauth2": "^7.8.0",
+		"@fastify/cookie": "^9.4.0",
+		"@fastify/jwt": "^8.0.1",
+		"@fastify/oauth2": "^7.9.0",
 		"@prisma/client": "^4.16.2",
 		"boxen": "^7.1.1",
 		"cryptr": "^6.3.0",
-		"discord.js": "^14.14.1",
+		"discord.js": "^14.16.3",
 		"dotenv": "^16.4.5",
-		"fastify": "^4.26.2",
-		"figlet": "^1.7.0",
+		"fastify": "^4.28.1",
+		"figlet": "^1.8.0",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.4",
 		"leeks.js": "^0.3.0",
@@ -70,22 +70,22 @@
 		"node-emoji": "^1.11.0",
 		"object-diffy": "^1.0.4",
 		"prisma": "^4.16.2",
-		"semver": "^7.6.0",
+		"semver": "^7.6.3",
 		"short-unique-id": "^4.4.4",
-		"spacetime": "^7.6.0",
+		"spacetime": "^7.6.2",
 		"terminal-link": "^2.1.1",
-		"yaml": "^2.4.0"
+		"yaml": "^2.6.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^17.8.1",
 		"all-contributors-cli": "^6.26.1",
 		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^8.57.0",
+		"eslint": "^8.57.1",
 		"eslint-plugin-unused-imports": "^2.0.0",
-		"husky": "^8.0.0",
+		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
-		"markdown-table": "^3.0.3",
+		"markdown-table": "^3.0.4",
 		"nodemon": "^2.0.22"
 	},
 	"optionalDependencies": {

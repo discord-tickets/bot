@@ -155,7 +155,7 @@ module.exports = class TicketManager {
 	 * @param {string?} [data.topic]
 	 */
 	async create({
-		categoryId, interaction, topic, referencesMessage, referencesTicketId,
+		categoryId, interaction, topic, referencesMessageId, referencesTicketId,
 	}) {
 		categoryId = Number(categoryId);
 		const category = await this.getCategory(categoryId);
@@ -276,7 +276,7 @@ module.exports = class TicketManager {
 					.setCustomId(JSON.stringify({
 						action: 'questions',
 						categoryId,
-						referencesMessage,
+						referencesMessageId,
 						referencesTicketId,
 					}))
 					.setTitle(category.name)
@@ -324,7 +324,7 @@ module.exports = class TicketManager {
 					.setCustomId(JSON.stringify({
 						action: 'topic',
 						categoryId,
-						referencesMessage,
+						referencesMessageId,
 						referencesTicketId,
 					}))
 					.setTitle(category.name)
@@ -346,7 +346,7 @@ module.exports = class TicketManager {
 			await this.postQuestions({
 				categoryId,
 				interaction,
-				referencesMessage,
+				referencesMessageId,
 				referencesTicketId,
 				topic,
 			});
@@ -360,7 +360,7 @@ module.exports = class TicketManager {
 	 * @param {string?} [data.topic]
 	 */
 	async postQuestions({
-		action, categoryId, interaction, topic, referencesMessage, referencesTicketId,
+		action, categoryId, interaction, topic, referencesMessageId, referencesTicketId,
 	}) {
 		const [, category] = await Promise.all([
 			interaction.deferReply({ ephemeral: true }),
@@ -540,14 +540,13 @@ module.exports = class TicketManager {
 
 		/** @type {import("discord.js").Message|undefined} */
 		let message;
-		if (referencesMessage) {
-			referencesMessage = referencesMessage.split('/');
+		if (referencesMessageId) {
 			/** @type {import("discord.js").Message} */
-			message = await (await this.client.channels.fetch(referencesMessage[0]))?.messages.fetch(referencesMessage[1]);
+			message = await interaction.channel.messages.fetch(referencesMessageId);
 			if (message) {
 				// not worth the effort of making system messages work atm
 				if (message.system) {
-					referencesMessage = null;
+					referencesMessageId = null;
 					message = null;
 				} else {
 					if (!message.member) {
@@ -1140,7 +1139,6 @@ module.exports = class TicketManager {
 	 */
 	async acceptClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
-		const $ticket = this.$stale.get(interaction.channel.id);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		await interaction.editReply({
 			embeds: [
@@ -1154,7 +1152,7 @@ module.exports = class TicketManager {
 			],
 		});
 		await new Promise(resolve => setTimeout(resolve, 5000));
-		await this.finallyClose(interaction.channel.id, $ticket);
+		await this.finallyClose(interaction.channel.id, this.$stale.get(interaction.channel.id) || {});
 	}
 
 	/**
@@ -1212,16 +1210,14 @@ module.exports = class TicketManager {
 			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
 		}
 
-		if (closedBy) {
-			logTicketEvent(this.client, {
-				action: 'close',
-				target: {
-					id: ticket.id,
-					name: `${ticket.category.name} **#${ticket.number}**`,
-				},
-				userId: closedBy,
-			});
-		}
+		logTicketEvent(this.client, {
+			action: 'close',
+			target: {
+				id: ticket.id,
+				name: `${ticket.category.name} **#${ticket.number}**`,
+			},
+			userId: closedBy || this.client.user.id,
+		});
 
 		try {
 			const creator = channel?.guild.members.cache.get(ticket.createdById);

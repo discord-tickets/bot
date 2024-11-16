@@ -1,3 +1,114 @@
+## [4.0.21](https://github.com/discord-tickets/bot/compare/v4.0.20...v4.0.21) (2024-11-09)
+
+
+### Bug Fixes
+
+* `null` incorrectly triggering tags (closes [#484](https://github.com/discord-tickets/bot/issues/484)) ([9f5c30c](https://github.com/discord-tickets/bot/commit/9f5c30c0bfea9a6d7d403654d50cf5543f7f1e58))
+* accepting a close request after a restart ([f9a7f0c](https://github.com/discord-tickets/bot/commit/f9a7f0cbd9d5de9a0fb3f50a2887cc3e3d85ac98))
+* custom ID overflow with `Create from message` (closes [#494](https://github.com/discord-tickets/bot/issues/494)) ([b0d77c1](https://github.com/discord-tickets/bot/commit/b0d77c1af657c2cda4c9d152ee6409e97e655ccb))
+* log ticket closure even when there is no closer ([412c65c](https://github.com/discord-tickets/bot/commit/412c65c0ff63829c760eb874b36905d41f105581))
+
+
+### Features
+
+* **i18n:** update German translations ([80b863e](https://github.com/discord-tickets/bot/commit/80b863eec3fadd372128c20c8cb8baeaebe6cc74))
+* **i18n:** update Hungarian translations ([aafd960](https://github.com/discord-tickets/bot/commit/aafd96055b9c2564a3be68fa21adfd9c6cd81a8c))
+* **i18n:** update Hungarian translations ([a254774](https://github.com/discord-tickets/bot/commit/a25477495931c0742ffdb8a3c15eccef274f2ae0))
+* **i18n:** update Hungarian translations ([9efdd25](https://github.com/discord-tickets/bot/commit/9efdd25f81d6f8dbfbd3542e6f594f1e7ee185b8))
+* **i18n:** update Romanian translations ([519f9f4](https://github.com/discord-tickets/bot/commit/519f9f4e6d3528e9091976c4645eddaec4f3b7f0))
+* transcript button in log channel ([2a96858](https://github.com/discord-tickets/bot/commit/2a96858782f0d9b5404e237aabffb3be877497cc))
+
+
+
+## [4.0.20](https://github.com/discord-tickets/bot/compare/v4.0.19...v4.0.20) (2024-09-06)
+
+
+### Bug Fixes
+
+* downgrade discord.js to resolve Discord API breaking change ([cae54b9](https://github.com/discord-tickets/bot/commit/cae54b97c9d2f03e6e163397564e920086ff299b))
+* **security:** transcript access control (closes [#555](https://github.com/discord-tickets/bot/issues/555)) ([b8b5ac9](https://github.com/discord-tickets/bot/commit/b8b5ac946a11a9fc0e34ae1f7050d5235e559608))
+
+
+### Features
+
+* **i18n:** add Bulgarian translations ([952c154](https://github.com/discord-tickets/bot/commit/952c1541587d9490d1367a4806c1e07b6ffdf9b1))
+* **i18n:** update Czech translations ([28764fd](https://github.com/discord-tickets/bot/commit/28764fde8c157de65e0d44823337753f1f9b8ec2))
+* **i18n:** update Czech translations ([1c1c993](https://github.com/discord-tickets/bot/commit/1c1c993d20458fc291c38e6e72f8e7dfbe13a631))
+* **i18n:** update Czech translations ([b76df6b](https://github.com/discord-tickets/bot/commit/b76df6b47ce19c9a0bcc507cb830fc78b06caac5))
+* **i18n:** update Czech translations ([60d48f9](https://github.com/discord-tickets/bot/commit/60d48f93a86b293f654ad027ceb369be048078b9))
+* **i18n:** update Czech translations ([619c7a4](https://github.com/discord-tickets/bot/commit/619c7a45e6e5cd322e203001acfb9adb1d364bb8))
+* **i18n:** update Czech translations ([5859073](https://github.com/discord-tickets/bot/commit/5859073b83f94a57e49651196acf05f044d50c67))
+* **i18n:** update Czech translations ([a6b5447](https://github.com/discord-tickets/bot/commit/a6b5447740c4f184374fef69a072f36893812694))
+* **i18n:** update Dutch translations ([3aee581](https://github.com/discord-tickets/bot/commit/3aee581ebc4239dbe81403b998c495d1922ea7c6))
+* **i18n:** update Italian translations ([#547](https://github.com/discord-tickets/bot/issues/547)) ([7fbbe45](https://github.com/discord-tickets/bot/commit/7fbbe450d39e7370539ab1fa1c1f1ca4bc2c240a))
+* **i18n:** update Korean translations ([4a0f31e](https://github.com/discord-tickets/bot/commit/4a0f31e295418a8c1bbf234d0c9baeb9a5567bcb))
+* **i18n:** update Korean translations ([f9df305](https://github.com/discord-tickets/bot/commit/f9df30569c28397a477dc7110cd4affe5f1df0eb))
+* **i18n:** update Korean translations ([afb72ed](https://github.com/discord-tickets/bot/commit/afb72ed280fb82a7b9dec2945108dee775e1d15c))
+* **i18n:** update Korean translations ([d6ed6ab](https://github.com/discord-tickets/bot/commit/d6ed6ab44a299e6eb3547da9614dfa55cd0aa751))
+* **i18n:** update Korean translations ([1bd5ea3](https://github.com/discord-tickets/bot/commit/1bd5ea32a7d18c062401421a929499f498956e00))
+* **i18n:** update Russian translations ([4aa9a6f](https://github.com/discord-tickets/bot/commit/4aa9a6fefd2b000fd46f57a8c12c05dbf656e04b))
+* **i18n:** update translation files ([4db7614](https://github.com/discord-tickets/bot/commit/4db76148ad8348946151f548a10fb6798c2fa349))
+
+
+
+## [4.0.19](https://github.com/discord-tickets/bot/compare/v4.0.18...v4.0.19) (2024-05-29)
+
+
+### Bug Fixes
+
+* **http:** ipv6 support ([e78469e](https://github.com/discord-tickets/bot/commit/e78469e9f66dbaf9d3e4e7ad44e3d4ddcf0dcf03))
+
+
+### Features
+
+* **i18n:** update Dutch translations ([8bef2eb](https://github.com/discord-tickets/bot/commit/8bef2eb5f86d52f04788402db1df136fd95e803a))
+* **i18n:** update Dutch translations ([1d97895](https://github.com/discord-tickets/bot/commit/1d97895058a4823eb05d13dd2bee0079cde9617f))
+* **i18n:** update Dutch translations ([7fd9157](https://github.com/discord-tickets/bot/commit/7fd91574ee7f5bab457432159730f24f2a0318ff))
+* **i18n:** update German translations ([37b7f6e](https://github.com/discord-tickets/bot/commit/37b7f6eb6b771e436c18398f3b4dc46b66e66633))
+* **i18n:** update German translations ([0e65790](https://github.com/discord-tickets/bot/commit/0e6579002f63e37a61e2621f1febcf5c6b341eed))
+* **i18n:** update Portuguese (Brazil) translations ([fef853d](https://github.com/discord-tickets/bot/commit/fef853d2ae3c41ada44686a7003d73188ee7fd2d))
+* **i18n:** update Portuguese (Brazil) translations ([2383f50](https://github.com/discord-tickets/bot/commit/2383f5074873b773e90e91d5c45844c2d937e7d9))
+
+
+
+## [4.0.18](https://github.com/discord-tickets/bot/compare/v4.0.17...v4.0.18) (2024-05-01)
+
+
+### Features
+
+* internal sharding ([7a131e7](https://github.com/discord-tickets/bot/commit/7a131e79360da3fc7985d27a5c7b515915420675))
+
+
+
+## [4.0.17](https://github.com/discord-tickets/bot/compare/v4.0.16...v4.0.17) (2024-04-29)
+
+
+### Bug Fixes
+
+* **i18n:** update Norwegian translations ([174e4a6](https://github.com/discord-tickets/bot/commit/174e4a6fae583a87f9c1e27b0293d00b61f63e74))
+
+
+### Features
+
+* **i18n:** add Norwegian ([22e26e1](https://github.com/discord-tickets/bot/commit/22e26e11d96321ca66deaf2d8cc60c2c2b54f75b))
+* **i18n:** make turkish language support more comprehensive ([#538](https://github.com/discord-tickets/bot/issues/538)) ([895b629](https://github.com/discord-tickets/bot/commit/895b629da13b471c97cea5af6bcfacba653b522c))
+* **i18n:** update Dutch translations ([c2f9dd7](https://github.com/discord-tickets/bot/commit/c2f9dd711018379f43ab4b13b6e649eda586c130))
+* **i18n:** update Dutch translations ([c4f8169](https://github.com/discord-tickets/bot/commit/c4f8169a38b79b7e61c813e02ac46be9e9a21fcd))
+* **i18n:** update Dutch translations ([3d7bbc8](https://github.com/discord-tickets/bot/commit/3d7bbc8057ff4dfc31d56c8fd1121ab9bd0a58ac))
+* **i18n:** update Dutch translations ([b453cf6](https://github.com/discord-tickets/bot/commit/b453cf66e0a8e15b84a47450847be430b6ae60a5))
+* **i18n:** update Dutch translations ([88398bf](https://github.com/discord-tickets/bot/commit/88398bf517b4530ec40fb0ee722e21ae1997f149))
+* **i18n:** update Dutch translations ([438ac01](https://github.com/discord-tickets/bot/commit/438ac01830ca50868a9003aedc71c06024d66b38))
+* **i18n:** update Dutch translations ([e2d3ec9](https://github.com/discord-tickets/bot/commit/e2d3ec987b3cdbaac76b5486a65cb363ab978d1b))
+* **i18n:** update Dutch translations ([711a472](https://github.com/discord-tickets/bot/commit/711a47250eceafba76d82463bab134ba9787ea0f))
+* **i18n:** update Dutch translations ([f1feb06](https://github.com/discord-tickets/bot/commit/f1feb061ecb77e7bb02f86b1aa2be83515327a81))
+* **i18n:** update Dutch translations ([092c6bf](https://github.com/discord-tickets/bot/commit/092c6bff989cd3bbc54cb81fe64a76874066ee9c))
+* **i18n:** update Norwegian Bokmål translations ([5aa682f](https://github.com/discord-tickets/bot/commit/5aa682f0ec50356799e41714a1d1ebf69e0f212e))
+* **i18n:** update Portuguese (Brazil) translations ([3403014](https://github.com/discord-tickets/bot/commit/340301481290875798661c174b2dd90cecb551c1))
+* **i18n:** update Spanish translations ([4790949](https://github.com/discord-tickets/bot/commit/4790949fb4bf55e282989471e1c46b2510eff3f7))
+* **i18n:** update translation files ([66cb831](https://github.com/discord-tickets/bot/commit/66cb83123703bb370b018d1bd1cb746cfc9311b7))
+
+
+
 ## [4.0.16](https://github.com/discord-tickets/bot/compare/v4.0.15...v4.0.16) (2024-03-07)
 
 
