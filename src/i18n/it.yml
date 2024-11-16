@@ -47,7 +47,7 @@ commands:
     add:
       added: ➡️ {added} è stato aggiunto da {by}.
       description: Aggiungi un membro al ticket
-      name: Aggiungi
+      name: aggiungi
       not_staff:
         description: Solo lo staff può aggiungere persone ai ticket.
         title: ❌ Errore
