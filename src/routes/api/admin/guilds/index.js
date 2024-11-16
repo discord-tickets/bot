@@ -1,4 +1,5 @@
 const { PermissionsBitField } = require('discord.js');
+const { iconURL } = require('../../../../lib/misc');
 
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
@@ -10,7 +11,14 @@ module.exports.get = fastify => ({
 				.map(guild => ({
 					added: client.guilds.cache.has(guild.id),
 					id: guild.id,
-					logo: `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp`,
+					logo: iconURL(
+						client.guilds.cache.get(guild.id) ||
+						{
+							client,
+							icon: guild.icon,
+							id: guild.id,
+						},
+					),
 					name: guild.name,
 				})),
 		);

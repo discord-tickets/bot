@@ -4,7 +4,7 @@ const { randomBytes } = require('crypto');
 const { short } = require('leeks.js');
 const { join } = require('path');
 const { files } = require('node-dir');
-const { PermissionsBitField } = require('discord.js');
+const { getPrivilegeLevel } = require('./lib/users');
 
 process.env.ORIGIN = process.env.HTTP_INTERNAL || process.env.HTTP_EXTERNAL;
 
@@ -65,6 +65,33 @@ module.exports = async client => {
 		}
 	});
 
+	fastify.decorate('isMember', async (req, res) => {
+		try {
+			const userId = req.user.id;
+			const guildId = req.params.guild;
+			const guild = client.guilds.cache.get(guildId);
+			if (!guild) {
+				return res.code(404).send({
+					error: 'Not Found',
+					message: 'The requested resource could not be found.',
+					statusCode: 404,
+
+				});
+			}
+			const guildMember = await guild.members.fetch(userId);
+			if (!guildMember) {
+				return res.code(403).send({
+					error: 'Forbidden',
+					message: 'You are not permitted for this action.',
+					statusCode: 403,
+
+				});
+			}
+		} catch (err) {
+			res.send(err);
+		}
+	});
+
 	fastify.decorate('isAdmin', async (req, res) => {
 		try {
 			const userId = req.user.id;
@@ -79,7 +106,7 @@ module.exports = async client => {
 				});
 			}
 			const guildMember = await guild.members.fetch(userId);
-			const isAdmin = guildMember?.permissions.has(PermissionsBitField.Flags.ManageGuild) || client.supers.includes(userId);
+			const isAdmin = await getPrivilegeLevel(guildMember) >= 2;
 			if (!isAdmin) {
 				return res.code(403).send({
 					error: 'Forbidden',

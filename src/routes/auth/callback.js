@@ -19,7 +19,6 @@ module.exports.get = () => ({
 		const token = this.jwt.sign({
 			accessToken: data.access_token,
 			avatar: user.avatar,
-			discriminator: user.discriminator,
 			expiresAt: Date.now() + (data.expires_in * 1000),
 			id: user.id,
 			locale: user.locale,
@@ -30,9 +29,16 @@ module.exports.get = () => ({
 			httpOnly: true,
 			maxAge: data.expires_in,
 			path: '/',
-			sameSite: 'Lax',
+			sameSite: 'Strict',
 			secure: false,
 		});
-		return res.redirect(redirect, 303);
+		res.header('Content-Type', 'text/html');
+		return res.send(`
+<!DOCTYPE html>
+<html>
+<head><meta http-equiv="refresh" content="0; url='${redirect}'"></head>
+<body></body>
+</html>
+`);
 	},
 });

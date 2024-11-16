@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+const { iconURL } = require('../../../../../lib/misc');
 const {
 	getAvgResolutionTime,
 	getAvgResponseTime,
@@ -37,7 +38,7 @@ module.exports.get = fastify => ({
 			cached = {
 				createdAt: settings.createdAt,
 				id: guild.id,
-				logo: guild.iconURL(),
+				logo: iconURL(guild),
 				name: guild.name,
 				stats: {
 					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
