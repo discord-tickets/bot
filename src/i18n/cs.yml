@@ -3,7 +3,7 @@ buttons:
     emoji: ✅
     text: Přijmout
   create:
-    text: Vytvořit ticket
+    text: Vytvořit tiket
     emoji: 🎫
   cancel:
     emoji: ➖
@@ -26,6 +26,9 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Uvolnit
+  transcript:
+    text: Transcript
+    emoji: 📄
 commands:
   message:
     create:
@@ -91,7 +94,7 @@ commands:
         description: Kanály budou zavřený během několika sekund.
         title:
         - ✅ Uzavírání %d tiketu
-        - ✅ Uzavírám %d ticketů
+        - ✅ Uzavírám %d tiketů
       description: Násilné uzavřený tiketu
       name: vynutit-uzavření
       no_tickets:
@@ -363,7 +366,8 @@ misc:
       tejto kategórii.
     title: ❌ Nedostatočné role
   no_categories:
-    description: Žiadne kategórie ticketov nie sú nakonfigurované.
+    description: "Žádné kategorie pro tikety nejsou nastavené.\nNastav tvůj server
+      na {url}."
     title: ❌ Žiadne kategórie
   not_ticket:
     description: Tento príkaz môžeš použiť iba v ticketoch.
@@ -380,6 +384,15 @@ misc:
       > [Changelog]({changelog})
       > [Aktualizačná príručka]({guide})
     title: Aktualizácia je dostupná
+  role_error:
+    description: Omlouvám se, ale tato operace selhala kvůli neplatné konfiguraci.
+    fields:
+      for_admins:
+        name: Pro administrátory serveru
+        value: "Neplatný uživatel nebo role byla poskytnuta, což většinou znamená,
+          že role pro zaměstnance byla odstraněna. [Klikněte zde]({url}) pro instrukce
+          k vyřešení.\n"
+    title: ⚠️ Něco se nepovedlo
 modals:
   feedback:
     comment:
