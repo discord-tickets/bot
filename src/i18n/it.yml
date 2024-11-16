@@ -63,7 +63,7 @@ commands:
         title: ✅ Aggiunto
     claim:
       description: Claima un ticket
-      name: claim
+      name: Prendi in carica
       not_staff:
         description: Solo lo staff può claimare un ticket.
         title: ❌ Errore
@@ -76,7 +76,7 @@ commands:
       options:
         reason:
           description: La ragione per la chiusura di un ticket
-          name: reason
+          name: motivazione
     force-close:
       closed_one:
         description: Il canale verrà chiuso tra qualche secondo ...
@@ -94,7 +94,7 @@ commands:
         - ✅ Chiudendo %d ticket
         - ✅ chiudendo %d tickets
       description: Chiudi un ticket forzatamente
-      name: force-close
+      name: forza-chiusura
       no_tickets:
         description: >-
           Non esistono ticket che sono rimasti inattivi per più di:
@@ -107,17 +107,17 @@ commands:
         category:
           description: Chiudi tutti i ticket nella specifica categoria (deve essere
             usato con `time`)
-          name: category
+          name: categoria
         reason:
           description: La ragione per la chiusura del/i ticket(s)
-          name: reason
+          name: motivazione
         ticket:
           description: La ragione per la chiusura
           name: ticket
         time:
           description: Chiude tutti i ticket che sono rimasti inattivi per più del
             tempo specificato
-          name: time
+          name: orario
     help:
       description: Mostra il menù di aiuto
       name: help
@@ -145,7 +145,7 @@ commands:
           name: categoria
     new:
       description: Crea un nuovo ticket
-      name: new
+      name: nuovo
       options:
         references:
           description: Il numero di ticket relativi
@@ -269,7 +269,7 @@ dm:
       closed_by: Chiuso da
       created: Creato il
       feedback: Il tuo feedback
-      reason: Chiuso per il motivo
+      reason: Motivazione
       response: Tempo di risposta
       ticket: Ticket
       topic: Topic
