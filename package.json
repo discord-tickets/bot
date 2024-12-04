@@ -80,13 +80,15 @@
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^17.8.1",
 		"all-contributors-cli": "^6.26.1",
+		"commander": "^12.1.0",
 		"conventional-changelog-cli": "^2.2.2",
 		"eslint": "^8.57.1",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
 		"markdown-table": "^3.0.4",
-		"nodemon": "^2.0.22"
+		"nodemon": "^2.0.22",
+		"ora": "^8.1.1"
 	},
 	"optionalDependencies": {
 		"bufferutil": "^4.0.8",

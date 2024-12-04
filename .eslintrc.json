@@ -9,7 +9,7 @@
 		"eslint:recommended"
 	],
 	"parserOptions": {
-		"ecmaVersion": 12,
+		"ecmaVersion": 2024,
 		"sourceType": "module"
 	},
 	"plugins": [
