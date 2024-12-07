@@ -470,6 +470,6 @@ ticket:
         lo stesso ricevere una risposta.
       title: 🕗 Non stiamo lavorando al momento
     today:
-      description: Potresti ricevere una risposta, ma non ricominceremo a lavorare
-        fino alle <t:{timestamp}:t> (<t:{timestamp}:R>).
+      description: Potresti ricevere una risposta, ma non è garantita l'assistenza
+        fino alle ore <t:{timestamp}:t> (<t:{timestamp}:R>).
       title: 🕗 Non siamo disponibili al momento
