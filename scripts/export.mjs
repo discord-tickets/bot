@@ -4,6 +4,8 @@ import fse from 'fs-extra';
 import { join } from 'path';
 import ora from 'ora';
 import { PrismaClient } from '@prisma/client';
+import { createHash } from 'crypto';
+import Cryptr from 'cryptr';
 
 config();
 
@@ -13,6 +15,11 @@ program
 program.parse();
 
 const options = program.opts();
+
+const hash = createHash('sha256').update(options.guild).digest('hex');
+const file_cryptr = new Cryptr(hash);
+const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+
 
 fse.ensureDirSync(join(process.cwd(), './user/dumps'));
 
@@ -37,6 +44,8 @@ spinner.succeed('Connected');
 
 
 const dump = {};
+
+// TODO: decrypt
 
 spinner.text = 'Exporting settings';
 dump.settings = await prisma.guild.findFirst({ where: { id: options.guild } });
@@ -65,6 +74,36 @@ dump.tickets = await prisma.ticket.findMany({
 	},
 	where: { guildId: options.guild },
 });
+dump.tickets = dump.tickets.map(ticket => {
+	if (ticket.topic) ticket.topic = db_cryptr.decrypt(ticket.topic);
+
+	ticket.archivedChannels = ticket.archivedChannels.map(channel => {
+		channel.name = db_cryptr.decrypt(channel.name);
+		return channel;
+	});
+
+	ticket.archivedMessages = ticket.archivedMessages.map(message => {
+		message.content = db_cryptr.decrypt(message.content);
+		return message;
+	});
+
+	ticket.archivedUsers = ticket.archivedUsers.map(user => {
+		user.displayName = db_cryptr.decrypt(user.displayName);
+		user.username = db_cryptr.decrypt(user.username);
+		return user;
+	});
+
+	if (ticket.feedback?.comment) {
+		ticket.feedback.comment = db_cryptr.decrypt(ticket.feedback.comment);
+	}
+
+	ticket.questionAnswers = ticket.questionAnswers.map(answer => {
+		if (answer.value) answer.value = db_cryptr.decrypt(answer.value);
+		return answer;
+	});
+
+	return ticket;
+});
 spinner.succeed(`Exported ${dump.tickets.length} tickets`);
 
 spinner.text = 'Exporting users';
@@ -77,11 +116,11 @@ dump.users = await prisma.user.findMany({
 });
 spinner.succeed(`Exported ${dump.users.length} users`);
 
-const file_path = join(process.cwd(), './user/dumps', `${options.guild}.json`);
+const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
 
 spinner.text = `Writing to "${file_path}"`;
 
 // async to not freeze the spinner
-await fse.promises.writeFile(file_path, JSON.stringify(dump));
+await fse.promises.writeFile(file_path, file_cryptr.encrypt(JSON.stringify(dump)));
 
 spinner.succeed(`Written to "${file_path}"`);
