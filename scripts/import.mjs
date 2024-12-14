@@ -4,6 +4,8 @@ import fse from 'fs-extra';
 import { join } from 'path';
 import ora from 'ora';
 import { PrismaClient } from '@prisma/client';
+import { createHash } from 'crypto';
+import Cryptr from 'cryptr';
 
 config();
 
@@ -15,7 +17,10 @@ program.parse();
 
 const options = program.opts();
 
-fse.ensureDirSync(join(process.cwd(), './user/dumps'));
+const hash = createHash('sha256').update(options.guild).digest('hex');
+const file_cryptr = new Cryptr(hash);
+const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
+
 
 const spinner = ora('Connecting').start();
 
@@ -37,8 +42,8 @@ if (process.env.DB_PROVIDER === 'sqlite') {
 spinner.succeed('Connected');
 
 spinner.text = 'Reading dump file';
-const file_path = join(process.cwd(), './user/dumps', `${options.guild}.json`);
-const dump = JSON.parse(await fse.promises.readFile(file_path, 'utf8'));
+const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
+const dump = JSON.parse(file_cryptr.decrypt(await fse.promises.readFile(file_path, 'utf8')));
 spinner.succeed('Read dump file');
 
 spinner.text = 'Checking if guild exists';
@@ -55,13 +60,106 @@ if (exists === 0) {
 	}
 }
 
-spinner.text = 'Importing settings';
-await prisma.guild.create({ data: dump.settings });
-spinner.succeed('Imported settings');
+spinner.text = 'Importing settings & tags';
+await prisma.guild.create({
+	data: {
+		...dump.settings,
+		tags: { create: dump.tags },
+	},
+});
+spinner.succeed(`Imported settings & ${dump.tags.length} tags`);
 
+const category_map = {};
 spinner.text = 'Importing categories';
-
 for (const category of dump.categories) {
+	const original_id = category.id;
 	delete category.id;
-	await prisma.category.create({ data: category });
+	category.questions = { create: category.questions };
+	const { id: new_id } = await prisma.category.create({
+		data: {
+			...category,
+			guild: { connect: { id: options.guild } },
+			guildId: options.guild,
+		},
+	});
+	category_map[original_id] = new_id;
 }
+spinner.succeed(`Imported ${dump.categories.length} categories`);
+
+spinner.text = 'Importing users';
+for (const user of dump.users) {
+	await prisma.user.create({ data: user });
+}
+spinner.succeed(`Imported ${dump.users.length} users`);
+
+spinner.text = 'Importing tickets';
+
+for (const ticket of dump.tickets) {
+	ticket.categoryId = category_map[ticket.categoryId];
+	if (ticket.topic) ticket.topic = db_cryptr.encrypt(ticket.topic);
+
+	ticket.archivedChannels = {
+		create: ticket.archivedChannels.map(channel => {
+			channel.name = db_cryptr.encrypt(channel.name);
+			return channel;
+		}),
+	};
+
+	ticket.archivedMessages = {
+		create: ticket.archivedMessages.map(message => {
+			message.content = db_cryptr.encrypt(message.content);
+			return message;
+		}),
+	};
+
+	ticket.archivedUsers = {
+		create: ticket.archivedUsers.map(user => {
+			user.displayName = db_cryptr.encrypt(user.displayName);
+			user.username = db_cryptr.encrypt(user.username);
+			return user;
+		}),
+	};
+
+
+	if (ticket.feedback) {
+		if (ticket.feedback.comment) {
+			ticket.feedback.comment = db_cryptr.encrypt(ticket.feedback.comment);
+		}
+		ticket.feedback = { create: ticket.feedback };
+	}
+
+	ticket.questionAnswers = {
+		createMany: ticket.questionAnswers.map(answer => {
+			if (answer.value) answer.value = db_cryptr.encrypt(answer.value);
+			return answer;
+		}),
+	};
+
+	if (ticket.claimedBy) {
+		ticket.claimedBy = {
+			connectOrCreate: {
+				create: { id: ticket.claimedById },
+				where: { id: ticket.claimedById },
+			},
+		};
+	}
+	if (ticket.closedBy) {
+		ticket.closedBy = {
+			connectOrCreate: {
+				create: { id: ticket.closedById },
+				where: { id: ticket.closedById },
+			},
+		};
+	}
+	if (ticket.createdBy) {
+		ticket.createdBy = {
+			connectOrCreate: {
+				create: { id: ticket.createdById },
+				where: { id: ticket.createdById },
+			},
+		};
+	}
+
+	await prisma.ticket.create({ data: ticket });
+}
+spinner.succeed(`Imported ${dump.tickets.length} tickets`);
