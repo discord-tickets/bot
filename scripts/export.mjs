@@ -17,7 +17,7 @@ program.parse();
 const options = program.opts();
 
 const hash = createHash('sha256').update(options.guild).digest('hex');
-const file_cryptr = new Cryptr(hash);
+const file_cryptr = new Cryptr(options.guild);
 const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 
