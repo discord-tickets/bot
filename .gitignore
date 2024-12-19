@@ -1,9 +1,9 @@
 # directories
-.history/
-.vscode/
-node_modules/
-prisma/
-user/
+/.history/
+/.vscode/
+/node_modules/
+/prisma/
+/user/
 
 # files
 *.env*
