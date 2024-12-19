@@ -63,7 +63,7 @@ commands:
         title: ✅ Aggiunto
     claim:
       description: Claima un ticket
-      name: Prendi in carica
+      name: prendi-in-carica
       not_staff:
         description: Solo lo staff può claimare un ticket.
         title: ❌ Errore
