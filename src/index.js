@@ -37,6 +37,7 @@ if (!semver.satisfies(process.versions.node, pkg.engines.node)) {
 	process.exit(1);
 }
 
+// check cwd
 const base_dir = path.resolve(path.join(__dirname, '../'));
 const cwd = path.resolve(process.cwd());
 if (base_dir !== cwd) {
@@ -49,26 +50,17 @@ if (base_dir !== cwd) {
 	console.log(colours.blueBright('  Learn more at https://lnk.earth/dt-cwd.'));
 }
 
-// this could be done first, but then there would be no banner :(
 process.env.NODE_ENV ??= 'production'; // make sure NODE_ENV is set
 require('./env').load(); // load and check environment variables
 
 const fs = require('fs');
 const YAML = require('yaml');
 const logger = require('./lib/logger');
-const Client = require('./client');
-const http = require('./http');
 
-// user directory may or may not exist depending on if sqlite is being used
-// so the config file could be missing even though the directory exists
-if (!fs.existsSync('./user/config.yml')) {
-	console.log('The config file does not exist, copying defaults...');
-	fs.cpSync(path.join(__dirname, 'user'), './user', { recursive: true });
-	console.log('Created user directory at', path.join(cwd, 'user'));
-}
-
-const config = YAML.parse(fs.readFileSync('./user/config.yml', 'utf8'));
-const log = logger(config);
+// create a Logger using the default config
+// and set listeners as early as possible.
+let config = YAML.parse(fs.readFileSync(path.join(__dirname, 'user/config.yml'), 'utf8'));
+let log = logger(config);
 
 process.on('uncaughtException', (error, origin) => {
 	log.notice(`Discord Tickets v${pkg.version} on Node.js ${process.version} (${process.platform})`);
@@ -78,7 +70,26 @@ process.on('uncaughtException', (error, origin) => {
 
 process.on('warning', warning => log.warn(warning.stack || warning));
 
+const Client = require('./client');
+const http = require('./http');
+
+// the `user` directory may or may not exist depending on if sqlite is being used.
+// copy any files that don't already exist
+fs.cpSync(path.join(__dirname, 'user'), './user', {
+	force: false,
+	recursive: true,
+});
+
+// initialise the framework and client,
+// which also loads the custom config and creates a new Logger.
 const client = new Client(config, log);
+
+// allow any config changes to affect the above listeners
+// as long as these `client` properties are not reassigned.
+config = client.config;
+log = client.log;
+
+// start the bot and then the web server
 client.login().then(() => {
 	http(client);
 });

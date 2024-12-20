@@ -33,6 +33,8 @@ module.exports = class extends Listener {
 		process.title = 'tickets';
 		client.log.success('Connected to Discord as "%s" over %d shards', client.user.tag, client.ws.shards.size);
 
+		await client.initAfterLogin();
+
 		// fill cache
 		await sync(client);
 

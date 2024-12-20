@@ -105,6 +105,14 @@ module.exports = async client => {
 
 				});
 			}
+			if (client.banned_guilds.has(guildId)) {
+				return res.code(451).send({
+					error: 'Unavailable For Legal Reasons',
+					message: 'This guild has been banned for breaking the terms of service.',
+					statusCode: 451,
+
+				});
+			}
 			const guildMember = await guild.members.fetch(userId);
 			const isAdmin = await getPrivilegeLevel(guildMember) >= 2;
 			if (!isAdmin) {

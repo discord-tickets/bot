@@ -3,6 +3,7 @@ const {
 	GatewayIntentBits,
 	Partials,
 } = require('discord.js');
+const logger = require('./lib/logger');
 const { PrismaClient } = require('@prisma/client');
 const Keyv = require('keyv');
 const I18n = require('@eartharoid/i18n');
@@ -14,7 +15,7 @@ const sqliteMiddleware = require('./lib/middleware/prisma-sqlite');
 const ms = require('ms');
 
 module.exports = class Client extends FrameworkClient {
-	constructor(config, log) {
+	constructor() {
 		super(
 			{
 				intents: [
@@ -39,6 +40,12 @@ module.exports = class Client extends FrameworkClient {
 			{ baseDir: __dirname },
 		);
 
+		this.config = {};
+		this.log = {};
+		this.init();
+	}
+
+	async init(reload = false) {
 		const locales = {};
 		fs.readdirSync(join(__dirname, 'i18n'))
 			.filter(file => file.endsWith('.yml'))
@@ -48,30 +55,57 @@ module.exports = class Client extends FrameworkClient {
 				locales[name] = YAML.parse(data);
 			});
 
-		this.keyv = new Keyv();
 		/** @type {I18n} */
 		this.i18n = new I18n('en-GB', locales);
-		/** @type {TicketManager} */
-		this.tickets = new TicketManager(this);
-		this.config = config;
-		this.log = log;
-		this.supers = (process.env.SUPER ?? '').split(',');
-		/** @param {import('discord.js/typings').Interaction} interaction */
-		this.commands.interceptor = async interaction => {
-			if (!interaction.inGuild()) return;
-			const id = interaction.guildId;
-			const cacheKey = `cache/known/guild:${id}`;
-			if (await this.keyv.has(cacheKey)) return;
-			await this.prisma.guild.upsert({
-				create: {
-					id,
-					locale: this.i18n.locales.find(locale => locale === interaction.guild.preferredLocale), // undefined if not supported
-				},
-				update: {},
-				where: { id },
-			});
-			await this.keyv.set(cacheKey, true);
-		};
+
+		// to maintain references, these shouldn't be reassigned
+		Object.assign(this.config, YAML.parse(fs.readFileSync('./user/config.yml', 'utf8')));
+		Object.assign(this.log, logger(this.config));
+
+		this.banned_guilds = new Set(
+			(() => {
+				let array = fs.readFileSync('./user/banned-guilds.txt', 'utf8').trim().split(/\r?\n/);
+				if (array[0] === '') array = [];
+				return array;
+			})(),
+		);
+		this.log.info(`${this.banned_guilds.size} guilds are banned`);
+
+		if (reload) {
+			await this.initAfterLogin();
+		} else {
+			this.keyv = new Keyv();
+
+			this.tickets = new TicketManager(this);
+
+			this.supers = (process.env.SUPER ?? '').split(',');
+
+			/** @param {import('discord.js/typings').Interaction} interaction */
+			this.commands.interceptor = async interaction => {
+				if (!interaction.inGuild()) return;
+				const id = interaction.guildId;
+				const cacheKey = `cache/known/guild:${id}`;
+				if (await this.keyv.has(cacheKey)) return;
+				await this.prisma.guild.upsert({
+					create: {
+						id,
+						locale: this.i18n.locales.find(locale => locale === interaction.guild.preferredLocale), // undefined if not supported
+					},
+					update: {},
+					where: { id },
+				});
+				await this.keyv.set(cacheKey, true);
+			};
+		}
+	}
+
+	async initAfterLogin() {
+		for (const id of this.banned_guilds) {
+			if (this.guilds.cache.has(id)) {
+				this.log.info(`Leaving banned guild ${id}`);
+				await this.guilds.cache.get(id).leave();
+			}
+		}
 	}
 
 	async login(token) {
@@ -86,7 +120,7 @@ module.exports = class Client extends FrameworkClient {
 		};
 
 		if (process.env.DB_PROVIDER === 'sqlite' && !process.env.DB_CONNECTION_URL) {
-			prisma_options.datasources = { db: { url:'file:' + join(process.cwd(), './user/database.db') } };
+			prisma_options.datasources = { db: { url: 'file:' + join(process.cwd(), './user/database.db') } };
 		}
 
 		/** @type {PrismaClient} */
