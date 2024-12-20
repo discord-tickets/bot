@@ -1,3 +1,22 @@
+## [4.0.23](https://github.com/discord-tickets/bot/compare/v4.0.22...v4.0.23) (2024-12-20)
+
+
+### Bug Fixes
+
+* **git:** only ignore top-level directories ([ca38235](https://github.com/discord-tickets/bot/commit/ca38235309c6228f0f2c289c08b4d0dfc18b9e1a))
+* **i18n:** `it/commands.slash.claim.name` ([e10d029](https://github.com/discord-tickets/bot/commit/e10d02913a88d5c1332518321303a0356a2046db))
+
+
+### Features
+
+* guild bans ([30cd541](https://github.com/discord-tickets/bot/commit/30cd5413c4d3154b3421ce92aeaa1cc02974552b))
+* **i18n:** update Czech translations ([39de69d](https://github.com/discord-tickets/bot/commit/39de69d81b0755bb6c1302de56127618aeb06de1))
+* **i18n:** update Dutch translations ([59bfdf8](https://github.com/discord-tickets/bot/commit/59bfdf882b9035d791097ba3ef6ceabfc64c8024))
+* **i18n:** update Italian translations ([3b97696](https://github.com/discord-tickets/bot/commit/3b97696bc585ae79a3a8cacf6a7a381eba6a44b5))
+* **i18n:** update Italian translations ([b22a44c](https://github.com/discord-tickets/bot/commit/b22a44ce1edb3f50e5e6110ea170178a8917e600))
+
+
+
 ## [4.0.22](https://github.com/discord-tickets/bot/compare/v4.0.21...v4.0.22) (2024-11-16)
 
 
