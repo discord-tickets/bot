@@ -1,3 +1,12 @@
+## [4.0.24](https://github.com/discord-tickets/bot/compare/v4.0.23...v4.0.24) (2024-12-20)
+
+
+### Bug Fixes
+
+* **docker:** use alpine 3.20 instead of 3.21 so prisma can find openssl ([addd5e8](https://github.com/discord-tickets/bot/commit/addd5e896c28597734199947c60b41854deece2d)), closes [/github.com/nodejs/docker-node/issues/2175#issuecomment-2530130523](https://github.com//github.com/nodejs/docker-node/issues/2175/issues/issuecomment-2530130523)
+
+
+
 ## [4.0.23](https://github.com/discord-tickets/bot/compare/v4.0.22...v4.0.23) (2024-12-20)
 
 
