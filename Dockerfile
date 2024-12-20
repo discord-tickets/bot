@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18-alpine AS builder
+FROM node:22-alpine3.20 AS builder
 WORKDIR /build
 # install python etc so node-gyp works for the optional dependencies
 RUN apk add --no-cache make gcc g++ python3
@@ -13,7 +13,7 @@ RUN chmod +x ./scripts/start.sh
 RUN CI=true pnpm install --prod --frozen-lockfile
 COPY --link . .
 
-FROM node:18-alpine AS runner
+FROM node:22-alpine3.20 AS runner
 RUN apk --no-cache add curl \
 	&& adduser --disabled-password --home /home/container container \
 	&& mkdir /app \
