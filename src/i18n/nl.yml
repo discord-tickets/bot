@@ -382,7 +382,7 @@ ticket:
         om het nu te sluiten, of op \"Afwijzen\" als je nog steeds hulp nodig hebt.\n"
     wait_for_user: ✋ Wacht tot de gebruiker reageert.
     user_request:
-      title: ❓ {requestedBy} wil dit ticket sluiten
+      title: ❓ {requestedBy} wilt dit ticket sluiten
     wait_for_staff: ✋ Wacht tot het personeel dit ticket sluit.
   closing_soon:
     description: "Dit ticket wordt gesloten wegens inactiviteit <t:{timestamp}:R>.\n
