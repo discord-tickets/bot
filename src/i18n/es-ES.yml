@@ -256,6 +256,9 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Liberar
+  transcript:
+    text: Transcripción
+    emoji: 📄
 ticket:
   working_hours:
     today:
