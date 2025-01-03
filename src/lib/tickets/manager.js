@@ -398,7 +398,7 @@ module.exports = class TicketManager {
 			permissionOverwrites: [
 				{
 					deny: ['ViewChannel'],
-					id: guild.roles.everyone,
+					id: guild.roles.everyone.id,
 				},
 				{
 					allow,
