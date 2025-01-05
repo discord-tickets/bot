@@ -1,3 +1,19 @@
+## [4.0.25](https://github.com/discord-tickets/bot/compare/v4.0.24...v4.0.25) (2025-01-05)
+
+
+### Bug Fixes
+
+* invalid role error on ticket creation? ([#572](https://github.com/discord-tickets/bot/issues/572)) ([5ccf58c](https://github.com/discord-tickets/bot/commit/5ccf58cd9896a0309007193b4518fe60ce5529d6))
+
+
+### Features
+
+* **i18n:** update Dutch translations ([aa8785d](https://github.com/discord-tickets/bot/commit/aa8785d13323a5db5780e84b29c0a8de7355615a))
+* **i18n:** update Italian translations ([d07f69d](https://github.com/discord-tickets/bot/commit/d07f69dfac15da689ecd7d5d131cbbd33f2d1fae))
+* **i18n:** update Spanish translations ([a2d11a5](https://github.com/discord-tickets/bot/commit/a2d11a5c30384e61fba7b5a29593eb16df2d67ac))
+
+
+
 ## [4.0.24](https://github.com/discord-tickets/bot/compare/v4.0.23...v4.0.24) (2024-12-20)
 
 
