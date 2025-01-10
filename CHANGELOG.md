@@ -1,3 +1,13 @@
+## [4.0.26](https://github.com/discord-tickets/bot/compare/v4.0.25...v4.0.26) (2025-01-10)
+
+
+### Features
+
+* **scripts:** data export and import scripts ([#575](https://github.com/discord-tickets/bot/issues/575)) ([03f3944](https://github.com/discord-tickets/bot/commit/03f3944d31ec69041d406e12151f9b3e1c8fe48a))
+* **scripts:** npm shortcuts for export and import ([9a2912d](https://github.com/discord-tickets/bot/commit/9a2912d0d3d328ebb685cd11dc780dd677c9b595))
+
+
+
 ## [4.0.25](https://github.com/discord-tickets/bot/compare/v4.0.24...v4.0.25) (2025-01-05)
 
 
