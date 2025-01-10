@@ -45,8 +45,6 @@ spinner.succeed('Connected');
 
 const dump = {};
 
-// TODO: decrypt
-
 spinner = ora('Exporting settings').start();
 dump.settings = await prisma.guild.findFirst({ where: { id: options.guild } });
 spinner.succeed('Exported settings');

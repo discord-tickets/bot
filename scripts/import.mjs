@@ -6,7 +6,6 @@ import ora from 'ora';
 import { PrismaClient } from '@prisma/client';
 import { createHash } from 'crypto';
 import Cryptr from 'cryptr';
-// import { inspect } from 'util';
 
 config();
 
@@ -108,7 +107,6 @@ for (const i in dump.tickets) {
 			return channel;
 		}),
 	};
-	// ticket.archivedChannels = undefined;
 
 	ticket.archivedUsers = {
 		create: ticket.archivedUsers.map(user => {
@@ -118,7 +116,6 @@ for (const i in dump.tickets) {
 			return user;
 		}),
 	};
-	// ticket.archivedUsers = undefined;
 
 	ticket.archivedRoles = {
 		create: ticket.archivedRoles.map(role => {
@@ -126,18 +123,8 @@ for (const i in dump.tickets) {
 			return role;
 		}),
 	};
-	// ticket.archivedRoles = undefined;
 
-	// ticket.archivedMessages = {
-	// 	create: ticket.archivedMessages.map(message => {
-	// 		delete message.ticketId;
-	// 		message.content = db_cryptr.encrypt(message.content);
-	// 		return message;
-	// 	}),
-	// };
 	const archivedMessages = ticket.archivedMessages.map(message => {
-		// delete message.ticketId;
-		// message.ticket = { connect: { id: ticket.id } };
 		message.content = db_cryptr.encrypt(message.content);
 		return message;
 	});
@@ -205,8 +192,6 @@ for (const i in dump.tickets) {
 	delete ticket.closedById;
 	delete ticket.createdById;
 	delete ticket.referencesTicketId;
-
-	// console.log(inspect(ticket, false, Infinity));
 
 	await prisma.ticket.create({ data: ticket });
 	await prisma.archivedMessage.createMany({ data: archivedMessages });
