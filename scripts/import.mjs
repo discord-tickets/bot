@@ -6,6 +6,7 @@ import ora from 'ora';
 import { PrismaClient } from '@prisma/client';
 import { createHash } from 'crypto';
 import Cryptr from 'cryptr';
+// import { inspect } from 'util';
 
 config();
 
@@ -22,7 +23,7 @@ const file_cryptr = new Cryptr(options.guild);
 const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
 
-const spinner = ora('Connecting').start();
+let spinner = ora('Connecting').start();
 
 const prisma_options = {};
 
@@ -41,12 +42,12 @@ if (process.env.DB_PROVIDER === 'sqlite') {
 
 spinner.succeed('Connected');
 
-spinner.text = 'Reading dump file';
+spinner = ora('Reading dump file').start();
 const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
 const dump = JSON.parse(file_cryptr.decrypt(await fse.promises.readFile(file_path, 'utf8')));
 spinner.succeed('Read dump file');
 
-spinner.text = 'Checking if guild exists';
+spinner = ora('Checking if guild exists').start();
 const exists = await prisma.guild.count({ where: { id: options.guild } });
 if (exists === 0) {
 	spinner.succeed('Guild doesn\'t exist');
@@ -60,82 +61,113 @@ if (exists === 0) {
 	}
 }
 
-spinner.text = 'Importing settings & tags';
+spinner = ora('Importing settings & tags').start();
 await prisma.guild.create({
 	data: {
 		...dump.settings,
-		tags: { create: dump.tags },
+		id: options.guild,
+		tags: {
+			create: dump.tags.map(tag => {
+				delete tag.guildId;
+				return tag;
+			}),
+		},
 	},
 });
 spinner.succeed(`Imported settings & ${dump.tags.length} tags`);
 
 const category_map = {};
-spinner.text = 'Importing categories';
+spinner = ora('Importing categories').start();
 for (const category of dump.categories) {
 	const original_id = category.id;
 	delete category.id;
+	delete category.guildId;
 	category.questions = { create: category.questions };
 	const { id: new_id } = await prisma.category.create({
 		data: {
 			...category,
 			guild: { connect: { id: options.guild } },
-			guildId: options.guild,
 		},
 	});
 	category_map[original_id] = new_id;
 }
 spinner.succeed(`Imported ${dump.categories.length} categories`);
 
-spinner.text = 'Importing users';
-for (const user of dump.users) {
-	await prisma.user.create({ data: user });
-}
-spinner.succeed(`Imported ${dump.users.length} users`);
+spinner = ora('Importing tickets').start();
+for (const i in dump.tickets) {
+	spinner.text = `Importing tickets (${i}/${dump.tickets.length})`;
+	const ticket = dump.tickets[i];
+	ticket.category = { connect: { id: category_map[ticket.categoryId] } };
 
-spinner.text = 'Importing tickets';
-
-for (const ticket of dump.tickets) {
-	ticket.categoryId = category_map[ticket.categoryId];
 	if (ticket.topic) ticket.topic = db_cryptr.encrypt(ticket.topic);
 
 	ticket.archivedChannels = {
 		create: ticket.archivedChannels.map(channel => {
+			delete channel.ticketId;
 			channel.name = db_cryptr.encrypt(channel.name);
 			return channel;
 		}),
 	};
-
-	ticket.archivedMessages = {
-		create: ticket.archivedMessages.map(message => {
-			message.content = db_cryptr.encrypt(message.content);
-			return message;
-		}),
-	};
+	// ticket.archivedChannels = undefined;
 
 	ticket.archivedUsers = {
 		create: ticket.archivedUsers.map(user => {
+			delete user.ticketId;
 			user.displayName = db_cryptr.encrypt(user.displayName);
 			user.username = db_cryptr.encrypt(user.username);
 			return user;
 		}),
 	};
+	// ticket.archivedUsers = undefined;
 
+	ticket.archivedRoles = {
+		create: ticket.archivedRoles.map(role => {
+			delete role.ticketId;
+			return role;
+		}),
+	};
+	// ticket.archivedRoles = undefined;
+
+	// ticket.archivedMessages = {
+	// 	create: ticket.archivedMessages.map(message => {
+	// 		delete message.ticketId;
+	// 		message.content = db_cryptr.encrypt(message.content);
+	// 		return message;
+	// 	}),
+	// };
+	const archivedMessages = ticket.archivedMessages.map(message => {
+		// delete message.ticketId;
+		// message.ticket = { connect: { id: ticket.id } };
+		message.content = db_cryptr.encrypt(message.content);
+		return message;
+	});
+	ticket.archivedMessages = undefined;
 
 	if (ticket.feedback) {
+		delete ticket.feedback.ticketId;
+		delete ticket.feedback.guildId;
+		ticket.feedback.guild = { connect: { id: options.guild } };
 		if (ticket.feedback.comment) {
 			ticket.feedback.comment = db_cryptr.encrypt(ticket.feedback.comment);
 		}
 		ticket.feedback = { create: ticket.feedback };
+	} else {
+		ticket.feedback = undefined;
 	}
 
-	ticket.questionAnswers = {
-		createMany: ticket.questionAnswers.map(answer => {
-			if (answer.value) answer.value = db_cryptr.encrypt(answer.value);
-			return answer;
-		}),
-	};
+	if (ticket.questionAnswers?.length) {
+		ticket.questionAnswers = {
+			createMany: ticket.questionAnswers.map(answer => {
+				delete answer.ticketId;
+				if (answer.value) answer.value = db_cryptr.encrypt(answer.value);
+				return answer;
+			}),
+		};
+	} else {
+		ticket.questionAnswers = undefined;
+	}
 
-	if (ticket.claimedBy) {
+	if (ticket.claimedById) {
 		ticket.claimedBy = {
 			connectOrCreate: {
 				create: { id: ticket.claimedById },
@@ -143,7 +175,7 @@ for (const ticket of dump.tickets) {
 			},
 		};
 	}
-	if (ticket.closedBy) {
+	if (ticket.closedById) {
 		ticket.closedBy = {
 			connectOrCreate: {
 				create: { id: ticket.closedById },
@@ -151,7 +183,7 @@ for (const ticket of dump.tickets) {
 			},
 		};
 	}
-	if (ticket.createdBy) {
+	if (ticket.createdById) {
 		ticket.createdBy = {
 			connectOrCreate: {
 				create: { id: ticket.createdById },
@@ -160,6 +192,23 @@ for (const ticket of dump.tickets) {
 		};
 	}
 
+
+
+	if (ticket.referencesTicketId) {
+		ticket.referencesTicket = { connect: { id: ticket.referencedTicketId } };
+	}
+	ticket.guild = { connect: { id: options.guild } };
+
+	delete ticket.categoryId;
+	delete ticket.guildId;
+	delete ticket.claimedById;
+	delete ticket.closedById;
+	delete ticket.createdById;
+	delete ticket.referencesTicketId;
+
+	// console.log(inspect(ticket, false, Infinity));
+
 	await prisma.ticket.create({ data: ticket });
+	await prisma.archivedMessage.createMany({ data: archivedMessages });
 }
 spinner.succeed(`Imported ${dump.tickets.length} tickets`);

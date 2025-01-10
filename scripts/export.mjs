@@ -17,13 +17,13 @@ program.parse();
 const options = program.opts();
 
 const hash = createHash('sha256').update(options.guild).digest('hex');
+const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
 const file_cryptr = new Cryptr(options.guild);
 const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
-
 fse.ensureDirSync(join(process.cwd(), './user/dumps'));
 
-const spinner = ora('Connecting').start();
+let spinner = ora('Connecting').start();
 
 const prisma_options = {};
 
@@ -47,22 +47,22 @@ const dump = {};
 
 // TODO: decrypt
 
-spinner.text = 'Exporting settings';
+spinner = ora('Exporting settings').start();
 dump.settings = await prisma.guild.findFirst({ where: { id: options.guild } });
 spinner.succeed('Exported settings');
 
-spinner.text = 'Exporting categories';
+spinner = ora('Exporting categories').start();
 dump.categories = await prisma.category.findMany({
 	include: { questions: true },
 	where: { guildId: options.guild },
 });
 spinner.succeed(`Exported ${dump.categories.length} categories`);
 
-spinner.text = 'Exporting tags';
+spinner = ora('Exporting tags').start();
 dump.tags = await prisma.tag.findMany({ where: { guildId: options.guild } });
 spinner.succeed(`Exported ${dump.tags.length} tags`);
 
-spinner.text = 'Exporting tickets';
+spinner = ora('Exporting tickets').start();
 dump.tickets = await prisma.ticket.findMany({
 	include: {
 		archivedChannels: true,
@@ -106,19 +106,7 @@ dump.tickets = dump.tickets.map(ticket => {
 });
 spinner.succeed(`Exported ${dump.tickets.length} tickets`);
 
-spinner.text = 'Exporting users';
-dump.users = await prisma.user.findMany({
-	where: {
-		ticketsClaimed: { some: { guildId: options.guild } },
-		ticketsClosed: { some: { guildId: options.guild } },
-		ticketsCreated: { some: { guildId: options.guild } },
-	},
-});
-spinner.succeed(`Exported ${dump.users.length} users`);
-
-const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
-
-spinner.text = `Writing to "${file_path}"`;
+spinner = ora(`Writing to "${file_path}"`).start();
 
 // async to not freeze the spinner
 await fse.promises.writeFile(file_path, file_cryptr.encrypt(JSON.stringify(dump)));
