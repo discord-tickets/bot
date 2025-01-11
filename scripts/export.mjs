@@ -21,6 +21,11 @@ const file_path = join(process.cwd(), './user/dumps', `${hash}.dump`);
 const file_cryptr = new Cryptr(options.guild);
 const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
+function decryptIfExists(encrypted) {
+	if (encrypted) return db_cryptr.decrypt(encrypted);
+	return null;
+}
+
 fse.ensureDirSync(join(process.cwd(), './user/dumps'));
 
 let spinner = ora('Connecting').start();
@@ -73,30 +78,30 @@ dump.tickets = await prisma.ticket.findMany({
 	where: { guildId: options.guild },
 });
 dump.tickets = dump.tickets.map(ticket => {
-	if (ticket.topic) ticket.topic = db_cryptr.decrypt(ticket.topic);
+	if (ticket.topic) ticket.topic = decryptIfExists(ticket.topic);
 
 	ticket.archivedChannels = ticket.archivedChannels.map(channel => {
-		channel.name = db_cryptr.decrypt(channel.name);
+		channel.name = decryptIfExists(channel.name);
 		return channel;
 	});
 
 	ticket.archivedMessages = ticket.archivedMessages.map(message => {
-		message.content = db_cryptr.decrypt(message.content);
+		message.content = decryptIfExists(message.content);
 		return message;
 	});
 
 	ticket.archivedUsers = ticket.archivedUsers.map(user => {
-		user.displayName = db_cryptr.decrypt(user.displayName);
-		user.username = db_cryptr.decrypt(user.username);
+		user.displayName = decryptIfExists(user.displayName);
+		user.username = decryptIfExists(user.username);
 		return user;
 	});
 
 	if (ticket.feedback?.comment) {
-		ticket.feedback.comment = db_cryptr.decrypt(ticket.feedback.comment);
+		ticket.feedback.comment = decryptIfExists(ticket.feedback.comment);
 	}
 
 	ticket.questionAnswers = ticket.questionAnswers.map(answer => {
-		if (answer.value) answer.value = db_cryptr.decrypt(answer.value);
+		if (answer.value) answer.value = decryptIfExists(answer.value);
 		return answer;
 	});
 

@@ -21,6 +21,10 @@ const hash = createHash('sha256').update(options.guild).digest('hex');
 const file_cryptr = new Cryptr(options.guild);
 const db_cryptr = new Cryptr(process.env.ENCRYPTION_KEY);
 
+function encryptIfExists(plain_text) {
+	if (plain_text) return db_cryptr.encrypt(plain_text);
+	return null;
+}
 
 let spinner = ora('Connecting').start();
 
@@ -98,12 +102,12 @@ for (const i in dump.tickets) {
 	const ticket = dump.tickets[i];
 	ticket.category = { connect: { id: category_map[ticket.categoryId] } };
 
-	if (ticket.topic) ticket.topic = db_cryptr.encrypt(ticket.topic);
+	if (ticket.topic) ticket.topic = encryptIfExists(ticket.topic);
 
 	ticket.archivedChannels = {
 		create: ticket.archivedChannels.map(channel => {
 			delete channel.ticketId;
-			channel.name = db_cryptr.encrypt(channel.name);
+			channel.name = encryptIfExists(channel.name);
 			return channel;
 		}),
 	};
@@ -111,8 +115,8 @@ for (const i in dump.tickets) {
 	ticket.archivedUsers = {
 		create: ticket.archivedUsers.map(user => {
 			delete user.ticketId;
-			user.displayName = db_cryptr.encrypt(user.displayName);
-			user.username = db_cryptr.encrypt(user.username);
+			user.displayName = encryptIfExists(user.displayName);
+			user.username = encryptIfExists(user.username);
 			return user;
 		}),
 	};
@@ -125,7 +129,7 @@ for (const i in dump.tickets) {
 	};
 
 	const archivedMessages = ticket.archivedMessages.map(message => {
-		message.content = db_cryptr.encrypt(message.content);
+		message.content = encryptIfExists(message.content);
 		return message;
 	});
 	ticket.archivedMessages = undefined;
@@ -135,7 +139,7 @@ for (const i in dump.tickets) {
 		delete ticket.feedback.guildId;
 		ticket.feedback.guild = { connect: { id: options.guild } };
 		if (ticket.feedback.comment) {
-			ticket.feedback.comment = db_cryptr.encrypt(ticket.feedback.comment);
+			ticket.feedback.comment = encryptIfExists(ticket.feedback.comment);
 		}
 		ticket.feedback = { create: ticket.feedback };
 	} else {
@@ -146,7 +150,7 @@ for (const i in dump.tickets) {
 		ticket.questionAnswers = {
 			createMany: ticket.questionAnswers.map(answer => {
 				delete answer.ticketId;
-				if (answer.value) answer.value = db_cryptr.encrypt(answer.value);
+				if (answer.value) answer.value = encryptIfExists(answer.value);
 				return answer;
 			}),
 		};
