@@ -35,6 +35,9 @@ importers:
       boxen:
         specifier: ^7.1.1
         version: 7.1.1
+      commander:
+        specifier: ^12.1.0
+        version: 12.1.0
       cryptr:
         specifier: ^6.3.0
         version: 6.3.0
@@ -77,6 +80,9 @@ importers:
       object-diffy:
         specifier: ^1.0.4
         version: 1.0.4
+      ora:
+        specifier: ^8.1.1
+        version: 8.1.1
       prisma:
         specifier: ^4.16.2
         version: 4.16.2
@@ -118,9 +124,6 @@ importers:
       all-contributors-cli:
         specifier: ^6.26.1
         version: 6.26.1
-      commander:
-        specifier: ^12.1.0
-        version: 12.1.0
       conventional-changelog-cli:
         specifier: ^2.2.2
         version: 2.2.2
@@ -142,9 +145,6 @@ importers:
       nodemon:
         specifier: ^2.0.22
         version: 2.0.22
-      ora:
-        specifier: ^8.1.1
-        version: 8.1.1
 
 packages:
 
