@@ -1,3 +1,13 @@
+## [4.0.27](https://github.com/discord-tickets/bot/compare/v4.0.26...v4.0.27) (2025-01-13)
+
+
+### Bug Fixes
+
+* **scripts:** dependencies shouldn't be dev-only ([45f21f5](https://github.com/discord-tickets/bot/commit/45f21f5da9de179a6d9b13ccc46663b7fc28227c))
+* **scripts:** don't encrypt/decrypt missing values ([87b9974](https://github.com/discord-tickets/bot/commit/87b9974dbdbabcb7939a224e6b1a6f20de231af8))
+
+
+
 ## [4.0.26](https://github.com/discord-tickets/bot/compare/v4.0.25...v4.0.26) (2025-01-10)
 
 
