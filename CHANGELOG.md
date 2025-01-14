@@ -1,3 +1,13 @@
+## [4.0.28](https://github.com/discord-tickets/bot/compare/v4.0.27...v4.0.28) (2025-01-14)
+
+
+### Features
+
+* **api:** reorderable categories in panels ([5ffd189](https://github.com/discord-tickets/bot/commit/5ffd18961b1342d546da3b1c278569004a36c54b))
+* portal `v2.4.0` ([b756df0](https://github.com/discord-tickets/bot/commit/b756df0c3b6551df01d9142c273b2b264443369e))
+
+
+
 ## [4.0.27](https://github.com/discord-tickets/bot/compare/v4.0.26...v4.0.27) (2025-01-13)
 
 
