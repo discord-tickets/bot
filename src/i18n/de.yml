@@ -366,9 +366,9 @@ misc:
     fields:
       for_admins:
         name: Für Serveradministrators
-        value: "Es wurde ein ungültiger Benutzer oder eine ungültige Rolle bereitgestellt,
-          was normalerweise bedeutet, dass eine Teammitgliederrolle gelöscht wurde.
-          [Klicke hier]({URL}) für Anweisungen zur Lösung.\n"
+        value: "Ein ungültiger Benutzer oder eine ungültige Rolle wurde angegeben,
+          was normalerweise bedeutet, dass eine Teamrolle gelöscht wurde. [Klicken
+          Sie hier]({url}) für Anweisungen zur Lösung.\n"
     title: ⚠️ Etwas ist schief gelaufen
 modals:
   feedback:
