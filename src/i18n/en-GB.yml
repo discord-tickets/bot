@@ -162,9 +162,9 @@ commands:
       options:
         priority:
           choices:
-            HIGH: 🔴 High
-            LOW: 🟢 Low
-            MEDIUM: 🟠 Medium
+            HIGH: 🟥 High
+            LOW: 🟩 Low
+            MEDIUM: 🟨 Medium
           description: The priority of the ticket
           name: priority
       success:

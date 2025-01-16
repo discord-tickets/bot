@@ -6,9 +6,9 @@ const { isStaff } = require('../../lib/users');
 
 const getEmoji = priority => {
 	const emojis = {
-		'HIGH': '🔴',
-		'MEDIUM': '🟠',
-		'LOW': '🟢', // eslint-disable-line sort-keys
+		'HIGH': '🟥',
+		'MEDIUM': '🟨',
+		'LOW': '🟩', // eslint-disable-line sort-keys
 	};
 	return emojis[priority];
 };
