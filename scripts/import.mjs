@@ -85,7 +85,12 @@ for (const category of dump.categories) {
 	const original_id = category.id;
 	delete category.id;
 	delete category.guildId;
-	category.questions = { create: category.questions };
+	category.questions = {
+		create: category.questions.map(question => {
+			delete question.categoryId;
+			return question;
+		}),
+	};
 	const { id: new_id } = await prisma.category.create({
 		data: {
 			...category,
