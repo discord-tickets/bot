@@ -1,1 +1,450 @@
-{}
+buttons:
+  confirm_open:
+    text: Sukurti bilietą
+    emoji: ✅
+  create:
+    emoji: 🎫
+    text: Sukurti bilietą
+  reject_close_request:
+    text: Atmesti
+    emoji: ✖️
+  accept_close_request:
+    emoji: ✅
+    text: Priimti
+  edit:
+    text: Redaguoti
+    emoji: ✏️
+  claim:
+    text: Apsiimti
+    emoji: 🙌
+  cancel:
+    emoji: ➖
+    text: Atšaukti
+  close:
+    emoji: ✖️
+    text: Uždaryti
+  transcript:
+    text: Įrašas
+    emoji: 📄
+  unclaim:
+    emoji: ♻️
+    text: Nebeapsiimti
+commands:
+  message:
+    pin:
+      not_pinnable:
+        title: ❌ Klaida
+        description: "Ši žinutė negali būti prisegta.\nPaprašykite administratoriaus
+          patikrinti roboto leidimus.\n"
+      name: Prisegti žinutę
+      not_ticket:
+        title: ❌ Šis kanalas nėra bilietas
+        description: Prisegti žinutes galite tik bilietų kanaluose.
+      pinned:
+        description: Žinutė buvo prisegta.
+        title: ✅ Prisegėte žinutę
+    create:
+      name: Sukurti bilietą iš žinutės
+  slash:
+    remove:
+      success:
+        description: '{member} buvo pašalintas iš {ticket}.'
+        title: ✅ Pašalintas
+      name: pašalinti
+      not_staff:
+        title: ❌ Klaida
+        description: Tik komandos nariai gali pašalinti narius iš bilietų.
+      options:
+        member:
+          name: narys
+          description: Narys, kurį norite pašalinti iš bilieto
+        ticket:
+          description: Bilietas, iš kurio norite pašalinti narį
+          name: bilietas
+      removed: ⬅️ {by} pašalino {removed} iš bilieto.
+      description: Pašalinti narį iš bilieto
+    add:
+      not_staff:
+        title: ❌ Klaida
+        description: Tik komandos nariai gali pridėti narius prie bilietų.
+      description: Pridėti narį prie bilieto
+      name: add
+      options:
+        member:
+          description: Narys, kurį norite pridėti prie bilieto
+          name: narys
+        ticket:
+          name: bilietas
+          description: Bilietas, prie kurio norite pridėti narį
+      success:
+        description: '{member} buvo pridėtas prie bilieto {ticket}.'
+        title: ✅ Pridėta
+      added: ➡️ {by} pridėjo narį {added} .
+    priority:
+      not_staff:
+        title: ❌ Klaida
+        description: Tik komandos nariai gali pakeisti bilieto prioritetą.
+      success:
+        description: Bilieto prioritetas buvo nustatytas į `{priority}`.
+        title: ✅ Prioritetas nustatytas
+      name: prioritetas
+      options:
+        priority:
+          choices:
+            LOW: 🟢 Žemas
+            MEDIUM: 🟠 Vidutinis
+            HIGH: 🔴 Aukštas
+          description: Bilieto prioritetas
+          name: prioritetas
+      description: Nustatyti bilieto prioritetą
+    close:
+      name: uždaryti
+      description: Prašyti uždaryti bilietą
+      invalid_time:
+        description: '`{input}` nėra tinkamas laiko formatas.'
+        title: ❌ Neteisingas
+      options:
+        reason:
+          description: Bilieto uždarymo priežastis
+          name: priežastis
+    release:
+      name: nebeapsiimti
+      description: Nebeapsiimti bilietu
+    tag:
+      options:
+        tag:
+          name: žymė
+          description: Žymės, kurią norite pritaikyti pavadinimas
+        for:
+          description: Narys, kuriam norite pritaikyti žymę
+          name: kam
+      description: Naudoti žymę
+      name: žymė
+    tickets:
+      response:
+        title:
+          own: Jūsų bilietai
+          other: '{displayName} sukurti bilietai'
+        fields:
+          closed:
+            name: Uždaryti bilietai
+            none:
+              other: '{user} nėra sukūręs bilietų.'
+              own: "Jūs nesate sukūrę jokių bilietų.\nNaudokite {new}, kad atidarytumėte
+                bilietą.\n"
+          open:
+            name: Atidaryti bilietus
+        description: Naudokite {transcript}, kad parsisiųstumėte bilieto įrašą.
+      description: Peržiūrėkite savo arba kažkieno kito kurtus bilietus
+      name: bilietai
+      not_staff:
+        description: Tik komandos nariai gali žiūrėti kitų bilietus.
+        title: ❌ Klaida
+      options:
+        member:
+          name: narys
+          description: Narys, kurio bilietus norite peržiūrėti
+    force-close:
+      confirm_multiple:
+        description: "Ketinate uždaryti **{count}** bilietus, kurie buvo neaktyvūs
+          ilgiau, nei `{time}`:\n{tickets}\n"
+        title: ❓Ar tikrai?
+      closed_one:
+        description: Bilietas bus ištrintas už kelių sekundžių.
+        title: ✅ Bilietas uždarytas
+      confirmed_multiple:
+        description: Bilietai bus ištrinti už kelių sekundžių.
+        title:
+        - ✅ Uždaromas %d bilietas
+        - ✅ Uždaroma %d bilietų
+      name: priverstinai-uždaryti
+      no_tickets:
+        description: Nėra atidarytų bilietų, kurie buvo neaktyvūs ilgiau nei`{time}`.
+        title: ❌ Nėra bilietų
+      not_staff:
+        description: Tik komandos nariai gali priverstinai uždaryti bilietus.
+        title: ❌ Klaida
+      options:
+        category:
+          name: kategorija
+          description: Uždaryti visus nurodytos kategorijos bilietus (turi būti naudojami
+            su `time`)
+        reason:
+          description: Bilietų uždarymo priežastis
+          name: priežastis
+        ticket:
+          description: Bilietas, kurį norite uždaryti
+          name: bilietas
+        time:
+          description: Uždaryti visus bilietus, kurie buvo neaktyvūs nurodytą laiką
+          name: laikas
+      description: Priverstinai uždaryti bilietą
+    claim:
+      not_staff:
+        description: Tik komandos nariai gali apsiimti bilietais.
+        title: ❌ Klaida
+      description: Apsiimti bilietu
+      name: apsiimti
+    help:
+      description: Rodyti pagalbos meniu
+      name: help
+      response:
+        commands: Komandos
+        description: '**Naudokite {command} , kad sukurtumėte bilietą ir gautumėte
+          pagalbos.**'
+        links:
+          commands: Pilnas komandų sąrašas
+          docs: Dokumentacija
+          links: Naudingos nuorodos
+          support: Pagalba
+          feedback: Atsiliepimai
+        settings: Boto nustatymai
+      title: Pagalba
+    move:
+      description: Perkelti bilietą į kitą kategoriją
+      moved: 🗃️ {by} perkėlė bilietą iš **{from}** kategorijos į **{to}**.
+      not_staff:
+        title: ❌ Klaida
+        description: Tik komandos nariai gali perkelti bilietus.
+      options:
+        category:
+          description: Kategorija, į kurią norite perkelti bilietą
+          name: kategorija
+      name: perkelti
+    new:
+      name: naujas
+      options:
+        references:
+          description: Susijusio bilieto numeris
+          name: nuorodos
+      description: Sukurti naują bilietą
+    topic:
+      description: Pakeisti bilieto temą
+      name: tema
+    transcript:
+      name: įrašas
+      not_staff:
+        description: Tik komandos nariai gali skaityti kitų narių bilietų įrašus.
+        title: ❌ Klaida
+      options:
+        member:
+          description: Narys, kurio bilietus norite atsidaryti
+          name: narys
+        ticket:
+          name: bilietas
+          description: Bilietas, kurio įrašą norite gauti
+      description: Gauti bilieto įrašą
+    transfer:
+      description: Perduoti bilieto nuosavybę kitam nariui
+      name: perduoti
+      options:
+        member:
+          description: Narys, kuriam norite perduoti bilieto nuosavybę
+          name: narys
+      transferred: 📨 {user} perdavė bilieto nuosavybę nariui {to}.
+      transferred_from: 📨 {user} perdavė bilieto nuosavybę iš {from} nariui {to}.
+  user:
+    create:
+      name: Sukurti bilietą nariui
+      not_staff:
+        description: Tik komandos nariai gali atidaryti bilietus kitiems nariams.
+        title: ❌ Klaida
+      prompt:
+        description: Spustelkite mygtuką apačioje, kad sukurtumėte bilietą.
+        title: Sukurkite bilietą
+      sent:
+        title: ✅ Pakvietimas išsiųstas
+        description: '{user} buvo pakviestas sukurti bilietą kategorijoje **{category}**.'
+misc:
+  member_limit:
+    description:
+    - Prieš kurdami kitą, naudokite esamą bilietą arba uždarykite jį.
+    - "Prašome uždaryti bilietą, prieš kuriant naują.\nNaudokite `/bilietai`, kad
+      peržiūrėtumėte savo atidarytus bilietus.\n"
+    title:
+    - ❌ Jūs jau turite atidarytą bilietą
+    - ❌ Jūs jau turite %d atidarytus bilietus
+  role_error:
+    fields:
+      for_admins:
+        value: "Pateiktas netinkamas naudotojas arba rolė, o tai paprastai reiškia,
+          kad komandos rolė buvo ištrinta. [Spustelėkite čia]({url}), kad gautumėte
+          sprendimo instrukcijas.\n"
+        name: Serverio administratoriams
+    title: ⚠️ Įvyko klaida
+    description: Atsiprašome, operacija nepavyko dėl netinkamos konfigūracijos.
+  cooldown:
+    description: Prašome palaukti {time} prieš kuriant naują bilietą šioje kategorijoje.
+    title: ❌ Prašome palaukti
+  blocked:
+    description: Jūs negalite kurti bilietų.
+    title: ❌ Užblokuotas
+  category_full:
+    title: ❌ Kategorija pilna
+    description: "Kategorija pasiekė didžiausią leidžiamą bilietų kiekį.\nPrašome
+      bandyti vėliau.\n"
+  error:
+    description: "Atsiprašome, įvyko nenumatyta klaida.\nPrašome perduoti šią informaciją
+      administratoriui.\n"
+    fields:
+      identifier: Identifikacija
+    title: ⚠️ Klaida
+  expired:
+    description: Jūs neatsakėte laiku. Bandykite dar kartą.
+    title: ⏰Baigė galioti
+  expires_in: Baigs galioti {time}
+  invalid_ticket:
+    description: Prašome nurodyti tinkamą bilietą.
+    title: ❌ Netinkamas bilietas
+  missing_roles:
+    description: Neturite reikiamos rolės, kad galėtumėte sukurti bilietą šioje kategorijoje.
+    title: ❌ Trūksta rolės
+  no_categories:
+    description: "Nėra sukonfigūruotos bilietų kategorijos.\nKonfigūruokite serverį
+      adresu {url}."
+    title: ❌ Nėra bilietų kategorijų
+  not_ticket:
+    description: Šią komandą galite naudoti tik bilietuose.
+    title: ❌ Tai nėra bilietų kanalas
+  ratelimited:
+    description: Bandykite dar kartą po kelių sekundžių.
+    title: 🐢 Prašome lėčiau
+  unknown_category:
+    description: Pabandykite kitą kategoriją.
+    title: ❌ Ta bilietų kategorija neegzistuoja
+  update:
+    description: "> [Žiūrėti `{version}` GitHub'e]({github})\n> [Pakeitimų žurnalas]({changelog})\n
+      > [Atnaujinimo gidas]({guide})\n"
+    title: Galimas atnaujinimas
+log:
+  admin:
+    description:
+      target:
+        category: kategoriją
+        panel: skydelį
+        settings: nustatymus
+        tag: žymę
+        question: klausimą
+      joined: '{user} {verb} {targetType}'
+    changes: Pakeitimai
+    title:
+      joined: '{targetType} {verb}'
+      target:
+        panel: Skydelis
+        question: Klausimas
+        settings: Nustatymai
+        tag: Žymė
+        category: Kategorija
+    verb:
+      create: sukurta
+      delete: ištrinta
+      update: atnaujinta
+  ticket:
+    verb:
+      update: atnaujintas
+      claim: apsiimtas
+      create: sukurtas
+      unclaim: nebeapsiimtas
+      close: uždarytas
+    added: Pridėti nariai
+    description: '{user} {verb} bilietą'
+    removed: Pašalino narius
+    ticket: Bilietas
+    title: Bilietas {verb}
+  message:
+    description: '{user} {verb} žinutę'
+    message: Žinutė
+    title: Žinutė {verb}
+    verb:
+      delete: ištrinta
+      update: atnaujinta
+ticket:
+  close:
+    closed:
+      description: Šis bilietas bus ištrintas po kelių sekundžių…
+      title: ✅ Bilietas uždarytas
+    forbidden:
+      description: Neturite leidimo uždaryti šio bilieto.
+      title: ❌ Klaida
+    rejected: ✋ {user} atmetė prašymą uždaryti bilietą.
+    staff_request:
+      title: ❓Ar šis bilietas gali būti uždarytas?
+      description: "{requestedBy} nori uždaryti bilietą.\nSpauskite \"Priimti\", kad
+        uždaryti dabar arba \"Atmesti\", jeigu jums reikalinga pagalba.\n"
+      archived: "\nŠiame kanale esantys pranešimai bus suarchyvuoti, kad būtų galima
+        pasinaudoti ateityje.\n"
+    user_request:
+      title: ❓ {requestedBy} nori uždaryti šį bilietą
+    wait_for_staff: ✋ Prašome palaukti, kol komanda uždarys šį bilietą.
+    wait_for_user: ✋ Prašome palaukti, kol narys atsakys.
+  inactive:
+    description: "Šiame kanale nebuvo jokio aktyvumo nuo <t:{timestamp}:R>.\nPrašome
+      tęsti pokalbį arba {close} bilietą.\n"
+    title: ⏰ Šis bilietas neaktyvus
+  answers:
+    no_value: '*Jokio atsakymo*'
+  closing_soon:
+    description: "Šis bilietas bus uždarytas dėl neaktyvumo <t:{timestamp}:R>.\nIšsiųskite
+      žinutę, kad atšauktumėte ištrinimą.\n"
+    title: ⌛ Šis bilietas netrukus bus uždarytas
+  created:
+    description: 'Jūsų bilietas sukurtas: {channel}.'
+    title: ✅ Bilietas sukurtas
+  edited:
+    description: Jūsų pakeitimai buvo išsaugoti.
+    title: ✅ Bilietas atnaujintas
+  feedback: Dėkojame už atsiliepimą.
+  offline:
+    description: Šiuo metu nėra laisvų komandos narių, todėl atsakymo gavimas gali
+      užtrukti ilgiau nei įprastai.
+    title: 😴 Mes ilsimės
+  opening_message:
+    content: "{staff}\n{creator} sukūrė naują bilietą\n"
+    fields:
+      topic: Tema
+  references_message:
+    title: ℹ️ Nuoroda
+    description: Nuorodos [a message]({url}) išsiųstas {timestamp} nario {author}.
+  references_ticket:
+    description: 'Šis bilietas yra susijęs su ankstesniu bilietu:'
+    fields:
+      date: Sukurta
+      number: Numeris
+      topic: Tema
+    title: ℹ️ Nuoroda
+  claimed: 🙌 {user} apsiėmė bilietu.
+dm:
+  closed:
+    archived: Naudokite `/įrašas` komandą **{guild}** serveryje, kad peržiūrėtumėte
+      išsaugotus bilietus.
+    fields:
+      closed:
+        name: Uždaryta
+        value: '{timestamp} (už {duration})'
+      closed_by: Uždarė
+      created: Sukurta
+      feedback: Jūsų atsiliepimas
+      reason: Uždarymo priežastis
+      response: Atsakymo laikas
+      ticket: Bilietas
+      topic: Tema
+    title: Jūsų bilietas buvo uždarytas
+  confirm_open:
+    title: Ar norite atidaryti bilietą šia tema?
+menus:
+  category:
+    placeholder: Pasirinkite bilieto kategoriją
+  guild:
+    placeholder: Pasirinkite serverį
+modals:
+  feedback:
+    comment:
+      label: Komentuoti
+      placeholder: Ar turite papildomų atsiliepimų?
+    rating:
+      label: Vertinimas
+      placeholder: 1-5
+    title: Kaip mums sekėsi?
+  topic:
+    label: Tema
+    placeholder: Apie ką šis bilietas?
