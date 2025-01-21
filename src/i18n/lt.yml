@@ -68,7 +68,7 @@ commands:
         title: ❌ Klaida
         description: Tik komandos nariai gali pridėti narius prie bilietų.
       description: Pridėti narį prie bilieto
-      name: add
+      name: pridėti
       options:
         member:
           description: Narys, kurį norite pridėti prie bilieto
@@ -413,6 +413,16 @@ ticket:
       topic: Tema
     title: ℹ️ Nuoroda
   claimed: 🙌 {user} apsiėmė bilietu.
+  released: ♻️ {user} nebeapsiima šiuo bilietu.
+  working_hours:
+    next:
+      title: 🕗 Šiuo metu nedirbame
+      description: Grįšime <t:{timestamp}:F> (<t:{timestamp}:R>), nors atsakymą galite
+        gauti ir anksčiau.
+    today:
+      description: Galite gauti atsakymą anksčiau, bet mes nepradėsime dirbti iki
+        <t:{timestamp}:t> šiandienos (<t:{timestamp}:R>).
+      title: 🕗 Šiuo metu nedirbame
 dm:
   closed:
     archived: Naudokite `/įrašas` komandą **{guild}** serveryje, kad peržiūrėtumėte
