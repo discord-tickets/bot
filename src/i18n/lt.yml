@@ -259,8 +259,8 @@ misc:
   member_limit:
     description:
     - Prieš kurdami kitą, naudokite esamą bilietą arba uždarykite jį.
-    - "Prašome uždaryti bilietą, prieš kuriant naują.\nNaudokite `/bilietai`, kad
-      peržiūrėtumėte savo atidarytus bilietus.\n"
+    - "Prašome uždaryti bilietą, prieš kuriant naują.\nNaudokite `/tickets`, kad peržiūrėtumėte
+      savo atidarytus bilietus.\n"
     title:
     - ❌ Jūs jau turite atidarytą bilietą
     - ❌ Jūs jau turite %d atidarytus bilietus
@@ -425,7 +425,7 @@ ticket:
       title: 🕗 Šiuo metu nedirbame
 dm:
   closed:
-    archived: Naudokite `/įrašas` komandą **{guild}** serveryje, kad peržiūrėtumėte
+    archived: Naudokite `/transcript` komandą **{guild}** serveryje, kad peržiūrėtumėte
       išsaugotus bilietus.
     fields:
       closed:
