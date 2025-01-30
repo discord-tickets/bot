@@ -62,6 +62,16 @@ const logger = require('./lib/logger');
 let config = YAML.parse(fs.readFileSync(path.join(__dirname, 'user/config.yml'), 'utf8'));
 let log = logger(config);
 
+function exit(signal) {
+	log.notice(`Received ${signal}`);
+	client.destroy();
+	process.exit(0);
+}
+
+process.on('SIGTERM', () => exit('SIGTERM'));
+
+process.on('SIGINT', () => exit('SIGINT'));
+
 process.on('uncaughtException', (error, origin) => {
 	log.notice(`Discord Tickets v${pkg.version} on Node.js ${process.version} (${process.platform})`);
 	log.warn(origin === 'uncaughtException' ? 'Uncaught exception' : 'Unhandled promise rejection' + ` (${error.name})`);
