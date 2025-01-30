@@ -48,7 +48,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "^2.4.0",
+		"@discord-tickets/settings": "^2.4.1",
 		"@eartharoid/dbf": "^0.4.2",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -59,9 +59,9 @@
 		"boxen": "^7.1.1",
 		"commander": "^12.1.0",
 		"cryptr": "^6.3.0",
-		"discord.js": "^14.16.3",
-		"dotenv": "^16.4.5",
-		"fastify": "^4.28.1",
+		"discord.js": "^14.17.3",
+		"dotenv": "^16.4.7",
+		"fastify": "^4.29.0",
 		"figlet": "^1.8.0",
 		"fs-extra": "^10.1.0",
 		"keyv": "^4.5.4",
@@ -74,11 +74,11 @@
 		"object-diffy": "^1.0.4",
 		"ora": "^8.1.1",
 		"prisma": "^4.16.2",
-		"semver": "^7.6.3",
+		"semver": "^7.7.0",
 		"short-unique-id": "^4.4.4",
-		"spacetime": "^7.6.2",
+		"spacetime": "^7.7.0",
 		"terminal-link": "^2.1.1",
-		"yaml": "^2.6.0"
+		"yaml": "^2.7.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
@@ -93,7 +93,7 @@
 		"nodemon": "^2.0.22"
 	},
 	"optionalDependencies": {
-		"bufferutil": "^4.0.8",
+		"bufferutil": "^4.0.9",
 		"erlpack": "github:discord/erlpack",
 		"utf-8-validate": "^5.0.10",
 		"zlib-sync": "^0.1.9"
