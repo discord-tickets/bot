@@ -290,7 +290,7 @@ log:
     title: Nachricht {verb}
   ticket:
     title: Ticket {verb}
-    description: '{user} {verb} ein Ticket'
+    description: '{user} hat ein Ticket {verb}'
     ticket: Ticket
     verb:
       claim: übernommen
