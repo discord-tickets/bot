@@ -1,10 +1,33 @@
 /* eslint-disable no-underscore-dangle */
+const { logAdminEvent } = require('../../../../../lib/logging.js');
 const { iconURL } = require('../../../../../lib/misc');
 const {
 	getAvgResolutionTime,
 	getAvgResponseTime,
 } = require('../../../../../lib/stats');
 const ms = require('ms');
+
+module.exports.delete = fastify => ({
+	handler: async req => {
+		/** @type {import('client')} */
+		const client = req.routeOptions.config.client;
+		const id = req.params.guild;
+		await client.prisma.guild.delete({ where: { id } });
+		await client.prisma.guild.create({ data: { id } });
+		logAdminEvent(client, {
+			action: 'delete',
+			guildId: id,
+			target: {
+				id,
+				name: client.guilds.cache.get(id),
+				type: 'settings',
+			},
+			userId: req.user.id,
+		});
+		return true;
+	},
+	onRequest: [fastify.authenticate, fastify.isAdmin],
+});
 
 module.exports.get = fastify => ({
 	handler: async req => {
