@@ -45,6 +45,7 @@ module.exports = class extends Listener {
 				.catch(client.log.error);
 		}
 
+		await client.application.fetch();
 		if (process.env.PUBLIC_BOT === 'true' && !client.application.botPublic) {
 			client.log.warn('The `PUBLIC_BOT` environment variable is set to `true`, but the bot is not public.');
 		} else if (process.env.PUBLIC_BOT === 'false' && client.application.botPublic) {

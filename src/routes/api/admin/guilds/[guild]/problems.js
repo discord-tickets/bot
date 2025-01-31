@@ -26,6 +26,10 @@ module.exports.get = fastify => ({
 					permission: 'EmbedLinks',
 				});
 			}
+
+			if (process.env.PUBLIC_BOT === 'false' && client.application.botPublic) {
+				problems.push({ id: 'botPublic' });
+			}
 		}
 
 		return problems;
