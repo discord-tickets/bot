@@ -452,12 +452,12 @@ ticket:
   released: ♻️ {user} has released this ticket.
   working_hours:
     next:
-      description: |
+      description: |-
         Şu an çalışma saatleri dışındayız. Her ne kadar cevap alabilecek olsanız da bunu garanti edemiyoruz.
         Başlangıç tarihi: <t:{timestamp}:F> (<t:{timestamp}:R>)
       title: 🕗 Şu an mesai saatleri dışındayız
     today:
-      description: |
+      description: |-
         Şu an çalışma saatleri dışındayız. Her ne kadar cevap alabilecek olsanız da bunu garanti edemiyoruz.
         Başlangıç saati: Bugün <t:{timestamp}:t> (<t:{timestamp}:R>).
       title: 🕗 Şu an mesai saatleri dışındayız
