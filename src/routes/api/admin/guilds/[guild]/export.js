@@ -1,15 +1,15 @@
-const { Readable } = require('node:stream');
-const { cpus } = require('node:os');
 const {
 	spawn,
 	Pool,
 	Worker,
 } = require('threads');
+const { Readable } = require('node:stream');
+const { cpus } = require('node:os');
 const archiver = require('archiver');
-const { once } = require('node:events');
 
 // ! ceiL: at least 1
 const poolSize = Math.ceil(cpus().length / 4);
+const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/export.js')), { size: poolSize });
 
 module.exports.get = fastify => ({
 	/**
@@ -47,7 +47,6 @@ module.exports.get = fastify => ({
 		const ticketsStream = Readable.from(ticketsGenerator());
 
 		async function* ticketsGenerator() {
-			const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/export.js')), { size: poolSize });
 			try {
 				let done = false;
 				const findOptions = {
@@ -71,19 +70,13 @@ module.exports.get = fastify => ({
 						findOptions.skip = 1;
 						findOptions.cursor = { id: batch[findOptions.take - 1].id };
 					}
-					// ! map not for...of.
-					// ! ! batch at a time, many tickets at a time per batch
-					const ar = await Promise.all(batch.map(async ticket => (await pool.queue(worker => worker.exportTicket(ticket)) + '\n')));
-
-					yield* ar;
+					// ! map (parallel) not for...of (serial)
+					yield* batch.map(async ticket => (await pool.queue(worker => worker.exportTicket(ticket)) + '\n'));
 				} while (!done);
 			} finally {
-				await pool.terminate();
 				ticketsStream.push(null); // ! extremely important
 			}
 		}
-
-
 
 		const archive = archiver('zip', {
 			comment: JSON.stringify({
@@ -93,18 +86,15 @@ module.exports.get = fastify => ({
 		})
 			.append(JSON.stringify(settings), { name: 'settings.json' })
 			.append(ticketsStream, { name: 'tickets.jsonl' });
+		archive.finalize();
 
 		const cleanGuildName = guild.name.replace(/\W/g, '_').replace(/_+/g, '_');
 		const fileName = `tickets-${cleanGuildName}-${new Date().toISOString().slice(0, 10)}`;
-
 
 		res
 			.type('application/zip')
 			.header('content-disposition', `attachment; filename="${fileName}"`)
 			.send(archive);
-
-		await once(ticketsStream, 'end');
-		await archive.finalize();
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
 });
