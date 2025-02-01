@@ -18,8 +18,7 @@ RUN apk --no-cache add curl \
 	&& adduser --disabled-password --home /home/container container \
 	&& mkdir /app \
 	&& chown container:container /app \
-	&& chmod -R 777 /app \
-	&& chown -R container:container /home/container
+	&& chmod -R 777 /app
 USER container
 ENV USER=container \
 	HOME=/home/container \

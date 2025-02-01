@@ -6,6 +6,7 @@ if [ "$PTERODACTYL" = "true" ]; then
     base_dir="/home/container/app"
 elif [ "$DOCKER" = "true" ]; then
     base_dir="/app"
+    chown -R container:container /home/container
 else
     source="${BASH_SOURCE}"
     base_dir=$(dirname $(dirname "$source"))
