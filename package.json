@@ -5,8 +5,8 @@
 	"description": "The most popular open-source ticket management bot for Discord.",
 	"main": "src/",
 	"scripts": {
-		"bot.export": "node scripts/export.mjs",
-		"bot.import": "node scripts/export.mjs",
+		"bot.export": "node --no-warnings scripts/export.mjs",
+		"bot.import": "node --no-warnings scripts/import.mjs",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
@@ -56,6 +56,7 @@
 		"@fastify/jwt": "^8.0.1",
 		"@fastify/oauth2": "^7.9.0",
 		"@prisma/client": "^4.16.2",
+		"archiver": "^7.0.1",
 		"boxen": "^7.1.1",
 		"commander": "^12.1.0",
 		"cryptr": "^6.3.0",
@@ -78,6 +79,7 @@
 		"short-unique-id": "^4.4.4",
 		"spacetime": "^7.7.0",
 		"terminal-link": "^2.1.1",
+		"threads": "^1.7.0",
 		"yaml": "^2.7.0"
 	},
 	"devDependencies": {
