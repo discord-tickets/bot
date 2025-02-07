@@ -74,6 +74,7 @@ module.exports = class extends Listener {
 					cached = {
 						avgResolutionTime: ms(getAvgResolutionTime(closedTicketsWithResponse)),
 						avgResponseTime: ms(getAvgResponseTime(closedTicketsWithResponse)),
+						guilds: client.guilds.cache.size,
 						openTickets: tickets.length - closedTickets.length,
 						totalTickets: tickets.length,
 					};
@@ -83,6 +84,7 @@ module.exports = class extends Listener {
 				activity.name = activity.name
 					.replace(/{+avgResolutionTime}+/gi, cached.avgResolutionTime)
 					.replace(/{+avgResponseTime}+/gi, cached.avgResponseTime)
+					.replace(/{+guilds}+/gi, cached.guilds)
 					.replace(/{+openTickets}+/gi, cached.openTickets)
 					.replace(/{+totalTickets}+/gi, cached.totalTickets);
 				client.user.setPresence({
@@ -166,7 +168,7 @@ module.exports = class extends Listener {
 						}
 
 						const getMessage = client.i18n.getLocale(guild.locale);
-						const closeComamnd = client.application.commands.cache.find(c => c.name === 'close');
+						const closeCommand = client.application.commands.cache.find(c => c.name === 'close');
 						const sent = await channel.send({
 							components: [
 								new ActionRowBuilder()
@@ -187,7 +189,7 @@ module.exports = class extends Listener {
 									.setColor(guild.primaryColour)
 									.setTitle(getMessage('ticket.inactive.title'))
 									.setDescription(getMessage('ticket.inactive.description', {
-										close: `</${closeComamnd.name}:${closeComamnd.id}>`,
+										close: `</${closeCommand.name}:${closeCommand.id}>`,
 										timestamp: Math.floor(ticket.lastMessageAt.getTime() / 1000),
 									})),
 							],
