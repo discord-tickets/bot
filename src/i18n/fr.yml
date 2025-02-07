@@ -343,6 +343,10 @@ ticket:
     description: 'Votre ticket a été créé : {channel}.'
     title: ✅ Ticket créé
   feedback: Merci pour votre retour.
+  closing_soon:
+    description: "Ce ticket sera fermé pour cause d'inactivité <t:{timestamp}:R>.\n
+      Envoyez un message pour annuler cette automatisation.\n"
+    title: ⌛ Ce ticket sera bientôt fermé
 dm:
   closed:
     title: Votre ticket a été clôturé
