@@ -852,6 +852,16 @@ module.exports = class TicketManager {
 			],
 		});
 
+		if (interaction.ephemeral) {
+			await interaction.channel.send({
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor(ticket.guild.primaryColour)
+						.setDescription(getMessage('ticket.claimed', { user: interaction.user.toString() })),
+				],
+			});
+		}
+
 		logTicketEvent(this.client, {
 			action: 'claim',
 			target: {
