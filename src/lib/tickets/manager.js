@@ -787,8 +787,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
+				ephemeral: true,
 			});
 		}
+
+		await interaction.deferReply({ ephemeral: false });
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`),
@@ -852,16 +855,6 @@ module.exports = class TicketManager {
 			],
 		});
 
-		if (interaction.ephemeral) {
-			await interaction.channel.send({
-				embeds: [
-					new ExtendedEmbedBuilder()
-						.setColor(ticket.guild.primaryColour)
-						.setDescription(getMessage('ticket.claimed', { user: interaction.user.toString() })),
-				],
-			});
-		}
-
 		logTicketEvent(this.client, {
 			action: 'claim',
 			target: {
@@ -887,7 +880,7 @@ module.exports = class TicketManager {
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
@@ -897,8 +890,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
+				ephemeral: true,
 			});
 		}
+
+		await interaction.deferReply({ ephemeral: false });
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`),
