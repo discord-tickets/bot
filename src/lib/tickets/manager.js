@@ -451,6 +451,7 @@ module.exports = class TicketManager {
 				.setDescription(
 					category.openingMessage
 						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString())
+						.replace(/{+\s?num(ber)?\s?}+/gi, number)
 						.replace(/{+\s?avgResponseTime\s?}+/gi, stats?.avgResponseTime)
 						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime),
 				),
