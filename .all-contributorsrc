@@ -348,6 +348,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "ari-party",
+      "name": "ari",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49074962?v=4",
+      "profile": "https://github.com/ari-party",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
