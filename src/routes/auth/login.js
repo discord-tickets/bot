@@ -16,7 +16,7 @@ module.exports.get = () => ({
 
 		const params = {
 			client_id: client.user.id,
-			// ? prompt: 'none',
+			prompt: 'none',
 			redirect_uri: `${process.env.HTTP_EXTERNAL}/auth/callback`, // if not set defaults to first allowed
 			response_type: 'code',
 			scope: 'guilds identify',
