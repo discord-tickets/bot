@@ -1,7 +1,27 @@
-const { domain } = require('../../lib/http');
-
 module.exports.get = () => ({
-	handler: async function (req, res) { // MUST NOT use arrow function syntax
+	handler: async function (req, res) {
+		const cookie = req.cookies['oauth2-state'];
+		if (!cookie) {
+			return res.code(400).send({
+				error: 'Bad Request',
+				message: 'State is missing.',
+				statusCode: 400,
+
+			});
+		}
+
+		const state = new URLSearchParams(cookie);
+		if (state.get('secret') !== req.query.state) {
+			return res.code(400).send({
+				error: 'Bad Request',
+				message: 'Invalid state.',
+				statusCode: 400,
+
+			});
+		}
+
+		// TODO: check if req.query.permissions are correct
+
 		const data = await (await fetch('https://discord.com/api/oauth2/token', {
 			body: new URLSearchParams({
 				client_id: req.routeOptions.config.client.user.id,
@@ -14,22 +34,30 @@ module.exports.get = () => ({
 			method: 'POST',
 		})).json();
 
-		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${data.access_token}` } })).json();
+		const redirect = (data.guild?.id && `/settings/${data.guild?.id}`) || state.get('redirect') || '/';
+
+		const bearerOptions = { headers: { 'Authorization': `Bearer ${data.access_token}` } };
+		const user = await (await fetch('https://discordapp.com/api/users/@me', bearerOptions)).json();
+
+		let scopes;
+		if (data.scope) {
+			scopes = data.scope.split(' ');
+		} else {
+			const auth = await (await fetch('https://discordapp.com/api/oauth2/@me', bearerOptions)).json();
+			scopes = auth.scopes;
+		}
+
 		const token = this.jwt.sign({
 			accessToken: data.access_token,
 			avatar: user.avatar,
 			expiresAt: Date.now() + (data.expires_in * 1000),
 			id: user.id,
 			locale: user.locale,
+			scopes,
 			username: user.username,
 		});
 
-		// note: if data.guild is present, guild_id and permissions should also be in req.query
-		const redirect = this.states.get(req.query.state) || (data.guild?.id && `/settings/${data.guild?.id}`) || '/';
-		this.states.delete(req.query.state);
-
 		res.setCookie('token', token, {
-			domain,
 			httpOnly: true,
 			maxAge: data.expires_in,
 			path: '/',

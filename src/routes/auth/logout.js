@@ -1,5 +1,3 @@
-const { domain } = require('../../lib/http');
-
 module.exports.get = fastify => ({
 	handler: async function (req, res) {
 		const { accessToken } = req.user;
@@ -15,7 +13,6 @@ module.exports.get = fastify => ({
 		});
 
 		res.clearCookie('token', {
-			domain,
 			httpOnly: true,
 			path: '/',
 			sameSite: 'Strict',
