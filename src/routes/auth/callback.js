@@ -13,8 +13,7 @@ module.exports.get = () => ({
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 			method: 'POST',
 		})).json();
-		const redirect = this.states.get(req.query.state) || '/';
-		this.states.delete(req.query.state);
+
 		const user = await (await fetch('https://discordapp.com/api/users/@me', { headers: { 'Authorization': `Bearer ${data.access_token}` } })).json();
 		const token = this.jwt.sign({
 			accessToken: data.access_token,
@@ -24,6 +23,11 @@ module.exports.get = () => ({
 			locale: user.locale,
 			username: user.username,
 		});
+
+		// note: if data.guild is present, guild_id and permissions should also be in req.query
+		const redirect = this.states.get(req.query.state) || (data.guild?.id && `/settings/${data.guild?.id}`) || '/';
+		this.states.delete(req.query.state);
+
 		res.setCookie('token', token, {
 			domain,
 			httpOnly: true,

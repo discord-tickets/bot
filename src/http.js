@@ -40,11 +40,12 @@ module.exports = async client => {
 			},
 		},
 		generateStateFunction: req => {
-			const state = randomBytes(12).toString('hex');
+			const state = randomBytes(8).toString('hex');
 			fastify.states.set(state, req.query.r);
 			return state;
 		},
 		name: 'discord',
+		redirectStateCookieName: 'oauth2-redirect-state',
 		scope: ['applications.commands.permissions.update', 'guilds', 'identify'],
 		startRedirectPath: '/auth/login',
 	});
