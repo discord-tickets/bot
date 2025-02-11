@@ -49,20 +49,20 @@ module.exports.post = fastify => ({
 		res.raw.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
 
 		const userLog = {
-			_write(style1, style2, prefix, string) {
-				res.raw.write(`<p><span class="${style1}">[${prefix}]</span> <span class="${style2}">${string}</span></p>`);
-			},
 			error(string) {
-				this._write('text-red-500 font-bold', 'text-red-700 dark:text-red-200', 'ERROR', string);
+				this.write('text-red-500 font-bold', 'text-red-700 dark:text-red-200', 'ERROR', string);
 			},
 			info(string) {
-				this._write('text-cyan-500', 'text-cyan-700 dark:text-cyan-200', 'INFO', string);
+				this.write('text-cyan-500', 'text-cyan-700 dark:text-cyan-200', 'INFO', string);
 			},
 			success(string) {
-				this._write('text-green-500', 'text-green-700 dark:text-green-200', 'SUCCESS', string);
+				this.write('text-green-500', 'text-green-700 dark:text-green-200', 'SUCCESS', string);
 			},
 			warn(string) {
-				this._write('text-orange-500', 'text-orange-700 dark:text-orange-200', 'WARN', string);
+				this.write('text-orange-500', 'text-orange-700 dark:text-orange-200', 'WARN', string);
+			},
+			write(style1, style2, prefix, string) {
+				res.raw.write(`<p><span class="${style1}">[${prefix}]</span> <span class="${style2}">${string}</span></p>`);
 			},
 		};
 

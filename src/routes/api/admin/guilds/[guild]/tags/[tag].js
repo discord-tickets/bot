@@ -66,8 +66,8 @@ module.exports.patch = fastify => ({
 
 		if (!original || original.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
-		if (data.hasOwnProperty('id')) delete data.id;
-		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
+		if (Object.prototype.hasOwnProperty.call(data, 'id')) delete data.id;
+		if (Object.prototype.hasOwnProperty.call(data, 'createdAt')) delete data.createdAt;
 
 		const tag = await client.prisma.tag.update({
 			data,
