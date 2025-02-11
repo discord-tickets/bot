@@ -111,12 +111,7 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 
 		// Check for rate limit for renaming the channel (allowing 2 renames every 10 minutes)
 		const rateLimitKey = `rate-limits/channel-rename:${interaction.channel.id}`;
-		let renameTimestamps = await this.client.keyv.get(rateLimitKey);
-
-		// Initialize the timestamps array if it doesn't exist
-		if (!renameTimestamps) {
-			renameTimestamps = [];
-		}
+		let renameTimestamps = await this.client.keyv.get(rateLimitKey) ?? [];
 
 		// Remove any timestamps older than 10 minutes
 		renameTimestamps = renameTimestamps.filter(timestamp => Date.now() - timestamp < ms('10m'));
