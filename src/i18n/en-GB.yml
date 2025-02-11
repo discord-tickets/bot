@@ -23,12 +23,12 @@ buttons:
   reject_close_request:
     emoji: ✖️
     text: Reject
-  unclaim:
-    emoji: ♻️
-    text: Release
   transcript:
     emoji: 📄
     text: Transcript
+  unclaim:
+    emoji: ♻️
+    text: Release
 commands:
   message:
     create:
@@ -190,6 +190,28 @@ commands:
       success:
         description: "{member} has been removed from {ticket}."
         title: ✅ Removed
+    rename:
+      description: Rename a ticket channel
+      error: There was an error while renaming the channel.
+      invalid:
+        description: The name must be between 1 and 100 characters in length.
+        title: Invalid name
+      name: rename
+      not_staff:
+        description: Only staff members can rename tickets.
+        title: ❌ Error
+      options:
+        name:
+          description: The new name for the ticket channel.
+          name: name
+      ratelimited:
+        description:
+          You have already renamed this channel twice within the last 10
+          minutes. Please wait before trying again.
+        title: Rate Limit Reached
+      success:
+        description: The ticket channel has been renamed to `{name}`.
+        title: Channel renamed
     tag:
       description: Use a tag
       name: tag
@@ -250,26 +272,6 @@ commands:
           name: member
       transferred: 📨 {user} has transferred this ticket to {to}.
       transferred_from: 📨 {user} has transferred this ticket from {from} to {to}.
-    rename:
-      description: Rename a ticket channel
-      name: rename
-      invalid:
-        description: The name must be between 1 and 100 characters in length.
-        title: Invalid name
-      success:
-        description: The ticket channel has been renamed to `{name}`.
-        title: Channel renamed
-      error: There was an error while renaming the channel.
-      options:
-        name:
-          description: The new name for the ticket channel.
-          name: name
-      not_staff:
-        description: Only staff members can rename tickets.
-        title: ❌ Error
-      ratelimited:
-        title: Rate Limit Reached
-        description: You have already renamed this channel twice within the last 10 minutes. Please wait before trying again.
   user:
     create:
       name: Create ticket for user
@@ -403,8 +405,8 @@ misc:
       for_admins:
         name: For server administrators
         value: >
-          An invalid user or role was supplied, which usually means a staff role has been deleted.
-          [Click here]({url}) for resolution instructions.
+          An invalid user or role was supplied, which usually means a staff role
+          has been deleted. [Click here]({url}) for resolution instructions.
     title: ⚠️ Something went wrong
   unknown_category:
     description: Please try a different category.
