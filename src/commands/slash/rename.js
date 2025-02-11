@@ -19,7 +19,7 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 			nameLocalisations: client.i18n.getAllMessages(`commands.slash.${name}.name`),
 			options: [
 				{
-					name: 'new_name',
+					name: 'name',
 					required: true,
 					type: ApplicationCommandOptionType.String,
 				},
@@ -45,18 +45,14 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 
 		// Fetch the necessary ticket data for the channel
 		const ticket = await client.prisma.ticket.findUnique({
-			include: {
-				category: true,
-				guild: true,
-			},
+			include: { guild: true },
 			where: { id: interaction.channel.id },
 		});
 
-		// Fetch guild settings
-		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
-
+		// If no ticket found for the channel, return an error
 		if (!ticket) {
-			// If no ticket found for the channel, return an error
+			// Fetch guild settings
+			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 			const getMessage = client.i18n.getLocale(settings.locale);
 			return await interaction.editReply({
 				embeds: [
@@ -92,19 +88,19 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 			});
 		}
 
-		const newName = interaction.options.getString('new_name'); // Get the new name from the user's input
+		const name = interaction.options.getString('name'); // Get the new name from the user's input
 
 		// Validate the new name length (must be between 1 and 100 characters)
-		if (newName.length < 1 || newName.length > 100) {
+		if (name.length < 1 || name.length > 100) {
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
-						text: getMessage('misc.rename.error'),
+						text: ticket.guild.footer,
 					})
-						.setColor(settings.errorColour)
-						.setTitle(getMessage('commands.slash.rename.invalid_title'))
-						.setDescription(getMessage('commands.slash.rename.invalid_description')),
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.rename.invalid.title'))
+						.setDescription(getMessage('commands.slash.rename.invalid.description')),
 				],
 			});
 		}
@@ -122,9 +118,9 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
-						text: getMessage('commands.slash.rename.ratelimited.title'),
+						text: ticket.guild.footer,
 					})
-						.setColor(settings.errorColour)
+						.setColor(ticket.guild.errorColour)
 						.setTitle(getMessage('commands.slash.rename.ratelimited.title'))
 						.setDescription(getMessage('commands.slash.rename.ratelimited.description')),
 				],
@@ -137,18 +133,18 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 		await this.client.keyv.set(rateLimitKey, renameTimestamps, ms('10m'));
 
 		// Proceed with renaming the channel
-		await interaction.channel.edit({ name: newName });
+		await interaction.channel.edit({ name });
 
 		// Respond with a success message
 		await interaction.editReply({
 			embeds: [
 				new ExtendedEmbedBuilder({
 					iconURL: interaction.guild.iconURL(),
-					text: getMessage('commands.slash.rename.success'),
+					text: ticket.guild.footer,
 				})
-					.setColor(settings.successColour)
-					.setTitle(getMessage('commands.slash.rename.success_title'))
-					.setDescription(getMessage('commands.slash.rename.success_description')),
+					.setColor(ticket.guild.successColour)
+					.setTitle(getMessage('commands.slash.rename.success.title'))
+					.setDescription(getMessage('commands.slash.rename.success.description', { name })),
 			],
 		});
 	}

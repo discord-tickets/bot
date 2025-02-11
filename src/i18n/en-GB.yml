@@ -251,17 +251,19 @@ commands:
       transferred: 📨 {user} has transferred this ticket to {to}.
       transferred_from: 📨 {user} has transferred this ticket from {from} to {to}.
     rename:
-      description: Renames the ticket channel.
+      description: Rename a ticket channel
       name: rename
-      invalid_title: Invalid Name
-      invalid_description: The name must be between 1 and 100 characters in length.
-      success_title: Rename Successful
-      success_description: The ticket channel has been successfully renamed.
+      invalid:
+        description: The name must be between 1 and 100 characters in length.
+        title: Invalid name
+      success:
+        description: The ticket channel has been renamed to `{name}`.
+        title: Channel renamed
       error: There was an error while renaming the channel.
       options:
-        new_name:
+        name:
           description: The new name for the ticket channel.
-          name: new_name
+          name: name
       not_staff:
         description: Only staff members can rename tickets.
         title: ❌ Error
