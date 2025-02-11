@@ -1,10 +1,17 @@
 /* eslint-disable no-underscore-dangle */
 
-const { version } = require('../../package.json');
 const {
-	md5,
-	msToMins,
-} = require('./misc');
+	spawn,
+	Pool,
+	Worker,
+} = require('threads');
+const { cpus } = require('node:os');
+const { version } = require('../../package.json');
+const { md5 } = require('./misc');
+
+// ! ceiL: at least 1
+const poolSize = Math.ceil(cpus().length / 4);
+const pool = Pool(() => spawn(new Worker('./workers/stats.js')), { size: poolSize });
 
 module.exports.getAvgResolutionTime = tickets => (tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) || 1) / Math.max(tickets.length, 1);
 
@@ -39,28 +46,9 @@ module.exports.sendToHouston = async client => {
 		database: process.env.DB_PROVIDER,
 		guilds: guilds
 			.filter(guild => client.guilds.cache.has(guild.id))
-			.map(guild => {
-				const closedTickets = guild.tickets.filter(t => t.firstResponseAt && t.closedAt);
-				return {
-					avg_resolution_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					avg_response_time: msToMins(closedTickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) ?? 1 / closedTickets.length),
-					categories: guild.categories.length,
-					features: {
-						auto_close: msToMins(guild.autoClose),
-						claiming: guild.categories.filter(c => c.claiming).length,
-						feedback: guild.categories.filter(c => c.enableFeedback).length,
-						logs: !!guild.logChannel,
-						questions: guild.categories.filter(c => c._count.questions).length,
-						tags: guild.tags.length,
-						tags_regex: guild.tags.filter(t => t.regex).length,
-						topic: guild.categories.filter(c => c.requireTopic).length,
-					},
-					id: md5(guild.id),
-					locale: guild.locale,
-					members: client.guilds.cache.get(guild.id).memberCount,
-					messages, // * global not guild, don't count archivedMessage table rows, they can be deleted
-					tickets: guild.tickets.length,
-				};
+			.map(async guild => {
+				guild.members = client.guilds.cache.get(guild.id).memberCount;
+				return pool.queue(worker => worker.aggregateGuildForHouston(guild, messages));
 			}),
 		id: md5(client.user.id),
 		node: process.version,
