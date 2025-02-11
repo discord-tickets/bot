@@ -6,6 +6,7 @@ const {
 } = require('discord.js');
 const { isStaff } = require('../../lib/users');
 const ms = require('ms');
+const { logTicketEvent } = require('../../lib/logging');
 
 module.exports = class RenameSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -88,6 +89,7 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 			});
 		}
 
+		const { name: originalName } = interaction.channel;
 		const name = interaction.options.getString('name'); // Get the new name from the user's input
 
 		// Validate the new name length (must be between 1 and 100 characters)
@@ -146,6 +148,19 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 					.setTitle(getMessage('commands.slash.rename.success.title'))
 					.setDescription(getMessage('commands.slash.rename.success.description', { name })),
 			],
+		});
+
+		logTicketEvent(this.client, {
+			action: 'update',
+			diff: {
+				original: { name: originalName },
+				updated: { name },
+			},
+			target: {
+				id: ticket.id,
+				name: `<#${ticket.id}>`,
+			},
+			userId: interaction.user.id,
 		});
 	}
 };
