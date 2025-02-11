@@ -2,34 +2,35 @@ const { expose } = require('threads/worker');
 const Cryptr = require('cryptr');
 const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 
-function decryptIfExists(encrypted) {
-	if (encrypted) return decrypt(encrypted);
-	return null;
-}
-
 expose({
 	exportTicket(ticket) {
-		if (ticket.closedReason) ticket.closedReason = decrypt(ticket.closedReason);
-		if (ticket.feedback?.comment) ticket.feedback.comment = decrypt(ticket.feedback.comment);
-		if (ticket.topic) ticket.topic = decrypt(ticket.topic);
-
 		ticket.archivedMessages = ticket.archivedMessages.map(message => {
-			message.content = decryptIfExists(message.content);
+			message.content &&= decrypt(message.content);
 			return message;
 		});
 
 		ticket.archivedUsers = ticket.archivedUsers.map(user => {
-			user.displayName = decryptIfExists(user.displayName);
-			user.username = decryptIfExists(user.username);
+			user.displayName &&= decrypt(user.displayName);
+			user.username &&= decrypt(user.username);
 			return user;
 		});
 
+		if (ticket.feedback) {
+			// why is feedback the only one with a guild relation? 😕
+			delete ticket.feedback.guildId;
+			ticket.feedback.comment &&= decrypt(ticket.feedback.comment);
+		}
+
+		ticket.closedReason &&= decrypt(ticket.closedReason);
+
+		delete ticket.guildId;
+
 		ticket.questionAnswers = ticket.questionAnswers.map(answer => {
-			if (answer.value) answer.value = decryptIfExists(answer.value);
+			answer.value &&= decrypt(answer.value);
 			return answer;
 		});
 
-		delete ticket.guildId;
+		ticket.topic &&= decrypt(ticket.topic);
 
 		return JSON.stringify(ticket);
 	},

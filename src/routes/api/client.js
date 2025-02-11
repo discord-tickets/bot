@@ -2,6 +2,7 @@ const {
 	getAvgResolutionTime, getAvgResponseTime,
 } = require('../../lib/stats');
 const ms = require('ms');
+const pkg = require('../../../package.json');
 
 module.exports.get = () => ({
 	handler: async req => {
@@ -20,6 +21,7 @@ module.exports.get = () => ({
 			});
 			const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
 			const users = await client.prisma.user.findMany({ select: { messageCount: true } });
+			// TODO: background
 			cached = {
 				avatar: client.user.avatarURL(),
 				discriminator: client.user.discriminator,
@@ -37,6 +39,7 @@ module.exports.get = () => ({
 					tickets: tickets.length,
 				},
 				username: client.user.username,
+				version: pkg.version,
 			};
 			await client.keyv.set(cacheKey, cached, ms('15m'));
 		}

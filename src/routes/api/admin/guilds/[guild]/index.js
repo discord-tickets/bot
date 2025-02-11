@@ -12,8 +12,11 @@ module.exports.delete = fastify => ({
 		/** @type {import('client')} */
 		const client = req.routeOptions.config.client;
 		const id = req.params.guild;
-		await client.prisma.guild.delete({ where: { id } });
-		await client.prisma.guild.create({ data: { id } });
+		client.keyv.delete(`cache/stats/guild:${id}`);
+		await client.prisma.$transaction([
+			client.prisma.guild.delete({ where: { id } }),
+			client.prisma.guild.create({ data: { id } }),
+		]);
 		logAdminEvent(client, {
 			action: 'delete',
 			guildId: id,
