@@ -732,66 +732,69 @@ module.exports = class TicketManager {
 			});
 		}
 
-		const workingHours = category.guild.workingHours;
-		const timezone = workingHours[0];
-		workingHours.shift(); // remove timezone
-		const now = spacetime.now(timezone);
-		const currentHours = workingHours[now.day()];
-		const start = now.time(currentHours[0]);
-		const end = now.time(currentHours[1]);
-		let working = true;
+		try {
+			const workingHours = category.guild.workingHours;
+			const timezone = workingHours[0];
+			workingHours.shift(); // remove timezone
+			const now = spacetime.now(timezone);
+			const currentHours = workingHours[now.day()];
+			const start = now.time(currentHours[0]);
+			const end = now.time(currentHours[1]);
+			let working = true;
 
-		if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
+			if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
 			// first look for the next working day *this* week (after today)
-			let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
-			// if there isn't one, look for the next working day *next* week (before and including today's weekday)
-			if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
-			if (nextIndex) {
+				let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
+				// if there isn't one, look for the next working day *next* week (before and including today's weekday)
+				if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
+				if (nextIndex) {
+					working = false;
+					const next = workingHours[nextIndex];
+					let then = now.add(nextIndex - now.day(), 'day');
+					if (nextIndex <= now.day()) then = then.add(1, 'week');
+					const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
+					await channel.send({
+						embeds: [
+							new ExtendedEmbedBuilder()
+								.setColor(category.guild.primaryColour)
+								.setTitle(getMessage('ticket.working_hours.next.title'))
+								.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
+						],
+					});
+				}
+			} else if (now.isBefore(start)) { // staff haven't started working yet
 				working = false;
-				const next = workingHours[nextIndex];
-				let then = now.add(nextIndex - now.day(), 'day');
-				if (nextIndex <= now.day()) then = then.add(1, 'week');
-				const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
+				const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
 				await channel.send({
 					embeds: [
 						new ExtendedEmbedBuilder()
 							.setColor(category.guild.primaryColour)
-							.setTitle(getMessage('ticket.working_hours.next.title'))
-							.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
+							.setTitle(getMessage('ticket.working_hours.today.title'))
+							.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
 					],
 				});
 			}
-		} else if (now.isBefore(start)) { // staff haven't started working yet
-			working = false;
-			const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
-			await channel.send({
-				embeds: [
-					new ExtendedEmbedBuilder()
-						.setColor(category.guild.primaryColour)
-						.setTitle(getMessage('ticket.working_hours.today.title'))
-						.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
-				],
-			});
-		}
 
-
-		if (working && process.env.PUBLIC_BOT !== 'true') {
-			let online = 0;
-			for (const [, member] of channel.members) {
-				if (!await isStaff(channel.guild, member.id)) continue;
-				if (member.presence && member.presence !== 'offline') online++;
+			if (working && process.env.PUBLIC_BOT !== 'true') {
+				let online = 0;
+				for (const [, member] of channel.members) {
+					if (!await isStaff(channel.guild, member.id)) continue;
+					if (member.presence && member.presence !== 'offline') online++;
+				}
+				if (online === 0) {
+					await channel.send({
+						embeds: [
+							new ExtendedEmbedBuilder()
+								.setColor(category.guild.primaryColour)
+								.setTitle(getMessage('ticket.offline.title'))
+								.setDescription(getMessage('ticket.offline.description')),
+						],
+					});
+					this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
+				}
 			}
-			if (online === 0) {
-				await channel.send({
-					embeds: [
-						new ExtendedEmbedBuilder()
-							.setColor(category.guild.primaryColour)
-							.setTitle(getMessage('ticket.offline.title'))
-							.setDescription(getMessage('ticket.offline.description')),
-					],
-				});
-				this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
-			}
+		} catch (error) {
+			this.client.log.error(error);
 		}
 	}
 
