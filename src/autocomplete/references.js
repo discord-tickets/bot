@@ -17,7 +17,7 @@ module.exports = class ReferencesCompleter extends Autocompleter {
 	async run(value, comamnd, interaction) {
 		await interaction.respond(
 			await this.client.autocomplete.components.get('ticket').getOptions(value, {
-				guildId: interaction.guild.id,
+				interaction,
 				open: false,
 				userId: interaction.user.id,
 			}),
