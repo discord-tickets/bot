@@ -103,15 +103,25 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 				where: { id: ticket.id },
 			});
 
-			const $oldCategory = client.tickets.$count.categories[ticket.categoryId];
-			const $newCategory = client.tickets.$count.categories[newCategory.id];
+			// alias
+			const $counters = client.tickets.$count.categories;
 
+			// make sure new category exist (#531)
+			$counters[newCategory.id] ??= {};
+
+			// more specific aliases
+			const $oldCategory = $counters[ticket.categoryId];
+			const $newCategory = $counters[newCategory.id];
+
+			// decrement old's total and member count
 			$oldCategory.total--;
 			$oldCategory[ticket.createdById]--;
 
+			// increment new's totaL count
 			$newCategory.total ||= 0;
 			$newCategory.total++;
 
+			// increment new's member count
 			$newCategory[ticket.createdById] ||= 0;
 			$newCategory[ticket.createdById]++;
 
