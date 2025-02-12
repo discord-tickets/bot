@@ -44,6 +44,7 @@ module.exports = class extends Listener {
 			} catch (error) {
 				client.log.warn('Failed to update archived message', newMessage.id);
 				client.log.error(error);
+				newMessage.react('❌').catch(client.log.error);
 			}
 		}
 

@@ -192,6 +192,7 @@ module.exports = class extends Listener {
 						.catch(error => {
 							client.log.warn('Failed to archive message', message.id);
 							client.log.error(error);
+							message.react('❌').catch(client.log.error);
 						});
 				}
 
