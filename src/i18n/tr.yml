@@ -256,8 +256,6 @@ commands:
         title: ✅ Davet gönderildi
 dm:
   closed:
-    archived: Arşivlenmiş mesajları görüntülemek için **{guild}** içinde `/transcript`
-      komutunu kullanın.
     fields:
       closed:
         name: Kapatıldı.

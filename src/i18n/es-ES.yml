@@ -430,8 +430,6 @@ misc:
     title: ⚠️ Algo ha salido mal
 dm:
   closed:
-    archived: Para ver los mensajes archivados, utiliza el comando `/transcript` en
-      **{guild}**.
     fields:
       closed:
         name: Se cerró a las

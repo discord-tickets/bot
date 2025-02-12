@@ -257,7 +257,6 @@ commands:
         title: ✅ 已傳送提示
 dm:
   closed:
-    archived: 在 **{guild}** 中使用 `/transcript` 命令檢視已封存的訊息。
     fields:
       closed:
         name: 關閉時間

@@ -461,6 +461,5 @@ dm:
       response: Antwort-Zeit
       ticket: Ticket
       topic: Thema
-    archived: Benutze `/abschrift` in **{guild}** um die archivierte Nachrichten anzusehen.
   confirm_open:
     title: Möchtest du ein Ticket mit dem folgendem Thema eröffnen?

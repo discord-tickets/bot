@@ -425,8 +425,6 @@ ticket:
       title: 🕗 Šiuo metu nedirbame
 dm:
   closed:
-    archived: Naudokite `/transcript` komandą **{guild}** serveryje, kad peržiūrėtumėte
-      išsaugotus bilietus.
     fields:
       closed:
         name: Uždaryta

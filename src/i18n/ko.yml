@@ -434,7 +434,6 @@ dm:
         value: '{timestamp} ({duration} 경과)'
       ticket: 티켓
       response: 답변 시간
-    archived: '**{guild}**에서 `/사본` 명령어를 통해 메시지 사본을 확인할 수 있습니다.'
   confirm_open:
     title: 이 주제로 티켓을 열까요?
 menus:

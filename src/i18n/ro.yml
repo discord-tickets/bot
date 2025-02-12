@@ -261,8 +261,6 @@ commands:
         title: ✅ Prompt trimis
 dm:
   closed:
-    archived: Folosește comanda `/transcript` în **{guild}** pentru a vizualiza mesajele
-      arhivate.
     fields:
       closed:
         name: Închis la

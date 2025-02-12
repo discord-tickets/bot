@@ -450,8 +450,6 @@ dm:
       ticket: Ticket
       reason: Gesloten omdat
     title: Je ticket is gesloten
-    archived: Gebruik de opdracht `/transcript` in **{guild}** om de gearchiveerde
-      berichten te bekijken.
   confirm_open:
     title: Wil je een ticket openen met het volgende onderwerp?
 menus:

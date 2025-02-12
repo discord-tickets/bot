@@ -300,8 +300,6 @@ commands:
 dm:
   closed:
     title: A hibajegyed bezárásra került
-    archived: Használd a(z) `/transcript` a(z)**{guild}** szerveren, hogy megtekintsd
-      az archivált üzeneteket.
     fields:
       closed:
         name: Bezárva ekkor

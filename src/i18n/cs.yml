@@ -262,8 +262,6 @@ commands:
         title: ✅ Požadavek odeslán
 dm:
   closed:
-    archived: Pokuď chcete vidět archivované zprávy, použijte příkaz `/transcript`
-      na serveru **{guild}**.
     title: Váš tiket byl uzavřený
     fields:
       closed_by: Zavřeno uživatelem

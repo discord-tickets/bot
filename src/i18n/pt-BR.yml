@@ -263,8 +263,6 @@ commands:
         title: ✅ Solicitação enviada
 dm:
   closed:
-    archived: Use o comando `/transcrição` em **{guild}** para visualizar as mensagens
-      arquivadas.
     fields:
       closed:
         name: Fechado às

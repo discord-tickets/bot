@@ -261,7 +261,6 @@ commands:
         title: ✅ Richiesta inviata
 dm:
   closed:
-    archived: usa il comando `/transcritto` in **{guild}** per vedere i messaggi archiviati.
     fields:
       closed:
         name: Chiuso il

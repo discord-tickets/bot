@@ -361,8 +361,6 @@ dm:
       topic: Sujet
       reason: Raison de la clôture
       response: Temps de réponse
-    archived: Utilisez la commande `/transcript` sur **{guild}** pour voir les messages
-      archivés.
   confirm_open:
     title: Souhaitez-vous ouvrir un ticket avec le sujet suivant ?
 log:

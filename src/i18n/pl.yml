@@ -265,8 +265,6 @@ dm:
       reason: Zamknięte, ponieważ
       response: Czas odpowiedzi
       ticket: Zgłoszenie
-    archived: Użyj polecenia `/transkrypcja` w **{guild}**, aby wyświetlić zarchiwizowane
-      wiadomości.
     title: Twoje zgłoszenie zostało zamknięte
   confirm_open:
     title: Czy chcesz otworzyć zgłoszenie z następującym tematem?
