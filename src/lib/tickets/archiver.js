@@ -31,48 +31,66 @@ module.exports = class TicketArchiver {
 			}
 		}
 
-		const channels = message.mentions.channels;
+
+
+		const channels = [...message.mentions.channels.values()];
 		const members = [...message.mentions.members.values()];
 		const roles = [...message.mentions.roles.values()];
 
-		if (message.member) {
-			members.push(message.member);
-			roles.push(hoistedRole(message.member));
-		} else {
-			this.client.log.warn('Message member does not exist');
-			await this.client.prisma.archivedUser.upsert({
-				create: {},
-				update: {},
-				where: {
-					ticketId_userId: {
-						ticketId,
-						userId: 'default',
-					},
-				},
-			});
-		}
-
-		for (const role of roles) {
-			const data = {
-				colour: role.hexColor.slice(1),
-				name: role.name,
-				roleId: role.id,
-				ticket: { connect: { id: ticketId } },
-			};
-			await this.client.prisma.archivedRole.upsert({
-				create: data,
-				update: data,
-				where: {
-					ticketId_roleId: {
-						roleId: role.id,
-						ticketId,
-					},
-				},
-			});
-		}
+		// const ticket = { connect: { id: ticketId } };
 
 		const worker = await reusable('crypto');
+
 		try {
+			const queries = [];
+
+			if (message.member) {
+				members.push(message.member);
+				roles.push(hoistedRole(message.member));
+			} else {
+				this.client.log.warn('Message member does not exist');
+				queries.push(
+					this.client.prisma.archivedUser.upsert({
+						create: {
+							ticketId,
+							userId: 'default',
+						},
+						select: { ticketId: true }, // default is to return all scalar fields
+						update: {},
+						where: {
+							ticketId_userId: {
+								ticketId,
+								userId: 'default',
+							},
+						},
+					}),
+				);
+			}
+
+			for (const role of roles) {
+				const data = {
+					colour: role.hexColor.slice(1),
+					name: role.name,
+				};
+				queries.push(
+					this.client.prisma.archivedRole.upsert({
+						create: {
+							...data,
+							roleId: role.id,
+							ticketId,
+						},
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_roleId: {
+								roleId: role.id,
+								ticketId,
+							},
+						},
+					}),
+				);
+			}
+
 			for (const member of members) {
 				const data = {
 					avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
@@ -80,79 +98,86 @@ module.exports = class TicketArchiver {
 					discriminator: member.user.discriminator,
 					displayName: member.displayName ? await worker.encrypt(member.displayName) : null,
 					roleId: !!member && hoistedRole(member).id,
-					ticketId,
-					userId: member.user.id,
 					username: await worker.encrypt(member.user.username),
 				};
-				await this.client.prisma.archivedUser.upsert({
-					create: data,
-					update: data,
-					where: {
-						ticketId_userId: {
+				queries.push(
+					this.client.prisma.archivedUser.upsert({
+						create: {
+							...data,
 							ticketId,
 							userId: member.user.id,
 						},
-					},
-				});
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_userId: {
+								ticketId,
+								userId: member.user.id,
+							},
+						},
+					}),
+				);
 			}
 
-			let reference;
-			if (message.reference) reference = await message.fetchReference();
-
-			const messageD = {
-				author: {
-					connect: {
-						ticketId_userId: {
-							ticketId,
-							userId: message.author?.id || 'default',
+			for (const channel of channels) {
+				const data = {
+					channelId: channel.id,
+					name: channel.name,
+					ticketId,
+				};
+				queries.push(
+					this.client.prisma.archivedChannel.upsert({
+						create: data,
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_channelId: {
+								channelId: channel.id,
+								ticketId,
+							},
 						},
-					},
-				},
+					}),
+				);
+			}
+
+			const data = {
+				// author: {
+				// 	connect: {
+				// 		ticketId_userId: {
+				// 			ticketId,
+				// 			userId: message.author?.id || 'default',
+				// 		},
+				// 	},
+				// },
 				content: await worker.encrypt(
 					JSON.stringify({
 						attachments: [...message.attachments.values()],
 						components: [...message.components.values()],
 						content: message.content,
 						embeds: message.embeds.map(embed => ({ ...embed })),
-						reference: reference ? reference.id : null,
+						reference: message.reference?.messageId ?? null,
 					}),
 				),
 				createdAt: message.createdAt,
 				edited: !!message.editedAt,
 				external,
-				id: message.id,
 			};
 
-			return await this.client.prisma.ticket.update({
-				data: {
-					archivedChannels: {
-						upsert: channels.map(channel => {
-							const data = {
-								channelId: channel.id,
-								name: channel.name,
-							};
-							return {
-								create: data,
-								update: data,
-								where: {
-									ticketId_channelId: {
-										channelId: channel.id,
-										ticketId,
-									},
-								},
-							};
-						}),
+			queries.push(
+				this.client.prisma.archivedMessage.upsert({
+					create: {
+						...data,
+						authorId: message.author?.id || 'default',
+						id: message.id,
+						ticketId,
 					},
-					archivedMessages: {
-						upsert: {
-							create: messageD,
-							update: messageD,
-							where: { id: message.id },
-						},
-					},
-				},
-				where: { id: ticketId },
-			});
+					select: { ticketId: true },
+					update: data,
+					where: { id: message.id },
+				}),
+			);
+
+			return await this.client.prisma.$transaction(queries);
 		} finally {
 			await worker.terminate();
 		}
