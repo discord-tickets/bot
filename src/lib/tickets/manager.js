@@ -1342,9 +1342,31 @@ module.exports = class TicketManager {
 					});
 				}
 
-				if (ticket.guild.archive) embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
+				const components = [];
 
-				await creator.send({ embeds: [embed] });
+				if (ticket.guild.archive) {
+					embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
+					components.push(
+						new ActionRowBuilder()
+							.addComponents(
+								new ButtonBuilder()
+									.setCustomId(JSON.stringify({
+										action: 'transcript',
+										ticket: ticket.id,
+									}))
+									.setStyle(ButtonStyle.Primary)
+									.setEmoji(getMessage('buttons.transcript.emoji'))
+									.setLabel(getMessage('buttons.transcript.text')),
+
+							),
+					);
+				}
+
+
+				await creator.send({
+					components,
+					embeds: [embed],
+				});
 			}
 		} catch (error) {
 			this.client.log.error(error);

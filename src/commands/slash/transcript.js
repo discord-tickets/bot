@@ -48,8 +48,11 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 	}
 
 	shouldAllowAccess(interaction, ticket)  {
-		if (interaction.guild.id !== ticket.guildId) return false;
-		if (ticket.createdById === interaction.member.id) return true;
+		// the creator can always get their ticket, even from outside the guild
+		if (ticket.createdById === interaction.user.id) return true; // user not member (DMs)
+		// everyone else must be in the guild
+		if (interaction.guild?.id !== ticket.guildId) return false;
+		// and have authority
 		if (interaction.client.supers.includes(interaction.member.id)) return true;
 		if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
 		if (interaction.member.roles.cache.filter(role => ticket.category.staffRoles.includes(role.id)).size > 0) return true;
