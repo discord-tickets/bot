@@ -39,7 +39,7 @@ async function sendToHouston(client) {
 		activated_users: users._count,
 		arch: process.arch,
 		database: process.env.DB_PROVIDER,
-		guilds: await relativePool(0.25, 'stats', pool => Promise.all(
+		guilds: await relativePool(.25, 'stats', pool => Promise.all(
 			guilds
 				.filter(guild => client.guilds.cache.has(guild.id))
 				.map(guild => {

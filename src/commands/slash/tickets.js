@@ -5,8 +5,7 @@ const {
 } = require('discord.js');
 const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { reusable } = require('../../lib/threads');
 
 module.exports = class TicketsSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -116,33 +115,44 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 			},
 		});
 
-		if (open.length >= 1) {
-			fields.push({
-				name: getMessage('commands.slash.tickets.response.fields.open.name'),
-				value: open.map(ticket => {
-					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
-					return `> <#${ticket.id}> ${topic}`;
-				}).join('\n'),
-			});
-		}
+		const worker = await reusable('crypto');
+		try {
+			if (open.length >= 1) {
+				fields.push({
+					name: getMessage('commands.slash.tickets.response.fields.open.name'),
+					value: (await Promise.all(
+						open.map(async ticket => {
+							const getTopic = async () => (await worker.decrypt(ticket.topic)).replace(/\n/g, ' ').substring(0, 30);
+							const topic = ticket.topic ? `- \`${await getTopic()}\`` : '';
+							return `> <#${ticket.id}> ${topic}`;
+						}),
+					)).join('\n'),
+				});
+			}
 
-		if (closed.length === 0) {
-			const newCommand = client.application.commands.cache.find(c => c.name === 'new');
-			fields.push({
-				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
-				value: getMessage(`commands.slash.tickets.response.fields.closed.none.${ownOrOther}`, {
-					new: `</${newCommand.name}:${newCommand.id}>`,
-					user: member.user.toString(),
-				}),
-			});
-		} else {
-			fields.push({
-				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
-				value: closed.map(ticket => {
-					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
-					return `> ${ticket.category.name} #${ticket.number} (\`${ticket.id}\`) ${topic}`;
-				}).join('\n'),
-			});
+			if (closed.length === 0) {
+				const newCommand = client.application.commands.cache.find(c => c.name === 'new');
+				fields.push({
+					name: getMessage('commands.slash.tickets.response.fields.closed.name'),
+					value: getMessage(`commands.slash.tickets.response.fields.closed.none.${ownOrOther}`, {
+						new: `</${newCommand.name}:${newCommand.id}>`,
+						user: member.user.toString(),
+					}),
+				});
+			} else {
+				fields.push({
+					name: getMessage('commands.slash.tickets.response.fields.closed.name'),
+					value: (await Promise.all(
+						closed.map(async ticket => {
+							const getTopic = async () => (await worker.decrypt(ticket.topic)).replace(/\n/g, ' ').substring(0, 30);
+							const topic = ticket.topic ? `- \`${await getTopic()}\`` : '';
+							return `> ${ticket.category.name} #${ticket.number} (\`${ticket.id}\`) ${topic}`;
+						}),
+					)).join('\n'),
+				});
+			}
+		} finally {
+			await worker.terminate();
 		}
 		// TODO: add portal URL to view all (this list is limited to the last 10)
 

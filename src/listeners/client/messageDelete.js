@@ -1,8 +1,7 @@
 const { Listener } = require('@eartharoid/dbf');
 const { AuditLogEvent } = require('discord.js');
 const { logMessageEvent } = require('../../lib/logging');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { quick } = require('../../lib/threads');
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -38,8 +37,11 @@ module.exports = class extends Listener {
 		if (ticket.guild.archive) {
 			try {
 				const archived = await client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
-				if (archived) {
-					if (!content) content = JSON.parse(decrypt(archived.content)).content; // won't be cleaned
+				if (archived?.content) {
+					if (!content) {
+						const string = await quick('crypto', worker => worker.decrypt(archived.content));
+						content = JSON.parse(string).content; // won't be cleaned
+					}
 					await client.prisma.archivedMessage.update({
 						data: { deleted: true },
 						where: { id: message.id },

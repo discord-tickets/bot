@@ -3,8 +3,8 @@ const {
 	ApplicationCommandOptionType,
 	EmbedBuilder,
 } = require('discord.js');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { quick } = require('../../lib/threads');
+
 
 module.exports = class TransferSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -71,7 +71,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 			}),
 			interaction.channel.edit({
 				name: channelName,
-				topic: `${member.toString()}${ticket.topic?.length > 0 ? ` | ${decrypt(ticket.topic)}` : ''}`,
+				topic: `${member.toString()}${ticket.topic && ` | ${await quick('crypto', w => w.decrypt(ticket.topic))}`}`,
 			}),
 			interaction.channel.permissionOverwrites.edit(
 				member,

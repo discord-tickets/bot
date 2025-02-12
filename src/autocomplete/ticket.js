@@ -1,11 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 const { Autocompleter } = require('@eartharoid/dbf');
 const emoji = require('node-emoji');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 const Keyv = require('keyv');
 const ms = require('ms');
 const { isStaff } = require('../lib/users');
+const { reusable } = require('../lib/threads');
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -30,6 +29,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 		let tickets = await this.cache.get(cacheKey);
 
 		if (!tickets) {
+			const cmd = client.commands.commands.slash.get('transcript');
 			const { locale } = await client.prisma.guild.findUnique({
 				select: { locale: true },
 				where: { id: guildId },
@@ -42,15 +42,25 @@ module.exports = class TicketCompleter extends Autocompleter {
 					open,
 				},
 			});
-			tickets = tickets
-				.filter(ticket => client.commands.commands.slash.get('transcript').shouldAllowAccess(interaction, ticket))
-				.map(ticket => {
-					const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
-					const topic = ticket.topic ? '- ' + decrypt(ticket.topic).replace(/\n/g, ' ').substring(0, 50) : '';
-					const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
-					ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
-					return ticket;
-				});
+
+			const worker = await reusable('crypto');
+			try {
+				tickets = await Promise.all(
+					tickets
+						.filter(ticket => cmd.shouldAllowAccess(interaction, ticket))
+						.map(async ticket => {
+							const getTopic = async () => (await worker.decrypt(ticket.topic)).replace(/\n/g, ' ').substring(0, 50);
+							const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
+							const topic = ticket.topic ? '- ' + (await getTopic()) : '';
+							const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+							ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
+							return ticket;
+						}),
+				);
+			} finally {
+				await worker.terminate();
+			}
+
 			this.cache.set(cacheKey, tickets, ms('1m'));
 		}
 

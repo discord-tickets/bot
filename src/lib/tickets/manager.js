@@ -19,13 +19,13 @@ const { logTicketEvent } = require('../logging');
 const { isStaff } = require('../users');
 const { Collection } = require('discord.js');
 const spacetime = require('spacetime');
-const Cryptr = require('cryptr');
-const {
-	decrypt,
-	encrypt,
-} = new Cryptr(process.env.ENCRYPTION_KEY);
+
 const { getSUID } = require('../logging');
 const { getAverageTimes } = require('../stats');
+const {
+	quick,
+	reusable,
+} = require('../threads');
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -148,7 +148,9 @@ module.exports = class TicketManager {
 	/**
 	 * @param {object} data
 	 * @param {string} data.categoryId
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} data.interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").SelectMenuInteraction} data.interaction
 	 * @param {string?} [data.topic]
 	 */
 	async create({
@@ -353,7 +355,9 @@ module.exports = class TicketManager {
 	/**
 	 * @param {object} data
 	 * @param {string} data.category
-	 * @param {import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction|import("discord.js").ModalSubmitInteraction} data.interaction
+	 * @param {import("discord.js").ButtonInteraction
+	 * | import("discord.js").SelectMenuInteraction
+	 * | import("discord.js").ModalSubmitInteraction} data.interaction
 	 * @param {string?} [data.topic]
 	 */
 	async postQuestions({
@@ -367,11 +371,22 @@ module.exports = class TicketManager {
 		let answers;
 		if (interaction.isModalSubmit()) {
 			if (action === 'questions') {
-				answers = category.questions.filter(q => q.type === 'TEXT').map(q => ({
-					questionId: q.id,
-					userId: interaction.user.id,
-					value: interaction.fields.getTextInputValue(q.id) ? encrypt(interaction.fields.getTextInputValue(q.id)) : '',
-				}));
+				const worker = await reusable('crypto');
+				try {
+					answers = await Promise.all(
+						category.questions
+							.filter(q => q.type === 'TEXT')
+							.map(async q => ({
+								questionId: q.id,
+								userId: interaction.user.id,
+								value: interaction.fields.getTextInputValue(q.id)
+									? await worker.encrypt(interaction.fields.getTextInputValue(q.id))
+									: '', // TODO: maybe this should be null?
+							})),
+					);
+				} finally {
+					await worker.terminate();
+				}
 				if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
 			} else if (action === 'topic') {
 				topic = interaction.fields.getTextInputValue('topic');
@@ -612,7 +627,7 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: false,
 						name: getMessage('ticket.references_ticket.fields.topic'),
-						value: decrypt(ticket.topic),
+						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
 					});
 				}
 				await channel.send({ embeds: [embed] });
@@ -631,7 +646,7 @@ module.exports = class TicketManager {
 			id: channel.id,
 			number,
 			openingMessageId: sent.id,
-			topic: topic ? encrypt(topic) : null,
+			topic: topic ? await quick('crypto', worker => worker.encrypt(topic)) : null,
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
@@ -1073,7 +1088,9 @@ module.exports = class TicketManager {
 	}
 
 	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").ModalSubmitInteraction} interaction
 	 * @param {string} reason
 	 */
 	async requestClose(interaction, reason) {
@@ -1143,7 +1160,9 @@ module.exports = class TicketManager {
 	}
 
 	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").ModalSubmitInteraction} interaction
 	 */
 	async acceptClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
@@ -1191,7 +1210,7 @@ module.exports = class TicketManager {
 					where: { id: closedBy },
 				},
 			} || undefined, // Prisma wants undefined not null because it is a relation
-			closedReason: reason && encrypt(reason),
+			closedReason: reason && await quick('crypto', worker => worker.encrypt(reason)),
 			messageCount: archivedMessages,
 			open: false,
 		};
@@ -1248,7 +1267,7 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: true,
 						name: getMessage('dm.closed.fields.topic'),
-						value: decrypt(ticket.topic),
+						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
 					});
 				}
 

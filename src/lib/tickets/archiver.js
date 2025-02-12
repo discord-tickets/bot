@@ -1,5 +1,5 @@
-const Cryptr = require('cryptr');
-const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { reusable } = require('../threads');
+
 
 /**
  * Returns highest (roles.highest) hoisted role, or everyone
@@ -71,85 +71,90 @@ module.exports = class TicketArchiver {
 			});
 		}
 
-		for (const member of members) {
-			const data = {
-				avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
-				bot: member.user.bot,
-				discriminator: member.user.discriminator,
-				displayName: member.displayName ? encrypt(member.displayName) : null,
-				roleId: !!member && hoistedRole(member).id,
-				ticketId,
-				userId: member.user.id,
-				username: encrypt(member.user.username),
-			};
-			await this.client.prisma.archivedUser.upsert({
-				create: data,
-				update: data,
-				where: {
-					ticketId_userId: {
-						ticketId,
-						userId: member.user.id,
+		const worker = await reusable('crypto');
+		try {
+			for (const member of members) {
+				const data = {
+					avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
+					bot: member.user.bot,
+					discriminator: member.user.discriminator,
+					displayName: member.displayName ? await worker.encrypt(member.displayName) : null,
+					roleId: !!member && hoistedRole(member).id,
+					ticketId,
+					userId: member.user.id,
+					username: await worker.encrypt(member.user.username),
+				};
+				await this.client.prisma.archivedUser.upsert({
+					create: data,
+					update: data,
+					where: {
+						ticketId_userId: {
+							ticketId,
+							userId: member.user.id,
+						},
+					},
+				});
+			}
+
+			let reference;
+			if (message.reference) reference = await message.fetchReference();
+
+			const messageD = {
+				author: {
+					connect: {
+						ticketId_userId: {
+							ticketId,
+							userId: message.author?.id || 'default',
+						},
 					},
 				},
-			});
-		}
-
-		let reference;
-		if (message.reference) reference = await message.fetchReference();
-
-		const messageD = {
-			author: {
-				connect: {
-					ticketId_userId: {
-						ticketId,
-						userId: message.author?.id || 'default',
-					},
-				},
-			},
-			content: encrypt(
-				JSON.stringify({
-					attachments: [...message.attachments.values()],
-					components: [...message.components.values()],
-					content: message.content,
-					embeds: message.embeds.map(embed => ({ ...embed })),
-					reference: reference ? reference.id : null,
-				}),
-			),
-			createdAt: message.createdAt,
-			edited: !!message.editedAt,
-			external,
-			id: message.id,
-		};
-
-		return await this.client.prisma.ticket.update({
-			data: {
-				archivedChannels: {
-					upsert: channels.map(channel => {
-						const data = {
-							channelId: channel.id,
-							name: channel.name,
-						};
-						return {
-							create: data,
-							update: data,
-							where: {
-								ticketId_channelId: {
-									channelId: channel.id,
-									ticketId,
-								},
-							},
-						};
+				content: await worker.encrypt(
+					JSON.stringify({
+						attachments: [...message.attachments.values()],
+						components: [...message.components.values()],
+						content: message.content,
+						embeds: message.embeds.map(embed => ({ ...embed })),
+						reference: reference ? reference.id : null,
 					}),
-				},
-				archivedMessages: {
-					upsert: {
-						create: messageD,
-						update: messageD,
-						where: { id: message.id },
+				),
+				createdAt: message.createdAt,
+				edited: !!message.editedAt,
+				external,
+				id: message.id,
+			};
+
+			return await this.client.prisma.ticket.update({
+				data: {
+					archivedChannels: {
+						upsert: channels.map(channel => {
+							const data = {
+								channelId: channel.id,
+								name: channel.name,
+							};
+							return {
+								create: data,
+								update: data,
+								where: {
+									ticketId_channelId: {
+										channelId: channel.id,
+										ticketId,
+									},
+								},
+							};
+						}),
+					},
+					archivedMessages: {
+						upsert: {
+							create: messageD,
+							update: messageD,
+							where: { id: message.id },
+						},
 					},
 				},
-			},
-			where: { id: ticketId },
-		});
+				where: { id: ticketId },
+			});
+		} finally {
+			await worker.terminate();
+		}
 	}
 };
