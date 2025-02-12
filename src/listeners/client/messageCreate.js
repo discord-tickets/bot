@@ -188,24 +188,23 @@ module.exports = class extends Listener {
 			if (ticket) {
 				// archive messages
 				if (settings.archive) {
-					try {
-						await client.tickets.archiver.saveMessage(ticket.id, message);
-					} catch (error) {
-						client.log.warn('Failed to archive message', message.id);
-						client.log.error(error);
-					}
+					client.tickets.archiver.saveMessage(ticket.id, message)
+						.catch(error => {
+							client.log.warn('Failed to archive message', message.id);
+							client.log.error(error);
+						});
 				}
 
 				if (!message.author.bot) {
 					// update user's message count
-					await client.prisma.user.upsert({
+					client.prisma.user.upsert({
 						create: {
 							id: message.author.id,
 							messageCount: 1,
 						},
 						update: { messageCount: { increment: 1 } },
 						where: { id: message.author.id },
-					});
+					}).catch(client.log.error);
 
 					// set first and last message timestamps
 					const data = { lastMessageAt: new Date() };

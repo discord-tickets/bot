@@ -36,16 +36,16 @@ module.exports = class extends Listener {
 
 		if (ticket.guild.archive) {
 			try {
+				await client.prisma.archivedMessage.update({
+					data: { deleted: true },
+					where: { id: message.id },
+				});
 				const archived = await client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
 				if (archived?.content) {
 					if (!content) {
 						const string = await quick('crypto', worker => worker.decrypt(archived.content));
 						content = JSON.parse(string).content; // won't be cleaned
 					}
-					await client.prisma.archivedMessage.update({
-						data: { deleted: true },
-						where: { id: message.id },
-					});
 				}
 			} catch (error) {
 				client.log.warn('Failed to "delete" archived message', message.id);
