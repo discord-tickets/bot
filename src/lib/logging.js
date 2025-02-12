@@ -187,7 +187,7 @@ async function logTicketEvent(client, {
 
 	return await channel.send({
 		components:
-			action === 'close' ? [
+			action === 'close' && target.archive ? [
 				new ActionRowBuilder()
 					.addComponents(
 						new ButtonBuilder()

@@ -1261,6 +1261,7 @@ module.exports = class TicketManager {
 		logTicketEvent(this.client, {
 			action: 'close',
 			target: {
+				archive: ticket.guild.archive,
 				id: ticket.id,
 				name: `${ticket.category.name} **#${ticket.number}**`,
 			},
