@@ -39,16 +39,14 @@ async function sendToHouston(client) {
 		activated_users: users._count,
 		arch: process.arch,
 		database: process.env.DB_PROVIDER,
-		guilds: await Promise.all(
-			await relativePool(0.25, 'stats', pool =>
-				guilds
-					.filter(guild => client.guilds.cache.has(guild.id))
-					.map(async guild => {
-						guild.members = client.guilds.cache.get(guild.id).memberCount;
-						return pool.queue(w => w.aggregateGuildForHouston(guild, messages));
-					}),
-			),
-		),
+		guilds: await relativePool(0.25, 'stats', async pool => Promise.all(
+			guilds
+				.filter(guild => client.guilds.cache.has(guild.id))
+				.map(async guild => {
+					guild.members = client.guilds.cache.get(guild.id).memberCount;
+					return pool.queue(w => w.aggregateGuildForHouston(guild, messages));
+				}),
+		)),
 		id: md5(client.user.id),
 		node: process.version,
 		os: process.platform,

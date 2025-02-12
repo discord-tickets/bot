@@ -18,8 +18,7 @@ async function pool(size, name, fun) {
 	try {
 		return await fun(pool);
 	} finally {
-		await pool.settled();
-		await pool.terminate();
+		pool.settled().then(() => pool.terminate());
 	}
 };
 
@@ -35,7 +34,7 @@ async function quick(name, fun) {
 		// ! this await is extremely important
 		return await fun(thread);
 	} finally {
-		await Thread.terminate(thread);
+		Thread.terminate(thread);
 	}
 };
 
