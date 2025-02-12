@@ -286,7 +286,6 @@ commands:
         title: ✅ Prompt sent
 dm:
   closed:
-    archived: Use the `/transcript` command in **{guild}** to view the archived messages.
     fields:
       closed:
         name: Closed at

@@ -1345,7 +1345,6 @@ module.exports = class TicketManager {
 				const components = [];
 
 				if (ticket.guild.archive) {
-					embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
 					components.push(
 						new ActionRowBuilder()
 							.addComponents(
