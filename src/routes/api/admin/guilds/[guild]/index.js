@@ -94,7 +94,7 @@ module.exports.get = fastify => ({
 						tickets: c._count.tickets,
 					})),
 					tags,
-					tickets: tickets.length,
+					tickets,
 				},
 			};
 			await client.keyv.set(cacheKey, cached, ms('5m'));
