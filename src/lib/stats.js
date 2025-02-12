@@ -1,27 +1,22 @@
 /* eslint-disable no-underscore-dangle */
 
-const {
-	spawn,
-	Pool,
-	Worker,
-} = require('threads');
-const { cpus } = require('node:os');
 const { version } = require('../../package.json');
 const { md5 } = require('./misc');
+const {
+	quick,
+	relativePool,
+} = require('./threads');
 
-// ! ceiL: at least 1
-const poolSize = Math.ceil(cpus().length / 4);
-const pool = Pool(() => spawn(new Worker('./workers/stats.js')), { size: poolSize });
-
-module.exports.getAvgResolutionTime = tickets => (tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) || 1) / Math.max(tickets.length, 1);
-
-module.exports.getAvgResponseTime = tickets => (tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) || 1) / Math.max(tickets.length, 1);
+const getAverageTimes = closedTickets => quick('stats', async w => ({
+	avgResolutionTime: await w.getAvgResolutionTime(closedTickets),
+	avgResponseTime: await w.getAvgResponseTime(closedTickets),
+}));
 
 /**
- *
+ * Report stats to Houston
  * @param {import("../client")} client
  */
-module.exports.sendToHouston = async client => {
+async function sendToHouston(client) {
 	const guilds = await client.prisma.guild.findMany({
 		include: {
 			categories: { include: { _count: { select: { questions: true } } } },
@@ -35,30 +30,32 @@ module.exports.sendToHouston = async client => {
 			},
 		},
 	});
-	const users = (await client.prisma.user.aggregate({
+	const users = await client.prisma.user.aggregate({
 		_count: true,
 		_sum: { messageCount: true },
-	}));
-	const messages = users._sum.messageCount ?? 0;
+	});
+	const messages = users._sum.messageCount;
 	const stats = {
 		activated_users: users._count,
 		arch: process.arch,
 		database: process.env.DB_PROVIDER,
 		guilds: await Promise.all(
-			guilds
-				.filter(guild => client.guilds.cache.has(guild.id))
-				.map(async guild => {
-					guild.members = client.guilds.cache.get(guild.id).memberCount;
-					return pool.queue(worker => worker.aggregateGuildForHouston(guild, messages));
-				}),
+			await relativePool(0.25, 'stats', pool =>
+				guilds
+					.filter(guild => client.guilds.cache.has(guild.id))
+					.map(async guild => {
+						guild.members = client.guilds.cache.get(guild.id).memberCount;
+						return pool.queue(w => w.aggregateGuildForHouston(guild, messages));
+					}),
+			),
 		),
 		id: md5(client.user.id),
 		node: process.version,
 		os: process.platform,
 		version,
 	};
-
 	const delta = guilds.length - stats.guilds.length;
+
 	if (delta !== 0) {
 		client.log.warn('%d guilds are not cached and were excluded from the stats report', delta);
 	}
@@ -83,4 +80,9 @@ module.exports.sendToHouston = async client => {
 		}
 		client.log.debug(res);
 	}
+};
+
+module.exports = {
+	getAverageTimes,
+	sendToHouston,
 };

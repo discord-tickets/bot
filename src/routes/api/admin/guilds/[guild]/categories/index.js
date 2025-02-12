@@ -6,10 +6,7 @@ const {
 	ChannelType: { GuildCategory },
 } = require('discord.js');
 const ms = require('ms');
-const {
-	getAvgResolutionTime,
-	getAvgResponseTime,
-} = require('../../../../../../lib/stats');
+const { getAverageTimes } = require('../../../../../../lib/stats');
 
 module.exports.get = fastify => ({
 	handler: async req => {
@@ -29,24 +26,40 @@ module.exports.get = fastify => ({
 						name: true,
 						requiredRoles: true,
 						staffRoles: true,
-						tickets: { where: { open: false } },
+						tickets: {
+							select: {
+								closedAt: true,
+								createdAt: true,
+								firstResponseAt: true,
+							},
+							where: {
+								firstResponseAt: { not: null },
+								open: false,
+							},
+						},
 					},
 				},
 			},
 			where: { id: req.params.guild },
 		});
-		categories = categories.map(c => {
-			const closedTickets = c.tickets.filter(t => t.firstResponseAt && t.closedAt);
-			c = {
-				...c,
-				stats: {
-					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
-					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
-				},
-			};
-			delete c.tickets;
-			return c;
-		});
+
+		categories = await Promise.all(
+			categories.map(async category => {
+				const {
+					avgResolutionTime,
+					avgResponseTime,
+				} = await getAverageTimes(category.tickets);
+				category = {
+					...category,
+					stats: {
+						avgResolutionTime: ms(avgResolutionTime),
+						avgResponseTime: ms(avgResponseTime),
+					},
+				};
+				delete category.tickets;
+				return category;
+			}),
+		);
 
 		return categories;
 	},

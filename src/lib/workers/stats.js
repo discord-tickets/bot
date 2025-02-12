@@ -7,9 +7,13 @@ const md5 = str => createHash('md5').update(str).digest('hex');
 
 const msToMins = ms => Number((ms / 1000 / 60).toFixed(2));
 
-const getAvgResolutionTime = tickets => (tickets.reduce((total, ticket) => total + (ticket.closedAt - ticket.createdAt), 0) || 1) / Math.max(tickets.length, 1);
+const reduce = (closedTickets, prop) => closedTickets.reduce((total, ticket) => total + (ticket[prop] - ticket.createdAt), 0) || 1;
 
-const getAvgResponseTime = tickets => (tickets.reduce((total, ticket) => total + (ticket.firstResponseAt - ticket.createdAt), 0) || 1) / Math.max(tickets.length, 1);
+const getAvgResolutionTime = closedTickets => reduce(closedTickets, 'closedAt') / Math.max(closedTickets.length, 1);
+
+const getAvgResponseTime = closedTickets => reduce(closedTickets, 'firstResponseAt') / Math.max(closedTickets.length, 1);
+
+const sum = numbers => numbers.reduce((t, n) => t + n, 0);
 
 expose({
 	aggregateGuildForHouston(guild, messages) {
@@ -37,4 +41,5 @@ expose({
 	},
 	getAvgResolutionTime,
 	getAvgResponseTime,
+	sum,
 });

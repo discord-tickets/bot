@@ -21,14 +21,11 @@ const { Collection } = require('discord.js');
 const spacetime = require('spacetime');
 const Cryptr = require('cryptr');
 const {
-	getAvgResolutionTime,
-	getAvgResponseTime,
-} = require('../stats');
-const {
 	decrypt,
 	encrypt,
 } = new Cryptr(process.env.ENCRYPTION_KEY);
 const { getSUID } = require('../logging');
+const { getAverageTimes } = require('../stats');
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -434,9 +431,13 @@ module.exports = class TicketManager {
 					open: false,
 				},
 			});
+			const {
+				avgResolutionTime,
+				avgResponseTime,
+			} = await getAverageTimes(closedTickets);
 			stats = {
-				avgResolutionTime: ms(getAvgResolutionTime(closedTickets), { long: true }),
-				avgResponseTime: ms(getAvgResponseTime(closedTickets), { long: true }),
+				avgResolutionTime: ms(avgResolutionTime, { long: true }),
+				avgResponseTime: ms(avgResponseTime, { long: true }),
 			};
 			this.client.keyv.set(statsCacheKey, stats, ms('1h'));
 		}
