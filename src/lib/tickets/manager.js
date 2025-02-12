@@ -631,20 +631,22 @@ module.exports = class TicketManager {
 					});
 				}
 				await channel.send({
-					components: [
-						new ActionRowBuilder()
-							.addComponents(
-								new ButtonBuilder()
-									.setCustomId(JSON.stringify({
-										action: 'transcript',
-										ticket: referencesTicketId,
-									}))
-									.setStyle(ButtonStyle.Primary)
-									.setEmoji(getMessage('buttons.transcript.emoji'))
-									.setLabel(getMessage('buttons.transcript.text')),
+					components: category.guild.archive
+						? [
+							new ActionRowBuilder()
+								.addComponents(
+									new ButtonBuilder()
+										.setCustomId(JSON.stringify({
+											action: 'transcript',
+											ticket: referencesTicketId,
+										}))
+										.setStyle(ButtonStyle.Primary)
+										.setEmoji(getMessage('buttons.transcript.emoji'))
+										.setLabel(getMessage('buttons.transcript.text')),
 
-							),
-					],
+								),
+						]
+						: [],
 					embeds: [embed],
 				});
 			}
