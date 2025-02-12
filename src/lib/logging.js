@@ -176,6 +176,13 @@ async function logTicketEvent(client, {
 			]),
 	];
 
+	if (target.reason) {
+		embeds[0].addFields({
+			name: getMessage('log.ticket.reason'),
+			value: target.reason,
+		});
+	}
+
 	if (diff?.original && Object.entries(makeDiff(diff)).length) {
 		embeds.push(
 			new EmbedBuilder()

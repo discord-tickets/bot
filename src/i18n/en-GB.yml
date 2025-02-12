@@ -289,7 +289,9 @@ dm:
     fields:
       closed:
         name: Closed at
-        value: "{timestamp} (after {duration})"
+        value: |-
+          {timestamp}
+          (after {duration})
       closed_by: Closed by
       created: Created at
       feedback: Your feedback
@@ -333,6 +335,7 @@ log:
   ticket:
     added: Added members
     description: "{user} {verb} a ticket"
+    reason: Reason
     removed: Removed members
     ticket: Ticket
     title: Ticket {verb}

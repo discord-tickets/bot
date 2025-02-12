@@ -1264,6 +1264,7 @@ module.exports = class TicketManager {
 				archive: ticket.guild.archive,
 				id: ticket.id,
 				name: `${ticket.category.name} **#${ticket.number}**`,
+				reason,
 			},
 			userId: closedBy || this.client.user.id,
 		});
