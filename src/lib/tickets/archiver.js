@@ -31,13 +31,9 @@ module.exports = class TicketArchiver {
 			}
 		}
 
-
-
 		const channels = [...message.mentions.channels.values()];
 		const members = [...message.mentions.members.values()];
 		const roles = [...message.mentions.roles.values()];
-
-		// const ticket = { connect: { id: ticketId } };
 
 		const worker = await reusable('crypto');
 
@@ -55,7 +51,7 @@ module.exports = class TicketArchiver {
 							ticketId,
 							userId: 'default',
 						},
-						select: { ticketId: true }, // default is to return all scalar fields
+						select: { ticketId: true }, // ? default is to return all scalar fields
 						update: {},
 						where: {
 							ticketId_userId: {
@@ -141,14 +137,6 @@ module.exports = class TicketArchiver {
 			}
 
 			const data = {
-				// author: {
-				// 	connect: {
-				// 		ticketId_userId: {
-				// 			ticketId,
-				// 			userId: message.author?.id || 'default',
-				// 		},
-				// 	},
-				// },
 				content: await worker.encrypt(
 					JSON.stringify({
 						attachments: [...message.attachments.values()],
