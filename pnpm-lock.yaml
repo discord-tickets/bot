@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@discord-tickets/settings':
-        specifier: ~2.5.1
-        version: 2.5.1
+        specifier: ~2.5.2
+        version: 2.5.2
       '@eartharoid/dbf':
         specifier: ^0.4.2
         version: 0.4.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
@@ -248,8 +248,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@discord-tickets/settings@2.5.1':
-    resolution: {integrity: sha512-yVw5mxXjzFf2X0T7F08VGHIFTFDZeM3cb9Euj+lplL6/WjMHys7h0+ck9sSmWE8bNX8wuhniZNm54h3w0xkT5Q==}
+  '@discord-tickets/settings@2.5.2':
+    resolution: {integrity: sha512-2JYS/imMqK6dVRcpsKXwbddH2HJA3aUTg7MxY5WmbvNOQYJWs1P7hIxvkT2f/7GlKh97whBZSsd8r1Ica7P4Gw==}
 
   '@discordjs/builders@1.10.1':
     resolution: {integrity: sha512-OWo1fY4ztL1/M/DUyRPShB4d/EzVfuUvPTRRHRIt/YxBrUYSz0a+JicD5F5zHFoNs2oTuWavxCOVFV1UljHTng==}
@@ -2581,7 +2581,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@discord-tickets/settings@2.5.1': {}
+  '@discord-tickets/settings@2.5.2': {}
 
   '@discordjs/builders@1.10.1':
     dependencies:
