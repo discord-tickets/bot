@@ -9,8 +9,8 @@ const archiver = require('archiver');
 const { iconURL } = require('../../../../../lib/misc');
 const pkg = require('../../../../../../package.json');
 
-// ! ceiL: at least 1
-const poolSize = Math.ceil(cpus().length / 4);
+// a single persistent pool shared across all exports
+const poolSize = Math.ceil(cpus().length / 4); // ! ceiL: at least 1
 const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/export.js')), { size: poolSize });
 
 module.exports.get = fastify => ({
@@ -72,6 +72,7 @@ module.exports.get = fastify => ({
 		async function* ticketsGenerator() {
 			try {
 				let done = false;
+				const take = 50;
 				const findOptions = {
 					include: {
 						archivedChannels: true,
@@ -82,16 +83,16 @@ module.exports.get = fastify => ({
 						questionAnswers: true,
 					},
 					orderBy: { id: 'asc' },
-					take: 24,
+					take,
 					where: { guildId: id },
 				};
 				do {
 					const batch = await client.prisma.ticket.findMany(findOptions);
-					if (batch.length < findOptions.take) {
+					if (batch.length < take) {
 						done = true;
 					} else {
 						findOptions.skip = 1;
-						findOptions.cursor = { id: batch[findOptions.take - 1].id };
+						findOptions.cursor = { id: batch[take - 1].id };
 					}
 					// ! map (parallel) not for...of (serial)
 					yield* batch.map(async ticket => (await pool.queue(worker => worker.exportTicket(ticket)) + '\n'));

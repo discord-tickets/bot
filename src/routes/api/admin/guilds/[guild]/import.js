@@ -9,8 +9,8 @@ const unzipper = require('unzipper');
 const { createInterface } = require('node:readline');
 const pkg = require('../../../../../../package.json');
 
-// ! ceiL: at least 1
-const poolSize = Math.ceil(cpus().length / 4);
+// a single persistent pool shared across all imports
+const poolSize = Math.ceil(cpus().length / 4); // ! ceiL: at least 1
 const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/import.js')), { size: poolSize });
 
 function parseJSON(string) {
@@ -157,6 +157,7 @@ module.exports.post = fastify => ({
 				ticketsPromises.push(pool.queue(worker => worker.importTicket(line, id, categoryMap)));
 			}
 
+			// TODO: batch 100 tickets per query?
 			const ticketsResolved = await Promise.all(ticketsPromises);
 			const queries = [];
 			const allMessages = [];
