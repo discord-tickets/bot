@@ -163,7 +163,12 @@ module.exports.post = fastify => ({
 			const allMessages = [];
 
 			for (const [ticket, ticketMessages] of ticketsResolved) {
-				queries.push(client.prisma.ticket.create({ data: ticket }));
+				queries.push(
+					client.prisma.ticket.create({
+						data: ticket,
+						select: { id: true },
+					}),
+				);
 				allMessages.push(...ticketMessages);
 			}
 
