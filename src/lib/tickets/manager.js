@@ -1199,7 +1199,7 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.close.closed.description')),
 			],
 		});
-		await new Promise(resolve => setTimeout(resolve, 5000));
+		await new Promise(resolve => setTimeout(resolve, 3e3));
 		await this.finallyClose(interaction.channel.id, this.$stale.get(interaction.channel.id) || {});
 	}
 
