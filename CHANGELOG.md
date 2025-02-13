@@ -1,3 +1,77 @@
+## [4.0.29](https://github.com/discord-tickets/bot/compare/v4.0.28...v4.0.29) (2025-02-13)
+
+
+### Bug Fixes
+
+* `/move` into new category (fixes [#531](https://github.com/discord-tickets/bot/issues/531)) ([c1643f4](https://github.com/discord-tickets/bot/commit/c1643f45ad435087f128ce107d306e397228150a))
+* `references` option on the `/new` command ([37ece87](https://github.com/discord-tickets/bot/commit/37ece87b4e8c2774a55d4c4c663abccf6a37cfac))
+* **api/stats:** guild ticket count ([5a908e7](https://github.com/discord-tickets/bot/commit/5a908e77a76ad3ef4cf484705b29c9261a104706))
+* **api:** missing archived messages etc in exports ([9689648](https://github.com/discord-tickets/bot/commit/9689648a6c4dd1e05ed664f7be499f3c0d834124))
+* **api:** move guild delete route to index ([4278d24](https://github.com/discord-tickets/bot/commit/4278d24e0b5085f21ce15b06a5e0c8265c8b8fd3))
+* houston ([a09f98f](https://github.com/discord-tickets/bot/commit/a09f98faaebf5a46409d1c7eaade95a35677fe49))
+* **i18n:** rename en_US to en-US ([b7531b0](https://github.com/discord-tickets/bot/commit/b7531b04c4e00833cbf2f749a7234d1c885192cc))
+* invite buttons ([33c1b64](https://github.com/discord-tickets/bot/commit/33c1b64019395953d2a1071ded1fffdaded6e7e6))
+* move `/invite` from api to app ([2ed25f7](https://github.com/discord-tickets/bot/commit/2ed25f7bbffcab8da345e2982dba1ac689037768))
+* **not really:** catch working hours errors ([bb31242](https://github.com/discord-tickets/bot/commit/bb31242d6b47bd10008040e527d3fb50157c1c74))
+* only send transcript button if archiving is enabled ([618f35f](https://github.com/discord-tickets/bot/commit/618f35f247ed4705769dd80607078bd7480e4eda))
+* only send transcript button in log channel if archiving is enabled ([54455c3](https://github.com/discord-tickets/bot/commit/54455c316e5555387c98c36170430f88c9b1c327))
+* re-enable `prompt=none` ([764a8aa](https://github.com/discord-tickets/bot/commit/764a8aac377c46bc8c77e4894223ed69de5c665f))
+* **scripts:** remove `categoryId` when importing questions ([b2d6413](https://github.com/discord-tickets/bot/commit/b2d641322119e4e51ff8d0242cf444b4a7f5563f))
+* **stats:** should have retested that... ([c185afc](https://github.com/discord-tickets/bot/commit/c185afcdfea8d90fd0f9b529dcf6113bd2bfc94c))
+* suppress message delete error ([43fe302](https://github.com/discord-tickets/bot/commit/43fe3028b196b53926dbf806df4919b168b75627))
+* use descending date format in logs to avoid confusion ([f29c4ac](https://github.com/discord-tickets/bot/commit/f29c4ac76576177d4d12af7ba14773a0553fd602))
+
+
+### Features
+
+* `/rename` command  ([#583](https://github.com/discord-tickets/bot/issues/583)) ([aae41ff](https://github.com/discord-tickets/bot/commit/aae41ffee3fc70d75aff0fdab27282f9aac3d11d))
+* `number` placeholder in opening message ([e53c064](https://github.com/discord-tickets/bot/commit/e53c064bf7901472409c7e6d7185274fc3cf9fbb))
+* add `guilds` placeholder to activities ([c6b9714](https://github.com/discord-tickets/bot/commit/c6b9714f37179567bf6673c3d7dbdaebb26890c7))
+* **api:** data imports ([9ad6d6e](https://github.com/discord-tickets/bot/commit/9ad6d6e57289509e336ec55b3ac423f15881ea5b))
+* **api:** export data as zip ([f029a49](https://github.com/discord-tickets/bot/commit/f029a4987796e82ac5b6ca113f3376c3d7a2096c))
+* **api:** public bot warning ([96cc84e](https://github.com/discord-tickets/bot/commit/96cc84e13ca6130f7235cffc36aaecbe7284e538))
+* close reason in log embed ([a711fc7](https://github.com/discord-tickets/bot/commit/a711fc7be69ec91168773f343654298c969672cb))
+* **eggs:** add pelican egg and move to dedicated directory ([#579](https://github.com/discord-tickets/bot/issues/579)) ([1b42029](https://github.com/discord-tickets/bot/commit/1b4202999d7982f300653c8c23226d77ff44b53f))
+* ephemeral replies on (un)claim buttons ([#580](https://github.com/discord-tickets/bot/issues/580)) ([b3a2bb0](https://github.com/discord-tickets/bot/commit/b3a2bb00a15c6a6e7c4fec690af97b883db2fa49))
+* handle exit signals ([55660e8](https://github.com/discord-tickets/bot/commit/55660e8c4ee8d570c38d1fd3ce163077d2304a5a))
+* **i18n:** add English (United States) translations ([85ae461](https://github.com/discord-tickets/bot/commit/85ae461a34ebafd9e7bc14f443d6468b4bad6301))
+* **i18n:** add Lithuanian translations ([79dd181](https://github.com/discord-tickets/bot/commit/79dd181d633741c787a57bb3fae1f318127c9c12))
+* **i18n:** improve German translations ([118b685](https://github.com/discord-tickets/bot/commit/118b685f8ea99c75bd288de739421937258f6447))
+* **i18n:** update Czech translations ([05c6ffa](https://github.com/discord-tickets/bot/commit/05c6ffa4828100eaa4832bd71907a50e0578f30a))
+* **i18n:** update French translations ([e7aa5f2](https://github.com/discord-tickets/bot/commit/e7aa5f23847ac86ab76eb8a97563f61c9e240026))
+* **i18n:** update German translations ([c8eb0b9](https://github.com/discord-tickets/bot/commit/c8eb0b9215d803f1af9574647da43fd7baa1b4f6))
+* **i18n:** update Lithuanian translations ([ffbfb0c](https://github.com/discord-tickets/bot/commit/ffbfb0c05ce6f74f816b098e56e27cb587f40efc))
+* **i18n:** update Lithuanian translations ([1b88267](https://github.com/discord-tickets/bot/commit/1b882672120f989a61e670b9660c886f1222e302))
+* **i18n:** update Lithuanian translations ([ab06e02](https://github.com/discord-tickets/bot/commit/ab06e029a61eb2ea1975a5643f09cd078471bcd9))
+* **i18n:** update translation files ([9a7a142](https://github.com/discord-tickets/bot/commit/9a7a14295c38c5dd1c93152a0134f504b920ddc5))
+* **i18n:** update Turkish translations ([71547aa](https://github.com/discord-tickets/bot/commit/71547aa1429ba5a31b18be61a58ff9a5e1328728))
+* login when adding to guild, then redirect to its settings ([55b184f](https://github.com/discord-tickets/bot/commit/55b184f2265272231af6a1f9b129d7d0a55e68c5))
+* lower channel delete timer to 3s ([3eef14c](https://github.com/discord-tickets/bot/commit/3eef14ccad9639298605fc2f3a8154e0a208def3))
+* portal `v2.5.0` ([dcf1c83](https://github.com/discord-tickets/bot/commit/dcf1c832286e0908519e9e93238e1a5597b910a3))
+* react to messages when archiving fails ([fb0a23c](https://github.com/discord-tickets/bot/commit/fb0a23cef058c918ae53a83ac8e7195611535b82))
+* remove DM embed description ([f74b257](https://github.com/discord-tickets/bot/commit/f74b2576297f5c486bdec9d3c65af88cb74a8b00))
+* separate user and admin auth, redirect to settings after invite ([2255d0d](https://github.com/discord-tickets/bot/commit/2255d0d15d9a0cc6088d5b19c819a49b1b013379))
+* super fast database dump and restore scripts ([413bae6](https://github.com/discord-tickets/bot/commit/413bae6d2c1b74e7181e25d4a47d34bfb7e8baa3))
+* transcript button in DM ([e947c95](https://github.com/discord-tickets/bot/commit/e947c9589b7b357d5386a47197d21d0ccba9c754))
+* transcript button on referenced ticket embed ([04ada3c](https://github.com/discord-tickets/bot/commit/04ada3c07b41f2c658bcb3648ec58d1cd6c44d47))
+
+
+### Performance Improvements
+
+* **api:** don't return ticket after import ([440a9b7](https://github.com/discord-tickets/bot/commit/440a9b745cd0c5887a5a8e980072d020c6c4df9a))
+* **api:** faster exports ([a33c670](https://github.com/discord-tickets/bot/commit/a33c670fc807ab741178054d454ca7f444967736))
+* **api:** increase batch size ([a861f76](https://github.com/discord-tickets/bot/commit/a861f76df99dd369567c0118f7b1330ee79f3fa7))
+* don't await archive ([673afa0](https://github.com/discord-tickets/bot/commit/673afa0ee079a877ce59bf1d9c2be50447c87c75))
+* **houston:** threads for stats ([0918c58](https://github.com/discord-tickets/bot/commit/0918c58185c9fd58e38caa27bfe3ba4cf2fb78a8))
+* less await ([da36ab3](https://github.com/discord-tickets/bot/commit/da36ab38cd1677dbfbdeeca0deb042c83dd54dd0))
+* single transaction for archiving messages ([b5384bc](https://github.com/discord-tickets/bot/commit/b5384bca6cc1b04ad68e48d8956f64658aaaeb69))
+* **stats:** don't duplicate work ([0830050](https://github.com/discord-tickets/bot/commit/08300504b149164f5d6e61cc3137d9b5abbc54a7))
+* **stats:** threads, better & parallel queries ([6b0146e](https://github.com/discord-tickets/bot/commit/6b0146e0997612602c0f161195167f090dc15a6f))
+* threads everywhere! (for encryption & decryption) ([d99cb20](https://github.com/discord-tickets/bot/commit/d99cb202d57c032a62b349037aae766ef8216fd0))
+* upgrade to prisma 5 ([8ac7c65](https://github.com/discord-tickets/bot/commit/8ac7c65a2dd3ccc4e6c79bd6b4db3e1fabee8ee2))
+
+
+
 ## [4.0.28](https://github.com/discord-tickets/bot/compare/v4.0.27...v4.0.28) (2025-01-14)
 
 
