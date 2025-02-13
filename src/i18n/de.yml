@@ -26,6 +26,8 @@ buttons:
   unclaim:
     text: Freigeben
     emoji: ♻️
+  transcript:
+    emoji: 📄
 commands:
   message:
     pin:
