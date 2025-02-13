@@ -1,3 +1,14 @@
+## [4.0.30](https://github.com/discord-tickets/bot/compare/v4.0.29...v4.0.30) (2025-02-13)
+
+
+### Bug Fixes
+
+* catch unknown member error ([64ed170](https://github.com/discord-tickets/bot/commit/64ed1703322b3ad551210ec680223227f7657168))
+* message delete error catching ([8cc708e](https://github.com/discord-tickets/bot/commit/8cc708e68f9aa35168668d6686fc35eba3d4cbe3))
+* **portal:** `/invite` when not logged in ([46bee39](https://github.com/discord-tickets/bot/commit/46bee3921b148f1ea5aa279ab473bad0f3cfc7f7))
+
+
+
 ## [4.0.29](https://github.com/discord-tickets/bot/compare/v4.0.28...v4.0.29) (2025-02-13)
 
 
