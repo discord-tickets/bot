@@ -48,7 +48,7 @@ module.exports = class extends Listener {
 					}
 				}
 			} catch (error) {
-				if (error.cause === 'Record to update not found.') {
+				if ((error.meta?.cause || error.cause) === 'Record to update not found.') {
 					client.log.warn(`Archived message ${message.id} can't be marked as deleted because it doesn't exist`);
 				} else {
 					client.log.warn('Failed to "delete" archived message', message.id);
