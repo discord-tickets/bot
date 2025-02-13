@@ -389,6 +389,8 @@ misc:
     title: ⚠️ Qualcosa è andato storto
     description: "Spiacente, si è verificato un errore inaspettato.\nComunicalo ad
       un amministratore.\n"
+    fields:
+      identifier: Identificatore
 modals:
   feedback:
     comment:
