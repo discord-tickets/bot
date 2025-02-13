@@ -57,7 +57,7 @@ module.exports.get = fastify => ({
 					where: { guildId: id },
 				}),
 				client.prisma.tag.count({ where: { guildId: id } }),
-				client.prisma.ticket.count(),
+				client.prisma.ticket.count({ where: { guildId: id } }),
 				client.prisma.ticket.findMany({
 					select: {
 						closedAt: true,
