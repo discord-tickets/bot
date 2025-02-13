@@ -48,7 +48,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
-		"@discord-tickets/settings": "~2.5.2",
+		"@discord-tickets/settings": "~2.5.3",
 		"@eartharoid/dbf": "^0.4.2",
 		"@eartharoid/dtf": "^2.0.1",
 		"@eartharoid/i18n": "^1.2.1",
@@ -91,7 +91,7 @@
 		"all-contributors-cli": "^6.26.1",
 		"conventional-changelog-cli": "^2.2.2",
 		"eslint": "^9.20.1",
-		"globals": "^15.14.0",
+		"globals": "^15.15.0",
 		"husky": "^8.0.3",
 		"lint-staged": "^13.3.0",
 		"markdown-table": "^3.0.4",
