@@ -6,6 +6,7 @@
 	"main": "src/",
 	"scripts": {
 		"db.dump": "node scripts/dump.mjs",
+		"db.prune": "node scripts/prune.mjs",
 		"db.restore": "node scripts/restore.mjs",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",

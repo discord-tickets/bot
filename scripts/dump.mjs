@@ -31,7 +31,7 @@ if (process.env.DB_PROVIDER === 'sqlite') {
 
 spinner.succeed('Connected');
 
-export const models = [
+const models = [
 	'user',
 	'guild',
 	'tag',
