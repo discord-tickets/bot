@@ -538,6 +538,7 @@ module.exports = class TicketManager {
 		}
 
 		const pings = category.pingRoles.map(r => `<@&${r}>`).join(' ');
+
 		const sent = await channel.send({
 			components: components.components.length >= 1 ? [components] : [],
 			content: getMessage('ticket.opening_message.content', {
@@ -546,14 +547,19 @@ module.exports = class TicketManager {
 			}),
 			embeds,
 		});
-		await sent.pin({ reason: 'Ticket opening message' });
-		const pinned = channel.messages.cache.last();
 
-		if (pinned.system) {
-			pinned
-				.delete({ reason: 'Cleaning up system message' })
-				.catch(() => this.client.log.warn('Failed to delete system pin message'));
-		}
+		sent.pin({ reason: 'Ticket opening message' })
+			.then(() => {
+				const recent = channel.messages.cache.last(3);
+				for (const message of recent) {
+					if (message.system) {
+						message
+							.delete({ reason: 'Cleaning up system message' })
+							.catch(() => this.client.log.warn('Failed to delete system pin message'));
+					}
+				}
+			})
+			.catch(this.client.log.error);
 
 		/** @type {import("discord.js").Message|undefined} */
 		let message;
@@ -573,7 +579,7 @@ module.exports = class TicketManager {
 							this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
 						}
 					}
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
@@ -595,8 +601,7 @@ module.exports = class TicketManager {
 								})
 								.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
 						],
-					});
-
+					}).catch(this.client.log.error);
 				}
 
 			}
@@ -630,7 +635,7 @@ module.exports = class TicketManager {
 						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
 					});
 				}
-				await channel.send({
+				channel.send({
 					components: category.guild.archive
 						? [
 							new ActionRowBuilder()
@@ -648,7 +653,7 @@ module.exports = class TicketManager {
 						]
 						: [],
 					embeds: [embed],
-				});
+				}).catch(this.client.log.error);
 			}
 		}
 
@@ -755,26 +760,26 @@ module.exports = class TicketManager {
 					let then = now.add(nextIndex - now.day(), 'day');
 					if (nextIndex <= now.day()) then = then.add(1, 'week');
 					const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
 								.setTitle(getMessage('ticket.working_hours.next.title'))
 								.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
 						],
-					});
+					}).catch(this.client.log.error);
 				}
 			} else if (now.isBefore(start)) { // staff haven't started working yet
 				working = false;
 				const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
-				await channel.send({
+				channel.send({
 					embeds: [
 						new ExtendedEmbedBuilder()
 							.setColor(category.guild.primaryColour)
 							.setTitle(getMessage('ticket.working_hours.today.title'))
 							.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
 					],
-				});
+				}).catch(this.client.log.error);
 			}
 
 			if (working && process.env.PUBLIC_BOT !== 'true') {
@@ -784,14 +789,14 @@ module.exports = class TicketManager {
 					if (member.presence && member.presence !== 'offline') online++;
 				}
 				if (online === 0) {
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
 								.setTitle(getMessage('ticket.offline.title'))
 								.setDescription(getMessage('ticket.offline.description')),
 						],
-					});
+					}).catch(this.client.log.error);
 					this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
 				}
 			}
