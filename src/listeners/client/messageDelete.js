@@ -19,7 +19,7 @@ module.exports = class extends Listener {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		if (!message.guild) return;
+		if (!message.guild || message.flags.has('Ephemeral')) return;
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },
@@ -69,7 +69,7 @@ module.exports = class extends Listener {
 			}
 		}
 
-		if (message.author.id !== client.user.id && !message.flags.has('Ephemeral')) {
+		if (message.author.id !== client.user.id) {
 			await logMessageEvent(this.client, {
 				action: 'delete',
 				diff: {

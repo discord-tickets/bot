@@ -68,6 +68,21 @@ module.exports = class TicketArchiver {
 					colour: role.hexColor.slice(1),
 					name: role.name,
 				};
+				console.log({
+					create: {
+						...data,
+						roleId: role.id,
+						ticketId,
+					},
+					select: { ticketId: true },
+					update: data,
+					where: {
+						ticketId_roleId: {
+							roleId: role.id,
+							ticketId,
+						},
+					},
+				});
 				queries.push(
 					this.client.prisma.archivedRole.upsert({
 						create: {
@@ -164,7 +179,7 @@ module.exports = class TicketArchiver {
 					where: { id: message.id },
 				}),
 			);
-
+			console.log(await this.client.prisma.ticket.findUnique({ where: { id: ticketId } }));
 			return await this.client.prisma.$transaction(queries);
 		} finally {
 			await worker.terminate();

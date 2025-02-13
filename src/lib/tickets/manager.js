@@ -430,6 +430,97 @@ module.exports = class TicketManager {
 			topic: `${creator}${topic?.length > 0 ? ` | ${topic}` : ''}`,
 		});
 
+		const data = {
+			category: { connect: { id: categoryId } },
+			createdBy: {
+				connectOrCreate: {
+					create: { id: interaction.user.id },
+					where: { id: interaction.user.id },
+				},
+			},
+			guild: { connect: { id: category.guild.id } },
+			id: channel.id,
+			number,
+			openingMessageId: '', // not nullable yet
+			topic: topic ? await quick('crypto', worker => worker.encrypt(topic)) : null,
+		};
+
+		/** @type {import("discord.js").Message|undefined} */
+		let referencedMessage;
+		if (referencesMessageId) {
+			try {
+				referencedMessage = await interaction.channel.messages.fetch(referencesMessageId);
+				// not worth the effort of making system messages work atm
+				if (referencedMessage.system) {
+					referencesMessageId = null;
+					referencedMessage = null;
+				} else if (category.guild.archive) {
+					await this.archiver.saveMessage(ticket.id, referencedMessage, true);
+					data.referencesTicket = { connect: { id: referencesTicketId } };
+				}
+			} catch (error) {
+				this.client.log.error(error);
+			}
+		}
+
+		/** @type {import('@prisma/client').Ticket} */
+		let ticket;
+		try {
+			if (answers) data.questionAnswers = { createMany: { data: answers } };
+			ticket = await this.client.prisma.ticket.create({ data });
+
+			this.$count.categories[categoryId].total++;
+			this.$count.categories[categoryId][creator.id]++;
+
+			if (category.cooldown) {
+				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
+				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
+				const TTL = category.cooldown;
+				this.client.keyv.set(cacheKey, expiresAt, TTL);
+			}
+
+			await interaction.editReply({
+				components: [],
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: guild.iconURL(),
+						text: category.guild.footer,
+					})
+						.setColor(category.guild.successColour)
+						.setTitle(getMessage('ticket.created.title'))
+						.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
+				],
+			});
+
+			logTicketEvent(this.client, {
+				action: 'create',
+				target: {
+					id: ticket.id,
+					name: channel.toString(),
+				},
+				userId: interaction.user.id,
+			});
+		} catch (error) {
+			const ref = getSUID();
+			this.client.log.warn.tickets('An error occurred whilst creating ticket', channel.id);
+			this.client.log.error.tickets(ref);
+			this.client.log.error.tickets(error);
+			await interaction.editReply({
+				components: [],
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor('Orange')
+						.setTitle(getMessage('misc.error.title'))
+						.setDescription(getMessage('misc.error.description'))
+						.addFields({
+							name: getMessage('misc.error.fields.identifier'),
+							value: inlineCode(ref),
+						}),
+				],
+			});
+			return channel.delete().catch(this.client.log.error);
+		}
+
 		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime)\s?}+/i.test(category.openingMessage);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
@@ -538,6 +629,7 @@ module.exports = class TicketManager {
 		}
 
 		const pings = category.pingRoles.map(r => `<@&${r}>`).join(' ');
+
 		const sent = await channel.send({
 			components: components.components.length >= 1 ? [components] : [],
 			content: getMessage('ticket.opening_message.content', {
@@ -546,60 +638,57 @@ module.exports = class TicketManager {
 			}),
 			embeds,
 		});
-		await sent.pin({ reason: 'Ticket opening message' });
-		const pinned = channel.messages.cache.last();
 
-		if (pinned.system) {
-			pinned
-				.delete({ reason: 'Cleaning up system message' })
-				.catch(() => this.client.log.warn('Failed to delete system pin message'));
-		}
+		// TODO: //FIXME:
+		// this.client.prisma.ticket.update({
+		// 	data: { openingMessageId: sent.id },
+		// 	where: { id: ticket.id },
+		// }).catch(this.client.log.error);
 
-		/** @type {import("discord.js").Message|undefined} */
-		let message;
-		if (referencesMessageId) {
-			/** @type {import("discord.js").Message} */
-			message = await interaction.channel.messages.fetch(referencesMessageId);
-			if (message) {
-				// not worth the effort of making system messages work atm
-				if (message.system) {
-					referencesMessageId = null;
-					message = null;
-				} else {
-					if (!message.member) {
-						try {
-							message.member = await message.guild.members.fetch(message.author.id);
-						} catch {
-							this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
-						}
+		sent.pin({ reason: 'Ticket opening message' })
+			.then(() => {
+				const recent = channel.messages.cache.last(3);
+				for (const message of recent) {
+					if (message.system) {
+						message
+							.delete({ reason: 'Cleaning up system message' })
+							.catch(() => this.client.log.warn('Failed to delete system pin message'));
 					}
-					await channel.send({
-						embeds: [
-							new ExtendedEmbedBuilder()
-								.setColor(category.guild.primaryColour)
-								.setTitle(getMessage('ticket.references_message.title'))
-								.setDescription(
-									getMessage('ticket.references_message.description', {
-										author: message.author.toString(),
-										timestamp: `<t:${Math.ceil(message.createdTimestamp / 1000)}:R>`,
-										url: message.url,
-									})),
-							new ExtendedEmbedBuilder({
-								iconURL: guild.iconURL(),
-								text: category.guild.footer,
-							})
-								.setColor(category.guild.primaryColour)
-								.setAuthor({
-									iconURL: message.member?.displayAvatarURL(),
-									name: message.member?.displayName || 'Unknown',
-								})
-								.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
-						],
-					});
-
 				}
+			})
+			.catch(this.client.log.error);
 
+		if (referencedMessage) {
+			if (!referencedMessage.member) {
+				try {
+					referencedMessage.member = await referencedMessage.guild.members.fetch(referencedMessage.author.id);
+				} catch {
+					this.client.log.verbose('Failed to fetch member %s of %s', referencedMessage.author.id, referencedMessage.guild.id);
+				}
 			}
+			channel.send({
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor(category.guild.primaryColour)
+						.setTitle(getMessage('ticket.references_message.title'))
+						.setDescription(
+							getMessage('ticket.references_message.description', {
+								author: referencedMessage.author.toString(),
+								timestamp: `<t:${Math.ceil(referencedMessage.createdTimestamp / 1000)}:R>`,
+								url: referencedMessage.url,
+							})),
+					new ExtendedEmbedBuilder({
+						iconURL: guild.iconURL(),
+						text: category.guild.footer,
+					})
+						.setColor(category.guild.primaryColour)
+						.setAuthor({
+							iconURL: referencedMessage.member?.displayAvatarURL(),
+							name: referencedMessage.member?.displayName || 'Unknown',
+						})
+						.setDescription(referencedMessage.content.substring(0, 1000) + (referencedMessage.content.length > 1000 ? '...' : '')),
+				],
+			}).catch(this.client.log.error);
 		} else if (referencesTicketId) {
 			// TODO: add portal url
 			const ticket = await this.client.prisma.ticket.findUnique({ where: { id: referencesTicketId } });
@@ -630,7 +719,7 @@ module.exports = class TicketManager {
 						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
 					});
 				}
-				await channel.send({
+				channel.send({
 					components: category.guild.archive
 						? [
 							new ActionRowBuilder()
@@ -648,90 +737,8 @@ module.exports = class TicketManager {
 						]
 						: [],
 					embeds: [embed],
-				});
+				}).catch(this.client.log.error);
 			}
-		}
-
-		const data = {
-			category: { connect: { id: categoryId } },
-			createdBy: {
-				connectOrCreate: {
-					create: { id: interaction.user.id },
-					where: { id: interaction.user.id },
-				},
-			},
-			guild: { connect: { id: category.guild.id } },
-			id: channel.id,
-			number,
-			openingMessageId: sent.id,
-			topic: topic ? await quick('crypto', worker => worker.encrypt(topic)) : null,
-		};
-		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
-		if (answers) data.questionAnswers = { createMany: { data: answers } };
-
-		await interaction.editReply({
-			components: [],
-			embeds: [
-				new ExtendedEmbedBuilder({
-					iconURL: guild.iconURL(),
-					text: category.guild.footer,
-				})
-					.setColor(category.guild.successColour)
-					.setTitle(getMessage('ticket.created.title'))
-					.setDescription(getMessage('ticket.created.description', { channel: channel.toString() })),
-			],
-		});
-
-		try {
-			const ticket = await this.client.prisma.ticket.create({ data });
-			this.$count.categories[categoryId].total++;
-			this.$count.categories[categoryId][creator.id]++;
-
-			if (category.cooldown) {
-				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
-				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
-				const TTL = category.cooldown;
-				await this.client.keyv.set(cacheKey, expiresAt, TTL);
-			}
-
-			if (category.guild.archive && message) {
-				if (
-					await this.client.prisma.archivedMessage.findUnique({ where: { id: message.id } }) ||
-					await this.archiver.saveMessage(ticket.id, message, true)
-				) {
-					await this.client.prisma.ticket.update({
-						data: { referencesMessageId: message.id },
-						where: { id: ticket.id },
-					});
-				}
-			}
-
-			logTicketEvent(this.client, {
-				action: 'create',
-				target: {
-					id: ticket.id,
-					name: channel.toString(),
-				},
-				userId: interaction.user.id,
-			});
-		} catch (error) {
-			const ref = getSUID();
-			this.client.log.warn.tickets('An error occurred whilst creating ticket', channel.id);
-			this.client.log.error.tickets(ref);
-			this.client.log.error.tickets(error);
-			await interaction.editReply({
-				components: [],
-				embeds: [
-					new ExtendedEmbedBuilder()
-						.setColor('Orange')
-						.setTitle(getMessage('misc.error.title'))
-						.setDescription(getMessage('misc.error.description'))
-						.addFields({
-							name: getMessage('misc.error.fields.identifier'),
-							value: inlineCode(ref),
-						}),
-				],
-			});
 		}
 
 		try {
@@ -755,26 +762,26 @@ module.exports = class TicketManager {
 					let then = now.add(nextIndex - now.day(), 'day');
 					if (nextIndex <= now.day()) then = then.add(1, 'week');
 					const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
 								.setTitle(getMessage('ticket.working_hours.next.title'))
 								.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
 						],
-					});
+					}).catch(this.client.log.error);
 				}
 			} else if (now.isBefore(start)) { // staff haven't started working yet
 				working = false;
 				const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
-				await channel.send({
+				channel.send({
 					embeds: [
 						new ExtendedEmbedBuilder()
 							.setColor(category.guild.primaryColour)
 							.setTitle(getMessage('ticket.working_hours.today.title'))
 							.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
 					],
-				});
+				}).catch(this.client.log.error);
 			}
 
 			if (working && process.env.PUBLIC_BOT !== 'true') {
@@ -784,14 +791,14 @@ module.exports = class TicketManager {
 					if (member.presence && member.presence !== 'offline') online++;
 				}
 				if (online === 0) {
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
 								.setTitle(getMessage('ticket.offline.title'))
 								.setDescription(getMessage('ticket.offline.description')),
 						],
-					});
+					}).catch(this.client.log.error);
 					this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
 				}
 			}
@@ -1199,7 +1206,7 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.close.closed.description')),
 			],
 		});
-		await new Promise(resolve => setTimeout(resolve, 5000));
+		await new Promise(resolve => setTimeout(resolve, 3e3));
 		await this.finallyClose(interaction.channel.id, this.$stale.get(interaction.channel.id) || {});
 	}
 
