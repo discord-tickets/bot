@@ -5,8 +5,8 @@
 	"description": "The most popular open-source ticket management bot for Discord.",
 	"main": "src/",
 	"scripts": {
-		"db.dump": "node --no-warnings scripts/dump.mjs",
-		"db.restore": "node --no-warnings scripts/restore.mjs",
+		"db.dump": "node scripts/dump.mjs",
+		"db.restore": "node scripts/restore.mjs",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
