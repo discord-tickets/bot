@@ -41,10 +41,14 @@ module.exports.isStaff = async (guild, userId) => {
 	/** @type {import("client")} */
 	const client = guild.client;
 	if (client.supers.includes(userId)) return true;
-	const guildMember = guild.members.cache.get(userId) || await guild.members.fetch(userId);
-	if (guildMember.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
-	const staffRoles = await client.keyv.get(`cache/guild-staff:${guild.id}`) || await updateStaffRoles(guild);
-	return staffRoles.some(r => guildMember.roles.cache.has(r));
+	try {
+		const guildMember = guild.members.cache.get(userId) || await guild.members.fetch(userId);
+		if (guildMember.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
+		const staffRoles = await client.keyv.get(`cache/guild-staff:${guild.id}`) || await updateStaffRoles(guild);
+		return staffRoles.some(r => guildMember.roles.cache.has(r));
+	} catch {
+		return false;
+	}
 };
 
 /**
