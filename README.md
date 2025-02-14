@@ -110,10 +110,11 @@ Please consider sponsoring the project if it adds value to your business/communi
 
 [![Donate at ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/eartharoid)
 
-> **Note**
->
-> Your logo will only appear here if you sponsor through GitHub Sponsors.
-> [Create an organisation](https://github.com/account/organizations/new?plan=free) if you want to use your business/community logo.
+> [!IMPORTANT]
+> **Ko-fi members are not listed.**
+> Sponsor through GitHub or a linked Patreon account to be listed above.
+> [Create a free organisation](https://github.com/account/organizations/new?plan=free)
+> to show your business or community's logo.
 
 ## 🎖️ Contributors
 
