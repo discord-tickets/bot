@@ -47,15 +47,15 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 		});
 
 		if (!ticket) {
-			const { locale } = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
-			const getMessage = client.i18n.getLocale(locale);
+			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+			const getMessage = client.i18n.getLocale(settings.locale);
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
-						text: ticket.guild.footer,
+						text: settings.footer,
 					})
-						.setColor(ticket.guild.errorColour)
+						.setColor(settings.errorColour)
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
