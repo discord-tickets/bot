@@ -8,7 +8,8 @@ config();
 
 program
 	.requiredOption('-y, --yes', 'ARE YOU SURE?')
-	.option('-d, --days <number>', 'number of days', 365);
+	.option('-a, --age <number>', 'delete guilds older than <a> days', 90)
+	.option('-t, --ticket <number>', 'where the most recent ticket was created over <t> days ago', 365);
 
 program.parse();
 
@@ -34,16 +35,20 @@ if (process.env.DB_PROVIDER === 'sqlite') {
 spinner.succeed('Connected');
 
 const now = Date.now();
-const elapsed = 1000 * 60 * 60 * 24 * options.days;
-const cutoff = now - elapsed;
+const day = 1000 * 60 * 60 * 24;
 
 spinner = ora('Counting total guilds').start();
 const total = await prisma.guild.count();
 spinner.succeed(`Found ${total} total guilds`);
 
 // ! the bot might still be in these guilds
-spinner = ora(`Deleting guilds inactive for more than ${options.days} days`).start();
-const result = await prisma.guild.deleteMany({ where: { tickets: { none: { createdAt: { gt: new Date(cutoff) } } } } });
+spinner = ora(`Deleting guilds inactive for more than ${options.ticket} days`).start();
+const result = await prisma.guild.deleteMany({
+	where: {
+		createdAt: { lt: new Date(now - (day * options.age)) },
+		tickets: { none: { createdAt: { gt: new Date(now - (day * options.ticket)) } } },
+	},
+});
 spinner.succeed(`Deleted ${result.count} guilds; ${total - result.count} remaining`);
 
 process.exit(0);
