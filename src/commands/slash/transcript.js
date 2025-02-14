@@ -47,7 +47,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 		);
 	}
 
-	shouldAllowAccess(interaction, ticket)  {
+	shouldAllowAccess(interaction, ticket) {
 		// the creator can always get their ticket, even from outside the guild
 		if (ticket.createdById === interaction.user.id) return true; // user not member (DMs)
 		// everyone else must be in the guild
@@ -132,7 +132,14 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 				guild: true,
 				questionAnswers: true,
 			},
-			where: { id: ticketId },
+			where: interaction.guildId && ticketId.length < 16
+				? {
+					guildId_number: {
+						guildId: interaction.guildId,
+						number: parseInt(ticketId),
+					},
+				}
+				: { id: ticketId },
 		});
 
 		if (!ticket) throw new Error(`Ticket ${ticketId} does not exist`);
