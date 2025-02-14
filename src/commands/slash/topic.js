@@ -51,6 +51,7 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
+				flags: 'Ephemeral',
 			});
 		}
 
