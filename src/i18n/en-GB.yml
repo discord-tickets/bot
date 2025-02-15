@@ -398,6 +398,14 @@ misc:
   not_ticket:
     description: You can only use this command in tickets.
     title: ❌ This isn't a ticket channel
+  permissions_error:
+    description: Sorry, the operation failed due to insufficient permissions.
+    fields:
+      for_admins:
+        name: For server administrators
+        value: >
+          [Click here]({url}) for resolution instructions.
+    title: ⚠️ Something went wrong
   ratelimited:
     description: Try again in a few seconds.
     title: 🐢 Please slow down

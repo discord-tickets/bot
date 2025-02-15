@@ -59,6 +59,19 @@ module.exports.handleInteractionError = async event => {
 					},
 				]),
 		);
+	} else if (/Missing Permissions/.test(error.message)) {
+		data.embeds.push(
+			new EmbedBuilder()
+				.setColor('Orange')
+				.setTitle(getMessage('misc.permissions_error.title'))
+				.setDescription(getMessage('misc.permissions_error.description'))
+				.addFields([
+					{
+						name: getMessage('misc.permissions_error.fields.for_admins.name'),
+						value: getMessage('misc.permissions_error.fields.for_admins.value', { url: 'https://discordtickets.app/self-hosting/troubleshooting/#missing-permissions' }),
+					},
+				]),
+		);
 	} else {
 		data.embeds.push(
 			new EmbedBuilder()
