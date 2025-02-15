@@ -64,7 +64,6 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
-				ephemeral: true,
 			});
 		}
 
