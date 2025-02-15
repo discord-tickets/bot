@@ -1,3 +1,17 @@
+## [4.0.32](https://github.com/discord-tickets/bot/compare/v4.0.31...v4.0.32) (2025-02-15)
+
+
+### Bug Fixes
+
+* archiving messages with mentioned users ([8f46e5b](https://github.com/discord-tickets/bot/commit/8f46e5ba2c1f67eb847cd76ac882209fe1f1529e))
+
+
+### Features
+
+* specific message for permission errors ([f622cfe](https://github.com/discord-tickets/bot/commit/f622cfe4481d00bfefbd951f0904e18c4ca77da6))
+
+
+
 ## [4.0.31](https://github.com/discord-tickets/bot/compare/v4.0.30...v4.0.31) (2025-02-15)
 
 
