@@ -1,3 +1,25 @@
+## [4.0.31](https://github.com/discord-tickets/bot/compare/v4.0.30...v4.0.31) (2025-02-15)
+
+
+### Bug Fixes
+
+* `/claim` and `/release` commands (from [#580](https://github.com/discord-tickets/bot/issues/580)) ([20a0b93](https://github.com/discord-tickets/bot/commit/20a0b9378bc7a3393b53d9e0a092ec709c663d96))
+* **api:** guild not global ticket count ([53df394](https://github.com/discord-tickets/bot/commit/53df394a480fab74f6b58182e0f7df87954faa54))
+* can't set ephemeral after deferring ([7b8c5ff](https://github.com/discord-tickets/bot/commit/7b8c5ff9c092a2008bf8d2ab04a47e2f8adb1f68))
+* ephemeral reply to `/topic` ([d57d20d](https://github.com/discord-tickets/bot/commit/d57d20dfd8bb9472235d0d27abd908db0e298ba5))
+* handle missing ticket on`/move` and `/transfer` ([1f24561](https://github.com/discord-tickets/bot/commit/1f24561ac0f22031b5ff27bf3df3961082e31040))
+* **prune:** don't delete recently-added guilds ([73ff67c](https://github.com/discord-tickets/bot/commit/73ff67c65f2ca1f2f0ebf3ac1d4f195a8d58e037))
+
+
+### Features
+
+* allow `/transcript` to accept numbers as well as IDs ([5a66c31](https://github.com/discord-tickets/bot/commit/5a66c31494ba49edf8ff3ac7221b814e519684e0))
+* db prune script (closes [#322](https://github.com/discord-tickets/bot/issues/322)) ([f140b76](https://github.com/discord-tickets/bot/commit/f140b76a922653345d0bfd311128f064a72c5d01))
+* **i18n:** update German translations ([e75119f](https://github.com/discord-tickets/bot/commit/e75119fb2b43eb86e48a387b683cbdb48e2b76f3))
+* **i18n:** update Italian translations ([a38eed8](https://github.com/discord-tickets/bot/commit/a38eed87c928be7fc04bc320e2d6c93f5262f30e))
+
+
+
 ## [4.0.30](https://github.com/discord-tickets/bot/compare/v4.0.29...v4.0.30) (2025-02-13)
 
 
