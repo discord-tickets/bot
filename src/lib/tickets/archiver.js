@@ -31,36 +31,19 @@ module.exports = class TicketArchiver {
 			}
 		}
 
-		const channels = [...message.mentions.channels.values()];
-		const members = [...message.mentions.members.values()];
-		const roles = [...message.mentions.roles.values()];
+		const channels = new Set(message.mentions.channels.values());
+		const members = new Set(message.mentions.members.values());
+		const roles = new Set(message.mentions.roles.values());
 
 		const worker = await reusable('crypto');
 
 		try {
 			const queries = [];
 
-			if (message.member) {
-				members.push(message.member);
-				roles.push(hoistedRole(message.member));
-			} else {
-				this.client.log.warn('Message member does not exist');
-				queries.push(
-					this.client.prisma.archivedUser.upsert({
-						create: {
-							ticketId,
-							userId: 'default',
-						},
-						select: { ticketId: true }, // ? default is to return all scalar fields
-						update: {},
-						where: {
-							ticketId_userId: {
-								ticketId,
-								userId: 'default',
-							},
-						},
-					}),
-				);
+			members.add(message.member);
+
+			for (const member of members) {
+				roles.add(hoistedRole(member));
 			}
 
 			for (const role of roles) {
