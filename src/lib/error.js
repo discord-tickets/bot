@@ -46,7 +46,7 @@ module.exports.handleInteractionError = async event => {
 		embeds: [],
 	};
 
-	if (/Supplied parameter is not a User nor a Role/.test(error.message)) {
+	if (error.code === 10011 || (error.code === 'Invalid Type' && /Role/.test(error.message))) {
 		data.embeds.push(
 			new EmbedBuilder()
 				.setColor('Orange')
@@ -59,7 +59,7 @@ module.exports.handleInteractionError = async event => {
 					},
 				]),
 		);
-	} else if (/Missing Permissions/.test(error.message)) {
+	} else if (/Missing (Access|Permissions)/.test(error.message)) {
 		data.embeds.push(
 			new EmbedBuilder()
 				.setColor('Orange')
