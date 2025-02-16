@@ -130,7 +130,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 				createdBy: true,
 				feedback: true,
 				guild: true,
-				questionAnswers: true,
+				questionAnswers: { include: { question: true } },
 			},
 			where: interaction.guildId && ticketId.length < 16
 				? {

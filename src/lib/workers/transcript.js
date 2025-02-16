@@ -27,7 +27,13 @@ function getTranscript(ticket) {
 		ticket.archivedMessages[i] = message;
 	});
 
+	ticket.questionAnswers = ticket.questionAnswers.map(answer => {
+		answer.value &&= decrypt(answer.value);
+		return answer;
+	});
+
 	ticket.pinnedMessageIds = ticket.pinnedMessageIds.map(id => ticket.archivedMessages.find(message => message.id === id)?.number);
+
 	return ticket;
 }
 
