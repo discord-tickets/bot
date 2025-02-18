@@ -1,3 +1,17 @@
+## [4.0.33](https://github.com/discord-tickets/bot/compare/v4.0.32...v4.0.33) (2025-02-18)
+
+
+### Bug Fixes
+
+* known error handling (permissions and unknown roles) ([cc5c0b0](https://github.com/discord-tickets/bot/commit/cc5c0b028b3ec3d556e6aa4db06de52633e9d66f))
+
+
+### Features
+
+* question answers in transcripts ([800f269](https://github.com/discord-tickets/bot/commit/800f269a819ec56f3d4fa84a2a1f0107809c634a))
+
+
+
 ## [4.0.32](https://github.com/discord-tickets/bot/compare/v4.0.31...v4.0.32) (2025-02-15)
 
 
