@@ -93,7 +93,7 @@ expose({
 
 		if (ticket.questionAnswers.length) {
 			ticket.questionAnswers = {
-				create: ticket.questionAnswers.map(async answer => {
+				create: ticket.questionAnswers.map(answer => {
 					answer.value &&= encrypt(answer.value);
 					return answer;
 				}),
