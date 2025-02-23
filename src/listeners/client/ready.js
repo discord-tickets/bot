@@ -47,7 +47,7 @@ module.exports = class extends Listener {
 		await client.application.fetch();
 		if (process.env.PUBLIC_BOT === 'true' && !client.application.botPublic) {
 			client.log.warn('The `PUBLIC_BOT` environment variable is set to `true`, but the bot is not public.');
-		} else if (process.env.PUBLIC_BOT === 'false' && client.application.botPublic) {
+		} else if (process.env.PUBLIC_BOT !== 'true' && client.application.botPublic) {
 			client.log.warn('Your bot is public, but public features are disabled. Set the `PUBLIC_BOT` environment variable to `true`, or make your bot private.');
 		}
 

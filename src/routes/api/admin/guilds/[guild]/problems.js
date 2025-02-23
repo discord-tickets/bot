@@ -27,7 +27,7 @@ module.exports.get = fastify => ({
 				});
 			}
 
-			if (process.env.PUBLIC_BOT === 'false' && client.application.botPublic) {
+			if (process.env.PUBLIC_BOT !== 'true' && client.application.botPublic) {
 				problems.push({ id: 'botPublic' });
 			}
 		}
