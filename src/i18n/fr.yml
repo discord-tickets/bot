@@ -347,6 +347,15 @@ ticket:
     description: "Ce ticket sera fermé pour cause d'inactivité <t:{timestamp}:R>.\n
       Envoyez un message pour annuler cette automatisation.\n"
     title: ⌛ Ce ticket sera bientôt fermé
+  working_hours:
+    today:
+      title: 🕗 Nous ne travaillons pas pour le moment
+      description: Vous pouvez recevoir une réponse avant, mais nous ne commençons
+        pas à travailler avant <t:{timestamp}:t> aujourd'hui (<t:{timestamp}:R>).
+    next:
+      description: Nous serons de retour à <t:{timestamp}:F> (<t:{timestamp}:R>),
+        bien que vous puissiez recevoir une réponse avant cette date.
+      title: 🕗 Nous ne travaillons pas pour le moment
 dm:
   closed:
     title: Votre ticket a été clôturé
