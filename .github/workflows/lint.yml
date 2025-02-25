@@ -15,8 +15,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
-        with:
-          configFile: .commitlintrc.js
   eslint:
    runs-on: ubuntu-latest
    steps:
