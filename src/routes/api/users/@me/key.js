@@ -11,6 +11,7 @@ module.exports.get = fastify => ({
 				token: this.jwt.sign({
 					createdAt: Date.now(),
 					id: req.user.id,
+					service: true,
 				}),
 			};
 		}

@@ -85,7 +85,7 @@ module.exports = async client => {
 					statusCode: 451,
 				});
 			}
-			if (!req.user.scopes?.includes('applications.commands.permissions.update')) {
+			if (!req.user.service && !req.user.scopes?.includes('applications.commands.permissions.update')) {
 				return res.code(401).send({
 					elevate: 'admin',
 					error: 'Unauthorised',
