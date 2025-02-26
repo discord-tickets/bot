@@ -1360,7 +1360,12 @@ module.exports = class TicketManager {
 		if (ticket.topic) fieldsArray.push(fields.topic);
 		fieldsArray.push(fields.created, fields.closed);
 		if (ticket.firstResponseAt) fieldsArray.push(fields.firstResponseAt);
-		if (fields.feedback) fields.feedback.name = getMessage('log.ticket.feedback');
+		if (fields.feedback) {
+			fieldsArray.push({
+				...fields.feedback,
+				name: getMessage('log.ticket.feedback'),
+			});
+		}
 		if (reason) fieldsArray.push(fields.reason);
 
 		logTicketEvent(this.client, {
