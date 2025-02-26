@@ -35,7 +35,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 		await interaction.deferReply({ flags: 'Ephemeral' });
 
 		const settings = await client.prisma.guild.findUnique({
-			include: { categories:true },
+			include: { categories: true },
 			where: { id: interaction.guild.id },
 		});
 		const getMessage = client.i18n.getLocale(settings.locale);
@@ -55,7 +55,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 		}
 
 		const prompt = async categoryId => {
-			interaction.followUp({
+			const payload = {
 				components: [
 					new ActionRowBuilder()
 						.addComponents(
@@ -81,7 +81,12 @@ module.exports = class CreateUserCommand extends UserCommand {
 						.setTitle(getMessage('commands.user.create.prompt.title'))
 						.setDescription(getMessage('commands.user.create.prompt.description')),
 				],
-			});
+			};
+			try {
+				await interaction.channel.send(payload);
+			} catch {
+				await interaction.followUp(payload);
+			}
 		};
 
 		if (settings.categories.length === 0) {
@@ -96,8 +101,6 @@ module.exports = class CreateUserCommand extends UserCommand {
 			});
 		} else if (settings.categories.length === 1) {
 			const category = settings.categories[0];
-			// ! must be awaited,
-			// ! followUp will act as editReply (on the original ephemeral message) if it arrives first
 			await interaction.editReply({
 				components: [],
 				embeds: [
@@ -146,8 +149,6 @@ module.exports = class CreateUserCommand extends UserCommand {
 			})
 				.then(async i => {
 					const category = settings.categories.find(c => c.id === Number(i.values[0]));
-					// ! must be awaited,
-					// ! followUp will act as editReply (on the original ephemeral message) if it arrives first
 					await i.update({
 						components: [],
 						embeds: [
@@ -167,7 +168,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 				})
 				.catch(async error => {
 					client.log.error(error);
-					await interaction.reply({
+					await interaction.editReply({
 						components: [],
 						embeds: [
 							new ExtendedEmbedBuilder({
