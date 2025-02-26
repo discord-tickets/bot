@@ -1,7 +1,4 @@
 const {
-	ActionRowBuilder,
-	ButtonBuilder,
-	ButtonStyle,
 	cleanCodeBlockContent,
 	EmbedBuilder,
 } = require('discord.js');
@@ -137,7 +134,7 @@ async function logAdminEvent(client, {
  * @param {string} details.action
 */
 async function logTicketEvent(client, {
-	userId, action, target, diff,
+	userId, action, target, diff, payload,
 }) {
 	const ticket = await client.tickets.getTicket(target.id);
 	if (!ticket) return;
@@ -173,6 +170,7 @@ async function logTicketEvent(client, {
 					name: getMessage('log.ticket.ticket'),
 					value: target.name ? `${target.name} (\`${target.id}\`)` : target.id,
 				},
+				...payload?.fields ?? [],
 			]),
 	];
 
@@ -193,21 +191,7 @@ async function logTicketEvent(client, {
 	}
 
 	return await channel.send({
-		components:
-			action === 'close' && target.archive ? [
-				new ActionRowBuilder()
-					.addComponents(
-						new ButtonBuilder()
-							.setCustomId(JSON.stringify({
-								action: 'transcript',
-								ticket: target.id,
-							}))
-							.setStyle(ButtonStyle.Primary)
-							.setEmoji(getMessage('buttons.transcript.emoji'))
-							.setLabel(getMessage('buttons.transcript.text')),
-
-					),
-			] : [],
+		components: payload?.components ?? [],
 		embeds,
 	});
 }

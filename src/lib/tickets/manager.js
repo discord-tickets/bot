@@ -750,7 +750,7 @@ module.exports = class TicketManager {
 			let working = true;
 
 			if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
-			// first look for the next working day *this* week (after today)
+				// first look for the next working day *this* week (after today)
 				let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
 				// if there isn't one, look for the next working day *next* week (before and including today's weekday)
 				if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
@@ -1263,119 +1263,119 @@ module.exports = class TicketManager {
 			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
 		}
 
+		const components = [];
+
+		if (ticket.guild.archive) {
+			components.push(
+				new ActionRowBuilder()
+					.addComponents(
+						new ButtonBuilder()
+							.setCustomId(JSON.stringify({
+								action: 'transcript',
+								ticket: ticket.id,
+							}))
+							.setStyle(ButtonStyle.Primary)
+							.setEmoji(getMessage('buttons.transcript.emoji'))
+							.setLabel(getMessage('buttons.transcript.text')),
+
+					),
+			);
+		}
+
+		const fields = {
+			closed: {
+				inline: true,
+				name: getMessage('dm.closed.fields.closed.name'),
+				value: getMessage('dm.closed.fields.closed.value', {
+					duration: ms(ticket.closedAt - ticket.createdAt, { long: true }),
+					timestamp: `<t:${Math.floor(ticket.closedAt / 1000)}:f>`,
+				}),
+			},
+			closedById: ticket.closedById && {
+				inline: true,
+				name: getMessage('dm.closed.fields.closed_by'),
+				value: `<@${ticket.closedById}>`,
+			},
+			created: {
+				inline: true,
+				name: getMessage('dm.closed.fields.created'),
+				value: `<t:${Math.floor(ticket.createdAt / 1000)}:f>`,
+			},
+			feedback: ticket.feedback && {
+				inline: true,
+				name: getMessage('dm.closed.fields.feedback'),
+				value: Array(ticket.feedback.rating).fill('⭐').join(' ') + ` (${ticket.feedback.rating}/5)`,
+			},
+			firstResponseAt: ticket.firstResponseAt && {
+				inline: true,
+				name: getMessage('dm.closed.fields.response'),
+				value: ms(ticket.firstResponseAt - ticket.createdAt, { long: true }),
+			},
+			reason: reason && {
+				inline: true,
+				name: getMessage('dm.closed.fields.reason'),
+				value: reason,
+			},
+			ticket: {
+				inline: true,
+				name: getMessage('dm.closed.fields.ticket'),
+				value: `${ticket.category.name} **#${ticket.number}**`,
+			},
+			topic: ticket.topic && {
+				inline: true,
+				name: getMessage('dm.closed.fields.topic'),
+				value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
+			},
+		};
+
+		const dmEmbed = new ExtendedEmbedBuilder({
+			iconURL: channel.guild.iconURL(),
+			text: ticket.guild.footer,
+		})
+			.setColor(ticket.guild.primaryColour)
+			.setTitle(getMessage('dm.closed.title'));
+
+		dmEmbed.addFields(fields.ticket);
+		if (ticket.topic) dmEmbed.addFields(fields.topic);
+		dmEmbed.addFields(fields.created, fields.closed);
+		if (ticket.firstResponseAt) dmEmbed.addFields(fields.firstResponseAt);
+		if (ticket.feedback) dmEmbed.addFields(fields.feedback);
+		if (ticket.closedById) dmEmbed.addFields(fields.closedById);
+		if (reason) dmEmbed.addFields(fields.reason);
+
+		try {
+			const creator = channel?.guild.members.cache.get(ticket.createdById);
+			if (creator) {
+				await creator.send({
+					components,
+					embeds: [dmEmbed],
+				});
+			}
+		} catch (error) {
+			this.client.log.error(error);
+		}
+
+
+		const fieldsArray = [];
+		if (ticket.topic) fieldsArray.push(fields.topic);
+		fieldsArray.push(fields.created, fields.closed);
+		if (ticket.firstResponseAt) fieldsArray.push(fields.firstResponseAt);
+		if (fields.feedback) fields.feedback.name = getMessage('log.ticket.feedback');
+		if (reason) fieldsArray.push(fields.reason);
+
 		logTicketEvent(this.client, {
 			action: 'close',
+			payload: {
+				components,
+				fields: fieldsArray,
+			},
 			target: {
-				archive: ticket.guild.archive,
 				id: ticket.id,
 				name: `${ticket.category.name} **#${ticket.number}**`,
 				reason,
 			},
 			userId: closedBy || this.client.user.id,
 		});
-
-		try {
-			const creator = channel?.guild.members.cache.get(ticket.createdById);
-			if (creator) {
-				const embed = new ExtendedEmbedBuilder({
-					iconURL: channel.guild.iconURL(),
-					text: ticket.guild.footer,
-				})
-					.setColor(ticket.guild.primaryColour)
-					.setTitle(getMessage('dm.closed.title'))
-					.addFields([
-						{
-							inline: true,
-							name: getMessage('dm.closed.fields.ticket'),
-							value: `${ticket.category.name} **#${ticket.number}**`,
-						},
-
-					]);
-				if (ticket.topic) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.topic'),
-						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
-					});
-				}
-
-				embed.addFields([
-					{
-						inline: true,
-						name: getMessage('dm.closed.fields.created'),
-						value: `<t:${Math.floor(ticket.createdAt / 1000)}:f>`,
-					},
-					{
-						inline: true,
-						name: getMessage('dm.closed.fields.closed.name'),
-						value: getMessage('dm.closed.fields.closed.value', {
-							duration: ms(ticket.closedAt - ticket.createdAt, { long: true }),
-							timestamp: `<t:${Math.floor(ticket.closedAt / 1000)}:f>`,
-						}),
-					},
-				]);
-
-				if (ticket.firstResponseAt) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.response'),
-						value: ms(ticket.firstResponseAt - ticket.createdAt, { long: true }),
-					});
-				}
-
-				if (ticket.feedback) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.feedback'),
-						value: Array(ticket.feedback.rating).fill('⭐').join(' ') + ` (${ticket.feedback.rating}/5)`,
-					});
-				}
-
-				if (ticket.closedById) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.closed_by'),
-						value: `<@${ticket.closedById}>`,
-					});
-				}
-
-
-				if (reason) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.reason'),
-						value: reason,
-					});
-				}
-
-				const components = [];
-
-				if (ticket.guild.archive) {
-					components.push(
-						new ActionRowBuilder()
-							.addComponents(
-								new ButtonBuilder()
-									.setCustomId(JSON.stringify({
-										action: 'transcript',
-										ticket: ticket.id,
-									}))
-									.setStyle(ButtonStyle.Primary)
-									.setEmoji(getMessage('buttons.transcript.emoji'))
-									.setLabel(getMessage('buttons.transcript.text')),
-
-							),
-					);
-				}
-
-
-				await creator.send({
-					components,
-					embeds: [embed],
-				});
-			}
-		} catch (error) {
-			this.client.log.error(error);
-		}
 
 	}
 };
