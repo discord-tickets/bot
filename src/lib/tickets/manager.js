@@ -1369,7 +1369,7 @@ module.exports = class TicketManager {
 				{
 					inline: true,
 					name: getMessage('modals.feedback.comment.label'),
-					value: ticket.feedback.comment || getMessage('ticket.answers.no_value'),
+					value: (ticket.feedback.comment && await quick('crypto', worker => worker.decrypt(ticket.feedback.comment))) || getMessage('ticket.answers.no_value'),
 				});
 		}
 		if (reason) fieldsArray.push(fields.reason);
