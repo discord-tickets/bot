@@ -32,7 +32,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: 'Ephemeral' });
 
 		const settings = await client.prisma.guild.findUnique({
 			include: { categories:true },
@@ -81,12 +81,11 @@ module.exports = class CreateUserCommand extends UserCommand {
 						.setTitle(getMessage('commands.user.create.prompt.title'))
 						.setDescription(getMessage('commands.user.create.prompt.description')),
 				],
-				ephemeral: false,
 			});
 		};
 
 		if (settings.categories.length === 0) {
-			interaction.reply({
+			interaction.editReply({
 				components: [],
 				embeds: [
 					new ExtendedEmbedBuilder()
@@ -94,10 +93,27 @@ module.exports = class CreateUserCommand extends UserCommand {
 						.setTitle(getMessage('misc.no_categories.title'))
 						.setDescription(getMessage('misc.no_categories.description')),
 				],
-				ephemeral: true,
 			});
 		} else if (settings.categories.length === 1) {
-			await prompt(settings.categories[0].id);
+			const category = settings.categories[0];
+			// ! must be awaited,
+			// ! followUp will act as editReply (on the original ephemeral message) if it arrives first
+			await interaction.editReply({
+				components: [],
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.successColour)
+						.setTitle(getMessage('commands.user.create.sent.title'))
+						.setDescription(getMessage('commands.user.create.sent.description', {
+							category: category.name,
+							user: interaction.targetUser.toString(),
+						})),
+				],
+			});
+			await prompt(category.id);
 		} else {
 			const collectorTime = ms('15s');
 			const confirmationM = await interaction.editReply({
@@ -130,6 +146,8 @@ module.exports = class CreateUserCommand extends UserCommand {
 			})
 				.then(async i => {
 					const category = settings.categories.find(c => c.id === Number(i.values[0]));
+					// ! must be awaited,
+					// ! followUp will act as editReply (on the original ephemeral message) if it arrives first
 					await i.update({
 						components: [],
 						embeds: [
@@ -144,7 +162,6 @@ module.exports = class CreateUserCommand extends UserCommand {
 									user: interaction.targetUser.toString(),
 								})),
 						],
-						ephemeral: true,
 					});
 					await prompt(category.id);
 				})
