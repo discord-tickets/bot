@@ -136,18 +136,17 @@ module.exports.post = fastify => ({
 
 				const human_errors = [];
 				const action_row = error?.rawError?.errors?.components?.['0'];
+				const buttons_or_options = {
+					BUTTON: action_row?.components,
+					MENU: action_row?.components?.['0']?.options,
+				}[data.type];
 
-				if (action_row) {
-					const buttons_or_options = {
-						BUTTON: action_row.components,
-						MENU: action_row.components['0'].options,
-					}[data.type];
-
+				if (buttons_or_options) {
 					for (const [k, v] of Object.entries(buttons_or_options)) {
 						// const category = categories.find(category => category.id === parseInt(k));
 						const category = categories[parseInt(k)]; // k is a string of the index, not ID
 						// eslint-disable-next-line no-underscore-dangle
-						const emoji_errors = v.emoji?.id?._errors;
+						const emoji_errors = v?.emoji?.id?._errors;
 						if (emoji_errors) {
 							const invalid_name = emoji_errors[0]?.message?.match(/Value "(.*)" is not snowflake/)?.[1];
 							if (invalid_name) {
