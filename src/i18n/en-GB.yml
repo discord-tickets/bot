@@ -335,7 +335,6 @@ log:
   ticket:
     added: Added members
     description: "{user} {verb} a ticket"
-    feedback: Feedback
     reason: Reason
     removed: Removed members
     ticket: Ticket

@@ -1355,16 +1355,22 @@ module.exports = class TicketManager {
 			this.client.log.error(error);
 		}
 
-
 		const fieldsArray = [];
 		if (ticket.topic) fieldsArray.push(fields.topic);
 		fieldsArray.push(fields.created, fields.closed);
 		if (ticket.firstResponseAt) fieldsArray.push(fields.firstResponseAt);
 		if (fields.feedback) {
-			fieldsArray.push({
-				...fields.feedback,
-				name: getMessage('log.ticket.feedback'),
-			});
+			fieldsArray.push(
+				{
+					...fields.feedback,
+					inline: true,
+					name: getMessage('modals.feedback.rating.label'),
+				},
+				{
+					inline: true,
+					name: getMessage('modals.feedback.comment.label'),
+					value: ticket.feedback.comment || getMessage('ticket.answers.no_value'),
+				});
 		}
 		if (reason) fieldsArray.push(fields.reason);
 
