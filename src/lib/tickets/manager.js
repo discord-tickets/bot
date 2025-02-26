@@ -568,7 +568,7 @@ module.exports = class TicketManager {
 			message = await interaction.channel.messages.fetch(referencesMessageId);
 			if (message) {
 				// not worth the effort of making system messages work atm
-				if (message.system) {
+				if (message.system || !message.content) {
 					referencesMessageId = null;
 					message = null;
 				} else {
