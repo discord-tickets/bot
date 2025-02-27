@@ -28,6 +28,7 @@ buttons:
     emoji: ♻️
   transcript:
     emoji: 📄
+    text: Transkript
 commands:
   message:
     pin:
