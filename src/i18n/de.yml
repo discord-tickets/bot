@@ -258,6 +258,7 @@ commands:
       name: umbenennen
       not_staff:
         description: Nur Teammitglieder können Tickets umbenennen.
+        title: ❌ Fehler
       options:
         name:
           description: Der neue Name für den Ticketkanal.
@@ -323,6 +324,7 @@ log:
       unclaim: freigegeben
     added: Mitglieder hinzugefügt
     removed: Mitglieder entfernt
+    reason: grund
 menus:
   category:
     placeholder: Wähle eine Ticketkategorie
@@ -393,6 +395,11 @@ misc:
           was normalerweise bedeutet, dass eine Teamrolle gelöscht wurde. [Klicken
           Sie hier]({url}) für Anweisungen zur Lösung.\n"
     title: ⚠️ Etwas ist schief gelaufen
+  permissions_error:
+    title: ⚠️ Etwas ist schiefgelaufen
+    fields:
+      for_admins:
+        name: Für Serveradministrators
 modals:
   feedback:
     comment:
