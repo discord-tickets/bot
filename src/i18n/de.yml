@@ -249,6 +249,26 @@ commands:
     release:
       description: Ein Ticket freigeben
       name: freigeben
+    rename:
+      description: Einen Ticketkanal umbenennen
+      error: Während der Umbenennung des Kanals ist ein Fehler aufgetreten.
+      invalid:
+        description: Der Name muss zwischen 1 und 100 Zeichen lang sein.
+        title: Ungültiger Name
+      name: umbenennen
+      not_staff:
+        description: Nur Teammitglieder können Tickets umbenennen.
+      options:
+        name:
+          description: Der neue Name für den Ticketkanal.
+          name: name
+      ratelimited:
+        description: Du hast diesen Kanal in den letzten 10 Minuten bereits zweimal
+          umbenannt. Bitte warte, bevor du es erneut versuchst.
+        title: Limit erreicht
+      success:
+        description: Der Ticket Kanal wurde in `{name}` umbenannt.
+        title: Kanal umbenannt
   user:
     create:
       name: Ticket für Benutzer erstellen
