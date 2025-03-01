@@ -1383,7 +1383,6 @@ module.exports = class TicketManager {
 			target: {
 				id: ticket.id,
 				name: `${ticket.category.name} **#${ticket.number}**`,
-				reason,
 			},
 			userId: closedBy || this.client.user.id,
 		});
