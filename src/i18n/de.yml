@@ -324,7 +324,6 @@ log:
       unclaim: freigegeben
     added: Mitglieder hinzugefügt
     removed: Mitglieder entfernt
-    reason: grund
 menus:
   category:
     placeholder: Wähle eine Ticketkategorie
