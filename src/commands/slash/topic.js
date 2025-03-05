@@ -61,7 +61,7 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 			.setCustomId('topic')
 			.setLabel(getMessage('modals.topic.label'))
 			.setStyle(TextInputStyle.Paragraph)
-			.setMaxLength(1000)
+			.setMaxLength(100)
 			.setMinLength(5)
 			.setPlaceholder(getMessage('modals.topic.placeholder'))
 			.setRequired(true);
