@@ -1,3 +1,35 @@
+## [4.0.34](https://github.com/discord-tickets/bot/compare/v4.0.33...v4.0.34) (2025-03-05)
+
+
+### Bug Fixes
+
+* `send()` user create button if possible ([eaa970f](https://github.com/discord-tickets/bot/commit/eaa970fd010f044ead70a4d70d2dae9652d803af))
+* **api:** service keys ([07c4e9a](https://github.com/discord-tickets/bot/commit/07c4e9a5eec6df39cd230dfc7967466f9c5df3e2))
+* decrypt feedback comment in close log ([3273f90](https://github.com/discord-tickets/bot/commit/3273f90902fbdfc149aaa9d1d564df291753bbc4))
+* duplicate reason in close log ([2c05460](https://github.com/discord-tickets/bot/commit/2c05460684f8e587882d007dde258b9512886dda))
+* feedback comment in close log ([4b951ec](https://github.com/discord-tickets/bot/commit/4b951ec57862f9108e42c390f1ebc0d1f2296a7b))
+* feedback in close log ([1989706](https://github.com/discord-tickets/bot/commit/1989706d266eccdd82615fd66c19ae71b6d0fc98))
+* importing a ticket with question answers ([4fe0e68](https://github.com/discord-tickets/bot/commit/4fe0e682fdc34b29afed3321ae4fa3f7bb1b963d))
+* only allow referencing messages with `content` ([ec4a701](https://github.com/discord-tickets/bot/commit/ec4a701651d01f5bd458983459a9ff7c4d0f912c))
+* panel emoji error handling ([ec5179c](https://github.com/discord-tickets/bot/commit/ec5179cc4163704c43df5366e71b13029b66f9e0))
+* public bot warning condition ([f963203](https://github.com/discord-tickets/bot/commit/f96320399fcf752fc56b303c1b87d21bdb302751))
+* user/create command when there is a single category ([2b02edd](https://github.com/discord-tickets/bot/commit/2b02edd27b4f3b77b0bbce2bf7d2df44e03ad92f))
+
+
+### Features
+
+* allow anyone to use create button sent for a specific user ([6274f66](https://github.com/discord-tickets/bot/commit/6274f66d447f7c3a3bfb1ddf0a4a9effeb020897))
+* detailed ticket close log message ([27d17fb](https://github.com/discord-tickets/bot/commit/27d17fb4ce7450f1f6c93c0d92f580c3edba3139))
+* **i18n:** update French translations ([df0d3a7](https://github.com/discord-tickets/bot/commit/df0d3a7e12c02feb6cad363a687e821549733632))
+* **i18n:** update German translations ([d4ea64c](https://github.com/discord-tickets/bot/commit/d4ea64c0d5a3d9ef11f326134e8fa7a82e975493))
+* **i18n:** update German translations ([83a77bc](https://github.com/discord-tickets/bot/commit/83a77bcf54ae14e643a806890898c104ccf442a5))
+* **i18n:** update German translations ([72120e9](https://github.com/discord-tickets/bot/commit/72120e902597b52077347ed1995af7ba896a96af))
+* **i18n:** update translation files ([5d43806](https://github.com/discord-tickets/bot/commit/5d4380698f99f169d57a6ddbe0bd1df3aefd97ea))
+* inline log when editing question answers ([cb30171](https://github.com/discord-tickets/bot/commit/cb30171ee71c7ef6f58861e04aefe80d4a6ca32e))
+* shorter max topic length (100) ([96775df](https://github.com/discord-tickets/bot/commit/96775dfabcc36407f4d30631f3013390cf0107c2))
+
+
+
 ## [4.0.33](https://github.com/discord-tickets/bot/compare/v4.0.32...v4.0.33) (2025-02-18)
 
 
