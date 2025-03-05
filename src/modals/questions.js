@@ -3,6 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { logTicketEvent } = require('../lib/logging');
 const { reusable } = require('../lib/threads');
+const { cleanCodeBlockContent } = require('discord.js');
 
 
 module.exports = class QuestionsModal extends Modal {
@@ -37,6 +38,7 @@ module.exports = class QuestionsModal extends Modal {
 						select: {
 							footer: true,
 							locale: true,
+							primaryColour: true,
 							successColour: true,
 						},
 					},
@@ -48,6 +50,16 @@ module.exports = class QuestionsModal extends Modal {
 					select,
 					where: { id: interaction.channel.id },
 				});
+
+				const plainTextAnswers = await Promise.all(
+					original.questionAnswers
+						.map(async answer => ({
+							after: interaction.fields.getTextInputValue(String(answer.id)),
+							before: answer.value ? await worker.decrypt(answer.value) : '',
+							id: answer.id,
+							question: answer.question,
+						})),
+				);
 
 				let topic;
 				if (category.customTopic) {
@@ -81,13 +93,11 @@ module.exports = class QuestionsModal extends Modal {
 					const embeds = [...opening.embeds];
 					embeds[1] = new EmbedBuilder(embeds[1].data)
 						.setFields(
-							await Promise.all(
-								ticket.questionAnswers
-									.map(async a => ({
-										name: a.question.label,
-										value: a.value ? await worker.decrypt(a.value) : getMessage('ticket.answers.no_value'),
-									})),
-							),
+							plainTextAnswers
+								.map(a => ({
+									name: a.question.label,
+									value: a.after || getMessage('ticket.answers.no_value'),
+								})),
 						);
 					await opening.edit({ embeds });
 				}
@@ -104,21 +114,38 @@ module.exports = class QuestionsModal extends Modal {
 					],
 				});
 
-				/** @param {ticket} ticket */
-				const makeDiff = async ticket => {
-					const diff = {};
-					for (const a of ticket.questionAnswers) {
-						diff[a.question.label] = a.value ? await worker.decrypt(a.value) : getMessage('ticket.answers.no_value');
-					}
-					return diff;
+				const diff = {
+					original: {},
+					updated: {},
 				};
+				const inlineDiffEmbeds = [];
+
+				for (const answer of plainTextAnswers) {
+					diff.original[answer.question.label] = answer.before || getMessage('ticket.answers.no_value');
+					diff.updated[answer.question.label] = answer.after || getMessage('ticket.answers.no_value');
+					if (answer.before !== answer.after) {
+						const from = answer.before ? answer.before.replace(/^/gm, '- ') + '\n' : '';
+						const to = answer.after ? answer.after.replace(/^/gm, '+ ') + '\n' : '';
+						inlineDiffEmbeds.push(
+							new EmbedBuilder()
+								.setColor(ticket.guild.primaryColour)
+								.setAuthor({
+									iconURL: interaction.member.displayAvatarURL(),
+									name: interaction.user.username,
+								})
+								.setTitle(answer.question.label)
+								.setDescription(`\`\`\`diff\n${cleanCodeBlockContent(from + to)}\n\`\`\``),
+						);
+					}
+				}
+
+				if (inlineDiffEmbeds.length) {
+					await interaction.followUp({ embeds: inlineDiffEmbeds });
+				}
 
 				logTicketEvent(this.client, {
 					action: 'update',
-					diff: {
-						original: await makeDiff(original),
-						updated: await makeDiff(ticket),
-					},
+					diff,
 					target: {
 						id: ticket.id,
 						name: `<#${ticket.id}>`,
