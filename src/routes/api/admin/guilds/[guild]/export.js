@@ -115,7 +115,7 @@ module.exports.get = fastify => ({
 		archive.finalize(); // ! do not await
 
 		const cleanGuildName = guild.name.replace(/\W/g, '_').replace(/_+/g, '_');
-		const fileName = `tickets-${cleanGuildName}-${new Date().toISOString().slice(0, 10)}`;
+		const fileName = `tickets-${cleanGuildName}-${new Date().toISOString().slice(0, 10)}.zip`;
 
 		res
 			.type('application/zip')
