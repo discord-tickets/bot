@@ -1,3 +1,13 @@
+## [4.0.35](https://github.com/discord-tickets/bot/compare/v4.0.34...v4.0.35) (2025-03-06)
+
+
+### Bug Fixes
+
+* add `.zip` extension to export file name ([d8bd963](https://github.com/discord-tickets/bot/commit/d8bd9632000f003164ea970d6bfe84f7001a7fe2))
+* correct tag content max length ([cdbd065](https://github.com/discord-tickets/bot/commit/cdbd065b69f819ba1b1b7535414a96fd571fa71d))
+
+
+
 ## [4.0.34](https://github.com/discord-tickets/bot/compare/v4.0.33...v4.0.34) (2025-03-05)
 
 
