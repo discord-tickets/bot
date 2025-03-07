@@ -128,10 +128,10 @@ commands:
     move:
       name: verschieben
       description: Verschiebe ein Ticket in eine andere Kategorie
-      moved: 🗃️ {by} hat dieses Ticket von **{from}** nach **{to}** verschoben.
+      moved: 🗃️ {by} hat dieses Ticket von **{from}** zu **{to}** verschoben.
       options:
         category:
-          description: Die Kategorie in welche das Ticket verschoben werden soll
+          description: Die Kategorie, in welche das Ticket verschoben werden soll
           name: kategorie
       not_staff:
         description: Nur Teammitglieder können Tickets verschieben.
@@ -454,7 +454,7 @@ ticket:
       topic: Thema
     title: ℹ️ Referenz
   claimed: 🙌 {user} hat dieses Ticket übernommen.
-  released: ♻️ {user} hat das ticket freigegeben.
+  released: ♻️ {user} hat das Ticket freigegeben.
   closing_soon:
     title: ⌛ Dieses Ticket wird bald geschlossen
     description: "Dieses Ticket wird wegen Inaktivität <t:{timestamp}:R> geschlossen.\n
