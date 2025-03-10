@@ -101,6 +101,8 @@ commands:
         description: "Vous êtes sur le point de clôturer **{count}** tickets inactifs
           depuis plus de `{time}` :\n{tickets}\n"
         title: ❓ Êtes vous sûr ?
+      closed_one:
+        title: ✅ Ticket fermé
     claim:
       description: S'approprier un ticket
       name: réclamer
