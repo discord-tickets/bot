@@ -40,21 +40,75 @@ module.exports = class TagSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		const user = interaction.options.getUser('for', false);
-		await interaction.deferReply({ ephemeral: !user });
-		const tag = await client.prisma.tag.findUnique({
-			include: { guild: true },
-			where: { id: interaction.options.getInteger('tag', true) },
-		});
+		try {
+			const user = interaction.options.getUser('for', false);
+			
+			try {
+				await interaction.deferReply({ ephemeral: !user });
+			} catch (deferError) {
+				client.log.error(`Error deferring reply in tag command: ${deferError}`);
+				// If we can't defer, try to respond directly
+				if (!interaction.replied && !interaction.deferred) {
+					return await interaction.reply({ 
+						content: 'There was an error processing this command. Please try again.',
+						ephemeral: true 
+					}).catch(console.error);
+				}
+				return;
+			}
 
-		await interaction.editReply({
-			allowedMentions: { users: user ? [user.id]: [] },
-			content: user?.toString(),
-			embeds: [
-				new ExtendedEmbedBuilder()
-					.setColor(tag.guild.primaryColour)
-					.setDescription(tag.content),
-			],
-		});
+			// Fetch the tag
+			const tag = await client.prisma.tag.findUnique({
+				include: { guild: true },
+				where: { id: interaction.options.getInteger('tag', true) },
+			});
+
+			// Check if tag exists
+			if (!tag) {
+				return await interaction.editReply({
+					content: 'This tag does not exist.',
+					ephemeral: true
+				}).catch(console.error);
+			}
+
+			// Create the embed with support for images
+			const embed = new ExtendedEmbedBuilder()
+				.setColor(tag.guild.primaryColour)
+				.setDescription(tag.content);
+			
+			// If the tag has an image URL, add it to the embed
+			if (tag.imageUrl) {
+				embed.setImage(tag.imageUrl);
+			}
+
+			// Send the response
+			await interaction.editReply({
+				allowedMentions: { users: user ? [user.id] : [] },
+				content: user?.toString() || null,
+				embeds: [embed],
+			}).catch(error => {
+				client.log.error(`Error editing reply in tag command: ${error}`);
+			});
+			
+		} catch (error) {
+			client.log.error(`Error in tag command: ${error}`);
+			
+			// Try to respond to the user about the error
+			try {
+				if (interaction.deferred) {
+					await interaction.editReply({
+						content: 'An error occurred while fetching the tag.',
+						ephemeral: true
+					});
+				} else if (!interaction.replied) {
+					await interaction.reply({
+						content: 'An error occurred while fetching the tag.',
+						ephemeral: true
+					});
+				}
+			} catch (responseError) {
+				client.log.error(`Failed to send error response: ${responseError}`);
+			}
+		}
 	}
 };
