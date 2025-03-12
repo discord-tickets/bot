@@ -103,7 +103,7 @@ commands:
         title: ❌Žádné tikety
       not_staff:
         title: ❌ Chyba
-        description: Vynutit uzavření tiketu mohou pouze administrátoři
+        description: Vynutit uzavření tiketu mohou pouze administrátoři.
       options:
         category:
           description: Uzavřít všechny tikety v zadané kategorii (musí být použité
@@ -466,8 +466,8 @@ ticket:
   released: ♻️ {user} uvolnil tento tiket.
   working_hours:
     next:
-      description: Vrátíme se o <t:{timestamp}:F> (<t:{timestamp}:R>), kdykoliv můžete
-        dostat odpověď.
+      description: Budeme zpět v <t:{timestamp}:F> (<t:{timestamp}:R>), nicméně odpověď
+        můžete obdržet dříve.
       title: 🕗 Momentálně nejsme dostupný
     today:
       description: Odpověď můžete dostat dříve, ale oficiálně začínáme o <t:{timestamp}:t>
