@@ -1216,11 +1216,8 @@ module.exports = class TicketManager {
 		closedBy = null,
 		reason = null,
 	}) {
-		if (this.$stale.has(ticketId)) this.$stale.delete(ticketId);
 		let ticket = await this.getTicket(ticketId);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
-		this.$count.categories[ticket.categoryId].total -= 1;
-		this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
 
 		const { _count: { archivedMessages } } = await this.client.prisma.ticket.findUnique({
 			select: { _count: { select: { archivedMessages: true } } },
@@ -1248,15 +1245,26 @@ module.exports = class TicketManager {
 			data.pinnedMessageIds = [...pinned.keys()];
 		}
 
-		ticket = await this.client.prisma.ticket.update({
-			data,
-			include: {
-				category: true,
-				feedback: true,
-				guild: true,
-			},
-			where: { id: ticket.id },
-		});
+		try {
+			ticket = await this.client.prisma.ticket.update({
+				data,
+				include: {
+					category: true,
+					feedback: true,
+					guild: true,
+				},
+				where: { id: ticket.id },
+			});
+			if (this.$stale.has(ticketId)) this.$stale.delete(ticketId);
+			this.$count.categories[ticket.categoryId] ??= {};
+			this.$count.categories[ticket.categoryId].total -= 1;
+			this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
+		} catch (error) {
+			this.client.log.error(error);
+			return;
+		}
+
+		const guild = this.client.guilds.cache.get(ticket.guildId);
 
 		if (channel?.deletable) {
 			const member = closedBy ? channel.guild.members.cache.get(closedBy) : null;
@@ -1329,7 +1337,7 @@ module.exports = class TicketManager {
 		};
 
 		const dmEmbed = new ExtendedEmbedBuilder({
-			iconURL: channel.guild.iconURL(),
+			iconURL: guild.iconURL(),
 			text: ticket.guild.footer,
 		})
 			.setColor(ticket.guild.primaryColour)
@@ -1344,7 +1352,7 @@ module.exports = class TicketManager {
 		if (reason) dmEmbed.addFields(fields.reason);
 
 		try {
-			const creator = channel?.guild.members.cache.get(ticket.createdById);
+			const creator = guild.members.cache.get(ticket.createdById);
 			if (creator) {
 				await creator.send({
 					components,
