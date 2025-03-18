@@ -1,3 +1,20 @@
+## [4.0.36](https://github.com/discord-tickets/bot/compare/v4.0.35...v4.0.36) (2025-03-18)
+
+
+### Bug Fixes
+
+* sync and close error handling ([c0bea3d](https://github.com/discord-tickets/bot/commit/c0bea3d32dfcbfa627a723ff8f8395a6e3aced31))
+
+
+### Features
+
+* **i18n:** update Czech translations ([205d1c2](https://github.com/discord-tickets/bot/commit/205d1c232971d82e73e7bc025a86e2ac6ae435a2))
+* **i18n:** update Czech translations ([074ba42](https://github.com/discord-tickets/bot/commit/074ba4266eea60aa783d76573df37558a52435bd))
+* **i18n:** update French translations ([42fefa9](https://github.com/discord-tickets/bot/commit/42fefa92d882179bb624fb7c27738e8480b41df5))
+* **i18n:** update German translations ([#595](https://github.com/discord-tickets/bot/issues/595)) ([e30c149](https://github.com/discord-tickets/bot/commit/e30c149bc149e97bfe774694ea6eeeea80ed4e3f))
+
+
+
 ## [4.0.35](https://github.com/discord-tickets/bot/compare/v4.0.34...v4.0.35) (2025-03-06)
 
 
