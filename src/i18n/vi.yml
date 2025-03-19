@@ -94,8 +94,8 @@ commands:
       confirmed_multiple:
         description: Các kênh sẽ bị xóa trong vài giây.
         title:
-          - ✅ Đóng %d vé
-          - ✅ Đóng %d vé
+        - ✅ Đóng %d vé
+        - ✅ Đóng %d vé
       description: Buộc đóng tickets
       name: force-close
       no_tickets:
@@ -108,9 +108,8 @@ commands:
         title: ❌ Lỗi
       options:
         category:
-          description:
-            Đóng tất cả các vé trong danh mục đã chỉ định (phải được sử dụng với
-            `time`)
+          description: Đóng tất cả các vé trong danh mục đã chỉ định (phải được sử
+            dụng với `time`)
           name: category
         reason:
           description: Lí do đóng ticket(s)
@@ -177,7 +176,8 @@ commands:
       description: Kick một member ra khỏi ticket
       name: remove
       not_staff:
-        description: Chỉ có nhân viên mới có thể xóa thành viên khỏi vé của người khác.
+        description: Chỉ có nhân viên mới có thể xóa thành viên khỏi vé của người
+          khác.
         title: ❌ Lỗi
       options:
         member:
@@ -205,9 +205,8 @@ commands:
           description: Tên mới của kênh bán vé.
           name: name
       ratelimited:
-        description:
-          Bạn đã đổi tên kênh này hai lần trong vòng 10
-          phút. Vui lòng đợi trước khi thử lại.
+        description: Bạn đã đổi tên kênh này hai lần trong vòng 10 phút. Vui lòng
+          đợi trước khi thử lại.
         title: Đã đạt đến giới hạn tỷ lệ
       success:
         description: Kênh bán vé đã được đổi tên thành `{name}`.
@@ -261,7 +260,7 @@ commands:
           description: Thành viên tìm kiếm vé của
           name: member
         ticket:
-          description: Lấy bản sao của ticket 
+          description: Lấy bản sao của ticket
           name: ticket
     transfer:
       description: Chuyển quyền sở hữu vé cho thành viên khác
@@ -359,7 +358,8 @@ misc:
       Vui lòng thử lại sau.
     title: ❌ Full ticket
   cooldown:
-    description: Vui lòng đợi {time} trước khi tạo một ticket khác trong danh mục này.
+    description: Vui lòng đợi {time} trước khi tạo một ticket khác trong danh mục
+      này.
     title: ❌ Vui lòng chờ
   error:
     description: |
@@ -377,13 +377,13 @@ misc:
     title: ❌ Ticket không hợp lệ
   member_limit:
     description:
-      - Vui lòng sử dụng ticket hiện tại của bạn hoặc đóng nó trước khi tạo một vé khác.
-      - |
-        Vui lòng đóng 1 ticket trước khi tạo một phiếu khác.
-        Sử dụng `/tickets` để xem ticket hiện tại của bạn.
+    - Vui lòng sử dụng ticket hiện tại của bạn hoặc đóng nó trước khi tạo một vé khác.
+    - |
+      Vui lòng đóng 1 ticket trước khi tạo một phiếu khác.
+      Sử dụng `/tickets` để xem ticket hiện tại của bạn.
     title:
-      - ❌ Bạn đã có ticket rồi
-      - ❌ Bạn đã có %d ticket mở
+    - ❌ Bạn đã có ticket rồi
+    - ❌ Bạn đã có %d ticket mở
   missing_roles:
     description: >-
       Bạn không có các vai trò cần thiết để có thể tạo một phiếu trong
@@ -414,7 +414,8 @@ misc:
       for_admins:
         name: Dành cho quản trị viên máy chủ
         value: >
-          Người dùng hoặc vai trò không hợp lệ đã được cung cấp, thường có nghĩa là vai trò staff
+          Người dùng hoặc vai trò không hợp lệ đã được cung cấp, thường có nghĩa là
+          vai trò staff
           đã bị xóa. [Nhấp vào đây]({url}) để biết hướng dẫn giải quyết.
     title: ⚠️ Có gì đó không ổn
   unknown_category:
@@ -449,7 +450,7 @@ ticket:
       title: ❌ Lỗi
     rejected: ✋ {user} từ chối yêu cầu đóng phiếu này.
     staff_request:
-      archived: |
+      archived: |2
 
         Các tin nhắn trong kênh này sẽ được lưu trữ để tra cứu sau này.
       description: |
@@ -478,8 +479,8 @@ ticket:
       Vui lòng tiếp tục cuộc trò chuyện hoặc {close} phiếu yêu cầu.
     title: ⏰ Vé này không có hiệu lực
   offline:
-    description:
-      Hiện tại không có nhân viên nào trực nên có thể mất nhiều thời gian hơn bình thường để nhận được sự giúp đỡ.
+    description: Hiện tại không có nhân viên nào trực nên có thể mất nhiều thời gian
+      hơn bình thường để nhận được sự giúp đỡ.
     title: 😴 Chúng tôi không trực tuyến
   opening_message:
     content: |
@@ -488,7 +489,8 @@ ticket:
     fields:
       topic: Topic
   references_message:
-    description: Tài liệu tham khảo [một tin nhắn]({url}) được gửi vào {timestamp} bởi {author}.
+    description: Tài liệu tham khảo [một tin nhắn]({url}) được gửi vào {timestamp}
+      bởi {author}.
     title: ℹ️ Reference
   references_ticket:
     description: "Vé này có liên quan đến vé trước đó:"
@@ -500,12 +502,10 @@ ticket:
   released: ♻️ {user} đã dừng hỗ trợ ticket này.
   working_hours:
     next:
-      description:
-        Chúng tôi sẽ quay lại vào <t:{timestamp}:F> (<t:{timestamp}:R>), mặc dù
-        bạn có thể nhận được phản hồi trước thời điểm đó.
+      description: Chúng tôi sẽ quay lại vào <t:{timestamp}:F> (<t:{timestamp}:R>),
+        mặc dù bạn có thể nhận được phản hồi trước thời điểm đó.
       title: 🕗 Chúng tôi hiện không làm việc
     today:
-      description:
-        You may receive a response before, but we don't start working until
+      description: You may receive a response before, but we don't start working until
         <t:{timestamp}:t> hôm nay (<t:{timestamp}:R>).
       title: 🕗 Chúng tôi hiện không làm việc
