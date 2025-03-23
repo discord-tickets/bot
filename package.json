@@ -1,107 +1,65 @@
 {
-	"name": "discord-tickets",
-	"version": "4.0.36",
-	"private": "true",
-	"description": "The most popular open-source ticket management bot for Discord.",
-	"main": "src/",
-	"scripts": {
-		"db.dump": "node scripts/dump.mjs",
-		"db.prune": "node scripts/prune.mjs",
-		"db.restore": "node scripts/restore.mjs",
-		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-		"contributors:add": "all-contributors add",
-		"contributors:generate": "all-contributors generate",
-		"keygen": "node scripts/keygen",
-		"lint": "eslint src scripts --fix",
-		"preinstall": "node scripts/preinstall",
-		"postinstall": "node scripts/postinstall",
-		"start": "node .",
-		"studio": "npx prisma studio",
-		"test": "node scripts/check-i18n",
-		"__prepare": "husky install"
-	},
-	"commitlint": {
-		"extends": [
-			"@commitlint/config-conventional"
-		]
-	},
-	"lint-staged": {
-		"**/*.js": [
-			"npm run lint --"
-		]
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/discord-tickets/bot.git"
-	},
-	"keywords": [
-		"discord",
-		"tickets",
-		"bot"
-	],
-	"author": "eartharoid",
-	"license": "GPL-3.0-or-later",
-	"bugs": {
-		"url": "https://github.com/discord-tickets/bot/issues"
-	},
-	"homepage": "https://discordtickets.app",
-	"engines": {
-		"node": ">=18"
-	},
-	"dependencies": {
-		"@discord-tickets/settings": "~2.5.4",
-		"@eartharoid/dbf": "^0.4.2",
-		"@eartharoid/dtf": "^2.0.1",
-		"@eartharoid/i18n": "^1.2.1",
-		"@fastify/cookie": "^11.0.2",
-		"@fastify/jwt": "^9.0.4",
-		"@fastify/multipart": "^9.0.3",
-		"@prisma/client": "^5.22.0",
-		"archiver": "^7.0.1",
-		"boxen": "^7.1.1",
-		"commander": "^12.1.0",
-		"cryptr": "^6.3.0",
-		"discord.js": "^14.18.0",
-		"dotenv": "^16.4.7",
-		"fastify": "^5.2.1",
-		"figlet": "^1.8.0",
-		"fs-extra": "^10.1.0",
-		"keyv": "^4.5.4",
-		"leeks.js": "^0.3.0",
-		"leekslazylogger": "^6.0.0",
-		"ms": "^2.1.3",
-		"mustache": "^4.2.0",
-		"node-dir": "^0.1.17",
-		"node-emoji": "^1.11.0",
-		"object-diffy": "^1.0.4",
-		"ora": "^8.2.0",
-		"prisma": "^5.22.0",
-		"semver": "^7.7.1",
-		"short-unique-id": "^4.4.4",
-		"spacetime": "^7.7.0",
-		"terminal-link": "^2.1.1",
-		"threads": "^1.7.0",
-		"unzipper": "^0.12.3",
-		"yaml": "^2.7.0"
-	},
-	"devDependencies": {
-		"@commitlint/cli": "^17.8.1",
-		"@commitlint/config-conventional": "^17.8.1",
-		"@eartharoid/eslint-rules-js": "^1.1.0",
-		"@eslint/js": "^9.21.0",
-		"all-contributors-cli": "^6.26.1",
-		"conventional-changelog-cli": "^2.2.2",
-		"eslint": "^9.21.0",
-		"globals": "^15.15.0",
-		"husky": "^8.0.3",
-		"lint-staged": "^13.3.0",
-		"markdown-table": "^3.0.4",
-		"nodemon": "^2.0.22"
-	},
-	"optionalDependencies": {
-		"bufferutil": "^4.0.9",
-		"erlpack": "github:discord/erlpack",
-		"utf-8-validate": "^5.0.10",
-		"zlib-sync": "^0.1.9"
-	}
+  "name": "discord-tickets",
+  "version": "5.0.0-alpha.0",
+  "private": true,
+  "description": "The most popular open-source ticket management bot for Discord.",
+  "workspaces": [
+    "apps/*",
+	"packages/*",
+	"services/*"
+  ],
+  "scripts": {
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "keygen": "node scripts/keygen",
+    "lint": "eslint apps/**/*.js,ts --fix",
+    "test": "node scripts/check-i18n",
+    "__prepare": "husky install"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "npm run lint --"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discord-tickets/bot.git"
+  },
+  "keywords": [
+    "discord",
+    "tickets",
+    "bot"
+  ],
+  "author": "eartharoid",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/discord-tickets/bot/issues"
+  },
+  "homepage": "https://discordtickets.app",
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@eartharoid/eslint-rules-js": "^1.1.0",
+    "@eslint/js": "^9.23.0",
+    "@types/bun": "latest",
+    "all-contributors-cli": "^6.26.1",
+    "conventional-changelog-cli": "^5.0.0",
+    "eslint": "^9.23.0",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "markdown-table": "^3.0.4",
+    "typescript-eslint": "^8.27.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "optionalDependencies": {}
 }
