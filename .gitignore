@@ -1,6 +1,5 @@
 # directories
 /.history/
-/.vscode/
 /node_modules/
 /prisma/
 /user/
