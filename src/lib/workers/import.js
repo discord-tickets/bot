@@ -83,6 +83,7 @@ expose({
 				};
 				delete ticket.feedback.userId;
 			}
+			delete ticket.feedback.ticketId;
 			ticket.feedback = { create: ticket.feedback };
 		} else {
 			ticket.feedback = undefined;
