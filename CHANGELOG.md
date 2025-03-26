@@ -1,3 +1,19 @@
+## [4.0.37](https://github.com/discord-tickets/bot/compare/v4.0.36...v4.0.37) (2025-03-26)
+
+
+### Bug Fixes
+
+* importing with feedback ([86ea3cc](https://github.com/discord-tickets/bot/commit/86ea3cc7fe6def137b8c2dfc40969a6225411a97))
+
+
+### Features
+
+* **i18n:** add Vietnamese translations ([be0ddbc](https://github.com/discord-tickets/bot/commit/be0ddbc17d14e9c5ee0a3251f2993a233cd022ec))
+* **i18n:** update Vietnamese translations ([71094c1](https://github.com/discord-tickets/bot/commit/71094c1725549469bcc2c5738d54c40210b11939))
+* **i18n:** update Vietnamese translations ([#602](https://github.com/discord-tickets/bot/issues/602)) ([3c853ea](https://github.com/discord-tickets/bot/commit/3c853ea4d6e2662672d64e185af1706c8fd1c914))
+
+
+
 ## [4.0.36](https://github.com/discord-tickets/bot/compare/v4.0.35...v4.0.36) (2025-03-18)
 
 
