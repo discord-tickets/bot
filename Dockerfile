@@ -30,6 +30,9 @@ RUN mkdir /app \
 	&& chown container:container /app \
 	&& chmod -R 777 /app
 
+RUN mkdir -p /home/container/user /home/container/logs \
+    && chown -R container:container /home/container
+
 USER container
 ENV USER=container \
 	HOME=/home/container \
