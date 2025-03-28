@@ -1,5 +1,5 @@
 const { reusable } = require('../threads');
-const { getAvatarData } = require('../users');
+const { getAvatarData, saveAvatar } = require('../users');
 
 
 /**
@@ -36,8 +36,7 @@ module.exports = class TicketArchiver {
 		const members = new Set(message.mentions.members.values());
 		const roles = new Set(message.mentions.roles.values());
 
-		const cryptoWorker = await reusable('crypto');
-		const usersWorker = await reusable('users');
+		const worker = await reusable("crypto");
 
 		try {
 			const queries = [];
@@ -75,16 +74,16 @@ module.exports = class TicketArchiver {
 			for (const member of members) {
 				const avatar = getAvatarData(member);
 
-				const savedAvatarFilename = usersWorker.saveAvatar(avatar);
+				const savedAvatarFilename = await saveAvatar(avatar);
 				if(!savedAvatarFilename) this.client.log.warn(`Couldn't save user avatar at: ${avatar.url}`);
 
 				const data = {
 					avatar: avatar.hash,
 					bot: member.user.bot,
 					discriminator: member.user.discriminator,
-					displayName: member.displayName ? await cryptoWorker.encrypt(member.displayName) : null,
+					displayName: member.displayName ? await worker.encrypt(member.displayName) : null,
 					roleId: !!member && hoistedRole(member).id,
-					username: await cryptoWorker.encrypt(member.user.username),
+					username: await worker.encrypt(member.user.username),
 				};
 				queries.push(
 					this.client.prisma.archivedUser.upsert({
@@ -127,7 +126,7 @@ module.exports = class TicketArchiver {
 			}
 
 			const data = {
-				content: await cryptoWorker.encrypt(
+				content: await worker.encrypt(
 					JSON.stringify({
 						attachments: [...message.attachments.values()],
 						components: [...message.components.values()],
@@ -157,8 +156,7 @@ module.exports = class TicketArchiver {
 
 			return await this.client.prisma.$transaction(queries);
 		} finally {
-			await cryptoWorker.terminate();
-			await usersWorker.terminate();
+			await worker.terminate();
 		}
 	}
 };
