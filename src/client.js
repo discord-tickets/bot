@@ -36,6 +36,7 @@ module.exports = class Client extends FrameworkClient {
 					Partials.Reaction,
 				],
 				shards: 'auto',
+				waitGuildTimeout: ms('5m'),
 			},
 			{ baseDir: __dirname },
 		);
