@@ -110,19 +110,6 @@ importers:
       yaml:
         specifier: ^2.7.0
         version: 2.7.0
-    optionalDependencies:
-      bufferutil:
-        specifier: ^4.0.9
-        version: 4.0.9
-      erlpack:
-        specifier: github:discord/erlpack
-        version: https://codeload.github.com/discord/erlpack/tar.gz/936ba12231719af096fe1c37525e966f3690a225
-      utf-8-validate:
-        specifier: ^5.0.10
-        version: 5.0.10
-      zlib-sync:
-        specifier: ^0.1.9
-        version: 0.1.9
     devDependencies:
       '@commitlint/cli':
         specifier: ^17.8.1
@@ -160,6 +147,19 @@ importers:
       nodemon:
         specifier: ^2.0.22
         version: 2.0.22
+    optionalDependencies:
+      bufferutil:
+        specifier: ^4.0.9
+        version: 4.0.9
+      erlpack:
+        specifier: github:discord/erlpack
+        version: https://codeload.github.com/discord/erlpack/tar.gz/936ba12231719af096fe1c37525e966f3690a225
+      utf-8-validate:
+        specifier: ^5.0.10
+        version: 5.0.10
+      zlib-sync:
+        specifier: ^0.1.9
+        version: 0.1.9
 
 packages:
 

@@ -1,3 +1,13 @@
+## [4.0.38](https://github.com/discord-tickets/bot/compare/v4.0.37...v4.0.38) (2025-03-31)
+
+
+### Bug Fixes
+
+* **docker:** pre-create runtime directories ([#607](https://github.com/discord-tickets/bot/issues/607)) ([6375f4c](https://github.com/discord-tickets/bot/commit/6375f4c53c3b6cfbb5689594cb28e68950862a2a))
+* increase timeout for missing guilds ([c94ee65](https://github.com/discord-tickets/bot/commit/c94ee655f6fe206a6e28fc5af03757f85d812782))
+
+
+
 ## [4.0.37](https://github.com/discord-tickets/bot/compare/v4.0.36...v4.0.37) (2025-03-26)
 
 
