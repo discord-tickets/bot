@@ -226,6 +226,11 @@ module.exports = class TicketManager {
 			if (blocked) return await sendError('blocked');
 		}
 
+		// Don't let timed out users open tickets, they won't be able to write anything inside
+		if (member.isCommunicationDisabled()) {
+			return await sendError('blocked');
+		}
+
 		if (category.requiredRoles.length !== 0) {
 			const missing = category.requiredRoles.some(r => !member.roles.cache.has(r));
 			if (missing) return await sendError('missing_roles');
