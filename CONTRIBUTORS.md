@@ -1,6 +1,6 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-38-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-39-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Contributors ✨
@@ -61,6 +61,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/DominicTheD3v"><img src="https://avatars.githubusercontent.com/u/119626487?v=4?s=100" width="100px;" alt="DominicTheD3v"/><br /><sub><b>DominicTheD3v</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/issues?q=author%3ADominicTheD3v" title="Bug reports">🐛</a> <a href="https://github.com/discord-tickets/bot/commits?author=DominicTheD3v" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ari-party"><img src="https://avatars.githubusercontent.com/u/49074962?v=4?s=100" width="100px;" alt="ari"/><br /><sub><b>ari</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=ari-party" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/olebohmbach"><img src="https://avatars.githubusercontent.com/u/77053238?v=4?s=100" width="100px;" alt="Ole"/><br /><sub><b>Ole</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=olebohmbach" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/erdnaxe"><img src="https://avatars.githubusercontent.com/u/2663216?v=4?s=100" width="100px;" alt="erdnaxe"/><br /><sub><b>erdnaxe</b></sub></a><br /><a href="https://github.com/discord-tickets/bot/commits?author=erdnaxe" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
