@@ -26,6 +26,8 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Отказаться
+  transcript:
+    emoji: 📄
 commands:
   message:
     create:
