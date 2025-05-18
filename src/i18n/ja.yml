@@ -1,1 +1,39 @@
-{}
+buttons:
+  accept_close_request:
+    text: 承諾
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: キャンセル
+  claim:
+    text: 担当する
+    emoji: 🙌
+  close:
+    emoji: ✖️
+    text: クローズ
+  confirm_open:
+    emoji: ✅
+    text: チケットを作成
+  edit:
+    emoji: ✏️
+    text: 編集
+  reject_close_request:
+    emoji: ✖️
+    text: 拒否
+  create:
+    text: チケットを作成
+    emoji: 🎫
+  unclaim:
+    text: 担当解除
+    emoji: ♻️
+  transcript:
+    emoji: 📄
+    text: 対応履歴
+commands:
+  message:
+    pin:
+      not_pinnable:
+        description: "このメッセージはピン留め出来ません。\n管理者にBotの権限を確認する様依頼してください。\n"
+      name: メッセージをピン留め
+    create:
+      name: メッセージからチケットを作成
