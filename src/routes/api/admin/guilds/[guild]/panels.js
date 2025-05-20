@@ -62,8 +62,7 @@ module.exports.post = fastify => ({
 		}
 
 		const embed = new EmbedBuilder()
-			.setColor(settings.primaryColour)
-			.setTitle(data.title);
+			.setColor(settings.primaryColour);
 
 		if (settings.footer) {
 			embed.setFooter({
@@ -72,6 +71,7 @@ module.exports.post = fastify => ({
 			});
 		}
 
+		if (data.title) embed.setTitle(data.title);
 		if (data.description) embed.setDescription(data.description);
 		if (data.image) embed.setImage(data.image);
 		if (data.thumbnail) embed.setThumbnail(data.thumbnail);
