@@ -1,3 +1,12 @@
+## [4.0.40](https://github.com/discord-tickets/bot/compare/v4.0.39...v4.0.40) (2025-05-23)
+
+
+### Bug Fixes
+
+* 1h guild timeout ([51a6c1a](https://github.com/discord-tickets/bot/commit/51a6c1a73e70aceed59afe47f2f8157a228f3961))
+
+
+
 ## [4.0.39](https://github.com/discord-tickets/bot/compare/v4.0.38...v4.0.39) (2025-05-23)
 
 
