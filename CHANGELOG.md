@@ -1,3 +1,21 @@
+## [4.0.39](https://github.com/discord-tickets/bot/compare/v4.0.38...v4.0.39) (2025-05-23)
+
+
+### Bug Fixes
+
+* triple guild timeout ([8150084](https://github.com/discord-tickets/bot/commit/8150084fed3abc9a02edc15a352b5ec0fef51171))
+
+
+### Features
+
+* block timed out users ([#612](https://github.com/discord-tickets/bot/issues/612)) ([6e51345](https://github.com/discord-tickets/bot/commit/6e51345e40bd8d27e2822387e4e08f7cc231f1d1))
+* **i18n:** add Japanese translations ([c20c509](https://github.com/discord-tickets/bot/commit/c20c509e867cab14549086f3afa2dff0c99bd586))
+* **i18n:** update Japanese translations ([088b980](https://github.com/discord-tickets/bot/commit/088b980192dc8b22888c62e4ce334a8b006d49eb))
+* **i18n:** update Russian translations ([41c20d6](https://github.com/discord-tickets/bot/commit/41c20d600ed333b83275c5968b5fdf46de64fd13))
+* **panels:** optional title ([f1a8530](https://github.com/discord-tickets/bot/commit/f1a85308c48fa8cded715c9eaa931579c4beee03))
+
+
+
 ## [4.0.38](https://github.com/discord-tickets/bot/compare/v4.0.37...v4.0.38) (2025-03-31)
 
 
