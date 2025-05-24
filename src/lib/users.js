@@ -70,3 +70,37 @@ module.exports.getPrivilegeLevel = async member => {
 	else if (await this.isStaff(member.guild, member.id)) return 1;
 	else return 0;
 };
+
+/**
+ *
+ * @param {import("discord.js").GuildMember} member
+ * @returns {{hash: string, url: string} | false}
+ */
+module.exports.getAvatarData = member => {
+	if (!member?.user) return false;
+
+	const cdnBaseUrl = 'https://cdn.discordapp.com';
+
+	const {
+		id: userId,
+		avatar: userAvatar,
+	} = member.user;
+	const { id: guildId } = member.guild;
+	const memberAvatar = member.avatar;
+
+	const avatarHash = memberAvatar || userAvatar;
+	if (!avatarHash) return false;
+
+	const isAnimated = avatarHash.startsWith('a_');
+	const ext = isAnimated ? '.gif' : '.png';
+
+	const url = memberAvatar
+		? `${cdnBaseUrl}/guilds/${guildId}/users/${userId}/avatars/${avatarHash}${ext}`
+		: `${cdnBaseUrl}/avatars/${userId}/${avatarHash}${ext}`;
+
+	return {
+		hash: avatarHash,
+		isAnimated,
+		url,
+	};
+};
