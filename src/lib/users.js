@@ -77,7 +77,7 @@ module.exports.getPrivilegeLevel = async member => {
 /**
  *
  * @param {import("discord.js").GuildMember} member
- * @returns {{hash: string, url: string} | false}
+ * @returns {{hash: string, url: string, isAnimated: boolean} | false}
  */
 module.exports.getAvatarData = member => {
 	if (!member?.user) return false;
