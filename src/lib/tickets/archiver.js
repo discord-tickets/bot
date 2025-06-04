@@ -1,5 +1,7 @@
 const { reusable } = require('../threads');
-const { getAvatarData, saveAvatar } = require('../users');
+const {
+	getAvatarData, saveAvatar,
+} = require('../users');
 
 
 /**
@@ -36,7 +38,7 @@ module.exports = class TicketArchiver {
 		const members = new Set(message.mentions.members.values());
 		const roles = new Set(message.mentions.roles.values());
 
-		const worker = await reusable("crypto");
+		const worker = await reusable('crypto');
 
 		try {
 			const queries = [];
