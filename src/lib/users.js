@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { Readable } = require('stream');
+const path = require('path');
 const { PermissionsBitField } = require('discord.js');
 
 /**
@@ -103,4 +106,42 @@ module.exports.getAvatarData = member => {
 		isAnimated,
 		url,
 	};
+};
+
+/**
+ *
+ * @param {{url: string, hash: string}} avatar
+ * @returns {Promise<string | false>} - The filename of the saved avatar if successful, `false` if failed.
+ */
+module.exports.saveAvatar = async avatar => {
+	const avatarDir = path.join('user', 'avatars');
+
+	if (!avatar?.url || !avatar.hash) return false;
+
+	const ext = path.extname(avatar.url);
+	const filename = `${avatar.hash}${ext}`;
+	const filePath = path.join(avatarDir, filename);
+
+	try {
+		await fs.promises.access(filePath);
+		return filename; // Avatar already saved
+	} catch (err) {
+		if (err.code !== 'ENOENT') {
+			return false;
+		}
+	}
+
+	const res = await fetch(avatar.url);
+	if (!res.ok) {
+		return false;
+	}
+
+	const nodeReadable = Readable.fromWeb(res.body);
+	const writeStream = fs.createWriteStream(filePath);
+
+	return new Promise((resolve, reject) => {
+		nodeReadable.pipe(writeStream);
+		writeStream.on('finish', () => resolve(filename));
+		writeStream.on('error', () => reject(false));
+	});
 };
