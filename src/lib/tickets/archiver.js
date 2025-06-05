@@ -1,4 +1,7 @@
 const { reusable } = require('../threads');
+const {
+	getAvatarData, saveAvatar,
+} = require('../users');
 
 
 /**
@@ -71,8 +74,13 @@ module.exports = class TicketArchiver {
 			}
 
 			for (const member of members) {
+				const avatar = getAvatarData(member);
+
+				const savedAvatarFilename = await saveAvatar(avatar);
+				if(!savedAvatarFilename) this.client.log.warn(`Couldn't save user avatar at: ${avatar.url}`);
+
 				const data = {
-					avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
+					avatar: avatar.hash,
 					bot: member.user.bot,
 					discriminator: member.user.discriminator,
 					displayName: member.displayName ? await worker.encrypt(member.displayName) : null,
