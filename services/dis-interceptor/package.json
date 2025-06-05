@@ -1,15 +1,20 @@
 {
-  "name": "@discord-tickets/dis-interceptor",
-  "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@discordeno/rest": "^21.0.0"
-  }
+	"name": "@discord-tickets/dis-interceptor",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"dev": "bun --hot .",
+		"start": "bun . --dns-result-order=ipv4first --fetch-preconnect=https://discord.com"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:"
+	},
+	"peerDependencies": {
+		"typescript": "catalog:"
+	},
+	"dependencies": {
+		"@discordeno/rest": "^21.0.0",
+		"got": "^14.4.7"
+	}
 }
