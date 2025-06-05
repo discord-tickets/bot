@@ -9,7 +9,7 @@
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
-		"lint": "eslint apps/**/*.js,ts --fix",
+		"lint": "eslint --fix",
 		"test": "node scripts/check-i18n"
 	},
 

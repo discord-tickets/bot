@@ -1,0 +1,15 @@
+{
+  "name": "@discord-tickets/logger",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "catalog:"
+  },
+  "peerDependencies": {
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "leeks.js": "^0.3.0",
+    "leekslazylogger": "^6.0.0"
+  }
+}

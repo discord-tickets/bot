@@ -16,10 +16,22 @@
         "husky": "^9.1.7",
         "lint-staged": "^15.5.2",
         "markdown-table": "^3.0.4",
+        "typescript": "^5.8.2",
         "typescript-eslint": "^8.33.1",
       },
+    },
+    "packages/logger": {
+      "name": "@discord-tickets/logger",
+      "version": "0.0.1",
+      "dependencies": {
+        "leeks.js": "^0.3.0",
+        "leekslazylogger": "^6.0.0",
+      },
+      "devDependencies": {
+        "@types/bun": "catalog:",
+      },
       "peerDependencies": {
-        "typescript": "^5.8.2",
+        "typescript": "catalog:",
       },
     },
     "services/dis-gateway": {
@@ -33,6 +45,7 @@
     },
     "services/dis-interceptor": {
       "name": "@discord-tickets/dis-interceptor",
+      "version": "0.0.1",
       "dependencies": {
         "@discordeno/rest": "^21.0.0",
         "got": "^14.4.7",
@@ -98,11 +111,17 @@
 
     "@discord-tickets/dis-interceptor": ["@discord-tickets/dis-interceptor@workspace:services/dis-interceptor"],
 
+    "@discord-tickets/logger": ["@discord-tickets/logger@workspace:packages/logger"],
+
     "@discordeno/rest": ["@discordeno/rest@21.0.0", "", { "dependencies": { "@discordeno/types": "21.0.0", "@discordeno/utils": "21.0.0" } }, "sha512-ew5ddhUd7Qyv/GSzCy42bEmRv0yr2PspCMsLD/NeMiTLd3+OrVN5pAxBN9z+9JpS/daiiD/PVmvuUAVx/nXTEw=="],
 
     "@discordeno/types": ["@discordeno/types@21.0.0", "", {}, "sha512-TUZAEqqlXRNQji+NCaQo8DruzI8rXbBvMaZYsZvN9f03PrdSddzMOy3cjs4eeL6ZMVocmMVRIaVnB713blylCw=="],
 
     "@discordeno/utils": ["@discordeno/utils@21.0.0", "", { "dependencies": { "@discordeno/types": "21.0.0" } }, "sha512-I7I3Szlk+LkT/CRmJJiLPsjuBUjbuXUCvOzsgWCltkxDMIGmQeNoQtFK7t89V1Gcc4icsrnHVMho1BcaAITijg=="],
+
+    "@eartharoid/deep-merge": ["@eartharoid/deep-merge@0.0.2", "", {}, "sha512-t7kmNd6m7BOGxf25tE1YBhPZbgMEsXZT0tQyVV/Mlo+rcPEmiEEc6HV1DBnYm63MvMpgTk4o6yBkeAJYCMzvNg=="],
+
+    "@eartharoid/dtf": ["@eartharoid/dtf@2.0.1", "", {}, "sha512-H0oLRShkVqTskVRA8KMMIHjtwAu6Yc6GkxQm9cLPWMA7V0ZOxD5rg2PaZuQfDbt6UAk2sp7qb+k4ih5EHc/Jgg=="],
 
     "@eartharoid/eslint-rules-js": ["@eartharoid/eslint-rules-js@1.1.0", "", { "dependencies": { "eslint-plugin-unused-imports": "^4.1.4" } }, "sha512-4fqFv4qjtUxK6rf+qri7xidHW3eD+t3s4DCjpgiK+o++wH6p5Oc4PMTmhPSRxPJTNqe54FIiUITkIfc8h4fO7g=="],
 
@@ -497,6 +516,10 @@
     "keyv": ["keyv@4.5.4", "", { "dependencies": { "json-buffer": "3.0.1" } }, "sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw=="],
 
     "kind-of": ["kind-of@6.0.3", "", {}, "sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw=="],
+
+    "leeks.js": ["leeks.js@0.3.0", "", {}, "sha512-6viaW7OYf8ijUe3G+rQ6CvbCLkN32vmeaEnVg82M474MbEeB++FcA80Qya1lv3cCgwkuxnfzDgnmWxol1bfhfA=="],
+
+    "leekslazylogger": ["leekslazylogger@6.0.0", "", { "dependencies": { "@eartharoid/deep-merge": "^0.0.2", "@eartharoid/dtf": "^2.0.1", "leeks.js": "^0.3.0" } }, "sha512-GR1kjWixYMzZXeveMcVuh8+5w3yJXOjPlLLAWFaBUstJuCbU80jo6SxQT009EkgP0yJfTTlg/XjxYMV+3HUgLw=="],
 
     "levn": ["levn@0.4.1", "", { "dependencies": { "prelude-ls": "^1.2.1", "type-check": "~0.4.0" } }, "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ=="],
 
