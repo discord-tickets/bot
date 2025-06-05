@@ -82,24 +82,17 @@ module.exports.getPrivilegeLevel = async member => {
 module.exports.getAvatarData = member => {
 	if (!member?.user) return false;
 
-	const cdnBaseUrl = 'https://cdn.discordapp.com';
-
-	const {
-		id: userId,
-		avatar: userAvatar,
-	} = member.user;
-	const { id: guildId } = member.guild;
+	const { avatar: userAvatar } = member.user;
 	const memberAvatar = member.avatar;
 
 	const avatarHash = memberAvatar || userAvatar;
 	if (!avatarHash) return false;
 
 	const isAnimated = avatarHash.startsWith('a_');
-	const ext = isAnimated ? '.gif' : '.png';
 
 	const url = memberAvatar
-		? `${cdnBaseUrl}/guilds/${guildId}/users/${userId}/avatars/${avatarHash}${ext}`
-		: `${cdnBaseUrl}/avatars/${userId}/${avatarHash}${ext}`;
+		? member.avatarURL()
+		: member.user.avatarURL();
 
 	return {
 		hash: avatarHash,
