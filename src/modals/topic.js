@@ -1,5 +1,7 @@
 const { Modal } = require('@eartharoid/dbf');
-const { EmbedBuilder } = require('discord.js');
+const {
+	EmbedBuilder, MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { logTicketEvent } = require('../lib/logging');
 const { reusable } = require('../lib/threads');
@@ -19,7 +21,7 @@ module.exports = class TopicModal extends Modal {
 		if (id.edit) {
 			const worker = await reusable('crypto');
 			try {
-				await interaction.deferReply({ ephemeral: true });
+				await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 				const topic = interaction.fields.getTextInputValue('topic');
 				const select = {
 					createdById: true,

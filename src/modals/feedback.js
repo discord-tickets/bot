@@ -1,6 +1,7 @@
 const { Modal } = require('@eartharoid/dbf');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { quick } = require('../lib/threads');
+const { MessageFlags } = require('discord.js');
 
 module.exports = class FeedbackModal extends Modal {
 	constructor(client, options) {
@@ -60,7 +61,7 @@ module.exports = class FeedbackModal extends Modal {
 						.setColor(ticket.guild.primaryColour)
 						.setDescription(getMessage('ticket.feedback')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 	}

@@ -126,7 +126,7 @@ module.exports = class RenameSlashCommand extends SlashCommand {
 						.setTitle(getMessage('commands.slash.rename.ratelimited.title'))
 						.setDescription(getMessage('commands.slash.rename.ratelimited.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 

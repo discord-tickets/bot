@@ -1,5 +1,6 @@
 const { MessageCommand } = require('@eartharoid/dbf');
 const ExtendedEmbedBuilder = require('../../lib/embed');
+const { MessageFlags } = require('discord.js');
 
 module.exports = class PinMessageCommand extends MessageCommand {
 	constructor(client, options) {
@@ -21,7 +22,7 @@ module.exports = class PinMessageCommand extends MessageCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },
 			where: { id: interaction.channel.id },

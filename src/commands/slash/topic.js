@@ -4,6 +4,7 @@ const {
 	ModalBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	MessageFlags,
 } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { quick } = require('../../lib/threads');
@@ -51,7 +52,7 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
-				flags: 'Ephemeral',
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 

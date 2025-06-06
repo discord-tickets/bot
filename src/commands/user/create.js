@@ -9,6 +9,7 @@ const {
 	ComponentType,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
+	MessageFlags,
 } = require('discord.js');
 const emoji = require('node-emoji');
 
@@ -32,7 +33,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ flags: 'Ephemeral' });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const settings = await client.prisma.guild.findUnique({
 			include: { categories: true },

@@ -2,6 +2,7 @@ const { SlashCommand } = require('@eartharoid/dbf');
 const {
 	ApplicationCommandOptionType,
 	PermissionsBitField,
+	MessageFlags,
 } = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
@@ -113,7 +114,7 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		ticketId = ticketId || interaction.options.getString('ticket', true);
 		const ticket = await client.prisma.ticket.findUnique({
 			include: {
