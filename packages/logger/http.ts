@@ -11,14 +11,14 @@ type DecoratedRequest = Request & {
 
 function getStatusColour(status: number) {
 	switch ((status / 100) | 0) {
-		case 5: // red = error
-			return '&4';
-		case 4: // yellow = warning
-			return '&6';
-		case 3: // cyan = redirect
-			return '&3';
-		case 2: // green = success
-			return '&2';
+	case 5: // red = error
+		return '&4';
+	case 4: // yellow = warning
+		return '&6';
+	case 3: // cyan = redirect
+		return '&3';
+	case 2: // green = success
+		return '&2';
 	}
 }
 
@@ -42,10 +42,10 @@ export default class HTTPLoggingMiddleware {
 
 	logErrors(err: Error, req: DecoratedRequest) {
 		this.log.error.http?.({
-			id: req.$logger?.id,
 			error: err,
-			params: req.params,
 			headers: Object.fromEntries(req.headers),
+			id: req.$logger?.id,
+			params: req.params,
 		});
 	}
 

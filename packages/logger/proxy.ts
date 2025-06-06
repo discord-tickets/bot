@@ -1,5 +1,7 @@
 import type { Logger } from 'leekslazylogger';
-import type { LogLevel, LogLevelType } from 'leekslazylogger/types/types';
+import type {
+	LogLevel, LogLevelType,
+} from 'leekslazylogger/types/types';
 
 type ProxiedLog = {
 	content: unknown[];
@@ -35,19 +37,21 @@ export const proxyLogger = new Proxy(forward, handler);
 
 export function receiveProxiedLogs(logger: Logger) {
 	const levels = logger.levels
-	.map(name => <LogLevel>{
-		name,
-		number: logger.levels.indexOf(name),
-		type: (logger.options.levels[name] || 'info') as LogLevelType,
-	})
-	.reduce((acc, level) => {
-		acc[level.name] = level;
-		return acc;
-	}, {} as Record<string, LogLevel>);
+		.map(name => <LogLevel>{
+			name,
+			number: logger.levels.indexOf(name),
+			type: (logger.options.levels[name] || 'info') as LogLevelType,
+		})
+		.reduce((acc, level) => {
+			acc[level.name] = level;
+			return acc;
+		}, {} as Record<string, LogLevel>);
 	process.on('message', (message: unknown) => {
 		if (message instanceof Object && Object.hasOwn(message, 'log')) {
 			const { log: proxied } = message as { log: ProxiedLog };
-			const { content, level, namespace } = proxied;
+			const {
+				content, level, namespace,
+			} = proxied;
 			if (!levels[level]) throw new Error(`Unknown log level: ${level}`);
 			logger.log(namespace, levels[level], ...content);
 		}

@@ -1,11 +1,17 @@
-// TODO: toml
 /* eslint-disable no-console */
-const fs = require('fs');
-const {
+
+import {
+	readdirSync,
+	readFileSync,
+	writeFileSync,
+} from 'fs';
+
+// TODO: toml
+import {
 	Composer,
 	LineCounter,
 	Parser,
-} = require('yaml');
+} from 'yaml';
 
 function resolve(ast, key) {
 	return key
@@ -18,12 +24,12 @@ function resolve(ast, key) {
 
 const errors = [];
 const locales = [];
-const files = fs.readdirSync('./src/i18n').filter(file => file.endsWith('.yml'));
+const files = readdirSync('./src/i18n').filter(file => file.endsWith('.yml'));
 
 for (const file of files) {
 	const locale = file.substring(0, file.length - 4);
 	locales.push(locale);
-	const content = fs.readFileSync(`./src/i18n/${file}`, 'utf8');
+	const content = readFileSync(`./src/i18n/${file}`, 'utf8');
 	const lineCounter = new LineCounter();
 	const parser = new Parser(lineCounter.addNewLine);
 	const tokenGenerator = parser.parse(content);
@@ -210,7 +216,7 @@ async function summarise() {
 
 	}
 
-	fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY || 'summary.md', summary);
+	writeFileSync(process.env.GITHUB_STEP_SUMMARY || 'summary.md', summary);
 
 	if (errors.length > 0) {
 		console.error('Failed with %d errors', errors.length);

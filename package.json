@@ -2,24 +2,22 @@
 	"name": "discord-tickets",
 	"version": "5.0.0-alpha.0",
 	"private": true,
-
-
 	"scripts": {
-		"__prepare": "husky install",
+		"disabled:prepare": "husky install",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
 		"lint": "eslint --fix",
 		"test": "node scripts/check-i18n"
 	},
-
-
 	"dependencies": {},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
 		"@eartharoid/eslint-rules-js": "^1.1.0",
 		"@eslint/js": "^9.28.0",
+		"@eslint/json": "^0.12.0",
+		"@eslint/markdown": "^6.5.0",
 		"@types/bun": "latest",
 		"all-contributors-cli": "^6.26.1",
 		"conventional-changelog-cli": "^5.0.0",
@@ -27,14 +25,10 @@
 		"globals": "^16.2.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.5.2",
-		"markdown-table": "^3.0.4",
-		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.33.1"
 	},
 	"optionalDependencies": {},
 	"peerDependencies": {},
-
-
 	"author": "eartharoid",
 	"license": "GPL-3.0-or-later",
 	"homepage": "https://discordtickets.app",
@@ -51,8 +45,6 @@
 		"tickets",
 		"bot"
 	],
-
-
 	"workspaces": {
 		"catalog": {
 			"@types/bun": "latest",
@@ -64,15 +56,11 @@
 			"services/*"
 		]
 	},
-
-
 	"commitlint": {
 		"extends": [
 			"@commitlint/config-conventional"
 		]
 	},
-
-
 	"lint-staged": {
 		"**/*.js": [
 			"npm run lint --"
