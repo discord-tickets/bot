@@ -2,6 +2,7 @@ const { SlashCommand } = require('@eartharoid/dbf');
 const {
 	ApplicationCommandOptionType,
 	PermissionsBitField,
+	MessageFlags,
 } = require('discord.js');
 const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
@@ -39,7 +40,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		await client.application.commands.fetch();
 
 		const member = interaction.options.getMember('member', false) ?? interaction.member;

@@ -11,6 +11,7 @@ const {
 	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	MessageFlags,
 } = require('discord.js');
 const emoji = require('node-emoji');
 const ms = require('ms');
@@ -180,7 +181,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.unknown_category.title'))
 						.setDescription(getMessage('misc.unknown_category.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -202,7 +203,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.ratelimited.title'))
 						.setDescription(getMessage('misc.ratelimited.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		} else {
 			this.client.keyv.set(rlKey, true, ms('5s'));
@@ -218,7 +219,7 @@ module.exports = class TicketManager {
 					.setTitle(getMessage(`misc.${name}.title`))
 					.setDescription(getMessage(`misc.${name}.description`)),
 			],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		if (category.guild.blocklist.length !== 0) {
@@ -254,7 +255,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.member_limit.title', memberCount, memberCount))
 						.setDescription(getMessage('misc.member_limit.description', memberCount)),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -270,7 +271,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.cooldown.title'))
 						.setDescription(getMessage('misc.cooldown.description', { time: ms(cooldown - Date.now()) })),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -369,7 +370,7 @@ module.exports = class TicketManager {
 		action, categoryId, interaction, topic, referencesMessageId, referencesTicketId,
 	}) {
 		const [, category] = await Promise.all([
-			interaction.deferReply({ ephemeral: true }),
+			interaction.deferReply({ flags: MessageFlags.Ephemeral }),
 			this.getCategory(categoryId),
 		]);
 
@@ -835,11 +836,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`),
@@ -938,11 +939,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`),
@@ -1050,7 +1051,7 @@ module.exports = class TicketManager {
 	async beforeRequestClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
 		if (!ticket) {
-			await interaction.deferReply({ ephemeral: true });
+			await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 			const {
 				errorColour,
 				footer,

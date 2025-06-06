@@ -3,6 +3,7 @@ const {
 	EmbedBuilder,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
+	MessageFlags,
 } = require('discord.js');
 const emoji = require('node-emoji');
 
@@ -35,7 +36,7 @@ module.exports = {
 						.setTitle(getMessage('misc.no_categories.title'))
 						.setDescription(getMessage('misc.no_categories.description', { url: `${process.env.HTTP_EXTERNAL}/settings/${interaction.guildId}` })),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		} else if (settings.categories.length === 1) {
 			await client.tickets.create({
@@ -69,7 +70,7 @@ module.exports = {
 								),
 						),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 	},

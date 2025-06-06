@@ -1,5 +1,5 @@
 const { Listener } = require('@eartharoid/dbf');
-const { MessageFlagsBitField } = require('discord.js');
+const { MessageFlags } = require('discord.js');
 const { logMessageEvent } = require('../../lib/logging');
 
 module.exports = class extends Listener {
@@ -29,7 +29,7 @@ module.exports = class extends Listener {
 		}
 
 		if (!newMessage.guild) return;
-		if (newMessage.flags.has(MessageFlagsBitField.Flags.Ephemeral)) return;
+		if (newMessage.flags.has(MessageFlags.Ephemeral)) return;
 		if (!newMessage.editedAt) return;
 
 		const ticket = await client.prisma.ticket.findUnique({

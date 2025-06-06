@@ -1,5 +1,7 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType, MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
 const { getEmoji } = require('./priority');
@@ -36,7 +38,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: {
@@ -59,7 +61,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -94,7 +96,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.category_full.title'))
 						.setDescription(getMessage('misc.category_full.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		} else {
 			// don't reassign `ticket`, the previous value is used below

@@ -1,5 +1,7 @@
 const { Listener } = require('@eartharoid/dbf');
-const { AuditLogEvent } = require('discord.js');
+const {
+	AuditLogEvent, MessageFlags,
+} = require('discord.js');
 const { logMessageEvent } = require('../../lib/logging');
 const { quick } = require('../../lib/threads');
 
@@ -73,7 +75,7 @@ module.exports = class extends Listener {
 			}
 		}
 
-		if (message.author.id !== client.user.id && !message.flags.has('Ephemeral')) {
+		if (message.author.id !== client.user.id && !message.flags.has(MessageFlags.Ephemeral)) {
 			await logMessageEvent(this.client, {
 				action: 'delete',
 				diff: {

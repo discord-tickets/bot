@@ -39,7 +39,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 
 		const member = interaction.options.getMember('member', true);
 
