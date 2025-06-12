@@ -2,7 +2,7 @@ const Cryptr = require('cryptr');
 
 let decrypt, encrypt;
 
-if (process.env.OVERRIDE_ENCRYPTION === 'true') {
+if (process.env.DISABLE_ENCRYPTION === 'true') {
 	encrypt = data => data;
 	decrypt = data => data;
 } else {
