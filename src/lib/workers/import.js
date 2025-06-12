@@ -1,6 +1,5 @@
 const { expose } = require('threads/worker');
-const Cryptr = require('cryptr');
-const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { encrypt } = require('../crypto')
 
 expose({
 	importTicket(stringified, guildId, categoryMap) {
