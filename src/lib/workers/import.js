@@ -1,5 +1,5 @@
 const { expose } = require('threads/worker');
-const { encrypt } = require('../crypto')
+const { encrypt } = require('../crypto');
 
 expose({
 	importTicket(stringified, guildId, categoryMap) {

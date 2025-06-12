@@ -1,5 +1,5 @@
 const { expose } = require('threads/worker');
-const { decrypt } = require('../crypto')
+const { decrypt } = require('../crypto');
 
 function getTranscript(ticket) {
 	ticket.claimedBy = ticket.archivedUsers.find(u => u.userId === ticket.claimedById);

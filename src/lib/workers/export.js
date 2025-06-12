@@ -1,5 +1,5 @@
 const { expose } = require('threads/worker');
-const { decrypt } = require('../crypto')
+const { decrypt } = require('../crypto');
 
 expose({
 	exportTicket(ticket) {
