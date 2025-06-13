@@ -1,6 +1,5 @@
 const { expose } = require('threads/worker');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { decrypt } = require('../crypto');
 
 function getTranscript(ticket) {
 	ticket.claimedBy = ticket.archivedUsers.find(u => u.userId === ticket.claimedById);
