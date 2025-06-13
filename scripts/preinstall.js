@@ -15,6 +15,7 @@ if (process.env.CI) {
 const env = {
 	DB_CONNECTION_URL: '',
 	DB_PROVIDER: '', // don't default to sqlite, postinstall checks if empty
+	DISABLE_ENCRYPTION: false,
 	DISCORD_SECRET: '',
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
