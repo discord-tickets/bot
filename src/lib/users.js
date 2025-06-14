@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { Readable } = require('stream');
+const path = require('path');
 const { PermissionsBitField } = require('discord.js');
 
 /**
@@ -69,4 +72,69 @@ module.exports.getPrivilegeLevel = async member => {
 	else if (member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return 2;
 	else if (await this.isStaff(member.guild, member.id)) return 1;
 	else return 0;
+};
+
+/**
+ *
+ * @param {import("discord.js").GuildMember} member
+ * @returns {{hash: string, url: string, isAnimated: boolean} | false}
+ */
+module.exports.getAvatarData = member => {
+	if (!member?.user) return false;
+
+	const { avatar: userAvatar } = member.user;
+	const memberAvatar = member.avatar;
+
+	const avatarHash = memberAvatar || userAvatar;
+	if (!avatarHash) return false;
+
+	const isAnimated = avatarHash.startsWith('a_');
+
+	const url = memberAvatar
+		? member.avatarURL()
+		: member.user.avatarURL();
+
+	return {
+		hash: avatarHash,
+		isAnimated,
+		url,
+	};
+};
+
+/**
+ *
+ * @param {{url: string, hash: string}} avatar
+ * @returns {Promise<string | false>} - The filename of the saved avatar if successful, `false` if failed.
+ */
+module.exports.saveAvatar = async avatar => {
+	const avatarDir = path.join('user', 'avatars');
+
+	if (!avatar?.url || !avatar.hash) return false;
+
+	const ext = path.extname(avatar.url);
+	const filename = `${avatar.hash}${ext}`;
+	const filePath = path.join(avatarDir, filename);
+
+	try {
+		await fs.promises.access(filePath);
+		return filename; // Avatar already saved
+	} catch (err) {
+		if (err.code !== 'ENOENT') {
+			return false;
+		}
+	}
+
+	const res = await fetch(avatar.url);
+	if (!res.ok) {
+		return false;
+	}
+
+	const nodeReadable = Readable.fromWeb(res.body);
+	const writeStream = fs.createWriteStream(filePath);
+
+	return new Promise((resolve, reject) => {
+		nodeReadable.pipe(writeStream);
+		writeStream.on('finish', () => resolve(filename));
+		writeStream.on('error', () => reject(false));
+	});
 };
