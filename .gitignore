@@ -1,5 +1,5 @@
 # directories
-/node_modules/
+node_modules/
 
 # files
 *.env*

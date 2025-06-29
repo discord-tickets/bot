@@ -4,7 +4,7 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
-    "CONTRIBUTORS.md"
+    "docs/CONTRIBUTORS.md"
   ],
   "imageSize": 100,
   "commit": true,

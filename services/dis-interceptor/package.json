@@ -15,7 +15,9 @@
 		"typescript": "catalog:"
 	},
 	"dependencies": {
+		"@discord-tickets/logger": "workspace:*",
 		"@discordeno/rest": "^21.0.0",
-		"got": "^14.4.7"
+		"got": "^14.4.7",
+		"leekslazylogger": "catalog:"
 	}
 }

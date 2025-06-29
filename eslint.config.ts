@@ -7,6 +7,7 @@ import {
 	defineConfig,
 	globalIgnores,
 } from 'eslint/config';
+// @ts-ignore
 import eartharoid from '@eartharoid/eslint-rules-js';
 
 export default defineConfig([
@@ -31,6 +32,7 @@ export default defineConfig([
 		files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
 		languageOptions: { globals: globals.node },
 	},
+	// @ts-ignore idc
 	tseslint.configs.recommended,
 	{
 		extends: ['json/recommended'],

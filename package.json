@@ -7,8 +7,7 @@
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
-		"lint": "eslint --fix",
-		"test": "node scripts/check-i18n"
+		"lint": "eslint --fix"
 	},
 	"dependencies": {},
 	"devDependencies": {
@@ -48,6 +47,7 @@
 	"workspaces": {
 		"catalog": {
 			"@types/bun": "latest",
+			"leekslazylogger": "^6.0.0",
 			"typescript": "^5"
 		},
 		"packages": [
@@ -62,8 +62,8 @@
 		]
 	},
 	"lint-staged": {
-		"**/*.js": [
-			"npm run lint --"
-		]
+		"*.md": "bun lint",
+		"apps/**/*": "bun prettier",
+		"{packages,services}/**/*.{js,ts}": "bun lint"
 	}
 }

@@ -6,6 +6,13 @@
 ## TODO
 
 - [ ] `bun test` for packages
+- [ ] `tsc` test
+
+## Stack
+
+- Nomad (Consul?) / Docker Compose
+- Valkey (-sentinel): Cache & Streams
+- tRPC
 
 ## 🥱 License
 

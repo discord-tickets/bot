@@ -1,6 +1,7 @@
 import type { Logger } from 'leekslazylogger';
 import type {
-	LogLevel, LogLevelType,
+	LogLevel,
+	LogLevelType,
 } from 'leekslazylogger/types/types';
 
 type ProxiedLog = {
@@ -35,7 +36,7 @@ const handler = {
 
 export const proxyLogger = new Proxy(forward, handler);
 
-export function receiveProxiedLogs(logger: Logger) {
+export function receiveForwardedLogs(logger: Logger) {
 	const levels = logger.levels
 		.map(name => <LogLevel>{
 			name,
