@@ -1,3 +1,1 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-. "$(where bunx | head -n 1)" commitlint --edit ${1}
+bunx commitlint --edit ${1}

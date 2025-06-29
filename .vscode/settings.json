@@ -1,5 +1,6 @@
 {
 	"[typescript]": {
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
-	}
+	},
+	"eslint.runtime": "bunx"
 }
