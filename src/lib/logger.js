@@ -55,6 +55,7 @@ module.exports = config => {
 			'autocomplete',
 			'buttons',
 			'commands',
+			'cron',
 			'http',
 			'listeners',
 			'menus',

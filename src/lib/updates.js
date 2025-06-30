@@ -5,7 +5,7 @@ const { version: currentVersion } = require('../../package.json');
 
 /** @param {import("client")} client */
 module.exports = client => {
-	client.log.info('Checking for updates...');
+	client.log.info.cron('Checking for updates...');
 	fetch('https://api.github.com/repos/discord-tickets/bot/releases')
 		.then(res => res.json())
 		.then(async json => {

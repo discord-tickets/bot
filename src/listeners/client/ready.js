@@ -58,6 +58,7 @@ module.exports = class extends Listener {
 		if (client.config.presence.activities?.length > 0) {
 			let next = 0;
 			const setPresence = async () => {
+				client.log.verbose.cron('Updating presence');
 				const cacheKey = 'cache/presence';
 				let cached = await client.keyv.get(cacheKey);
 				if (!cached) {

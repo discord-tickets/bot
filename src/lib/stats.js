@@ -17,6 +17,7 @@ const getAverageTimes = closedTickets => quick('stats', async w => ({
  * @param {import("../client")} client
  */
 async function sendToHouston(client) {
+	client.log.info.cron('Preparing Houston report');
 	const guilds = await client.prisma.guild.findMany({
 		include: {
 			categories: { include: { _count: { select: { questions: true } } } },
