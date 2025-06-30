@@ -6,3 +6,5 @@ node_modules/
 *.db*
 *.log
 summary.md
+service
+service.exe

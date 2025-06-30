@@ -3,9 +3,11 @@
 	"version": "5.0.0-alpha.0",
 	"private": true,
 	"scripts": {
+		"build": "bun run -F '*' build",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "all-contributors add",
 		"contributors:generate": "all-contributors generate",
+		"dev": "bun run -F '*' dev",
 		"lint": "eslint --config config/eslint.config.mjs --fix .",
 		"prepare": "husky"
 	},

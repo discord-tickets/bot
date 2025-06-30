@@ -1,0 +1,40 @@
+services:
+  interceptor:
+    build:
+      context: services/interceptor
+      dockerfile: ../../Dockerfile
+      target: prod
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+    image: ghcr.io/discord-tickets/interceptor:5
+
+    restart: unless-stopped
+    depends_on: []
+    networks: []
+    ports: []
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    tty: true
+    environment:
+      BUN_CONFIG_DNS_TIME_TO_LIVE_SECONDS: "60"
+      BUN_CONFIG_MAX_HTTP_REQUESTS: "256"
+      BUN_CONFIG_NO_CLEAR_TERMINAL_ON_RELOAD: "true"
+      BUN_CONFIG_VERBOSE_FETCH:
+      BUN_PORT: "80"
+      DEBUG:
+      LOG_LEVEL: info
+    entrypoint:
+      [
+        "./service",
+        "--dns-result-order=ipv4first",
+        "--fetch-preconnect=https://discord.com",
+      ]
+# TODO: healthcheck

@@ -7,6 +7,7 @@
 
 - [ ] `bun test` for packages
 - [ ] `tsc` test
+- [ ] <https://badges.penpow.dev/>
 
 ## Stack
 
