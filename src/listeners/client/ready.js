@@ -116,33 +116,10 @@ module.exports = class extends Listener {
 		}
 
 		// send inactivity warnings and close stale tickets
-		const staleInterval = ms('5m');
+		const staleInterval = ms('15m');
 		setInterval(async () => {
-			// close stale tickets
-			for (const [ticketId, $] of client.tickets.$stale) {
-				const autoCloseAfter = $.closeAt - $.staleSince;
-				const halfway = $.closeAt - (autoCloseAfter / 2);
-				if (Date.now() >= halfway && Date.now() < halfway + staleInterval) {
-					const channel = client.channels.cache.get(ticketId);
-					if (!channel) continue;
-					const { guild } = await client.prisma.ticket.findUnique({
-						select: { guild: true },
-						where: { id: ticketId },
-					});
-					const getMessage = client.i18n.getLocale(guild.locale);
-					await channel.send({
-						embeds: [
-							new ExtendedEmbedBuilder()
-								.setColor(guild.primaryColour)
-								.setTitle(getMessage('ticket.closing_soon.title'))
-								.setDescription(getMessage('ticket.closing_soon.description', { timestamp: Math.floor($.closeAt / 1000) })),
-						],
-					});
-				} else if ($.closeAt < Date.now()) {
-					client.tickets.finallyClose(ticketId, $);
-				}
-			}
-
+			client.log.info.cron('Handling stale tickets');
+			const closeCommand = client.application.commands.cache.find(c => c.name === 'close');
 			const guilds = await client.prisma.guild.findMany({
 				include: {
 					tickets: {
@@ -153,13 +130,41 @@ module.exports = class extends Listener {
 				// where: { staleAfter: { not: null } },
 				where: { staleAfter: { gte: staleInterval } },
 			});
+			let processed = 0;
+			let closed = 0;
+			let marked = 0;
 
-			// set inactive tickets as stale
 			for (const guild of guilds) {
+				const getMessage = client.i18n.getLocale(guild.locale);
 				for (const ticket of guild.tickets) {
-					if (client.tickets.$stale.has(ticket.id)) continue;
-					if (ticket.lastMessageAt && Date.now() - ticket.lastMessageAt > guild.staleAfter) {
-					/** @type {import("discord.js").TextChannel} */
+					processed++;
+					if (client.tickets.$stale.has(ticket.id)) {
+						const $ = client.tickets.$stale.get(ticket.id);
+						const autoCloseAfter = $.closeAt - $.staleSince;
+						const halfway = $.closeAt - (autoCloseAfter / 2);
+						if (Date.now() >= halfway && Date.now() < halfway + staleInterval) {
+							const channel = client.channels.cache.get(ticket.id);
+							if (!channel) {
+								client.tickets.$stale.delete(ticket.id);
+								continue;
+							}
+
+							await channel.send({
+								embeds: [
+									new ExtendedEmbedBuilder()
+										.setColor(guild.primaryColour)
+										.setTitle(getMessage('ticket.closing_soon.title'))
+										.setDescription(getMessage('ticket.closing_soon.description', { timestamp: Math.floor(($.closeAt + staleInterval) / 1000) })),
+								],
+							});
+						} else if ($.closeAt < Date.now()) {
+							closed++;
+							await client.tickets.finallyClose(ticket.id, $);
+						}
+					} else if (Date.now() - (ticket.lastMessageAt || ticket.createdAt) >= guild.staleAfter) {
+						// set as stale
+						marked++;
+						/** @type {import("discord.js").TextChannel} */
 						const channel = client.channels.cache.get(ticket.id);
 						const messages = (await channel.messages.fetch({ limit: 5 })).filter(m => m.author.id !== client.user.id);
 						let ping = '';
@@ -171,8 +176,6 @@ module.exports = class extends Listener {
 							else ping = ticket.category.pingRoles.map(r => `<@&${r}>`).join(' ');
 						}
 
-						const getMessage = client.i18n.getLocale(guild.locale);
-						const closeCommand = client.application.commands.cache.find(c => c.name === 'close');
 						const sent = await channel.send({
 							components: [
 								new ActionRowBuilder()
@@ -194,7 +197,7 @@ module.exports = class extends Listener {
 									.setTitle(getMessage('ticket.inactive.title'))
 									.setDescription(getMessage('ticket.inactive.description', {
 										close: `</${closeCommand.name}:${closeCommand.id}>`,
-										timestamp: Math.floor(ticket.lastMessageAt.getTime() / 1000),
+										timestamp: Math.floor((ticket.lastMessageAt || ticket.createdAt).getTime() / 1000),
 									})),
 							],
 						});
@@ -210,6 +213,12 @@ module.exports = class extends Listener {
 					}
 				}
 			}
+			client.log.success.cron({
+				closed,
+				marked,
+				processed,
+				stale: client.tickets.$stale.size,
+			});
 		}, staleInterval);
 	}
 };
