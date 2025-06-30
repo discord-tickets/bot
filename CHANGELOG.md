@@ -1,3 +1,22 @@
+## [4.0.41](https://github.com/discord-tickets/bot/compare/v4.0.40...v4.0.41) (2025-06-30)
+
+
+### Bug Fixes
+
+* error handling ([1906a94](https://github.com/discord-tickets/bot/commit/1906a94d0add8cf1e252fd92b035e96d6e6e0ba8))
+* stale tickets with no messages, auto close timestamp, loop perf ([365163c](https://github.com/discord-tickets/bot/commit/365163ca32eeaf01eb316e6c5330b7294a1ce88d))
+
+
+### Features
+
+* `DISABLE_ENCRYPTION` option ([#622](https://github.com/discord-tickets/bot/issues/622)) ([91323fc](https://github.com/discord-tickets/bot/commit/91323fc3b0aee8cb76d9a548ee4e650215477b5c))
+* **i18n:** add Ukrainian translations ([#618](https://github.com/discord-tickets/bot/issues/618)) ([809f733](https://github.com/discord-tickets/bot/commit/809f733a98b1f70751481551ed706d436560f8d7))
+* **i18n:** update Russian translations ([56373c4](https://github.com/discord-tickets/bot/commit/56373c427a67f4bc3245bee4079b1f3fcaf93c03))
+* **i18n:** update Ukrainian translations ([2eb8cf0](https://github.com/discord-tickets/bot/commit/2eb8cf0588a622489b7c2bf452872abd2ad0ee68))
+* log on interval ([3daccc7](https://github.com/discord-tickets/bot/commit/3daccc7ae8e802e9ef4bdfa8d2fdaef461644d3d))
+
+
+
 ## [4.0.40](https://github.com/discord-tickets/bot/compare/v4.0.39...v4.0.40) (2025-05-23)
 
 
