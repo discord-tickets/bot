@@ -1,3 +1,12 @@
+## [4.0.42](https://github.com/discord-tickets/bot/compare/v4.0.41...v4.0.42) (2025-07-01)
+
+
+### Performance Improvements
+
+* shared thread pools ([270a641](https://github.com/discord-tickets/bot/commit/270a641c07430344c223a125e67705e1a8ced549))
+
+
+
 ## [4.0.41](https://github.com/discord-tickets/bot/compare/v4.0.40...v4.0.41) (2025-06-30)
 
 
