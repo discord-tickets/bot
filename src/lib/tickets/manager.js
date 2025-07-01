@@ -23,10 +23,9 @@ const spacetime = require('spacetime');
 
 const { getSUID } = require('../logging');
 const { getAverageTimes } = require('../stats');
-const {
-	quick,
-	reusable,
-} = require('../threads');
+const { pools } = require('../threads');
+
+const { crypto } = pools;
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -377,22 +376,17 @@ module.exports = class TicketManager {
 		let answers;
 		if (interaction.isModalSubmit()) {
 			if (action === 'questions') {
-				const worker = await reusable('crypto');
-				try {
-					answers = await Promise.all(
-						category.questions
-							.filter(q => q.type === 'TEXT')
-							.map(async q => ({
-								questionId: q.id,
-								userId: interaction.user.id,
-								value: interaction.fields.getTextInputValue(q.id)
-									? await worker.encrypt(interaction.fields.getTextInputValue(q.id))
-									: '', // TODO: maybe this should be null?
-							})),
-					);
-				} finally {
-					await worker.terminate();
-				}
+				answers = await Promise.all(
+					category.questions
+						.filter(q => q.type === 'TEXT')
+						.map(async q => ({
+							questionId: q.id,
+							userId: interaction.user.id,
+							value: interaction.fields.getTextInputValue(q.id)
+								? await crypto.queue(w => w.encrypt(interaction.fields.getTextInputValue(q.id)))
+								: '', // TODO: maybe this should be null?
+						})),
+				);
 				if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
 			} else if (action === 'topic') {
 				topic = interaction.fields.getTextInputValue('topic');
@@ -638,7 +632,7 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: false,
 						name: getMessage('ticket.references_ticket.fields.topic'),
-						value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
+						value: await crypto.queue(w => w.decrypt(ticket.topic)),
 					});
 				}
 				channel.send({
@@ -675,7 +669,7 @@ module.exports = class TicketManager {
 			id: channel.id,
 			number,
 			openingMessageId: sent.id,
-			topic: topic ? await quick('crypto', worker => worker.encrypt(topic)) : null,
+			topic: topic ? await crypto.queue(w => w.encrypt(topic)) : null,
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
@@ -1239,7 +1233,7 @@ module.exports = class TicketManager {
 					where: { id: closedBy },
 				},
 			} || undefined, // Prisma wants undefined not null because it is a relation
-			closedReason: reason && await quick('crypto', worker => worker.encrypt(reason)),
+			closedReason: reason && await crypto.queue(w => w.encrypt(reason)),
 			messageCount: archivedMessages,
 			open: false,
 		};
@@ -1338,7 +1332,7 @@ module.exports = class TicketManager {
 			topic: ticket.topic && {
 				inline: true,
 				name: getMessage('dm.closed.fields.topic'),
-				value: await quick('crypto', worker => worker.decrypt(ticket.topic)),
+				value: await crypto.queue(w => w.decrypt(ticket.topic)),
 			},
 		};
 
@@ -1383,7 +1377,7 @@ module.exports = class TicketManager {
 				{
 					inline: true,
 					name: getMessage('modals.feedback.comment.label'),
-					value: (ticket.feedback.comment && await quick('crypto', worker => worker.decrypt(ticket.feedback.comment))) || getMessage('ticket.answers.no_value'),
+					value: (ticket.feedback.comment && await crypto.queue(w => w.decrypt(ticket.feedback.comment))) || getMessage('ticket.answers.no_value'),
 				});
 		}
 		if (reason) fieldsArray.push(fields.reason);

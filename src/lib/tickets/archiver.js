@@ -1,5 +1,6 @@
-const { reusable } = require('../threads');
+const { pools } = require('../threads');
 
+const { crypto } = pools;
 
 /**
  * Returns highest (roles.highest) hoisted role, or everyone
@@ -34,8 +35,6 @@ module.exports = class TicketArchiver {
 		const channels = new Set(message.mentions.channels.values());
 		const members = new Set(message.mentions.members.values());
 		const roles = new Set(message.mentions.roles.values());
-
-		const worker = await reusable('crypto');
 
 		try {
 			const queries = [];
@@ -75,9 +74,9 @@ module.exports = class TicketArchiver {
 					avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
 					bot: member.user.bot,
 					discriminator: member.user.discriminator,
-					displayName: member.displayName ? await worker.encrypt(member.displayName) : null,
+					displayName: member.displayName ? await crypto.queue(w => w.encrypt(member.displayName)) : null,
 					roleId: !!member && hoistedRole(member).id,
-					username: await worker.encrypt(member.user.username),
+					username: await crypto.queue(w => w.encrypt(member.user.username)),
 				};
 				queries.push(
 					this.client.prisma.archivedUser.upsert({
@@ -120,7 +119,7 @@ module.exports = class TicketArchiver {
 			}
 
 			const data = {
-				content: await worker.encrypt(
+				content: await crypto.queue(w => w.encrypt(
 					JSON.stringify({
 						attachments: [...message.attachments.values()],
 						components: [...message.components.values()],
@@ -128,7 +127,7 @@ module.exports = class TicketArchiver {
 						embeds: message.embeds.map(embed => ({ ...embed })),
 						reference: message.reference?.messageId ?? null,
 					}),
-				),
+				)),
 				createdAt: message.createdAt,
 				edited: !!message.editedAt,
 				external,
@@ -149,8 +148,10 @@ module.exports = class TicketArchiver {
 			);
 
 			return await this.client.prisma.$transaction(queries);
-		} finally {
-			await worker.terminate();
+		} catch (error) {
+			this.client.log.error('Failed to archive message %s', message.id);
+			this.client.log.error(error);
+			return false;
 		}
 	}
 };

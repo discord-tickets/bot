@@ -7,7 +7,9 @@ const {
 	MessageFlags,
 } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
-const { quick } = require('../../lib/threads');
+const { pools } = require('../../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class TopicSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -68,7 +70,7 @@ module.exports = class TopicSlashCommand extends SlashCommand {
 			.setRequired(true);
 
 		// why can't discord.js accept null or undefined :(
-		if (ticket.topic) field.setValue(await quick('crypto', w => w.decrypt(ticket.topic)));
+		if (ticket.topic) field.setValue(await crypto.queue(w => w.decrypt(ticket.topic)));
 
 		await interaction.showModal(
 			new ModalBuilder()

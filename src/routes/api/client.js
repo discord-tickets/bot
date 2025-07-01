@@ -3,7 +3,9 @@
 const ms = require('ms');
 const pkg = require('../../../package.json');
 const { getAverageTimes } = require('../../lib/stats');
-const { quick } = require('../../lib/threads');
+const { pools } = require('../../lib/threads');
+
+const { stats } = pools;
 
 module.exports.get = () => ({
 	handler: async req => {
@@ -21,7 +23,7 @@ module.exports.get = () => ({
 				users,
 			] = await Promise.all([
 				client.prisma.category.count(),
-				quick('stats', w => w.sum(client.guilds.cache.map(g => g.memberCount))),
+				stats.queue(w => w.sum(client.guilds.cache.map(g => g.memberCount))),
 				client.prisma.tag.count(),
 				client.prisma.ticket.count(),
 				client.prisma.ticket.findMany({

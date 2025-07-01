@@ -7,19 +7,35 @@ const {
 const { cpus } = require('node:os');
 
 /**
- * Use a thread pool of a fixed size
+ * Create a single-use thread pool
+ * @param {number} num fraction of available CPUs to use (ceil'd), or absolute number
  * @param {string} name name of file in workers directory
  * @param {function} fun async function
  * @param {import('threads/dist/master/pool').PoolOptions} options
  * @returns {Promise<any>}
  */
-async function pool(name, fun, options) {
-	const pool = Pool(() => spawn(new Worker(`./workers/${name}.js`)), options);
+async function quickPool(num, name, fun, options) {
+	const pool = reusablePool(num, name, options);
 	try {
 		return await fun(pool);
 	} finally {
 		pool.settled().then(() => pool.terminate());
 	}
+};
+
+/**
+ * Create a multi-use thread pool
+ * @param {number} num fraction of available CPUs to use (ceil'd), or absolute number
+ * @param {string} name name of file in workers directory
+ * @param {import('threads/dist/master/pool').PoolOptions} options
+ */
+function reusablePool(num, name, options) {
+	const size = num < 1 ? Math.ceil(num * cpus().length) : num;
+	const pool = Pool(() => spawn(new Worker(`./workers/${name}.js`)), {
+		...options,
+		size,
+	});
+	return pool;
 };
 
 /**
@@ -39,23 +55,6 @@ async function quick(name, fun) {
 };
 
 /**
- * Use a thread pool of a variable size
- * @param {number} fraction fraction of available CPU cores to use (ceil'd)
- * @param {string} name name of file in workers directory
- * @param {function} fun async function
- * @param {import('threads/dist/master/pool').PoolOptions} options
- * @returns {Promise<any>}
- */
-function relativePool(fraction, name, fun, options) {
-	// ! ceiL: at least 1
-	const size = Math.ceil(fraction * cpus().length);
-	return pool(name, fun, {
-		...options,
-		size,
-	});
-}
-
-/**
  * Spawn one thread
  * @param {string} name name of file in workers directory
  * @returns {Promise<{terminate: function}>}
@@ -66,9 +65,18 @@ async function reusable(name) {
 	return thread;
 };
 
+const pools = {
+	crypto: reusablePool(.5, 'crypto'),
+	export: reusablePool(.33, 'export'),
+	import: reusablePool(.33, 'import'),
+	stats: reusablePool(.25, 'stats'),
+	transcript: reusablePool(.5, 'transcript'),
+};
+
 module.exports = {
-	pool,
+	pools,
 	quick,
-	relativePool,
+	quickPool,
 	reusable,
+	reusablePool,
 };

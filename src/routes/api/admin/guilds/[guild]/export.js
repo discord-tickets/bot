@@ -1,17 +1,10 @@
-const {
-	spawn,
-	Pool,
-	Worker,
-} = require('threads');
 const { Readable } = require('node:stream');
-const { cpus } = require('node:os');
 const archiver = require('archiver');
 const { iconURL } = require('../../../../../lib/misc');
 const pkg = require('../../../../../../package.json');
+const { pools } = require('../../../../../lib/threads');
 
-// a single persistent pool shared across all exports
-const poolSize = Math.ceil(cpus().length / 4); // ! ceiL: at least 1
-const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/export.js')), { size: poolSize });
+const { export: pool } = pools;
 
 module.exports.get = fastify => ({
 	/**
@@ -95,7 +88,7 @@ module.exports.get = fastify => ({
 						findOptions.cursor = { id: batch[take - 1].id };
 					}
 					// ! map (parallel) not for...of (serial)
-					yield* batch.map(async ticket => (await pool.queue(worker => worker.exportTicket(ticket)) + '\n'));
+					yield* batch.map(async ticket => (await pool.queue(w => w.exportTicket(ticket)) + '\n'));
 					// Readable.from(AsyncGenerator) seems to be faster than pushing to a Readable with an empty `read()` function
 					// for (const ticket of batch) {
 					// 	pool

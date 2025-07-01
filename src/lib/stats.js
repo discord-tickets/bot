@@ -3,11 +3,13 @@
 const { version } = require('../../package.json');
 const { md5 } = require('./misc');
 const {
-	quick,
-	relativePool,
+	pools,
+	quickPool,
 } = require('./threads');
 
-const getAverageTimes = closedTickets => quick('stats', async w => ({
+const { stats } = pools;
+
+const getAverageTimes = closedTickets => stats.queue(async w => ({
 	avgResolutionTime: await w.getAvgResolutionTime(closedTickets),
 	avgResponseTime: await w.getAvgResponseTime(closedTickets),
 }));
@@ -40,7 +42,8 @@ async function sendToHouston(client) {
 		activated_users: users._count,
 		arch: process.arch,
 		database: process.env.DB_PROVIDER,
-		guilds: await relativePool(.25, 'stats', pool => Promise.all(
+		// this gets a dedicated pool so it doesn't block other stats uses
+		guilds: await quickPool(.25, 'stats', pool => Promise.all(
 			guilds
 				.filter(guild => client.guilds.cache.has(guild.id))
 				.map(guild => {

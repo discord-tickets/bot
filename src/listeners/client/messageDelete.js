@@ -3,7 +3,9 @@ const {
 	AuditLogEvent, MessageFlags,
 } = require('discord.js');
 const { logMessageEvent } = require('../../lib/logging');
-const { quick } = require('../../lib/threads');
+const { pools } = require('../../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -45,7 +47,7 @@ module.exports = class extends Listener {
 				const archived = await client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
 				if (archived?.content) {
 					if (!content) {
-						const string = await quick('crypto', worker => worker.decrypt(archived.content));
+						const string = await crypto.queue(w => w.decrypt(archived.content));
 						content = JSON.parse(string).content; // won't be cleaned
 					}
 				}

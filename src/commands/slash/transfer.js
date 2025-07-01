@@ -4,8 +4,9 @@ const {
 	EmbedBuilder,
 } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
-const { quick } = require('../../lib/threads');
+const { pools } = require('../../lib/threads');
 
+const { crypto } = pools;
 
 module.exports = class TransferSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -88,7 +89,7 @@ module.exports = class TransferSlashCommand extends SlashCommand {
 			}),
 			interaction.channel.edit({
 				name: channelName,
-				topic: `${member.toString()}${ticket.topic && ` | ${await quick('crypto', w => w.decrypt(ticket.topic))}`}`,
+				topic: `${member.toString()}${ticket.topic && ` | ${await crypto.queue(w => w.decrypt(ticket.topic))}`}`,
 			}),
 			interaction.channel.permissionOverwrites.edit(
 				member,

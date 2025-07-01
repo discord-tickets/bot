@@ -4,7 +4,9 @@ const emoji = require('node-emoji');
 const Keyv = require('keyv');
 const ms = require('ms');
 const { isStaff } = require('../lib/users');
-const { reusable } = require('../lib/threads');
+const { pools } = require('../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -43,23 +45,18 @@ module.exports = class TicketCompleter extends Autocompleter {
 				},
 			});
 
-			const worker = await reusable('crypto');
-			try {
-				tickets = await Promise.all(
-					tickets
-						.filter(ticket => cmd.shouldAllowAccess(interaction, ticket))
-						.map(async ticket => {
-							const getTopic = async () => (await worker.decrypt(ticket.topic)).replace(/\n/g, ' ').substring(0, 50);
-							const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
-							const topic = ticket.topic ? '- ' + (await getTopic()) : '';
-							const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
-							ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
-							return ticket;
-						}),
-				);
-			} finally {
-				await worker.terminate();
-			}
+			tickets = await Promise.all(
+				tickets
+					.filter(ticket => cmd.shouldAllowAccess(interaction, ticket))
+					.map(async ticket => {
+						const getTopic = async () => (await crypto.queue(w => w.decrypt(ticket.topic))).replace(/\n/g, ' ').substring(0, 50);
+						const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
+						const topic = ticket.topic ? '- ' + (await getTopic()) : '';
+						const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+						ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
+						return ticket;
+					}),
+			);
 
 			this.cache.set(cacheKey, tickets, ms('1m'));
 		}

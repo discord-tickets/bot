@@ -1,17 +1,9 @@
-
-const {
-	spawn,
-	Pool,
-	Worker,
-} = require('threads');
-const { cpus } = require('node:os');
 const unzipper = require('unzipper');
 const { createInterface } = require('node:readline');
 const pkg = require('../../../../../../package.json');
+const { pools } = require('../../../../../lib/threads');
 
-// a single persistent pool shared across all imports
-const poolSize = Math.ceil(cpus().length / 4); // ! ceiL: at least 1
-const pool = Pool(() => spawn(new Worker('../../../../../lib/workers/import.js')), { size: poolSize });
+const { import: pool } = pools;
 
 function parseJSON(string) {
 	try {
@@ -84,7 +76,7 @@ module.exports.post = fastify => ({
 			Object.freeze(settingsJSON);
 			const settings = structuredClone(settingsJSON);
 			const { categories } = settings;
-			delete settings.categories; // this also mutates `settings
+			delete settings.categories; // this also mutates `settings`
 
 			userLog.info('Importing general settings and tags');
 			await client.prisma.$transaction([
