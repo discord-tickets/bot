@@ -14,7 +14,7 @@ export const nodeId = process.env.NODE_ID || randomBytes(2).toString('hex');
 
 export let counter = 0;
 
-export default class HTTPLoggingMiddleware {
+export class HTTPLoggingMiddleware {
 	public log: Logger;
 
 	constructor(logger: Logger) {

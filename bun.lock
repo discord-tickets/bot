@@ -34,7 +34,7 @@
         "typescript": "catalog:",
       },
     },
-    "services/dis-gateway": {
+    "services/gateway": {
       "name": "@discord-tickets/dis-gateway",
       "devDependencies": {
         "@types/bun": "catalog:",
@@ -43,12 +43,12 @@
         "typescript": "catalog:",
       },
     },
-    "services/dis-interceptor": {
-      "name": "@discord-tickets/dis-interceptor",
+    "services/interceptor": {
+      "name": "@discord-tickets/interceptor",
       "version": "0.0.1",
       "dependencies": {
         "@discord-tickets/logger": "workspace:*",
-        "@discordeno/rest": "^21.0.0",
+        "@discordeno/rest": "catalog:",
         "got": "^14.4.7",
         "leekslazylogger": "catalog:",
       },
@@ -61,6 +61,7 @@
     },
   },
   "catalog": {
+    "@discordeno/rest": "^21.0.0",
     "@types/bun": "latest",
     "leekslazylogger": "^6.0.0",
     "typescript": "^5",
@@ -110,9 +111,9 @@
 
     "@cspotcode/source-map-support": ["@cspotcode/source-map-support@0.8.1", "", { "dependencies": { "@jridgewell/trace-mapping": "0.3.9" } }, "sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw=="],
 
-    "@discord-tickets/dis-gateway": ["@discord-tickets/dis-gateway@workspace:services/dis-gateway"],
+    "@discord-tickets/dis-gateway": ["@discord-tickets/dis-gateway@workspace:services/gateway"],
 
-    "@discord-tickets/dis-interceptor": ["@discord-tickets/dis-interceptor@workspace:services/dis-interceptor"],
+    "@discord-tickets/interceptor": ["@discord-tickets/interceptor@workspace:services/interceptor"],
 
     "@discord-tickets/logger": ["@discord-tickets/logger@workspace:packages/logger"],
 
@@ -946,7 +947,7 @@
 
     "@discord-tickets/dis-gateway/@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
 
-    "@discord-tickets/dis-interceptor/@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
+    "@discord-tickets/interceptor/@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
 
     "@discord-tickets/logger/@types/bun": ["@types/bun@1.2.17", "", { "dependencies": { "bun-types": "1.2.17" } }, "sha512-l/BYs/JYt+cXA/0+wUhulYJB6a6p//GTPiJ7nV+QHa8iiId4HZmnu/3J/SowP5g0rTiERY2kfGKXEK5Ehltx4Q=="],
 
@@ -1054,7 +1055,7 @@
 
     "@discord-tickets/dis-gateway/@types/bun/bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
 
-    "@discord-tickets/dis-interceptor/@types/bun/bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
+    "@discord-tickets/interceptor/@types/bun/bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
 
     "@discord-tickets/logger/@types/bun/bun-types": ["bun-types@1.2.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-ElC7ItwT3SCQwYZDYoAH+q6KT4Fxjl8DtZ6qDulUFBmXA8YB4xo+l54J9ZJN+k2pphfn9vk7kfubeSd5QfTVJQ=="],
 
@@ -1122,7 +1123,7 @@
 
     "@discord-tickets/dis-gateway/@types/bun/bun-types/@types/node": ["@types/node@22.13.11", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g=="],
 
-    "@discord-tickets/dis-interceptor/@types/bun/bun-types/@types/node": ["@types/node@22.13.11", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g=="],
+    "@discord-tickets/interceptor/@types/bun/bun-types/@types/node": ["@types/node@22.13.11", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g=="],
 
     "@discord-tickets/logger/@types/bun/bun-types/@types/node": ["@types/node@22.13.11", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-iEUCUJoU0i3VnrCmgoWCXttklWcvoCIx4jzcP22fioIVSdTmjgoEvmAO/QPw6TcS9k5FrNgn4w7q5lGOd1CT5g=="],
 

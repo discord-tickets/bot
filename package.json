@@ -48,6 +48,7 @@
 	],
 	"workspaces": {
 		"catalog": {
+			"@discordeno/rest": "^21.0.0",
 			"@types/bun": "latest",
 			"leekslazylogger": "^6.0.0",
 			"typescript": "^5"

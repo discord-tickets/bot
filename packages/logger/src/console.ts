@@ -4,8 +4,9 @@ import { short } from 'leeks.js';
 
 const colours = {
 	critical: ['&0&!4', '&5', '&0&!c'],
-	debug: ['&0&!1', '&5', '&9'], // ! `debug` pkg should be used instead
+	debug: ['&0&!1', '&5', '&9'], // ! `debug` pkg should be used by other pkgs
 	error: ['&0&!4', '&5', '&c'],
+	fatal: ['&0&!4', '&5', '&0&!c'],
 	info: ['&0&!3', '&5', '&b'],
 	notice: ['&0&!6', '&5', '&0&!e'],
 	success: ['&0&!2', '&5', '&a'],

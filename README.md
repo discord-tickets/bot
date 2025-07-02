@@ -11,7 +11,9 @@
 
 ## Stack
 
-- Nomad (Consul?) / Docker Compose
+- Optional: Nomad, Consul, Vault, LGTM, TiKV
+- SurrealDB
+- S3
 - Valkey (-sentinel): Cache & Streams
 - tRPC
 

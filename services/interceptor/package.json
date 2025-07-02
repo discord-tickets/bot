@@ -1,12 +1,12 @@
 {
-	"name": "@discord-tickets/dis-interceptor",
+	"name": "@discord-tickets/interceptor",
 	"version": "0.0.1",
 	"module": "index.ts",
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"build": "bun build --compile --minify --sourcemap --bytecode . --outfile service",
-		"dev": "bun --hot ."
+		"build": "bun build --compile --minify --sourcemap --bytecode src --outfile service",
+		"dev": "bun --hot src"
 	},
 	"devDependencies": {
 		"@types/bun": "catalog:"
@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"@discord-tickets/logger": "workspace:*",
-		"@discordeno/rest": "^21.0.0",
+		"@discordeno/rest": "catalog:",
 		"got": "^14.4.7",
 		"leekslazylogger": "catalog:"
 	}

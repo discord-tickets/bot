@@ -42,3 +42,4 @@ COPY --from=build /usr/src/app/service .
 
 USER bun
 ENTRYPOINT [ "./service" ]
+# TODO: single context: https://pnpm.io/docker

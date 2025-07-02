@@ -31,10 +31,5 @@ services:
       BUN_PORT: "80"
       DEBUG:
       LOG_LEVEL: info
-    entrypoint:
-      [
-        "./service",
-        "--dns-result-order=ipv4first",
-        "--fetch-preconnect=https://discord.com",
-      ]
+    command: --fetch-preconnect=https://discord.com #! cloud: --dns-result-order=ipv6first
 # TODO: healthcheck

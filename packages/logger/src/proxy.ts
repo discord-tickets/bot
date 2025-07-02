@@ -24,8 +24,8 @@ function forward(...mixedArgs: unknown[]): void {
 	process.send?.({ log });
 }
 
-const handler = {
-	get(target: typeof forward, prop: string) {
+const handler: ProxyHandler<typeof forward> = {
+	get(target, prop) {
 		if (typeof prop === 'string') {
 			return new Proxy(target.bind(null, { [sym]: prop }), handler);
 		} else {
