@@ -1,3 +1,17 @@
+## [4.0.43](https://github.com/discord-tickets/bot/compare/v4.0.42...v4.0.43) (2025-07-02)
+
+
+### Bug Fixes
+
+* disable stale ticket handling on public bots ([a5d4098](https://github.com/discord-tickets/bot/commit/a5d409860c27fd0da7305fe8a4672d62cf89725b))
+
+
+### Features
+
+* **i18n:** update Thai translations ([b363f36](https://github.com/discord-tickets/bot/commit/b363f365052474d28dbd8584a42f591c1503a169))
+
+
+
 ## [4.0.42](https://github.com/discord-tickets/bot/compare/v4.0.41...v4.0.42) (2025-07-01)
 
 
