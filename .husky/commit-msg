@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-# bunx commitlint --edit ${1}
