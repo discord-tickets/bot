@@ -1,9 +1,7 @@
 
 import { dns } from 'bun';
-import {
-	logger as log,
-	httpLogger,
-} from './logger';
+import { http } from '@discord-tickets/logger';
+import { logger as log } from './logger';
 import handler from './handler';
 
 dns.prefetch('discord.com', 443);
@@ -17,5 +15,5 @@ Bun.serve({
 			headers: { 'Content-Type': 'application/json' },
 			status: 500,
 		}),
-	fetch: httpLogger.createNativeWrapper(handler),
+	fetch: http.handleWithLogs(log, handler),
 });
