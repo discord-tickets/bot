@@ -14,7 +14,7 @@ export const nodeId = process.env.NODE_ID || randomBytes(2).toString('hex');
 
 export let counter = 0;
 
-export function decorate(server: Bun.Server | undefined, req: Request): DecoratedRequest {
+export function decorateRequest(server: Bun.Server | undefined, req: Request): DecoratedRequest {
 	const decorated = req as DecoratedRequest;
 	decorated.$logger = {
 		id: `req-${nodeId}-${(counter++).toString(36)}`,
@@ -23,8 +23,8 @@ export function decorate(server: Bun.Server | undefined, req: Request): Decorate
 	};
 	return decorated;
 }
-export function
-getDurationColour(duration: number) {
+
+export function getDurationColour(duration: number) {
 	if (duration < 100) return '&a'; // light green = fast
 	if (duration < 500) return '&e'; // light yellow = slightly slow
 	if (duration < 1000) return '&c'; // light red = slow
@@ -80,7 +80,7 @@ export function resolveIP(server: Bun.Server | undefined, req: Request) {
 export function handleWithLogs(logger: Logger, handler: (req: Request) => Promise<Response>) {
 	const httpLogger = new HTTPLogger(logger);
 	return async (req: Request, server?: Bun.Server): Promise<Response> => {
-		const decorated = decorate(server, req);
+		const decorated = decorateRequest(server, req);
 		httpLogger.logRequest(decorated);
 		let res;
 		try {

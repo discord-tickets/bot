@@ -11,3 +11,4 @@ Multi-application proxy for the Discord API.
   - <https://github.com/sindresorhus/got/blob/main/documentation/2-options.md>
   - <https://github.com/discordeno/discordeno/blob/ec1d30363e1ed337541da03a55969d47301b0bfa/packages/rest/src/manager.ts#L561>
 - [ ] get base URL (API version) from Consul KV
+- [ ] OTEL

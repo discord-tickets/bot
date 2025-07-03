@@ -4,12 +4,12 @@
 	"private": true,
 	"scripts": {
 		"build": "bun run -F '*' build",
-		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-		"contributors:add": "all-contributors add",
-		"contributors:generate": "all-contributors generate",
+		"changelog": "bun --bun x conventional-changelog -p angular -i CHANGELOG.md -s",
+		"contributors:add": "bun --bun x all-contributors add",
+		"contributors:generate": "bun --bun x all-contributors generate",
 		"dev": "bun run -F '*' dev",
-		"lint": "eslint --config config/eslint.config.mjs --fix .",
-		"preinstall": "git config core.hooksPath .github/hooks"
+		"lint": "bun --bun x eslint --config config/eslint.config.mjs --fix .",
+		"prepare": "git config core.hooksPath .github/hooks || true"
 	},
 	"dependencies": {},
 	"devDependencies": {
@@ -47,9 +47,9 @@
 	],
 	"workspaces": {
 		"catalog": {
-			"@discordeno/rest": "^21.0.0",
+			"@discordeno/rest": "^21",
 			"@types/bun": "latest",
-			"leekslazylogger": "^6.0.0",
+			"leekslazylogger": "^6",
 			"typescript": "^5"
 		},
 		"packages": [
@@ -64,7 +64,6 @@
 	},
 	"lint-staged": {
 		"*.md": "bun lint",
-		"apps/**/*": "bun prettier",
 		"{packages,services}/**/*.{js,ts}": "bun lint"
 	}
 }

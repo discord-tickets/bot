@@ -1,5 +1,5 @@
 {
-	"name": "@discord-tickets/interceptor",
+	"name": "@discord-tickets/template",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "src/",
@@ -15,8 +15,6 @@
 		"typescript": "catalog:"
 	},
 	"dependencies": {
-		"@discord-tickets/logger": "workspace:*",
-		"@discordeno/rest": "catalog:",
-		"got": "^14.4.7"
+		"@discord-tickets/logger": "workspace:*"
 	}
 }
