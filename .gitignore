@@ -3,8 +3,8 @@ node_modules/
 
 # files
 *.env*
+*.exe
 *.db*
 *.log
-summary.md
 service
-service.exe
+summary.md

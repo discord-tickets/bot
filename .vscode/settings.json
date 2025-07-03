@@ -1,4 +1,7 @@
 {
+	"files.exclude": {
+		"**/node_modules": true
+	},
 	"[typescript]": {
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
 	}
