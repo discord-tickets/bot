@@ -125,7 +125,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 				name: getMessage('commands.slash.tickets.response.fields.open.name'),
 				value: (await Promise.all(
 					open.map(async ticket => {
-						const topic = ticket.topic ? `- \`${await getTopic()}\`` : '';
+						const topic = ticket.topic ? `- \`${await getTopic(ticket)}\`` : '';
 						return `> <#${ticket.id}> ${topic}`;
 					}),
 				)).join('\n'),
@@ -146,7 +146,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
 				value: (await Promise.all(
 					closed.map(async ticket => {
-						const topic = ticket.topic ? `- \`${await getTopic()}\`` : '';
+						const topic = ticket.topic ? `- \`${await getTopic(ticket)}\`` : '';
 						return `> ${ticket.category.name} #${ticket.number} (\`${ticket.id}\`) ${topic}`;
 					}),
 				)).join('\n'),
