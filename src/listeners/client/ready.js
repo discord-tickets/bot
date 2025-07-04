@@ -114,7 +114,7 @@ module.exports = class extends Listener {
 			client.log.warn('Unset PUBLIC_BOT to re-enable stale ticket handling');
 		} else {
 			// send inactivity warnings and close stale tickets
-			const staleInterval = ms('15s');
+			const staleInterval = ms('15m');
 			setInterval(() => handleStaleTickets(client, staleInterval), staleInterval);
 		}
 	}
