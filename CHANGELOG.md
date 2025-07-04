@@ -1,3 +1,13 @@
+## [4.0.44](https://github.com/discord-tickets/bot/compare/v4.0.43...v4.0.44) (2025-07-04)
+
+
+### Bug Fixes
+
+* `/tickets` command ([220ca64](https://github.com/discord-tickets/bot/commit/220ca647354ace01ac25da3d89fecce668178d13))
+* accidently left timer at 15s instead of 15m 🤦‍♂️ ([1220d72](https://github.com/discord-tickets/bot/commit/1220d728c18f243a4b00d65e59097b597540bcd3))
+
+
+
 ## [4.0.43](https://github.com/discord-tickets/bot/compare/v4.0.42...v4.0.43) (2025-07-02)
 
 
