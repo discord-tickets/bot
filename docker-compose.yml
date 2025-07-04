@@ -35,6 +35,7 @@ services:
     # https://discordtickets.app/self-hosting/configuration/#environment-variables
     environment:
       DB_CONNECTION_URL: mysql://tickets:insecure@mysql/tickets # change `insecure` to the MYSQL_PASSWORD you set above
+      DISABLE_ENCRYPTION: "false"
       DISCORD_SECRET: # required
       DISCORD_TOKEN: # required
       ENCRYPTION_KEY: # required
