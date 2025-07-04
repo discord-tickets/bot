@@ -17,8 +17,8 @@ export default function createScopedLogger<LT extends Logger>(logger: LT, namesp
 			}])),
 	);
 	const handler: ProxyHandler<LT> = {
-		get(target: Logger, prop: string) {
-			const level = levels.get(prop);
+		get(target, prop) {
+			const level = levels.get(prop as string);
 			if (level) {
 				return target.log.bind(target, namespace, level);
 			} else {

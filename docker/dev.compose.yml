@@ -1,0 +1,21 @@
+include:
+  - compose.yml
+services:
+  dev-interceptor:
+    profiles:
+      - dev
+    extends:
+      service: interceptor
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      target: dev
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /build
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json

@@ -1,13 +1,12 @@
 {
-	"name": "@discord-tickets/template",
+	"name": "@discord-tickets/aio",
 	"version": "0.0.1",
 	"type": "module",
 	"module": "src/",
 	"private": true,
 	"scripts": {
-		//  --bytecode can halve startup time but at up to 8x size and is currently CJS only.
-		// This isn't a CLI so the speed gain isn't important
-		"build": "bun build --compile --minify --sourcemap --outfile template src ",
+		//  --bytecode can halve startup time but at up to 8x size and is currently CJS only
+		"build": "bun build --compile --minify --sourcemap --outfile aio src ../interceptor/src",
 		"dev": "bun --hot src"
 	},
 	"devDependencies": {

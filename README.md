@@ -5,6 +5,7 @@
 
 ## TODO
 
+- [ ] `smol`
 - [ ] `bun test` for packages
 - [ ] `tsc` test
 - [ ] <https://badges.penpow.dev/>

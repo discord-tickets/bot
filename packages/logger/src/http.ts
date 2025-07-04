@@ -44,6 +44,13 @@ export function getStatusColour(status: number) {
 	}
 }
 
+export function resolveIP(server: Bun.Server | undefined, req: Request) {
+	return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+			req.headers.get('x-real-ip') ||
+			req.headers.get('cf-connecting-ip') ||
+			server?.requestIP?.(req)?.address;
+}
+
 export class HTTPLogger {
 	public log: Logger;
 
@@ -67,14 +74,6 @@ export class HTTPLogger {
 		const duration = performance.now() - req.$logger.start;
 		this.log.info.http?.(`${req.$logger.id} ${getStatusColour(res.status)}${res.status}&b &m<--&r ${getDurationColour(duration)}${Math.round(duration)}ms`);
 	}
-}
-
-
-export function resolveIP(server: Bun.Server | undefined, req: Request) {
-	return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-			req.headers.get('x-real-ip') ||
-			req.headers.get('cf-connecting-ip') ||
-			server?.requestIP?.(req)?.address;
 }
 
 export function handleWithLogs(logger: Logger, handler: (req: Request) => Promise<Response>) {

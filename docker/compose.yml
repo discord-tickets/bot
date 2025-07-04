@@ -1,20 +1,9 @@
+name: tickets
 services:
   interceptor:
-    build:
-      context: services/interceptor
-      dockerfile: ../../Dockerfile
-      target: prod
-    develop:
-      watch:
-        - action: sync
-          path: ./
-          target: /app
-          ignore:
-            - node_modules/
-        - action: rebuild
-          path: package.json
+    profiles:
+      - dist
     image: ghcr.io/discord-tickets/interceptor:5
-
     restart: unless-stopped
     depends_on: []
     networks: []
@@ -32,4 +21,5 @@ services:
       DEBUG:
       LOG_LEVEL: info
     command: --fetch-preconnect=https://discord.com #! cloud: --dns-result-order=ipv6first
-# TODO: healthcheck
+    # TODO: healthcheck
+

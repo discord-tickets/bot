@@ -1,4 +1,7 @@
 {
+	"files.associations": {
+		"package.json": "jsonc",
+	},
 	"files.exclude": {
 		"**/node_modules": true
 	},

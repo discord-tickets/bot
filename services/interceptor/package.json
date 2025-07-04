@@ -2,10 +2,10 @@
 	"name": "@discord-tickets/interceptor",
 	"version": "0.0.1",
 	"type": "module",
-	"main": "src/",
+	"module": "src/",
 	"private": true,
 	"scripts": {
-		"build": "bun build --compile --minify --sourcemap --bytecode src --outfile service",
+		"build": "bun build --compile --minify --sourcemap --outfile interceptor src",
 		"dev": "bun --hot src"
 	},
 	"devDependencies": {

@@ -1,9 +1,9 @@
 {
+	// BUN ALLOWS COMMENTS!
 	"name": "discord-tickets",
 	"version": "5.0.0-alpha.0",
 	"private": true,
 	"scripts": {
-		"build": "bun run -F '*' build",
 		"changelog": "bun --bun x conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "bun --bun x all-contributors add",
 		"contributors:generate": "bun --bun x all-contributors generate",
@@ -47,10 +47,9 @@
 	],
 	"workspaces": {
 		"catalog": {
-			"@discordeno/rest": "^21",
-			"@types/bun": "latest",
-			"leekslazylogger": "^6",
-			"typescript": "^5"
+			"@discordeno/rest": "21",
+			"@types/bun": "1",
+			"typescript": "5"
 		},
 		"packages": [
 			"packages/*",

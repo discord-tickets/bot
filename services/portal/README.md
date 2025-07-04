@@ -1,3 +1,10 @@
 # Portal
 
-The Portal is the main web interface.
+The Portal web app contains multiple sections:
+
+- Users
+- Guilds
+  - Staff
+  - Settings
+- Billing (optional)
+- Zeus/OP
