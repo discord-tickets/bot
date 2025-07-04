@@ -22,7 +22,9 @@ const { Collection } = require('discord.js');
 const spacetime = require('spacetime');
 
 const { getSUID } = require('../logging');
-const { getAverageTimes } = require('../stats');
+const {
+	getAverageTimes, getAverageRating,
+} = require('../stats');
 const { pools } = require('../threads');
 
 const { crypto } = pools;
@@ -430,7 +432,7 @@ module.exports = class TicketManager {
 			topic: `${creator}${topic?.length > 0 ? ` | ${topic}` : ''}`,
 		});
 
-		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime)\s?}+/i.test(category.openingMessage);
+		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime|avgRating)\s?}+/i.test(category.openingMessage);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
 		if (needsStats && !stats) {
@@ -438,6 +440,7 @@ module.exports = class TicketManager {
 				select: {
 					closedAt: true,
 					createdAt: true,
+					feedback: { select: { rating: true } },
 					firstResponseAt: true,
 				},
 				where: {
@@ -450,7 +453,9 @@ module.exports = class TicketManager {
 				avgResolutionTime,
 				avgResponseTime,
 			} = await getAverageTimes(closedTickets);
+			const avgRating = await getAverageRating(closedTickets);
 			stats = {
+				avgRating: avgRating.toFixed(1),
 				avgResolutionTime: ms(avgResolutionTime, { long: true }),
 				avgResponseTime: ms(avgResponseTime, { long: true }),
 			};
@@ -469,7 +474,8 @@ module.exports = class TicketManager {
 						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString())
 						.replace(/{+\s?num(ber)?\s?}+/gi, number)
 						.replace(/{+\s?avgResponseTime\s?}+/gi, stats?.avgResponseTime)
-						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime),
+						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime)
+						.replace(/{+\s?avgRating\s?}+/gi, stats?.avgRating),
 				),
 		];
 

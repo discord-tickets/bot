@@ -4,6 +4,7 @@ const sync = require('../../lib/sync');
 const checkForUpdates = require('../../lib/updates');
 const {
 	getAverageTimes,
+	getAverageRating,
 	sendToHouston,
 } = require('../../lib/stats');
 const handleStaleTickets = require('../../lib/stale');
@@ -60,6 +61,7 @@ module.exports = class extends Listener {
 						select: {
 							closedAt: true,
 							createdAt: true,
+							feedback: { select: { rating: true } },
 							firstResponseAt: true,
 						},
 					});
@@ -69,7 +71,10 @@ module.exports = class extends Listener {
 						avgResolutionTime,
 						avgResponseTime,
 					} = await getAverageTimes(closedTicketsWithResponse);
+					const avgRating = await getAverageRating(closedTickets);
+
 					cached = {
+						avgRating: avgRating.toFixed(1),
 						avgResolutionTime: ms(avgResolutionTime),
 						avgResponseTime: ms(avgResponseTime),
 						guilds: client.guilds.cache.size,
@@ -82,6 +87,7 @@ module.exports = class extends Listener {
 				activity.name = activity.name
 					.replace(/{+avgResolutionTime}+/gi, cached.avgResolutionTime)
 					.replace(/{+avgResponseTime}+/gi, cached.avgResponseTime)
+					.replace(/{+avgRating}+/gi, cached.avgRating)
 					.replace(/{+guilds}+/gi, cached.guilds)
 					.replace(/{+openTickets}+/gi, cached.openTickets)
 					.replace(/{+totalTickets}+/gi, cached.totalTickets);

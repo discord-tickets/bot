@@ -15,6 +15,13 @@ const getAvgResponseTime = closedTickets => reduce(closedTickets, 'firstResponse
 
 const sum = numbers => numbers.reduce((t, n) => t + n, 0);
 
+const getAvgRating = closedTickets => {
+	const ratings = closedTickets
+		.map(t => t.feedback?.rating)
+		.filter(r => typeof r === 'number');
+	return (sum(ratings) || 0) / Math.max(ratings.length, 1);
+};
+
 expose({
 	aggregateGuildForHouston(guild, messages) {
 		const closedTickets = guild.tickets.filter(t => t.firstResponseAt && t.closedAt);
@@ -39,6 +46,7 @@ expose({
 			tickets: guild.tickets.length,
 		};
 	},
+	getAvgRating,
 	getAvgResolutionTime,
 	getAvgResponseTime,
 	sum,

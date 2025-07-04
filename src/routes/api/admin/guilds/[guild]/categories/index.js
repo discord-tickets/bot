@@ -6,7 +6,9 @@ const {
 	ChannelType: { GuildCategory },
 } = require('discord.js');
 const ms = require('ms');
-const { getAverageTimes } = require('../../../../../../lib/stats');
+const {
+	getAverageTimes, getAverageRating,
+} = require('../../../../../../lib/stats');
 
 module.exports.get = fastify => ({
 	handler: async req => {
@@ -30,6 +32,7 @@ module.exports.get = fastify => ({
 							select: {
 								closedAt: true,
 								createdAt: true,
+							    feedback: { select: { rating: true } },
 								firstResponseAt: true,
 							},
 							where: {
@@ -49,9 +52,11 @@ module.exports.get = fastify => ({
 					avgResolutionTime,
 					avgResponseTime,
 				} = await getAverageTimes(category.tickets);
+				const avgRating = await getAverageRating(category.tickets);
 				category = {
 					...category,
 					stats: {
+						avgRating: avgRating.toFixed(1),
 						avgResolutionTime: ms(avgResolutionTime),
 						avgResponseTime: ms(avgResponseTime),
 					},

@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 const { logAdminEvent } = require('../../../../../lib/logging.js');
 const { iconURL } = require('../../../../../lib/misc');
-const { getAverageTimes } = require('../../../../../lib/stats');
+const {
+	getAverageTimes, getAverageRating,
+} = require('../../../../../lib/stats');
 const ms = require('ms');
 
 module.exports.delete = fastify => ({
@@ -62,6 +64,7 @@ module.exports.get = fastify => ({
 					select: {
 						closedAt: true,
 						createdAt: true,
+						feedback: { select: { rating: true } },
 						firstResponseAt: true,
 					},
 					where: {
@@ -79,6 +82,7 @@ module.exports.get = fastify => ({
 				avgResolutionTime,
 				avgResponseTime,
 			} = await getAverageTimes(closedTickets);
+			const avgRating = await getAverageRating(closedTickets);
 
 			cached = {
 				createdAt: settings.createdAt,
@@ -86,6 +90,7 @@ module.exports.get = fastify => ({
 				logo: iconURL(guild),
 				name: guild.name,
 				stats: {
+					avgRating: avgRating.toFixed(1),
 					avgResolutionTime: ms(avgResolutionTime),
 					avgResponseTime: ms(avgResponseTime),
 					categories: categories.map(c => ({

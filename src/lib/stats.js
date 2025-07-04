@@ -9,6 +9,8 @@ const {
 
 const { stats } = pools;
 
+const getAverageRating = closedTickets => stats.queue(async w => await w.getAvgRating(closedTickets));
+
 const getAverageTimes = closedTickets => stats.queue(async w => ({
 	avgResolutionTime: await w.getAvgResolutionTime(closedTickets),
 	avgResponseTime: await w.getAvgResponseTime(closedTickets),
@@ -85,6 +87,7 @@ async function sendToHouston(client) {
 };
 
 module.exports = {
+	getAverageRating,
 	getAverageTimes,
 	sendToHouston,
 };
