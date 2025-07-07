@@ -375,6 +375,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "LeonTheDev-io",
+      "name": "Leon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82466943?v=4",
+      "profile": "https://github.com/LeonTheDev-io",
+      "contributions": [
+        "doc",
+        "code",
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
