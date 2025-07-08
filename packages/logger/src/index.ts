@@ -10,7 +10,7 @@ import * as http from './http';
 import * as proxy from './proxy';
 import createScopedLogger from './scoped';
 
-interface CustomLogger extends Logger {
+export interface CustomLogger extends Logger {
 	fatal: LogFunction
 }
 

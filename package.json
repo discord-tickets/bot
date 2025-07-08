@@ -1,5 +1,4 @@
 {
-	// BUN ALLOWS COMMENTS!
 	"name": "discord-tickets",
 	"version": "5.0.0-alpha.0",
 	"private": true,
@@ -7,11 +6,12 @@
 		"changelog": "bun --bun x conventional-changelog -p angular -i CHANGELOG.md -s",
 		"contributors:add": "bun --bun x all-contributors add",
 		"contributors:generate": "bun --bun x all-contributors generate",
-		"dev": "bun run -F '*' dev",
-		"lint": "bun --bun x eslint --config config/eslint.config.mjs --fix .",
-		"prepare": "git config core.hooksPath .github/hooks || true"
+		"dev": "docker compose -f docker/dev.compose.yml --profile dev up -w",
+		"lint": "bun --bun x eslint --fix .",
+		"prepare": "git config core.hooksPath .github/hooks || true",
+		"test": "bun test --coverage",
+		"test:watch": "bun test --coverage --watch"
 	},
-	"dependencies": {},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
@@ -49,7 +49,8 @@
 		"catalog": {
 			"@discordeno/rest": "21",
 			"@types/bun": "1",
-			"typescript": "5"
+			"typescript": "5",
+			"zod": "3"
 		},
 		"packages": [
 			"packages/*",

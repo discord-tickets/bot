@@ -10,7 +10,7 @@ import {
 import eartharoid from '@eartharoid/eslint-rules-js';
 
 export default defineConfig([
-	globalIgnores(['CHANGELOG.md']),
+	globalIgnores(['CHANGELOG.md, LICENSE.md']),
 	{
 		extends: [
 			'js/recommended',

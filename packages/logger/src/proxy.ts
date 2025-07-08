@@ -3,6 +3,11 @@ import type {
 	LogLevel,
 	LogLevelType,
 } from 'leekslazylogger/types/types';
+import type { Worker } from 'node:worker_threads';
+import {
+	isMainThread,
+	parentPort,
+} from 'node:worker_threads';
 
 type ProxiedLog = {
 	content: unknown[];
@@ -21,7 +26,7 @@ function forward(...mixedArgs: unknown[]): void {
 		level: props[0] || 'info',
 		namespace: props[1] ?? null,
 	};
-	process.send?.({ log });
+	parentPort?.postMessage({ log });
 }
 
 const handler: ProxyHandler<typeof forward> = {
@@ -36,7 +41,15 @@ const handler: ProxyHandler<typeof forward> = {
 
 export const proxyLogger = new Proxy(forward, handler);
 
-export function receiveForwardedLogs(logger: Logger) {
+/**
+ *
+ * @param worker a Node.js (not web) Worker
+ * @param logger
+ */
+export function logFromWorker(worker: Worker, logger: Logger) {
+	if (!isMainThread) {
+		throw new Error('Not the main thread');
+	}
 	const levels = logger.levels
 		.map(name => <LogLevel>{
 			name,
@@ -47,7 +60,7 @@ export function receiveForwardedLogs(logger: Logger) {
 			acc[level.name] = level;
 			return acc;
 		}, {} as Record<string, LogLevel>);
-	process.on('message', (message: unknown) => {
+	worker.on('message', (message: unknown) => {
 		if (message instanceof Object && Object.hasOwn(message, 'log')) {
 			const { log: proxied } = message as { log: ProxiedLog };
 			const {

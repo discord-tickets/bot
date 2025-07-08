@@ -2,7 +2,7 @@ name: tickets
 services:
   interceptor:
     profiles:
-      - dist
+      - prod
     image: ghcr.io/discord-tickets/interceptor:5
     restart: unless-stopped
     depends_on: []
@@ -17,9 +17,6 @@ services:
       BUN_CONFIG_MAX_HTTP_REQUESTS: "256"
       BUN_CONFIG_NO_CLEAR_TERMINAL_ON_RELOAD: "true"
       BUN_CONFIG_VERBOSE_FETCH:
-      BUN_PORT: "80"
-      DEBUG:
-      LOG_LEVEL: info
-    command: --fetch-preconnect=https://discord.com #! cloud: --dns-result-order=ipv6first
+      BUN_PORT: "8080"
+    command: --fetch-preconnect=https://discord.com #! cloud: --dns-result-order=ipv6first # TODO: does this work with SEA/compiled?
     # TODO: healthcheck
-

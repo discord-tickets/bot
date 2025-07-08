@@ -1,6 +1,7 @@
 import type { Log } from 'leekslazylogger/types/types';
 import { ConsoleTransport } from 'leekslazylogger';
 import { short } from 'leeks.js';
+import config from '@discord-tickets/config';
 
 const colours = {
 	critical: ['&0&!4', '&5', '&0&!c'],
@@ -22,5 +23,5 @@ export function formatter(log: Log): string {
 
 export const transport = new ConsoleTransport({
 	format: formatter,
-	level: process.env.LOG_LEVEL || 'info',
+	level: config.get('global/log_level'),
 });

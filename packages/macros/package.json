@@ -1,5 +1,5 @@
 {
-	"name": "@discord-tickets/logger",
+	"name": "@discord-tickets/macros",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "src/",
@@ -10,9 +10,5 @@
 	"peerDependencies": {
 		"typescript": "catalog:"
 	},
-	"dependencies": {
-		"@discord-tickets/config": "workspace:*",
-		"leeks.js": "^0.3.0",
-		"leekslazylogger": "^6.0.0"
-	}
+	"dependencies": {}
 }

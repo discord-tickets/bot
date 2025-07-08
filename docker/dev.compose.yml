@@ -1,14 +1,20 @@
-include:
-  - compose.yml
+name: tickets-dev
 services:
+  consul:
+    image: hashicorp/consul:1.21
+    ports:
+      - "8500:8500"
   dev-interceptor:
     profiles:
       - dev
     extends:
+      file: compose.yml
       service: interceptor
     build:
+      args:
+        service: interceptor
       context: ../
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile
       target: dev
     develop:
       watch:
@@ -19,3 +25,5 @@ services:
             - node_modules/
         - action: rebuild
           path: package.json
+    ports:
+      - "8080:8080"

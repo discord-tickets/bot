@@ -7,7 +7,7 @@ import type {
 /**
  * Apply a namespace to all logs (and disable namespace sub-methods)
  */
-export default function createScopedLogger<LT extends Logger>(logger: LT, namespace: string) {
+export default function createScopedLogger<L extends Logger>(logger: L, namespace: string) {
 	const levels = new Map(
 		logger.levels
 			.map(name => ([name, <LogLevel>{
@@ -16,7 +16,7 @@ export default function createScopedLogger<LT extends Logger>(logger: LT, namesp
 				type: (logger.options.levels[name] || 'info') as LogLevelType,
 			}])),
 	);
-	const handler: ProxyHandler<LT> = {
+	const handler: ProxyHandler<L> = {
 		get(target, prop) {
 			const level = levels.get(prop as string);
 			if (level) {
