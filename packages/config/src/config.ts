@@ -3,17 +3,11 @@ import { type Schema } from './schema';
 type ValuesOfKeys<K extends (keyof Schema)[]> = { [I in keyof K]: Exclude<Schema[K[I]], undefined> }
 
 export default abstract class Config {
+	abstract prefixes: Set<string>;
 	store: Schema = {};
 	initialised = false;
-	#timer: NodeJS.Timeout;
 	watched: Map<keyof Schema, unknown[]> = new Map();
 	watchers: Map<unknown, (keyof Schema)[]> = new Map();
-	// watched: Partial<Record<keyof Schema, unknown[]>> = {};
-
-	constructor() {
-		this.#timer = setInterval(this.reload.bind(this), 60e3);
-		this.#timer.unref();
-	}
 
 	has(key: keyof Schema) {
 		return Object.prototype.hasOwnProperty.call(this.store, key);

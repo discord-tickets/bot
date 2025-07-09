@@ -3,6 +3,8 @@ import { ConsoleTransport } from 'leekslazylogger';
 import { short } from 'leeks.js';
 import config from '@discord-tickets/config';
 
+await config.load(['global']);
+
 const colours = {
 	critical: ['&0&!4', '&5', '&0&!c'],
 	debug: ['&0&!1', '&5', '&9'], // ! `debug` pkg should be used by other pkgs

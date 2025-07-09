@@ -40,6 +40,7 @@ describe('Consul', () => {
 
 	test('valid "get"', async () => {
 		await config.load(['global', 'interceptor/discord_api_version']);
+		await config.load(['global', 'nice']);
 		const val = config.get('interceptor/discord_api_version');
 		expect(val).toBe('v10');
 	});
@@ -57,7 +58,6 @@ describe('Consul', () => {
 		});
 		config.reload();
 	});
-
 
 });
 

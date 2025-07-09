@@ -2,9 +2,7 @@ import type {
 	LogFunction,
 	LoggerOptions,
 } from 'leekslazylogger/types/types';
-
 import { Logger } from 'leekslazylogger';
-
 import * as console from './console';
 import * as http from './http';
 import * as proxy from './proxy';

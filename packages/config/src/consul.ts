@@ -6,10 +6,13 @@ import { isDeepStrictEqual } from 'node:util';
  * @emits update
  */
 export default class ConsulConfig extends Config {
-	#prefixes: string[] = [];
+	#timer: NodeJS.Timeout;
+	prefixes: Set<string> = new Set();
 
 	constructor() {
 		super();
+		this.#timer = setInterval(this.reload.bind(this), 60e3);
+		this.#timer.unref();
 	}
 
 	decode(value: string): unknown {
@@ -17,14 +20,22 @@ export default class ConsulConfig extends Config {
 	}
 
 	async load(prefixes: string[]): Promise<void> {
-		this.#prefixes = prefixes;
-		await this.reload();
-		this.initialised = true;
+		await Promise.all(
+			prefixes
+				.filter(prefix => !this.prefixes.has(prefix))
+				.map(prefix => this.reload(prefix)),
+		);
+		for (const prefix of prefixes) {
+			this.prefixes.add(prefix);
+		}
+		// await this.reload();
+		this.initialised ||= true;
 	}
 
-	async reload(): Promise<void> {
+	async reload(prefix?: string): Promise<void> {
+		const prefixes = prefix ? [prefix] : this.prefixes;
 		const chunks: Record<string, unknown>[] = [];
-		for (const prefix of this.#prefixes) {
+		for (const prefix of prefixes) {
 			const res = await fetch(`http://localhost:8500/v1/kv/config/${prefix}?recurse=true`); // TODO: DNS
 			const data: { Key: string, Value: string }[] | null = await res.json();
 			if (data) {
@@ -45,6 +56,8 @@ export default class ConsulConfig extends Config {
 				}
 			}
 		}
-		this.store = reloaded;
+		// this.store = reloaded;
+		 // ! this makes it impossible to unset a key but allows `load` to be called multiple times efficiently
+		Object.assign(this.store, reloaded);
 	}
 }
