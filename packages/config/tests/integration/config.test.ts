@@ -1,9 +1,9 @@
 import {
-	describe,
+	afterAll,
 	beforeAll,
+	describe,
 	expect,
 	test,
-	afterAll,
 } from 'bun:test';
 import {
 	mkdtemp,
@@ -16,8 +16,7 @@ import Config from '../../src/config';
 
 const s = await Bun.resolve('../fixtures/sample.toml', import.meta.dir);
 
-
-describe('Config (integration)', () => {
+describe('integration: Config', () => {
 	let config: Config<typeof schema>;
 	let dir: string;
 	let f: string;
@@ -31,12 +30,17 @@ describe('Config (integration)', () => {
 	});
 
 	afterAll(() => {
-		rm(dir);
 		config.controller?.abort();
+		rm(dir);
+	});
+
+	test('get', () => {
+		const val = config.get('c.e');
+		expect(val).toEqual({ f: 1 });
 	});
 
 	test('watch', async done => {
-		config.watch(['c.d', 'c.e.f'], async (cd, cef) => {
+		config.watch(['c.d', 'c.e.f'], (cd, cef) => {
 			expect(cd).toBe('music');
 			expect(cef).toBe(117);
 			done();

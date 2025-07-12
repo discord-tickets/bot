@@ -8,9 +8,7 @@
 		"contributors:generate": "bun --bun x all-contributors generate",
 		"dev": "docker compose -f docker/dev.compose.yml --profile dev up -w",
 		"lint": "bun --bun x eslint --fix .",
-		"prepare": "git config core.hooksPath .github/hooks || true",
-		"test": "bun test --coverage",
-		"test:watch": "bun test --coverage --watch"
+		"prepare": "git config core.hooksPath .github/hooks || true"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.8.1",
