@@ -1,32 +1,26 @@
 name: Lint
-on: [push, pull_request]
-  # push:
-    # branches:
-      # - main
-  # pull_request:
-    # branches:
-      # - main
+
+on:
+  push:
+  pull_request:
 
 jobs:
   commitlint:
+    name: Lint commit messages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v5
-        with:
-          configFile: .commitlintrc.js
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: wagoid/commitlint-github-action@v6
   eslint:
-   runs-on: ubuntu-latest
-   steps:
-    - uses: actions/checkout@v3
-    - uses: pnpm/action-setup@v4
-      with:
-        version: 10
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 22
-        cache: 'pnpm'
-    - run: pnpm install
-    - run: pnpm run lint
+    name: Lint code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install
+      - name: Run eslint
+        run: bun --bun x eslint .

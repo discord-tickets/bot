@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  bun_test:
+    name: Test with Bun
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install
+      - name: Run unit tests
+        run: bun test --test-name-pattern unit
+      - name: Upload unit coverage
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          directory: ./coverage
+          flags: unit
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Run integration tests
+        run: bun test --test-name-pattern integration
+      - name: Upload integration coverage
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          directory: ./coverage
+          flags: integration
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
