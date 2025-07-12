@@ -5,4 +5,4 @@ log_level = "info"
 
 
 [interceptor]
-discord_api_version = "v10"
+discord_api_version = 10

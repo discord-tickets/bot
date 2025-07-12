@@ -3,23 +3,18 @@ import {
 	beforeAll,
 	expect,
 	test,
-	afterAll,
 } from 'bun:test';
 import schema from '../tests/fixtures/schema';
 import Config from './config';
 
 const path = Bun.resolveSync('../tests/fixtures/sample.toml', import.meta.dir);
 
-describe('Config (unit) [1]', () => {
+describe('Config (unit)', () => {
 	let config: Config<typeof schema>;
 
 	beforeAll(async () => {
 		config = new Config(path, schema);
 		await config.load();
-	});
-
-	afterAll(() => {
-		config.controller?.abort('end of tests');
 	});
 
 	test('very deep', async () => {
@@ -34,7 +29,7 @@ describe('Config (unit) [1]', () => {
 
 });
 
-describe('Config (unit) [2]', () => {
+describe('Config (unit)', () => {
 	let config: Config<typeof schema>;
 
 	beforeAll(async () => {

@@ -10,7 +10,6 @@ import {
 	type GetValueType,
 } from './types';
 
-
 export default class Config<S extends z.ZodType> {
 	controller: AbortController | null = null;
 	path: string;
@@ -32,7 +31,6 @@ export default class Config<S extends z.ZodType> {
 			throw new Error(`Property "${String(key)}" is not loaded`);
 		}
 	}
-
 
 	async #watch() {
 		debug('watching %s', this.path);
@@ -81,9 +79,7 @@ export default class Config<S extends z.ZodType> {
 
 		for (const [k, v] of Object.entries(object as Record<string, unknown>)) {
 			const newPath = currentPath ? `${currentPath}.${k}` : k;
-
 			yield [newPath, v];
-
 			if (typeof v === 'object' && v !== null && !Array.isArray(v) && depth < MAX_DEPTH) {
 				const nested = this.#flatten(
 					v as z.infer<S>,

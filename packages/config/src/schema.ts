@@ -1,8 +1,9 @@
 import { z } from 'zod/v4';
 
 export default z.object({
-	'interceptor/discord_api_version': z.string(),
-	'log_level': z.enum([
+	// interceptor: z.object({ discord_api_version: z.string().regex(/^v/) }),
+	interceptor: z.object({ discord_api_version: z.int() }),
+	log_level: z.enum([
 		'debug',
 		'verbose',
 		'info',

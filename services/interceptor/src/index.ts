@@ -1,7 +1,7 @@
 
 import { dns } from 'bun';
 import { http } from '@discord-tickets/logger';
-import { logger as log } from './logger';
+import log from './logger';
 import handler from './handler';
 
 dns.prefetch('discord.com', 443);
