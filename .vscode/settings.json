@@ -1,11 +1,15 @@
 {
 	"files.associations": {
-		"package.json": "jsonc",
+		"package.json": "jsonc"
 	},
 	"files.exclude": {
 		"**/node_modules": true
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
-	}
+	},
+	"cSpell.words": [
+		"surrealdb",
+		"vars"
+	]
 }

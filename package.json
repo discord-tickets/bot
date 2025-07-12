@@ -49,6 +49,7 @@
 		"catalog": {
 			"@discordeno/rest": "21",
 			"@types/bun": "1",
+			"debug": "4",
 			"typescript": "5",
 			"zod": "3"
 		},
@@ -65,5 +66,8 @@
 	"lint-staged": {
 		"*.md": "bun lint",
 		"{packages,services}/**/*.{js,ts}": "bun lint"
+	},
+	"dependencies": {
+		"smol-toml": "^1.4.1"
 	}
 }

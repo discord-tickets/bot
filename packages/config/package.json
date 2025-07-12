@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@discord-tickets/macros": "workspace:*",
+		"debug": "catalog:",
 		"zod": "catalog:"
 	}
 }

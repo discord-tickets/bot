@@ -1,9 +1,5 @@
 name: tickets-dev
 services:
-  consul:
-    image: hashicorp/consul:1.21
-    ports:
-      - "8500:8500"
   dev-interceptor:
     profiles:
       - dev

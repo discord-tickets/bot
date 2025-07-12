@@ -1,0 +1,20 @@
+a = "apple"
+b = 2
+
+[c]
+d = "dog"
+e = { f = 1 }
+g = ["a", "b", "c"]
+h = false
+
+[[i]]
+j = { p = 1 }
+
+[[i]]
+j = { p = 2 }
+
+[k.l]
+m = 1
+
+[n.o.q]
+r.deep = true

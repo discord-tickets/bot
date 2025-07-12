@@ -3,6 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import json from '@eslint/json';
 import markdown from '@eslint/markdown';
+
 import {
 	defineConfig,
 	globalIgnores,
@@ -10,16 +11,32 @@ import {
 import eartharoid from '@eartharoid/eslint-rules-js';
 
 export default defineConfig([
-	globalIgnores(['CHANGELOG.md, LICENSE.md']),
+	globalIgnores([
+		'**/package.json',
+		'.vscode',
+		'docs/CHANGELOG.md',
+		'LICENSE.md',
+	]),
 	{
 		extends: [
 			'js/recommended',
 			eartharoid,
 			{
 				rules: {
-					'no-console': [
-						'warn',
+					'@typescript-eslint/no-unused-vars': [
+						'error',
+						{
+							'args': 'all',
+							'argsIgnorePattern': '^_',
+							'caughtErrors': 'all',
+							'caughtErrorsIgnorePattern': '^_',
+							'destructuredArrayIgnorePattern': '^_',
+							'ignoreRestSiblings': true,
+							'varsIgnorePattern': '^_',
+						},
 					],
+					'no-console': ['warn'],
+					'no-underscore-dangle': ['off'],
 				},
 			},
 
