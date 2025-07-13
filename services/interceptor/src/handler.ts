@@ -5,7 +5,6 @@ import type {
 import { REST } from './rest';
 
 export default async function handler(this: Bun.Server, req: Request): Promise<Response> {
-	// TODO: patch REST with got (`localAddress`) - keep same for 12h
 	const options: CreateRequestBodyOptions = {};
 	if (req.body) options.body = req.body;
 

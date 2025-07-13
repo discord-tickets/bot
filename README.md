@@ -1,5 +1,8 @@
 # Discord Tickets v5
 
+![Codecov](https://img.shields.io/codecov/c/github/discord-tickets/bot?flag=unit&style=flat&logo=codecov)
+
+
 > [!WARNING]
 > This branch is experimental, use the `main` branch instead.
 
