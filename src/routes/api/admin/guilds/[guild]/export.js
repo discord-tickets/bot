@@ -9,8 +9,8 @@ const { export: pool } = pools;
 /**
  * Tracks currently running exports to prevent spamming exports
  */
-const exportsRunning = [];
-const exportTasks = [];
+const exportsRunning = {};
+const exportTasks = {};
 
 /**
  * Release a ticket export lock
