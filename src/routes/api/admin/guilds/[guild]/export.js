@@ -22,7 +22,9 @@ function releaseExport(id) {
 	// cancel all still running tasks to prevent clogging up threads for an already aborted request
 	if (tasks && tasks.length > 0) {
 		tasks.forEach(task => {
-			task.cancel();
+			try {
+				task.cancel();
+			}catch (e){ /* empty */ }
 		});
 	}
 	delete exportTasks[id];
@@ -56,8 +58,7 @@ module.exports.get = fastify => ({
 			exportsRunning[id] = new Date().getTime();
 		}
 
-		// Detect if this request is aborted and stop the export thread
-		// TODO: Check if this is necessary
+		// Detect if this request is aborted or closed and stop the export threads
 		req.raw.on('close', () => {
 			releaseExport(id);
 		});
@@ -107,48 +108,8 @@ module.exports.get = fastify => ({
 		});
 
 		// V1
-		// const ticketsStream = Readable.from(ticketsGenerator());
-		// async function* ticketsGenerator() {
-		// 	try {
-		// 		let done = false;
-		// 		const take = 50;
-		// 		const findOptions = {
-		// 			include: {
-		// 				archivedChannels: true,
-		// 				archivedMessages: true,
-		// 				archivedRoles: true,
-		// 				archivedUsers: true,
-		// 				feedback: true,
-		// 				questionAnswers: true,
-		// 			},
-		// 			orderBy: { id: 'asc' },
-		// 			take,
-		// 			where: { guildId: id },
-		// 		};
-		// 		do {
-		// 			const batch = await client.prisma.ticket.findMany(findOptions);
-		// 			if (batch.length < take) {
-		// 				done = true;
-		// 			} else {
-		// 				findOptions.skip = 1;
-		// 				findOptions.cursor = { id: batch[take - 1].id };
-		// 			}
-		// 			// ! map (parallel) not for...of (serial)
-		// 			yield* batch.map(async ticket => (await pool.queue(w => w.exportTicket(ticket)) + '\n'));
-		// 			// Readable.from(AsyncGenerator) seems to be faster than pushing to a Readable with an empty `read()` function
-		// 			// for (const ticket of batch) {
-		// 			// 	pool
-		// 			// 		.queue(worker => worker.exportTicket(ticket))
-		// 			// 		.then(string => ticketsStream.push(string + '\n'));
-		// 			// }
-		// 		} while (!done);
-		// 	} finally {
-		// 		ticketsStream.push(null); // ! extremely important
-		// 	}
-		// }
-
-		// V2
 		const ticketsStream = Readable.from(ticketsGenerator());
+
 		async function* ticketsGenerator() {
 			try {
 				let done = false;
@@ -180,23 +141,73 @@ module.exports.get = fastify => ({
 						findOptions.cursor = { id: batch[take - 1].id };
 					}
 					// ! map (parallel) not for...of (serial)
-					// yield* batch.map(async ticket => (await pool.queue(w => w.exportTicket(ticket)) + '\n'));
-					client.log.info(`Batch ${exportTasks[id].length}: queued`);
-					const queuedPool = pool.queue(async w => w.exportTicketBatch(batch));
-					exportTasks[id].push(queuedPool);
-					queuedPool.then(result => {
-						const qPool = queuedPool;
-						const index = exportTasks[id].indexOf(qPool);
-						client.log.info(`Batch ${index}: finished`);
-						// Maybe remove task from list, but not for now, as we do that at the end
-						// exportTasks[id].splice(index, 1);
+					yield* batch.map(async ticket => {
+						const task = pool.queue(w => w.exportTicket(ticket));
+						exportTasks[id].push(task);
+						return await task + '\n';
 					});
+					// Readable.from(AsyncGenerator) seems to be faster than pushing to a Readable with an empty `read()` function
+					// for (const ticket of batch) {
+					// 	pool
+					// 		.queue(worker => worker.exportTicket(ticket))
+					// 		.then(string => ticketsStream.push(string + '\n'));
+					// }
 				} while (!done);
 			} finally {
-				yield* exportTasks[id];
 				ticketsStream.push(null); // ! extremely important
 			}
 		}
+
+		// V2
+		// const ticketsStream = Readable.from(ticketsGenerator());
+		// async function* ticketsGenerator() {
+		// 	try {
+		// 		let done = false;
+		// 		const take = 50;
+		// 		const findOptions = {
+		// 			include: {
+		// 				archivedChannels: true,
+		// 				archivedMessages: true,
+		// 				archivedRoles: true,
+		// 				archivedUsers: true,
+		// 				feedback: true,
+		// 				questionAnswers: true,
+		// 			},
+		// 			orderBy: { id: 'asc' },
+		// 			take,
+		// 			where: { guildId: id },
+		// 		};
+		// 		// create worker index array
+		// 		if (!exportTasks[id]) {
+		// 			exportTasks[id] = [];
+		// 		}
+		//
+		// 		do {
+		// 			const batch = await client.prisma.ticket.findMany(findOptions);
+		// 			if (batch.length < take) {
+		// 				done = true;
+		// 			} else {
+		// 				findOptions.skip = 1;
+		// 				findOptions.cursor = { id: batch[take - 1].id };
+		// 			}
+		// 			// ! map (parallel) not for...of (serial)
+		// 			// yield* batch.map(async ticket => (await pool.queue(w => w.exportTicket(ticket)) + '\n'));
+		// 			client.log.info(`Batch ${exportTasks[id].length}: queued`);
+		// 			const queuedPool = pool.queue(async w => w.exportTicketBatch(batch));
+		// 			exportTasks[id].push(queuedPool);
+		// 			queuedPool.then(result => {
+		// 				const qPool = queuedPool;
+		// 				const index = exportTasks[id].indexOf(qPool);
+		// 				client.log.info(`Batch ${index}: finished`);
+		// 				// Maybe remove task from list, but not for now, as we do that at the end
+		// 				// exportTasks[id].splice(index, 1);
+		// 			});
+		// 		} while (!done);
+		// 	} finally {
+		// 		yield* exportTasks[id];
+		// 		ticketsStream.push(null); // ! extremely important
+		// 	}
+		// }
 
 		const icon = await fetch(iconURL(guild));
 		archive.append(Readable.from(icon.body), { name: 'icon.png' });
