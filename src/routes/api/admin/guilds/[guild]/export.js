@@ -172,7 +172,6 @@ module.exports.get = fastify => ({
 				}
 
 				do {
-
 					const batch = await client.prisma.ticket.findMany(findOptions);
 					if (batch.length < take) {
 						done = true;
@@ -195,7 +194,6 @@ module.exports.get = fastify => ({
 				} while (!done);
 			} finally {
 				yield* exportTasks[id];
-				// await Promise.all(exportTasks[id]);
 				ticketsStream.push(null); // ! extremely important
 			}
 		}
