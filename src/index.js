@@ -53,6 +53,12 @@ if (base_dir !== cwd) {
 process.env.NODE_ENV ??= 'production'; // make sure NODE_ENV is set
 require('./env').load(); // load and check environment variables
 
+// INIT Sentry if required ENV vars are set
+const sentryEnabled = !!process.env.SENTRY_DSN;
+if(sentryEnabled) {
+	require('./sentry-init.js');
+}
+
 const fs = require('fs');
 const YAML = require('yaml');
 const logger = require('./lib/logger');
