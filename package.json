@@ -57,6 +57,8 @@
 		"@fastify/jwt": "^9.0.4",
 		"@fastify/multipart": "^9.0.3",
 		"@prisma/client": "^5.22.0",
+		"@sentry/node": "^9.38.0",
+		"@sentry/profiling-node": "^9.38.0",
 		"archiver": "^7.0.1",
 		"boxen": "^7.1.1",
 		"commander": "^12.1.0",

@@ -9,7 +9,7 @@ process.env.ORIGIN = process.env.HTTP_INTERNAL || process.env.HTTP_EXTERNAL;
 
 module.exports = async client => {
 	// for file uploads
-	fastify.register(require('@fastify/multipart'), { limits: { fileSize: 2**27 } }); // 128 MiB
+	fastify.register(require('@fastify/multipart'), { limits: { fileSize: 2 ** 27 } }); // 128 MiB
 
 	// cookies plugin, must be registered before oauth2 since oauth2@7.2.0
 	fastify.register(require('@fastify/cookie'));
@@ -22,6 +22,12 @@ module.exports = async client => {
 		},
 		secret: process.env.ENCRYPTION_KEY,
 	});
+
+	// Activate Sentry if SENTRY_DNS is set
+	if (process.env.SENTRY_DSN) {
+		const Sentry = require('@sentry/node');
+		Sentry.setupFastifyErrorHandler(fastify);
+	}
 
 	// auth
 	fastify.decorate('authenticate', async (req, res) => {
@@ -180,15 +186,19 @@ module.exports = async client => {
 	const { handler } = await import('@discord-tickets/settings/build/handler.js');
 
 	// https://stackoverflow.com/questions/72317071/how-to-set-up-fastify-correctly-so-that-sveltekit-works-fine
-	fastify.all('/*', {}, (req, res) => handler(req.raw, res.raw, () => { }));
+	fastify.all('/*', {}, (req, res) => handler(req.raw, res.raw, () => {
+	}));
 
 	// start the fastify server
 	fastify.listen({
 		host: process.env.HTTP_HOST,
 		port: process.env.HTTP_PORT,
 	}, (err, addr) => {
-		if (err) client.log.error.http(err);
-		else client.log.success.http(`Listening at ${addr}`);
+		if (err) {
+			client.log.error.http(err);
+		} else {
+			client.log.success.http(`Listening at ${addr}`);
+		}
 	});
 
 	process.on('sveltekit:error', ({

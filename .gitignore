@@ -3,9 +3,10 @@
 /node_modules/
 /prisma/
 /user/
-
+.idea/
 # files
 *.env*
 *.db*
 *.log
+*.DS_Store
 summary.md
