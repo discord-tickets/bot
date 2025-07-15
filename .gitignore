@@ -8,4 +8,5 @@
 *.env*
 *.db*
 *.log
+*.DS_Store
 summary.md

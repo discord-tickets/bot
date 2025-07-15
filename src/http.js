@@ -4,7 +4,6 @@ const { join } = require('path');
 const { files } = require('node-dir');
 const { getPrivilegeLevel } = require('./lib/users');
 const { format } = require('util');
-const Sentry = require('@sentry/node');
 
 process.env.ORIGIN = process.env.HTTP_INTERNAL || process.env.HTTP_EXTERNAL;
 
