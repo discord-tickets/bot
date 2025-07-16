@@ -1,15 +1,39 @@
 {
+	"[typescript]": {
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	},
 	"files.associations": {
+		".all-contributorsrc": "json",
 		"package.json": "jsonc"
 	},
 	"files.exclude": {
 		"**/node_modules": true
 	},
-	"[typescript]": {
-		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
+	"material-icon-theme.files.associations": {
+		".all-contributorsrc": "json"
 	},
+	"material-icon-theme.folders.customClones": [
+		{
+			"name": "macros",
+			"base": "functions",
+			"color": "brown-500",
+			"lightColor": "brown-700",
+			"folderNames": [
+				"macros"
+			]
+		},
+		{
+			"name": "portal",
+			"base": "app",
+			"color": "purple-500",
+			"lightColor": "purple-700",
+			"folderNames": [
+				"portal"
+			]
+		}
+	],
 	"cSpell.words": [
 		"surrealdb",
 		"vars"
-	]
+	],
 }

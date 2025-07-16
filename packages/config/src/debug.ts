@@ -1,1 +1,0 @@
-export default (await import('debug')).debug('config');

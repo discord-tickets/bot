@@ -1,20 +1,35 @@
+/* eslint-disable sort-keys */
 import {
 	afterAll,
 	beforeEach,
 	describe,
 	expect,
 	test,
+	mock,
 } from 'bun:test';
-import schema from '../tests/fixtures/schema';
-import Config from './config';
+import schema from '../../tests/fixtures/schema';
+import { Config } from './config';
+import type { Logger } from '@discord-tickets/logger';
 
-const path = Bun.resolveSync('../tests/fixtures/sample.toml', import.meta.dir);
+const silent = mock((..._args: unknown[]) => null);
+const log = {
+	level: 'trace',
+	silent,
+	trace: silent,
+	debug: silent,
+	info: silent,
+	warn: silent,
+	error: silent,
+	fatal: silent,
+}  as unknown as Logger;
+
+const path = Bun.resolveSync('../../tests/fixtures/sample.toml', import.meta.dir);
 
 describe('unit: Config', () => {
 	let config: Config<typeof schema>;
 
 	beforeEach(async () => {
-		config = new Config(path, schema);
+		config = new Config(log, path, schema);
 		await config.load();
 	});
 
@@ -48,7 +63,7 @@ describe('unit: Config', () => {
 	let config: Config<typeof schema>;
 
 	test('"load" not awaited', () => {
-		config = new Config(path, schema);
+		config = new Config(log, path, schema);
 		expect(() => config.get('a')).toThrow(/not loaded/);
 	});
 

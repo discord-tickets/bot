@@ -1,42 +1,42 @@
-import type {
-	LogFunction,
-	LoggerOptions,
-} from 'leekslazylogger/types/types';
-import { Logger } from 'leekslazylogger';
-import * as console from './console';
-import * as http from './http';
-import * as proxy from './proxy';
-import createScopedLogger from './scoped';
+import pino from 'pino';
+import caller from 'pino-caller';
+import { dirname } from 'node:path';
 
-export interface CustomLogger extends Logger {
-	fatal: LogFunction
-}
-
-export default function createLogger(options: Partial<LoggerOptions>): CustomLogger {
-	return new Logger({
-		...options,
-		levels: {
-			debug: 'info',
-			verbose: 'info',
-			// eslint-disable-next-line sort-keys
-			info: 'info',
-			success: 'info',
-			warn: 'warn',
-			// eslint-disable-next-line sort-keys
-			notice: 'warn',
-			// eslint-disable-next-line sort-keys
-			error: 'error',
-			// eslint-disable-next-line sort-keys
-			critical: 'error',
-			fatal: 'error',
+export async function createLogger() {
+	const options: pino.LoggerOptions = {
+		base: { pid: process.pid },
+		formatters: {
+			level: label => ({ level: label }),
+		// log: obj => obj, // ? can reshape
 		},
-		transports: [console.transport],
-	}) as CustomLogger;
+		hooks: { /* streamWrite: s => s, // ? can be used for pattern redaction */ },
+		level: 'trace', // ? start at the highest
+		// redact: [], // ? path redaction
+	};
+
+	const prettify = pino.transport({
+		targets: [
+			{
+				options: {
+					ignore: 'caller,pid,hostname',
+					sync: false,
+				},
+				target: await Bun.resolve('./pretty', import.meta.dir),
+			},
+		],
+	});
+
+
+	const logWithoutCaller = pino(options, process.env.DISABLE_PRETTY_PRINT !== 'true' && prettify);
+	const log = caller(
+		logWithoutCaller,
+		{ relativeTo: dirname(Bun.main) },
+	);
+
+	return {
+		log,
+		logWithoutCaller,
+	};
 }
 
-export {
-	console,
-	http,
-	proxy,
-	createScopedLogger,
-};
+export type Logger = pino.Logger;

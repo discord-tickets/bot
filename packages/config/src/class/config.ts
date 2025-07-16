@@ -1,5 +1,4 @@
-import debug from './debug';
-import EventEmitter from 'node:events';
+import type { Logger } from '@discord-tickets/logger';
 import { z } from 'zod/v4';
 import { resolve } from 'node:path';
 import { parse } from 'smol-toml';
@@ -9,22 +8,22 @@ import {
 	MAX_DEPTH,
 	type DeepKeys,
 	type GetValueType,
-} from './types';
+} from '../deepkeys';
 
-
-export default class Config<S extends z.ZodType> extends EventEmitter {
+export class Config<S extends z.ZodType> {
 	controller: AbortController | null = null;
+	log: Logger;
 	path: string;
 	schema: S;
 	store: Map<DeepKeys<z.infer<S>>, GetValueType<z.infer<S>, DeepKeys<z.infer<S>>>> = new Map();
 	watched: Map<DeepKeys<z.infer<S>>, unknown[]> = new Map();
 	watchers: Map<unknown, (DeepKeys<z.infer<S>>)[]> = new Map();
 
-	constructor(path: string, schema: S) {
-		super();
+	constructor(log: Logger, path: string, schema: S) {
 		this.path = resolve(path);
 		this.schema = schema;
-		debug('absolute_path=%s', this.path);
+		this.log = log;
+		this.log.debug({ file: this.path }, 'config constructed');
 	}
 
 	get<K extends DeepKeys<z.infer<S>>>(key: K): GetValueType<z.infer<S>, K> {
@@ -36,20 +35,21 @@ export default class Config<S extends z.ZodType> extends EventEmitter {
 	}
 
 	async #watch() {
-		debug('watching %s', this.path);
+		this.log.debug('started watching file');
 		this.controller = new AbortController();
 		const { signal } = this.controller;
 		try {
 			const watcher = watch(this.path, { signal });
 			for await (const _event of watcher) {
+				this.log.debug('file updated');
 				this.load();
 			}
-		} catch (error) {
+		} catch (err) {
 			this.controller = null;
-			// @ts-expect-error stfu
-			if (error?.name !== 'AbortError') {
-				throw error;
+			if ((<Error>err).name !== 'AbortError') {
+				this.log.fatal({ err }, 'stopped watching file');
 			}
+			this.log.warn('watcher aborted');
 		}
 	}
 
@@ -68,7 +68,7 @@ export default class Config<S extends z.ZodType> extends EventEmitter {
 				this.watched.get(key)?.push(callback);
 			}
 		}
-		debug('watched=', this.watched.keys());
+		this.log.debug({ watching: this.watched.keys().toArray() }, 'watching keys');
 	}
 
 	*#flatten(
@@ -95,6 +95,7 @@ export default class Config<S extends z.ZodType> extends EventEmitter {
 		}
 	}
 
+	// this wrapper is to stop TS complaining
 	flatten(object: z.infer<S>) {
 		return this.#flatten(object);
 	}
@@ -104,21 +105,28 @@ export default class Config<S extends z.ZodType> extends EventEmitter {
 		try {
 			// import() can load TOML but querystring cache busting doesn't work
 			data = parse(await Bun.file(this.path).text());
-		} catch (error) {
-			this.throw(new Error('Failed to parse config file', { cause: error }));
+		} catch (err) {
+			this.log.fatal({ err }, 'Failed to parse config file');
 			return;
 		}
 		try {
 			validated = this.schema.parse(data);
-		} catch (error) {
-			this.throw(new Error('Failed to validate config file', { cause: error }));
+		} catch (err) {
+			this.log.fatal({ err }, 'Failed to validate config file');
 			return;
 		}
 		const flat = new Map(this.flatten(validated)) as Map<DeepKeys<z.infer<S>>, GetValueType<z.infer<S>, DeepKeys<z.infer<S>>>>;
 		for (const key of this.watched.keys()) {
-			if (!isDeepStrictEqual(this.store.get(key), flat.get(key))) {
+			const from = this.store.get(key);
+			const to = flat.get(key);
+			if (!isDeepStrictEqual(from, to)) {
+				this.log.info({
+					from,
+					to,
+				}, 'watched key %s updated', key);
 				for (const watcher of this.watched.get(key)!) {
 					const values = this.watchers.get(watcher)?.map(k => flat.get(k));
+					this.log.trace({ values }, 'calling watcher for key %s', key);
 					// @ts-expect-error: watcher is a function
 					watcher(...values);
 				}
@@ -126,20 +134,4 @@ export default class Config<S extends z.ZodType> extends EventEmitter {
 		}
 		this.store = flat;
 	}
-
-	throw(error: unknown) {
-		if (this.listenerCount('critical') === 0) {
-			// surface the error if it occurs before the logger is ready
-			throw error;
-		} else {
-			// Don't crash the process; either subsequent .get() calls will throw,
-			// or existing values can continue to be used.
-			// This makes watching for changes safe.
-			// Naming the event `error` makes Bun panic but `critical`
-			// is also appropriate as other errors are likely to follow (if this is the first load)
-			debug('emit:critical');
-			this.emit('critical', error);
-		}
-	}
-
 }

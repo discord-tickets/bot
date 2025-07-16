@@ -1,47 +1,21 @@
-// import type { BunRequest } from 'bun';
-import type { Logger } from 'leekslazylogger';
+import type { Logger } from '@discord-tickets/logger';
+import { service } from '@discord-tickets/service';
 import { randomBytes } from 'node:crypto';
 
 export type DecoratedRequest = Request & {
-	$logger: {
-		id: string;
-		ip?: string;
-		start: number;
-	}
+	id: string;
+	log: Logger;
 }
 
 export const nodeId = process.env.NODE_ID || randomBytes(2).toString('hex');
 
 export let counter = 0;
 
-export function decorateRequest(server: Bun.Server | undefined, req: Request): DecoratedRequest {
+export function decorateRequest(log: Logger, req: Request): DecoratedRequest {
 	const decorated = req as DecoratedRequest;
-	decorated.$logger = {
-		id: `req-${nodeId}-${(counter++).toString(36)}`,
-		ip: resolveIP(server, req),
-		start: performance.now(),
-	};
+	decorated.id = `req-${nodeId}-${(counter++).toString(36)}`;
+	decorated.log = log.child({ req }) as DecoratedRequest['log'];
 	return decorated;
-}
-
-export function getDurationColour(duration: number) {
-	if (duration < 100) return '&a'; // light green = fast
-	if (duration < 500) return '&e'; // light yellow = slightly slow
-	if (duration < 1000) return '&c'; // light red = slow
-	return '&4'; // dark red = very slow
-}
-
-export function getStatusColour(status: number) {
-	switch ((status / 100) | 0) {
-	case 5: // red = error
-		return '&4';
-	case 4: // yellow = warning
-		return '&6';
-	case 3: // cyan = redirect
-		return '&3';
-	case 2: // green = success
-		return '&2';
-	}
 }
 
 export function resolveIP(server: Bun.Server | undefined, req: Request) {
@@ -51,45 +25,29 @@ export function resolveIP(server: Bun.Server | undefined, req: Request) {
 			server?.requestIP?.(req)?.address;
 }
 
-export class HTTPLogger {
-	public log: Logger;
-
-	constructor(logger: Logger) {
-		this.log = logger;
-	}
-
-	logError(err: unknown, req: DecoratedRequest) {
-		this.log.error.http?.({
-			error: err,
-			id: req.$logger.id,
-		});
-	}
-
-	logRequest(req: DecoratedRequest) {
-		this.log.info.http?.(`${req.$logger.id} &7${req.$logger.ip ?? '?'}&b &m-->&r&b ${req.method} ${new URL(req.url).pathname}`);
-		this.log.verbose.http?.(req.$logger.id, Object.fromEntries(req.headers));
-	}
-
-	logResponse(req: DecoratedRequest, res: Response) {
-		const duration = performance.now() - req.$logger.start;
-		this.log.info.http?.(`${req.$logger.id} ${getStatusColour(res.status)}${res.status}&b &m<--&r ${getDurationColour(duration)}${Math.round(duration)}ms`);
-	}
-}
-
-export function handleWithLogs(logger: Logger, handler: (req: Request) => Promise<Response>) {
-	const httpLogger = new HTTPLogger(logger);
+export function handleWithLogs(handler: (req: Request) => Promise<Response>) {
+	const log = service.logWithName('http');
 	return async (req: Request, server?: Bun.Server): Promise<Response> => {
-		const decorated = decorateRequest(server, req);
-		httpLogger.logRequest(decorated);
-		let res;
+		const start = performance.now();
+		const decorated = decorateRequest(log, req);
+		decorated.log.info({
+			ip: resolveIP(server, req),
+			method: req.method,
+			path: new URL(req.url).pathname,
+		}, 'request');
+		let res: Response;
 		try {
 			res = await handler.call(server, decorated);
-			httpLogger.logResponse(decorated, res);
+			const duration = Math.round(performance.now() - start);
+			decorated.log.info({
+				duration,
+				status: res.status,
+			}, 'response');
 			return res;
-		} catch (error) {
-			httpLogger.logError(error, decorated);
+		} catch (err) {
+			decorated.log.error({ err });
 			// ! rethrow error after logging for the server to handle (the response WON'T be logged)
-			throw error;
+			throw err;
 		}
 	};
 }

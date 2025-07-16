@@ -2,8 +2,11 @@
 	"name": "@discord-tickets/logger",
 	"version": "0.0.1",
 	"type": "module",
-	"main": "src/",
 	"private": true,
+	"exports": {
+		".": "./src/index.ts",
+		"./http": "./src/http.ts"
+	},
 	"devDependencies": {
 		"@types/bun": "catalog:"
 	},
@@ -11,8 +14,9 @@
 		"typescript": "catalog:"
 	},
 	"dependencies": {
-		"@discord-tickets/config": "workspace:*",
 		"leeks.js": "^0.3.0",
-		"leekslazylogger": "^6.0.0"
+		"pino": "^9.7.0",
+		"pino-caller": "^4.0.0",
+		"pino-pretty": "^13.0.0"
 	}
 }

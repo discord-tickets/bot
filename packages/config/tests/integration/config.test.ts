@@ -1,9 +1,12 @@
+/* eslint-disable sort-keys */
+
 import {
 	afterAll,
 	beforeAll,
 	describe,
 	expect,
 	test,
+	mock,
 } from 'bun:test';
 import {
 	mkdtemp,
@@ -12,7 +15,20 @@ import {
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import schema from '../fixtures/schema';
-import Config from '../../src/config';
+import { Config } from '../../src/class/config';
+import type { Logger } from '@discord-tickets/logger';
+
+const silent = mock((..._args: unknown[]) => null);
+const log = {
+	level: 'trace',
+	silent,
+	trace: silent,
+	debug: silent,
+	info: silent,
+	warn: silent,
+	error: silent,
+	fatal: silent,
+} as unknown as Logger;
 
 const s = await Bun.resolve('../fixtures/sample.toml', import.meta.dir);
 
@@ -25,7 +41,7 @@ describe('integration: Config', () => {
 		dir = await mkdtemp(join(tmpdir(), 'test-'));
 		f = join(dir, 'sample.toml');
 		await Bun.write(f, Bun.file(s));
-		config = new Config(f, schema);
+		config = new Config(log, f, schema);
 		await config.load();
 	});
 

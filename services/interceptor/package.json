@@ -16,7 +16,6 @@
 	},
 	"dependencies": {
 		"@discord-tickets/logger": "workspace:*",
-		"@discordeno/rest": "catalog:",
-		"got": "^14.4.7"
+		"@discordeno/rest": "catalog:"
 	}
 }

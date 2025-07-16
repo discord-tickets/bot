@@ -1,18 +1,14 @@
 {
-	"name": "@discord-tickets/config",
+	"name": "@discord-tickets/package-template",
 	"version": "0.0.1",
 	"type": "module",
 	"main": "src/",
 	"private": true,
 	"devDependencies": {
-		"@discord-tickets/logger": "workspace:*",
 		"@types/bun": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "catalog:"
 	},
-	"dependencies": {
-		"smol-toml": "^1.4.1",
-		"zod": "catalog:"
-	}
+	"dependencies": {}
 }

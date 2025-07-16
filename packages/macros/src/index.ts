@@ -1,1 +1,1 @@
-export * from './aio';
+export function $$() {}

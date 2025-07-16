@@ -1,17 +1,14 @@
 import { z } from 'zod/v4';
 
-export default z.object({
+export const schema = z.object({
 	// interceptor: z.object({ discord_api_version: z.string().regex(/^v/) }),
-	interceptor: z.object({ discord_api_version: z.int() }),
+	interceptor: z.object({ discord_api_version: z.int().gte(10) }),
 	log_level: z.enum([
+		'trace',
 		'debug',
-		'verbose',
 		'info',
-		'success',
 		'warn',
-		'notice',
 		'error',
-		'critical',
 		'fatal',
 	]),
 });

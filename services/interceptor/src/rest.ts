@@ -1,15 +1,18 @@
 import {
+	config,
+	service,
+} from '@discord-tickets/service';
+import {
 	createRestManager,
 	type ApiVersions,
 	type RestManager,
 } from '@discordeno/rest';
-import { createScopedLogger } from '@discord-tickets/logger';
-import config from '@discord-tickets/config';
-import log from './logger';
+
+const logger = service.logWithName('rest');
 
 // TODO: REQUIRE AUTH!
 export const REST = createRestManager({
-	logger: createScopedLogger(log, 'discordeno/rest'),
+	logger,
 	token: process.env.TOKEN,
 	version: config.get('interceptor.discord_api_version') as ApiVersions,
 });
@@ -17,7 +20,7 @@ export const REST = createRestManager({
 const managers: Map<string, RestManager> = new Map();
 
 config.watch(['interceptor.discord_api_version'], version => {
-	log.info.config('interceptor.discord_api_version=%s', version);
+	logger.trace('discord_api_version=%d', version);
 	for (const [, man] of managers) {
 		man.version = version as ApiVersions;
 	}
