@@ -13,8 +13,8 @@ export let counter = 0;
 
 export function decorateRequest(log: Logger, req: Request): DecoratedRequest {
 	const decorated = req as DecoratedRequest;
-	decorated.id = `req-${nodeId}-${(counter++).toString(36)}`;
-	decorated.log = log.child({ req }) as DecoratedRequest['log'];
+	decorated.id =  `req-${nodeId}-${(counter++).toString(36)}`;;
+	decorated.log = log.child({ 'req-id': decorated.id }) as DecoratedRequest['log'];
 	return decorated;
 }
 
@@ -45,8 +45,13 @@ export function handleWithLogs(handler: (req: Request) => Promise<Response>) {
 			}, 'response');
 			return res;
 		} catch (err) {
-			decorated.log.error({ err });
-			// ! rethrow error after logging for the server to handle (the response WON'T be logged)
+			const duration = Math.round(performance.now() - start);
+			decorated.log.error({
+				duration,
+				err,
+				status: 500,
+			}, 'error');
+			// ! rethrow error after logging for the server to handle
 			throw err;
 		}
 	};
