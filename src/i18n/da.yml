@@ -13,10 +13,10 @@ buttons:
     text: Afslut
   confirm_open:
     emoji: ✅
-    text: Lav ticket
+    text: Lav sag
   create:
     emoji: 🎫
-    text: Lav en ticket
+    text: Lav en sag
   edit:
     emoji: ✏️
     text: redigere
@@ -32,7 +32,7 @@ buttons:
 commands:
   message:
     create:
-      name: Lav en ticket fra besked
+      name: Lav en sag fra besked
     pin:
       name: Fastgør besked
       not_pinnable:
