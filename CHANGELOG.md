@@ -1,3 +1,30 @@
+## [4.0.45](https://github.com/discord-tickets/bot/compare/v4.0.44...v4.0.45) (2025-07-24)
+
+
+### Bug Fixes
+
+* enable stale handling when public ([48fa871](https://github.com/discord-tickets/bot/commit/48fa8713a8c39d9825dbca7702d640dee048f03e))
+* **i18n:** Danish translations ([ed02f8b](https://github.com/discord-tickets/bot/commit/ed02f8baa4d146cdac2a836a5389457db9b91cd7))
+* log when sentry is enabled ([1809815](https://github.com/discord-tickets/bot/commit/1809815de88dd26287185765ff9dffa7d51bc3c7))
+
+
+### Features
+
+* `CPU_LIMIT` env ([271efd9](https://github.com/discord-tickets/bot/commit/271efd933b92b9e4cb7b37029a98d6df1fa25c7e))
+* add avgRating to default config ([08516d1](https://github.com/discord-tickets/bot/commit/08516d1bab6d6af5b21752d01e5738cab93ed239))
+* average rating stat ([651251d](https://github.com/discord-tickets/bot/commit/651251de37ecc5d70d55b840424c318703bbc1e1))
+* **i18n:** update Danish translations ([3068ae8](https://github.com/discord-tickets/bot/commit/3068ae8a37a247693d42175d55d4163ae2a4b3f3))
+* **i18n:** update Danish translations ([526518f](https://github.com/discord-tickets/bot/commit/526518fc147517b98d814ad9ecb0c76c9bd9a8f5))
+* **i18n:** update German translations ([b950c81](https://github.com/discord-tickets/bot/commit/b950c81eee4a950459a5792354dcd99e65b2ce6b))
+* **i18n:** update Russian translations ([ffa7d08](https://github.com/discord-tickets/bot/commit/ffa7d083bcdaba4cc3a11159ddb829e157c622d7))
+
+
+### Performance Improvements
+
+* export handling and add sentry ([#638](https://github.com/discord-tickets/bot/issues/638)) ([50a9ea6](https://github.com/discord-tickets/bot/commit/50a9ea61a982b2bf52123215e89cb954884d3f84))
+
+
+
 ## [4.0.44](https://github.com/discord-tickets/bot/compare/v4.0.43...v4.0.44) (2025-07-04)
 
 
