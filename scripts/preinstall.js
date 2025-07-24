@@ -13,6 +13,7 @@ if (process.env.CI) {
 }
 
 const env = {
+	CPU_LIMIT: '',
 	DB_CONNECTION_URL: '',
 	DB_PROVIDER: '', // don't default to sqlite, postinstall checks if empty
 	DISABLE_ENCRYPTION: false,

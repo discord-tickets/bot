@@ -30,7 +30,7 @@ async function quickPool(num, name, fun, options) {
  * @param {import('threads/dist/master/pool').PoolOptions} options
  */
 function reusablePool(num, name, options) {
-	const size = num < 1 ? Math.ceil(num * cpus().length) : num;
+	const size = num < 1 ? Math.ceil(num * (parseInt(process.env.CPU_LIMIT) || cpus().length)) : num;
 	const pool = Pool(() => spawn(new Worker(`./workers/${name}.js`)), {
 		...options,
 		size,
