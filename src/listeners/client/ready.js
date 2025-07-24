@@ -115,13 +115,13 @@ module.exports = class extends Listener {
 			setInterval(() => checkForUpdates(client), ms('1w'));
 		}
 
-		if (process.env.PUBLIC_BOT === 'true') {
+		/* if (process.env.PUBLIC_BOT === 'true') {
 			client.log.notice('Inactivity warnings and auto-close features are disabled');
 			client.log.warn('Unset PUBLIC_BOT to re-enable stale ticket handling');
-		} else {
-			// send inactivity warnings and close stale tickets
-			const staleInterval = ms('15m');
-			setInterval(() => handleStaleTickets(client, staleInterval), staleInterval);
-		}
+		} else { */
+		// send inactivity warnings and close stale tickets
+		const staleInterval = ms('15m');
+		setInterval(() => handleStaleTickets(client, staleInterval), staleInterval);
+		/* } */
 	}
 };
