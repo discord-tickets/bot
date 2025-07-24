@@ -36,7 +36,8 @@ commands:
     pin:
       name: Fastgør besked
       not_pinnable:
-        description: "Denne besked kan ikke fastgøres\nBed venligst en administrator
+        description:
+          "Denne besked kan ikke fastgøres\nBed venligst en administrator
           om at kontrollere bottens tilladelser\n"
         title: ❌ Fejl
       not_ticket:
@@ -49,53 +50,54 @@ commands:
     add:
       added: ➡️ {added} er blevet tilføjet af {by}.
       description: Tilføj et medlem til en sag
-      name: Tilføj
+      name: tilføj
       not_staff:
         description: Kun Staff medlemmer kan tilføje medlemer til andres sager.
         title: ❌ Fejl
       options:
         member:
           description: Medlemmet der skal tilføjes til sagen
-          name: Medlem
+          name: medlem
         ticket:
           description: sagen medlemmet skal tilføjes til
-          name: Sag
+          name: sag
       success:
-        description: '{member} er blevet tilføjet til {ticket}.'
+        description: "{member} er blevet tilføjet til {ticket}."
         title: ✅ Tilføjet
     claim:
       description: Påtag en sag
-      name: Påtag
+      name: påtag
       not_staff:
         description: Kun staff medlemer kan påtage sager.
         title: ❌ Fejl
     close:
       description: Anmod om at få sagen lukket
       invalid_time:
-        description: '`{input}` er ikke et gyldig tidsformat.'
+        description: "`{input}` er ikke et gyldig tidsformat."
         title: ❌ Ugyldig
-      name: Luk
+      name: luk
       options:
         reason:
           description: Grunden til at sagen er blevet lukket
-          name: Grund
+          name: grund
     force-close:
       closed_one:
         description: Kanalen bliver fjernet om få sekunder.
         title: ✅ Sagen er lukket
       confirm_multiple:
-        description: "Du er igang med at lukke **{count}** sager der har vært inaktive
+        description:
+          "Du er igang med at lukke **{count}** sager der har vært inaktive
           i mere end `{time}`:\n{tickets}\n"
         title: ❓ er du sikker?
       confirmed_multiple:
         description: Kanalerne bliver fjernet om få sekunder.
         title:
-        - ✅ lukker %d sag
-        - ✅ lukker%d sager
+          - ✅ lukker %d sag
+          - ✅ lukker%d sager
       description: Tvangsluk en sag
-      name: Tvangsluk
+      name: tvangsluk
       no_tickets:
-        description: der er igen opene sager der har vært inaktive in mere end 
+        description: der er igen opene sager der har vært inaktive in mere end
           `{time}`.
         title: ❌ Ingen sager
       not_staff:
@@ -103,24 +105,24 @@ commands:
         title: ❌ Fejl
       options:
         category:
-          description: Luk alle sager i den specifikke kategori(skal bruges med 
+          description: Luk alle sager i den specifikke kategori(skal bruges med
             `tid`)
-          name: Kategori
+          name: kategori
         reason:
           description: Grunden til at lukke sagerne
-          name: Grund
+          name: grund
         ticket:
           description: Sagerne til at lukke
-          name: Sag
+          name: sag
         time:
           description: Luk alle sager, der har været inaktive i den angivne tid
-          name: Tid
+          name: tid
     help:
       description: Vis hjælpemenuen
-      name: Hjælp
+      name: hjælp
       response:
         commands: Kommandoer
-        description: '**brug{command} for at oprette en sag og få support..**'
+        description: "**brug{command} for at oprette en sag og få support..**"
         links:
           commands: Fuld kommandoliste
           docs: Dokumentation
@@ -132,7 +134,7 @@ commands:
     move:
       description: Flyt en sag til en anden kategori
       moved: 🗃️ {by} har flyttet sagen fra **{from}** til **{to}**.
-      name: Flyt
+      name: flyt
       not_staff:
         description: Kun staff medlemer kan flytte sager.
         title: ❌ Fejl
@@ -169,20 +171,20 @@ commands:
       name: frigiv
     remove:
       description: Fjern et medlem fra sagen
-      name: Fjern
+      name: fjern
       not_staff:
         description: Kun staff medlemer kan fjerne medlemer fra andres sager.
         title: ❌ Fejl
       options:
         member:
           description: Medlemet der skal fjernes fra sagen
-          name: Medlemer
+          name: medlemer
         ticket:
           description: Sagen medlemet skal fjerne fra
-          name: Sag
+          name: sag
       removed: ⬅️ {removed} er blevet fjernet af {by}.
       success:
-        description: '{member} er blevet fjernet fra {ticket}.'
+        description: "{member} er blevet fjernet fra {ticket}."
         title: ✅ Fjernet
     rename:
       description: Omdøb en sags kanal
@@ -190,16 +192,16 @@ commands:
       invalid:
         description: Navnet skal være mellem 1 og 100 tegn langt.
         title: Ugyldig navn
-      name: Omdøb
+      name: omdøb
       not_staff:
         description: Kun staff medlemer kan omdøbe sager.
         title: ❌ Fejl
       options:
         name:
           description: Det nye navn til sags kanalen.
-          name: Navn
+          name: navn
       ratelimited:
-        description: Du har allerede omdøbt denne kanal to gange inden for de 
+        description: Du har allerede omdøbt denne kanal to gange inden for de
           sidste 10 minutter. Vent venligst før du prøver igen.
         title: Satsgrænse nået
       success:
@@ -224,14 +226,14 @@ commands:
       options:
         member:
           description: Medlemmet som listen af sagerne for
-          name: Medlemer
+          name: medlemer
       response:
         description: Brug {transcript} til at downloade genparten af en sag.
         fields:
           closed:
             name: Lukket sager
             none:
-              other: '{user} har ikke lavet nogle sager.'
+              other: "{user} har ikke lavet nogle sager."
               own: "du har ikke lavet nogle sager.\nbrug{new} til at åbne en sag.\n"
           open:
             name: åben sager
@@ -240,10 +242,10 @@ commands:
           own: Dine sager
     topic:
       description: Skift emnet af en sag
-      name: Emne
+      name: emne
     transcript:
       description: Få genparten af en sag
-      name: Genpart
+      name: genpart
       not_staff:
         description: Kun staff medlemer kan læse genparter af andres sager.
         title: ❌ Fejl
@@ -253,14 +255,14 @@ commands:
           name: medlem
         ticket:
           description: Sagen til at få genparten af
-          name: Sag
+          name: sag
     transfer:
       description: Overfør ejerskabet af en sag til et andet medlem
-      name: Overfør
+      name: overfør
       options:
         member:
           description: Det medlem, som ejerskabet skal overføres til
-          name: Medlem
+          name: medlem
       transferred: 📨 {user} har overført sagen til {to}.
       transferred_from: 📨 {user} har overført sagen fra {from} til {to}.
   user:
@@ -273,7 +275,7 @@ commands:
         description: Klik på knappen nedenfor for at oprette en sag.
         title: Lav venligst en sag
       sent:
-        description: '{user} er blevet tilføjet til at oprette en sag i **{category}**.'
+        description: "{user} er blevet tilføjet til at oprette en sag i **{category}**."
         title: ✅ Meddelelse sendt
 dm:
   closed:
@@ -295,7 +297,7 @@ log:
   admin:
     changes: Ændringer
     description:
-      joined: '{user} {verb} {targetType}'
+      joined: "{user} {verb} {targetType}"
       target:
         category: en kategori
         panel: et panel
@@ -303,7 +305,7 @@ log:
         settings: indstillingerne
         tag: et tag
     title:
-      joined: '{targetType} {verb}'
+      joined: "{targetType} {verb}"
       target:
         category: Kategori
         panel: Panel
@@ -315,7 +317,7 @@ log:
       delete: slettet
       update: opdateret
   message:
-    description: '{user} {verb} en besked'
+    description: "{user} {verb} en besked"
     message: Besked
     title: Besked{verb}
     verb:
@@ -323,7 +325,7 @@ log:
       update: opdateret
   ticket:
     added: Tilføjede medlemmer
-    description: '{verb}{user}en sag'
+    description: "{verb}{user}en sag"
     removed: Fjernede medlemmer
     ticket: Sag
     title: Sag{verb}
@@ -346,11 +348,12 @@ misc:
     description: "Kategorien har nået sin maksimale kapacitet.\nPrøv igen senere.\n"
     title: ❌ Fuld kategori
   cooldown:
-    description: Vent venligst {time}, før du opretter en ny sag i denne 
+    description: Vent venligst {time}, før du opretter en ny sag i denne
       kategori.
     title: ❌ Vent venligst
   error:
-    description: "Beklager, der opstod en uventet fejl.\nGiv venligst disse oplysninger
+    description:
+      "Beklager, der opstod en uventet fejl.\nGiv venligst disse oplysninger
       til en administrator.\n"
     fields:
       identifier: Identifikator
@@ -364,25 +367,26 @@ misc:
     title: ❌ Ugyldig sag
   member_limit:
     description:
-    - Brug venligst din eksisterende sag, eller luk den, før du opretter en ny.
-    - "Luk venligst en sag, før du opretter en ny.\nBrug `/tickets` for at se dine
-      eksisterende sager\n"
+      - Brug venligst din eksisterende sag, eller luk den, før du opretter en ny.
+      - "Luk venligst en sag, før du opretter en ny.\nBrug `/tickets` for at se dine
+        eksisterende sager\n"
     title:
-    - ❌ Du har allerede en sag
-    - ❌ Du har allerede %d åbne sager
+      - ❌ Du har allerede en sag
+      - ❌ Du har allerede %d åbne sager
   missing_roles:
     description: Du har ikke de roller, der kræves for at kunne oprette en sag i
       denne kategori.
     title: ❌ Utilstrækkelige roller
   no_categories:
-    description: "Ingen sags kategorier er blevet konfigureret.\nKonfigurer din server
+    description:
+      "Ingen sags kategorier er blevet konfigureret.\nKonfigurer din server
       på {url}."
     title: ❌ Der er ingen billetkategorier
   not_ticket:
     description: Du kan kun bruge denne kommando i tickets.
     title: ❌ Dette er ikke en sags kanal
   permissions_error:
-    description: Beklager, men handlingen mislykkedes på grund af 
+    description: Beklager, men handlingen mislykkedes på grund af
       utilstrækkelige tilladelser.
     fields:
       for_admins:
@@ -393,12 +397,13 @@ misc:
     description: Prøv igen om et par sekunder.
     title: 🐢 Sæt venligst farten ned
   role_error:
-    description: Beklager, men handlingen mislykkedes på grund af en ugyldig 
+    description: Beklager, men handlingen mislykkedes på grund af en ugyldig
       konfiguration.
     fields:
       for_admins:
         name: Til serveradministratorer
-        value: "Der blev angivet en ugyldig bruger eller rolle, hvilket normalt betyder,
+        value:
+          "Der blev angivet en ugyldig bruger eller rolle, hvilket normalt betyder,
           at en staff rolle er blevet slettet. [Klik her]({url}) for at få instruktioner
           til løsningen.\n"
     title: ⚠️ Noget gik galt
@@ -406,7 +411,8 @@ misc:
     description: Prøv venligst en anden kategori.
     title: ❌ Den sags kategori findes ikke
   update:
-    description: "> [Vis `{version}` på GitHub]({github})\n> [Changelog]({changelog})\n\
+    description:
+      "> [Vis `{version}` på GitHub]({github})\n> [Changelog]({changelog})\n\
       > [Opdateringsvejledning]({guide})\n"
     title: En opdatering er tilgængelig
 modals:
@@ -423,7 +429,7 @@ modals:
     placeholder: Hvad handler denne sag om?
 ticket:
   answers:
-    no_value: '*Intet svar*'
+    no_value: "*Intet svar*"
   claimed: 🙌 {user} har gjort krav på denne sag.
   close:
     closed:
@@ -435,7 +441,8 @@ ticket:
     rejected: ✋ {user} afviste anmodningen om at lukke denne sag.
     staff_request:
       archived: "\nBeskederne i denne kanal vil blive arkiveret til senere brug.\n"
-      description: "{requestedBy} ønsker at lukke denne sag.\nKlik på \"Accepter\"\
+      description:
+        "{requestedBy} ønsker at lukke denne sag.\nKlik på \"Accepter\"\
         \ for at lukke den nu, eller \"Afvis\", hvis du stadig har brug for hjælp.\n"
       title: ❓ Kan denne sag lukkes?
     user_request:
@@ -443,22 +450,24 @@ ticket:
     wait_for_staff: ✋ Vent venligst på, at staff lukker sagen.
     wait_for_user: ✋ Vent venligst på, at brugeren svarer.
   closing_soon:
-    description: "Denne sag vil blive lukket på grund af inaktivitet <t:{timestamp}:R>.\n\
+    description:
+      "Denne sag vil blive lukket på grund af inaktivitet <t:{timestamp}:R>.\n\
       Send en besked for at annullere denne automatisering.\n"
     title: ⌛ Denne sag lukkes snart
   created:
-    description: 'Din sags kanal er blevet oprettet: {channel}.'
+    description: "Din sags kanal er blevet oprettet: {channel}."
     title: ✅ sag oprettet
   edited:
     description: Dine ændringer er blevet gemt.
     title: ✅ sag opdateret
   feedback: Tak for din feedback.
   inactive:
-    description: "Der har ikke været nogen aktivitet på denne kanal siden <t:{timestamp}:R>.\n\
+    description:
+      "Der har ikke været nogen aktivitet på denne kanal siden <t:{timestamp}:R>.\n\
       Fortsæt venligst samtalen eller{close} sagen.\n"
     title: ⏰ Denne sag er inaktiv
   offline:
-    description: Der er ingen staff medlemer tilgængelige i øjeblikket, så det 
+    description: Der er ingen staff medlemer tilgængelige i øjeblikket, så det
       kan tage længere tid end normalt at få et svar.
     title: 😴 Vi er ikke online
   opening_message:
@@ -469,7 +478,7 @@ ticket:
     description: Referencer [en besked]({url}) sendt {timestamp} af {author}.
     title: ℹ️ Reference
   references_ticket:
-    description: 'Denne sag er relateret til en tidligere sag:'
+    description: "Denne sag er relateret til en tidligere sag:"
     fields:
       date: Oprettet kl
       number: Antal
@@ -478,10 +487,10 @@ ticket:
   released: ♻️ {user} har frigivet denne billet.
   working_hours:
     next:
-      description: Vi vender tilbage kl. <t:{timestamp}:F> (<t:{timestamp}:R>), 
+      description: Vi vender tilbage kl. <t:{timestamp}:F> (<t:{timestamp}:R>),
         men du modtager muligvis et svar inden da.
       title: 🕗 Vi arbejder ikke lige nu
     today:
-      description: Du modtager muligvis et svar inden da, men vi begynder først 
+      description: Du modtager muligvis et svar inden da, men vi begynder først
         at arbejde<t:{timestamp}:t> idag(<t:{timestamp}:R>).
       title: 🕗 Vi arbejder ikke lige nu
