@@ -1,3 +1,17 @@
+## [4.0.46](https://github.com/discord-tickets/bot/compare/v4.0.45...v4.0.46) (2025-07-25)
+
+
+### Bug Fixes
+
+* staff offline message not displaying (fixes [#641](https://github.com/discord-tickets/bot/issues/641)) ([#642](https://github.com/discord-tickets/bot/issues/642)) ([cb22a92](https://github.com/discord-tickets/bot/commit/cb22a9271c8e31da29de7237cf1b64158ad1eb74))
+
+
+### Reverts
+
+* Revert "fix: enable stale handling when public" ([416201b](https://github.com/discord-tickets/bot/commit/416201b72426eeabecb4b7aec77e285f148e3c0f))
+
+
+
 ## [4.0.45](https://github.com/discord-tickets/bot/compare/v4.0.44...v4.0.45) (2025-07-24)
 
 
