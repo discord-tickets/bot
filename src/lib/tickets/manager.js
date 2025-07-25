@@ -791,6 +791,7 @@ module.exports = class TicketManager {
 			if (working && process.env.PUBLIC_BOT !== 'true') {
 				let online = 0;
 				for (const [, member] of channel.members) {
+					if (member.user.bot) continue;
 					if (!await isStaff(channel.guild, member.id)) continue;
 					if (member.presence && member.presence !== 'offline') online++;
 				}

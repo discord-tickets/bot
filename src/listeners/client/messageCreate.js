@@ -235,10 +235,11 @@ module.exports = class extends Listener {
 					const key = `offline/${message.channel.id}`;
 					let online = 0;
 					for (const [, member] of message.channel.members) {
+						if (member.user.bot) continue;
 						if (!await isStaff(message.channel.guild, member.id)) continue;
 						if (member.presence && member.presence !== 'offline') online++;
 					}
-					if (online === 0 && !client.keyv.has(key)) {
+					if (online === 0 && ! await client.keyv.has(key)) {
 						await message.channel.send({
 							embeds: [
 								new EmbedBuilder()
