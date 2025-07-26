@@ -85,7 +85,7 @@ module.exports = class TicketManager {
 	async getTicket(ticketId, force) {
 		const cacheKey = `cache/ticket+category+feedback+guild:${ticketId}`;
 		/** @type {TicketCategoryFeedbackGuild} */
-		let ticket = await this.client.keyv.get(cacheKey);
+		let ticket = deserializeBigInt(await this.client.keyv.get(cacheKey));
 		if (!ticket || force) {
 			ticket = await this.client.prisma.ticket.findUnique({
 				include: {
@@ -95,7 +95,7 @@ module.exports = class TicketManager {
 				},
 				where: { id: ticketId },
 			});
-			await this.client.keyv.set(cacheKey, ticket, ms('3m'));
+			await this.client.keyv.set(cacheKey, serializeBigInt(ticket), ms('3m'));
 		}
 		return ticket;
 	}
@@ -828,7 +828,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
@@ -937,7 +937,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
@@ -1094,7 +1094,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
@@ -1151,7 +1151,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
@@ -1227,7 +1227,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
@@ -1258,7 +1258,7 @@ module.exports = class TicketManager {
 		if (!ticket || !ticket.guild) {
 			return await interaction.reply({
 				content: '❌ Could not find ticket or guild information.',
-				ephemeral: true,
+				flags: [4096],
 			});
 		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
