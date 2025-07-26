@@ -1,3 +1,4 @@
+const { serializeBigInt } = require('../../../../../lib/bigint-serializer');
 const { logAdminEvent } = require('../../../../../lib/logging.js');
 const { Colors } = require('discord.js');
 
@@ -9,7 +10,7 @@ module.exports.get = fastify => ({
 		const settings = await client.prisma.guild.findUnique({ where: { id } }) ??
 			await client.prisma.guild.create({ data: { id } });
 
-		return settings;
+		return serializeBigInt(settings);
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
 });
@@ -56,7 +57,7 @@ module.exports.patch = fastify => ({
 			},
 			userId: req.user.id,
 		});
-		return settings;
+		return serializeBigInt(settings);
 	},
 	onRequest: [fastify.authenticate, fastify.isAdmin],
 });
