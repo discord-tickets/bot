@@ -40,16 +40,23 @@ module.exports = class extends Listener {
 
 		if (ticket.guild.archive) {
 			try {
-				await client.prisma.archivedMessage.update({
-					data: { deleted: true },
+				// Check if archived message exists before attempting to update
+				const existingArchivedMessage = await client.prisma.archivedMessage.findUnique({
 					where: { id: message.id },
 				});
-				const archived = await client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
-				if (archived?.content) {
-					if (!content) {
-						const string = await crypto.queue(w => w.decrypt(archived.content));
+
+				if (existingArchivedMessage) {
+					await client.prisma.archivedMessage.update({
+						data: { deleted: true },
+						where: { id: message.id },
+					});
+
+					if (existingArchivedMessage.content && !content) {
+						const string = await crypto.queue(w => w.decrypt(existingArchivedMessage.content));
 						content = JSON.parse(string).content; // won't be cleaned
 					}
+				} else {
+					client.log.debug(`Archived message ${message.id} does not exist, skipping deletion marking`);
 				}
 			} catch (error) {
 				if ((error.meta?.cause || error.cause) === 'Record to update not found.') {
