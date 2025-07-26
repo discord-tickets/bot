@@ -1,3 +1,4 @@
+const { serializeBigInt, deserializeBigInt } = require('../bigint-serializer');
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable max-lines */
 const TicketArchiver = require('./archiver');
@@ -61,7 +62,7 @@ module.exports = class TicketManager {
 	async getCategory(categoryId, force) {
 		const cacheKey = `cache/category+guild+questions:${categoryId}`;
 		/** @type {CategoryGuildQuestions} */
-		let category = await this.client.keyv.get(cacheKey);
+		let category = deserializeBigInt(await this.client.keyv.get(cacheKey));
 		if (!category || force) {
 			category = await this.client.prisma.category.findUnique({
 				include: {
@@ -70,7 +71,7 @@ module.exports = class TicketManager {
 				},
 				where: { id: categoryId },
 			});
-			await this.client.keyv.set(cacheKey, category, ms('12h'));
+			await this.client.keyv.set(cacheKey, serializeBigInt(category), ms('12h'));
 		}
 		return category;
 	}
@@ -824,6 +825,12 @@ module.exports = class TicketManager {
 			},
 			where: { id: interaction.channel.id },
 		});
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
@@ -927,6 +934,12 @@ module.exports = class TicketManager {
 			},
 			where: { id: interaction.channel.id },
 		});
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
@@ -1078,6 +1091,12 @@ module.exports = class TicketManager {
 			});
 		}
 
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		const staff = await isStaff(interaction.guild, interaction.user.id);
 		const reason = interaction.options?.getString('reason', false) || null; // ?. because it could be a button interaction
@@ -1129,6 +1148,12 @@ module.exports = class TicketManager {
 	async requestClose(interaction, reason) {
 		// interaction could be command, button. or modal
 		const ticket = await this.getTicket(interaction.channel.id);
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		const staff = interaction.user.id !== ticket.createdById && await isStaff(interaction.guild, interaction.user.id);
 		const closeButtonId = {
@@ -1199,6 +1224,12 @@ module.exports = class TicketManager {
 	 */
 	async acceptClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		await interaction.editReply({
 			embeds: [
@@ -1224,6 +1255,12 @@ module.exports = class TicketManager {
 		reason = null,
 	}) {
 		let ticket = await this.getTicket(ticketId);
+		if (!ticket || !ticket.guild) {
+			return await interaction.reply({
+				content: '❌ Could not find ticket or guild information.',
+				ephemeral: true,
+			});
+		}
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		const { _count: { archivedMessages } } = await this.client.prisma.ticket.findUnique({
