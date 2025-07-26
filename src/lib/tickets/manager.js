@@ -843,6 +843,40 @@ module.exports = class TicketManager {
 
 		await interaction.deferReply();
 
+		// Ensure claiming user appears in ticket transcripts by archiving their information
+		if (ticket.guild.archive) {
+			try {
+				const { crypto } = require("../threads").pools;
+				await this.client.prisma.archivedUser.upsert({
+					create: {
+						avatar: interaction.member.avatar || interaction.user.avatar,
+						bot: interaction.user.bot,
+						discriminator: interaction.user.discriminator,
+						displayName: interaction.member.displayName ? await crypto.queue(w => w.encrypt(interaction.member.displayName)) : null,
+						roleId: interaction.member.roles.hoist?.id || interaction.guild.roles.everyone.id,
+						ticketId: ticket.id,
+						userId: interaction.user.id,
+						username: await crypto.queue(w => w.encrypt(interaction.user.username)),
+					},
+					update: {
+						avatar: interaction.member.avatar || interaction.user.avatar,
+						discriminator: interaction.user.discriminator,
+						displayName: interaction.member.displayName ? await crypto.queue(w => w.encrypt(interaction.member.displayName)) : null,
+						roleId: interaction.member.roles.hoist?.id || interaction.guild.roles.everyone.id,
+						username: await crypto.queue(w => w.encrypt(interaction.user.username)),
+					},
+					where: {
+						ticketId_userId: {
+							ticketId: ticket.id,
+							userId: interaction.user.id,
+						},
+					},
+				});
+			} catch (error) {
+				this.client.log.warn("Unable to archive claiming user information:", error);
+			}
+		}
+
 		// Archive claiming user for transcripts if archiving is enabled
 		if (ticket.guild.archive) {
 			try {
