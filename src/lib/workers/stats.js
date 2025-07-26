@@ -5,7 +5,7 @@ const { createHash } = require('crypto');
 
 const md5 = str => createHash('md5').update(str).digest('hex');
 
-const msToMins = ms => Number((ms / 1000 / 60).toFixed(2));
+const msToMins = ms => Number((Number(ms) / 1000 / 60).toFixed(2));
 
 const reduce = (closedTickets, prop) => closedTickets.reduce((total, ticket) => total + (ticket[prop] - ticket.createdAt), 0) || 1;
 
