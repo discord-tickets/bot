@@ -96,7 +96,7 @@ module.exports = async function handleStaleTickets(client, staleInterval) {
 					});
 
 					client.tickets.$stale.set(ticket.id, {
-						closeAt: guild.autoClose ? Date.now() + guild.autoClose : null,
+						closeAt: guild.autoClose ? Date.now() + Number(guild.autoClose) : null,
 						closedBy: null,
 						message: sent,
 						messages: 0,

@@ -1176,7 +1176,7 @@ module.exports = class TicketManager {
 		});
 
 		this.$stale.set(ticket.id, {
-			closeAt: ticket.guild.autoClose ? Date.now() + ticket.guild.autoClose : null,
+			closeAt: ticket.guild.autoClose ? Date.now() + Number(ticket.guild.autoClose) : null,
 			closedBy: interaction.user.id, // null if set as stale due to inactivity
 			message: sent,
 			messages: 0,
