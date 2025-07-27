@@ -231,7 +231,10 @@ module.exports = class extends Listener {
 					}
 				}
 
-				if (!message.author.bot) {
+				if (process.env.PUBLIC_BOT !== 'true' &&
+					!message.author.bot &&
+					!await isStaff(message.channel.guild, message.author.id)
+				) {
 					const key = `offline/${message.channel.id}`;
 					let online = 0;
 					for (const [, member] of message.channel.members) {
