@@ -384,7 +384,8 @@
       "contributions": [
         "doc",
         "code",
-        "translation"
+        "translation",
+        "bug"
       ]
     }
   ],
