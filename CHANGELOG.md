@@ -1,3 +1,12 @@
+## [4.0.47](https://github.com/discord-tickets/bot/compare/v4.0.46...v4.0.47) (2025-07-27)
+
+
+### Bug Fixes
+
+* staff offline message sending when it shouldn't (fixes [#645](https://github.com/discord-tickets/bot/issues/645)) ([23834f5](https://github.com/discord-tickets/bot/commit/23834f5f5f9eee6a1c93dc8d651eb2ce5f9f7ae6))
+
+
+
 ## [4.0.46](https://github.com/discord-tickets/bot/compare/v4.0.45...v4.0.46) (2025-07-25)
 
 
