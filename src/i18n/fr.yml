@@ -370,6 +370,11 @@ ticket:
     description: "Il n'y a eu aucune activité sur ce canal depuis <t:{timestamp}:R>.\n\
       Veuillez poursuivre la conversation ou {close} le ticket.\n"
     title: ⏰ Ce ticket est inactif
+  offline:
+    description: Il n'y a aucun membre de l'équipe disponible actuellement, il 
+      est possible que le délai de traitement soit anormalement plus élevé que 
+      d'habitude
+    title: 😴 Aucun membre de l'équipe connecté actuellement
 dm:
   closed:
     title: Votre ticket a été clôturé
