@@ -39,16 +39,16 @@ commands:
         description: Le message a été épinglé.
       not_ticket:
         title: ❌ Ceci n'est pas un salon de tickets
-        description: Vous pouvez seulement épingler des messages dans les salons de
-          tickets.
+        description: Vous pouvez seulement épingler des messages dans les salons
+          de tickets.
     create:
       name: Transformer ce message en ticket
   slash:
     add:
       not_staff:
         title: ❌ Erreur
-        description: Seuls les membres de l'équipe peuvent ajouter des membres aux
-          tickets des autres.
+        description: Seuls les membres de l'équipe peuvent ajouter des membres 
+          aux tickets des autres.
       success:
         title: ✅ Ajouté
         description: '{member} a été ajouté au ticket {ticket}.'
@@ -78,12 +78,12 @@ commands:
           name: ticket
           description: le ticket à clôturer
         category:
-          description: Fermer tout les tickets dans la catégorie spécifiée (peut être
-            utilisée avec `time`)
+          description: Fermer tout les tickets dans la catégorie spécifiée (peut
+            être utilisée avec `time`)
           name: catégorie
         time:
-          description: Clôturer tous les billets qui ont été inactifs pendant le temps
-            spécifié
+          description: Clôturer tous les billets qui ont été inactifs pendant le
+            temps spécifié
           name: temps
         reason:
           name: raison
@@ -91,11 +91,12 @@ commands:
       description: Forcer la clôture d'un ticket
       name: fermeture-forcée
       no_tickets:
-        description: Il n'y as pas de tickets ouverts inactifs depuis plus de `{time}`.
+        description: Il n'y as pas de tickets ouverts inactifs depuis plus de 
+          `{time}`.
         title: ❌ Aucun ticket
       not_staff:
-        description: Seuls les membres de l'équipe peuvent forcer la fermeture de
-          tickets.
+        description: Seuls les membres de l'équipe peuvent forcer la fermeture 
+          de tickets.
         title: ❌ Erreur
       confirm_multiple:
         description: "Vous êtes sur le point de clôturer **{count}** tickets inactifs
@@ -107,7 +108,8 @@ commands:
       description: S'approprier un ticket
       name: réclamer
       not_staff:
-        description: Seuls les membres de l'équipe peuvent s'approprier un ticket.
+        description: Seuls les membres de l'équipe peuvent s'approprier un 
+          ticket.
         title: ❌ Erreur
     help:
       name: aide
@@ -157,8 +159,8 @@ commands:
         description: La priorité du ticket a été définie sur `{priority}`.
       not_staff:
         title: ❌ Erreur
-        description: Seuls les membres de l'équipe peuvent changer la priorité d'un
-          ticket.
+        description: Seuls les membres de l'équipe peuvent changer la priorité 
+          d'un ticket.
     release:
       name: relâcher
       description: Relâcher (ne plus s'approprier) un ticket
@@ -177,8 +179,8 @@ commands:
           name: ticket
       removed: ⬅️ {removed} a été retiré par {by}.
       not_staff:
-        description: Seuls les membres de l'équipe peuvent retirer des membres des
-          tickets des autres.
+        description: Seuls les membres de l'équipe peuvent retirer des membres 
+          des tickets des autres.
         title: ❌ Erreur
     tag:
       name: tag
@@ -197,8 +199,8 @@ commands:
           description: Le membre dont il faut lister les tickets
       description: Lister vos tickets ou ceux de quelqu'un d'autre
       not_staff:
-        description: Seuls les membres de l'équipe peuvent voir les tickets des autres
-          membres.
+        description: Seuls les membres de l'équipe peuvent voir les tickets des 
+          autres membres.
         title: ❌ Erreur
       response:
         fields:
@@ -210,7 +212,8 @@ commands:
             name: Tickets clôturés
           open:
             name: Tickets ouverts
-        description: Utilisez {transcript} pour télécharger la transcription du ticket.
+        description: Utilisez {transcript} pour télécharger la transcription du 
+          ticket.
         title:
           other: Tickets de {displayName}
           own: Vos tickets
@@ -221,7 +224,8 @@ commands:
       options:
         ticket:
           name: ticket
-          description: Le nombre de tickets dont vous souhaitez obtenir la transcription
+          description: Le nombre de tickets dont vous souhaitez obtenir la 
+            transcription
     transfer:
       description: Transférer la propriété d'un ticket à un autre membre
       name: transférer
@@ -239,8 +243,8 @@ commands:
       name: Créer un ticket pour un membre
 misc:
   update:
-    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notes de mises à jour]({changelog})\n
-      > [Guide de mise à jour]({guide})\n"
+    description: "> [Voir`{version}` sur GitHub]({github})\n> [Notes de mises à jour]({changelog})\n\
+      \ > [Guide de mise à jour]({guide})\n"
     title: Une mise à jour est disponible
   category_full:
     description: "Cette catégorie a atteint sa capacité maximale.\nVeuillez réessayer
@@ -258,8 +262,8 @@ misc:
     title: ❌ Bloqué
   cooldown:
     title: ❌ Veuillez patienter
-    description: Veuillez patienter {time} avant de créer un autre ticket dans cette
-      catégorie.
+    description: Veuillez patienter {time} avant de créer un autre ticket dans 
+      cette catégorie.
   error:
     fields:
       identifier: Identifiant
@@ -267,8 +271,8 @@ misc:
       cette information à un administrateur.\n"
     title: ⚠️ Quelque chose s'est mal passé
   missing_roles:
-    description: Vous n'avez pas les rôles requis pour créer un ticket dans cette
-      catégorie.
+    description: Vous n'avez pas les rôles requis pour créer un ticket dans 
+      cette catégorie.
     title: ❌ Rôles manquants
   no_categories:
     description: Aucune catégorie de ticket n'est configurée.
@@ -284,7 +288,8 @@ misc:
     - ❌ Vous avez déjà un ticket
     - Vous avez déjà %d tickets ouverts
     description:
-    - Veuillez utiliser votre ticket ouvert ou le clôturer avant d'en créer un nouveau.
+    - Veuillez utiliser votre ticket ouvert ou le clôturer avant d'en créer un 
+      nouveau.
     - "Veuillez clôturer votre ticket avant d'en créer un autre.\nUtilisez `/tickets`
       afin de voir vos tickets existants.\n"
   unknown_category:
@@ -326,7 +331,8 @@ ticket:
   released: ♻️ {user} a relâché ce ticket.
   references_message:
     title: ℹ️ Référence
-    description: Fait référence à [a message]({url}) envoyé {timestamp} par {author}.
+    description: Fait référence à [a message]({url}) envoyé {timestamp} par 
+      {author}.
   references_ticket:
     title: ℹ️ Référence
     fields:
@@ -346,18 +352,29 @@ ticket:
     title: ✅ Ticket créé
   feedback: Merci pour votre retour.
   closing_soon:
-    description: "Ce ticket sera fermé pour cause d'inactivité <t:{timestamp}:R>.\n
-      Envoyez un message pour annuler cette automatisation.\n"
+    description: "Ce ticket sera fermé pour cause d'inactivité <t:{timestamp}:R>.\n\
+      \ Envoyez un message pour annuler cette automatisation.\n"
     title: ⌛ Ce ticket sera bientôt fermé
   working_hours:
     today:
       title: 🕗 Nous ne travaillons pas pour le moment
-      description: Vous pouvez recevoir une réponse avant, mais nous ne commençons
-        pas à travailler avant <t:{timestamp}:t> aujourd'hui (<t:{timestamp}:R>).
+      description: Vous pouvez recevoir une réponse avant, mais nous ne 
+        commençons pas à travailler avant <t:{timestamp}:t> aujourd'hui 
+        (<t:{timestamp}:R>).
     next:
-      description: Nous serons de retour à <t:{timestamp}:F> (<t:{timestamp}:R>),
-        bien que vous puissiez recevoir une réponse avant cette date.
+      description: Nous serons de retour à <t:{timestamp}:F> 
+        (<t:{timestamp}:R>), bien que vous puissiez recevoir une réponse avant 
+        cette date.
       title: 🕗 Nous ne travaillons pas pour le moment
+  inactive:
+    description: "Il n'y a eu aucune activité sur ce canal depuis <t:{timestamp}:R>.\n\
+      Veuillez poursuivre la conversation ou {close} le ticket.\n"
+    title: ⏰ Ce ticket est inactif
+  offline:
+    description: Il n'y a aucun membre de l'équipe disponible actuellement, il 
+      est possible que le délai de traitement soit anormalement plus élevé que 
+      d'habitude
+    title: 😴 Aucun membre de l'équipe connecté actuellement
 dm:
   closed:
     title: Votre ticket a été clôturé
