@@ -26,6 +26,8 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Relâcher
+  transcript:
+    emoji: 📄
 commands:
   message:
     pin:
