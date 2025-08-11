@@ -51,6 +51,9 @@ commands:
       not_staff:
         description: Only staff members can add members to others' tickets.
         title: ❌ Error
+      no_args:
+        description: You must specify a member or a role to add to the ticket.
+        title: ❌ Missing arguments
       options:
         member:
           description: The member to add to the ticket

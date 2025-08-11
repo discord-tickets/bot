@@ -95,6 +95,19 @@ module.exports = class AddSlashCommand extends SlashCommand {
 		const member = interaction.options.getMember('member', true);
 		const role = interaction.options.getRole('role', false);
 
+		if (!member && !role) {
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.add.no_args.title'))
+						.setDescription(getMessage('commands.slash.add.no_args.description')),
+				],
+			});
+		}
 
 		if (member) {
 
