@@ -55,11 +55,14 @@ commands:
         member:
           description: The member to add to the ticket
           name: member
+        role:
+          description: The role to add to the ticket
+          name: role
         ticket:
           description: The ticket to add the member to
           name: ticket
       success:
-        description: "{member} has been added to {ticket}."
+        description: "{args} has been added to {ticket}."
         title: ✅ Added
     claim:
       description: Claim a ticket

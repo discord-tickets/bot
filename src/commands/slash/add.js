@@ -17,8 +17,13 @@ module.exports = class AddSlashCommand extends SlashCommand {
 			options: [
 				{
 					name: 'member',
-					required: true,
+					required: false,
 					type: ApplicationCommandOptionType.User,
+				},
+				{
+					name: 'role',
+					required: false,
+					type: ApplicationCommandOptionType.Role,
 				},
 				{
 					autocomplete: true,
@@ -36,10 +41,10 @@ module.exports = class AddSlashCommand extends SlashCommand {
 	}
 
 	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
+	 * @param {import('discord.js').ChatInputCommandInteraction} interaction
 	 */
 	async run(interaction) {
-		/** @type {import("client")} */
+		/** @type {import('client')} */
 		const client = this.client;
 
 		await interaction.deferReply({ ephemeral: true });
@@ -85,32 +90,68 @@ module.exports = class AddSlashCommand extends SlashCommand {
 			});
 		}
 
-		/** @type {import("discord.js").TextChannel} */
+		/** @type {import('discord.js').TextChannel} */
 		const ticketChannel = await interaction.guild.channels.fetch(ticket.id);
 		const member = interaction.options.getMember('member', true);
+		const role = interaction.options.getRole('role', false);
 
-		await ticketChannel.permissionOverwrites.edit(
-			member,
-			{
-				AttachFiles: true,
-				EmbedLinks: true,
-				ReadMessageHistory: true,
-				SendMessages: true,
-				ViewChannel: true,
-			},
-			`${interaction.user.tag} added ${member.user.tag} to the ticket`,
-		);
 
-		await ticketChannel.send({
-			embeds: [
-				new ExtendedEmbedBuilder()
-					.setColor(ticket.guild.primaryColour)
-					.setDescription(getMessage('commands.slash.add.added', {
-						added: member.toString(),
-						by: interaction.member.toString(),
-					})),
-			],
-		});
+		if (member) {
+
+			await ticketChannel.permissionOverwrites.edit(
+				member,
+				{
+					AttachFiles: true,
+					EmbedLinks: true,
+					ReadMessageHistory: true,
+					SendMessages: true,
+					ViewChannel: true,
+				},
+				`${interaction.user.tag} added ${member.user.tag} to the ticket`,
+			);
+
+
+			await ticketChannel.send({
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor(ticket.guild.primaryColour)
+						.setDescription(getMessage('commands.slash.add.added', {
+							added: member.toString(),
+							by: interaction.member.toString(),
+						})),
+				],
+			});
+
+		}
+
+		if (role) {
+
+			await ticketChannel.permissionOverwrites.edit(
+				role,
+				{
+					AttachFiles: true,
+					EmbedLinks: true,
+					ReadMessageHistory: true,
+					SendMessages: true,
+					ViewChannel: true,
+				},
+				`${interaction.user.tag} added ${role.name} to the ticket`,
+			);
+
+
+			await ticketChannel.send({
+				embeds: [
+					new ExtendedEmbedBuilder()
+						.setColor(ticket.guild.primaryColour)
+						.setDescription(getMessage('commands.slash.add.added', {
+							added: role.toString(),
+							by: interaction.member.toString(),
+						})),
+				],
+			});
+
+		}
+
 
 		await interaction.editReply({
 			embeds: [
@@ -121,7 +162,7 @@ module.exports = class AddSlashCommand extends SlashCommand {
 					.setColor(ticket.guild.successColour)
 					.setTitle(getMessage('commands.slash.add.success.title'))
 					.setDescription(getMessage('commands.slash.add.success.description', {
-						member: member.toString(),
+						args: (member ? member.toString() : '') + (role ? ` and ${role.toString()}` : ''),
 						ticket: ticketChannel.toString(),
 					})),
 			],
