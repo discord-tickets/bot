@@ -3,7 +3,7 @@ buttons:
     text: Accepter
     emoji: ✅
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Annuler
   claim:
     emoji: 🙌
