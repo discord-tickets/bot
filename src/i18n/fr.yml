@@ -106,6 +106,7 @@ commands:
         title: ❓ Êtes vous sûr ?
       closed_one:
         title: ✅ Ticket fermé
+        description: Le salon sera supprimé dans quelques secondes.
       confirmed_multiple:
         description: Les salons seront supprimés dans quelques secondes.
         title:
