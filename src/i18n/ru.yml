@@ -248,6 +248,7 @@ commands:
       name: отказаться
     rename:
       error: При переименовании канала произошла ошибка.
+      description: Переименовать канал для тикетов
   user:
     create:
       prompt:
