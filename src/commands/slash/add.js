@@ -177,7 +177,7 @@ module.exports = class AddSlashCommand extends SlashCommand {
 					.setColor(ticket.guild.successColour)
 					.setTitle(getMessage('commands.slash.add.success.title'))
 					.setDescription(getMessage('commands.slash.add.success.description', {
-						args: (member ? member.toString() : '') + (role ? ` and ${role.toString()}` : ''),
+						args: [member?.toString(), role?.toString()].filter(Boolean).join(' & '),
 						ticket: ticketChannel.toString(),
 					})),
 			],
