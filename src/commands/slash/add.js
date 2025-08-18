@@ -183,18 +183,35 @@ module.exports = class AddSlashCommand extends SlashCommand {
 			],
 		});
 
-		logTicketEvent(this.client, {
-			action: 'update',
-			diff: {
-				original: {},
-				updated: { [getMessage('log.ticket.added')]: member.user.tag },
-			},
-			target: {
-				id: ticket.id,
-				name: `<#${ticket.id}>`,
-			},
-			userId: interaction.user.id,
-		});
+		if (member) {
+			logTicketEvent(this.client, {
+				action: 'update',
+				diff: {
+					original: {},
+					updated: { [getMessage('log.ticket.addedMember')]: member.user.tag },
+				},
+				target: {
+					id: ticket.id,
+					name: `<#${ticket.id}>`,
+				},
+				userId: interaction.user.id,
+			});
+		}
+
+		if (role) {
+			logTicketEvent(this.client, {
+				action: 'update',
+				diff: {
+					original: {},
+					updated: { [getMessage('log.ticket.addedRole')]: role.name },
+				},
+				target: {
+					id: ticket.id,
+					name: `<#${ticket.id}>`,
+				},
+				userId: interaction.user.id,
+			});
+		}
 
 	}
 };

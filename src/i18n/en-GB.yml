@@ -339,7 +339,8 @@ log:
       delete: deleted
       update: updated
   ticket:
-    added: Added members
+    addedMember: Added member
+    addedRole: Added role
     description: "{user} {verb} a ticket"
     removed: Removed members
     ticket: Ticket
