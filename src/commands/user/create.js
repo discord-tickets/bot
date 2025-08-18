@@ -9,6 +9,7 @@ const {
 	ComponentType,
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
+	MessageFlags,
 } = require('discord.js');
 const emoji = require('node-emoji');
 
@@ -32,10 +33,10 @@ module.exports = class CreateUserCommand extends UserCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const settings = await client.prisma.guild.findUnique({
-			include: { categories:true },
+			include: { categories: true },
 			where: { id: interaction.guild.id },
 		});
 		const getMessage = client.i18n.getLocale(settings.locale);
@@ -55,7 +56,7 @@ module.exports = class CreateUserCommand extends UserCommand {
 		}
 
 		const prompt = async categoryId => {
-			interaction.followUp({
+			const payload = {
 				components: [
 					new ActionRowBuilder()
 						.addComponents(
@@ -81,12 +82,16 @@ module.exports = class CreateUserCommand extends UserCommand {
 						.setTitle(getMessage('commands.user.create.prompt.title'))
 						.setDescription(getMessage('commands.user.create.prompt.description')),
 				],
-				ephemeral: false,
-			});
+			};
+			try {
+				await interaction.channel.send(payload);
+			} catch {
+				await interaction.followUp(payload);
+			}
 		};
 
 		if (settings.categories.length === 0) {
-			interaction.reply({
+			interaction.editReply({
 				components: [],
 				embeds: [
 					new ExtendedEmbedBuilder()
@@ -94,10 +99,25 @@ module.exports = class CreateUserCommand extends UserCommand {
 						.setTitle(getMessage('misc.no_categories.title'))
 						.setDescription(getMessage('misc.no_categories.description')),
 				],
-				ephemeral: true,
 			});
 		} else if (settings.categories.length === 1) {
-			await prompt(settings.categories[0].id);
+			const category = settings.categories[0];
+			await interaction.editReply({
+				components: [],
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: settings.footer,
+					})
+						.setColor(settings.successColour)
+						.setTitle(getMessage('commands.user.create.sent.title'))
+						.setDescription(getMessage('commands.user.create.sent.description', {
+							category: category.name,
+							user: interaction.targetUser.toString(),
+						})),
+				],
+			});
+			await prompt(category.id);
 		} else {
 			const collectorTime = ms('15s');
 			const confirmationM = await interaction.editReply({
@@ -144,13 +164,12 @@ module.exports = class CreateUserCommand extends UserCommand {
 									user: interaction.targetUser.toString(),
 								})),
 						],
-						ephemeral: true,
 					});
 					await prompt(category.id);
 				})
 				.catch(async error => {
 					client.log.error(error);
-					await interaction.reply({
+					await interaction.editReply({
 						components: [],
 						embeds: [
 							new ExtendedEmbedBuilder({

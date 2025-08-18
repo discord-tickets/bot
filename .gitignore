@@ -1,14 +1,12 @@
 # directories
-.history/
-.vscode/
-node_modules/
-prisma/
-
+/.history/
+/node_modules/
+/prisma/
+/user/
+.idea/
 # files
 *.env*
 *.db*
 *.log
-user/config.yml
-user/**/*.*
-!user/**/.gitkeep
-!user/templates/*
+*.DS_Store
+summary.md

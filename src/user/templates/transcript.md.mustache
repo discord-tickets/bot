@@ -20,9 +20,20 @@
 {{ #ticket.archivedUsers }}
   * "{{ displayName }}" @{{ username }}#{{ discriminator }} ({{ userId }})
 {{ /ticket.archivedUsers }}
-* Pinned messages: {{ #pinned }}{{ . }}{{ /pinned }}
+* Pinned messages: {{ #pinned }}{{ . }}{{ /pinned }}{{ ^pinned }}(none){{ /pinned }}
 
 ---
+
+## Questions
+
+{{ #ticket.questionAnswers }}
+### **{{ question.label }}**
+> {{ value }}{{ ^value }}(no answer){{ /value }}
+
+{{ /ticket.questionAnswers }}{{ ^ticket.questionAnswers }}(none)
+
+{{ /ticket.questionAnswers }}
+## Messages
 
 {{ #ticket.archivedMessages }}
 <{{ number }}> [{{ createdAtTimestamp }}] {{author.displayName}}: {{ text }}

@@ -20,7 +20,6 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: false });
 		await client.tickets.claim(interaction);
 	}
 };

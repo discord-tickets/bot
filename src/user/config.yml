@@ -28,6 +28,8 @@ presence:
       type: 3
     - name: "{avgResponseTime} response time"
       type: 3
+    - name: "{avgRating} ⭐ rating"
+      type: 3
   interval: 20
   status: online
 stats: true

@@ -10,6 +10,6 @@ module.exports = class extends Listener {
 	}
 
 	run(guild) {
-		this.client.log.info(`Removed from guild "${guild.name}"`);
+		this.client.log.info(`Removed from guild ${guild.id} (${guild.name})`);
 	}
 };

@@ -3,6 +3,11 @@ const {
 	EmbedBuilder,
 } = require('discord.js');
 const { diff: getDiff } = require('object-diffy');
+const ShortUniqueId = require('short-unique-id');
+
+const uid = new ShortUniqueId();
+
+const getSUID = () => uid.stamp(10);
 
 const uuidRegex = /[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/g;
 
@@ -129,7 +134,7 @@ async function logAdminEvent(client, {
  * @param {string} details.action
 */
 async function logTicketEvent(client, {
-	userId, action, target, diff,
+	userId, action, target, diff, payload,
 }) {
 	const ticket = await client.tickets.getTicket(target.id);
 	if (!ticket) return;
@@ -165,6 +170,7 @@ async function logTicketEvent(client, {
 					name: getMessage('log.ticket.ticket'),
 					value: target.name ? `${target.name} (\`${target.id}\`)` : target.id,
 				},
+				...payload?.fields ?? [],
 			]),
 	];
 
@@ -177,7 +183,10 @@ async function logTicketEvent(client, {
 		);
 	}
 
-	return await channel.send({ embeds });
+	return await channel.send({
+		components: payload?.components ?? [],
+		embeds,
+	});
 }
 
 /**
@@ -235,6 +244,7 @@ async function logMessageEvent(client, {
 
 module.exports = {
 	getLogChannel,
+	getSUID,
 	logAdminEvent,
 	logMessageEvent,
 	logTicketEvent,

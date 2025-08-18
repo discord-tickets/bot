@@ -11,6 +11,7 @@ const {
 	StringSelectMenuOptionBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	MessageFlags,
 } = require('discord.js');
 const emoji = require('node-emoji');
 const ms = require('ms');
@@ -19,15 +20,14 @@ const { logTicketEvent } = require('../logging');
 const { isStaff } = require('../users');
 const { Collection } = require('discord.js');
 const spacetime = require('spacetime');
-const Cryptr = require('cryptr');
+
+const { getSUID } = require('../logging');
 const {
-	getAvgResolutionTime,
-	getAvgResponseTime,
+	getAverageTimes, getAverageRating,
 } = require('../stats');
-const {
-	decrypt,
-	encrypt,
-} = new Cryptr(process.env.ENCRYPTION_KEY);
+const { pools } = require('../threads');
+
+const { crypto } = pools;
 
 /**
  * @typedef {import('@prisma/client').Category &
@@ -135,7 +135,14 @@ module.exports = class TicketManager {
 		return await this.client.keyv.get(cacheKey);
 	}
 
-	getNextNumber(guildId) {
+	async getNextNumber(guildId) {
+		if (this.$numbers[guildId] === undefined) {
+			const { _max: { number: max } } = await this.client.prisma.ticket.aggregate({
+				_max: { number: true },
+				where: { guildId },
+			});
+			this.client.tickets.$numbers[guildId] = max ?? 0;
+		}
 		this.$numbers[guildId] += 1;
 		return this.$numbers[guildId];
 	}
@@ -143,11 +150,13 @@ module.exports = class TicketManager {
 	/**
 	 * @param {object} data
 	 * @param {string} data.categoryId
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction} data.interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").SelectMenuInteraction} data.interaction
 	 * @param {string?} [data.topic]
 	 */
 	async create({
-		categoryId, interaction, topic, referencesMessage, referencesTicketId,
+		categoryId, interaction, topic, referencesMessageId, referencesTicketId,
 	}) {
 		categoryId = Number(categoryId);
 		const category = await this.getCategory(categoryId);
@@ -173,7 +182,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.unknown_category.title'))
 						.setDescription(getMessage('misc.unknown_category.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -195,7 +204,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.ratelimited.title'))
 						.setDescription(getMessage('misc.ratelimited.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		} else {
 			this.client.keyv.set(rlKey, true, ms('5s'));
@@ -211,12 +220,17 @@ module.exports = class TicketManager {
 					.setTitle(getMessage(`misc.${name}.title`))
 					.setDescription(getMessage(`misc.${name}.description`)),
 			],
-			ephemeral: true,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		if (category.guild.blocklist.length !== 0) {
 			const blocked = category.guild.blocklist.some(r => member.roles.cache.has(r));
 			if (blocked) return await sendError('blocked');
+		}
+
+		// Don't let timed out users open tickets, they won't be able to write anything inside
+		if (member.isCommunicationDisabled()) {
+			return await sendError('blocked');
 		}
 
 		if (category.requiredRoles.length !== 0) {
@@ -242,7 +256,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.member_limit.title', memberCount, memberCount))
 						.setDescription(getMessage('misc.member_limit.description', memberCount)),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -258,7 +272,7 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('misc.cooldown.title'))
 						.setDescription(getMessage('misc.cooldown.description', { time: ms(cooldown - Date.now()) })),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -268,7 +282,7 @@ module.exports = class TicketManager {
 					.setCustomId(JSON.stringify({
 						action: 'questions',
 						categoryId,
-						referencesMessage,
+						referencesMessageId,
 						referencesTicketId,
 					}))
 					.setTitle(category.name)
@@ -277,18 +291,16 @@ module.exports = class TicketManager {
 							.filter(q => q.type === 'TEXT') // TODO: remove this when modals support select menus
 							.map(q => {
 								if (q.type === 'TEXT') {
-									return new ActionRowBuilder()
-										.setComponents(
-											new TextInputBuilder()
-												.setCustomId(q.id)
-												.setLabel(q.label)
-												.setStyle(q.style)
-												.setMaxLength(Math.min(q.maxLength, 1000))
-												.setMinLength(q.minLength)
-												.setPlaceholder(q.placeholder)
-												.setRequired(q.required)
-												.setValue(q.value),
-										);
+									const field = new TextInputBuilder()
+										.setCustomId(q.id)
+										.setLabel(q.label)
+										.setStyle(q.style)
+										.setMaxLength(Math.min(q.maxLength, 1000))
+										.setMinLength(q.minLength)
+										.setPlaceholder(q.placeholder)
+										.setRequired(q.required);
+									if (q.value) field.setValue(q.value);
+									return new ActionRowBuilder().setComponents(field);
 								} else if (q.type === 'MENU') {
 									return new ActionRowBuilder()
 										.setComponents(
@@ -318,7 +330,7 @@ module.exports = class TicketManager {
 					.setCustomId(JSON.stringify({
 						action: 'topic',
 						categoryId,
-						referencesMessage,
+						referencesMessageId,
 						referencesTicketId,
 					}))
 					.setTitle(category.name)
@@ -340,7 +352,7 @@ module.exports = class TicketManager {
 			await this.postQuestions({
 				categoryId,
 				interaction,
-				referencesMessage,
+				referencesMessageId,
 				referencesTicketId,
 				topic,
 			});
@@ -350,25 +362,33 @@ module.exports = class TicketManager {
 	/**
 	 * @param {object} data
 	 * @param {string} data.category
-	 * @param {import("discord.js").ButtonInteraction|import("discord.js").SelectMenuInteraction|import("discord.js").ModalSubmitInteraction} data.interaction
+	 * @param {import("discord.js").ButtonInteraction
+	 * | import("discord.js").SelectMenuInteraction
+	 * | import("discord.js").ModalSubmitInteraction} data.interaction
 	 * @param {string?} [data.topic]
 	 */
 	async postQuestions({
-		action, categoryId, interaction, topic, referencesMessage, referencesTicketId,
+		action, categoryId, interaction, topic, referencesMessageId, referencesTicketId,
 	}) {
 		const [, category] = await Promise.all([
-			interaction.deferReply({ ephemeral: true }),
+			interaction.deferReply({ flags: MessageFlags.Ephemeral }),
 			this.getCategory(categoryId),
 		]);
 
 		let answers;
 		if (interaction.isModalSubmit()) {
 			if (action === 'questions') {
-				answers = category.questions.filter(q => q.type === 'TEXT').map(q => ({
-					questionId: q.id,
-					userId: interaction.user.id,
-					value: interaction.fields.getTextInputValue(q.id) ? encrypt(interaction.fields.getTextInputValue(q.id)) : '',
-				}));
+				answers = await Promise.all(
+					category.questions
+						.filter(q => q.type === 'TEXT')
+						.map(async q => ({
+							questionId: q.id,
+							userId: interaction.user.id,
+							value: interaction.fields.getTextInputValue(q.id)
+								? await crypto.queue(w => w.encrypt(interaction.fields.getTextInputValue(q.id)))
+								: '', // TODO: maybe this should be null?
+						})),
+				);
 				if (category.customTopic) topic = interaction.fields.getTextInputValue(category.customTopic);
 			} else if (action === 'topic') {
 				topic = interaction.fields.getTextInputValue('topic');
@@ -379,7 +399,7 @@ module.exports = class TicketManager {
 		const guild = this.client.guilds.cache.get(category.guild.id);
 		const getMessage = this.client.i18n.getLocale(category.guild.locale);
 		const creator = await guild.members.fetch(interaction.user.id);
-		const number = this.getNextNumber(category.guild.id);
+		const number = await this.getNextNumber(category.guild.id);
 		const channelName = category.channelName
 			.replace(/{+\s?(user)?name\s?}+/gi, creator.user.username)
 			.replace(/{+\s?(nick|display)(name)?\s?}+/gi, creator.displayName)
@@ -392,7 +412,7 @@ module.exports = class TicketManager {
 			permissionOverwrites: [
 				{
 					deny: ['ViewChannel'],
-					id: guild.roles.everyone,
+					id: guild.roles.everyone.id,
 				},
 				{
 					allow,
@@ -412,9 +432,7 @@ module.exports = class TicketManager {
 			topic: `${creator}${topic?.length > 0 ? ` | ${topic}` : ''}`,
 		});
 
-		if (category.image) await channel.send(category.image);
-
-		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime)\s?}+/i.test(category.openingMessage);
+		const needsStats = /{+\s?(avgResponseTime|avgResolutionTime|avgRating)\s?}+/i.test(category.openingMessage);
 		const statsCacheKey = `cache/category-stats/${categoryId}`;
 		let stats = await this.client.keyv.get(statsCacheKey);
 		if (needsStats && !stats) {
@@ -422,6 +440,7 @@ module.exports = class TicketManager {
 				select: {
 					closedAt: true,
 					createdAt: true,
+					feedback: { select: { rating: true } },
 					firstResponseAt: true,
 				},
 				where: {
@@ -430,9 +449,15 @@ module.exports = class TicketManager {
 					open: false,
 				},
 			});
+			const {
+				avgResolutionTime,
+				avgResponseTime,
+			} = await getAverageTimes(closedTickets);
+			const avgRating = await getAverageRating(closedTickets);
 			stats = {
-				avgResolutionTime: ms(getAvgResolutionTime(closedTickets), { long: true }),
-				avgResponseTime: ms(getAvgResponseTime(closedTickets), { long: true }),
+				avgRating: avgRating.toFixed(1),
+				avgResolutionTime: ms(avgResolutionTime, { long: true }),
+				avgResponseTime: ms(avgResponseTime, { long: true }),
 			};
 			this.client.keyv.set(statsCacheKey, stats, ms('1h'));
 		}
@@ -447,10 +472,14 @@ module.exports = class TicketManager {
 				.setDescription(
 					category.openingMessage
 						.replace(/{+\s?(user)?name\s?}+/gi, creator.user.toString())
+						.replace(/{+\s?num(ber)?\s?}+/gi, number)
 						.replace(/{+\s?avgResponseTime\s?}+/gi, stats?.avgResponseTime)
-						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime),
+						.replace(/{+\s?avgResolutionTime\s?}+/gi, stats?.avgResolutionTime)
+						.replace(/{+\s?avgRating\s?}+/gi, stats?.avgRating),
 				),
 		];
+
+		if (category.image) embeds[0].setImage(category.image);
 
 		if (answers) {
 			embeds.push(
@@ -515,6 +544,7 @@ module.exports = class TicketManager {
 		}
 
 		const pings = category.pingRoles.map(r => `<@&${r}>`).join(' ');
+
 		const sent = await channel.send({
 			components: components.components.length >= 1 ? [components] : [],
 			content: getMessage('ticket.opening_message.content', {
@@ -523,25 +553,29 @@ module.exports = class TicketManager {
 			}),
 			embeds,
 		});
-		await sent.pin({ reason: 'Ticket opening message' });
-		const pinned = channel.messages.cache.last();
 
-		if (pinned.system) {
-			pinned
-				.delete({ reason: 'Cleaning up system message' })
-				.catch(() => this.client.log.warn('Failed to delete system pin message'));
-		}
+		sent.pin({ reason: 'Ticket opening message' })
+			.then(() => {
+				const recent = channel.messages.cache.last(3);
+				for (const message of recent) {
+					if (message.system) {
+						message
+							.delete({ reason: 'Cleaning up system message' })
+							.catch(() => this.client.log.warn('Failed to delete system pin message'));
+					}
+				}
+			})
+			.catch(this.client.log.error);
 
 		/** @type {import("discord.js").Message|undefined} */
 		let message;
-		if (referencesMessage) {
-			referencesMessage = referencesMessage.split('/');
+		if (referencesMessageId) {
 			/** @type {import("discord.js").Message} */
-			message = await (await this.client.channels.fetch(referencesMessage[0]))?.messages.fetch(referencesMessage[1]);
+			message = await interaction.channel.messages.fetch(referencesMessageId);
 			if (message) {
 				// not worth the effort of making system messages work atm
-				if (message.system) {
-					referencesMessage = null;
+				if (message.system || !message.content) {
+					referencesMessageId = null;
 					message = null;
 				} else {
 					if (!message.member) {
@@ -551,7 +585,7 @@ module.exports = class TicketManager {
 							this.client.log.verbose('Failed to fetch member %s of %s', message.author.id, message.guild.id);
 						}
 					}
-					await channel.send({
+					channel.send({
 						embeds: [
 							new ExtendedEmbedBuilder()
 								.setColor(category.guild.primaryColour)
@@ -573,8 +607,7 @@ module.exports = class TicketManager {
 								})
 								.setDescription(message.content.substring(0, 1000) + (message.content.length > 1000 ? '...' : '')),
 						],
-					});
-
+					}).catch(this.client.log.error);
 				}
 
 			}
@@ -605,10 +638,28 @@ module.exports = class TicketManager {
 					embed.addFields({
 						inline: false,
 						name: getMessage('ticket.references_ticket.fields.topic'),
-						value: decrypt(ticket.topic),
+						value: await crypto.queue(w => w.decrypt(ticket.topic)),
 					});
 				}
-				await channel.send({ embeds: [embed] });
+				channel.send({
+					components: category.guild.archive
+						? [
+							new ActionRowBuilder()
+								.addComponents(
+									new ButtonBuilder()
+										.setCustomId(JSON.stringify({
+											action: 'transcript',
+											ticket: referencesTicketId,
+										}))
+										.setStyle(ButtonStyle.Primary)
+										.setEmoji(getMessage('buttons.transcript.emoji'))
+										.setLabel(getMessage('buttons.transcript.text')),
+
+								),
+						]
+						: [],
+					embeds: [embed],
+				}).catch(this.client.log.error);
 			}
 		}
 
@@ -624,7 +675,7 @@ module.exports = class TicketManager {
 			id: channel.id,
 			number,
 			openingMessageId: sent.id,
-			topic: topic ? encrypt(topic) : null,
+			topic: topic ? await crypto.queue(w => w.encrypt(topic)) : null,
 		};
 		if (referencesTicketId) data.referencesTicket = { connect: { id: referencesTicketId } };
 		if (answers) data.questionAnswers = { createMany: { data: answers } };
@@ -675,7 +726,7 @@ module.exports = class TicketManager {
 				userId: interaction.user.id,
 			});
 		} catch (error) {
-			const ref = require('crypto').randomUUID();
+			const ref = getSUID();
 			this.client.log.warn.tickets('An error occurred whilst creating ticket', channel.id);
 			this.client.log.error.tickets(ref);
 			this.client.log.error.tickets(error);
@@ -694,66 +745,70 @@ module.exports = class TicketManager {
 			});
 		}
 
-		const workingHours = category.guild.workingHours;
-		const timezone = workingHours[0];
-		workingHours.shift(); // remove timezone
-		const now = spacetime.now(timezone);
-		const currentHours = workingHours[now.day()];
-		const start = now.time(currentHours[0]);
-		const end = now.time(currentHours[1]);
-		let working = true;
+		try {
+			const workingHours = category.guild.workingHours;
+			const timezone = workingHours[0];
+			workingHours.shift(); // remove timezone
+			const now = spacetime.now(timezone);
+			const currentHours = workingHours[now.day()];
+			const start = now.time(currentHours[0]);
+			const end = now.time(currentHours[1]);
+			let working = true;
 
-		if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
-			// first look for the next working day *this* week (after today)
-			let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
-			// if there isn't one, look for the next working day *next* week (before and including today's weekday)
-			if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
-			if (nextIndex) {
+			if (currentHours[0] === currentHours[1] || now.isAfter(end)) { // staff have the day off or have finished for the day
+				// first look for the next working day *this* week (after today)
+				let nextIndex = workingHours.findIndex((hours, i) => i > now.day() && hours[0] !== hours[1]);
+				// if there isn't one, look for the next working day *next* week (before and including today's weekday)
+				if (!nextIndex) nextIndex = workingHours.findIndex((hours, i) => i <= now.day() && hours[0] !== hours[1]);
+				if (nextIndex) {
+					working = false;
+					const next = workingHours[nextIndex];
+					let then = now.add(nextIndex - now.day(), 'day');
+					if (nextIndex <= now.day()) then = then.add(1, 'week');
+					const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
+					channel.send({
+						embeds: [
+							new ExtendedEmbedBuilder()
+								.setColor(category.guild.primaryColour)
+								.setTitle(getMessage('ticket.working_hours.next.title'))
+								.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
+						],
+					}).catch(this.client.log.error);
+				}
+			} else if (now.isBefore(start)) { // staff haven't started working yet
 				working = false;
-				const next = workingHours[nextIndex];
-				let then = now.add(nextIndex - now.day(), 'day');
-				if (nextIndex <= now.day()) then = then.add(1, 'week');
-				const timestamp = Math.ceil(then.time(next[0]).goto('utc').d.getTime() / 1000); // in seconds
-				await channel.send({
+				const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
+				channel.send({
 					embeds: [
 						new ExtendedEmbedBuilder()
 							.setColor(category.guild.primaryColour)
-							.setTitle(getMessage('ticket.working_hours.next.title'))
-							.setDescription(getMessage('ticket.working_hours.next.description', { timestamp })),
+							.setTitle(getMessage('ticket.working_hours.today.title'))
+							.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
 					],
-				});
+				}).catch(this.client.log.error);
 			}
-		} else if (now.isBefore(start)) { // staff haven't started working yet
-			working = false;
-			const timestamp = Math.ceil(start.goto('utc').d.getTime() / 1000); // in seconds
-			await channel.send({
-				embeds: [
-					new ExtendedEmbedBuilder()
-						.setColor(category.guild.primaryColour)
-						.setTitle(getMessage('ticket.working_hours.today.title'))
-						.setDescription(getMessage('ticket.working_hours.today.description', { timestamp })),
-				],
-			});
-		}
 
-
-		if (working) {
-			let online = 0;
-			for (const [, member] of channel.members) {
-				if (!await isStaff(channel.guild, member.id)) continue;
-				if (member.presence && member.presence !== 'offline') online++;
+			if (working && process.env.PUBLIC_BOT !== 'true') {
+				let online = 0;
+				for (const [, member] of channel.members) {
+					if (member.user.bot) continue;
+					if (!await isStaff(channel.guild, member.id)) continue;
+					if (member.presence && member.presence !== 'offline') online++;
+				}
+				if (online === 0) {
+					channel.send({
+						embeds: [
+							new ExtendedEmbedBuilder()
+								.setColor(category.guild.primaryColour)
+								.setTitle(getMessage('ticket.offline.title'))
+								.setDescription(getMessage('ticket.offline.description')),
+						],
+					}).catch(this.client.log.error);
+					this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
+				}
 			}
-			if (online === 0) {
-				await channel.send({
-					embeds: [
-						new ExtendedEmbedBuilder()
-							.setColor(category.guild.primaryColour)
-							.setTitle(getMessage('ticket.offline.title'))
-							.setDescription(getMessage('ticket.offline.description')),
-					],
-				});
-				this.client.keyv.set(`offline/${channel.id}`, Date.now(), ms('1h'));
-			}
+		} catch (error) {
+			this.client.log.error(error);
 		}
 	}
 
@@ -772,7 +827,7 @@ module.exports = class TicketManager {
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
@@ -782,8 +837,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
+				flags: MessageFlags.Ephemeral,
 			});
 		}
+
+		await interaction.deferReply();
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.edit(interaction.user, { 'ViewChannel': true }, `Ticket claimed by ${interaction.user.tag}`),
@@ -872,7 +930,7 @@ module.exports = class TicketManager {
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 
 		if (!(await isStaff(interaction.guild, interaction.user.id))) { // if user is not staff
-			return await interaction.editReply({
+			return await interaction.reply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
@@ -882,8 +940,11 @@ module.exports = class TicketManager {
 						.setTitle(getMessage('commands.slash.claim.not_staff.title'))
 						.setDescription(getMessage('commands.slash.claim.not_staff.description')),
 				],
+				flags: MessageFlags.Ephemeral,
 			});
 		}
+
+		await interaction.deferReply();
 
 		await Promise.all([
 			interaction.channel.permissionOverwrites.delete(interaction.user, `Ticket released by ${interaction.user.tag}`),
@@ -991,7 +1052,7 @@ module.exports = class TicketManager {
 	async beforeRequestClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
 		if (!ticket) {
-			await interaction.deferReply({ ephemeral: true });
+			await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 			const {
 				errorColour,
 				footer,
@@ -1060,7 +1121,9 @@ module.exports = class TicketManager {
 	}
 
 	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").ModalSubmitInteraction} interaction
 	 * @param {string} reason
 	 */
 	async requestClose(interaction, reason) {
@@ -1130,11 +1193,12 @@ module.exports = class TicketManager {
 	}
 
 	/**
-	 * @param {import("discord.js").ChatInputCommandInteraction|import("discord.js").ButtonInteraction|import("discord.js").ModalSubmitInteraction} interaction
+	 * @param {import("discord.js").ChatInputCommandInteraction
+	 * | import("discord.js").ButtonInteraction
+	 * | import("discord.js").ModalSubmitInteraction} interaction
 	 */
 	async acceptClose(interaction) {
 		const ticket = await this.getTicket(interaction.channel.id);
-		const $ticket = this.$stale.get(interaction.channel.id);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
 		await interaction.editReply({
 			embeds: [
@@ -1147,8 +1211,8 @@ module.exports = class TicketManager {
 					.setDescription(getMessage('ticket.close.closed.description')),
 			],
 		});
-		await new Promise(resolve => setTimeout(resolve, 5000));
-		await this.finallyClose(interaction.channel.id, $ticket);
+		await new Promise(resolve => setTimeout(resolve, 3e3));
+		await this.finallyClose(interaction.channel.id, this.$stale.get(interaction.channel.id) || {});
 	}
 
 	/**
@@ -1159,11 +1223,8 @@ module.exports = class TicketManager {
 		closedBy = null,
 		reason = null,
 	}) {
-		if (this.$stale.has(ticketId)) this.$stale.delete(ticketId);
 		let ticket = await this.getTicket(ticketId);
 		const getMessage = this.client.i18n.getLocale(ticket.guild.locale);
-		this.$count.categories[ticket.categoryId].total -= 1;
-		this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
 
 		const { _count: { archivedMessages } } = await this.client.prisma.ticket.findUnique({
 			select: { _count: { select: { archivedMessages: true } } },
@@ -1179,7 +1240,7 @@ module.exports = class TicketManager {
 					where: { id: closedBy },
 				},
 			} || undefined, // Prisma wants undefined not null because it is a relation
-			closedReason: reason && encrypt(reason),
+			closedReason: reason && await crypto.queue(w => w.encrypt(reason)),
 			messageCount: archivedMessages,
 			open: false,
 		};
@@ -1191,113 +1252,155 @@ module.exports = class TicketManager {
 			data.pinnedMessageIds = [...pinned.keys()];
 		}
 
-		ticket = await this.client.prisma.ticket.update({
-			data,
-			include: {
-				category: true,
-				feedback: true,
-				guild: true,
-			},
-			where: { id: ticket.id },
-		});
+		try {
+			ticket = await this.client.prisma.ticket.update({
+				data,
+				include: {
+					category: true,
+					feedback: true,
+					guild: true,
+				},
+				where: { id: ticket.id },
+			});
+			if (this.$stale.has(ticketId)) this.$stale.delete(ticketId);
+			this.$count.categories[ticket.categoryId] ??= {};
+			this.$count.categories[ticket.categoryId].total -= 1;
+			this.$count.categories[ticket.categoryId][ticket.createdById] -= 1;
+		} catch (error) {
+			this.client.log.error(error);
+			return;
+		}
+
+		const guild = this.client.guilds.cache.get(ticket.guildId);
 
 		if (channel?.deletable) {
 			const member = closedBy ? channel.guild.members.cache.get(closedBy) : null;
 			await channel.delete('Ticket closed' + (member ? ` by ${member.displayName}` : '') + reason ? `: ${reason}` : '');
 		}
 
-		if (closedBy) {
-			logTicketEvent(this.client, {
-				action: 'close',
-				target: {
-					id: ticket.id,
-					name: `${ticket.category.name} **#${ticket.number}**`,
-				},
-				userId: closedBy,
-			});
+		const components = [];
+
+		if (ticket.guild.archive) {
+			components.push(
+				new ActionRowBuilder()
+					.addComponents(
+						new ButtonBuilder()
+							.setCustomId(JSON.stringify({
+								action: 'transcript',
+								ticket: ticket.id,
+							}))
+							.setStyle(ButtonStyle.Primary)
+							.setEmoji(getMessage('buttons.transcript.emoji'))
+							.setLabel(getMessage('buttons.transcript.text')),
+
+					),
+			);
 		}
 
+		const fields = {
+			closed: {
+				inline: true,
+				name: getMessage('dm.closed.fields.closed.name'),
+				value: getMessage('dm.closed.fields.closed.value', {
+					duration: ms(ticket.closedAt - ticket.createdAt, { long: true }),
+					timestamp: `<t:${Math.floor(ticket.closedAt / 1000)}:f>`,
+				}),
+			},
+			closedById: ticket.closedById && {
+				inline: true,
+				name: getMessage('dm.closed.fields.closed_by'),
+				value: `<@${ticket.closedById}>`,
+			},
+			created: {
+				inline: true,
+				name: getMessage('dm.closed.fields.created'),
+				value: `<t:${Math.floor(ticket.createdAt / 1000)}:f>`,
+			},
+			feedback: ticket.feedback && {
+				inline: true,
+				name: getMessage('dm.closed.fields.feedback'),
+				value: Array(ticket.feedback.rating).fill('⭐').join(' ') + ` (${ticket.feedback.rating}/5)`,
+			},
+			firstResponseAt: ticket.firstResponseAt && {
+				inline: true,
+				name: getMessage('dm.closed.fields.response'),
+				value: ms(ticket.firstResponseAt - ticket.createdAt, { long: true }),
+			},
+			reason: reason && {
+				inline: true,
+				name: getMessage('dm.closed.fields.reason'),
+				value: reason,
+			},
+			ticket: {
+				inline: true,
+				name: getMessage('dm.closed.fields.ticket'),
+				value: `${ticket.category.name} **#${ticket.number}**`,
+			},
+			topic: ticket.topic && {
+				inline: true,
+				name: getMessage('dm.closed.fields.topic'),
+				value: await crypto.queue(w => w.decrypt(ticket.topic)),
+			},
+		};
+
+		const dmEmbed = new ExtendedEmbedBuilder({
+			iconURL: guild.iconURL(),
+			text: ticket.guild.footer,
+		})
+			.setColor(ticket.guild.primaryColour)
+			.setTitle(getMessage('dm.closed.title'));
+
+		dmEmbed.addFields(fields.ticket);
+		if (ticket.topic) dmEmbed.addFields(fields.topic);
+		dmEmbed.addFields(fields.created, fields.closed);
+		if (ticket.firstResponseAt) dmEmbed.addFields(fields.firstResponseAt);
+		if (ticket.feedback) dmEmbed.addFields(fields.feedback);
+		if (ticket.closedById) dmEmbed.addFields(fields.closedById);
+		if (reason) dmEmbed.addFields(fields.reason);
+
 		try {
-			const creator = channel?.guild.members.cache.get(ticket.createdById);
+			const creator = guild.members.cache.get(ticket.createdById);
 			if (creator) {
-				const embed = new ExtendedEmbedBuilder({
-					iconURL: channel.guild.iconURL(),
-					text: ticket.guild.footer,
-				})
-					.setColor(ticket.guild.primaryColour)
-					.setTitle(getMessage('dm.closed.title'))
-					.addFields([
-						{
-							inline: true,
-							name: getMessage('dm.closed.fields.ticket'),
-							value: `${ticket.category.name} **#${ticket.number}**`,
-						},
-
-					]);
-				if (ticket.topic) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.topic'),
-						value: decrypt(ticket.topic),
-					});
-				}
-
-				embed.addFields([
-					{
-						inline: true,
-						name: getMessage('dm.closed.fields.created'),
-						value: `<t:${Math.floor(ticket.createdAt / 1000)}:f>`,
-					},
-					{
-						inline: true,
-						name: getMessage('dm.closed.fields.closed.name'),
-						value: getMessage('dm.closed.fields.closed.value', {
-							duration: ms(ticket.closedAt - ticket.createdAt, { long: true }),
-							timestamp: `<t:${Math.floor(ticket.closedAt / 1000)}:f>`,
-						}),
-					},
-				]);
-
-				if (ticket.firstResponseAt) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.response'),
-						value: ms(ticket.firstResponseAt - ticket.createdAt, { long: true }),
-					});
-				}
-
-				if (ticket.feedback) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.feedback'),
-						value: Array(ticket.feedback.rating).fill('⭐').join(' ') + ` (${ticket.feedback.rating}/5)`,
-					});
-				}
-
-				if (ticket.closedById) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.closed_by'),
-						value: `<@${ticket.closedById}>`,
-					});
-				}
-
-
-				if (reason) {
-					embed.addFields({
-						inline: true,
-						name: getMessage('dm.closed.fields.reason'),
-						value: reason,
-					});
-				}
-
-				if (ticket.guild.archive) embed.setDescription(getMessage('dm.closed.archived', { guild: channel.guild.name }));
-
-				await creator.send({ embeds: [embed] });
+				await creator.send({
+					components,
+					embeds: [dmEmbed],
+				});
 			}
 		} catch (error) {
 			this.client.log.error(error);
 		}
+
+		const fieldsArray = [];
+		if (ticket.topic) fieldsArray.push(fields.topic);
+		fieldsArray.push(fields.created, fields.closed);
+		if (ticket.firstResponseAt) fieldsArray.push(fields.firstResponseAt);
+		if (fields.feedback) {
+			fieldsArray.push(
+				{
+					...fields.feedback,
+					inline: true,
+					name: getMessage('modals.feedback.rating.label'),
+				},
+				{
+					inline: true,
+					name: getMessage('modals.feedback.comment.label'),
+					value: (ticket.feedback.comment && await crypto.queue(w => w.decrypt(ticket.feedback.comment))) || getMessage('ticket.answers.no_value'),
+				});
+		}
+		if (reason) fieldsArray.push(fields.reason);
+
+		logTicketEvent(this.client, {
+			action: 'close',
+			payload: {
+				components,
+				fields: fieldsArray,
+			},
+			target: {
+				id: ticket.id,
+				name: `${ticket.category.name} **#${ticket.number}**`,
+			},
+			userId: closedBy || this.client.user.id,
+		});
 
 	}
 };

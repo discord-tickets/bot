@@ -1,5 +1,6 @@
-const Cryptr = require('cryptr');
-const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { pools } = require('../threads');
+
+const { crypto } = pools;
 
 /**
  * Returns highest (roles.highest) hoisted role, or everyone
@@ -31,125 +32,126 @@ module.exports = class TicketArchiver {
 			}
 		}
 
-		const channels = message.mentions.channels;
-		const members = [...message.mentions.members.values()];
-		const roles = [...message.mentions.roles.values()];
+		const channels = new Set(message.mentions.channels.values());
+		const members = new Set(message.mentions.members.values());
+		const roles = new Set(message.mentions.roles.values());
 
-		if (message.member) {
-			members.push(message.member);
-			roles.push(hoistedRole(message.member));
-		} else {
-			this.client.log.warn('Message member does not exist');
-			await this.client.prisma.archivedUser.upsert({
-				create: {},
-				update: {},
-				where: {
-					ticketId_userId: {
-						ticketId,
-						userId: 'default',
-					},
-				},
-			});
-		}
+		try {
+			const queries = [];
 
-		for (const role of roles) {
-			const data = {
-				colour: role.hexColor.slice(1),
-				name: role.name,
-				roleId: role.id,
-				ticket: { connect: { id: ticketId } },
-			};
-			await this.client.prisma.archivedRole.upsert({
-				create: data,
-				update: data,
-				where: {
-					ticketId_roleId: {
-						roleId: role.id,
-						ticketId,
-					},
-				},
-			});
-		}
+			members.add(message.member);
 
-		for (const member of members) {
-			const data = {
-				avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
-				bot: member.user.bot,
-				discriminator: member.user.discriminator,
-				displayName: member.displayName ? encrypt(member.displayName) : null,
-				roleId: !!member && hoistedRole(member).id,
-				ticketId,
-				userId: member.user.id,
-				username: encrypt(member.user.username),
-			};
-			await this.client.prisma.archivedUser.upsert({
-				create: data,
-				update: data,
-				where: {
-					ticketId_userId: {
-						ticketId,
-						userId: member.user.id,
-					},
-				},
-			});
-		}
+			for (const member of members) {
+				roles.add(hoistedRole(member));
+			}
 
-		let reference;
-		if (message.reference) reference = await message.fetchReference();
-
-		const messageD = {
-			author: {
-				connect: {
-					ticketId_userId: {
-						ticketId,
-						userId: message.author?.id || 'default',
-					},
-				},
-			},
-			content: encrypt(
-				JSON.stringify({
-					attachments: [...message.attachments.values()],
-					components: [...message.components.values()],
-					content: message.content,
-					embeds: message.embeds.map(embed => ({ ...embed })),
-					reference: reference ? reference.id : null,
-				}),
-			),
-			createdAt: message.createdAt,
-			edited: !!message.editedAt,
-			external,
-			id: message.id,
-		};
-
-		return await this.client.prisma.ticket.update({
-			data: {
-				archivedChannels: {
-					upsert: channels.map(channel => {
-						const data = {
-							channelId: channel.id,
-							name: channel.name,
-						};
-						return {
-							create: data,
-							update: data,
-							where: {
-								ticketId_channelId: {
-									channelId: channel.id,
-									ticketId,
-								},
+			for (const role of roles) {
+				const data = {
+					colour: role.hexColor.slice(1),
+					name: role.name,
+				};
+				queries.push(
+					this.client.prisma.archivedRole.upsert({
+						create: {
+							...data,
+							roleId: role.id,
+							ticketId,
+						},
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_roleId: {
+								roleId: role.id,
+								ticketId,
 							},
-						};
+						},
 					}),
-				},
-				archivedMessages: {
-					upsert: {
-						create: messageD,
-						update: messageD,
-						where: { id: message.id },
+				);
+			}
+
+			for (const member of members) {
+				const data = {
+					avatar: member.avatar || member.user.avatar, // TODO: save avatar in user/avatars/
+					bot: member.user.bot,
+					discriminator: member.user.discriminator,
+					displayName: member.displayName ? await crypto.queue(w => w.encrypt(member.displayName)) : null,
+					roleId: !!member && hoistedRole(member).id,
+					username: await crypto.queue(w => w.encrypt(member.user.username)),
+				};
+				queries.push(
+					this.client.prisma.archivedUser.upsert({
+						create: {
+							...data,
+							ticketId,
+							userId: member.user.id,
+						},
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_userId: {
+								ticketId,
+								userId: member.user.id,
+							},
+						},
+					}),
+				);
+			}
+
+			for (const channel of channels) {
+				const data = {
+					channelId: channel.id,
+					name: channel.name,
+					ticketId,
+				};
+				queries.push(
+					this.client.prisma.archivedChannel.upsert({
+						create: data,
+						select: { ticketId: true },
+						update: data,
+						where: {
+							ticketId_channelId: {
+								channelId: channel.id,
+								ticketId,
+							},
+						},
+					}),
+				);
+			}
+
+			const data = {
+				content: await crypto.queue(w => w.encrypt(
+					JSON.stringify({
+						attachments: [...message.attachments.values()],
+						components: [...message.components.values()],
+						content: message.content,
+						embeds: message.embeds.map(embed => ({ ...embed })),
+						reference: message.reference?.messageId ?? null,
+					}),
+				)),
+				createdAt: message.createdAt,
+				edited: !!message.editedAt,
+				external,
+			};
+
+			queries.push(
+				this.client.prisma.archivedMessage.upsert({
+					create: {
+						...data,
+						authorId: message.author?.id || 'default',
+						id: message.id,
+						ticketId,
 					},
-				},
-			},
-			where: { id: ticketId },
-		});
+					select: { ticketId: true },
+					update: data,
+					where: { id: message.id },
+				}),
+			);
+
+			return await this.client.prisma.$transaction(queries);
+		} catch (error) {
+			this.client.log.error('Failed to archive message %s', message.id);
+			this.client.log.error(error);
+			return false;
+		}
 	}
 };

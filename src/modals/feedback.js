@@ -1,8 +1,9 @@
 const { Modal } = require('@eartharoid/dbf');
 const ExtendedEmbedBuilder = require('../lib/embed');
-const Cryptr = require('cryptr');
-const { encrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { MessageFlags } = require('discord.js');
+const { pools } = require('../lib/threads');
 
+const { crypto } = pools;
 module.exports = class FeedbackModal extends Modal {
 	constructor(client, options) {
 		super(client, {
@@ -26,7 +27,7 @@ module.exports = class FeedbackModal extends Modal {
 		rating = Math.min(Math.max(rating, 1), 5); // clamp between 1 and 5 (0 and null become 1, 6 becomes 5)
 
 		const data = {
-			comment: comment?.length > 0 ? encrypt(comment) : null,
+			comment: comment?.length > 0 ? await crypto.queue(w => w.encrypt(comment)) : null,
 			guild: { connect: { id: interaction.guild.id } },
 			rating,
 			user: { connect: { id: interaction.user.id } },
@@ -61,7 +62,7 @@ module.exports = class FeedbackModal extends Modal {
 						.setColor(ticket.guild.primaryColour)
 						.setDescription(getMessage('ticket.feedback')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 	}

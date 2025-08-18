@@ -4,6 +4,15 @@ const ExtendedEmbedBuilder = require('../../lib/embed');
 const { logTicketEvent } = require('../../lib/logging');
 const { isStaff } = require('../../lib/users');
 
+const getEmoji = priority => {
+	const emojis = {
+		'HIGH': '🔴',
+		'MEDIUM': '🟠',
+		'LOW': '🟢', // eslint-disable-line sort-keys
+	};
+	return emojis[priority];
+};
+
 module.exports = class PrioritySlashCommand extends SlashCommand {
 	constructor(client, options) {
 		const name = 'priority';
@@ -35,25 +44,6 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 				return option;
 			}),
 		});
-	}
-
-	getEmoji(priority) {
-		let emoji;
-		switch (priority) {
-		case 'HIGH': {
-			emoji = '🔴';
-			break;
-		}
-		case 'MEDIUM': {
-			emoji = '🟠';
-			break;
-		}
-		case 'LOW': {
-			emoji = '🟢';
-			break;
-		}
-		}
-		return emoji;
 	}
 
 	/**
@@ -103,8 +93,8 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 
 		const priority = interaction.options.getString('priority', true);
 		let name = interaction.channel.name;
-		if (ticket.priority) name = name.replace(this.getEmoji(ticket.priority), this.getEmoji(priority));
-		else name = this.getEmoji(priority) + name;
+		if (ticket.priority) name = name.replace(getEmoji(ticket.priority), getEmoji(priority));
+		else name = getEmoji(priority) + name;
 		await interaction.channel.setName(name);
 
 		// don't reassign ticket because the original is used below
@@ -140,3 +130,5 @@ module.exports = class PrioritySlashCommand extends SlashCommand {
 
 	}
 };
+
+module.exports.getEmoji = getEmoji;

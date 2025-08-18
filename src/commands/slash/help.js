@@ -2,6 +2,7 @@ const { SlashCommand } = require('@eartharoid/dbf');
 const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { version } = require('../../../package.json');
+const { MessageFlags } = require('discord.js');
 
 module.exports = class ClaimSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -23,7 +24,7 @@ module.exports = class ClaimSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		const staff = await isStaff(interaction.guild, interaction.member.id);
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const getMessage = client.i18n.getLocale(settings.locale);

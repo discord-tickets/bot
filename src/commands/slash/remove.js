@@ -1,5 +1,7 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType, MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
 const { logTicketEvent } = require('../../lib/logging');
@@ -42,7 +44,7 @@ module.exports = class RemoveSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },

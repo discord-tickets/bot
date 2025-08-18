@@ -1,9 +1,14 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType,
+	PermissionsBitField,
+	MessageFlags,
+} = require('discord.js');
 const { isStaff } = require('../../lib/users');
 const ExtendedEmbedBuilder = require('../../lib/embed');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { pools } = require('../../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class TicketsSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -37,7 +42,7 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		await client.application.commands.fetch();
 
 		const member = interaction.options.getMember('member', false) ?? interaction.member;
@@ -60,12 +65,45 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		}
 
 		const fields = [];
+		let base_filter;
+
+		if (member.id === interaction.member.id) {
+			base_filter = {
+				createdById: member.id,
+				guildId: interaction.guild.id,
+			};
+		} else {
+			const { categories } = await client.prisma.guild.findUnique({
+				select: {
+					categories: {
+						select: {
+							id: true,
+							staffRoles: true,
+						},
+					},
+				},
+				where: { id: interaction.guild.id },
+			});
+			const allow_category_ids = (
+				(
+					client.supers.includes(interaction.member.id) ||
+					interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)
+				)
+					? categories
+					: categories.filter(c => c.staffRoles.some(id => interaction.member.roles.cache.has(id)))
+			)
+				.map(c => c.id);
+			base_filter = {
+				categoryId: { in: allow_category_ids },
+				createdById: member.id,
+				guildId: interaction.guild.id,
+			};
+		}
 
 		const open = await client.prisma.ticket.findMany({
 			include: { category: true },
 			where: {
-				createdById: member.id,
-				guildId: interaction.guild.id,
+				...base_filter,
 				open: true,
 			},
 		});
@@ -75,19 +113,22 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 			orderBy: { createdAt: 'desc' },
 			take: 10, // max 10 rows
 			where: {
-				createdById: member.id,
-				guildId: interaction.guild.id,
+				...base_filter,
 				open: false,
 			},
 		});
 
+		const getTopic = async ticket => (await crypto.queue(w => w.decrypt(ticket.topic))).replace(/\n/g, ' ').substring(0, 30);
+
 		if (open.length >= 1) {
 			fields.push({
 				name: getMessage('commands.slash.tickets.response.fields.open.name'),
-				value: open.map(ticket =>{
-					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30) }\`` : '';
-					return `> <#${ticket.id}> ${topic}`;
-				}).join('\n'),
+				value: (await Promise.all(
+					open.map(async ticket => {
+						const topic = ticket.topic ? `- \`${await getTopic(ticket)}\`` : '';
+						return `> <#${ticket.id}> ${topic}`;
+					}),
+				)).join('\n'),
 			});
 		}
 
@@ -103,12 +144,15 @@ module.exports = class TicketsSlashCommand extends SlashCommand {
 		} else {
 			fields.push({
 				name: getMessage('commands.slash.tickets.response.fields.closed.name'),
-				value: closed.map(ticket => {
-					const topic = ticket.topic ? `- \`${decrypt(ticket.topic).replace(/\n/g, ' ').slice(0, 30)}\`` : '';
-					return `> ${ticket.category.name} #${ticket.number} ${topic}`;
-				}).join('\n'),
+				value: (await Promise.all(
+					closed.map(async ticket => {
+						const topic = ticket.topic ? `- \`${await getTopic(ticket)}\`` : '';
+						return `> ${ticket.category.name} #${ticket.number} (\`${ticket.id}\`) ${topic}`;
+					}),
+				)).join('\n'),
 			});
 		}
+
 		// TODO: add portal URL to view all (this list is limited to the last 10)
 
 		const embed = new ExtendedEmbedBuilder({

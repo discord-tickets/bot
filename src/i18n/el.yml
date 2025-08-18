@@ -1,1 +1,3 @@
-{}
+buttons:
+  accept_close_request:
+    emoji: ✅

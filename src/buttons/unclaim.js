@@ -16,7 +16,6 @@ module.exports = class UnclaimButton extends Button {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: false });
 		await client.tickets.release(interaction);
 	}
 };

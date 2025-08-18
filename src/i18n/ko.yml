@@ -1,0 +1,443 @@
+buttons:
+  create:
+    emoji: 🎫
+    text: 티켓 만들기
+  edit:
+    emoji: ✏️
+    text: 편집
+  reject_close_request:
+    emoji: ✖️
+    text: 거절
+  unclaim:
+    emoji: ♻️
+    text: 배정 해제
+  accept_close_request:
+    text: 수락
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: 취소
+  claim:
+    emoji: 🙌
+    text: 나에게 배정
+  close:
+    emoji: ✖️
+    text: 종료
+  confirm_open:
+    emoji: ✅
+    text: 티켓 만들기
+commands:
+  message:
+    create:
+      name: 메시지로부터 티켓 만들기
+    pin:
+      not_ticket:
+        description: 티켓 채널에서만 메시지를 고정할 수 있습니다.
+        title: ❌ 이 채널은 티켓 채널이 아닙니다
+      not_pinnable:
+        title: ❌ 오류
+        description: "이 메시지는 고정될 수 없습니다.\n봇의 권한을 확인하려면 관리자에게 문의하세요.\n"
+      name: 메시지 고정하기
+      pinned:
+        description: 메시지가 고정되었습니다.
+        title: ✅ 메시지 고정됨
+  slash:
+    add:
+      success:
+        title: ✅ 추가됨
+        description: '{member}이(가) {ticket}에 추가되었습니다.'
+      added: ➡️ {added}이(가) {by}에 의해 티켓에 추가되었습니다.
+      name: 멤버-추가
+      not_staff:
+        title: ❌ 오류
+        description: 관리자만 티켓에 다른 멤버를 추가할 수 있습니다.
+      description: 티켓에 멤버를 추가합니다
+      options:
+        member:
+          name: 멤버
+          description: 티켓에 추가할 멤버
+        ticket:
+          description: 멤버를 추가할 티켓
+          name: 티켓
+    force-close:
+      confirmed_multiple:
+        description: 몇 초 후에 채널들이 삭제됩니다.
+        title:
+        - ✅ 티켓 %d개 종료됨
+        - ✅ 티켓 %d개 종료됨
+      description: 티켓을 강제로 종료합니다
+      name: 강제-종료
+      no_tickets:
+        description: '`{time}` 이상 활동이 없는 티켓이 없습니다.'
+        title: ❌ 티켓 없음
+      closed_one:
+        description: 몇 초 후에 채널이 삭제됩니다.
+        title: ✅ 티켓 종료됨
+      confirm_multiple:
+        description: "`{time}` 이상 활동이 없었던 **{count}**개의 티켓을 종료하려고 합니다:\n{tickets}\n"
+        title: ❓ 정말로 진행할까요?
+      not_staff:
+        description: 관리자만 티켓을 강제로 종료할 수 있습니다.
+        title: ❌ 오류
+      options:
+        category:
+          description: 지정된 카테고리의 모든 티켓을 종료합니다 (`시간` 필수 입력)
+          name: 카테고리
+        reason:
+          description: 티켓 종료 사유
+          name: 사유
+        ticket:
+          description: 종료할 티켓
+          name: 티켓
+        time:
+          description: 지정된 시간 동안 활동이 없었던 모든 티켓을 종료합니다
+          name: 시간
+    claim:
+      description: 티켓을 나에게 배정합니다
+      name: 배정
+      not_staff:
+        description: 관리자만 티켓을 배정할 수 있습니다.
+        title: ❌ 오류
+    close:
+      description: 티켓 종료를 요청합니다
+      invalid_time:
+        description: '`{input}`은(는) 유효한 시간 형식이 아닙니다.'
+        title: ❌ 유효하지 않음
+      name: 종료
+      options:
+        reason:
+          description: 티켓 종료 사유
+          name: 사유
+    help:
+      description: 도움말 메뉴를 표시합니다
+      name: 도움말
+      response:
+        commands: 명령어
+        description: '**지원을 받으려면 {command}을(를) 사용하여 티켓을 만드세요.**'
+        links:
+          commands: 전체 명령어 목록
+          feedback: 피드백
+          links: 유용한 링크
+          support: 지원
+          docs: 문서
+        settings: 봇 설정
+      title: 도움말
+    move:
+      description: 티켓을 다른 카테고리로 이동합니다
+      not_staff:
+        description: 관리자만 티켓을 이동시킬 수 있습니다.
+        title: ❌ 오류
+      moved: 🗃️ {by}(이)가 이 티켓을 **{from}**에서 **{to}**(으)로 이동시켰습니다.
+      name: 이동
+      options:
+        category:
+          description: 티켓을 이동시킬 카테고리
+          name: 카테고리
+    priority:
+      name: 중요도
+      options:
+        priority:
+          choices:
+            LOW: 🟢 낮음
+            HIGH: 🔴 높음
+            MEDIUM: 🟠 보통
+          name: 중요도
+          description: 티켓의 중요도
+      success:
+        title: ✅ 중요도 설정됨
+        description: 티켓의 중요도가 `{priority}`(으)로 설정되었습니다.
+      not_staff:
+        title: ❌ 오류
+        description: 관리자만 티켓의 중요도를 바꿀 수 있습니다.
+      description: 티켓의 중요도를 설정합니다
+    release:
+      description: 티켓을 배정 해제합니다
+      name: 배정-해제
+    remove:
+      description: 티켓에서 멤버를 제거합니다
+      options:
+        member:
+          name: 멤버
+          description: 티켓에서 제거할 멤버
+        ticket:
+          description: 멤버를 제거할 티켓
+          name: 티켓
+      success:
+        title: ✅ 제거됨
+        description: '{member}이(가) {ticket}에서 제거되었습니다.'
+      removed: ⬅️ {removed}이(가) {by}에 의해 티켓에서 제거되었습니다.
+      name: 멤버-제거
+      not_staff:
+        description: 관리자만 다른 멤버의 티켓에서 멤버를 제거할 수 있습니다.
+        title: ❌ 오류
+    tickets:
+      options:
+        member:
+          description: 티켓 목록을 확인할 멤버
+          name: 멤버
+      response:
+        description: '{transcript}을(를) 사용하여 티켓의 사본을 내려받을 수 있습니다.'
+        title:
+          other: '{displayName}의 티켓'
+          own: 내 티켓
+        fields:
+          closed:
+            name: 종료된 티켓
+            none:
+              own: "티켓을 만든 적이 없습니다.\n{new}를 사용하여 새 티켓을 만드세요.\n"
+              other: '{user}은(는) 티켓을 만들지 않았습니다.'
+          open:
+            name: 열린 티켓
+      description: 자신 또는 타인의 티켓 목록을 확인합니다
+      name: 티켓
+      not_staff:
+        description: 관리자만 다른 멤버의 티켓을 확인할 수 있습니다.
+        title: ❌ 오류
+    transfer:
+      transferred: 📨 {user}이(가) 이 티켓을 {to}에게 이전했습니다.
+      name: 소유권-이전
+      description: 티켓 소유권을 다른 멤버에게 이전합니다
+      transferred_from: 📨 {user}이(가) 이 티켓을 {from}에서 {to}(으)로 이양했습니다.
+      options:
+        member:
+          name: 멤버
+          description: 소유권을 이전할 멤버
+    transcript:
+      options:
+        member:
+          name: 멤버
+          description: 티켓을 검색할 멤버
+        ticket:
+          name: 티켓
+          description: 사본을 받을 티켓
+      name: 사본
+      description: 티켓의 사본을 내려받습니다
+      not_staff:
+        description: 관리자만 다른 멤버의 티켓 사본을 읽을 수 있습니다.
+        title: ❌ 오류
+    new:
+      description: 새 티켓을 만듭니다
+      options:
+        references:
+          description: 관련된 티켓 번호
+          name: 관련-티켓
+      name: 새-티켓
+    tag:
+      description: 태그를 사용합니다
+      options:
+        tag:
+          name: 태그
+          description: 사용할 태그의 이름
+        for:
+          name: 대상
+          description: 태그할 멤버
+      name: 태그
+    topic:
+      description: 티켓의 주제를 변경합니다
+      name: 주제
+  user:
+    create:
+      prompt:
+        title: 티켓을 생성해 주세요
+        description: 아래 단추를 눌러 티켓을 생성해 주세요.
+      not_staff:
+        title: ❌ 오류
+        description: 관리자만 다른 멤버를 위해 티켓을 열 수 있습니다.
+      name: 멤버를 위한 티켓 만들기
+      sent:
+        title: ✅ 프롬포트 전송됨
+        description: '{user}이(가) **{category}**에서 티켓을 생성하도록 초대되었습니다.'
+ticket:
+  references_ticket:
+    fields:
+      number: 번호
+      date: 생성일시
+      topic: 주제
+    description: '이 티켓은 다음 티켓과 관련이 있습니다:'
+    title: ℹ️ 관련 티켓
+  offline:
+    description: 현재 모든 관리자가 자리에 없어 평소보다 답변을 받는 데 오랜 시간이 더 걸릴 수 있습니다.
+    title: 😴 모든 관리자가 오프라인 상태입니다
+  inactive:
+    description: "<t:{timestamp}:R> 이후로 이 티켓에 아무런 활동이 없었습니다.\n대화를 계속하시거나 티켓을 {close}해
+      주세요.\n"
+    title: ⏰ 이 티켓은 비활성 상태입니다
+  close:
+    wait_for_staff: ✋ 관리자가 티켓을 종료할 때까지 기다려 주세요.
+    user_request:
+      title: ❓ {requestedBy}이(가) 이 티켓을 종료하려고 합니다
+    staff_request:
+      description: "{requestedBy}님이 이 티켓을 종료하려고 합니다.\n티켓을 닫으려면 \"수락\"을 누르고, 여전히 도움이
+        필요하면 \"거부\"를 눌러주세요.\n"
+      title: ❓ 이 티켓을 종료할까요?
+      archived: "\n이 채널의 메시지는 나중에 참조할 수 있도록 보관됩니다.\n"
+    forbidden:
+      description: 이 티켓을 종료할 권한이 없습니다.
+      title: ❌ 오류
+    closed:
+      title: ✅ 티켓 종료됨
+      description: 몇 초 후 채널이 삭제됩니다…
+    wait_for_user: ✋ 사용자의 응답을 기다려 주세요.
+    rejected: ✋ {user}이(가) 티켓 종료 요청을 거부했습니다.
+  claimed: 🙌 {user}님이 이 티켓에 배정되었습니다.
+  answers:
+    no_value: '*답변 없음*'
+  references_message:
+    description: '{timestamp}에 {author}이(가) 보낸 [이 메시지]({url})를 참조하세요.'
+    title: ℹ️ 관련 티켓
+  opening_message:
+    fields:
+      topic: 주제
+    content: "{staff}\n{creator}이(가) 새 티켓을 만들었습니다\n"
+  feedback: 의견을 보내 주셔서 감사합니다.
+  edited:
+    title: ✅ 티켓 갱신됨
+    description: 변경 사항이 저장되었습니다.
+  created:
+    title: ✅ 티켓 생성됨
+    description: 티켓 {channel}이(가) 생성되었습니다.
+  closing_soon:
+    title: ⌛ 본 티켓은 잠시 후 종료됩니다
+    description: "<t:{timestamp}:R> 이후로 아무런 활동이 없어 자동으로 티켓이 종료될 예정입니다.\n티켓 종료를 원치
+      않으시면 메시지를 전송해 주세요.\n"
+  working_hours:
+    today:
+      title: 🕗 지금은 업무 시간이 아닙니다
+      description: 때에 따라 업무시간 전후로 답변을 받으실 수도 있지만, 금일 <t:{timestamp}:t> (<t:{timestamp}:R>)
+        전까지는 업무 시간이 아닙니다.
+    next:
+      title: 🕗 지금은 업무 시간이 아닙니다
+      description: 다음 업무 시간은 <t:{timestamp}:F> (<t:{timestamp}:R>)부터입니다만, 때에 따라 그
+        전에 답변을 받을 수도 있습니다.
+  released: ♻️ {user}이(가) 이 티켓의 배정을 해제했습니다.
+modals:
+  topic:
+    placeholder: 이 티켓의 주제가 무엇인가요?
+    label: 주제
+  feedback:
+    title: 도움이 되었나요?
+    rating:
+      placeholder: 1-5
+      label: 평점
+    comment:
+      placeholder: 추가 의견이 있으신가요?
+      label: 의견
+misc:
+  update:
+    title: 업데이트를 사용할 수 있습니다
+    description: "> [GitHub에서 `{version}` 보기]({github})\n> [업데이트 내역]({changelog})\n
+      > [업데이트 안내]({guide})\n"
+  ratelimited:
+    description: 몇 초 후 다시 시도해 주세요.
+    title: 🐢 천천히
+  not_ticket:
+    description: 이 명령어는 티켓 채널에서만 사용하실 수 있습니다.
+    title: ❌ 여기는 티켓 채널이 아닙니다
+  missing_roles:
+    title: ❌ 권한 부족
+    description: 이 카테고리에서 티켓을 만드는 데 필요한 역할이 없습니다.
+  no_categories:
+    title: ❌ 티켓 카테고리가 없습니다
+    description: "설정된 티켓 카테고리가 없습니다.\n{url}에서 티켓 카테고리를 설정해 주세요."
+  member_limit:
+    description:
+    - 다른 티켓을 만들기 전에 티켓을 종료해 주세요.
+    - "다른 티켓을 만들기 전에 티켓을 종료해 주세요.\n기존 티켓을 보려면 `/tickets`를 사용하세요.\n"
+    title:
+    - ❌ 이미 티켓이 존재합니다
+    - ❌ 이미 %d개의 티켓이 열려 있습니다
+  expired:
+    title: ⏰ 만료됨
+    description: 시간 안에 응답하지 않았습니다. 다시 시도해 주세요.
+  error:
+    title: ⚠️ 문제가 발생했습니다
+    fields:
+      identifier: 고유 식별자
+    description: "죄송합니다. 예상치 못한 오류가 발생했습니다.\n다음 정보를 관리자에게 전달해 주세요.\n"
+  category_full:
+    description: "현재 이 카테고리의 문의량이 많아 도움을 드리기 어렵습니다.\n다음에 다시 시도해 주세요.\n"
+    title: ❌ 최대 문의량 초과
+  cooldown:
+    title: ❌ 잠시만 기다려 주세요
+    description: '{time}초 후 다시 시도해 주세요.'
+  blocked:
+    description: 당신은 티켓을 만들 권한이 없습니다.
+    title: ❌ 차단됨
+  expires_in: '{time} 뒤 만료'
+  unknown_category:
+    title: ❌ 존재하지 않는 티켓 카테고리입니다
+    description: 유효한 카테고리를 입력해 주세요.
+  invalid_ticket:
+    title: ❌ 유효하지 않은 티켓
+    description: 유효한 티켓을 입력해 주세요.
+  role_error:
+    fields:
+      for_admins:
+        name: 서버 관리자용
+        value: "잘못된 사용자 또는 역할이 제공되었습니다. 일반적으로 이는 관리자 역할이 삭제되었음을 의미합니다. [여기를 눌러]({url})
+          해결 지침을 확인하세요.\n"
+    description: 죄송합니다. 잘못된 구성으로 인해 작업을 실패했습니다.
+    title: ⚠️ 문제가 발생했습니다
+log:
+  ticket:
+    ticket: 티켓
+    verb:
+      create: 생성
+      update: 갱신
+      unclaim: 배정 해제
+      close: 종료
+      claim: 배정
+    title: 티켓 {verb}됨
+    added: 추가된 멤버
+    removed: 제거된 멤버
+    description: '{user}이(가) 티켓을 {verb}했습니다'
+  message:
+    description: '{user}이(가) 메시지를 {verb}했습니다'
+    verb:
+      update: 갱신
+      delete: 삭제
+    title: 메시지 {verb}됨
+    message: 메시지
+  admin:
+    title:
+      target:
+        category: 카테고리
+        panel: 패널
+        question: 질문
+        tag: 태그
+        settings: 설정
+      joined: '{targetType} {verb}됨'
+    verb:
+      update: 갱신
+      delete: 삭제
+      create: 생성
+    description:
+      target:
+        question: 질문
+        panel: 패널
+        category: 카테고리
+        tag: 태그
+        settings: 설정
+      joined: '{user}이(가) {targetType}을(를) {verb}했습니다'
+    changes: 변경 사항
+dm:
+  closed:
+    title: 티켓이 종료되었습니다
+    fields:
+      topic: 주제
+      feedback: 피드백
+      reason: 종료 사유
+      created: 생성일시
+      closed_by: 종료자
+      closed:
+        name: 종료일시
+        value: '{timestamp} ({duration} 경과)'
+      ticket: 티켓
+      response: 답변 시간
+  confirm_open:
+    title: 이 주제로 티켓을 열까요?
+menus:
+  guild:
+    placeholder: 서버 선택
+  category:
+    placeholder: 티켓 카테고리 선택

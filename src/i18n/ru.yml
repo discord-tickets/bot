@@ -3,7 +3,7 @@ buttons:
     emoji: ✅
     text: Принять
   cancel:
-    emoji: ✖️
+    emoji: ➖
     text: Отмена
   confirm_open:
     emoji: ✅
@@ -25,9 +25,444 @@ buttons:
     text: Отклонить
   unclaim:
     emoji: ♻️
+    text: Отказаться
+  transcript:
+    emoji: 📄
+    text: Транскрипт
 commands:
   message:
     create:
       name: Создать тикет из сообщения
     pin:
       name: Закрепить сообщение
+      pinned:
+        description: Сообщение закреплено.
+        title: ✅ Закрепленное сообщение
+      not_pinnable:
+        title: ❌ Ошибка
+        description: "Это сообщение не может быть закреплено.\nПопросите администратора
+          проверить права бота.\n"
+      not_ticket:
+        title: ❌ Это не канал тикета
+        description: Вы можете закреплять сообщения только в тикетах.
+  slash:
+    close:
+      invalid_time:
+        description: '`{input}` не является допустимым форматом времени.'
+        title: ❌ Неправильно
+      options:
+        reason:
+          name: причина
+          description: Причина закрытия тикета
+      name: закрыть
+      description: Запросить закрытие тикета
+    force-close:
+      confirm_multiple:
+        title: ❓ Вы уверены?
+        description: "Вы собираетесь закрыть **{count}** тикет(-ов), которые были
+          неактивны более `{time}`:\n{tickets}\n"
+      description: Принудительно закрыть тикет
+      options:
+        category:
+          name: категория
+          description: Закрыть все тикеты в указанной категории (должно быть 
+            использовано с `time`)
+        reason:
+          description: Причина закрытия тикета(ов)
+          name: причина
+        ticket:
+          description: Тикет для закрытия
+          name: тикет
+        time:
+          description: Закрыть все тикеты, которые были неактивны в течение 
+            указанного времени
+          name: время
+      not_staff:
+        title: ❌ Ошибка
+        description: Только администраторы могут принудительно закрывать тикеты.
+      no_tickets:
+        title: ❌ Тикетов нет
+        description: Нет открытых тикетов, которые были неактивны более 
+          `{time}`.
+      confirmed_multiple:
+        description: Каналы будут удалены через несколько секунд.
+        title:
+        - ✅ Закрытие тикета %d
+        - ✅ Закрытие %d тикет(-ов)
+      closed_one:
+        description: Канал будет удален через несколько секунд.
+        title: ✅ Тикет закрыт
+      name: принудительно-закрыть
+    add:
+      added: ➡️ {added} был добавлен пользователем {by}.
+      description: Добавить участника в тикет
+      not_staff:
+        title: ❌ Ошибка
+        description: Только администраторы могут добавлять участников в чужие 
+          тикеты.
+      options:
+        member:
+          description: Участник, которого нужно добавить в тикет
+          name: участник
+        ticket:
+          name: тикет
+          description: Тикет, в который нужно добавить участника
+      name: добавить
+      success:
+        description: '{member} был добавлен в {ticket}.'
+        title: ✅ Добавлен
+    claim:
+      description: Взять тикет
+      name: взять
+      not_staff:
+        title: ❌ Ошибка
+        description: Только администраторы могут брать тикеты.
+    tag:
+      options:
+        tag:
+          name: тег
+          description: Имя используемого тега
+        for:
+          name: для
+          description: Пользователь, на которого будет назначаться тег
+      name: тег
+      description: Использовать тег
+    remove:
+      success:
+        description: '{member} удален из {ticket}.'
+        title: ✅ Удалено
+      removed: ⬅️ {removed} был удален пользователем {by}.
+      options:
+        member:
+          description: Участник, которого нужно удалить из тикета
+          name: участник
+        ticket:
+          description: Тикет, из которого нужно удалить участника
+          name: тикет
+      name: удалить
+      description: Удалить участника из тикета
+      not_staff:
+        description: Только администраторы могут удалять участников из чужих 
+          тикетов.
+        title: ❌ Ошибка
+    help:
+      response:
+        links:
+          docs: Документация
+          links: Полезные ссылки
+          commands: Полный список команд
+          feedback: Обратная связь
+          support: Поддержка
+        commands: Команды
+        description: '**Используйте {command}, чтобы создать тикет и получить поддержку.**'
+        settings: Настройки бота
+      description: Показать меню помощи
+      name: помощь
+      title: Помощь
+    move:
+      name: переместить
+      description: Переместить тикет в другую категорию
+      not_staff:
+        description: Только администраторы могут перемещать тикеты.
+        title: ❌ Ошибка
+      moved: 🗃️ {by} переместил этот тикет из **{from}** в **{to}**.
+      options:
+        category:
+          description: Категория, в которую нужно переместить тикет
+          name: категория
+    priority:
+      options:
+        priority:
+          choices:
+            MEDIUM: 🟠 Средний
+            LOW: 🟢 Низкий
+            HIGH: 🔴 Высокий
+          description: Приоритет тикета
+          name: приоритет
+      name: приоритет
+      not_staff:
+        description: Только администраторы могут изменять приоритет тикетов.
+        title: ❌ Ошибка
+      success:
+        description: Приоритет этого тикета установлен на `{priority}`.
+        title: ✅ Приоритет установлен
+      description: Установить приоритет тикета
+    tickets:
+      description: Список своих или чужих тикетов
+      name: тикеты
+      not_staff:
+        description: Только администраторы могут просматривать чужие тикеты.
+        title: ❌ Ошибка
+      options:
+        member:
+          description: Пользователь для вывода списка тикетов
+          name: участник
+      response:
+        description: Используйте {transcript} для загрузки транскрипта тикета.
+        fields:
+          closed:
+            name: Закрытые тикеты
+            none:
+              other: '{user} не создал ни одного тикета.'
+              own: "Вы не создали ни одного тикета.\nИспользуйте {new}, чтобы открыть
+                тикет.\n"
+          open:
+            name: Открытые тикеты
+        title:
+          other: Тикеты {displayName}
+          own: Ваши тикеты
+    transcript:
+      options:
+        member:
+          name: участник
+          description: Участник, тикеты которого требуется найти
+        ticket:
+          description: Номер тикета для получения транскрипта
+          name: тикет
+      description: Получить транскрипт тикета
+      name: транскрипт
+      not_staff:
+        title: ❌ Ошибка
+        description: Только модераторы могут читать транскрипцию других тикетов.
+    transfer:
+      description: Передать права на тикет другому участнику
+      name: передать
+      options:
+        member:
+          description: Участник, которому передаются права на тикет
+          name: участник
+      transferred: 📨 {user} передал этот тикет {to}.
+      transferred_from: 📨 {user} передал этот тикет с {from} на {to}.
+    new:
+      description: Создать новый тикет
+      name: новый
+      options:
+        references:
+          description: Номер связанного тикета
+          name: ссылки
+    topic:
+      description: Изменить тему тикета
+      name: тема
+    release:
+      description: Отказаться от тикета
+      name: отказаться
+    rename:
+      error: При переименовании канала произошла ошибка.
+      description: Переименовать канал для тикетов
+  user:
+    create:
+      prompt:
+        description: Нажмите кнопку ниже, чтобы создать тикет.
+        title: Пожалуйста, создайте тикет
+      sent:
+        description: Пользователю {user} было предложено создать тикет в 
+          **{category}**.
+        title: ✅ Подсказка отправлена
+      not_staff:
+        title: ❌ Ошибка
+        description: Только администраторы могут открывать тикеты для других 
+          участников.
+      name: Создать тикет для пользователя
+dm:
+  closed:
+    fields:
+      created: Создан в
+      closed_by: Закрыто
+      closed:
+        name: Закрыто в
+        value: '{timestamp} (после {duration})'
+      feedback: Ваш отзыв
+      reason: Закрыто по причине
+      response: Время ответа
+      ticket: Тикет
+      topic: Тема
+    title: Ваш тикет закрыт
+  confirm_open:
+    title: Вы хотите открыть тикет со следующей темой?
+log:
+  admin:
+    description:
+      target:
+        category: категория
+        panel: панель
+        question: вопрос
+        settings: настройки
+        tag: тег
+      joined: '{user} {verb} {targetType}'
+    changes: Изменения
+    title:
+      joined: '{targetType} {verb}'
+      target:
+        category: Категория
+        question: Вопрос
+        settings: Настройки
+        tag: Тег
+        panel: Панель
+    verb:
+      update: обновлено
+      create: создано
+      delete: удалено
+  message:
+    verb:
+      update: обновлено
+      delete: удалено
+    description: '{user} {verb} сообщение'
+    message: Сообщение
+    title: Сообщение {verb}
+  ticket:
+    verb:
+      claim: взят
+      close: закрыт
+      create: создан
+      update: обновлен
+      unclaim: отказался
+    added: Добавлены участники
+    description: 'Тикет {verb} {user}'
+    title: Тикет {verb}
+    removed: Удалены участники
+    ticket: Тикет
+misc:
+  blocked:
+    description: Вам не разрешено создавать тикеты.
+    title: ❌ Заблокировано
+  error:
+    description: "Извините, произошла непредвиденная ошибка.\nПожалуйста, сообщите
+      эту информацию администратору.\n"
+    fields:
+      identifier: Идентификатор
+    title: ⚠️ Что-то пошло не так
+  member_limit:
+    description:
+    - Пожалуйста, используйте существующий тикет или закройте его, прежде чем 
+      создавать новый.
+    - "Пожалуйста, закройте тикет, прежде чем создавать новый.\nИспользуйте `/тикеты`
+      для просмотра ваших тикетов.\n"
+    title:
+    - ❌ У вас уже открыт тикет
+    - ❌ У вас уже %d открытых тикетов
+  category_full:
+    description: "Категория достигла максимального числа тикетов.\nПожалуйста, повторите
+      попытку позже.\n"
+    title: ❌ Категория заполнена
+  cooldown:
+    description: Пожалуйста, подождите {time}, прежде чем создать еще один тикет
+      в этой категории.
+    title: ❌ Пожалуйста, подождите
+  expired:
+    description: Вы не ответили вовремя. Пожалуйста, попробуйте еще раз.
+    title: ⏰ Просрочено
+  invalid_ticket:
+    description: Укажите действительный тикет.
+    title: ❌ Недействительный тикет
+  no_categories:
+    title: ❌ Нет категорий тикетов
+    description: "Категории тикетов не настроены.\nНастройте ваш сервер здесь:  {url}."
+  expires_in: Истекает через {time}
+  missing_roles:
+    title: ❌ Недостаточно ролей
+    description: У вас нет ролей, необходимых для создания тикета в этой 
+      категории.
+  unknown_category:
+    description: Пожалуйста, попробуйте другую категорию.
+    title: ❌ Такой категории тикетов не существует
+  not_ticket:
+    description: Вы можете использовать эту команду только в тикетах.
+    title: ❌ Это не канал тикета
+  ratelimited:
+    description: Повторите попытку через несколько секунд.
+    title: 🐢 Пожалуйста, помедленнее
+  update:
+    description: "> [Просмотреть `{version}` на GitHub]({github})\n> [Журнал изменений]({changelog})\n\
+      \ > [Руководство по обновлению]({guide})\n"
+    title: Доступно обновление
+  role_error:
+    description: Извините, это действие невозможно из-за неправильной 
+      конфигурации.
+    fields:
+      for_admins:
+        name: Для администраторов сервера
+        value: "Установлена неправильная роль, что обычно означает, что роль сотрудника
+          была удалена. [Кликните здесь]({url}), чтобы посмотреть возможные решения.\n"
+    title: ⚠️ Что-то пошло не так
+ticket:
+  closing_soon:
+    title: ⌛ Этот тикет скоро будет закрыт
+    description: "Этот тикет будет закрыт из-за бездействия <t:{timestamp}:R>.\nОтправьте
+      сообщение, чтобы отменить эту автоматизацию.\n"
+  close:
+    staff_request:
+      description: "{requestedBy} хочет закрыть этот тикет.\nНажмите «Принять», чтобы
+        закрыть его сейчас, или «Отклонить», если вам все еще нужна помощь.\n"
+      title: ❓ Можно ли закрыть этот тикет?
+      archived: "\nСообщения в этом канале будут заархивированы для дальнейшего использования.\n"
+    user_request:
+      title: ❓ {requestedBy} хочет закрыть этот тикет
+    wait_for_staff: ✋ Подождите, пока администраторы закроют этот тикет.
+    wait_for_user: ✋ Подождите, пока пользователь ответит.
+    closed:
+      description: Этот канал будет удален через несколько секунд…
+      title: ✅ Тикет закрыт
+    forbidden:
+      description: У вас нет разрешения на закрытие этого тикета.
+      title: ❌ Ошибка
+    rejected: ✋ {user} отклонил запрос на закрытие этого тикета.
+  created:
+    description: 'Ваш канал тикета создан: {channel}.'
+    title: ✅ Тикет создан
+  working_hours:
+    next:
+      title: 🕗 В данный момент мы не работаем
+      description: Мы вернемся в <t:{timestamp}:F> (<t:{timestamp}:R>), хотя вы 
+        можете получить ответ раньше.
+    today:
+      description: Вы можете получить ответ раньше, но мы не начнем работать до 
+        <t:{timestamp}:t> сегодня (<t:{timestamp}:R>).
+      title: 🕗 Сейчас мы не работаем
+  released: ♻️ {user} отказался от этого тикета.
+  references_ticket:
+    fields:
+      topic: Тема
+      date: Создан в
+      number: Номер
+    title: ℹ️ Ссылка
+    description: 'Этот тикет связан с предыдущим тикетом:'
+  answers:
+    no_value: '*Нет ответа*'
+  claimed: 🙌 {user} взял этот тикет.
+  edited:
+    description: Ваши изменения были сохранены.
+    title: ✅ Тикет обновлен
+  feedback: Спасибо за ваш отзыв.
+  inactive:
+    description: "На этом канале не было никакой активности с момента <t:{timestamp}:R>.\n\
+      \ Пожалуйста, продолжайте обсуждение или {close} тикет.\n"
+    title: ⏰ Этот тикет неактивен
+  offline:
+    description: В настоящее время нет свободных администраторов, поэтому 
+      получение ответа может занять больше времени, чем обычно.
+    title: 😴 Мы не в сети
+  opening_message:
+    content: "{staff}\n{creator} создал новый тикет\n"
+    fields:
+      topic: Тема
+  references_message:
+    description: Ссылается на [сообщение]({url}), отправленное {timestamp} 
+      пользователем {author}.
+    title: ℹ️ Ссылка
+menus:
+  category:
+    placeholder: Выберите категорию тикета
+  guild:
+    placeholder: Выберите сервер
+modals:
+  topic:
+    label: Тема
+    placeholder: О чем этот тикет?
+  feedback:
+    comment:
+      label: Комментарий
+      placeholder: Есть ли у вас дополнительные отзывы?
+    rating:
+      label: Рейтинг
+      placeholder: 1-5
+    title: Как мы сработали?

@@ -1,11 +1,17 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType,
+	PermissionsBitField,
+	MessageFlags,
+} = require('discord.js');
 const fs = require('fs');
 const { join } = require('path');
 const Mustache = require('mustache');
 const { AttachmentBuilder } = require('discord.js');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const ExtendedEmbedBuilder = require('../../lib/embed');
+const { pools } = require('../../lib/threads');
+
+const { transcript: pool } = pools;
 
 module.exports = class TranscriptSlashCommand extends SlashCommand {
 	constructor(client, options) {
@@ -44,55 +50,23 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 		);
 	}
 
-	async fillTemplate(ticketId) {
+	shouldAllowAccess(interaction, ticket) {
+		// the creator can always get their ticket, even from outside the guild
+		if (ticket.createdById === interaction.user.id) return true; // user not member (DMs)
+		// everyone else must be in the guild
+		if (interaction.guild?.id !== ticket.guildId) return false;
+		// and have authority
+		if (interaction.client.supers.includes(interaction.member.id)) return true;
+		if (interaction.member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
+		if (interaction.member.roles.cache.filter(role => ticket.category.staffRoles.includes(role.id)).size > 0) return true;
+		return false;
+	}
+
+	async fillTemplate(ticket) {
 		/** @type {import("client")} */
 		const client = this.client;
-		const ticket = await client.prisma.ticket.findUnique({
-			include: {
-				archivedChannels: true,
-				archivedMessages: {
-					orderBy: { createdAt: 'asc' },
-					where: { external: false },
-				},
-				archivedRoles: true,
-				archivedUsers: true,
-				category: true,
-				claimedBy: true,
-				closedBy: true,
-				createdBy: true,
-				feedback: true,
-				guild: true,
-				questionAnswers: true,
-			},
-			where: { id: ticketId },
-		});
-		if (!ticket) throw new Error(`Ticket ${ticketId} does not exist`);
 
-		ticket.claimedBy = ticket.archivedUsers.find(u => u.userId === ticket.claimedById);
-		ticket.closedBy = ticket.archivedUsers.find(u => u.userId === ticket.closedById);
-		ticket.createdBy = ticket.archivedUsers.find(u => u.userId === ticket.createdById);
-
-		if (ticket.closedReason) ticket.closedReason = decrypt(ticket.closedReason);
-		if (ticket.feedback?.comment) ticket.feedback.comment = decrypt(ticket.feedback.comment);
-		if (ticket.topic) ticket.topic = decrypt(ticket.topic).replace(/\n/g, '\n\t');
-
-		ticket.archivedUsers.forEach((user, i) => {
-			if (user.displayName) user.displayName = decrypt(user.displayName);
-			user.username = decrypt(user.username);
-			ticket.archivedUsers[i] = user;
-		});
-
-		ticket.archivedMessages.forEach((message, i) => {
-			message.author = ticket.archivedUsers.find(u => u.userId === message.authorId);
-			message.content = JSON.parse(decrypt(message.content));
-			message.text = message.content.content?.replace(/\n/g, '\n\t') ?? '';
-			message.content.attachments?.forEach(a => (message.text += '\n\t' + a.url));
-			message.content.embeds?.forEach(() => (message.text += '\n\t[embedded content]'));
-			message.number = 'M' + String(i + 1).padStart(ticket.archivedMessages.length.toString().length, '0');
-			ticket.archivedMessages[i] = message;
-		});
-
-		ticket.pinnedMessageIds = ticket.pinnedMessageIds.map(id => ticket.archivedMessages.find(message => message.id === id)?.number);
+		ticket = await pool.queue(w => w(ticket));
 
 		const channelName = ticket.category.channelName
 			.replace(/{+\s?(user)?name\s?}+/gi, ticket.createdBy?.username)
@@ -136,15 +110,65 @@ module.exports = class TranscriptSlashCommand extends SlashCommand {
 	/**
 	 * @param {import("discord.js").ChatInputCommandInteraction} interaction
 	 */
-	async run(interaction) {
-		await interaction.deferReply({ ephemeral: true });
+	async run(interaction, ticketId) {
+		/** @type {import("client")} */
+		const client = this.client;
+
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+		ticketId = ticketId || interaction.options.getString('ticket', true);
+		const ticket = await client.prisma.ticket.findUnique({
+			include: {
+				archivedChannels: true,
+				archivedMessages: {
+					orderBy: { createdAt: 'asc' },
+					where: { external: false },
+				},
+				archivedRoles: true,
+				archivedUsers: true,
+				category: true,
+				claimedBy: true,
+				closedBy: true,
+				createdBy: true,
+				feedback: true,
+				guild: true,
+				questionAnswers: { include: { question: true } },
+			},
+			where: interaction.guildId && ticketId.length < 16
+				? {
+					guildId_number: {
+						guildId: interaction.guildId,
+						number: parseInt(ticketId),
+					},
+				}
+				: { id: ticketId },
+		});
+
+		if (!ticket) throw new Error(`Ticket ${ticketId} does not exist`);
+
+		if (!this.shouldAllowAccess(interaction, ticket)) {
+			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+			const getMessage = client.i18n.getLocale(settings.locale);
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.transcript.not_staff.title'))
+						.setDescription(getMessage('commands.slash.transcript.not_staff.description')),
+				],
+			});
+		}
+
 		const {
 			fileName,
 			transcript,
-		} = await this.fillTemplate(interaction.options.getString('ticket', true));
+		} = await this.fillTemplate(ticket);
 		const attachment = new AttachmentBuilder()
 			.setFile(Buffer.from(transcript))
 			.setName(fileName);
+
 		await interaction.editReply({ files: [attachment] });
 		// TODO: add portal link
 	}
