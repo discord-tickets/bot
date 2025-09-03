@@ -15,7 +15,7 @@ Sentry.init({
 	profileSessionSampleRate: parseFloat(process.env.SENTRY_PROFILING_RATE?? 1.0),
 
 	// Logging
-	enableLogs: process.env.SENTRY_LOGGING === 'true'´,
+	enableLogs: process.env.SENTRY_LOGGING === 'true',
 	
 	// Setting this option to true will send default PII data to Sentry.
 	// For example, automatic IP address collection on events
