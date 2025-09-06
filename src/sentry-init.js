@@ -4,15 +4,15 @@ const Sentry = require('@sentry/node');
 
 Sentry.init({
 	dsn: process.env.SENTRY_DSN,
+	// Logging
+	enableLogs: process.env.SENTRY_LOGGING === 'true',
 	integrations: [
 		// Send console logs to Sentry
 		Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
 	    // Profiling
 		nodeProfilingIntegration(),
 	],
-	// Logging
-	enableLogs: process.env.SENTRY_LOGGING === 'true',
-	
+
 	// Profiling
 	profileLifecycle: 'trace',
 	profileSessionSampleRate: parseFloat(process.env.SENTRY_PROFILING_RATE?? 1.0),
