@@ -35,5 +35,10 @@ commands:
       not_pinnable:
         description: "このメッセージはピン留め出来ません。\n管理者にBotの権限を確認する様依頼してください。\n"
       name: メッセージをピン留め
+      pinned:
+        description: メッセージはピン留めされました。
     create:
       name: メッセージからチケットを作成
+  slash:
+    add:
+      added: ➡️ {by} によって {added} が追加されました。
