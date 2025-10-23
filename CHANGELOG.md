@@ -1,3 +1,26 @@
+## [4.0.48](https://github.com/discord-tickets/bot/compare/v4.0.47...v4.0.48) (2025-10-23)
+
+
+### Features
+
+* add sentry logging option ([#654](https://github.com/discord-tickets/bot/issues/654)) ([9980c28](https://github.com/discord-tickets/bot/commit/9980c28155ded450297e190cf6b994fc3bc1f7dc))
+* **api:** list and get ticket routes ([94e9939](https://github.com/discord-tickets/bot/commit/94e993917aad5c20a698e7b51a606b6fc3cec841))
+* **i18n:** update English (United States) translations ([6d2c76f](https://github.com/discord-tickets/bot/commit/6d2c76f0e2fed36bbf67f1160ea63a0e207a905e))
+* **i18n:** update English (United States) translations ([311de19](https://github.com/discord-tickets/bot/commit/311de19916dc186322ac3d614a3a3808b2572bb1))
+* **i18n:** update English (United States) translations ([9ccd9fa](https://github.com/discord-tickets/bot/commit/9ccd9fa248ec3d531485a361e791520ecbe1a5e4))
+* **i18n:** update French translations ([8c19094](https://github.com/discord-tickets/bot/commit/8c19094632bd45bd8263c26334d961d2b2e6013d))
+* **i18n:** update French translations ([fc502bf](https://github.com/discord-tickets/bot/commit/fc502bf65b510d7aff63f85654da56fa094123a1))
+* **i18n:** update French translations ([b2d6ac7](https://github.com/discord-tickets/bot/commit/b2d6ac7cc3671858be0d0762d9e67d859c6f5bc3))
+* **i18n:** update French translations ([6439f7b](https://github.com/discord-tickets/bot/commit/6439f7b742bf9f4e17a157d19884270f6415fe13))
+* **i18n:** update French translations ([02605b2](https://github.com/discord-tickets/bot/commit/02605b26b51033c5eb11119f1bf1e1fa7f7fbf36))
+* **i18n:** update French translations ([fdb9c29](https://github.com/discord-tickets/bot/commit/fdb9c2901792e530b378ab4afe49e6d53372061d))
+* **i18n:** update Japanese translations ([23ccd9c](https://github.com/discord-tickets/bot/commit/23ccd9cdf28b8aeca0406c1b3b8757c0c0ebc637))
+* **i18n:** update Russian translations ([6facf1b](https://github.com/discord-tickets/bot/commit/6facf1b16b5d9c60499f7932915e2b8e9c4287b7))
+* **i18n:** update Russian translations ([82b44ab](https://github.com/discord-tickets/bot/commit/82b44aba26060a73cb2c3501968dfaff003b9171))
+* **i18n:** update Ukrainian translations ([df4ae92](https://github.com/discord-tickets/bot/commit/df4ae92fce0b77c32767492e4d5caff9a0f7d4fa))
+
+
+
 ## [4.0.47](https://github.com/discord-tickets/bot/compare/v4.0.46...v4.0.47) (2025-07-27)
 
 
