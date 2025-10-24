@@ -37,5 +37,3 @@ function getTranscript(ticket) {
 }
 
 expose(getTranscript);
-
-
