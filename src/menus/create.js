@@ -14,7 +14,10 @@ module.exports = class CreateMenu extends Menu {
 	 * @param {import("discord.js").SelectMenuInteraction} interaction
 	 */
 	async run(id, interaction) {
-		if (!interaction.message.flags.has(MessageFlags.Ephemeral)) interaction.message.edit({ components: interaction.message.components }).catch(() => { }); // reset the select menu (to fix a UI issue)
+		if (!interaction.message.flags.has(MessageFlags.Ephemeral)) {
+			// reset the select menu (to fix a UI issue)
+			interaction.message.edit({ components: interaction.message.components }).catch(() => { });
+		}
 		await this.client.tickets.create({
 			...id,
 			categoryId: interaction.values[0],

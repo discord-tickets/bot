@@ -38,7 +38,7 @@ module.exports = class extends Listener {
 					new EmbedBuilder()
 						.setColor(settings.errorColour)
 						.setTitle(getMessage('misc.no_categories.title'))
-						.setDescription(getMessage('misc.no_categories.description')),
+						.setDescription(getMessage('misc.no_categories.description', { url: `${process.env.HTTP_EXTERNAL}/settings/${interaction.guildId}` })),
 				],
 			});
 		} else if (settings.categories.length === 1) {
@@ -188,24 +188,24 @@ module.exports = class extends Listener {
 			if (ticket) {
 				// archive messages
 				if (settings.archive) {
-					try {
-						await client.tickets.archiver.saveMessage(ticket.id, message);
-					} catch (error) {
-						client.log.warn('Failed to archive message', message.id);
-						client.log.error(error);
-					}
+					client.tickets.archiver.saveMessage(ticket.id, message)
+						.catch(error => {
+							client.log.warn('Failed to archive message', message.id);
+							client.log.error(error);
+							message.react('❌').catch(client.log.error);
+						});
 				}
 
 				if (!message.author.bot) {
 					// update user's message count
-					await client.prisma.user.upsert({
+					client.prisma.user.upsert({
 						create: {
 							id: message.author.id,
 							messageCount: 1,
 						},
 						update: { messageCount: { increment: 1 } },
 						where: { id: message.author.id },
-					});
+					}).catch(client.log.error);
 
 					// set first and last message timestamps
 					const data = { lastMessageAt: new Date() };
@@ -231,14 +231,18 @@ module.exports = class extends Listener {
 					}
 				}
 
-				if (!message.author.bot) {
+				if (process.env.PUBLIC_BOT !== 'true' &&
+					!message.author.bot &&
+					!await isStaff(message.channel.guild, message.author.id)
+				) {
 					const key = `offline/${message.channel.id}`;
 					let online = 0;
 					for (const [, member] of message.channel.members) {
+						if (member.user.bot) continue;
 						if (!await isStaff(message.channel.guild, member.id)) continue;
 						if (member.presence && member.presence !== 'offline') online++;
 					}
-					if (online === 0 && !client.keyv.has(key)) {
+					if (online === 0 && ! await client.keyv.has(key)) {
 						await message.channel.send({
 							embeds: [
 								new EmbedBuilder()
@@ -277,7 +281,7 @@ module.exports = class extends Listener {
 					client.keyv.set(cacheKey, tags, ms('1h'));
 				}
 
-				const tag = tags.find(tag => message.content.match(new RegExp(tag.regex, 'mi')));
+				const tag = tags.find(tag => tag.regex && message.content.match(new RegExp(tag.regex, 'mi')));
 				if (tag) {
 					await message.reply({
 						embeds: [

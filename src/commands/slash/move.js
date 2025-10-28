@@ -1,8 +1,10 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType, MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
-
+const { getEmoji } = require('./priority');
 module.exports = class MoveSlashCommand extends SlashCommand {
 	constructor(client, options) {
 		const name = 'move';
@@ -36,7 +38,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: false });
+		await interaction.deferReply();
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: {
@@ -47,19 +49,19 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 		});
 
 		if (!ticket) {
-			const { locale } = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
-			const getMessage = client.i18n.getLocale(locale);
+			const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
+			const getMessage = client.i18n.getLocale(settings.locale);
 			return await interaction.editReply({
 				embeds: [
 					new ExtendedEmbedBuilder({
 						iconURL: interaction.guild.iconURL(),
-						text: ticket.guild.footer,
+						text: settings.footer,
 					})
-						.setColor(ticket.guild.errorColour)
+						.setColor(settings.errorColour)
 						.setTitle(getMessage('misc.not_ticket.title'))
 						.setDescription(getMessage('misc.not_ticket.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		}
 
@@ -94,7 +96,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 						.setTitle(getMessage('misc.category_full.title'))
 						.setDescription(getMessage('misc.category_full.description')),
 				],
-				ephemeral: true,
+				flags: MessageFlags.Ephemeral,
 			});
 		} else {
 			// don't reassign `ticket`, the previous value is used below
@@ -103,15 +105,25 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 				where: { id: ticket.id },
 			});
 
-			const $oldCategory = client.tickets.$count.categories[ticket.categoryId];
-			const $newCategory = client.tickets.$count.categories[newCategory.id];
+			// alias
+			const $counters = client.tickets.$count.categories;
 
+			// make sure new category exist (#531)
+			$counters[newCategory.id] ??= {};
+
+			// more specific aliases
+			const $oldCategory = $counters[ticket.categoryId];
+			const $newCategory = $counters[newCategory.id];
+
+			// decrement old's total and member count
 			$oldCategory.total--;
 			$oldCategory[ticket.createdById]--;
 
+			// increment new's totaL count
 			$newCategory.total ||= 0;
 			$newCategory.total++;
 
+			// increment new's member count
 			$newCategory[ticket.createdById] ||= 0;
 			$newCategory[ticket.createdById]++;
 
@@ -129,7 +141,7 @@ module.exports = class MoveSlashCommand extends SlashCommand {
 					.replace(/{+\s?num(ber)?\s?}+/gi, ticket.number === 1488 ? '1487b' : ticket.number);
 				await interaction.channel.edit({
 					lockPermissions: false,
-					name: channelName,
+					name: ticket.priority ? getEmoji(ticket.priority) + channelName : channelName,
 					parent: discordCategory,
 					permissionOverwrites: [
 						{

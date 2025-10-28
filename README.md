@@ -1,9 +1,9 @@
 <div align="center">
 
-![bots](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=clients.total&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
-![tickets](https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=tickets&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv3%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
+![bots](https://img.shields.io/badge/dynamic/json?color=5865F2&label=bots&query=combined.active.count&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv4%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
+![tickets](https://img.shields.io/badge/dynamic/json?color=5865F2&label=tickets&query=combined.total.tickets&url=https%3A%2F%2Fstats.discordtickets.app%2Fapi%2Fv4%2Fcurrent&logo=discord&logoColor=white&style=for-the-badge)
 [![GitHub stars](https://img.shields.io/github/stars/discord-tickets/bot?style=for-the-badge)](https://github.com/discord-tickets/bot/stargazers)
-[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=for-the-badge)](https://www.codacy.com/gh/discord-tickets/bot/dashboard)
+[![Codacy](https://img.shields.io/codacy/grade/b974eb5f984c40868e07d82c968bd02d?logo=codacy&amp;style=for-the-badge)](https://app.codacy.com/gh/discord-tickets/bot/dashboard)
 [![All Contributors](https://img.shields.io/github/all-contributors/discord-tickets/bot?color=ee8449&style=for-the-badge)](https://github.com/discord-tickets/bot/blob/main/CONTRIBUTORS.md)
 [![Discord](https://img.shields.io/discord/451745464480432129?label=discord&amp;color=7289DA&amp;style=for-the-badge)](https://lnk.earth/discord)
 
@@ -30,9 +30,9 @@
 
 ---
 
-[![PebbleHost](https://img.eartharoid.me/insecure/rs:auto:180/plain/s3://eartharoid/sharex/21/10/pebblehost.webp)](https://pebble.host/discordtickets)
+[![BisectHosting](https://www.bisecthosting.com/partners/custom-banners/41ca8074-184e-4ad1-a44d-77750ee8bfb9.webp)](https://bisecthosting.com/discordtickets)
 
-<a href="https://pebble.host/discordtickets">Partnered with PebbleHost</a>
+<a href="https://bisecthosting.com/discordtickets">Partnered with BisectHosting</a>
 <br>
 <sub>for affordable bot hosting</sub>
 
@@ -102,7 +102,7 @@ There are 3 ways to get started with Discord Tickets:
 
 Discord Tickets is made possible by these awesome people and organisations:
 
-![Sponsors](https://cdn.jsdelivr.net/gh/eartharoid/sponsors/sponsorkit/sponsors.svg)
+![Sponsors](https://cdn.jsdelivr.net/gh/eartharoid/sponsors/sponsorkit/sponsors-wide.svg)
 
 Please consider sponsoring the project if it adds value to your business/community.
 
@@ -110,10 +110,11 @@ Please consider sponsoring the project if it adds value to your business/communi
 
 [![Donate at ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/eartharoid)
 
-> **Note**
->
-> Your logo will only appear here if you sponsor through GitHub Sponsors.
-> [Create an organisation](https://github.com/account/organizations/new?plan=free) if you want to use your business/community logo.
+> [!IMPORTANT]
+> **Ko-fi members are not listed.**
+> Sponsor through GitHub or a linked Patreon account to be listed above.
+> [Create a free organisation](https://github.com/account/organizations/new?plan=free)
+> to show your business or community's logo.
 
 ## 🎖️ Contributors
 

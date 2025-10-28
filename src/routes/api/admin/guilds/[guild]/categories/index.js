@@ -7,14 +7,13 @@ const {
 } = require('discord.js');
 const ms = require('ms');
 const {
-	getAvgResolutionTime,
-	getAvgResponseTime,
+	getAverageTimes, getAverageRating,
 } = require('../../../../../../lib/stats');
 
 module.exports.get = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 
 		let { categories } = await client.prisma.guild.findUnique({
 			select: {
@@ -29,24 +28,43 @@ module.exports.get = fastify => ({
 						name: true,
 						requiredRoles: true,
 						staffRoles: true,
-						tickets: { where: { open: false } },
+						tickets: {
+							select: {
+								closedAt: true,
+								createdAt: true,
+							    feedback: { select: { rating: true } },
+								firstResponseAt: true,
+							},
+							where: {
+								firstResponseAt: { not: null },
+								open: false,
+							},
+						},
 					},
 				},
 			},
 			where: { id: req.params.guild },
 		});
-		categories = categories.map(c => {
-			const closedTickets = c.tickets.filter(t => t.firstResponseAt && t.closedAt);
-			c = {
-				...c,
-				stats: {
-					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
-					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
-				},
-			};
-			delete c.tickets;
-			return c;
-		});
+
+		categories = await Promise.all(
+			categories.map(async category => {
+				const {
+					avgResolutionTime,
+					avgResponseTime,
+				} = await getAverageTimes(category.tickets);
+				const avgRating = await getAverageRating(category.tickets);
+				category = {
+					...category,
+					stats: {
+						avgRating: avgRating.toFixed(1),
+						avgResolutionTime: ms(avgResolutionTime),
+						avgResponseTime: ms(avgResponseTime),
+					},
+				};
+				delete category.tickets;
+				return category;
+			}),
+		);
 
 		return categories;
 	},
@@ -54,9 +72,9 @@ module.exports.get = fastify => ({
 });
 
 module.exports.post = fastify => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 
 		const user = await client.users.fetch(req.user.id);
 		const guild = client.guilds.cache.get(req.params.guild);

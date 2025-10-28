@@ -1,0 +1,496 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Accepter
+  cancel:
+    emoji: ➖
+    text: Annullere
+  claim:
+    emoji: 🙌
+    text: påtage
+  close:
+    emoji: ✖️
+    text: Afslut
+  confirm_open:
+    emoji: ✅
+    text: Lav sag
+  create:
+    emoji: 🎫
+    text: Lav en sag
+  edit:
+    emoji: ✏️
+    text: redigere
+  reject_close_request:
+    emoji: ✖️
+    text: Afvis
+  transcript:
+    emoji: 📄
+    text: Genpart
+  unclaim:
+    emoji: ♻️
+    text: frigiv
+commands:
+  message:
+    create:
+      name: Lav en sag fra besked
+    pin:
+      name: Fastgør besked
+      not_pinnable:
+        description:
+          "Denne besked kan ikke fastgøres\nBed venligst en administrator
+          om at kontrollere bottens tilladelser\n"
+        title: ❌ Fejl
+      not_ticket:
+        description: Du kan kun fastgøre beskeder i Sager.
+        title: ❌ Dette er ikke en sags kannel
+      pinned:
+        description: Denne besked er blevet fastgjort.
+        title: ✅ Fastgjort besked
+  slash:
+    add:
+      added: ➡️ {added} er blevet tilføjet af {by}.
+      description: Tilføj et medlem til en sag
+      name: tilføj
+      not_staff:
+        description: Kun Staff medlemmer kan tilføje medlemer til andres sager.
+        title: ❌ Fejl
+      options:
+        member:
+          description: Medlemmet der skal tilføjes til sagen
+          name: medlem
+        ticket:
+          description: sagen medlemmet skal tilføjes til
+          name: sag
+      success:
+        description: "{member} er blevet tilføjet til {ticket}."
+        title: ✅ Tilføjet
+    claim:
+      description: Påtag en sag
+      name: påtag
+      not_staff:
+        description: Kun staff medlemer kan påtage sager.
+        title: ❌ Fejl
+    close:
+      description: Anmod om at få sagen lukket
+      invalid_time:
+        description: "`{input}` er ikke et gyldig tidsformat."
+        title: ❌ Ugyldig
+      name: luk
+      options:
+        reason:
+          description: Grunden til at sagen er blevet lukket
+          name: grund
+    force-close:
+      closed_one:
+        description: Kanalen bliver fjernet om få sekunder.
+        title: ✅ Sagen er lukket
+      confirm_multiple:
+        description:
+          "Du er igang med at lukke **{count}** sager der har vært inaktive
+          i mere end `{time}`:\n{tickets}\n"
+        title: ❓ er du sikker?
+      confirmed_multiple:
+        description: Kanalerne bliver fjernet om få sekunder.
+        title:
+          - ✅ lukker %d sag
+          - ✅ lukker%d sager
+      description: Tvangsluk en sag
+      name: tvangsluk
+      no_tickets:
+        description: der er igen opene sager der har vært inaktive in mere end
+          `{time}`.
+        title: ❌ Ingen sager
+      not_staff:
+        description: Kun staff medlemer kan tvangslukke sager.
+        title: ❌ Fejl
+      options:
+        category:
+          description: Luk alle sager i den specifikke kategori(skal bruges med
+            `tid`)
+          name: kategori
+        reason:
+          description: Grunden til at lukke sagerne
+          name: grund
+        ticket:
+          description: Sagerne til at lukke
+          name: sag
+        time:
+          description: Luk alle sager, der har været inaktive i den angivne tid
+          name: tid
+    help:
+      description: Vis hjælpemenuen
+      name: hjælp
+      response:
+        commands: Kommandoer
+        description: "**brug{command} for at oprette en sag og få support..**"
+        links:
+          commands: Fuld kommandoliste
+          docs: Dokumentation
+          feedback: Feedback
+          links: Nyttige links
+          support: Support
+        settings: Bot indstillinger
+      title: Hjælp
+    move:
+      description: Flyt en sag til en anden kategori
+      moved: 🗃️ {by} har flyttet sagen fra **{from}** til **{to}**.
+      name: flyt
+      not_staff:
+        description: Kun staff medlemer kan flytte sager.
+        title: ❌ Fejl
+      options:
+        category:
+          description: kategorien sagen skal flyttes til
+          name: kategori
+    new:
+      description: Lav en ny sag
+      name: ny
+      options:
+        references:
+          description: Nummeret på en relateret sag
+          name: referencer
+    priority:
+      description: Angiv prioriteten af en sag
+      name: prioritet
+      not_staff:
+        description: Kun staff medlemer kan ændre prioritet af en sag.
+        title: ❌ Fejl
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 Høj
+            LOW: 🟢 Lav
+            MEDIUM: 🟠 Mellem
+          description: Sagens prioritet
+          name: prioritet
+      success:
+        description: Sagens prioritet er blevet sag til `{priority}`.
+        title: ✅ Prioritet sat
+    release:
+      description: Frigiv (fjern krav) på sagen
+      name: frigiv
+    remove:
+      description: Fjern et medlem fra sagen
+      name: fjern
+      not_staff:
+        description: Kun staff medlemer kan fjerne medlemer fra andres sager.
+        title: ❌ Fejl
+      options:
+        member:
+          description: Medlemet der skal fjernes fra sagen
+          name: medlemer
+        ticket:
+          description: Sagen medlemet skal fjerne fra
+          name: sag
+      removed: ⬅️ {removed} er blevet fjernet af {by}.
+      success:
+        description: "{member} er blevet fjernet fra {ticket}."
+        title: ✅ Fjernet
+    rename:
+      description: Omdøb en sags kanal
+      error: Der opstod en fejl under omdøbning af kanalen.
+      invalid:
+        description: Navnet skal være mellem 1 og 100 tegn langt.
+        title: Ugyldig navn
+      name: omdøb
+      not_staff:
+        description: Kun staff medlemer kan omdøbe sager.
+        title: ❌ Fejl
+      options:
+        name:
+          description: Det nye navn til sags kanalen.
+          name: navn
+      ratelimited:
+        description: Du har allerede omdøbt denne kanal to gange inden for de
+          sidste 10 minutter. Vent venligst før du prøver igen.
+        title: Satsgrænse nået
+      success:
+        description: Sags kanalen er blevet omdæbt til `{name}`.
+        title: Kannal omdøbt
+    tag:
+      description: Brug et tag
+      name: tag
+      options:
+        for:
+          description: Brugeren som tagget skal målrettes mod
+          name: for
+        tag:
+          description: Navnet på det tag, der skal bruges
+          name: tag
+    tickets:
+      description: List din egne eller en andens sager
+      name: sager
+      not_staff:
+        description: kun staff medlemer kan se andres sager.
+        title: ❌ Fejl
+      options:
+        member:
+          description: Medlemmet som listen af sagerne for
+          name: medlemer
+      response:
+        description: Brug {transcript} til at downloade genparten af en sag.
+        fields:
+          closed:
+            name: Lukket sager
+            none:
+              other: "{user} har ikke lavet nogle sager."
+              own: "du har ikke lavet nogle sager.\nbrug{new} til at åbne en sag.\n"
+          open:
+            name: åben sager
+        title:
+          other: "{displayName}'s sager"
+          own: Dine sager
+    topic:
+      description: Skift emnet af en sag
+      name: emne
+    transcript:
+      description: Få genparten af en sag
+      name: genpart
+      not_staff:
+        description: Kun staff medlemer kan læse genparter af andres sager.
+        title: ❌ Fejl
+      options:
+        member:
+          description: Medlemmet, der skal søges efter sager til
+          name: medlem
+        ticket:
+          description: Sagen til at få genparten af
+          name: sag
+    transfer:
+      description: Overfør ejerskabet af en sag til et andet medlem
+      name: overfør
+      options:
+        member:
+          description: Det medlem, som ejerskabet skal overføres til
+          name: medlem
+      transferred: 📨 {user} har overført sagen til {to}.
+      transferred_from: 📨 {user} har overført sagen fra {from} til {to}.
+  user:
+    create:
+      name: lav sag for bruger
+      not_staff:
+        description: kun staff medlemer kan oprette sager for andre medlemer.
+        title: ❌ Fejl
+      prompt:
+        description: Klik på knappen nedenfor for at oprette en sag.
+        title: Lav venligst en sag
+      sent:
+        description: "{user} er blevet tilføjet til at oprette en sag i **{category}**."
+        title: ✅ Meddelelse sendt
+dm:
+  closed:
+    fields:
+      closed:
+        name: Lukket kl
+        value: "{timestamp}\n(Efter{duration})"
+      closed_by: Lukket af
+      created: Lavet kl
+      feedback: Din feedback
+      reason: Lukket pågrund af
+      response: Respons tid
+      ticket: Sag
+      topic: Emne
+    title: Din sag er blevet lukket
+  confirm_open:
+    title: Vil du åbne en sag med det følgende emne?
+log:
+  admin:
+    changes: Ændringer
+    description:
+      joined: "{user} {verb} {targetType}"
+      target:
+        category: en kategori
+        panel: et panel
+        question: et spørgsmål
+        settings: indstillingerne
+        tag: et tag
+    title:
+      joined: "{targetType} {verb}"
+      target:
+        category: Kategori
+        panel: Panel
+        question: Spørgsmål
+        settings: Indstillinger
+        tag: Tag
+    verb:
+      create: oprettet
+      delete: slettet
+      update: opdateret
+  message:
+    description: "{user} {verb} en besked"
+    message: Besked
+    title: Besked{verb}
+    verb:
+      delete: slettet
+      update: opdateret
+  ticket:
+    added: Tilføjede medlemmer
+    description: "{verb}{user}en sag"
+    removed: Fjernede medlemmer
+    ticket: Sag
+    title: Sag{verb}
+    verb:
+      claim: Påtaget
+      close: Lukket
+      create: oprettet
+      unclaim: frigivet
+      update: opdateret
+menus:
+  category:
+    placeholder: Vælg en sagskategori
+  guild:
+    placeholder: Vælg en server
+misc:
+  blocked:
+    description: Du har ikke tilladelse til at oprette sager.
+    title: ❌ Blokeret
+  category_full:
+    description: "Kategorien har nået sin maksimale kapacitet.\nPrøv igen senere.\n"
+    title: ❌ Fuld kategori
+  cooldown:
+    description: Vent venligst {time}, før du opretter en ny sag i denne
+      kategori.
+    title: ❌ Vent venligst
+  error:
+    description:
+      "Beklager, der opstod en uventet fejl.\nGiv venligst disse oplysninger
+      til en administrator.\n"
+    fields:
+      identifier: Identifikator
+    title: ⚠️ Noget gik galt
+  expired:
+    description: Du svarede ikke i tide. Prøv igen.
+    title: ⏰ Udløbet
+  expires_in: Udløber om {time}
+  invalid_ticket:
+    description: Angiv venligst en gyldig sag.
+    title: ❌ Ugyldig sag
+  member_limit:
+    description:
+      - Brug venligst din eksisterende sag, eller luk den, før du opretter en ny.
+      - "Luk venligst en sag, før du opretter en ny.\nBrug `/tickets` for at se dine
+        eksisterende sager\n"
+    title:
+      - ❌ Du har allerede en sag
+      - ❌ Du har allerede %d åbne sager
+  missing_roles:
+    description: Du har ikke de roller, der kræves for at kunne oprette en sag i
+      denne kategori.
+    title: ❌ Utilstrækkelige roller
+  no_categories:
+    description:
+      "Ingen sags kategorier er blevet konfigureret.\nKonfigurer din server
+      på {url}."
+    title: ❌ Der er ingen billetkategorier
+  not_ticket:
+    description: Du kan kun bruge denne kommando i tickets.
+    title: ❌ Dette er ikke en sags kanal
+  permissions_error:
+    description: Beklager, men handlingen mislykkedes på grund af
+      utilstrækkelige tilladelser.
+    fields:
+      for_admins:
+        name: Til serveradministratorer
+        value: "[Klik her]({url}) for at få instruktioner til løsning.\n"
+    title: ⚠️ Noget gik galt
+  ratelimited:
+    description: Prøv igen om et par sekunder.
+    title: 🐢 Sæt venligst farten ned
+  role_error:
+    description: Beklager, men handlingen mislykkedes på grund af en ugyldig
+      konfiguration.
+    fields:
+      for_admins:
+        name: Til serveradministratorer
+        value:
+          "Der blev angivet en ugyldig bruger eller rolle, hvilket normalt betyder,
+          at en staff rolle er blevet slettet. [Klik her]({url}) for at få instruktioner
+          til løsningen.\n"
+    title: ⚠️ Noget gik galt
+  unknown_category:
+    description: Prøv venligst en anden kategori.
+    title: ❌ Den sags kategori findes ikke
+  update:
+    description:
+      "> [Vis `{version}` på GitHub]({github})\n> [Changelog]({changelog})\n\
+      > [Opdateringsvejledning]({guide})\n"
+    title: En opdatering er tilgængelig
+modals:
+  feedback:
+    comment:
+      label: Kommentar
+      placeholder: Har du yderligere feedback?
+    rating:
+      label: Bedømmelse
+      placeholder: 1-5
+    title: Hvordan klarede vi os?
+  topic:
+    label: Emne
+    placeholder: Hvad handler denne sag om?
+ticket:
+  answers:
+    no_value: "*Intet svar*"
+  claimed: 🙌 {user} har gjort krav på denne sag.
+  close:
+    closed:
+      description: Denne kanal vil blive slettet om et par sekunder…
+      title: ✅ Sag lukket
+    forbidden:
+      description: Du har ikke tilladelse til at lukke denne sag.
+      title: ❌ Fejl
+    rejected: ✋ {user} afviste anmodningen om at lukke denne sag.
+    staff_request:
+      archived: "\nBeskederne i denne kanal vil blive arkiveret til senere brug.\n"
+      description:
+        "{requestedBy} ønsker at lukke denne sag.\nKlik på \"Accepter\"\
+        \ for at lukke den nu, eller \"Afvis\", hvis du stadig har brug for hjælp.\n"
+      title: ❓ Kan denne sag lukkes?
+    user_request:
+      title: ❓ {requestedBy} ønsker at lukke denne sag
+    wait_for_staff: ✋ Vent venligst på, at staff lukker sagen.
+    wait_for_user: ✋ Vent venligst på, at brugeren svarer.
+  closing_soon:
+    description:
+      "Denne sag vil blive lukket på grund af inaktivitet <t:{timestamp}:R>.\n\
+      Send en besked for at annullere denne automatisering.\n"
+    title: ⌛ Denne sag lukkes snart
+  created:
+    description: "Din sags kanal er blevet oprettet: {channel}."
+    title: ✅ sag oprettet
+  edited:
+    description: Dine ændringer er blevet gemt.
+    title: ✅ sag opdateret
+  feedback: Tak for din feedback.
+  inactive:
+    description:
+      "Der har ikke været nogen aktivitet på denne kanal siden <t:{timestamp}:R>.\n\
+      Fortsæt venligst samtalen eller{close} sagen.\n"
+    title: ⏰ Denne sag er inaktiv
+  offline:
+    description: Der er ingen staff medlemer tilgængelige i øjeblikket, så det
+      kan tage længere tid end normalt at få et svar.
+    title: 😴 Vi er ikke online
+  opening_message:
+    content: "{staff}\n{creator} har oprettet en ny sag\n"
+    fields:
+      topic: Emne
+  references_message:
+    description: Referencer [en besked]({url}) sendt {timestamp} af {author}.
+    title: ℹ️ Reference
+  references_ticket:
+    description: "Denne sag er relateret til en tidligere sag:"
+    fields:
+      date: Oprettet kl
+      number: Antal
+      topic: Emne
+    title: ℹ️ Reference
+  released: ♻️ {user} har frigivet denne billet.
+  working_hours:
+    next:
+      description: Vi vender tilbage kl. <t:{timestamp}:F> (<t:{timestamp}:R>),
+        men du modtager muligvis et svar inden da.
+      title: 🕗 Vi arbejder ikke lige nu
+    today:
+      description: Du modtager muligvis et svar inden da, men vi begynder først
+        at arbejde<t:{timestamp}:t> idag(<t:{timestamp}:R>).
+      title: 🕗 Vi arbejder ikke lige nu

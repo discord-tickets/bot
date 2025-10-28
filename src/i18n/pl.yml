@@ -1,0 +1,444 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Akceptuj
+  cancel:
+    emoji: ➖
+    text: Anuluj
+  claim:
+    emoji: 🙌
+    text: Przejmij
+  close:
+    emoji: ✖️
+    text: Zamknij
+  create:
+    emoji: 🎫
+    text: Utwórz zgłoszenie
+  edit:
+    emoji: ✏️
+    text: Edytuj
+  confirm_open:
+    emoji: ✅
+    text: Utwórz zgłoszenie
+  unclaim:
+    emoji: ♻️
+    text: Zwolnij
+  reject_close_request:
+    emoji: ✖️
+    text: Odrzuć
+commands:
+  slash:
+    add:
+      not_staff:
+        title: ❌ Błąd
+        description: Tylko administracja może dodawać członków do zgłoszeń innych
+          osób.
+      added: ➡️ {added} został dodany przez {by}.
+      options:
+        member:
+          name: członek
+          description: Członek, który ma zostać dodany do zgłoszenia
+        ticket:
+          name: zgłoszenie
+          description: Zgłoszenie, do którego ma zostać dodany członek
+      success:
+        description: '{member} został dodany do {ticket}.'
+        title: ✅ Dodano
+      description: Dodaj członka do zgłoszenia
+      name: dodaj
+    claim:
+      not_staff:
+        title: ❌ Błąd
+        description: Tylko członkowie personelu mogą przejmować zgłoszenia.
+      description: Przejmij zgłoszenie
+      name: przejmij
+    close:
+      invalid_time:
+        description: '`{input}` nie jest prawidłowym formatem czasu.'
+        title: ❌ Nieprawidłowy
+      description: Prośba o zamknięcie zgłoszenia
+      name: zamknij
+      options:
+        reason:
+          description: Powód zamknięcia zgłoszenia
+          name: powód
+    force-close:
+      options:
+        reason:
+          name: powód
+          description: Powód zamknięcia zgłoszenia(-ń)
+        time:
+          description: Zamknij wszystkie zgłoszenia, które były nieaktywne przez określony
+            czas
+          name: czas
+        ticket:
+          name: zgłoszenie
+          description: Zgłoszenie do zamknięcia
+        category:
+          name: kategoria
+          description: Zamknij wszystkie zgłoszenia w określonej kategorii (należy
+            użyć z `czas`)
+      not_staff:
+        title: ❌ Błąd
+        description: Tylko członkowie personelu mogą wymusić zamknięcie zgłoszenia.
+      closed_one:
+        description: Kanał zostanie usunięty za kilka sekund.
+        title: ✅ Zgłoszenie zamknięte
+      confirm_multiple:
+        description: "Zamierzasz zamknąć **{count}** zgłoszeń, które były nieaktywne
+          przez ponad `{time}`:\n{tickets}\n"
+        title: ❓ Jesteś pewien?
+      confirmed_multiple:
+        description: Kanały zostaną usunięte w ciągu kilku sekund.
+        title:
+        - ✅ Zamykanie %d zgłoszenie
+        - ✅ Zamykanie %d zgłoszeń
+      description: Wymuszone zamknięcie zgłoszenia
+      name: wymuś-zamknij
+      no_tickets:
+        title: ❌ Brak zgłoszeń
+        description: Nie ma otwartych zgłoszeń, które były nieaktywne dłużej niż `{time}`.
+    help:
+      response:
+        commands: Polecenia
+        links:
+          links: Przydatne linki
+          support: Wsparcie
+          feedback: Propozycje
+          commands: Pełna lista poleceń
+          docs: Dokumentacja
+        description: '**Użyj {command}, aby utworzyć zgłoszenie i uzyskać wsparcie.**'
+        settings: Ustawienia bota
+      title: Pomoc
+      description: Pokaż menu pomocy
+      name: pomoc
+    move:
+      name: przenieś
+      not_staff:
+        title: ❌ Błąd
+        description: Tylko członkowie personelu mogą przenosić zgłoszenia.
+      options:
+        category:
+          description: Kategoria, do której ma zostać przeniesione zgłoszenie
+          name: kategoria
+      description: Przenieś zgłoszenie do innej kategorii
+      moved: 🗃️ {by} przeniósł te zgłoszenie z **{from}** do **{to}**.
+    new:
+      description: Utwórz nowe zgłoszenie
+      options:
+        references:
+          name: odnośniki
+          description: Numer powiązanego zgłoszenia
+      name: nowy
+    priority:
+      name: priorytet
+      description: Ustaw priorytet zgłoszenia
+      not_staff:
+        description: Tylko członkowie personelu mogą zmienić priorytet zgłoszeń.
+        title: ❌ Błąd
+      options:
+        priority:
+          description: Priorytet zgłoszenia
+          choices:
+            MEDIUM: 🟠 Średni
+            HIGH: 🔴 Wysoki
+            LOW: 🟢 Niski
+          name: priorytet
+      success:
+        description: Priorytet tego zgłoszenia został ustawiony na `{priority}`.
+        title: ✅ Ustawiony priorytet
+    release:
+      description: Zwolnij (zajęcie) zgłoszenia
+      name: zwolnij
+    remove:
+      options:
+        member:
+          description: Członek do usunięcia z zgłoszenia
+          name: członek
+        ticket:
+          description: Zgłoszenie, z którego ma zostać usunięty członek
+          name: zgłoszenie
+      not_staff:
+        description: Tylko członkowie personelu mogą usuwać członków ze zgłoszeń innych
+          osób.
+        title: ❌ Błąd
+      description: Usuń członka ze zgłoszenia
+      name: usuń
+      removed: ⬅️ {removed} został usunięty przez {by}.
+      success:
+        title: ✅ Usunięto
+        description: '{member} został usunięty z {ticket}.'
+    tag:
+      description: Użyj tagu
+      options:
+        for:
+          name: dla
+          description: Użytkownik, do którego ma być skierowany tag
+        tag:
+          description: Nazwa tagu do użycia
+          name: tag
+      name: tag
+    tickets:
+      description: Wyświetl swoje lub czyjeś zgłoszenia
+      not_staff:
+        description: Tylko członkowie personelu mogą przeglądać zgłoszenia innych
+          osób.
+        title: ❌ Błąd
+      options:
+        member:
+          name: członek
+          description: Członek, który ma wyświetlić zgłoszenia
+      response:
+        description: Użyj {transcript}, aby pobrać transkrypcję zgłoszenia.
+        fields:
+          open:
+            name: Otwarte zgłoszenia
+          closed:
+            name: Zamknięte zgłoszenia
+            none:
+              other: '{user} nie posiada żadnych zgłoszeń.'
+              own: "Nie utworzyłeś żadnych zgłoszeń.\nUżyj {new}, aby otworzyć zgłoszenie.\n"
+        title:
+          other: Zgłoszenia {displayName}
+          own: Twoje zgłoszenia
+      name: zgłoszenia
+    transcript:
+      options:
+        member:
+          description: Członek do wyszukania zgłoszenia
+          name: członek
+        ticket:
+          description: Zgłoszenie, aby uzyskać transkrypcje
+          name: zgłoszenie
+      description: Pobierz transkrypcję zgłoszenia
+      name: transkrypcja
+    transfer:
+      name: transferuj
+      options:
+        member:
+          name: członek
+          description: Członek, na który ma zostać przeniesiona własność
+      transferred: 📨 {user} przekazał te zgłoszenie do {to}.
+      transferred_from: 📨 {user} przeniósł te zgłoszenie z {from} do {to}.
+      description: Transferuj własność zgłoszenia na innego członka
+    topic:
+      description: Zmień temat zgłoszenia
+      name: temat
+  message:
+    pin:
+      name: Przypnij wiadomość
+      not_pinnable:
+        description: "Tej wiadomości nie można przypiąć.\nPoproś administratora o
+          sprawdzenie uprawnień bota.\n"
+        title: ❌ Błąd
+      pinned:
+        description: Wiadomość została przypięta.
+        title: ✅ Przypięta wiadomość
+      not_ticket:
+        description: Wiadomości można przypinać tylko w zgłoszeniach.
+        title: ❌ To nie jest kanał zgłoszeniowy
+    create:
+      name: Utwórz zgłoszenie z wiadomości
+  user:
+    create:
+      not_staff:
+        title: ❌ Błąd
+        description: Tylko członkowie personelu mogą otwierać zgłoszenia dla innych
+          członków.
+      prompt:
+        description: Kliknij przycisk poniżej, aby utworzyć zgłoszenie.
+        title: Utwórz zgłoszenie
+      sent:
+        title: ✅ Odpowiedz wysłana
+        description: '{user} został zaproszony do utworzenia zgłoszenia w **{category}**.'
+      name: Utwórz zgłoszenie dla użytkownik
+dm:
+  closed:
+    fields:
+      closed:
+        name: Zamknięte o godz
+        value: '{timestamp} (po {duration})'
+      topic: Temat
+      closed_by: Zamknięte przez
+      created: Utworzono o godz
+      feedback: Twoja opinia
+      reason: Zamknięte, ponieważ
+      response: Czas odpowiedzi
+      ticket: Zgłoszenie
+    title: Twoje zgłoszenie zostało zamknięte
+  confirm_open:
+    title: Czy chcesz otworzyć zgłoszenie z następującym tematem?
+log:
+  admin:
+    changes: Zmiany
+    description:
+      target:
+        panel: panel
+        tag: tag
+        category: kategoria
+        question: pytanie
+        settings: ustawienia
+      joined: '{user} {verb} {targetType}'
+    title:
+      joined: '{targetType} {verb}'
+      target:
+        category: Kategoria
+        panel: Panel
+        question: Pytanie
+        tag: Tag
+        settings: Ustawienia
+    verb:
+      delete: usunięte
+      update: zaktualizowane
+      create: Utworzony
+  message:
+    description: '{user} {verb} wiadomość'
+    message: Wiadomość
+    title: Wiadomość {verb}
+    verb:
+      delete: usunięte
+      update: zaktualizowane
+  ticket:
+    added: Dodani członkowie
+    removed: Usunięci członkowie
+    ticket: Zgłoszenie
+    title: Zgłoszenie {verb}
+    description: '{user}{verb} zgłoszenia'
+    verb:
+      unclaim: zwolniony
+      update: zaktualizowane
+      create: Utworzony
+      claim: przejęte
+      close: Zamknięte
+misc:
+  category_full:
+    description: "Kategoria osiągnęła maksymalną pojemność.\nSpróbuj ponownie później.\n"
+    title: ❌ Kategoria pełna
+  expires_in: Wygasa za {time}
+  invalid_ticket:
+    description: Określ ważne zgłoszenie.
+    title: ❌ Nieprawidłowe zgłoszenie
+  member_limit:
+    title:
+    - ❌ Posiadasz już zgłoszenie
+    - ❌Posiadasz już %d otwartych zgłoszeń
+    description:
+    - Użyj istniejącego zgłoszenia lub zamknij je przed utworzeniem kolejnego.
+    - "Zamknij zgłoszenie przed utworzeniem kolejnego.\nUżyj `/tickets`, aby wyświetlić
+      istniejące zgłoszenia.\n"
+  not_ticket:
+    description: Możesz użyć tego polecenia tylko w zgłoszeniach.
+    title: ❌ To nie jest kanał zgłoszeniowy
+  blocked:
+    title: ❌ Zablokowany
+    description: Nie masz uprawnień do tworzenia zgłoszeń.
+  error:
+    description: "Przepraszam, wystąpił nieoczekiwany błąd.\nProszę przekazać te informacje
+      administratorowi.\n"
+    fields:
+      identifier: Identyfikator
+    title: ⚠️ Coś poszło nie tak
+  expired:
+    title: ⏰ Wygasł
+    description: Nie odpowiedziałeś na czas. Proszę spróbuj ponownie.
+  cooldown:
+    description: Poczekaj {time} przed utworzeniem kolejnego zgłoszenia w tej kategorii.
+    title: ❌Proszę czekać
+  missing_roles:
+    description: Nie masz ról wymaganych do utworzenia zgłoszenia w tej kategorii.
+    title: ❌ Niewystarczające role
+  no_categories:
+    description: Nie skonfigurowano żadnych kategorii zgłoszeń.
+    title: ❌Nie istnieją kategorie zgłoszeń
+  update:
+    title: Dostępna jest aktualizacja
+    description: "> [Wyświetl `{version}` na GitHub]({github})\n> [Dziennik zmian]({changelog})\n
+      > [Przewodnik aktualizacji]({guide})\n"
+  unknown_category:
+    description: Spróbuj użyć innej kategorii.
+    title: ❌ Ta kategoria zgłoszeń nie istnieje
+  ratelimited:
+    title: 🐢 Proszę, zwolnij
+    description: Spróbuj ponownie za kilka sekund.
+modals:
+  feedback:
+    rating:
+      label: Ocena
+      placeholder: 1-5
+    title: Jak nam poszło?
+    comment:
+      label: Komentarz
+      placeholder: Czy masz jakieś dodatkowe uwagi?
+  topic:
+    label: Temat
+    placeholder: Czego dotyczy te zgłoszenie?
+ticket:
+  claimed: 🙌 {user} przejął to zgłoszenie.
+  close:
+    closed:
+      description: Ten kanał zostanie usunięty za kilka sekund…
+      title: ✅ Zgłoszenie zamknięte
+    wait_for_staff: ✋ Poczekaj, aż personel zamknie to zgłoszenie.
+    forbidden:
+      title: ❌ Błąd
+      description: Nie masz uprawnień do zamknięcia tego zgłoszenia.
+    rejected: ✋ {user} odrzucił prośbę o zamknięcie tego zgłoszenia.
+    staff_request:
+      title: ❓Czy te zgłoszenie można zamknąć?
+      description: "{requestedBy} chce zamknąć to zgłoszenie.\nKliknij „Akceptuj”,
+        aby zamknąć teraz, lub „Odrzuć”, jeśli nadal potrzebujesz pomocy.\n"
+      archived: "\nWiadomości na tym kanale zostaną zarchiwizowane do wykorzystania
+        w przyszłości.\n"
+    user_request:
+      title: ❓ {requestedBy} chce zamknąć to zgłoszenie
+    wait_for_user: ✋ Poczekaj na odpowiedź użytkownika.
+  created:
+    title: ✅ Zgłoszenie utworzone
+    description: 'Twój kanał zgłoszeń został utworzony: {channel}.'
+  edited:
+    description: Twoje zmiany zostały zapisane.
+    title: ✅ Zgłoszenie zaktualizowane
+  offline:
+    description: W tej chwili nie ma już żadnych członków personelu, więc może ono
+      trwać dłużej niż zwykle.
+    title: 😴 Nie jesteśmy online
+  references_message:
+    description: Odnośniki [wiadomość]({url}) wysłana {timestamp} przez {author}.
+    title: ℹ️ Odnośnik
+  references_ticket:
+    description: 'Te zgłoszenie jest powiązany z poprzednim zgłoszeniem:'
+    fields:
+      number: Numer
+      date: Utworzono o godz
+      topic: Temat
+    title: ℹ️ Odnośnik
+  closing_soon:
+    description: "To zgłoszenie zostanie zamknięte z powodu braku aktywności <t:{timestamp}:R>.\n
+      Wyślij wiadomość, aby anulować tę automatyzację.\n"
+    title: ⌛ Te zgłoszenie zostanie wkrótce zamknięty
+  inactive:
+    description: "Nie było żadnej aktywności na tym kanale od <t:{timestamp}:R>.\n
+      Kontynuuj rozmowę lub {close} zgłoszenie.\n"
+    title: ⏰ Te zgłoszenie jest nieaktywne
+  feedback: Dziękujemy za twoją opinię.
+  opening_message:
+    content: "{staff}\n{creator} utworzył nowe zgłoszenie\n"
+    fields:
+      topic: Temat
+  released: ♻️ {user} zwolnił te zgłoszenie.
+  working_hours:
+    next:
+      title: 🕗 Chwilowo nie pracujemy
+      description: Wrócimy o <t:{timestamp}:F> (<t:{timestamp}:R>), chociaż odpowiedź
+        możesz otrzymać wcześniej.
+    today:
+      title: 🕗 Chwilowo nie pracujemy
+      description: Możesz otrzymać odpowiedź wcześniej, ale zaczynamy pracę dopiero
+        <t:{timestamp}:t> dzisiaj (<t:{timestamp}:R>).
+  answers:
+    no_value: '*Brak odpowiedzi*'
+menus:
+  guild:
+    placeholder: Wybierz serwer
+  category:
+    placeholder: Wybierz kategorię zgłoszenia

@@ -235,8 +235,161 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "GeckoBoy84",
+      "name": "GeckoBoy84",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67899387?v=4",
+      "profile": "https://github.com/GeckoBoy84",
+      "contributions": [
+        "bug",
+        "ideas",
+        "question"
+      ]
+    },
+    {
+      "login": "Manfred-exe",
+      "name": "Manfred.exe",
+      "avatar_url": "https://avatars.githubusercontent.com/u/81268335?v=4",
+      "profile": "https://github.com/Manfred-exe",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Thomasthegama",
+      "name": "Thomasthegama",
+      "avatar_url": "https://avatars.githubusercontent.com/u/70441539?v=4",
+      "profile": "https://github.com/Thomasthegama",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "VinDotRun",
+      "name": "Vin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28811713?v=4",
+      "profile": "https://github.com/VinDotRun",
+      "contributions": [
+        "translation",
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "M4rlus",
+      "name": "Marius",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43551856?v=4",
+      "profile": "https://github.com/M4rlus",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cccc9803",
+      "name": "cccc9803",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30467450?v=4",
+      "profile": "https://github.com/cccc9803",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "billy99816609",
+      "name": "billy99816609",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54208828?v=4",
+      "profile": "https://github.com/billy99816609",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Umeaboy",
+      "name": "Kristoffer Grundström",
+      "avatar_url": "https://avatars.githubusercontent.com/u/714473?v=4",
+      "profile": "https://github.com/Umeaboy",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "zukreindev",
+      "name": "Arda Samed Çelik",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73394120?v=4",
+      "profile": "https://zukrein.xyz",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "creeperita09",
+      "name": "creeperita09",
+      "avatar_url": "https://avatars.githubusercontent.com/u/97898994?v=4",
+      "profile": "https://github.com/creeperita09",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Luzifix",
+      "name": "Luzifix",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7042325?v=4",
+      "profile": "https://github.com/Luzifix",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "DominicTheD3v",
+      "name": "DominicTheD3v",
+      "avatar_url": "https://avatars.githubusercontent.com/u/119626487?v=4",
+      "profile": "https://github.com/DominicTheD3v",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "ari-party",
+      "name": "ari",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49074962?v=4",
+      "profile": "https://github.com/ari-party",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "olebohmbach",
+      "name": "Ole",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77053238?v=4",
+      "profile": "https://github.com/olebohmbach",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "erdnaxe",
+      "name": "erdnaxe",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2663216?v=4",
+      "profile": "https://github.com/erdnaxe",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "LeonTheDev-io",
+      "name": "Leon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82466943?v=4",
+      "profile": "https://github.com/LeonTheDev-io",
+      "contributions": [
+        "doc",
+        "code",
+        "translation",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs"
 }

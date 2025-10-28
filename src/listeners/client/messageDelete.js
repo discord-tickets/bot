@@ -1,8 +1,11 @@
 const { Listener } = require('@eartharoid/dbf');
-const { AuditLogEvent } = require('discord.js');
+const {
+	AuditLogEvent, MessageFlags,
+} = require('discord.js');
 const { logMessageEvent } = require('../../lib/logging');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
+const { pools } = require('../../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class extends Listener {
 	constructor(client, options) {
@@ -37,17 +40,24 @@ module.exports = class extends Listener {
 
 		if (ticket.guild.archive) {
 			try {
+				await client.prisma.archivedMessage.update({
+					data: { deleted: true },
+					where: { id: message.id },
+				});
 				const archived = await client.prisma.archivedMessage.findUnique({ where: { id: message.id } });
-				if (archived) {
-					if (!content) content = JSON.parse(decrypt(archived.content)).content; // won't be cleaned
-					await client.prisma.archivedMessage.update({
-						data: { deleted: true },
-						where: { id: message.id },
-					});
+				if (archived?.content) {
+					if (!content) {
+						const string = await crypto.queue(w => w.decrypt(archived.content));
+						content = JSON.parse(string).content; // won't be cleaned
+					}
 				}
 			} catch (error) {
-				client.log.warn('Failed to "delete" archived message', message.id);
-				client.log.error(error);
+				if ((error.meta?.cause || error.cause) === 'Record to update not found.') {
+					client.log.warn(`Archived message ${message.id} can't be marked as deleted because it doesn't exist`);
+				} else {
+					client.log.warn('Failed to "delete" archived message', message.id);
+					client.log.error(error);
+				}
 			}
 		}
 
@@ -67,7 +77,7 @@ module.exports = class extends Listener {
 			}
 		}
 
-		if (message.author.id !== client.user.id && !message.flags.has('Ephemeral')) {
+		if (message.author.id !== client.user.id && !message.flags.has(MessageFlags.Ephemeral)) {
 			await logMessageEvent(this.client, {
 				action: 'delete',
 				diff: {

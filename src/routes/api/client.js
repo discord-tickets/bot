@@ -1,46 +1,78 @@
-const {
-	getAvgResolutionTime, getAvgResponseTime,
-} = require('../../lib/stats');
+/* eslint-disable no-underscore-dangle */
+
 const ms = require('ms');
+const pkg = require('../../../package.json');
+const {
+	getAverageTimes, getAverageRating,
+} = require('../../lib/stats');
+const { pools } = require('../../lib/threads');
+
+const { stats } = pools;
 
 module.exports.get = () => ({
-	handler: async (req, res) => {
+	handler: async req => {
 		/** @type {import("client")} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const cacheKey = 'cache/stats/client';
 		let cached = await client.keyv.get(cacheKey);
-
 		if (!cached) {
-			const tickets = await client.prisma.ticket.findMany({
-				select: {
-					closedAt: true,
-					createdAt: true,
-					firstResponseAt: true,
-				},
-			});
-			const closedTickets = tickets.filter(t => t.firstResponseAt && t.closedAt);
-			const users = await client.prisma.user.findMany({ select: { messageCount: true } });
+			const [
+				categories,
+				members,
+				tags,
+				tickets,
+				closedTickets,
+				users,
+			] = await Promise.all([
+				client.prisma.category.count(),
+				stats.queue(w => w.sum(client.guilds.cache.map(g => g.memberCount))),
+				client.prisma.tag.count(),
+				client.prisma.ticket.count(),
+				client.prisma.ticket.findMany({
+					select: {
+						closedAt: true,
+						createdAt: true,
+						feedback: { select: { rating: true } },
+						firstResponseAt: true,
+					},
+					where: {
+						firstResponseAt: { not: null },
+						open: false,
+					},
+				}),
+				client.prisma.user.aggregate({
+					_count: true,
+					_sum: { messageCount: true },
+				}),
+			]);
+			const {
+				avgResolutionTime,
+				avgResponseTime,
+			} = await getAverageTimes(closedTickets);
+			const avgRating = await getAverageRating(closedTickets);
+
 			cached = {
 				avatar: client.user.avatarURL(),
 				discriminator: client.user.discriminator,
 				id: client.user.id,
 				public: (process.env.PUBLIC_BOT === 'true'),
 				stats: {
-					activatedUsers: users.length,
-					archivedMessages: users.reduce((total, user) => total + user.messageCount, 0), // don't count archivedMessage table rows, they can be deleted
-					avgResolutionTime: ms(getAvgResolutionTime(closedTickets)),
-					avgResponseTime: ms(getAvgResponseTime(closedTickets)),
-					categories: await client.prisma.category.count(),
+					activatedUsers: users._count,
+					archivedMessages: users._sum.messageCount,
+					avgRating: avgRating.toFixed(1),
+					avgResolutionTime: ms(avgResolutionTime),
+					avgResponseTime: ms(avgResponseTime),
+					categories,
 					guilds: client.guilds.cache.size,
-					members: client.guilds.cache.reduce((t, g) => t + g.memberCount, 0),
-					tags: await client.prisma.tag.count(),
-					tickets: tickets.length,
+					members,
+					tags,
+					tickets,
 				},
 				username: client.user.username,
+				version: pkg.version,
 			};
 			await client.keyv.set(cacheKey, cached, ms('15m'));
 		}
-
 		return cached;
 	},
 });

@@ -29,6 +29,7 @@ commands:
       success:
         title: ✅ Lisätty
         description: '{member} lisättiin {ticket}'
+      added: ➡️ {by} lisäsi {added}.
     force-close:
       not_staff:
         title: ❌ Virhe
@@ -88,6 +89,8 @@ commands:
     claim:
       description: Varaa tiketti
       name: varaa
+      not_staff:
+        title: ❌ Virhe
     new:
       description: Luo uusi tiketti
       name: uusi

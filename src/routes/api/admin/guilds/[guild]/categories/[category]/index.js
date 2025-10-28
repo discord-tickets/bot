@@ -1,16 +1,15 @@
 const { logAdminEvent } = require('../../../../../../../lib/logging');
 const { updateStaffRoles } = require('../../../../../../../lib/users');
-const { randomUUID } = require('crypto');
 const { ApplicationCommandPermissionType } = require('discord.js');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guild = client.guilds.cache.get(req.params.guild);
 		const categoryId = Number(req.params.category);
 		const original = categoryId && await client.prisma.category.findUnique({ where: { id: categoryId } });
-		if (!original || original.guildId !== guild.id) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guild.id) return res.status(400).send(new Error('Bad Request'));
 		const category = await client.prisma.category.delete({ where: { id: categoryId } });
 
 		await updateStaffRoles(guild);
@@ -34,7 +33,7 @@ module.exports.delete = fastify => ({
 module.exports.get = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
 		const category = await client.prisma.category.findUnique({
@@ -59,7 +58,7 @@ module.exports.get = fastify => ({
 			where: { id: categoryId },
 		});
 
-		if (!category || category.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!category || category.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
 		return category;
 	},
@@ -69,7 +68,7 @@ module.exports.get = fastify => ({
 module.exports.patch = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
-		const client = res.context.config.client;
+		const client = req.routeOptions.config.client;
 		const guildId = req.params.guild;
 		const categoryId = Number(req.params.category);
 		/** @type {import('discord.js').Guild} */
@@ -119,23 +118,20 @@ module.exports.patch = fastify => ({
 			where: { id: categoryId },
 		});
 
-		if (!original || original.guildId !== guildId) return res.status(404).send(new Error('Not Found'));
+		if (!original || original.guildId !== guildId) return res.status(400).send(new Error('Bad Request'));
 
-		if (data.hasOwnProperty('id')) delete data.id;
-		if (data.hasOwnProperty('createdAt')) delete data.createdAt;
+		if (Object.prototype.hasOwnProperty.call(data, 'id')) delete data.id;
+		if (Object.prototype.hasOwnProperty.call(data, 'createdAt')) delete data.createdAt;
 
 		const category = await client.prisma.category.update({
 			data: {
 				...data,
 				questions: {
-					upsert: data.questions?.map(q => {
-						if (!q.id) q.id = randomUUID();
-						return {
-							create: q,
-							update: q,
-							where: { id: q.id },
-						};
-					}),
+					upsert: data.questions?.map(q => ({
+						create: q,
+						update: q,
+						where: { id: q.id },
+					})),
 				},
 			},
 			select,

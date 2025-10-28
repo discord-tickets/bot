@@ -5,7 +5,7 @@ const { version: currentVersion } = require('../../package.json');
 
 /** @param {import("client")} client */
 module.exports = client => {
-	client.log.info('Checking for updates...');
+	client.log.info.cron('Checking for updates...');
 	fetch('https://api.github.com/repos/discord-tickets/bot/releases')
 		.then(res => res.json())
 		.then(async json => {
@@ -31,7 +31,7 @@ module.exports = client => {
 				if (currentRelease === -1) return client.log.warn('Failed to find current release');
 				const behind = currentRelease;
 				currentRelease = releases[currentRelease];
-				const changelog = `https://discordtickets.app/changelogs/v${latestVersion.replaceAll('.', '') }/`;
+				const changelog = `https://discordtickets.app/changelogs/v${latestVersion}/`;
 				const guide = 'https://discordtickets.app/self-hosting/updating/';
 				const { default: boxen } = await import('boxen');
 
@@ -68,7 +68,7 @@ module.exports = client => {
 										name: latestRelease.author.login,
 									})
 									.setTitle(getMessage('misc.update.title'))
-									.setDescription(getMessage('misc.update.fields.links.value', {
+									.setDescription(getMessage('misc.update.description', {
 										changelog,
 										github: latestRelease.html_url,
 										guide,

@@ -41,8 +41,32 @@ module.exports.isStaff = async (guild, userId) => {
 	/** @type {import("client")} */
 	const client = guild.client;
 	if (client.supers.includes(userId)) return true;
-	const guildMember = guild.members.cache.get(userId) || await guild.members.fetch(userId);
-	if (guildMember.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
-	const staffRoles = await client.keyv.get(`cache/guild-staff:${guild.id}`) || await updateStaffRoles(guild);
-	return staffRoles.some(r => guildMember.roles.cache.has(r));
+	try {
+		const guildMember = guild.members.cache.get(userId) || await guild.members.fetch(userId);
+		if (guildMember.permissions.has(PermissionsBitField.Flags.ManageGuild)) return true;
+		const staffRoles = await client.keyv.get(`cache/guild-staff:${guild.id}`) || await updateStaffRoles(guild);
+		return staffRoles.some(r => guildMember.roles.cache.has(r));
+	} catch {
+		return false;
+	}
+};
+
+/**
+ *
+ * @param {import("discord.js")} member
+ * @returns {Promise<number>}
+ * 	- `4` = OPERATOR (SUPER)
+ *  - `3` = GUILD_OWNER
+ *  - `2` = GUILD_ADMIN
+ *  - `1` = GUILD_STAFF
+ *  - `0` = GUILD_MEMBER
+ *  - `-1` = NONE (NOT A MEMBER)
+ */
+module.exports.getPrivilegeLevel = async member => {
+	if (!member) return -1;
+	else if (member.guild.client.supers.includes(member.id)) return 4;
+	else if (member.guild.ownerId === member.id) return 3;
+	else if (member.permissions.has(PermissionsBitField.Flags.ManageGuild)) return 2;
+	else if (await this.isStaff(member.guild, member.id)) return 1;
+	else return 0;
 };

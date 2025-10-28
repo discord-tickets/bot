@@ -1,6 +1,7 @@
 const { Button } = require('@eartharoid/dbf');
 const ExtendedEmbedBuilder = require('../lib/embed');
 const { isStaff } = require('../lib/users');
+const { MessageFlags } = require('discord.js');
 
 module.exports = class CloseButton extends Button {
 	constructor(client, options) {
@@ -33,7 +34,7 @@ module.exports = class CloseButton extends Button {
 							.setColor(ticket.guild.errorColour)
 							.setDescription(getMessage('ticket.close.wait_for_staff')),
 					],
-					ephemeral: true,
+					flags: MessageFlags.Ephemeral,
 				});
 			} else if (id.expect === 'user' && interaction.user.id !== ticket.createdById) {
 				return await interaction.reply({
@@ -42,7 +43,7 @@ module.exports = class CloseButton extends Button {
 							.setColor(ticket.guild.errorColour)
 							.setDescription(getMessage('ticket.close.wait_for_user')),
 					],
-					ephemeral: true,
+					flags: MessageFlags.Ephemeral,
 				});
 			} else {
 				if (id.accepted) {

@@ -1,11 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 const { Autocompleter } = require('@eartharoid/dbf');
 const emoji = require('node-emoji');
-const Cryptr = require('cryptr');
-const { decrypt } = new Cryptr(process.env.ENCRYPTION_KEY);
 const Keyv = require('keyv');
 const ms = require('ms');
 const { isStaff } = require('../lib/users');
+const { pools } = require('../lib/threads');
+
+const { crypto } = pools;
 
 module.exports = class TicketCompleter extends Autocompleter {
 	constructor(client, options) {
@@ -18,43 +19,45 @@ module.exports = class TicketCompleter extends Autocompleter {
 	}
 
 	async getOptions(value, {
-		guildId,
+		interaction,
 		open,
 		userId,
 	}) {
 		/** @type {import("client")} */
 		const client = this.client;
+		const guildId = interaction.guild.id;
 		const cacheKey = [guildId, userId, open].join('/');
 
 		let tickets = await this.cache.get(cacheKey);
 
 		if (!tickets) {
+			const cmd = client.commands.commands.slash.get('transcript');
 			const { locale } = await client.prisma.guild.findUnique({
 				select: { locale: true },
 				where: { id: guildId },
 			});
 			tickets = await client.prisma.ticket.findMany({
-				include: {
-					category: {
-						select: {
-							emoji: true,
-							name: true,
-						},
-					},
-				},
+				include: { category: true },
 				where: {
 					createdById: userId,
 					guildId,
 					open,
 				},
 			});
-			tickets = tickets.map(ticket => {
-				const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
-				const topic = ticket.topic ? '- ' + decrypt(ticket.topic).replace(/\n/g, ' ').substring(0, 50) : '';
-				const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
-				ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
-				return ticket;
-			});
+
+			tickets = await Promise.all(
+				tickets
+					.filter(ticket => cmd.shouldAllowAccess(interaction, ticket))
+					.map(async ticket => {
+						const getTopic = async () => (await crypto.queue(w => w.decrypt(ticket.topic))).replace(/\n/g, ' ').substring(0, 50);
+						const date = new Date(ticket.createdAt).toLocaleString([locale, 'en-GB'], { dateStyle: 'short' });
+						const topic = ticket.topic ? '- ' + (await getTopic()) : '';
+						const category = emoji.hasEmoji(ticket.category.emoji) ? emoji.get(ticket.category.emoji) + ' ' + ticket.category.name : ticket.category.name;
+						ticket._name = `${category} #${ticket.number} (${date}) ${topic}`;
+						return ticket;
+					}),
+			);
+
 			this.cache.set(cacheKey, tickets, ms('1m'));
 		}
 
@@ -77,7 +80,7 @@ module.exports = class TicketCompleter extends Autocompleter {
 		const userId = otherMember || interaction.user.id;
 		await interaction.respond(
 			await this.getOptions(value, {
-				guildId: interaction.guild.id,
+				interaction,
 				open: ['add', 'close', 'force-close', 'remove'].includes(command.name),  // false for `new`, `transcript` etc
 				userId,
 			}),

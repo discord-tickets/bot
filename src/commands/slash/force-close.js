@@ -5,6 +5,7 @@ const {
 	ButtonBuilder,
 	ButtonStyle,
 	ComponentType,
+	MessageFlags,
 } = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
@@ -59,7 +60,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		/** @type {import("client")} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const settings = await client.prisma.guild.findUnique({ where: { id: interaction.guild.id } });
 		const getMessage = client.i18n.getLocale(settings.locale);
@@ -139,6 +140,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 			const tickets = await client.prisma.ticket.findMany({
 				where: {
 					categoryId: categoryId ?? undefined, // must be undefined not null
+					guildId: interaction.guild.id,
 					lastMessageAt: { lte: new Date(Date.now() - time) },
 					open: true,
 				},
@@ -214,7 +216,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 									.setTitle(getMessage('commands.slash.force-close.confirmed_multiple.title', tickets.length, tickets.length))
 									.setDescription(getMessage('commands.slash.force-close.confirmed_multiple.description')),
 							],
-							ephemeral: true,
+							flags: MessageFlags.Ephemeral,
 						});
 						setTimeout(async () => {
 							for (const ticket of tickets) {

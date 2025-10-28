@@ -1,5 +1,7 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType, MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 
 module.exports = class TagSlashCommand extends SlashCommand {
@@ -41,7 +43,7 @@ module.exports = class TagSlashCommand extends SlashCommand {
 		const client = this.client;
 
 		const user = interaction.options.getUser('for', false);
-		await interaction.deferReply({ ephemeral: !user });
+		await interaction.deferReply({ flags: user ? 0 : MessageFlags.Ephemeral });
 		const tag = await client.prisma.tag.findUnique({
 			include: { guild: true },
 			where: { id: interaction.options.getInteger('tag', true) },

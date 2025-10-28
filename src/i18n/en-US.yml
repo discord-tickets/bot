@@ -1,0 +1,8 @@
+buttons:
+  accept_close_request:
+    emoji: ✅
+    text: Accept
+  cancel:
+    text: Cancel
+  claim:
+    emoji: 🙌

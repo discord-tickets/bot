@@ -13,15 +13,19 @@ if (process.env.CI) {
 }
 
 const env = {
+	CPU_LIMIT: '',
 	DB_CONNECTION_URL: '',
 	DB_PROVIDER: '', // don't default to sqlite, postinstall checks if empty
+	DISABLE_ENCRYPTION: false,
 	DISCORD_SECRET: '',
 	DISCORD_TOKEN: '',
 	ENCRYPTION_KEY: randomBytes(24).toString('hex'),
 	HTTP_EXTERNAL: 'http://127.0.0.1:8169',
 	HTTP_HOST: '0.0.0.0',
+	HTTP_INTERNAL: '',
 	HTTP_PORT: 8169,
 	HTTP_TRUST_PROXY: false,
+	INVALIDATE_TOKENS: '',
 	NODE_ENV: 'production', // not bot-specific
 	OVERRIDE_ARCHIVE: '',
 	PUBLIC_BOT: false,
