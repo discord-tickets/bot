@@ -14,13 +14,13 @@ commands:
         title: ❌ Fout
       options:
         time:
-          description: Sluit alle tickets die gedurende de opgegeven tijd inactief
-            zijn geweest
+          description: Sluit alle tickets die gedurende de opgegeven tijd 
+            inactief zijn geweest
           name: tijd
         category:
           name: categorie
-          description: Sluit alle tickets in de opgegeven categorie (moet worden gebruikt
-            met `time`)
+          description: Sluit alle tickets in de opgegeven categorie (moet worden
+            gebruikt met `time`)
         reason:
           description: De reden voor het sluiten van de ticket(s)
           name: reden
@@ -29,8 +29,8 @@ commands:
           name: ticket
       name: geforceerd-sluiten
       no_tickets:
-        description: Er zijn geen open tickets die langer dan `{time}` inactief zijn
-          geweest.
+        description: Er zijn geen open tickets die langer dan `{time}` inactief 
+          zijn geweest.
         title: ❌ Geen tickets
       confirm_multiple:
         description: "U staat op het punt **{count}** tickets te sluiten die langer
@@ -41,7 +41,7 @@ commands:
       description: Toon het helpmenu
       name: hulp
       response:
-        commands: Opdrachten
+        commands: Commando’s
         description: '**Gebruik {command} om een ticket aan te maken en ondersteuning
           te krijgen.**'
         links:
@@ -58,7 +58,8 @@ commands:
       name: toevoegen
       not_staff:
         title: ❌ Fout
-        description: Alleen medewerkers kunnen leden toevoegen aan tickets van anderen.
+        description: Alleen medewerkers kunnen leden toevoegen aan tickets van 
+          anderen.
       options:
         member:
           description: Het lid dat aan het ticket moet worden toegevoegd
@@ -87,7 +88,7 @@ commands:
         title: ❌ Fout
     move:
       description: Verplaats een ticket naar een andere categorie
-      moved: 🗃️ {by} heeft dit ticket verplaatst van **{from}** naar **{to}**.
+      moved: 🗃️ {by} heeft deze ticket verplaatst van **{from}** naar **{to}**.
       not_staff:
         description: Alleen personeelsleden kunnen tickets verplaatsen.
         title: ❌ Fout
@@ -102,7 +103,8 @@ commands:
           description: Het lid aan wie het eigendom moet worden overgedragen
           name: lid
       transferred: 📨 {user} heeft dit ticket overgedragen aan {to}.
-      transferred_from: 📨 {user} heeft dit ticket overgedragen van {from} naar {to}.
+      transferred_from: 📨 {user} heeft dit ticket overgedragen van {from} naar 
+        {to}.
       description: Draag het eigendom van een ticket over aan een ander lid
       name: overdracht
     new:
@@ -116,7 +118,8 @@ commands:
       description: Stel de prioriteit van een ticket in
       name: prioriteit
       not_staff:
-        description: Alleen medewerkers kunnen de prioriteit van tickets wijzigen.
+        description: Alleen medewerkers kunnen de prioriteit van tickets 
+          wijzigen.
         title: ❌ Fout
       options:
         priority:
@@ -133,7 +136,8 @@ commands:
       description: Een lid uit een ticket verwijderen
       name: verwijderen
       not_staff:
-        description: Alleen personeelsleden kunnen leden van tickets van anderen verwijderen.
+        description: Alleen personeelsleden kunnen leden van tickets van anderen
+          verwijderen.
         title: ❌ Fout
       options:
         member:
@@ -167,7 +171,8 @@ commands:
           description: Het lid om de tickets van te vermelden
           name: lid
       response:
-        description: Gebruik {transcript} om het transcript van een ticket te downloaden.
+        description: Gebruik {transcript} om het transcript van een ticket te 
+          downloaden.
         fields:
           closed:
             name: Gesloten tickets
@@ -191,15 +196,34 @@ commands:
           description: Het lid om tickets van te zoeken
           name: lid
         ticket:
-          description: Het nummer van het ticket waarvan je de transcriptie wilt ontvangen
+          description: Het nummer van het ticket waarvan je de transcriptie wilt
+            ontvangen
           name: ticket
       not_staff:
         title: ❌ Fout
-        description: Alleen personeelsleden kunnen de transcripties van de tickets
-          van anderen lezen.
+        description: Alleen personeelsleden kunnen de transcripties van de 
+          tickets van anderen lezen.
     release:
       description: Vrijgeven (claim intrekken) van een ticket
       name: vrijgeven
+    rename:
+      description: Hernoem een ticketkanaal
+      error: Er is een fout opgetreden bij het hernoemen van het kanaal.
+      invalid:
+        description: De naam moet tussen 1 en 100 karakters in lengte zijn.
+        title: Ongeldige naam
+      name: hernoem
+      options:
+        name:
+          description: De nieuwe naam for het ticketkanaal.
+          name: naam
+      ratelimited:
+        description: Je hebt dit kanaal al twee keer hernoemd in de afgelopen 10
+          minuten. Wacht even voordat je het opnieuw probeert.
+        title: Verzoeklimiet bereikt
+      success:
+        description: Het ticketkanaal is hernoemd naar `{name}`.
+        title: Kanaal hernoemd
   message:
     pin:
       not_ticket:
@@ -255,6 +279,9 @@ buttons:
   create:
     emoji: 🎫
     text: Maak een ticket
+  transcript:
+    emoji: 📄
+    text: Transcriptie
 log:
   admin:
     description:
@@ -304,13 +331,14 @@ misc:
     title: 🐢 Vertraag alsjeblieft
   missing_roles:
     title: ❌ Onvoldoende rollen
-    description: U heeft niet de vereiste rollen om een ticket in deze categorie te
-      kunnen aanmaken.
+    description: U heeft niet de vereiste rollen om een ticket in deze categorie
+      te kunnen aanmaken.
   not_ticket:
     title: ❌ Dit is geen ticketkanaal
     description: U kunt dit commando alleen in tickets gebruiken.
   role_error:
-    description: Sorry, de bewerking is mislukt vanwege een ongeldige configuratie.
+    description: Sorry, de bewerking is mislukt vanwege een ongeldige 
+      configuratie.
     fields:
       for_admins:
         name: Voor serverbeheerders
@@ -319,8 +347,8 @@ misc:
           om het probleem op te lossen.\n"
     title: ⚠️ Er ging iets mis
   update:
-    description: "> [Bekijk `{version}` op GitHub]({github})\n> [Wijzigingslogboek]({changelog})\n
-      > [Gids bijwerken]({guide})\n"
+    description: "> [Bekijk `{version}` op GitHub]({github})\n> [Wijzigingslog]({changelog})\n\
+      > [Updatehandleiding]({guide})\n"
     title: Een update is beschikbaar
   category_full:
     description: "De categorie heeft de maximale capaciteit bereikt.\nProbeer het
@@ -340,7 +368,8 @@ misc:
     title: ❌ Ongeldig ticket
   member_limit:
     description:
-    - Gebruik uw bestaande ticket of sluit het voordat u een nieuw ticket aanmaakt.
+    - Gebruik uw bestaande ticket of sluit het voordat u een nieuw ticket 
+      aanmaakt.
     - "Sluit een ticket voordat u een nieuw ticket aanmaakt.\nGebruik `/tickets` om
       uw bestaande tickets te bekijken.\n"
     title:
@@ -351,7 +380,8 @@ misc:
       op {url}."
     title: ❌ Er zijn geen ticketcategorieën
   cooldown:
-    description: Wacht {time} voordat u nog een ticket in deze categorie aanmaakt.
+    description: Wacht {time} voordat u nog een ticket in deze categorie 
+      aanmaakt.
     title: ❌ Even geduld
   blocked:
     description: Je mag geen tickets aanmaken.
@@ -359,6 +389,11 @@ misc:
   unknown_category:
     description: Probeer een andere categorie.
     title: ❌ Die ticketcategorie bestaat niet
+  permissions_error:
+    description: Sorry, de operatie is mislukt vanwege onvoldoende permissies.
+    fields:
+      for_admins:
+        value: "[Klik hier]({url}) voor insructies om het op te lossen.\n"
 ticket:
   edited:
     title: ✅ Ticket bijgewerkt
@@ -378,26 +413,27 @@ ticket:
       title: ❓Kan dit ticket gesloten worden?
       archived: "\nDe berichten in dit kanaal worden gearchiveerd voor toekomstig
         gebruik.\n"
-      description: "{requestedBy} wilt dit ticket sluiten.\nKlik op \"Accepteer\"
-        om het nu te sluiten, of op \"Afwijzen\" als je nog steeds hulp nodig hebt.\n"
+      description: "{requestedBy} wilt dit ticket sluiten.\nKlik op \"Accepteer\"\
+        \ om het nu te sluiten, of op \"Afwijzen\" als je nog steeds hulp nodig hebt.\n"
     wait_for_user: ✋ Wacht tot de gebruiker reageert.
     user_request:
       title: ❓ {requestedBy} wilt dit ticket sluiten
     wait_for_staff: ✋ Wacht tot het personeel dit ticket sluit.
   closing_soon:
-    description: "Dit ticket wordt gesloten wegens inactiviteit <t:{timestamp}:R>.\n
+    description: "Deze ticket wordt gesloten wegens inactiviteit <t:{timestamp}:R>.\n\
       Stuur een bericht om deze automatisering te annuleren.\n"
     title: ⌛ Dit ticket wordt binnenkort gesloten
   inactive:
     title: ⏰ Dit ticket is inactief
-    description: "Er is geen activiteit geweest in dit kanaal sinds <t:{timestamp}:R>.\n
+    description: "Er is geen activiteit geweest in dit kanaal sinds <t:{timestamp}:R>.\n\
       Ga door met het gesprek of {close} het ticket.\n"
   opening_message:
     content: "{staff}\n{creator} heeft een nieuw ticket aangemaakt\n"
     fields:
       topic: Onderwerp
   references_message:
-    description: Referenties [een bericht]({url}) verzonden {timestamp} door {author}.
+    description: Referenties [een bericht]({url}) verzonden {timestamp} door 
+      {author}.
     title: ℹ️ Referentie
   created:
     description: 'Uw ticketkanaal is aangemaakt: {channel}.'
@@ -411,16 +447,16 @@ ticket:
     title: ℹ️ Referentie
   offline:
     title: 😴 We zijn niet online
-    description: Er zijn momenteel geen medewerkers beschikbaar, dus het kan langer
-      duren dan normaal om een reactie te krijgen.
+    description: Er zijn momenteel geen medewerkers beschikbaar, dus het kan 
+      langer duren dan normaal om een reactie te krijgen.
   working_hours:
     next:
       title: 🕗 We werken momenteel niet
-      description: We zijn zo terug op <t:{timestamp}:F> (<t:{timestamp}:R>), hoewel
-        het mogelijk is dat u voor die tijd een reactie ontvangt.
+      description: We zijn zo terug op <t:{timestamp}:F> (<t:{timestamp}:R>), 
+        hoewel het mogelijk is dat u voor die tijd een reactie ontvangt.
     today:
-      description: Mogelijk ontvangt u eerder een reactie, maar we beginnen pas met
-        werken tot <t:{timestamp}:t> vandaag (<t:{timestamp}:R>).
+      description: Mogelijk ontvangt u eerder een reactie, maar we beginnen pas 
+        met werken tot <t:{timestamp}:t> vandaag (<t:{timestamp}:R>).
       title: 🕗 We werken momenteel niet
   claimed: 🙌 {user} heeft dit ticket geclaimd.
   released: ♻️ {user} heeft dit ticket vrijgegeven.
@@ -442,7 +478,9 @@ dm:
       response: Reactietijd
       closed:
         name: Gesloten om
-        value: '{timestamp} (na {duration})'
+        value: '{timestamp}
+
+          (na {duration})'
       closed_by: Gesloten door
       created: Gemaakt op
       feedback: Uw feedback
