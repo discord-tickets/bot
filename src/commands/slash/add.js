@@ -1,5 +1,8 @@
 const { SlashCommand } = require('@eartharoid/dbf');
-const { ApplicationCommandOptionType } = require('discord.js');
+const {
+	ApplicationCommandOptionType,
+	MessageFlags,
+} = require('discord.js');
 const ExtendedEmbedBuilder = require('../../lib/embed');
 const { isStaff } = require('../../lib/users');
 const { logTicketEvent } = require('../../lib/logging');
@@ -47,7 +50,7 @@ module.exports = class AddSlashCommand extends SlashCommand {
 		/** @type {import('client')} */
 		const client = this.client;
 
-		await interaction.deferReply({ ephemeral: true });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const ticket = await client.prisma.ticket.findUnique({
 			include: { guild: true },
@@ -175,24 +178,41 @@ module.exports = class AddSlashCommand extends SlashCommand {
 					.setColor(ticket.guild.successColour)
 					.setTitle(getMessage('commands.slash.add.success.title'))
 					.setDescription(getMessage('commands.slash.add.success.description', {
-						args: (member ? member.toString() : '') + (role ? ` and ${role.toString()}` : ''),
+						args: [member?.toString(), role?.toString()].filter(Boolean).join(' & '),
 						ticket: ticketChannel.toString(),
 					})),
 			],
 		});
 
-		logTicketEvent(this.client, {
-			action: 'update',
-			diff: {
-				original: {},
-				updated: { [getMessage('log.ticket.added')]: member.user.tag },
-			},
-			target: {
-				id: ticket.id,
-				name: `<#${ticket.id}>`,
-			},
-			userId: interaction.user.id,
-		});
+		if (member) {
+			logTicketEvent(this.client, {
+				action: 'update',
+				diff: {
+					original: {},
+					updated: { [getMessage('log.ticket.addedMember')]: member.user.tag },
+				},
+				target: {
+					id: ticket.id,
+					name: `<#${ticket.id}>`,
+				},
+				userId: interaction.user.id,
+			});
+		}
+
+		if (role) {
+			logTicketEvent(this.client, {
+				action: 'update',
+				diff: {
+					original: {},
+					updated: { [getMessage('log.ticket.addedRole')]: role.name },
+				},
+				target: {
+					id: ticket.id,
+					name: `<#${ticket.id}>`,
+				},
+				userId: interaction.user.id,
+			});
+		}
 
 	}
 };
