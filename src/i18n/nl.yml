@@ -224,6 +224,9 @@ commands:
       success:
         description: Het ticketkanaal is hernoemd naar `{name}`.
         title: Kanaal hernoemd
+      not_staff:
+        description: Alleen medewerkers kunnen tickets claimen.
+        title: ❌ Fout
   message:
     pin:
       not_ticket:
@@ -394,6 +397,8 @@ misc:
     fields:
       for_admins:
         value: "[Klik hier]({url}) voor insructies om het op te lossen.\n"
+        name: Voor serverbeheerders
+    title: ⚠️ Er ging iets mis
 ticket:
   edited:
     title: ✅ Ticket bijgewerkt
