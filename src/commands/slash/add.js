@@ -95,7 +95,7 @@ module.exports = class AddSlashCommand extends SlashCommand {
 
 		/** @type {import('discord.js').TextChannel} */
 		const ticketChannel = await interaction.guild.channels.fetch(ticket.id);
-		const member = interaction.options.getMember('member', true);
+		const member = interaction.options.getMember('member', false);
 		const role = interaction.options.getRole('role', false);
 
 		if (!member && !role) {
