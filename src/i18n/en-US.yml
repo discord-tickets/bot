@@ -4,5 +4,18 @@ buttons:
     text: Accept
   cancel:
     text: Cancel
+    emoji: ➖
   claim:
     emoji: 🙌
+    text: Claim
+  close:
+    emoji: ✖️
+    text: Close
+  confirm_open:
+    emoji: ✅
+    text: Create ticket
+  create:
+    emoji: 🎫
+    text: Create a ticket
+  edit:
+    emoji: ✏️
