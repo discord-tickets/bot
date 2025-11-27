@@ -1,3 +1,19 @@
+## [4.0.49](https://github.com/discord-tickets/bot/compare/v4.0.48...v4.0.49) (2025-11-27)
+
+
+### Bug Fixes
+
+* change stale ticket message threshold from 5 to 1 ([bb3941d](https://github.com/discord-tickets/bot/commit/bb3941de50a80284515e356e4d37faf36e848e99))
+
+
+### Features
+
+* **i18n:** update Dutch translations ([ff9568c](https://github.com/discord-tickets/bot/commit/ff9568c29972f2eda80dc8f116d419423633b391))
+* **i18n:** update Dutch translations ([be4b937](https://github.com/discord-tickets/bot/commit/be4b9375eeb2494ad154e6ad4210ea30902f6cfa))
+* **i18n:** update English (United States) translations ([ec17a04](https://github.com/discord-tickets/bot/commit/ec17a0460eea8628535ad20b276a013ecda5ee85))
+
+
+
 ## [4.0.48](https://github.com/discord-tickets/bot/compare/v4.0.47...v4.0.48) (2025-10-23)
 
 
