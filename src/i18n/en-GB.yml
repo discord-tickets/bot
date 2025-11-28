@@ -57,6 +57,9 @@ commands:
       no_args:
         description: You must specify a member or a role to add to the ticket.
         title: ❌ Missing arguments
+      invalid_target:
+        description: Your target is invalid.
+        title: ❌ Invalid target
       options:
         member:
           description: The member to add to the ticket

@@ -112,6 +112,20 @@ module.exports = class AddSlashCommand extends SlashCommand {
 			});
 		}
 
+		if (member && (member.id === client.user.id || member.id === ticket.createdById)) {
+			return await interaction.editReply({
+				embeds: [
+					new ExtendedEmbedBuilder({
+						iconURL: interaction.guild.iconURL(),
+						text: ticket.guild.footer,
+					})
+						.setColor(ticket.guild.errorColour)
+						.setTitle(getMessage('commands.slash.add.invalid_target.title'))
+						.setDescription(getMessage('commands.slash.add.invalid_target.description')),
+				],
+			});
+		}
+
 		if (member) {
 
 			await ticketChannel.permissionOverwrites.edit(
