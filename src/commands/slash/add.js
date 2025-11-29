@@ -126,6 +126,20 @@ module.exports = class AddSlashCommand extends SlashCommand {
 			});
 		}
 
+		if (role && (role.id === interaction.guild.id || role.managed)) {
+			    return await interaction.editReply({
+				        embeds: [
+				            new ExtendedEmbedBuilder({
+					                 iconURL: interaction.guild.iconURL(),
+				                text: ticket.guild.footer,
+				            })
+			                .setColor(ticket.guild.errorColour)
+			                .setTitle(getMessage('commands.slash.add.invalid_role.title'))
+			                .setDescription(getMessage('commands.slash.add.invalid_role.description')),
+				        ],
+			    });
+		}
+
 		if (member) {
 
 			await ticketChannel.permissionOverwrites.edit(

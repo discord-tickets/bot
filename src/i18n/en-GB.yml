@@ -60,6 +60,9 @@ commands:
       invalid_target:
         description: Your target is invalid.
         title: ❌ Invalid target
+      invalid_role:
+        description: You cannot add the @everyone role or a managed role (bot or integration).
+        title: ❌ Invalid role
       options:
         member:
           description: The member to add to the ticket
