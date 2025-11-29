@@ -234,6 +234,10 @@ commands:
           name: ticket
           description: Le nombre de tickets dont vous souhaitez obtenir la 
             transcription
+        member:
+          name: membre
+      not_staff:
+        title: ❌ Erreur
     transfer:
       description: Transférer la propriété d'un ticket à un autre membre
       name: transférer
