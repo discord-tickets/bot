@@ -222,7 +222,7 @@ module.exports = class extends Listener {
 					if (client.tickets.$stale.has(ticket.id)) {
 						const $ticket = client.tickets.$stale.get(ticket.id);
 						$ticket.messages++;
-						if ($ticket.messages >= 5) {
+						if ($ticket.messages >= 1) {
 							await message.channel.messages.delete($ticket.message.id);
 							client.tickets.$stale.delete(ticket.id);
 						} else {
