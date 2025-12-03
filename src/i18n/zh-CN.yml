@@ -79,6 +79,7 @@ commands:
           description: 关闭工单的原因
           name: 原因
       description: 请求关闭工单
+      name: 关闭
     force-close:
       closed_one:
         description: 此频道将在几秒后被删除.
@@ -196,6 +197,9 @@ commands:
 log:
   admin:
     changes: 更改
+    title:
+      target:
+        settings: 设置
 misc:
   blocked:
     title: ❌ 已封禁
