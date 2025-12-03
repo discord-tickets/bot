@@ -69,6 +69,7 @@ commands:
       name: 认领
       not_staff:
         description: 只有工作人员可以认领工单.
+        title: ❌ 错误
     close:
       invalid_time:
         description: '`{input}` 不是有效的时间格式.'
@@ -77,7 +78,124 @@ commands:
         reason:
           description: 关闭工单的原因
           name: 原因
+      description: 请求关闭工单
     force-close:
       closed_one:
         description: 此频道将在几秒后被删除.
         title: ✅ 工单已关闭
+      confirm_multiple:
+        description: |
+          您将要关闭 **{count}** 个已闲置超过 `{time}` 的工单：
+          {tickets}
+        title: ❓ 确定？
+      confirmed_multiple:
+        description: 频道将在几秒后删除.
+        title:
+        - ✅ 正在关闭 %d 个工单
+        - ✅ 正在关闭 %d 个工单
+      description: 强制关闭工单
+      no_tickets:
+        description: 没有已闲置超过 `{time}` 的工单.
+        title: ❌ 无工单
+      not_staff:
+        description: 只有工作人员可以强制关闭工单.
+        title: ❌ 错误
+      options:
+        category:
+          description: 关闭指定类别内的所有工单 (必须与 `time` 一起使用)
+          name: 类别
+        reason:
+          description: 关闭工单的原因
+          name: 原因
+        ticket:
+          description: 要关闭的工单
+          name: 工单
+        time:
+          description: 关闭所有超过指定时间未活跃的工单
+          name: 时间
+      name: 强制关闭
+    help:
+      description: 显示帮助菜单
+      response:
+        commands: 指令
+        description: '**使用 {command} 创建一个工单来获得支持**'
+        links:
+          commands: 完整指令列表
+          docs: 文档
+          feedback: 反馈
+          links: 链接
+          support: 支持
+        settings: ­机器人设置
+      title: 帮助
+      name: 帮助
+    move:
+      description: 将一个工单移动到另一类别
+      moved: 🗃️ {by} 将工单从 **{from}** 移动到了 **{to}**.
+      not_staff:
+        description: 只有工作人员可以移动工单.
+        title: ❌ 错误
+      options:
+        category:
+          description: 要移动到的类别
+          name: 类别
+      name: 移动工单
+    new:
+      description: 创建新工单
+      options:
+        references:
+          description: 相关工单的编号
+          name: 引用
+      name: 新建
+    priority:
+      description: 设置工单优先级
+      not_staff:
+        description: 只有工作人员可以修改工单优先级.
+        title: ❌ 错误
+      options:
+        priority:
+          choices:
+            HIGH: 🔴 高
+            LOW: 🟢 低
+            MEDIUM: 🟠 中
+          description: 工单优先级
+          name: 优先级
+      success:
+        description: 这个工单的优先级已被修改为 `{priority}`.
+        title: ✅ 优先级已设置
+      name: 优先级
+    release:
+      description: 释放一个工单
+      name: 释放
+    remove:
+      description: 从一个工单中移除一个成员
+      not_staff:
+        description: 只有工作人员可以从别人的工单里移除成员.
+        title: ❌ 错误
+      name: 移除
+      options:
+        member:
+          description: 要从工单中移除的成员
+          name: 成员
+        ticket:
+          description: 要移除成员的工单
+          name: 工单
+      removed: ⬅️ {removed} 被 {by} 移除.
+      success:
+        description: '{member} 已从 {ticket} 中移除.'
+        title: ✅ 已移除
+    rename:
+      description: 重命名工单频道
+      error: 在重命名频道时出现错误.
+      invalid:
+        description: 命名长度必须在 1 到 100 之间.
+        title: 无效命名
+      name: 重命名
+      not_staff:
+        description: 只有工作人员可以重命名工单.
+        title: ❌ 错误
+log:
+  admin:
+    changes: 更改
+misc:
+  blocked:
+    title: ❌ 已封禁
