@@ -1,1 +1,83 @@
-{}
+buttons:
+  accept_close_request:
+    text: 接受
+    emoji: ✅
+  cancel:
+    emoji: ➖
+    text: 取消
+  claim:
+    emoji: 🙌
+    text: 认领
+  close:
+    emoji: ✖️
+    text: 关闭
+  confirm_open:
+    emoji: ✅
+    text: 创建工单
+  create:
+    emoji: 🎫
+    text: 创建工单
+  edit:
+    emoji: ✏️
+    text: 编辑
+  reject_close_request:
+    emoji: ✖️
+    text: 拒绝
+  transcript:
+    emoji: 📄
+    text: 记录
+  unclaim:
+    emoji: ♻️
+    text: 释放
+commands:
+  message:
+    create:
+      name: 从消息创建工单
+    pin:
+      name: 固定消息
+      not_pinnable:
+        description: |
+          这条消息无法被固定，
+          请联系管理员检查机器人权限配置。
+        title: ❌ 错误
+      not_ticket:
+        description: 你只能在工单中固定消息。
+        title: ❌ 非工单频道
+      pinned:
+        description: 消息已被固定。
+        title: ✅ 消息已固定
+  slash:
+    add:
+      added: ➡️ {by} 添加了 {added}.
+      description: 添加成员到工单
+      name: 添加
+      not_staff:
+        description: 只有工作人员可以添加成员到他人的工单.
+        title: ❌ 错误
+      options:
+        member:
+          description: 要添加到工单的成员
+          name: 成员
+        ticket:
+          description: 要添加成员的工单
+          name: 工单
+      success:
+        description: '{member} 已被添加到 {ticket}.'
+        title: ✅ 已添加
+    claim:
+      description: 认领工单
+      name: 认领
+      not_staff:
+        description: 只有工作人员可以认领工单.
+    close:
+      invalid_time:
+        description: '`{input}` 不是有效的时间格式.'
+        title: ❌ 无效
+      options:
+        reason:
+          description: 关闭工单的原因
+          name: 原因
+    force-close:
+      closed_one:
+        description: 此频道将在几秒后被删除.
+        title: ✅ 工单已关闭
