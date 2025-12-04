@@ -194,6 +194,9 @@ commands:
       not_staff:
         description: 只有工作人员可以重命名工单.
         title: ❌ 错误
+      options:
+        name:
+          description: 工单频道的新命名.
 log:
   admin:
     changes: 更改
