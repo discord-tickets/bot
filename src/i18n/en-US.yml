@@ -19,3 +19,4 @@ buttons:
     text: Create a ticket
   edit:
     emoji: ✏️
+    text: Edit
