@@ -20,3 +20,6 @@ buttons:
   edit:
     emoji: ✏️
     text: Edit
+  reject_close_request:
+    emoji: ✖️
+    text: Reject
