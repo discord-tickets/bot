@@ -254,6 +254,8 @@ commands:
       name: переименовать
       not_staff:
         title: ❌ Ошибка
+      success:
+        title: Канал переименован
   user:
     create:
       prompt:
