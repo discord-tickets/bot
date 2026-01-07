@@ -251,6 +251,7 @@ commands:
       description: Переименовать канал для тикетов
       invalid:
         description: Длина имени должна быть в диапазоне от 1 до 100 символов.
+      name: переименовать
   user:
     create:
       prompt:
