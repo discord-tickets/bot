@@ -252,6 +252,8 @@ commands:
       invalid:
         description: Длина имени должна быть в диапазоне от 1 до 100 символов.
       name: переименовать
+      not_staff:
+        title: ❌ Ошибка
   user:
     create:
       prompt:
