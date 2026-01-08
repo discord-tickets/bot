@@ -54,15 +54,27 @@ commands:
       not_staff:
         description: Only staff members can add members to others' tickets.
         title: ❌ Error
+      no_args:
+        description: You must specify a member or a role to add to the ticket.
+        title: ❌ Missing arguments
+      invalid_target:
+        description: Your target is invalid.
+        title: ❌ Invalid target
+      invalid_role:
+        description: You cannot add the @everyone role or a managed role (bot or integration).
+        title: ❌ Invalid role
       options:
         member:
           description: The member to add to the ticket
           name: member
+        role:
+          description: The role to add to the ticket
+          name: role
         ticket:
           description: The ticket to add the member to
           name: ticket
       success:
-        description: "{member} has been added to {ticket}."
+        description: "{args} has been added to {ticket}."
         title: ✅ Added
     claim:
       description: Claim a ticket
@@ -333,7 +345,8 @@ log:
       delete: deleted
       update: updated
   ticket:
-    added: Added members
+    addedMember: Added member
+    addedRole: Added role
     description: "{user} {verb} a ticket"
     removed: Removed members
     ticket: Ticket
