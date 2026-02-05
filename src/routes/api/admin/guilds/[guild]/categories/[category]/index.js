@@ -2,6 +2,9 @@ const { logAdminEvent } = require('../../../../../../../lib/logging');
 const { updateStaffRoles } = require('../../../../../../../lib/users');
 const { ApplicationCommandPermissionType } = require('discord.js');
 
+// Maximum cooldown of 7 days in milliseconds (prevents BIGINT overflow issues)
+const MAX_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000; // 604800000ms = 7 days
+
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
 		/** @type {import('client')} */
@@ -122,6 +125,12 @@ module.exports.patch = fastify => ({
 
 		if (Object.prototype.hasOwnProperty.call(data, 'id')) delete data.id;
 		if (Object.prototype.hasOwnProperty.call(data, 'createdAt')) delete data.createdAt;
+
+		// Validate and cap cooldown to prevent BIGINT overflow
+		if (data.cooldown !== undefined && data.cooldown !== null) {
+			data.cooldown = Math.min(Math.max(0, Number(data.cooldown) || 0), MAX_COOLDOWN_MS);
+			if (data.cooldown === 0) data.cooldown = null;
+		}
 
 		const category = await client.prisma.category.update({
 			data: {

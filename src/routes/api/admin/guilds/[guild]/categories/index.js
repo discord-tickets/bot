@@ -10,6 +10,9 @@ const {
 	getAverageTimes, getAverageRating,
 } = require('../../../../../../lib/stats');
 
+// Maximum cooldown of 7 days in milliseconds (prevents BIGINT overflow issues)
+const MAX_COOLDOWN_MS = 7 * 24 * 60 * 60 * 1000; // 604800000ms = 7 days
+
 module.exports.get = fastify => ({
 	handler: async req => {
 		/** @type {import('client')} */
@@ -110,6 +113,12 @@ module.exports.post = fastify => ({
 		}
 
 		data.channelName ||= 'ticket-{num}'; // not ??=, expect empty string
+
+		// Validate and cap cooldown to prevent BIGINT overflow
+		if (data.cooldown !== undefined && data.cooldown !== null) {
+			data.cooldown = Math.min(Math.max(0, Number(data.cooldown) || 0), MAX_COOLDOWN_MS);
+			if (data.cooldown === 0) data.cooldown = null;
+		}
 
 		const category = await client.prisma.category.create({
 			data: {

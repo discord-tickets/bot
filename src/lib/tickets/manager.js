@@ -699,9 +699,11 @@ module.exports = class TicketManager {
 			this.$count.categories[categoryId][creator.id]++;
 
 			if (category.cooldown) {
+				// Convert BigInt to Number for arithmetic operations
+				const cooldownMs = Number(category.cooldown);
 				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
-				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
-				const TTL = category.cooldown;
+				const expiresAt = ticket.createdAt.getTime() + cooldownMs;
+				const TTL = cooldownMs;
 				await this.client.keyv.set(cacheKey, expiresAt, TTL);
 			}
 

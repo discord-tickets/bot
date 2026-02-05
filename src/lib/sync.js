@@ -53,6 +53,8 @@ module.exports = async client => {
 
 		}
 		if (category.cooldown) {
+			// Convert BigInt to Number for arithmetic operations
+			const cooldownMs = Number(category.cooldown);
 			const recent = await client.prisma.ticket.findMany({
 				orderBy: { createdAt: 'asc' },
 				select: {
@@ -61,13 +63,13 @@ module.exports = async client => {
 				},
 				where: {
 					categoryId: category.id,
-					createdAt: { gt: new Date(Date.now() - category.cooldown) },
+					createdAt: { gt: new Date(Date.now() - cooldownMs) },
 				},
 			});
 			cooldowns += recent.length;
 			for (const ticket of recent) {
 				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
-				const expiresAt = ticket.createdAt.getTime() + category.cooldown;
+				const expiresAt = ticket.createdAt.getTime() + cooldownMs;
 				const TTL = expiresAt - Date.now();
 				await client.keyv.set(cacheKey, expiresAt, TTL);
 			}

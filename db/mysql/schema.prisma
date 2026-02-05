@@ -72,7 +72,7 @@ model Category {
     channelName     String
     claiming        Boolean    @default(false)
     createdAt       DateTime   @default(now())
-    cooldown        Int?
+    cooldown        BigInt?
     customTopic     String?
     description     String
     discordCategory String     @db.VarChar(19)
