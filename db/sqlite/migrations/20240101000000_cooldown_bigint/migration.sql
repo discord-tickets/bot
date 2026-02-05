@@ -29,7 +29,51 @@ CREATE TABLE "new_categories" (
     CONSTRAINT "categories_guildId_fkey" FOREIGN KEY ("guildId") REFERENCES "guilds" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO "new_categories" SELECT * FROM "categories";
+INSERT INTO "new_categories" (
+    "channelName",
+    "claiming",
+    "createdAt",
+    "cooldown",
+    "customTopic",
+    "description",
+    "discordCategory",
+    "emoji",
+    "enableFeedback",
+    "guildId",
+    "id",
+    "image",
+    "memberLimit",
+    "name",
+    "openingMessage",
+    "pingRoles",
+    "ratelimit",
+    "requiredRoles",
+    "requireTopic",
+    "staffRoles",
+    "totalLimit"
+) SELECT
+    "channelName",
+    "claiming",
+    "createdAt",
+    "cooldown",
+    "customTopic",
+    "description",
+    "discordCategory",
+    "emoji",
+    "enableFeedback",
+    "guildId",
+    "id",
+    "image",
+    "memberLimit",
+    "name",
+    "openingMessage",
+    "pingRoles",
+    "ratelimit",
+    "requiredRoles",
+    "requireTopic",
+    "staffRoles",
+    "totalLimit"
+FROM "categories";
 DROP TABLE "categories";
 ALTER TABLE "new_categories" RENAME TO "categories";
 

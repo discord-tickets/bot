@@ -703,7 +703,7 @@ module.exports = class TicketManager {
 				const cooldownMs = Number(category.cooldown);
 				const cacheKey = `cooldowns/category-member:${category.id}-${ticket.createdById}`;
 				const expiresAt = ticket.createdAt.getTime() + cooldownMs;
-				const TTL = cooldownMs;
+				const TTL = Math.max(0, expiresAt - Date.now());
 				await this.client.keyv.set(cacheKey, expiresAt, TTL);
 			}
 

@@ -81,6 +81,7 @@ module.exports.patch = fastify => ({
 		const select = {
 			channelName: true,
 			claiming: true,
+			cooldown: true,
 			// createdAt: true,
 			description: true,
 			discordCategory: true,
