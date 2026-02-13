@@ -269,7 +269,7 @@ module.exports = class extends Listener {
 				const cacheKey = `cache/guild-tags:${message.guild.id}`;
 				let tags = await client.keyv.get(cacheKey);
 				if (!tags) {
-					tags = await client.prisma.tag.findMany({
+					tags = (await client.prisma.tag.findMany({
 						select: {
 							content: true,
 							id: true,
@@ -277,7 +277,8 @@ module.exports = class extends Listener {
 							regex: true,
 						},
 						where: { guildId: message.guild.id },
-					});
+					}))
+						.sort((a, b) => (b.regex ? b.regex.length : 0) - (a.regex ? a.regex.length : 0));
 					client.keyv.set(cacheKey, tags, ms('1h'));
 				}
 
