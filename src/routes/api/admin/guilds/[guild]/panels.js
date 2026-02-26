@@ -82,15 +82,16 @@ module.exports.post = fastify => ({
 			const components = [];
 
 			if (categories.length === 1) {
+				let category = categories[0];
 				components.push(
 					new ButtonBuilder()
 						.setCustomId(JSON.stringify({
 							action: 'create',
-							target: categories[0].id,
+							target: category.id,
 						}))
 						.setStyle(Primary)
-						.setLabel(getMessage('buttons.create.text'))
-						.setEmoji(getMessage('buttons.create.emoji')),
+						.setLabel(category.name)
+						.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
 				);
 			} else if (data.type === 'BUTTON') {
 				components.push(
