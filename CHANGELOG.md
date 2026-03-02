@@ -1,3 +1,29 @@
+## [4.0.50](https://github.com/discord-tickets/bot/compare/v4.0.49...v4.0.50) (2026-03-02)
+
+
+### Bug Fixes
+
+* **🚨 security:** closing tickets in other guilds ([bf64e50](https://github.com/discord-tickets/bot/commit/bf64e50bcaba79bd71cbdb4c38f54ba4369fd596))
+* sort tags by longest regex first ([e72cdc9](https://github.com/discord-tickets/bot/commit/e72cdc9551e094ad1c7d58c5ec24434f772acd85))
+
+
+### Features
+
+* **i18n:** update Chinese (Simplified Han script) translations ([af7d7f5](https://github.com/discord-tickets/bot/commit/af7d7f5feb354c12e88ab64124817135df7631ee))
+* **i18n:** update Chinese (Simplified Han script) translations ([797d583](https://github.com/discord-tickets/bot/commit/797d583ce8814c59d590d7054a0ece0ddb6cbe53))
+* **i18n:** update Chinese (Simplified Han script) translations ([944ff46](https://github.com/discord-tickets/bot/commit/944ff46070be90d7b25430cc004856f1cd058e64))
+* **i18n:** update Chinese (Simplified Han script) translations ([11c028f](https://github.com/discord-tickets/bot/commit/11c028fd32d1cb0ea6490177315d4ca4c911cbb7))
+* **i18n:** update English (United States) translations ([b1a7ce6](https://github.com/discord-tickets/bot/commit/b1a7ce6630bed02ba20aa5c2dc18a2202fea8ac2))
+* **i18n:** update English (United States) translations ([70e9027](https://github.com/discord-tickets/bot/commit/70e902714b94d1c76dbbf98f9e5ce2c1b98370cf))
+* **i18n:** update English (United States) translations ([1d80fa3](https://github.com/discord-tickets/bot/commit/1d80fa3ba9308540c0b7adee3b572df31a0eff24))
+* **i18n:** update English (United States) translations ([a954816](https://github.com/discord-tickets/bot/commit/a9548163bbed3d050cebede5d11354c5b467aed3))
+* **i18n:** update French translations ([4e40af8](https://github.com/discord-tickets/bot/commit/4e40af8a6ba008bc51cc8476a932bc37ba07a4b5))
+* **i18n:** update Russian translations ([99cdeba](https://github.com/discord-tickets/bot/commit/99cdeba32a5a7ecfaa59a6fc0df725f0b398766f))
+* **i18n:** update Russian translations ([5e9e8a3](https://github.com/discord-tickets/bot/commit/5e9e8a3617884be33a39f5f37fae2221aa3a6df2))
+* **i18n:** update Russian translations ([83fff3d](https://github.com/discord-tickets/bot/commit/83fff3d3252e2893795f481bc7ec4e7bbc8a1dcf))
+
+
+
 ## [4.0.49](https://github.com/discord-tickets/bot/compare/v4.0.48...v4.0.49) (2025-11-27)
 
 
