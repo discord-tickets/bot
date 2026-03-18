@@ -26,6 +26,8 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Rilascia
+  transcript:
+    text: Trascrizione
 commands:
   message:
     create:
@@ -105,8 +107,8 @@ commands:
         title: ❌ Errore
       options:
         category:
-          description: Chiudi tutti i ticket nella specifica categoria (deve essere
-            usato con `time`)
+          description: Chiudi tutti i ticket nella specifica categoria (deve 
+            essere usato con `time`)
           name: categoria
         reason:
           description: La ragione per la chiusura del/i ticket(s)
@@ -115,8 +117,8 @@ commands:
           description: La ragione per la chiusura
           name: ticket
         time:
-          description: Chiude tutti i ticket che sono rimasti inattivi per più del
-            tempo specificato
+          description: Chiude tutti i ticket che sono rimasti inattivi per più 
+            del tempo specificato
           name: orario
     help:
       description: Mostra il menù di aiuto
@@ -165,7 +167,8 @@ commands:
           description: La ragione del ticket
           name: priorita
       success:
-        description: La priorità di questo ticket è stata impostata ad `{priority}`.
+        description: La priorità di questo ticket è stata impostata ad 
+          `{priority}`.
         title: ✅ Priorità impostata
     release:
       description: Rilascia (unclaima) un ticket
@@ -343,7 +346,8 @@ misc:
     title: ❌ Ticket invalido
   member_limit:
     description:
-    - Per favore usa il tuo ticket esistente o chiudilo prima di aprirne un altro.
+    - Per favore usa il tuo ticket esistente o chiudilo prima di aprirne un 
+      altro.
     - |
       Per favore chiudi un ticket prima di crearne un altro.
       Usa `/tickets` per vedere i tuoi ticket esistenti.
@@ -367,7 +371,8 @@ misc:
     description: Perfavore riprova tra qualche secondo.
     title: 🐢 Perfavore rallenta
   role_error:
-    description: Ci dispiace ma si è verificato un errore per una errore di configurazione.
+    description: Ci dispiace ma si è verificato un errore per una errore di 
+      configurazione.
     fields:
       for_admins:
         name: Per gli amministratori dei server
@@ -445,8 +450,8 @@ ticket:
       Per favore continua la conversazione o {close} il ticket.
     title: ⏰ Questo ticket è inattivo
   offline:
-    description: Non ci sono membri dello staff attivi in questo momento, quindi potresti
-      non ricevere una risposta per un pò di tempo.
+    description: Non ci sono membri dello staff attivi in questo momento, quindi
+      potresti non ricevere una risposta per un pò di tempo.
     title: 😴 Non siamo al momento online
   opening_message:
     content: |
@@ -455,7 +460,8 @@ ticket:
     fields:
       topic: Topic
   references_message:
-    description: Riferimenti [a un messaggio]({url}) inviato da {author}, a {timestamp}.
+    description: Riferimenti [a un messaggio]({url}) inviato da {author}, a 
+      {timestamp}.
     title: ℹ️ Riferimento
   references_ticket:
     description: "Questo ticket è relativo a un problema precedente:"
@@ -467,10 +473,10 @@ ticket:
   released: ♻️ {user} ha creato questo ticket.
   working_hours:
     next:
-      description: Saremo attivi <t:{timestamp}:R> (<t:{timestamp}:T>), però potresti
-        lo stesso ricevere una risposta.
+      description: Saremo attivi <t:{timestamp}:R> (<t:{timestamp}:T>), però 
+        potresti lo stesso ricevere una risposta.
       title: 🕗 Non stiamo lavorando al momento
     today:
-      description: Potresti ricevere una risposta, ma l'assistenza non è garantita
-        fino alle ore <t:{timestamp}:t> (<t:{timestamp}:R>).
+      description: Potresti ricevere una risposta, ma l'assistenza non è 
+        garantita fino alle ore <t:{timestamp}:t> (<t:{timestamp}:R>).
       title: 🕗 L'assistenza non è al momento garantita
