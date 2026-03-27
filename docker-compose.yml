@@ -1,3 +1,8 @@
+## HEADS UP!
+# You should read this compose file IN FULL before deploying!
+# Not setting environment variables properly could cause performance/stability issues or severe security vulnerabilities!
+# Read https://discordtickets.app/self-hosting/configuration so that you know what everything means! It's worth it!
+
 version: "3.9"
 
 services:
@@ -49,8 +54,9 @@ services:
       OVERRIDE_ARCHIVE: null
       PUBLIC_BOT: "false"
       PUBLISH_COMMANDS: "false"
-      SUPER: 319467558166069248 # optionally add `,youruseridhere`
-
+      SUPER: 319467558166069248 # comma-separated list of discord user IDs with superuser access to change bot settings for all guilds the bot is in, regardless of the users permissions
+      # IMPORTANT: You should read https://discordtickets.app/self-hosting/configuration/#super before continuing!
+      
 networks:
   discord-tickets:
 

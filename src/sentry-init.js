@@ -8,7 +8,7 @@ Sentry.init({
 	enableLogs: process.env.SENTRY_LOGGING === 'true',
 	integrations: [
 		// Send console logs to Sentry
-		Sentry.consoleLoggingIntegration({ levels: ["log", "warn", "error"] }),
+		Sentry.consoleLoggingIntegration({ levels: ['log', 'warn', 'error'] }),
 	    // Profiling
 		nodeProfilingIntegration(),
 	],

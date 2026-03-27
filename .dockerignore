@@ -8,4 +8,4 @@
 # and these files
 !.npmrc
 !package.json
-!pnpm-lock.yaml
+!bun.lock
