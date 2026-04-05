@@ -26,3 +26,5 @@ buttons:
   transcript:
     emoji: 📄
     text: Transcript
+  unclaim:
+    emoji: ♻️
