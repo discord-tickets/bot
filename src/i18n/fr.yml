@@ -28,6 +28,7 @@ buttons:
     text: Relâcher
   transcript:
     emoji: 📄
+    text: Transcription
 commands:
   message:
     pin:
