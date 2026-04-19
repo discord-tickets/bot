@@ -37,8 +37,16 @@ commands:
       name: メッセージをピン留め
       pinned:
         description: メッセージはピン留めされました。
+        title: ✅ ピン留めされたメッセージ
     create:
       name: メッセージからチケットを作成
   slash:
     add:
       added: ➡️ {by} によって {added} が追加されました。
+      description: チケットにメンバーを追加
+      not_staff:
+        description: スタッフメンバーのみが、他の人のチケットにメンバーを追加できます。
+        title: ❌ エラー
+      options:
+        member:
+          description: チケットに追加するメンバー
