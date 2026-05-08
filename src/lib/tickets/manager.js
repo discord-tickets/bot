@@ -49,6 +49,7 @@ module.exports = class TicketManager {
 		this.archiver = new TicketArchiver(client);
 		this.$count = { categories: {} };
 		this.$numbers = {};
+		this.$numberLocks = {};
 		this.$stale = new Collection();
 	}
 
@@ -136,15 +137,23 @@ module.exports = class TicketManager {
 	}
 
 	async getNextNumber(guildId) {
-		if (this.$numbers[guildId] === undefined) {
-			const { _max: { number: max } } = await this.client.prisma.ticket.aggregate({
-				_max: { number: true },
-				where: { guildId },
-			});
-			this.client.tickets.$numbers[guildId] = max ?? 0;
+		const prev = this.$numberLocks[guildId] ?? Promise.resolve();
+		let resolve;
+		this.$numberLocks[guildId] = new Promise(r => (resolve = r));
+		await prev;
+		try {
+			if (this.$numbers[guildId] === undefined) {
+				const { _max: { number: max } } = await this.client.prisma.ticket.aggregate({
+					_max: { number: true },
+					where: { guildId },
+				});
+				this.client.tickets.$numbers[guildId] = max ?? 0;
+			}
+			this.$numbers[guildId] += 1;
+			return this.$numbers[guildId];
+		} finally {
+			resolve();
 		}
-		this.$numbers[guildId] += 1;
-		return this.$numbers[guildId];
 	}
 
 	/**
@@ -730,6 +739,8 @@ module.exports = class TicketManager {
 			this.client.log.warn.tickets('An error occurred whilst creating ticket', channel.id);
 			this.client.log.error.tickets(ref);
 			this.client.log.error.tickets(error);
+			this.$numbers[category.guild.id]--; // roll back the number so next attempt gets the same number
+			await channel.delete('Ticket creation failed, rolling back').catch(() => null);
 			await interaction.editReply({
 				components: [],
 				embeds: [
