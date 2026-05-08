@@ -34,6 +34,20 @@ commands:
     pin:
       not_pinnable:
         description: "このメッセージはピン留め出来ません。\n管理者にBotの権限を確認する様依頼してください。\n"
+        title: ❌ エラー
       name: メッセージをピン留め
+      pinned:
+        description: メッセージはピン留めされました。
+        title: ✅ ピン留めされたメッセージ
     create:
       name: メッセージからチケットを作成
+  slash:
+    add:
+      added: ➡️ {by} によって {added} が追加されました。
+      description: チケットにメンバーを追加
+      not_staff:
+        description: スタッフメンバーのみが、他の人のチケットにメンバーを追加できます。
+        title: ❌ エラー
+      options:
+        member:
+          description: チケットに追加するメンバー

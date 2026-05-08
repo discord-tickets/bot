@@ -1,20 +1,15 @@
 # syntax=docker/dockerfile:1
 
-FROM node:22-alpine3.20 AS builder
-
-# install required depencencies for node-gyp
-RUN apk add --no-cache make gcc g++ python3
-
-RUN npm install -g pnpm
+FROM oven/bun:1 AS builder
 
 WORKDIR /build
 
 COPY --link scripts scripts
 RUN chmod +x ./scripts/start.sh
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json bun.lock ./
 
-RUN CI=true pnpm install --prod --frozen-lockfile
+RUN CI=true bun install --production --frozen-lockfile
 
 COPY --link . .
 

@@ -83,7 +83,10 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		if (interaction.options.getString('ticket', false)) { // if ticket option is passed
 			ticket = await client.prisma.ticket.findUnique({
 				include: { category: true },
-				where: { id: interaction.options.getString('ticket') },
+				where: {
+					guildId: interaction.guild.id, // ! very important
+					id: interaction.options.getString('ticket'),
+				},
 			});
 
 			if (!ticket) {
@@ -140,7 +143,7 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 			const tickets = await client.prisma.ticket.findMany({
 				where: {
 					categoryId: categoryId ?? undefined, // must be undefined not null
-					guildId: interaction.guild.id,
+					guildId: interaction.guild.id, // ! very important
 					lastMessageAt: { lte: new Date(Date.now() - time) },
 					open: true,
 				},
@@ -248,7 +251,10 @@ module.exports = class ForceCloseSlashCommand extends SlashCommand {
 		} else {
 			ticket = await client.prisma.ticket.findUnique({
 				include: { category: true },
-				where: { id: interaction.channel.id },
+				where: {
+					guildId: interaction.guild.id, // redundant
+					id: interaction.channel.id,
+				},
 			});
 
 			if (!ticket) {

@@ -222,7 +222,7 @@ module.exports = class extends Listener {
 					if (client.tickets.$stale.has(ticket.id)) {
 						const $ticket = client.tickets.$stale.get(ticket.id);
 						$ticket.messages++;
-						if ($ticket.messages >= 5) {
+						if ($ticket.messages >= 1) {
 							await message.channel.messages.delete($ticket.message.id);
 							client.tickets.$stale.delete(ticket.id);
 						} else {
@@ -269,7 +269,7 @@ module.exports = class extends Listener {
 				const cacheKey = `cache/guild-tags:${message.guild.id}`;
 				let tags = await client.keyv.get(cacheKey);
 				if (!tags) {
-					tags = await client.prisma.tag.findMany({
+					tags = (await client.prisma.tag.findMany({
 						select: {
 							content: true,
 							id: true,
@@ -277,7 +277,8 @@ module.exports = class extends Listener {
 							regex: true,
 						},
 						where: { guildId: message.guild.id },
-					});
+					}))
+						.sort((a, b) => (b.regex ? b.regex.length : 0) - (a.regex ? a.regex.length : 0));
 					client.keyv.set(cacheKey, tags, ms('1h'));
 				}
 
