@@ -29,3 +29,7 @@ buttons:
   unclaim:
     emoji: ♻️
     text: Release
+commands:
+  message:
+    create:
+      name: Create ticket from message
