@@ -69,6 +69,7 @@ model ArchivedUser {
 }
 
 model Category {
+    buttonStyle     Int        @default(2)
     channelName     String
     claiming        Boolean    @default(false)
     createdAt       DateTime   @default(now())
