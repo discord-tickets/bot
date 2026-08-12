@@ -144,7 +144,7 @@ or contribute in any other way, please read the [contributing guidelines](https:
 <details>
   <summary>Show graph</summary>
 
-  [![Star History Chart](https://api.star-history.com/svg?repos=discord-tickets/bot&type=Date)](https://star-history.com/#discord-tickets/bot&Date)
+  [![Star History Chart](https://star-history.dera.page/svg?repos=discord-tickets/bot&type=Date)](https://star-history.dera.page/#discord-tickets/bot&Date)
 
 </details>
 
