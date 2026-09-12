@@ -1,5 +1,20 @@
 {
 	"lsp": {
+		"luau-lsp": {
+			"settings": {
+				"roblox": {
+					"enabled": false
+				},
+				"plugin": {
+					"enabled": false
+				},
+				"luau-lsp": {
+					"types": {
+						"definitionFiles": []
+					}
+				}
+			}
+		},
 		"oxlint": {
 			"initialization_options": {
 				"settings": {
