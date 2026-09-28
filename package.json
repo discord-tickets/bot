@@ -1,5 +1,5 @@
 {
-	"name": "discord-tickets",
+	"name": "@discord-tickets/bot",
 	"version": "4.0.52",
 	"private": "true",
 	"description": "The most popular open-source ticket management bot for Discord.",
