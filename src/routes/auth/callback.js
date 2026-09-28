@@ -1,4 +1,4 @@
-const pattern = /^\/(?!\/)[^\s]*$/;
+const pattern = /^\/(?!\/)[^\s'">]*$/;
 
 module.exports.get = () => ({
 	handler: async function (req, res) {
