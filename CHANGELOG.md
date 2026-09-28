@@ -1,3 +1,12 @@
+## [4.0.52](https://github.com/discord-tickets/bot/compare/v4.0.51...v4.0.52) (2026-09-28)
+
+
+### Bug Fixes
+
+* **auth:** redirect pattern ([62091a8](https://github.com/discord-tickets/bot/commit/62091a8a99752af4921cb27f7398f25ed318b1c9))
+
+
+
 ## [4.0.51](https://github.com/discord-tickets/bot/compare/v4.0.50...v4.0.51) (2026-08-13)
 
 
