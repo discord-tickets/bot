@@ -1,4 +1,7 @@
-const { PermissionsBitField } = require('discord.js');
+const {
+	ApplicationCommandPermissionType,
+	PermissionsBitField,
+} = require('discord.js');
 
 /**
  *
@@ -30,6 +33,49 @@ const updateStaffRoles = async guild => {
 };
 
 module.exports.updateStaffRoles = updateStaffRoles;
+
+/**
+ * @param {import("discord.js").Guild} guild
+ * @param {string} token
+ * @param {string[]} [staffRoles]
+ * @returns {Promise<any>}
+ */
+const updateCommandPermissions = async (guild, token, staffRoles) => {
+	const client = guild.client;
+	staffRoles ??= await updateStaffRoles(guild);
+	return Promise.all([
+		'Create ticket for user',
+		'claim',
+		'force-close',
+		'move',
+		'priority',
+		'release',
+	].map(name => {
+		const command = client.application.commands.cache.find(cmd => cmd.name === name);
+		if (!command) return;
+		return client.application.commands.permissions.set({
+			command,
+			guild,
+			permissions: [
+				{
+					id: guild.id, // @everyone
+					permission: false,
+					type: ApplicationCommandPermissionType.Role,
+				},
+				...staffRoles.map(id => ({
+					id,
+					permission: true,
+					type: ApplicationCommandPermissionType.Role,
+				})),
+			],
+			token,
+		});
+	}))
+		.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
+		.catch(error => client.log.error(error));
+};
+
+module.exports.updateCommandPermissions = updateCommandPermissions;
 
 /**
  *

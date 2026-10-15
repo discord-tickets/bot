@@ -1,6 +1,8 @@
 const { logAdminEvent } = require('../../../../../../../lib/logging');
-const { updateStaffRoles } = require('../../../../../../../lib/users');
-const { ApplicationCommandPermissionType } = require('discord.js');
+const {
+	updateCommandPermissions,
+	updateStaffRoles,
+} = require('../../../../../../../lib/users');
 
 module.exports.delete = fastify => ({
 	handler: async (req, res) => {
@@ -12,7 +14,11 @@ module.exports.delete = fastify => ({
 		if (!original || original.guildId !== guild.id) return res.status(400).send(new Error('Bad Request'));
 		const category = await client.prisma.category.delete({ where: { id: categoryId } });
 
-		await updateStaffRoles(guild);
+		const staffRoles = await updateStaffRoles(guild);
+
+		if (req.user.accessToken && original.staffRoles?.length > 0) {
+			updateCommandPermissions(guild, req.user.accessToken, staffRoles);
+		}
 
 		logAdminEvent(client, {
 			action: 'delete',
@@ -140,37 +146,10 @@ module.exports.patch = fastify => ({
 
 		// update caches
 		await client.tickets.getCategory(categoryId, true);
-		await updateStaffRoles(guild);
+		const staffRoles = await updateStaffRoles(guild);
 
 		if (req.user.accessToken && JSON.stringify(category.staffRoles) !== JSON.stringify(original.staffRoles)) {
-			Promise.all([
-				'Create ticket for user',
-				'claim',
-				'force-close',
-				'move',
-				'priority',
-				'release',
-			].map(name =>
-				client.application.commands.permissions.set({
-					command: client.application.commands.cache.find(cmd => cmd.name === name),
-					guild,
-					permissions: [
-						{
-							id: guild.id, // @everyone
-							permission: false,
-							type: ApplicationCommandPermissionType.Role,
-						},
-						...category.staffRoles.map(id => ({
-							id,
-							permission: true,
-							type: ApplicationCommandPermissionType.Role,
-						})),
-					],
-					token: req.user.accessToken,
-				}),
-			))
-				.then(() => client.log.success('Updated application command permissions in "%s"', guild.name))
-				.catch(error => client.log.error(error));
+			updateCommandPermissions(guild, req.user.accessToken, staffRoles);
 		}
 
 		logAdminEvent(client, {
