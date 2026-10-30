@@ -614,7 +614,9 @@ module.exports = class TicketManager {
 		} else if (referencesTicketId) {
 			// TODO: add portal url
 			const ticket = await this.client.prisma.ticket.findUnique({ where: { id: referencesTicketId } });
-			if (ticket) {
+			if (!ticket) {
+				referencesTicketId = null;
+			} else {
 				const embed = new ExtendedEmbedBuilder({
 					iconURL: guild.iconURL(),
 					text: category.guild.footer,
