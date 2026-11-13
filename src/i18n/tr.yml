@@ -103,8 +103,8 @@ commands:
         title: ❌ Hata
       options:
         category:
-          description: Belirtilen kategorideki tüm talepleri kapatın ('time' ile birlikte
-            kullanılmalıdır)
+          description: Belirtilen kategorideki tüm talepleri kapatın ('time' ile
+            birlikte kullanılmalıdır)
           name: category
         reason:
           description: Talep(ler)in kapatılma nedeni
@@ -113,7 +113,8 @@ commands:
           description: Kapatılacak talep
           name: ticket
         time:
-          description: Belirtilen süre boyunca etkin olmayan tüm talepleri kapatın
+          description: Belirtilen süre boyunca etkin olmayan tüm talepleri 
+            kapatın
           name: time
     help:
       description: Yardım menüsünü göster
@@ -171,7 +172,8 @@ commands:
       description: Talepten üye çıkar
       name: remove
       not_staff:
-        description: Başkalarının taleplerinden sadece yetkililer üye çıkarabilir.
+        description: Başkalarının taleplerinden sadece yetkililer üye 
+          çıkarabilir.
         title: ❌ Hata
       options:
         member:
@@ -232,6 +234,8 @@ commands:
         ticket:
           description: Transkripti alınacak talep
           name: ticket
+      not_staff:
+        title: ❌ Hata
     transfer:
       description: Talebin sahipliğini başka bir üyeye aktarma
       name: transfer
@@ -327,7 +331,8 @@ misc:
       Lütfen daha sonra tekrar deneyiniz.
     title: ❌ Kategori dolu
   cooldown:
-    description: Bu kategoride başka bir talep oluşturmadan önce lütfen {time} bekleyin.
+    description: Bu kategoride başka bir talep oluşturmadan önce lütfen {time} 
+      bekleyin.
     title: ❌ Lütfen bekleyin
   error:
     description: |
@@ -345,7 +350,8 @@ misc:
     title: ❌ Geçersiz talep
   member_limit:
     description:
-    - Lütfen mevcut talebinizi kullanın veya başka bir talep oluşturmadan önce kapatın.
+    - Lütfen mevcut talebinizi kullanın veya başka bir talep oluşturmadan önce 
+      kapatın.
     - |
       Lütfen başka bir talep oluşturmadan önce bir talebi kapatın.
       Mevcut talepberinizi görüntülemek için `/tickets` kullanın.
@@ -428,8 +434,8 @@ ticket:
       Lütfen görüşmeye devam edin veya talebi kapatın {close}.
     title: ⏰ Talep inaktif
   offline:
-    description: Şu anda müsait bir yetkili yok, bu nedenle yanıt almanız normalden
-      daha uzun sürebilir.
+    description: Şu anda müsait bir yetkili yok, bu nedenle yanıt almanız 
+      normalden daha uzun sürebilir.
     title: 😴 Müsait yetkili yok
   opening_message:
     content: |
