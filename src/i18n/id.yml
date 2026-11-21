@@ -1,0 +1,324 @@
+buttons:
+  create:
+    emoji: 🎫
+    text: Buat Tiket
+  edit:
+    emoji: ✏️
+    text: Edit
+  reject_close_request:
+    emoji: ✖️
+    text: Tolak
+  unclaim:
+    emoji: ♻️
+    text: Lepas Penugasan
+  accept_close_request:
+    emoji: ✅
+    text: Terima
+  cancel:
+    emoji: ➖
+    text: Batal
+  claim:
+    emoji: 🙌
+    text: Ambil Tiket
+  close:
+    emoji: ✖️
+    text: Tutup
+  confirm_open:
+    emoji: ✅
+    text: Buat Tiket
+
+commands:
+  message:
+    create:
+      name: Buat tiket dari pesan
+    pin:
+      not_ticket:
+        title: ❌ Bukan Channel Tiket
+        description: Pesan hanya dapat disematkan di channel tiket.
+      not_pinnable:
+        title: ❌ Error
+        description: "Pesan ini tidak dapat disematkan.\nSilakan hubungi admin untuk memeriksa izin bot.\n"
+      name: Sematkan pesan
+      pinned:
+        title: ✅ Pesan Disematkan
+        description: Pesan berhasil disematkan.
+
+  slash:
+    add:
+      name: tambah-member
+      description: Menambahkan member ke tiket
+      success:
+        title: ✅ Ditambahkan
+        description: '{member} telah ditambahkan ke {ticket}.'
+      added: ➡️ {added} ditambahkan ke tiket oleh {by}.
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat menambahkan member ke tiket.
+      options:
+        member:
+          name: member
+          description: Member yang akan ditambahkan
+        ticket:
+          name: tiket
+          description: Tiket tujuan
+
+    force-close:
+      name: paksa-tutup
+      description: Menutup tiket secara paksa
+      no_tickets:
+        title: ❌ Tidak Ada Tiket
+        description: Tidak ada tiket tanpa aktivitas selama `{time}`.
+      closed_one:
+        title: ✅ Tiket Ditutup
+        description: Channel akan dihapus dalam beberapa detik.
+      confirmed_multiple:
+        title:
+          - ✅ %d Tiket Ditutup
+          - ✅ %d Tiket Ditutup
+        description: Channel akan dihapus dalam beberapa detik.
+      confirm_multiple:
+        title: ❓ Apakah Anda yakin?
+        description: "Akan menutup **{count}** tiket yang tidak aktif selama `{time}`:\n{tickets}\n"
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat menutup tiket secara paksa.
+      options:
+        category:
+          name: kategori
+          description: Tutup semua tiket di kategori (wajib isi waktu)
+        reason:
+          name: alasan
+          description: Alasan penutupan
+        ticket:
+          name: tiket
+          description: Tiket yang akan ditutup
+        time:
+          name: waktu
+          description: Tutup tiket tanpa aktivitas selama waktu tertentu
+
+    claim:
+      name: ambil
+      description: Mengambil tiket ini
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat mengambil tiket.
+
+    close:
+      name: tutup
+      description: Meminta penutupan tiket
+      invalid_time:
+        title: ❌ Tidak Valid
+        description: '`{input}` bukan format waktu yang valid.'
+      options:
+        reason:
+          name: alasan
+          description: Alasan penutupan tiket
+
+    help:
+      name: bantuan
+      description: Menampilkan menu bantuan
+      title: Bantuan
+      response:
+        commands: Perintah
+        description: '**Untuk mendapatkan bantuan, gunakan {command} untuk membuat tiket.**'
+        links:
+          commands: Semua Perintah
+          feedback: Feedback
+          links: Tautan Berguna
+          support: Support
+          docs: Dokumentasi
+        settings: Pengaturan Bot
+
+    move:
+      name: pindah
+      description: Memindahkan tiket ke kategori lain
+      moved: 🗃️ {by} memindahkan tiket ini dari **{from}** ke **{to}**.
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat memindahkan tiket.
+      options:
+        category:
+          name: kategori
+          description: Kategori tujuan
+
+    priority:
+      name: prioritas
+      description: Mengatur prioritas tiket
+      options:
+        priority:
+          name: prioritas
+          description: Prioritas tiket
+          choices:
+            LOW: 🟢 Rendah
+            MEDIUM: 🟠 Sedang
+            HIGH: 🔴 Tinggi
+      success:
+        title: ✅ Prioritas Diatur
+        description: Prioritas tiket diatur ke `{priority}`.
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat mengubah prioritas.
+
+    release:
+      name: lepas
+      description: Melepaskan penugasan tiket
+
+    remove:
+      name: hapus-member
+      description: Menghapus member dari tiket
+      success:
+        title: ✅ Dihapus
+        description: '{member} telah dihapus dari {ticket}.'
+      removed: ⬅️ {removed} dihapus dari tiket oleh {by}.
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat menghapus member.
+      options:
+        member:
+          name: member
+          description: Member yang akan dihapus
+        ticket:
+          name: tiket
+          description: Tiket tujuan
+
+    tickets:
+      name: tiket
+      description: Melihat daftar tiket
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat melihat tiket member lain.
+      options:
+        member:
+          name: member
+          description: Member target
+      response:
+        title:
+          own: Tiket Saya
+          other: Tiket {displayName}
+        description: Gunakan {transcript} untuk mengunduh salinan tiket.
+        fields:
+          open:
+            name: Tiket Terbuka
+          closed:
+            name: Tiket Ditutup
+            none:
+              own: "Anda belum pernah membuat tiket.\nGunakan {new} untuk membuat tiket baru.\n"
+              other: '{user} belum pernah membuat tiket.'
+
+    transfer:
+      name: pindah-kepemilikan
+      description: Memindahkan kepemilikan tiket
+      transferred: 📨 {user} memindahkan tiket ini ke {to}.
+      transferred_from: 📨 {user} memindahkan tiket dari {from} ke {to}.
+      options:
+        member:
+          name: member
+          description: Member tujuan
+
+    transcript:
+      name: transkrip
+      description: Mengunduh salinan tiket
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat melihat transkrip member lain.
+      options:
+        member:
+          name: member
+          description: Member target
+        ticket:
+          name: tiket
+          description: Tiket target
+
+    new:
+      name: tiket-baru
+      description: Membuat tiket baru
+      options:
+        references:
+          name: referensi-tiket
+          description: Nomor tiket terkait
+
+    tag:
+      name: tag
+      description: Menggunakan tag
+      options:
+        tag:
+          name: tag
+          description: Nama tag
+        for:
+          name: target
+          description: Member target
+
+    topic:
+      name: topik
+      description: Mengubah topik tiket
+
+  user:
+    create:
+      name: buat-tiket-untuk-member
+      not_staff:
+        title: ❌ Error
+        description: Hanya admin yang dapat membuka tiket untuk member lain.
+      sent:
+        title: ✅ Prompt Dikirim
+        description: '{user} diundang untuk membuat tiket di **{category}**.'
+      prompt:
+        title: Silakan buat tiket
+        description: Tekan tombol di bawah untuk membuat tiket.
+
+ticket:
+  created:
+    title: ✅ Tiket Dibuat
+    description: Tiket {channel} berhasil dibuat.
+  edited:
+    title: ✅ Tiket Diperbarui
+    description: Perubahan berhasil disimpan.
+  closed:
+    title: ✅ Tiket Ditutup
+    description: Channel akan dihapus dalam beberapa detik…
+  claimed: 🙌 {user} mengambil tiket ini.
+  released: ♻️ {user} melepas penugasan tiket ini.
+  feedback: Terima kasih atas feedback Anda.
+  answers:
+    no_value: '*Tidak ada jawaban*'
+
+modals:
+  topic:
+    label: Topik
+    placeholder: Apa topik tiket ini?
+  feedback:
+    title: Apakah ini membantu?
+    rating:
+      label: Penilaian
+      placeholder: 1-5
+    comment:
+      label: Komentar
+      placeholder: Ada komentar tambahan?
+
+misc:
+  ratelimited:
+    title: 🐢 Terlalu Cepat
+    description: Silakan coba lagi dalam beberapa detik.
+  not_ticket:
+    title: ❌ Bukan Channel Tiket
+    description: Perintah ini hanya dapat digunakan di channel tiket.
+  cooldown:
+    title: ❌ Tunggu Sebentar
+    description: Coba lagi dalam {time} detik.
+  blocked:
+    title: ❌ Diblokir
+    description: Anda tidak diizinkan membuat tiket.
+  expired:
+    title: ⏰ Kedaluwarsa
+    description: Waktu habis. Silakan coba lagi.
+  unknown_category:
+    title: ❌ Kategori Tidak Ditemukan
+    description: Silakan masukkan kategori yang valid.
+  invalid_ticket:
+    title: ❌ Tiket Tidak Valid
+    description: Silakan masukkan tiket yang valid.
+
+menus:
+  guild:
+    placeholder: Pilih Server
+  category:
+    placeholder: Pilih Kategori Tiket
