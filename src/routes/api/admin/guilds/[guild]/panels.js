@@ -1,10 +1,7 @@
 const {
 	ActionRowBuilder,
 	ButtonBuilder,
-	ButtonStyle: {
-		Primary,
-		Secondary,
-	},
+	ButtonStyle: { Primary },
 	ChannelType: { GuildText },
 	EmbedBuilder,
 	StringSelectMenuBuilder,
@@ -100,7 +97,7 @@ module.exports.post = fastify => ({
 								action: 'create',
 								target: category.id,
 							}))
-							.setStyle(Secondary)
+							.setStyle(category.buttonStyle)
 							.setLabel(category.name)
 							.setEmoji(emoji.hasEmoji(category.emoji) ? emoji.get(category.emoji) : { id: category.emoji }),
 					),
